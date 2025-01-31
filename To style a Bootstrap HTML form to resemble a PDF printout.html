@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Styled Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            margin: 20px;
+            font-family: 'Times New Roman', Times, serif;
+            color: #000;
+        }
+        .form-control {
+            border: none;
+            border-bottom: 1px solid #000;
+            border-radius: 0;
+            box-shadow: none;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-check-input {
+            margin-top: 0.3rem;
+        }
+        .form-check-label {
+            margin-top: 0.3rem;
+        }
+        .header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Form Title</h1>
+        </div>
+        <form>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter name">
+            </div>
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea class="form-control" id="message" rows="4" placeholder="Enter message"></textarea>
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
