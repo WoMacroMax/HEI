@@ -12,6 +12,10 @@
         .navbar {
             overflow: hidden;
             background-color: #333;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
         }
         .navbar a {
             float: left;
@@ -26,7 +30,7 @@
             color: black;
         }
         .form-container {
-            margin: 20px;
+            margin: 80px 20px 20px 20px; /* Adjusted margin to account for fixed navbar */
             padding: 20px;
             border: 1px solid #ddd;
             border-radius: 5px;
@@ -51,58 +55,84 @@
             border-radius: 3px;
             cursor: pointer;
         }
-        .form-group button:hover 
-        {
+        .form-group button:hover {
             background-color: #555;
         }
-        .top-grid 
-        { 
-            display: grid; grid-template-columns: repeat(1, 1fr); /* 3 columns grid */ gap: 1px; /* space between the images */ 
-        } 
-            .top-grid img 
-            { 
-                width: 15%; height: auto; 
+        .top-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr); /* 1 column grid */
+            gap: 1px; /* space between the images */
         }
-        .image-grid 
-        { 
-            display: grid; grid-template-columns: repeat(3, 1fr); /* 3 columns grid */ gap: 10px; /* space between the images */ 
-        } 
-            .image-grid img 
-            { 
-                width: 100%; height: auto; 
+        .top-grid img {
+            width: 15%;
+            height: auto;
         }
-        .indented-div { 
-            margin-left: 100px; /* Indent the div by 40 pixels */ 
-        } 
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 columns grid */
+            gap: 10px; /* space between the images */
+        }
+        .image-grid img {
+            width: 100%;
+            height: auto;
+        }
+        .indented-div {
+            margin-left: 100px; /* Indent the div by 100 pixels */
+        }
+        .logo-card {
+            position: absolute;
+            top: 80px; /* Adjust as needed */
+            right: 20px; /* Adjust as needed */
+            background-color: white;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .logo-card img {
+            width: 150px; /* Increase the width */
+            height: 150px; /* Increase the height */
+        }
+        .large-text {
+            font-size: 2em; /* Increase the font size */
+        }
     </style>
 </head>
 <body>
 
     <!-- Menu Bar -->
-    <div class="navbar">
-        <a href="Health Equity Impact.html">Home</a>
-        <a href="aboutus.html">About</a>
-        <a href="Services.html">Services</a>
-        <a href="HTML Bootstrap Page.html">Contact</a>
+    <div id="menu-placeholder"></div>
+
+    <!-- Logo Card -->
+    <div class="logo-card">
+        <img src="HEI Logo.png" alt="HEI Logo">
     </div>
 
     <!-- Form -->
     <div class="form-container">
-<div class="top-grid">
-        <h2>We Are Health Equity Impact!</h2>
-        <img src="HEI Logo.png" alt="HEI Logo"width="100" height="100">
-</div>        
+        <div class="top-grid">
+            <h2>We Are Health Equity Impact!</h2>
+        </div>        
         <br>
-    <div class="indented-div"> 
-        <h5>Accerating research for those who need it</h5>
-<div class="image-grid">
-<img src="a black woman helping a black grandmother.png" alt="a black woman helping a black grandmother"width="100" height="100">
-<img src="OkunjiHelps.jpg" alt="HEI helps"width="100" height="100"><br>
-<img src="HEIimage3.jpg" alt="HEIImage 3">
-<img src="HEIimage4.jpg" alt="HEIImage 4">
-
-</div>
+        <div class="indented-div"> 
+            <h5 class="large-text">Accelerating research for those who need it</h5>
+            <div class="image-grid">
+                <img src="a black woman helping a black grandmother.png" alt="a black woman helping a black grandmother">
+                <img src="OkunjiHelps.jpg" alt="HEI helps">
+                <img src="HEIimage3.jpg" alt="HEIImage 3">
+                <img src="HEIimage4.jpg" alt="HEIImage 4">
+            </div>
+        </div>
     </div>
+
+    <script>
+        // Load the menu from the external file
+        fetch('menu.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('menu-placeholder').innerHTML = data;
+            });
+    </script>
 
 </body>
 </html>
