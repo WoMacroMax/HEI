@@ -3,15 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HTML Form with Menu Bar</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Electronic Forms</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            background-color: #f0f0f0; /* Light background */
+            color: #333; /* Text color */
+        }
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .card {
+            background: linear-gradient(to bottom, #688697, #ffffff); /* Gradient background */
+            color: white; /* White text */
+            position: relative;
+        }
+        .card-title {
+            font-size: 2.5rem; /* Larger title */
+            color: black; /* Make title text black */
+        }
+        .card-body {
+            font-size: 1.2rem; /* Slightly larger card body text */
+        }
+        p1 {
+            font-size: 1.5rem; /* Larger main text */
+            color: #061a1a; /* Blue text color */
         }
         .navbar {
             overflow: hidden;
             background-color: #333;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
         }
         .navbar a {
             float: left;
@@ -25,60 +52,45 @@
             background-color: #ddd;
             color: black;
         }
-        .form-container {
-            margin: 20px;
+        .content-container {
+            margin: 80px 20px 20px 20px; /* Adjusted margin to account for fixed navbar */
             padding: 20px;
             border: 1px solid #ddd;
             border-radius: 5px;
         }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-        }
-        .form-group button {
-            padding: 10px 15px;
-            background-color: #333;
-            color: white;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-        .form-group button:hover {
-            background-color: #555;
-        }
-        .indented-div { 
-            margin-left: 40px; /* Indent the div by 40 pixels */ 
-        } 
     </style>
 </head>
 <body>
+
     <!-- Menu Bar -->
     <div class="navbar">
         <a href="index.html">Home</a>
+        <a href="articles.html">Articles</a>
         <a href="aboutus.html">About</a>
-        <a href="Services.html">Services</a>
+        <a href="services.html">Services</a>
         <a href="contactus.html">Contact</a>
     </div>
 
-    <!-- Form -->
-    <div class="form-container">
-    <h2>Electronic Forms</h2>
-    <div class="indented-div"> 
-    <h5>Form Types:</h5>
-    <ul class="checkbox">
-        <li><a href="Appendix_SCDNHLBI.html">electronic patient-reported outcomes (ePROs)</a></li>
-        <li><a href="Hippa-Compliant Form.html">HIPPA Form</a></li>
-        <li><a href="CFR Compliance.html">CFR compliant forms</a></li>
-    </ul>
+    <!-- Content -->
+    <div class="content-container">
+        <h1 style="margin-left: 20px;">Data Governance</h1>
     </div>
+
+    <div class="container d-flex flex-column vh-100">
+        <div class="row align-items-start justify-content-center w-100">
+            <div class="col-md-10">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h6 class="card-title">Electronic Forms</h6>
+                    </div>
+                </div>
+                        <ul>
+                            <li><a href="forms/Appendix_SCDNHLBI.html">electronic patient-reported outcomes (ePROs)</a></li>
+                            <li><a href="forms/Hippa-Compliant Form.html">HIPPA Form</a></li>
+                            <li><a href="forms/CFR Compliance.html">CFR compliant forms</a></li>
+                        </ul>
+            </div>
+        </div>
     </div>
 
 </body>

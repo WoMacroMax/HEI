@@ -3,15 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HTML Form with Menu Bar</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Compliance Monitoring</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            background-color: #f0f0f0; /* Light background */
+            color: #333; /* Text color */
+        }
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .card {
+            background: linear-gradient(to bottom, #688697, #ffffff); /* Gradient background */
+            color: white; /* White text */
+            position: relative;
+        }
+        .card-title {
+            font-size: 2.5rem; /* Larger title */
+            color: black; /* Make title text black */
+        }
+        .card-body {
+            font-size: 1.2rem; /* Slightly larger card body text */
+        }
+        p1 {
+            font-size: 1.5rem; /* Larger main text */
+            color: #061a1a; /* Blue text color */
         }
         .navbar {
             overflow: hidden;
             background-color: #333;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
         }
         .navbar a {
             float: left;
@@ -25,95 +52,61 @@
             background-color: #ddd;
             color: black;
         }
-        .form-container {
-            margin: 20px;
+        .content-container {
+            margin: 80px 20px 20px 20px; /* Adjusted margin to account for fixed navbar */
             padding: 20px;
             border: 1px solid #ddd;
             border-radius: 5px;
         }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-        }
-        .form-group button {
-            padding: 10px 15px;
-            background-color: #333;
-            color: white;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-        .form-group button:hover {
-            background-color: #555;
-        }
-        .indented-div { 
-            margin-left: 40px; /* Indent the div by 40 pixels */ 
-        } 
     </style>
 </head>
 <body>
+
     <!-- Menu Bar -->
     <div class="navbar">
         <a href="index.html">Home</a>
+        <a href="articles.html">Articles</a>
         <a href="aboutus.html">About</a>
-        <a href="Services.html">Services</a>
+        <a href="services.html">Services</a>
         <a href="contactus.html">Contact</a>
     </div>
 
-    <!-- Form -->
-    <div class="form-container">
-    <h2>Compliance Monitoring:</h2>
-    <div class="indented-div">
-    <br>
-    <p1> Clinical Trial Management </p1> 
-    <p1>
-    <br>
-    <h5>Cyber Security</h5>
-    <br>
-Compliance monitoring in the context of cybersecurity refers to the continuous assessment of whether an organization is adhering to regulatory requirements, internal policies, and industry standards. The goal is to ensure consistent compliance and avoid areas of non-compliance, which can result in severe consequences such as fines, business disruptions, and increased risk of data breaches
-<br>
-<br>
-    </p1>
-    <h5>Clinical Research</h5>
-    <div class="indented-div"> 
-    <p1>
-Compliance Monitoring in Clinical Research:
-Protection of Participants: Ensuring that the rights and well-being of human subjects are protected throughout the study.<br>
-<br>
-Data Integrity: Verifying that the reported trial data are accurate, complete, and verifiable from source documents.<br>
-<br>
-Protocol Adherence: Ensuring that the conduct of the trial complies with the approved protocol, GCP, and applicable regulatory requirements.<br>
-<br>
-Risk-Based Monitoring: Implementing a systematic, prioritized, risk-based approach to monitoring clinical trials.<br>
-<br>
-Documentation and Reporting: Keeping detailed records of compliance activities and reporting to regulatory bodies as required.<br>
-<br>
-Roles and Responsibilities:<br>
-Sponsors: Responsible for ensuring that trials are adequately monitored.<br>
-<br>
-Monitors: Appointed by the sponsor to conduct on-site visits, review documentation, and ensure compliance.<br>
-<br>
-Principal Investigators (PIs): Oversee the clinical trial process, manage study records, and ensure participant safety.<br>
-<br>
-Benefits:<br>
-Regulatory Compliance: Helps avoid fines and legal issues associated with non-compliance.<br>
-<br>
-Enhanced Data Quality: Ensures data accuracy and consistency.<br>
-<br>
-Participant Safety: Protects the safety and well-being of trial participants.<br>
-<br>
-Operational Efficiency: Streamlines trial operations and reduces delays.
-    </p1>
-    </div>
+    <!-- Content -->
+    <div class="content-container">
+        <h1 style="margin-left: 20px;">Compliance Monitoring</h1>
     </div>
 
+    <div class="container d-flex flex-column vh-100">
+        <div class="row align-items-start justify-content-center w-100">
+            <div class="col-md-10">
+                <div class="card mb-3">
+                    <div class="card-body">
+                    </div>
+                        <h6 class="card-title">Compliance Monitoring Services</h6>
+                </div>
+                        <p class="card-text">Our compliance monitoring services ensure that all clinical trials adhere to regulatory requirements and Good Clinical Practice (GCP) guidelines. We provide comprehensive monitoring to ensure data integrity and patient safety.</p>
+                        <ul>
+                            <li>Regular site visits</li>
+                            <li>Data verification</li>
+                            <li>Regulatory compliance checks</li>
+                            <li>Patient safety monitoring</li>
+                            <li>Audit preparation and support</li>
+                            <!-- Add more services as needed -->
+                        </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load the menu from the external file
+        fetch('menu.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('menu-placeholder').innerHTML = data;
+            });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

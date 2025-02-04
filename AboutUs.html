@@ -16,6 +16,22 @@
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+        .card {
+            background: linear-gradient(to bottom, #688697, #ffffff); /* Gradient background */
+            color: white; /* White text */
+            position: relative;
+        }
+        .card-title {
+            font-size: 2.5rem; /* Larger title */
+            color: black; /* Make title text black */
+        }
+        .card-body {
+            font-size: 1.2rem; /* Slightly larger card body text */
+        }
+        p1 {
+            font-size: 1.5rem; /* Larger main text */
+            color: #061a1a; /* Blue text color */
+        }
         .navbar {
             overflow: hidden;
             background-color: #333;
@@ -51,27 +67,45 @@
 
     <!-- Content -->
     <div class="content-container">
-        <h1>About Us</h1>
-        <br>
-        <a href="Certifications.html">Achievements</a>
+        <h1 style="margin-left: 20px;">About Us</h1>
     </div>
 
-    <!-- Card with Bulleted List -->
-    <div class="container mt-4">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Our Goals</h5>
-                <ul>
-                    <li>Deliver equitable healthcare</li>
-                    <li>Diversify clinical trials</li>
-                    <li>Foster health equity for underserved communities</li>
-                    <li>Build community partnerships</li>
-                    <li>Guide individuals to engage in clinical trials</li>
-                    <li>Cultivate community alliances</li>
-                </ul>
+        <div class="container d-flex flex-column vh-100">
+            <div class="row align-items-start justify-content-center w-100">
+                <div class="col-md-10">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Our Mission</h5>
+                            <p class="card-text"></p>
+                        </div>
+                    </div>
+                    <p1>Health Equity Impact is a mission-driven nonprofit Site Management Organization (SMO) dedicated to advancing diversity in clinical research. We focus on selecting and supporting research sites that investigate sickle cell anemia, rare diseases, and chronic diseases, ensuring that underrepresented populations are included in the pursuit of equitable healthcare outcomes.
+
+                    We are an SMO dedicated to managing diverse research sites, ensuring successful patient enrollment, and optimizing retention for high-quality clinical trial outcomes.
+                    </p1>
+                </div>
             </div>
         </div>
-    </div>
+        <div class="container d-flex flex-column vh-100">
+            <div class="row align-items-start justify-content-center w-100">
+                <div class="col-md-10">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Our Goals</h5>
+                            <p class="card-text"></p>
+                        </div>
+                    </div>
+                        <ul>
+                            <li>Deliver equitable healthcare</li>
+                            <li>Diversify clinical trials</li>
+                            <li>Foster health equity for underserved communities</li>
+                            <li>Build community partnerships</li>
+                            <li>Guide individuals to engage in clinical trials</li>
+                            <li>Cultivate community alliances</li>
+                        </ul>
+                </div>
+            </div>
+        </div>
 
     <script>
         // Load the menu from the external file
