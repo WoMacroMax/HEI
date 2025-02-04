@@ -3,26 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Credentials</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>HTML Form with Menu Bar</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
-            background-color: #f0f0f0; /* Light background */
-            color: #333; /* Text color */
-        }
-        .container {
-            background-color: white;
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            font-family: Arial, sans-serif;
         }
         .navbar {
             overflow: hidden;
             background-color: #333;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
         }
         .navbar a {
             float: left;
@@ -36,24 +25,52 @@
             background-color: #ddd;
             color: black;
         }
-        .content-container {
-            margin: 80px 20px 20px 20px; /* Adjusted margin to account for fixed navbar */
+        .form-container {
+            margin: 20px;
             padding: 20px;
             border: 1px solid #ddd;
             border-radius: 5px;
         }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .form-group button {
+            padding: 10px 15px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color: #555;
+        }
+        .indented-div { 
+            margin-left: 40px; /* Indent the div by 40 pixels */ 
+        } 
     </style>
 </head>
 <body>
-
     <!-- Menu Bar -->
-    <div id="menu-placeholder"></div>
+    <div class="navbar">
+        <a href="index.html">Home</a>
+        <a href="aboutus.html">About</a>
+        <a href="Services.html">Services</a>
+        <a href="contactus.html">Contact</a>
+    </div>
 
-    <!-- Content -->
-    <div class="content-container">
- <!-- Form -->
+    <!-- Form -->
     <div class="form-container">
-        <h1>Credentials</h1>
+    <h2>Credentials:</h2>
     <div class="indented-div">
     <h5>Professional background:</h5><div class="indented-div"></div>
         <br>        <h5>Clinical Trial Management</h5>
@@ -126,18 +143,6 @@ Lung Cancer, Solid Tumors  Primary Biliary Cholangitis (PBC)Vaccines, Metastatic
 
     </div>
     </div>
-    </div>
 
-    <script>
-        // Load the menu from the external file
-        fetch('menu.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('menu-placeholder').innerHTML = data;
-            });
-    </script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
