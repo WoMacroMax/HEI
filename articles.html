@@ -6,15 +6,20 @@
     <title>Articles</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        window.onload = function() {
+            window.scrollTo(0, document.body.scrollHeight / 1.5);
+        };
+    </script>
     <style>
+        body {
+            height: 225vh; /* Make sure the page is tall enough to scroll */
+            background-color: #f0f0f0; /* Light background */
+            color: #333; /* Text color */
+        }
         p {
             word-wrap: break-word;
             white-space: normal;
-        }
-        body {
-            background-color: #f0f0f0; /* Light background */
-            color: #333; /* Text color */
         }
         .container {
             background-color: white;
