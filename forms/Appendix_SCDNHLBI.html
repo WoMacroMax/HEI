@@ -5,6 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Styled Form with Bootstrap Box</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+    // Sample JSON switch
+    const config = {
+        showContainer: false
+    };
+
+    // Function to hide or show the container
+    function toggleContainer() {
+        const container = document.querySelector('.bootstrap-box');
+        if (config.showContainer) {
+            container.style.display = 'block';
+        } else {
+            container.style.display = 'none';
+        }
+    }
+
+    // Call the function to set the initial visibility
+    document.addEventListener('DOMContentLoaded', toggleContainer);
+    </script>
     <style>
         @page {
             size: 8.5in 11in;
@@ -18,11 +37,19 @@
         }
         .container {
             width: 100%;
-            max-width: 7.5in;
+            min-width: 7.5in; /* Set the minimum width to 5 inches or adjust as needed */
             margin: 0 auto;
-            background-color: #fff; /* White background for the form */
+            margin: 0 auto;
+            background-color: white; /* White background for the form */
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            word-wrap: break-word; /* Ensure text wraps within the container */
+        }
+        .dual-underline {
+            border-bottom: 2px double black;
+            display: inline-block;
+            padding-bottom: 2px;
+            min-width: 500px; /* Set the minimum width here */
         }
         .form-control {
             border: none;
@@ -30,7 +57,7 @@
             border-radius: 0;
             box-shadow: none;
         }
-        .officialUseForm-group {
+        .officialUse-Form-group {
             margin-bottom: 1.5rem;
         }
         .form-check-input {
@@ -49,10 +76,10 @@
         }
         .bootstrap-box {
             width: 25%;
-            height: 70%;
+            height: 110%;
             position: absolute;
             top: 20px;
-            left: 20px;
+            left: 500px; /* Shifted by 5 inches (480px) */
             background-color: #fff; /* White background for the box */
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
@@ -68,9 +95,9 @@
             color: #000;
             background-color: #f0f0f0; /* Light grey background */
         }
-        .container {
+        .officialUse-form-container {
             width: 100%;
-            max-width: 7.5in;
+            max-width: 2.5in;
             margin: 0 auto;
             background-color: #fff; /* White background for the form */
             padding: 20px;
@@ -208,1750 +235,1746 @@
     </style>
 </head>
 <body>
-
-
     <div class="bootstrap-box">
-        <div class="container">
-        <div class="header">
-            <h1>Official Use Only</h1>
-        </div>
+        <div class="officialUse-form-container">
+            <div class="header">
+                <h1>Official Use Only</h1>
+            </div>
             <form>
-                <div class="officialUseForm-group">
+                <div class="officialUse-Form-group">
                     <label for="name">Name</label>
                     <input type="text" class="form-control" id="name" placeholder="Enter name">
                 </div>
-                <div class="officialUseForm-group">
+                <div class="officialUse-Form-group">
                     <label for="email">Email address</label>
                     <input type="email" class="form-control" id="email" placeholder="Enter email">
                 </div>
-                <div class="officialUseForm-group">
+                <div class="officialUse-Form-group">
                     <label for="message">Message</label>
                     <textarea class="form-control" id="message" rows="4" placeholder="Enter message"></textarea>
                 </div>
-                <div class="officialUseForm-group form-check">
+                <div class="officialUse-Form-group form-check">
                     <input type="checkbox" class="form-check-input" id="exampleCheck1">
                     <label class="form-check-label" for="exampleCheck1">Check me out</label>
                 </div>
             </form>
         </div>
     </div>
-
-
     <div class="container">
         <form>
-Appendix Figure 1:
+            Appendix Figure 1:
 
-<h2>ASCQ-Me Quesionnaire
-ASCQ-Sickle Cell Pediatric to Adult Transition Checklist</h2>
-<h4>OCPP001</h4><br>
-<p><span class="dual-underline">_____________________________________________________________________________________</span>.</p>
-FINAL RESULTS
-T-scored Error<br><br>
-<p><span class="dual-underline">_____________________________________________________________________________________</span>.</p>
-<b><p1>SCDMHCQ1</p1></b><br>
-Have you ever had open sores on your legs or feet
-(leg ulcers)?<br>
+            <h2>ASCQ-Me Quesionnaire
+            ASCQ-Sickle Cell Pediatric to Adult Transition Checklist</h2>
+            <h4>OCPP001</h4><br>
+            <p><span class="dual-underline"></span>.</p>
+            FINAL RESULTS
+            T-scored Error<br><br>
+            <p><span class="dual-underline">__</span>.</p>
+            <b><p1>SCDMHCQ1</p1></b><br>
+            Have you ever had open sores on your legs or feet
+            (leg ulcers)?<br>
 
-    <div class="checkbox-label">
-        <input type="checkbox" id="checkbox1" onclick="toggleCheckbox('checkbox1', 'checkbox2')">
-        <label for="checkbox1">Yes</label>
-    </div>
-    <div class="checkbox-label">
-        <input type="checkbox" id="checkbox2" onclick="toggleCheckbox('checkbox2', 'checkbox1')">
-        <label for="checkbox2">No</label>
-    </div>
-<br>
-<p><span class="dual-underline">_____________________________________________________________________________________</span>.</p>
+            <div class="checkbox-label">
+                <input type="checkbox" id="checkbox1" onclick="toggleCheckbox('checkbox1', 'checkbox2')">
+                <label for="checkbox1">Yes</label>
+            </div>
+            <div class="checkbox-label">
+                <input type="checkbox" id="checkbox2" onclick="toggleCheckbox('checkbox2', 'checkbox1')">
+                <label for="checkbox2">No</label>
+            </div>
+            <br>
+            <p><span class="dual-underline"></span>.</p>
 
-<b><p1>SCDMHCQ2</p1></b><br>
-Has a doctor or nurse ever told you that you have
-lung damage?
+            <b><p1>SCDMHCQ2</p1></b><br>
+            Has a doctor or nurse ever told you that you have
+            lung damage?
 
-<br>
+            <br>
 
-    <div class="checkbox-label">
-        <input type="checkbox" id="checkbox1" onclick="toggleCheckbox('checkbox1', 'checkbox2')">
-        <label for="checkbox1">Yes</label>
-    </div>
-    <div class="checkbox-label">
-        <input type="checkbox" id="checkbox2" onclick="toggleCheckbox('checkbox2', 'checkbox1')">
-        <label for="checkbox2">No</label>
-    </div>
-<br>
-<p><span class="dual-underline">_____________________________________________________________________________________</span>.</p>
+            <div class="checkbox-label">
+                <input type="checkbox" id="checkbox1" onclick="toggleCheckbox('checkbox1', 'checkbox2')">
+                <label for="checkbox1">Yes</label>
+            </div>
+            <div class="checkbox-label">
+                <input type="checkbox" id="checkbox2" onclick="toggleCheckbox('checkbox2', 'checkbox1')">
+                <label for="checkbox2">No</label>
+            </div>
+            <br>
+            <p><span class="dual-underline"></span>.</p>
 
-<b><p1>SCDMHCQ3</p1></b><br>
-Has a doctor or nurse ever told you that you have
-kidney damage?
+            <b><p1>SCDMHCQ3</p1></b><br>
+            Has a doctor or nurse ever told you that you have
+            kidney damage?
 
-<br>
+            <br>
 
-    <div class="checkbox-label">
-        <input type="checkbox" id="checkbox1" onclick="toggleCheckbox('checkbox1', 'checkbox2')">
-        <label for="checkbox1">Yes</label>
-    </div>
-    <div class="checkbox-label">
-        <input type="checkbox" id="checkbox2" onclick="toggleCheckbox('checkbox2', 'checkbox1')">
-        <label for="checkbox2">No</label>
-    </div>
-<br>
-<p><span class="dual-underline">_____________________________________________________________________________________</span>.</p>
+            <div class="checkbox-label">
+                <input type="checkbox" id="checkbox1" onclick="toggleCheckbox('checkbox1', 'checkbox2')">
+                <label for="checkbox1">Yes</label>
+            </div>
+            <div class="checkbox-label">
+                <input type="checkbox" id="checkbox2" onclick="toggleCheckbox('checkbox2', 'checkbox1')">
+                <label for="checkbox2">No</label>
+            </div>
+            <br>
+            <p><span class="dual-underline"></span>.</p>
 
-<b><p1>SCDMHCQ4</p1></b><br>
-Has a doctor or nurse ever told you that you have eye
-damage called retinopathy?
+            <b><p1>SCDMHCQ4</p1></b><br>
+            Has a doctor or nurse ever told you that you have eye
+            damage called retinopathy?
 
-<br>
+            <br>
 
-    <div class="checkbox-label">
-        <input type="checkbox" id="checkbox1" onclick="toggleCheckbox('checkbox1', 'checkbox2')">
-        <label for="checkbox1">Yes</label>
-    </div>
-    <div class="checkbox-label">
-        <input type="checkbox" id="checkbox2" onclick="toggleCheckbox('checkbox2', 'checkbox1')">
-        <label for="checkbox2">No</label>
-    </div>
-<br>
-<p><span class="dual-underline">_____________________________________________________________________________________</span>.</p>
+            <div class="checkbox-label">
+                <input type="checkbox" id="checkbox1" onclick="toggleCheckbox('checkbox1', 'checkbox2')">
+                <label for="checkbox1">Yes</label>
+            </div>
+            <div class="checkbox-label">
+                <input type="checkbox" id="checkbox2" onclick="toggleCheckbox('checkbox2', 'checkbox1')">
+                <label for="checkbox2">No</label>
+            </div>
+            <br>
+            <p><span class="dual-underline"></span>.</p>
 
-<b><p1>SCDMHCQ5</p1></b><br>
-Has a doctor or nurse ever told you that you have
-damage to your hip or shoulder due to sickle cell
-disease?
+            <b><p1>SCDMHCQ5</p1></b><br>
+            Has a doctor or nurse ever told you that you have
+            damage to your hip or shoulder due to sickle cell
+            disease?
 
-<br>
+            <br>
 
-    <div class="checkbox-label">
-        <input type="checkbox" id="checkbox1" onclick="toggleCheckbox('checkbox1', 'checkbox2')">
-        <label for="checkbox1">Yes</label>
-    </div>
-    <div class="checkbox-label">
-        <input type="checkbox" id="checkbox2" onclick="toggleCheckbox('checkbox2', 'checkbox1')">
-        <label for="checkbox2">No</label>
-    </div>
-<br>
-<p><span class="dual-underline">_____________________________________________________________________________________</span>.</p>
+            <div class="checkbox-label">
+                <input type="checkbox" id="checkbox1" onclick="toggleCheckbox('checkbox1', 'checkbox2')">
+                <label for="checkbox1">Yes</label>
+            </div>
+            <div class="checkbox-label">
+                <input type="checkbox" id="checkbox2" onclick="toggleCheckbox('checkbox2', 'checkbox1')">
+                <label for="checkbox2">No</label>
+            </div>
+            <br>
+            <p><span class="dual-underline"></span>.</p>
 
-<b><p1>SCDMHCQ6</p1></b><br>
-Has a doctor or nurse ever told you that you have had
-a stroke?
+            <b><p1>SCDMHCQ6</p1></b><br>
+            Has a doctor or nurse ever told you that you have had
+            a stroke?
 
-<br>
+            <br>
 
-    <div class="checkbox-label">
-        <input type="checkbox" id="checkbox1" onclick="toggleCheckbox('checkbox1', 'checkbox2')">
-        <label for="checkbox1">Yes</label>
-    </div>
-    <div class="checkbox-label">
-        <input type="checkbox" id="checkbox2" onclick="toggleCheckbox('checkbox2', 'checkbox1')">
-        <label for="checkbox2">No</label>
-    </div>
-<br>
-<h1>ASCQ-Sickle Cell Pediatric to Adult Transition Checklist</h1><br>
-Appendix
-<br>
-<br>
-Page 1 of 2<br>
-
-
-<p class=MsoNormal><span style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-top:0in;margin-right:-1.8pt;margin-bottom:
-8.0pt;margin-left:1.0pt;line-height:13.0pt'><span style='font-family:"Times New Roman",serif'>Figure
-2: </span><span style='font-size:12.0pt;font-family:"Times New Roman",serif'>The
-pediatric to adult transition checklist was adapted from </span><span
-style='font-size:12.0pt;font-family:"Times New Roman",serif'>the Youth in
-Transition Project (1984-1987) University of Washington Division of Adolescent
-Medicine and based on a <span style='position:relative;top:.5pt'>Model
-developed by the Children’s Rehabilitation Center at the University of
-Virginia.</span></span></p>
-
-<p class=MsoNormal><span style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:-.45pt;border-collapse:collapse'>
- <tr style='height:29.75pt'>
-  <td width=954 colspan=6 valign=top style='width:715.5pt;border:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal align=center style='text-align:center'><b><span
-  style='font-size:16.0pt;line-height:107%'>Pediatric to Adult Transition Check
-  List</span></b></p>
-  </td>
- </tr>
- <tr style='height:47.3pt'>
-  <td width=66 valign=top style='width:49.5pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:47.3pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:47.3pt'>
-  <p class=MsoNormal style='margin-top:.6pt;line-height:14.0pt'><span
-  style='font-size:14.0pt'>&nbsp;</span></p>
-  </td>
-  <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:47.3pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:47.3pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:47.3pt'>
-  <p class=MsoNormal><b><span style='font-size:16.0pt;line-height:107%;
-  color:black'>STAFF USE ONLY</span></b></p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:47.3pt'>
-  <p class=MsoNormal><b><span style='font-size:16.0pt;line-height:107%;
-  color:black'>STAFF USE ONLY</span></b></p>
-  </td>
- </tr>
- <tr style='height:59.9pt'>
-  <td width=66 valign=top style='width:49.5pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:59.9pt'>
-  <p class=MsoNormal><span style='font-size:14.0pt;line-height:107%'>&nbsp;</span></p>
-  </td>
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:59.9pt'>
-  <p class=MsoNormal style='margin-top:.6pt;line-height:14.0pt'><span
-  style='font-size:14.0pt'>&nbsp;</span></p>
-  </td>
-  <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:59.9pt'>
-  <p class=MsoNormal><span style='font-size:14.0pt;line-height:107%'>&nbsp;</span></p>
-  <p class=MsoNormal><span style='font-size:14.0pt;line-height:107%'>Already
-  completed</span></p>
-  </td>
-  <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:59.9pt'>
-  <p class=MsoNormal><span style='font-size:14.0pt;line-height:107%'>&nbsp;</span></p>
-  <p class=MsoNormal><span style='font-size:14.0pt;line-height:107%'>      
-  Needs Practice</span></p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:59.9pt'>
-  <p class=MsoNormal><span style='font-size:14.0pt;line-height:107%'>&nbsp;</span></p>
-  <p class=MsoNormal><span style='font-size:14.0pt;line-height:107%;color:black'>Plans
-  to Start</span></p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:59.9pt'>
-  <p class=MsoNormal><span style='font-size:14.0pt;line-height:107%'>&nbsp;</span></p>
-  <p class=MsoNormal><span style='font-size:14.0pt;line-height:107%;color:black'>Accomplished</span></p>
-  </td>
- </tr>
- <tr style='height:56.75pt'>
-  <td width=66 valign=top style='width:49.5pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:56.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:56.75pt'>
-  <p class=MsoNormal style='margin-top:.6pt;line-height:14.0pt'><span
-  style='font-size:14.0pt'>&nbsp;</span></p>
-  <p class=MsoNormal style='margin-left:5.0pt;line-height:14.0pt'><b><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
-  top:.5pt'>Health Care Skills</span></b></p>
-  </td>
-  <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:56.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:56.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:56.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:56.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
- </tr>
- <tr style='height:29.75pt'>
-  <td width=66 valign=top style='width:49.5pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoListParagraph style='text-indent:-.25in;line-height:normal'><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif'>1.<span
-  style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif'>&nbsp;</span></p>
-  </td>
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:29.75pt'>
-  <p class=MsoNormal style='margin-top:.4pt;margin-right:22.75pt;margin-bottom:
-  8.0pt;margin-left:5.0pt;line-height:14.0pt'><span style='font-size:12.0pt;
-  font-family:"Tahoma",sans-serif'>Understand SCD and how it affects me</span></p>
-  </td>
-  <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
- </tr>
- <tr style='height:15.1pt'>
-  <td width=66 valign=top style='width:49.5pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoListParagraph style='text-indent:-.25in;line-height:normal'><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif'>2.<span
-  style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif'>&nbsp;</span></p>
-  </td>
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:15.1pt'>
-  <p class=MsoNormal style='margin-left:5.0pt;line-height:14.0pt'><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
-  top:.5pt'>Know my hemoglobin type</span></p>
-  </td>
-  <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
- </tr>
- <tr style='height:29.75pt'>
-  <td width=66 valign=top style='width:49.5pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoListParagraph style='text-indent:-.25in;line-height:normal'><span
-  style='font-family:"Tahoma",sans-serif'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span style='font-family:"Tahoma",sans-serif'>&nbsp;</span></p>
-  </td>
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:29.75pt'>
-  <p class=MsoNormal style='margin-top:.25pt;margin-right:3.35pt;margin-bottom:
-  8.0pt;margin-left:5.0pt;line-height:14.0pt'><span style='font-size:12.0pt;
-  font-family:"Tahoma",sans-serif'>Aware of existence of medical records, diagnosis
-  information, allergies, etc.</span></p>
-  </td>
-  <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
- </tr>
- <tr style='height:15.35pt'>
-  <td width=66 valign=top style='width:49.5pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoListParagraph style='text-indent:-.25in;line-height:normal'><span
-  style='font-family:"Tahoma",sans-serif'>4.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span style='font-family:"Tahoma",sans-serif'>&nbsp;</span></p>
-  </td>
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:15.35pt'>
-  <p class=MsoNormal style='margin-left:5.0pt;line-height:14.0pt'><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
-  top:.5pt'>Make own doctor’s appointments</span></p>
-  </td>
-  <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
- </tr>
- <tr style='height:34.7pt'>
-  <td width=66 valign=top style='width:49.5pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:34.7pt'>
-  <p class=MsoListParagraph style='text-indent:-.25in;line-height:normal'><span
-  style='font-family:"Tahoma",sans-serif'>5.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span style='font-family:"Tahoma",sans-serif'>&nbsp;</span></p>
-  </td>
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:34.7pt'>
-  <p class=MsoNormal style='margin-left:5.0pt;line-height:14.0pt'><span
-  style='font-family:"Tahoma",sans-serif'>Know how to complete daily ePRO’s in
-  device</span></p>
-  </td>
-  <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:34.7pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:34.7pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:34.7pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:34.7pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
- </tr>
- <tr style='height:15.35pt'>
-  <td width=66 valign=top style='width:49.5pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoListParagraph style='text-indent:-.25in;line-height:normal'><span
-  style='font-family:"Tahoma",sans-serif'>6.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span style='font-family:"Tahoma",sans-serif'>&nbsp;</span></p>
-  </td>
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:15.35pt'>
-  <p class=MsoNormal style='margin-left:5.0pt;line-height:14.0pt'><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
-  top:.5pt'>Know when to call the doctor</span></p>
-  </td>
-  <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
- </tr>
- <tr style='height:29.5pt'>
-  <td width=66 valign=top style='width:49.5pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:29.5pt'>
-  <p class=MsoListParagraph style='text-indent:-.25in;line-height:normal'><span
-  style='font-family:"Tahoma",sans-serif'>7.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span style='font-family:"Tahoma",sans-serif'>&nbsp;</span></p>
-  </td>
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:29.5pt'>
-  <p class=MsoNormal style='margin-top:.4pt;margin-right:19.55pt;margin-bottom:
-  8.0pt;margin-left:5.0pt;line-height:14.0pt'><span style='font-size:12.0pt;
-  font-family:"Tahoma",sans-serif'>Get myself to and from the doctor’s office
-  (e.g. take metro)</span></p>
-  </td>
-  <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:29.5pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:29.5pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:29.5pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:29.5pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
- </tr>
- <tr style='height:59.35pt'>
-  <td width=66 valign=top style='width:49.5pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:59.35pt'>
-  <p class=MsoListParagraph style='text-indent:-.25in;line-height:normal'><span
-  style='font-family:"Tahoma",sans-serif'>8.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span style='font-family:"Tahoma",sans-serif'>&nbsp;</span></p>
-  </td>
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:59.35pt'>
-  <p class=MsoNormal style='margin-top:.25pt;margin-right:25.9pt;margin-bottom:
-  8.0pt;margin-left:5.0pt;line-height:14.0pt'><span style='font-size:12.0pt;
-  font-family:"Tahoma",sans-serif'>Understand the different health
-  complications associated with SCD</span></p>
-  <p class=MsoNormal style='margin-left:5.0pt;line-height:13.0pt'><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
-  top:.5pt'>(e.g. stroke, acute chest)</span></p>
-  </td>
-  <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:59.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:59.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:59.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:59.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
- </tr>
- <tr style='height:29.5pt'>
-  <td width=66 valign=top style='width:49.5pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:29.5pt'>
-  <p class=MsoListParagraph style='text-indent:-.25in;line-height:normal'><span
-  style='font-family:"Tahoma",sans-serif'>9.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></span><span style='font-family:"Tahoma",sans-serif'>&nbsp;</span></p>
-  </td>
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:29.5pt'>
-  <p class=MsoNormal style='margin-top:.4pt;margin-right:6.3pt;margin-bottom:
-  8.0pt;margin-left:5.0pt;line-height:14.0pt'><span style='font-size:12.0pt;
-  font-family:"Tahoma",sans-serif'>Prepare questions for doctors, nurses,
-  therapists</span></p>
-  </td>
-  <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:29.5pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:29.5pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:29.5pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:29.5pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
- </tr>
- <tr style='height:42.35pt'>
-  <td width=66 valign=top style='width:49.5pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:42.35pt'>
-  <p class=MsoNormal style='margin-left:18.75pt'><span style='font-family:"Tahoma",sans-serif'>        
-  </span></p>
-  <p class=MsoNormal style='line-height:normal'><span style='font-family:"Tahoma",sans-serif'>   
-  10.</span></p>
-  </td>
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:42.35pt'>
-  <p class=MsoNormal style='margin-top:.25pt;margin-right:8.8pt;margin-bottom:
-  8.0pt;margin-left:0in;line-height:14.0pt'><span style='font-size:12.0pt;
-  font-family:"Tahoma",sans-serif'>Understand the blood (red blood cells vs.
-  white blood cells)</span></p>
-  </td>
-  <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:42.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:42.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:42.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:42.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
- </tr>
- <tr style='height:29.75pt'>
-  <td width=66 valign=top style='width:49.5pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal style='line-height:normal'><span style='font-family:"Tahoma",sans-serif'>   
-  11.</span></p>
-  </td>
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:29.75pt'>
-  <p class=MsoNormal style='margin-top:.25pt;margin-right:19.2pt;margin-bottom:
-  8.0pt;margin-left:5.0pt;line-height:14.0pt'><span style='font-size:12.0pt;
-  font-family:"Tahoma",sans-serif'>Know medications and what they’re for</span></p>
-  </td>
-  <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
- </tr>
- <tr style='height:42.35pt'>
-  <td width=66 valign=top style='width:49.5pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:42.35pt'>
-  <p class=MsoNormal style='line-height:14.0pt'><span style='font-family:"Tahoma",sans-serif;
-  position:relative;top:.5pt'>    12.</span></p>
-  </td>
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:42.35pt'>
-  <p class=MsoNormal style='margin-left:5.0pt;line-height:14.0pt'><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
-  top:.5pt'>Take medications as prescribed (i.e.</span></p>
-  <p class=MsoNormal style='margin-left:5.0pt;line-height:14.0pt'><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
-  top:.5pt'>2x a day)</span></p>
-  </td>
-  <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:42.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:42.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:42.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:42.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
- </tr>
- <tr style='height:15.1pt'>
-  <td width=66 valign=top style='width:49.5pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
-  style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>13.</span></p>
-  </td>
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:15.1pt'>
-  <p class=MsoNormal style='margin-left:5.0pt;line-height:14.0pt'><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
-  top:.5pt'>Take medications on my own (i.e. do</span></p>
-  </td>
-  <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
- </tr>
-
- <tr style='height:15.35pt'>
-  <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=288 valign=top style='width:3.0in;border:solid black 1.0pt;
-  border-left:none;padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal style='margin-left:5.0pt;line-height:14.0pt'><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
-  top:.5pt'>not </span><span style='font-family:"Tahoma",sans-serif;position:
-  relative;top:.5pt'>need a</span><span style='font-size:12.0pt;font-family:
-  "Tahoma",sans-serif;position:relative;top:.5pt'> parent to remind you)</span></p>
-  </td>
-  <td width=132 valign=top style='width:99.0pt;border:solid black 1.0pt;
-  border-left:none;padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=179 valign=top style='width:134.35pt;border:solid black 1.0pt;
-  border-left:none;padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=145 valign=top style='width:108.75pt;border:solid black 1.0pt;
-  border-left:none;background:#C0BFBF;padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border:solid black 1.0pt;
-  border-left:none;background:#C0BFBF;padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
- </tr>
- <tr style='height:15.1pt'>
-  <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
-  style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>14.</span></p>
-  </td>
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:15.1pt'>
-  <p class=MsoNormal style='margin-left:5.0pt;line-height:14.0pt'><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
-  top:.5pt'>Get a prescription refilled</span></p>
-  </td>
-  <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  background:#C0BFBF;padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal style='margin-top:.05pt;margin-right:0in;margin-bottom:
-  8.0pt;margin-left:5.0pt'><span style='font-size:12.0pt;line-height:107%;
-  font-family:"Tahoma",sans-serif'>&nbsp;</span></p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal style='margin-top:.05pt;margin-right:0in;margin-bottom:
-  8.0pt;margin-left:7.8pt'><span style='font-size:12.0pt;line-height:107%;
-  font-family:"Tahoma",sans-serif'>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='height:29.75pt'>
-  <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
-  style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>15.</span></p>
-  </td>
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:29.75pt'>
-  <p class=MsoNormal style='margin-top:.25pt;margin-right:28.55pt;margin-bottom:
-  8.0pt;margin-left:5.0pt;line-height:14.0pt'><span style='font-size:12.0pt;
-  font-family:"Tahoma",sans-serif'>Keep a calendar of doctor</span><span
-  style='font-family:"Tahoma",sans-serif'> </span><span style='font-size:12.0pt;
-  font-family:"Tahoma",sans-serif'>appointments</span></p>
-  </td>
-  <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  background:#C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
- </tr>
- <tr style='height:15.1pt'>
-  <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
-  style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>16.</span></p>
-  </td>
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:15.1pt'>
-  <p class=MsoNormal style='margin-left:5.0pt;line-height:14.0pt'><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
-  top:.5pt'>Understand IEP</span></p>
-  </td>
-  <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  background:#C0BFBF;padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
- </tr>
- <tr style='height:15.35pt'>
-  <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal style='margin-top:.15pt;margin-right:0in;margin-bottom:
-  8.0pt;margin-left:18.75pt;line-height:14.0pt'><span style='font-family:"Tahoma",sans-serif;
-  position:relative;top:.5pt'>17.</span></p>
-  </td>
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:15.35pt'>
-  <p class=MsoNormal style='margin-top:.15pt;margin-right:0in;margin-bottom:
-  8.0pt;margin-left:5.0pt;line-height:14.0pt'><span style='font-size:12.0pt;
-  font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>Understand
-  transition plan of IEP</span></p>
-  </td>
-  <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  background:#C0BFBF;padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
- </tr>
- <tr style='height:15.1pt'>
-  <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
-  style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>18</span><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
-  top:.5pt'>.</span></p>
-  </td>
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:15.1pt'>
-  <p class=MsoNormal style='margin-left:5.0pt;line-height:14.0pt'><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
-  top:.5pt'>Understand “504 plan”</span></p>
-  </td>
-  <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  background:#C0BFBF;padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
- </tr>
- <tr style='height:15.35pt'>
-  <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal style='margin-top:.15pt;margin-right:0in;margin-bottom:
-  8.0pt;margin-left:18.75pt;line-height:14.0pt'><span style='font-family:"Tahoma",sans-serif;
-  position:relative;top:.5pt'>19.</span></p>
-  </td>
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:15.35pt'>
-  <p class=MsoNormal style='margin-top:.15pt;margin-right:0in;margin-bottom:
-  8.0pt;margin-left:5.0pt;line-height:14.0pt'><span style='font-size:12.0pt;
-  font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>Pharmacological
-  management of pain</span></p>
-  </td>
-  <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  background:#C0BFBF;padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
- </tr>
- <tr style='height:29.75pt'>
-  <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
-  style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>20</span><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
-  top:.5pt'>.</span></p>
-  </td>
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:29.75pt'>
-  <p class=MsoNormal style='margin-top:.4pt;margin-right:16.05pt;margin-bottom:
-  8.0pt;margin-left:5.0pt;line-height:14.0pt'><span style='font-size:12.0pt;
-  font-family:"Tahoma",sans-serif'>Techniques for non-pharmacological
-  management of pain</span></p>
-  </td>
-  <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  background:#C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
- </tr>
- <tr style='height:15.1pt'>
-  <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
-  style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>21</span><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
-  top:.5pt'>.</span></p>
-  </td>
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:15.1pt'>
-  <p class=MsoNormal style='margin-left:5.0pt;line-height:14.0pt'><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
-  top:.5pt'>Know height, weight, birthdate</span></p>
-  </td>
-  <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  background:#C0BFBF;padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
- </tr>
- <tr style='height:15.35pt'>
-  <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
-  style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>22</span><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
-  top:.5pt'>.</span></p>
-  </td>
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:15.35pt'>
-  <p class=MsoNormal style='margin-left:5.0pt;line-height:14.0pt'><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
-  top:.5pt'>Know how to read a thermometer</span></p>
-  </td>
-  <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  background:#C0BFBF;padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
- </tr>
- <tr style='height:15.1pt'>
-  <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
-  style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>23</span><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
-  top:.5pt'>.</span></p>
-  </td>
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:15.1pt'>
-  <p class=MsoNormal style='margin-left:5.0pt;line-height:14.0pt'><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
-  top:.5pt'>Know various treatments for SCD</span></p>
-  </td>
-  <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  background:#C0BFBF;padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
- </tr>
- <tr style='height:29.75pt'>
-  <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
-  style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>24</span><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
-  top:.5pt'>.</span></p>
-  </td>
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:29.75pt'>
-  <p class=MsoNormal style='margin-top:.25pt;margin-right:11.0pt;margin-bottom:
-  8.0pt;margin-left:5.0pt;line-height:14.0pt'><span style='font-size:12.0pt;
-  font-family:"Tahoma",sans-serif'>Know types of sports that can trigger pain</span></p>
-  </td>
-  <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  background:#C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
- </tr>
- <tr style='height:29.75pt'>
-  <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
-  style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>25</span><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
-  top:.5pt'>.</span></p>
-  </td>
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:29.75pt'>
-  <p class=MsoNormal style='margin-top:.4pt;margin-right:16.75pt;margin-bottom:
-  8.0pt;margin-left:5.0pt;line-height:14.0pt'><span style='font-size:12.0pt;
-  font-family:"Tahoma",sans-serif'>Know when to get a complete blood count
-  (CBC) and other tests</span></p>
-  </td>
-  <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  background:#C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
- </tr>
- <tr style='height:15.1pt'>
-  <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
-  style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>26</span><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
-  top:.5pt'>.</span></p>
-  </td>
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:15.1pt'>
-  <p class=MsoNormal style='margin-left:5.0pt;line-height:14.0pt'><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
-  top:.5pt'>Have genetic counseling if appropriate</span></p>
-  </td>
-  <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  background:#C0BFBF;padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
- </tr>
- <tr style='height:15.35pt'>
-  <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
-  style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>27</span><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
-  top:.5pt'>.</span></p>
-  </td>
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:15.35pt'>
-  <p class=MsoNormal style='margin-left:5.0pt;line-height:14.0pt'><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
-  top:.5pt'>Know how drugs/alcohol affect SCD</span></p>
-  </td>
-  <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  background:#C0BFBF;padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
- </tr>
- <tr style='height:54.95pt'>
-  <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:54.95pt'>
-  <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
-  style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>28</span><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
-  top:.5pt'>.</span></p>
-  </td>
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:54.95pt'>
-  <p class=MsoNormal style='margin-top:.4pt;margin-right:6.55pt;margin-bottom:
-  8.0pt;margin-left:5.0pt;line-height:14.0pt'><span style='font-size:12.0pt;
-  font-family:"Tahoma",sans-serif'>FEMALES ONLY: Take care of own menstrual
-  needs and keep a record of</span></p>
-  <p class=MsoNormal style='margin-left:5.0pt;line-height:14.0pt'><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
-  top:.5pt'>monthly periods</span></p>
-  </td>
-  <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:54.95pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:54.95pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  background:#C0BFBF;padding:0in 0in 0in 0in;height:54.95pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:54.95pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
- </tr>
- <tr style='height:29.75pt'>
-  <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
-  style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>29</span><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
-  top:.5pt'>.</span></p>
-  </td>
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:29.75pt'>
-  <p class=MsoNormal style='margin-top:.4pt;margin-right:11.0pt;margin-bottom:
-  8.0pt;margin-left:5.0pt;line-height:14.0pt'><span style='font-size:12.0pt;
-  font-family:"Tahoma",sans-serif'>Considered finding a doctor I will use for
-  my adult hematologist</span></p>
-  </td>
-  <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  background:#C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
- </tr>
- <tr style='height:29.75pt'>
-  <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
-  style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>30</span><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
-  top:.5pt'>.</span></p>
-  </td>
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:29.75pt'>
-  <p class=MsoNormal style='margin-top:.4pt;margin-right:29.15pt;margin-bottom:
-  8.0pt;margin-left:5.0pt;line-height:14.0pt'><span style='font-size:12.0pt;
-  font-family:"Tahoma",sans-serif'>Carry medical coverage and other
-  identification with me</span></p>
-  </td>
-  <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  background:#C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
- </tr>
+            <div class="checkbox-label">
+                <input type="checkbox" id="checkbox1" onclick="toggleCheckbox('checkbox1', 'checkbox2')">
+                <label for="checkbox1">Yes</label>
+            </div>
+            <div class="checkbox-label">
+                <input type="checkbox" id="checkbox2" onclick="toggleCheckbox('checkbox2', 'checkbox1')">
+                <label for="checkbox2">No</label>
+            </div>
+            <br>
+            <h1>ASCQ-Sickle Cell Pediatric to Adult Transition Checklist</h1><br>
+            Appendix
+            <br>
+            <br>
+            Page 1 of 2<br>
 
 
- <tr style='height:29.75pt'>
+            <p class=MsoNormal><span style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
 
-  <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
-  style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>32</span><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
-  top:.5pt'>.</span></p>
-  </td>
+            <p class=MsoNormal style='margin-top:0in;margin-right:-1.8pt;margin-bottom:
+            8.0pt;margin-left:1.0pt;line-height:13.0pt'><span style='font-family:"Times New Roman",serif'>Figure
+            2: </span><span style='font-size:12.0pt;font-family:"Times New Roman",serif'>The
+            pediatric to adult transition checklist was adapted from </span><span
+            style='font-size:12.0pt;font-family:"Times New Roman",serif'>the Youth in
+            Transition Project (1984-1987) University of Washington Division of Adolescent
+            Medicine and based on a <span style='position:relative;top:.5pt'>Model
+            developed by the Children’s Rehabilitation Center at the University of
+            Virginia.</span></span></p>
+
+            <p class=MsoNormal><span style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+
+            <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+            style='margin-left:-.45pt;border-collapse:collapse'>
+            <tr style='height:29.75pt'>
+            <td width=954 colspan=6 valign=top style='width:715.5pt;border:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal align=center style='text-align:center'><b><span
+            style='font-size:16.0pt;line-height:107%'>Pediatric to Adult Transition Check
+            List</span></b></p>
+            </td>
+            </tr>
+            <tr style='height:47.3pt'>
+            <td width=66 valign=top style='width:49.5pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:47.3pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:47.3pt'>
+            <p class=MsoNormal style='margin-top:.6pt;line-height:14.0pt'><span
+            style='font-size:14.0pt'>&nbsp;</span></p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:47.3pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:47.3pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:47.3pt'>
+            <p class=MsoNormal><b><span style='font-size:16.0pt;line-height:107%;
+            color:black'>STAFF USE ONLY</span></b></p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:47.3pt'>
+            <p class=MsoNormal><b><span style='font-size:16.0pt;line-height:107%;
+            color:black'>STAFF USE ONLY</span></b></p>
+            </td>
+            </tr>
+            <tr style='height:59.9pt'>
+            <td width=66 valign=top style='width:49.5pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:59.9pt'>
+            <p class=MsoNormal><span style='font-size:14.0pt;line-height:107%'>&nbsp;</span></p>
+            </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:59.9pt'>
+            <p class=MsoNormal style='margin-top:.6pt;line-height:14.0pt'><span
+            style='font-size:14.0pt'>&nbsp;</span></p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:59.9pt'>
+            <p class=MsoNormal><span style='font-size:14.0pt;line-height:107%'>&nbsp;</span></p>
+            <p class=MsoNormal><span style='font-size:14.0pt;line-height:107%'>Already
+            completed</span></p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:59.9pt'>
+            <p class=MsoNormal><span style='font-size:14.0pt;line-height:107%'>&nbsp;</span></p>
+            <p class=MsoNormal><span style='font-size:14.0pt;line-height:107%'>      
+            Needs Practice</span></p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:59.9pt'>
+            <p class=MsoNormal><span style='font-size:14.0pt;line-height:107%'>&nbsp;</span></p>
+            <p class=MsoNormal><span style='font-size:14.0pt;line-height:107%;color:black'>Plans
+            to Start</span></p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:59.9pt'>
+            <p class=MsoNormal><span style='font-size:14.0pt;line-height:107%'>&nbsp;</span></p>
+            <p class=MsoNormal><span style='font-size:14.0pt;line-height:107%;color:black'>Accomplished</span></p>
+            </td>
+            </tr>
+            <tr style='height:56.75pt'>
+            <td width=66 valign=top style='width:49.5pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:56.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:56.75pt'>
+            <p class=MsoNormal style='margin-top:.6pt;line-height:14.0pt'><span
+            style='font-size:14.0pt'>&nbsp;</span></p>
+            <p class=MsoNormal style='margin-left:5.0pt;line-height:14.0pt'><b><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
+            top:.5pt'>Health Care Skills</span></b></p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:56.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:56.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:56.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:56.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            </tr>
+            <tr style='height:29.75pt'>
+            <td width=66 valign=top style='width:49.5pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoListParagraph style='text-indent:-.25in;line-height:normal'><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif'>1.<span
+            style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif'>&nbsp;</span></p>
+            </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:29.75pt'>
+            <p class=MsoNormal style='margin-top:.4pt;margin-right:22.75pt;margin-bottom:
+            8.0pt;margin-left:5.0pt;line-height:14.0pt'><span style='font-size:12.0pt;
+            font-family:"Tahoma",sans-serif'>Understand SCD and how it affects me</span></p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            </tr>
+            <tr style='height:15.1pt'>
+            <td width=66 valign=top style='width:49.5pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoListParagraph style='text-indent:-.25in;line-height:normal'><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif'>2.<span
+            style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif'>&nbsp;</span></p>
+            </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:15.1pt'>
+            <p class=MsoNormal style='margin-left:5.0pt;line-height:14.0pt'><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
+            top:.5pt'>Know my hemoglobin type</span></p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            </tr>
+            <tr style='height:29.75pt'>
+            <td width=66 valign=top style='width:49.5pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoListParagraph style='text-indent:-.25in;line-height:normal'><span
+            style='font-family:"Tahoma",sans-serif'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+            </span></span><span style='font-family:"Tahoma",sans-serif'>&nbsp;</span></p>
+            </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:29.75pt'>
+            <p class=MsoNormal style='margin-top:.25pt;margin-right:3.35pt;margin-bottom:
+            8.0pt;margin-left:5.0pt;line-height:14.0pt'><span style='font-size:12.0pt;
+            font-family:"Tahoma",sans-serif'>Aware of existence of medical records, diagnosis
+            information, allergies, etc.</span></p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            </tr>
+            <tr style='height:15.35pt'>
+            <td width=66 valign=top style='width:49.5pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoListParagraph style='text-indent:-.25in;line-height:normal'><span
+            style='font-family:"Tahoma",sans-serif'>4.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+            </span></span><span style='font-family:"Tahoma",sans-serif'>&nbsp;</span></p>
+            </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:15.35pt'>
+            <p class=MsoNormal style='margin-left:5.0pt;line-height:14.0pt'><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
+            top:.5pt'>Make own doctor’s appointments</span></p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            </tr>
+            <tr style='height:34.7pt'>
+            <td width=66 valign=top style='width:49.5pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:34.7pt'>
+            <p class=MsoListParagraph style='text-indent:-.25in;line-height:normal'><span
+            style='font-family:"Tahoma",sans-serif'>5.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+            </span></span><span style='font-family:"Tahoma",sans-serif'>&nbsp;</span></p>
+            </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:34.7pt'>
+            <p class=MsoNormal style='margin-left:5.0pt;line-height:14.0pt'><span
+            style='font-family:"Tahoma",sans-serif'>Know how to complete daily ePRO’s in
+            device</span></p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:34.7pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:34.7pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:34.7pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:34.7pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            </tr>
+            <tr style='height:15.35pt'>
+            <td width=66 valign=top style='width:49.5pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoListParagraph style='text-indent:-.25in;line-height:normal'><span
+            style='font-family:"Tahoma",sans-serif'>6.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+            </span></span><span style='font-family:"Tahoma",sans-serif'>&nbsp;</span></p>
+            </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:15.35pt'>
+            <p class=MsoNormal style='margin-left:5.0pt;line-height:14.0pt'><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
+            top:.5pt'>Know when to call the doctor</span></p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            </tr>
+            <tr style='height:29.5pt'>
+            <td width=66 valign=top style='width:49.5pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:29.5pt'>
+            <p class=MsoListParagraph style='text-indent:-.25in;line-height:normal'><span
+            style='font-family:"Tahoma",sans-serif'>7.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+            </span></span><span style='font-family:"Tahoma",sans-serif'>&nbsp;</span></p>
+            </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:29.5pt'>
+            <p class=MsoNormal style='margin-top:.4pt;margin-right:19.55pt;margin-bottom:
+            8.0pt;margin-left:5.0pt;line-height:14.0pt'><span style='font-size:12.0pt;
+            font-family:"Tahoma",sans-serif'>Get myself to and from the doctor’s office
+            (e.g. take metro)</span></p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:29.5pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:29.5pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:29.5pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:29.5pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            </tr>
+            <tr style='height:59.35pt'>
+            <td width=66 valign=top style='width:49.5pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:59.35pt'>
+            <p class=MsoListParagraph style='text-indent:-.25in;line-height:normal'><span
+            style='font-family:"Tahoma",sans-serif'>8.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+            </span></span><span style='font-family:"Tahoma",sans-serif'>&nbsp;</span></p>
+            </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:59.35pt'>
+            <p class=MsoNormal style='margin-top:.25pt;margin-right:25.9pt;margin-bottom:
+            8.0pt;margin-left:5.0pt;line-height:14.0pt'><span style='font-size:12.0pt;
+            font-family:"Tahoma",sans-serif'>Understand the different health
+            complications associated with SCD</span></p>
+            <p class=MsoNormal style='margin-left:5.0pt;line-height:13.0pt'><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
+            top:.5pt'>(e.g. stroke, acute chest)</span></p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:59.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:59.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:59.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:59.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            </tr>
+            <tr style='height:29.5pt'>
+            <td width=66 valign=top style='width:49.5pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:29.5pt'>
+            <p class=MsoListParagraph style='text-indent:-.25in;line-height:normal'><span
+            style='font-family:"Tahoma",sans-serif'>9.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+            </span></span><span style='font-family:"Tahoma",sans-serif'>&nbsp;</span></p>
+            </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:29.5pt'>
+            <p class=MsoNormal style='margin-top:.4pt;margin-right:6.3pt;margin-bottom:
+            8.0pt;margin-left:5.0pt;line-height:14.0pt'><span style='font-size:12.0pt;
+            font-family:"Tahoma",sans-serif'>Prepare questions for doctors, nurses,
+            therapists</span></p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:29.5pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:29.5pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:29.5pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:29.5pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            </tr>
+            <tr style='height:42.35pt'>
+            <td width=66 valign=top style='width:49.5pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:42.35pt'>
+            <p class=MsoNormal style='margin-left:18.75pt'><span style='font-family:"Tahoma",sans-serif'>        
+            </span></p>
+            <p class=MsoNormal style='line-height:normal'><span style='font-family:"Tahoma",sans-serif'>   
+            10.</span></p>
+            </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:42.35pt'>
+            <p class=MsoNormal style='margin-top:.25pt;margin-right:8.8pt;margin-bottom:
+            8.0pt;margin-left:0in;line-height:14.0pt'><span style='font-size:12.0pt;
+            font-family:"Tahoma",sans-serif'>Understand the blood (red blood cells vs.
+            white blood cells)</span></p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:42.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:42.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:42.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:42.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            </tr>
+            <tr style='height:29.75pt'>
+            <td width=66 valign=top style='width:49.5pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal style='line-height:normal'><span style='font-family:"Tahoma",sans-serif'>   
+            11.</span></p>
+            </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:29.75pt'>
+            <p class=MsoNormal style='margin-top:.25pt;margin-right:19.2pt;margin-bottom:
+            8.0pt;margin-left:5.0pt;line-height:14.0pt'><span style='font-size:12.0pt;
+            font-family:"Tahoma",sans-serif'>Know medications and what they’re for</span></p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            </tr>
+            <tr style='height:42.35pt'>
+            <td width=66 valign=top style='width:49.5pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:42.35pt'>
+            <p class=MsoNormal style='line-height:14.0pt'><span style='font-family:"Tahoma",sans-serif;
+            position:relative;top:.5pt'>    12.</span></p>
+            </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:42.35pt'>
+            <p class=MsoNormal style='margin-left:5.0pt;line-height:14.0pt'><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
+            top:.5pt'>Take medications as prescribed (i.e.</span></p>
+            <p class=MsoNormal style='margin-left:5.0pt;line-height:14.0pt'><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
+            top:.5pt'>2x a day)</span></p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:42.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:42.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:42.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:42.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            </tr>
+            <tr style='height:15.1pt'>
+            <td width=66 valign=top style='width:49.5pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
+            style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>13.</span></p>
+            </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:15.1pt'>
+            <p class=MsoNormal style='margin-left:5.0pt;line-height:14.0pt'><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
+            top:.5pt'>Take medications on my own (i.e. do</span></p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=156 valign=top style='width:117.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            </tr>
+
+            <tr style='height:15.35pt'>
+            <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=288 valign=top style='width:3.0in;border:solid black 1.0pt;
+            border-left:none;padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal style='margin-left:5.0pt;line-height:14.0pt'><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
+            top:.5pt'>not </span><span style='font-family:"Tahoma",sans-serif;position:
+            relative;top:.5pt'>need a</span><span style='font-size:12.0pt;font-family:
+            "Tahoma",sans-serif;position:relative;top:.5pt'> parent to remind you)</span></p>
+            </td>
+            <td width=132 valign=top style='width:99.0pt;border:solid black 1.0pt;
+            border-left:none;padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=179 valign=top style='width:134.35pt;border:solid black 1.0pt;
+            border-left:none;padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=145 valign=top style='width:108.75pt;border:solid black 1.0pt;
+            border-left:none;background:#C0BFBF;padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border:solid black 1.0pt;
+            border-left:none;background:#C0BFBF;padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            </tr>
+            <tr style='height:15.1pt'>
+            <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
+            style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>14.</span></p>
+            </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:15.1pt'>
+            <p class=MsoNormal style='margin-left:5.0pt;line-height:14.0pt'><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
+            top:.5pt'>Get a prescription refilled</span></p>
+            </td>
+            <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            background:#C0BFBF;padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal style='margin-top:.05pt;margin-right:0in;margin-bottom:
+            8.0pt;margin-left:5.0pt'><span style='font-size:12.0pt;line-height:107%;
+            font-family:"Tahoma",sans-serif'>&nbsp;</span></p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal style='margin-top:.05pt;margin-right:0in;margin-bottom:
+            8.0pt;margin-left:7.8pt'><span style='font-size:12.0pt;line-height:107%;
+            font-family:"Tahoma",sans-serif'>&nbsp;</span></p>
+            </td>
+            </tr>
+            <tr style='height:29.75pt'>
+            <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
+            style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>15.</span></p>
+            </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:29.75pt'>
+            <p class=MsoNormal style='margin-top:.25pt;margin-right:28.55pt;margin-bottom:
+            8.0pt;margin-left:5.0pt;line-height:14.0pt'><span style='font-size:12.0pt;
+            font-family:"Tahoma",sans-serif'>Keep a calendar of doctor</span><span
+            style='font-family:"Tahoma",sans-serif'> </span><span style='font-size:12.0pt;
+            font-family:"Tahoma",sans-serif'>appointments</span></p>
+            </td>
+            <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            background:#C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            </tr>
+            <tr style='height:15.1pt'>
+            <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
+            style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>16.</span></p>
+            </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:15.1pt'>
+            <p class=MsoNormal style='margin-left:5.0pt;line-height:14.0pt'><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
+            top:.5pt'>Understand IEP</span></p>
+            </td>
+            <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            background:#C0BFBF;padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            </tr>
+            <tr style='height:15.35pt'>
+            <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal style='margin-top:.15pt;margin-right:0in;margin-bottom:
+            8.0pt;margin-left:18.75pt;line-height:14.0pt'><span style='font-family:"Tahoma",sans-serif;
+            position:relative;top:.5pt'>17.</span></p>
+            </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:15.35pt'>
+            <p class=MsoNormal style='margin-top:.15pt;margin-right:0in;margin-bottom:
+            8.0pt;margin-left:5.0pt;line-height:14.0pt'><span style='font-size:12.0pt;
+            font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>Understand
+            transition plan of IEP</span></p>
+            </td>
+            <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            background:#C0BFBF;padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            </tr>
+            <tr style='height:15.1pt'>
+            <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
+            style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>18</span><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
+            top:.5pt'>.</span></p>
+            </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:15.1pt'>
+            <p class=MsoNormal style='margin-left:5.0pt;line-height:14.0pt'><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
+            top:.5pt'>Understand “504 plan”</span></p>
+            </td>
+            <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            background:#C0BFBF;padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            </tr>
+            <tr style='height:15.35pt'>
+            <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal style='margin-top:.15pt;margin-right:0in;margin-bottom:
+            8.0pt;margin-left:18.75pt;line-height:14.0pt'><span style='font-family:"Tahoma",sans-serif;
+            position:relative;top:.5pt'>19.</span></p>
+            </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:15.35pt'>
+            <p class=MsoNormal style='margin-top:.15pt;margin-right:0in;margin-bottom:
+            8.0pt;margin-left:5.0pt;line-height:14.0pt'><span style='font-size:12.0pt;
+            font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>Pharmacological
+            management of pain</span></p>
+            </td>
+            <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            background:#C0BFBF;padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            </tr>
+            <tr style='height:29.75pt'>
+            <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
+            style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>20</span><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
+            top:.5pt'>.</span></p>
+            </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:29.75pt'>
+            <p class=MsoNormal style='margin-top:.4pt;margin-right:16.05pt;margin-bottom:
+            8.0pt;margin-left:5.0pt;line-height:14.0pt'><span style='font-size:12.0pt;
+            font-family:"Tahoma",sans-serif'>Techniques for non-pharmacological
+            management of pain</span></p>
+            </td>
+            <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            background:#C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            </tr>
+            <tr style='height:15.1pt'>
+            <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
+            style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>21</span><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
+            top:.5pt'>.</span></p>
+            </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:15.1pt'>
+            <p class=MsoNormal style='margin-left:5.0pt;line-height:14.0pt'><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
+            top:.5pt'>Know height, weight, birthdate</span></p>
+            </td>
+            <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            background:#C0BFBF;padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            </tr>
+            <tr style='height:15.35pt'>
+            <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
+            style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>22</span><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
+            top:.5pt'>.</span></p>
+            </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:15.35pt'>
+            <p class=MsoNormal style='margin-left:5.0pt;line-height:14.0pt'><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
+            top:.5pt'>Know how to read a thermometer</span></p>
+            </td>
+            <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            background:#C0BFBF;padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            </tr>
+            <tr style='height:15.1pt'>
+            <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
+            style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>23</span><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
+            top:.5pt'>.</span></p>
+            </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:15.1pt'>
+            <p class=MsoNormal style='margin-left:5.0pt;line-height:14.0pt'><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
+            top:.5pt'>Know various treatments for SCD</span></p>
+            </td>
+            <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            background:#C0BFBF;padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            </tr>
+            <tr style='height:29.75pt'>
+            <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
+            style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>24</span><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
+            top:.5pt'>.</span></p>
+            </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:29.75pt'>
+            <p class=MsoNormal style='margin-top:.25pt;margin-right:11.0pt;margin-bottom:
+            8.0pt;margin-left:5.0pt;line-height:14.0pt'><span style='font-size:12.0pt;
+            font-family:"Tahoma",sans-serif'>Know types of sports that can trigger pain</span></p>
+            </td>
+            <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            background:#C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            </tr>
+            <tr style='height:29.75pt'>
+            <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
+            style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>25</span><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
+            top:.5pt'>.</span></p>
+            </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:29.75pt'>
+            <p class=MsoNormal style='margin-top:.4pt;margin-right:16.75pt;margin-bottom:
+            8.0pt;margin-left:5.0pt;line-height:14.0pt'><span style='font-size:12.0pt;
+            font-family:"Tahoma",sans-serif'>Know when to get a complete blood count
+            (CBC) and other tests</span></p>
+            </td>
+            <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            background:#C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            </tr>
+            <tr style='height:15.1pt'>
+            <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
+            style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>26</span><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
+            top:.5pt'>.</span></p>
+            </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:15.1pt'>
+            <p class=MsoNormal style='margin-left:5.0pt;line-height:14.0pt'><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
+            top:.5pt'>Have genetic counseling if appropriate</span></p>
+            </td>
+            <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            background:#C0BFBF;padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            </tr>
+            <tr style='height:15.35pt'>
+            <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
+            style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>27</span><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
+            top:.5pt'>.</span></p>
+            </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:15.35pt'>
+            <p class=MsoNormal style='margin-left:5.0pt;line-height:14.0pt'><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
+            top:.5pt'>Know how drugs/alcohol affect SCD</span></p>
+            </td>
+            <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            background:#C0BFBF;padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            </tr>
+            <tr style='height:54.95pt'>
+            <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:54.95pt'>
+            <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
+            style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>28</span><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
+            top:.5pt'>.</span></p>
+            </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:54.95pt'>
+            <p class=MsoNormal style='margin-top:.4pt;margin-right:6.55pt;margin-bottom:
+            8.0pt;margin-left:5.0pt;line-height:14.0pt'><span style='font-size:12.0pt;
+            font-family:"Tahoma",sans-serif'>FEMALES ONLY: Take care of own menstrual
+            needs and keep a record of</span></p>
+            <p class=MsoNormal style='margin-left:5.0pt;line-height:14.0pt'><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
+            top:.5pt'>monthly periods</span></p>
+            </td>
+            <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:54.95pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:54.95pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            background:#C0BFBF;padding:0in 0in 0in 0in;height:54.95pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:54.95pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            </tr>
+            <tr style='height:29.75pt'>
+            <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
+            style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>29</span><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
+            top:.5pt'>.</span></p>
+            </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:29.75pt'>
+            <p class=MsoNormal style='margin-top:.4pt;margin-right:11.0pt;margin-bottom:
+            8.0pt;margin-left:5.0pt;line-height:14.0pt'><span style='font-size:12.0pt;
+            font-family:"Tahoma",sans-serif'>Considered finding a doctor I will use for
+            my adult hematologist</span></p>
+            </td>
+            <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            background:#C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            </tr>
+            <tr style='height:29.75pt'>
+            <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
+            style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>30</span><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
+            top:.5pt'>.</span></p>
+            </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:29.75pt'>
+            <p class=MsoNormal style='margin-top:.4pt;margin-right:29.15pt;margin-bottom:
+            8.0pt;margin-left:5.0pt;line-height:14.0pt'><span style='font-size:12.0pt;
+            font-family:"Tahoma",sans-serif'>Carry medical coverage and other
+            identification with me</span></p>
+            </td>
+            <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            background:#C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            </tr>
 
 
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:29.75pt'>
-  <p class=MsoNormal style='margin-top:.25pt;margin-right:13.45pt;margin-bottom:
-  8.0pt;margin-left:5.0pt;line-height:14.0pt'><span style='font-size:12.0pt;
-  font-family:"Tahoma",sans-serif'>Understand the meaning of “co-pay”</span></p>
-  </td>
+            <tr style='height:29.75pt'>
 
-  <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
+            <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
+            style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>32</span><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
+            top:.5pt'>.</span></p>
+            </td>
 
 
-  <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:29.75pt'>
+            <p class=MsoNormal style='margin-top:.25pt;margin-right:13.45pt;margin-bottom:
+            8.0pt;margin-left:5.0pt;line-height:14.0pt'><span style='font-size:12.0pt;
+            font-family:"Tahoma",sans-serif'>Understand the meaning of “co-pay”</span></p>
+            </td>
+
+            <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
 
 
-  <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  background:#C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
+            <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
 
 
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-
- </tr>
-
- <tr style='height:29.75pt'>
- 
-  <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
-  style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>33</span><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
-  top:.5pt'>.</span></p>
-  </td>
+            <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            background:#C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
 
 
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:29.75pt'>
-  <p class=MsoNormal style='margin-top:.25pt;margin-right:13.45pt;margin-bottom:
-  8.0pt;margin-left:5.0pt;line-height:14.0pt'><span style='font-size:12.0pt;
-  font-family:"Tahoma",sans-serif'>Prevent contracting HIV/AIDS and sexually
-  transmitted diseases (STDs)</span></p>
-  </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
 
-  <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
+            </tr>
 
+            <tr style='height:29.75pt'>
 
-  <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
+            <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
+            style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>33</span><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
+            top:.5pt'>.</span></p>
+            </td>
 
 
-  <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  background:#C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:29.75pt'>
+            <p class=MsoNormal style='margin-top:.25pt;margin-right:13.45pt;margin-bottom:
+            8.0pt;margin-left:5.0pt;line-height:14.0pt'><span style='font-size:12.0pt;
+            font-family:"Tahoma",sans-serif'>Prevent contracting HIV/AIDS and sexually
+            transmitted diseases (STDs)</span></p>
+            </td>
+
+            <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
 
 
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-
- </tr>
+            <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
 
 
+            <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            background:#C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
 
 
- <tr style='height:15.35pt'>
-  <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
-  style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>34</span><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
-  top:.5pt'>.</span></p>
-  </td>
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:15.35pt'>
-  
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+
+            </tr>
 
 
 
-  <p class=MsoNormal style='margin-left:5.0pt;line-height:14.0pt'><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
-  top:.5pt'>Know the different types of STDs</span></p>
-  </td>
-  <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  background:#C0BFBF;padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
- </tr>
- <tr style='height:29.5pt'>
-  <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:29.5pt'>
-  <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
-  style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>35</span><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
-  top:.5pt'>.</span></p>
-  </td>
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:29.5pt'>
-  <p class=MsoNormal style='margin-top:.4pt;margin-right:43.85pt;margin-bottom:
-  8.0pt;margin-left:5.0pt;line-height:14.0pt'><span style='font-size:12.0pt;
-  font-family:"Tahoma",sans-serif'>Difference between healthy vs. abusive
-  relationships</span></p>
-  </td>
-  <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:29.5pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:29.5pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  background:#C0BFBF;padding:0in 0in 0in 0in;height:29.5pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:29.5pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
- </tr>
- <tr style='height:15.35pt'>
-  <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal style='margin-top:.15pt;margin-right:0in;margin-bottom:
-  8.0pt;margin-left:18.75pt;line-height:14.0pt'><span style='font-family:"Tahoma",sans-serif;
-  position:relative;top:.5pt'>36</span><span style='font-size:12.0pt;
-  font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>.</span></p>
-  </td>
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:15.35pt'>
-  <p class=MsoNormal style='margin-top:.15pt;margin-right:0in;margin-bottom:
-  8.0pt;margin-left:5.0pt;line-height:14.0pt'><span style='font-size:12.0pt;
-  font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>Procedures for
-  reporting sexual abuse</span></p>
-  </td>
-  <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  background:#C0BFBF;padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
- </tr>
- <tr style='height:29.75pt'>
-  <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
-  style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>37</span><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
-  top:.5pt'>.</span></p>
-  </td>
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:29.75pt'>
-  <p class=MsoNormal style='margin-top:.4pt;margin-right:20.45pt;margin-bottom:
-  8.0pt;margin-left:5.0pt;line-height:14.0pt'><span style='font-size:12.0pt;
-  font-family:"Tahoma",sans-serif'>Discuss sexual activity with primary
-  physician</span></p>
-  </td>
-  <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  background:#C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
- </tr>
- <tr style='height:15.1pt'>
-  <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
-  style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>38</span><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
-  top:.5pt'>.</span></p>
-  </td>
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:15.1pt'>
-  <p class=MsoNormal style='margin-left:5.0pt;line-height:14.0pt'><span
-  style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
-  top:.5pt'>Know how to engage in safe sex</span></p>
-  </td>
-  <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  background:#C0BFBF;padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:15.1pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
- </tr>
+
+            <tr style='height:15.35pt'>
+            <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
+            style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>34</span><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
+            top:.5pt'>.</span></p>
+            </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:15.35pt'>
 
 
- <tr style='height:15.35pt'>
-  <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
-  height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
-  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
-  background:#C0BFBF;padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
-  <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
-  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
-  #C0BFBF;padding:0in 0in 0in 0in;height:15.35pt'>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
- </tr>
-</table>
 
-<p class=MsoNormal>                                       </p>
 
-</div>
+            <p class=MsoNormal style='margin-left:5.0pt;line-height:14.0pt'><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
+            top:.5pt'>Know the different types of STDs</span></p>
+            </td>
+            <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            background:#C0BFBF;padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            </tr>
+            <tr style='height:29.5pt'>
+            <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:29.5pt'>
+            <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
+            style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>35</span><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
+            top:.5pt'>.</span></p>
+            </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:29.5pt'>
+            <p class=MsoNormal style='margin-top:.4pt;margin-right:43.85pt;margin-bottom:
+            8.0pt;margin-left:5.0pt;line-height:14.0pt'><span style='font-size:12.0pt;
+            font-family:"Tahoma",sans-serif'>Difference between healthy vs. abusive
+            relationships</span></p>
+            </td>
+            <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:29.5pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:29.5pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            background:#C0BFBF;padding:0in 0in 0in 0in;height:29.5pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:29.5pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            </tr>
+            <tr style='height:15.35pt'>
+            <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal style='margin-top:.15pt;margin-right:0in;margin-bottom:
+            8.0pt;margin-left:18.75pt;line-height:14.0pt'><span style='font-family:"Tahoma",sans-serif;
+            position:relative;top:.5pt'>36</span><span style='font-size:12.0pt;
+            font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>.</span></p>
+            </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:15.35pt'>
+            <p class=MsoNormal style='margin-top:.15pt;margin-right:0in;margin-bottom:
+            8.0pt;margin-left:5.0pt;line-height:14.0pt'><span style='font-size:12.0pt;
+            font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>Procedures for
+            reporting sexual abuse</span></p>
+            </td>
+            <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            background:#C0BFBF;padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            </tr>
+            <tr style='height:29.75pt'>
+            <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
+            style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>37</span><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
+            top:.5pt'>.</span></p>
+            </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:29.75pt'>
+            <p class=MsoNormal style='margin-top:.4pt;margin-right:20.45pt;margin-bottom:
+            8.0pt;margin-left:5.0pt;line-height:14.0pt'><span style='font-size:12.0pt;
+            font-family:"Tahoma",sans-serif'>Discuss sexual activity with primary
+            physician</span></p>
+            </td>
+            <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            background:#C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:29.75pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            </tr>
+            <tr style='height:15.1pt'>
+            <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal style='margin-left:18.75pt;line-height:14.0pt'><span
+            style='font-family:"Tahoma",sans-serif;position:relative;top:.5pt'>38</span><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
+            top:.5pt'>.</span></p>
+            </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:15.1pt'>
+            <p class=MsoNormal style='margin-left:5.0pt;line-height:14.0pt'><span
+            style='font-size:12.0pt;font-family:"Tahoma",sans-serif;position:relative;
+            top:.5pt'>Know how to engage in safe sex</span></p>
+            </td>
+            <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            background:#C0BFBF;padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:15.1pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            </tr>
 
-<span style='font-size:11.0pt;line-height:107%;font-family:"Calibri",sans-serif'><br
-clear=all style='page-break-before:always'>
-</span>
 
-<div class=WordSection2>
+            <tr style='height:15.35pt'>
+            <td width=66 valign=top style='width:49.7pt;border:solid black 1.0pt;
+            border-top:none;padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=288 valign=top style='width:3.0in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 0in 0in 0in;
+            height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=179 valign=top style='width:134.35pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=145 valign=top style='width:108.75pt;border-top:none;border-left:
+            none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+            background:#C0BFBF;padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            <td width=144 valign=top style='width:1.5in;border-top:none;border-left:none;
+            border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;background:
+            #C0BFBF;padding:0in 0in 0in 0in;height:15.35pt'>
+            <p class=MsoNormal>&nbsp;</p>
+            </td>
+            </tr>
+            </table>
 
-<p class=MsoNormal style='margin-top:.35pt;line-height:14.0pt'><span
-style='font-size:14.0pt'>&nbsp;</span></p>
+            <p class=MsoNormal>                                       </p>
 
-<p class=MsoNormal>&nbsp;</p>
+            </div>
 
-</div>
-    <script>
-        function toggleCheckbox(checkedBoxId, otherBoxId) {
-            var checkedBox = document.getElementById(checkedBoxId);
-            var otherBox = document.getElementById(otherBoxId);
-            if (checkedBox.checked) {
-                otherBox.checked = false;
-            }
-        }
-    </script>
+            <span style='font-size:11.0pt;line-height:107%;font-family:"Calibri",sans-serif'><br
+            clear=all style='page-break-before:always'>
+            </span>
+
+            <div class=WordSection2>
+
+            <p class=MsoNormal style='margin-top:.35pt;line-height:14.0pt'><span
+            style='font-size:14.0pt'>&nbsp;</span></p>
+
+            <p class=MsoNormal>&nbsp;</p>
+
+            </div>
+            <script>
+                function toggleCheckbox(checkedBoxId, otherBoxId) {
+                    var checkedBox = document.getElementById(checkedBoxId);
+                    var otherBox = document.getElementById(otherBoxId);
+                    if (checkedBox.checked) {
+                        otherBox.checked = false;
+                    }
+                }
+            </script>
         </form>
     </div>
 </body>

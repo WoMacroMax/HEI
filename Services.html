@@ -6,12 +6,17 @@
     <title>Services</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        p {
+            word-wrap: break-word;
+            white-space: normal;
+        }
         body {
             background-color: #f0f0f0; /* Light background */
             color: #333; /* Text color */
         }
         .container {
             background-color: white;
+            font-size: 0.8em; /* Adjust the value as needed */
             border-radius: 15px;
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -20,20 +25,16 @@
             background: linear-gradient(to bottom, #688697, #ffffff); /* Gradient background */
             color: white; /* White text */
             position: relative;
-            height: 50%; /* Reduce height by half */
-            overflow: hidden; /* Ensure content is hidden if it overflows */
-            padding-bottom: 50px; /* Add padding at the bottom */
         }
         .card-title {
-            font-size: 2.5rem; /* Larger title */
-            color: black; /* Make title text black */
+            font-size: 1.0rem; /* Larger "ABOUT" title */
+            color: black; /* Make "ABOUT" text black */
         }
         .card-body {
-            font-size: 1.2rem; /* Slightly larger card body text */
-            overflow: auto; /* Enable scrolling if content overflows */
+            font-size: 1.0rem; /* Slightly larger card body text */
         }
         p1 {
-            font-size: 1.5rem; /* Larger main text */
+            font-size: 1.0rem; /* Larger main text */
             color: #061a1a; /* Blue text color */
         }
         .navbar {
@@ -62,16 +63,32 @@
             border: 1px solid #ddd;
             border-radius: 5px;
         }
+        .card-title-small {
+            font-size: 1.0rem; /* Reduced font size for specific card title */
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .chart-container {
+            position: relative;
+            height: 400px;
+        }
     </style>
 </head>
 <body>
 
     <!-- Menu Bar -->
-    <div id="menu-placeholder"></div>
+    <div class="navbar">
+        <a href="index.html">Home</a>
+        <a href="articles.html">Articles</a>
+        <a href="aboutus.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="contactus.html">Contact</a>
+    </div>
 
     <!-- Content -->
     <div class="content-container">
-        <h1 style="margin-left: 20px;">Services</h1>
+        <h1 style="font-size: 32px; margin-top: 20px; margin-left: 10px;">Services</h1>
     </div>
 
     <div class="container d-flex flex-column vh-100">

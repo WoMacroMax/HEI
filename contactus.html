@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
         body {
             background-color: #f0f0f0; /* Light background */
@@ -75,40 +76,63 @@
 <body>
 
     <!-- Menu Bar -->
-    <div id="menu-placeholder"></div>
-
-    <!-- Content -->
-    <div class="content-container">
-        <h1>Contact Us</h1>
-        <div class="container mt-4">
-            <div class="row">
-                <div class="col-md-6"> <!-- 1/2 of the container width -->
-                    <div class="card">
-                        <div class="card-body">
-                            <form>
-                                <div class="form-group">
-                                    <label for="name">Name</label>
-                                    <input type="text" id="name" name="name" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label for="email">Email</label>
-                                    <input type="email" id="email" name="email" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label for="message">Message</label>
-                                    <textarea id="message" name="message" class="form-control"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="navbar">
+        <a href="index.html">Home</a>
+        <a href="articles.html">Articles</a>
+        <a href="aboutus.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="contactus.html">Contact</a>
     </div>
 
+    <div class="content-container">
+        <h1 style="font-size: 32px; margin-top: 20px; margin-left: 10px;">Contact Us</h1>
+    </div>
+
+    <!-- Content -->
+    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg">
+        <main class="p-6 space-y-6">
+          <!-- Chat Text Section -->
+          <section>
+            <h2 class="text-xl font-semibold mb-2">Chat Text</h2>
+            <div class="border p-4 rounded-lg">
+              <textarea class="w-full h-32 p-2 border rounded" placeholder="Type your message here..."></textarea>
+              <button class="mt-2 bg-blue-600 text-white py-1 px-4 rounded">Send</button>
+            </div>
+          </section>
+          
+          <!-- Email Section -->
+          <section>
+            <h2 class="text-xl font-semibold mb-2">Email</h2>
+            <form class="space-y-4">
+              <div>
+                <label for="email" class="block font-medium">To:</label>
+                <input type="email" id="email" class="w-full p-2 border rounded" placeholder="recipient@example.com">
+              </div>
+              <div>
+                <label for="subject" class="block font-medium">Subject:</label>
+                <input type="text" id="subject" class="w-full p-2 border rounded" placeholder="Email subject">
+              </div>
+              <div>
+                <label for="message" class="block font-medium">Message:</label>
+                <textarea id="message" class="w-full h-32 p-2 border rounded" placeholder="Type your message here..."></textarea>
+              </div>
+              <button type="submit" class="bg-blue-600 text-white py-1 px-4 rounded">Send</button>
+            </form>
+          </section>
+          
+          <!-- Video Hosting Section -->
+          <section>
+            <h2 class="text-xl font-semibold mb-2">Video Hosting</h2>
+            <div class="border p-4 rounded-lg">
+              <video controls class="w-full h-64 border rounded">
+                <source src="path-to-your-video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+              <button class="mt-2 bg-blue-600 text-white py-1 px-4 rounded">Upload Video</button>
+            </div>
+          </section>
+        </main>
+      </div>
     <script>
         // Load the menu from the external file
         fetch('menu.html')
