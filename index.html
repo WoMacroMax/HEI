@@ -9,7 +9,7 @@
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            height: 200vh; /* Make sure the page is tall enough to scroll */
+            height: 60vh; /* Make sure the page is tall enough to scroll */
             background-color: #f0f0f0;
             margin: 0;
         }
@@ -26,7 +26,13 @@
             position: fixed;
             top: 0;
             z-index: 1000;
+            height: auto; /* Set height to auto */
         }
+
+        .title-bar img {
+            max-height: 0%; /* Ensure images fit within the title bar */
+        }
+
         .title-bar:hover {
             background-color: #e0e0e0;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
@@ -181,9 +187,9 @@
                 <span class="tooltiptext">Articles</span>
             </div>
         </a>
-        <a href="https://womacromax.github.io/HEI/Services.html" class="card-link">
+        <a href="https://womacromax.github.io/HEI/services.html" class="card-link">
             <div class="card card5">
-                <img src="https://1drv.ms/i/s!AvqHyv24mZ4wu_RYxHFA-f41ccO9oA?embed=1&width=1024&height=1024" alt="Services">
+                <img src="https://1drv.ms/i/s!AvqHyv24mZ4wu_RYxHFA-f41ccO9oA?embed=1&width=1024&height=1024" alt="services">
                 <span class="tooltiptext">CHW Management</span>
             </div>
         </a>
@@ -211,10 +217,10 @@
                 <span class="tooltiptext">About Us</span>
             </div>
         </a>
-        <a href="https://womacromax.github.io/HEI/Services.html" class="card-link">
+        <a href="https://womacromax.github.io/HEI/services.html" class="card-link">
             <div class="card card7">
                 <img src="https://1drv.ms/i/s!AvqHyv24mZ4wu_URGjizisehK3PjcA?embed=1&width=280&height=180">
-                <span class="tooltiptext">Services</span>
+                <span class="tooltiptext">services</span>
             </div>
         </a>
     </div>
