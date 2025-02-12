@@ -6,12 +6,17 @@
     <title>About Us</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        p {
+            word-wrap: break-word;
+            white-space: normal;
+        }
         body {
             background-color: #f0f0f0; /* Light background */
             color: #333; /* Text color */
         }
         .container {
             background-color: white;
+            font-size: 0.8em; /* Adjust the value as needed */
             border-radius: 15px;
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -22,14 +27,14 @@
             position: relative;
         }
         .card-title {
-            font-size: 2.5rem; /* Larger title */
-            color: black; /* Make title text black */
+            font-size: 1.0rem; /* Larger "ABOUT" title */
+            color: black; /* Make "ABOUT" text black */
         }
         .card-body {
-            font-size: 1.2rem; /* Slightly larger card body text */
+            font-size: 1.0rem; /* Slightly larger card body text */
         }
         p1 {
-            font-size: 1.5rem; /* Larger main text */
+            font-size: 1.0rem; /* Larger main text */
             color: #061a1a; /* Blue text color */
         }
         .navbar {
@@ -58,24 +63,39 @@
             border: 1px solid #ddd;
             border-radius: 5px;
         }
+        .card-title-small {
+            font-size: 1.0rem; /* Reduced font size for specific card title */
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .chart-container {
+            position: relative;
+            height: 400px;
+        }
     </style>
 </head>
 <body>
 
     <!-- Menu Bar -->
-    <div id="menu-placeholder"></div>
-
-    <!-- Content -->
-    <div class="content-container">
-        <h1 style="margin-left: 20px;">About Us</h1>
+    <div class="navbar">
+        <a href="index.html">Home</a>
+        <a href="articles.html">Articles</a>
+        <a href="aboutus.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="contactus.html">Contact</a>
     </div>
 
-        <div class="container d-flex flex-column vh-100">
-            <div class="row align-items-start justify-content-center w-100">
-                <div class="col-md-10">
+    <div class="content-container">
+        <h1 style="font-size: 32px; margin-top: 20px; margin-left: 10px;">About Us</h1>
+    </div>
+
+        <div class="container d-flex flex-column vh-110">
+            <div class="row align-items-start justify-content-center w-80">
+            <div class="col-md-10">
                     <div class="card mb-3">
                         <div class="card-body">
-                            <h5 class="card-title">Our Mission</h5>
+                             <h6 class="card-title card-title-small">Our Mission</h6>
                             <p class="card-text"></p>
                         </div>
                     </div>
@@ -86,12 +106,12 @@
                 </div>
             </div>
         </div>
-        <div class="container d-flex flex-column vh-100">
+        <div class="container d-flex flex-column vh-110">
             <div class="row align-items-start justify-content-center w-100">
                 <div class="col-md-10">
                     <div class="card mb-3">
                         <div class="card-body">
-                            <h5 class="card-title">Our Goals</h5>
+                             <h6 class="card-title card-title-small">Our Goals</h6>
                             <p class="card-text"></p>
                         </div>
                     </div>
