@@ -8,12 +8,17 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
+        p {
+            word-wrap: break-word;
+            white-space: normal;
+        }
         body {
             background-color: #f0f0f0; /* Light background */
             color: #333; /* Text color */
         }
         .container {
             background-color: white;
+            font-size: 0.8em; /* Adjust the value as needed */
             border-radius: 15px;
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -24,14 +29,14 @@
             position: relative;
         }
         .card-title {
-            font-size: 2.5rem; /* Larger "ABOUT" title */
+            font-size: 1.0rem; /* Larger "ABOUT" title */
             color: black; /* Make "ABOUT" text black */
         }
         .card-body {
-            font-size: 1.2rem; /* Slightly larger card body text */
+            font-size: 1.0rem; /* Slightly larger card body text */
         }
         p1 {
-            font-size: 1.5rem; /* Larger main text */
+            font-size: 1.0rem; /* Larger main text */
             color: #061a1a; /* Blue text color */
         }
         .navbar {
@@ -61,7 +66,7 @@
             border-radius: 5px;
         }
         .card-title-small {
-            font-size: 1.7rem; /* Reduced font size for specific card title */
+            font-size: 1.0rem; /* Reduced font size for specific card title */
         }
         .container {
             margin-top: 20px;
@@ -79,11 +84,11 @@
 
     <!-- Content -->
     <div class="content-container">
-        <h1 style="margin-left: 20px;">Articles</h1>
+        <h1 style="font-size: 32px; margin-left: 10px;">Articles</h1>
     </div>
 
-    <div class="container d-flex flex-column vh-100">
-        <div class="row align-items-start justify-content-center w-100">
+    <div class="container d-flex flex-column vh-110">
+        <div class="row align-items-start justify-content-center w-80">
             <div class="col-md-10">
                 <div class="card mb-3">
                     <div class="card-body">
@@ -100,8 +105,8 @@
             </div>
         </div>
     </div>
-    <div class="container d-flex flex-column vh-100">
-        <div class="row align-items-start justify-content-center w-100">
+    <div class="container fixed-width-container vh-40">
+        <div class="row align-items-start justify-content-center w-80">
             <div class="col-md-10">
                 <div class="card mb-3">
                     <div class="card-body">
@@ -111,7 +116,7 @@
                     </div>
                 </div>
                 <div class="container">
-                    <h1 class="text-center">Racial Disparities In Maternal Mortality Rates</h1>
+                    <h5 class="text-center">Racial Disparities In Maternal Mortality Rates</h5>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="chart-container">
@@ -124,8 +129,8 @@
         </div>
     </div>
 
-    <div class="container d-flex flex-column vh-100">
-        <div class="row align-items-start justify-content-center w-100">
+    <div class="container d-flex flex-column vh-80">
+        <div class="row align-items-start justify-content-center w-80">
             <div class="col-md-10">
                 <div class="card mb-3">
                     <div class="card-body">
@@ -139,8 +144,8 @@
         </div>
     </div>
 
-    <div class="container d-flex flex-column vh-100">
-        <div class="row align-items-start justify-content-center w-100">
+    <div class="container d-flex flex-column vh-70">
+        <div class="row align-items-start justify-content-center w-80">
             <div class="col-md-10">
                 <div class="card mb-3">
                     <div class="card-body">
