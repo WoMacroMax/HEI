@@ -5,44 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Articles</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script>
-        window.onload = function() {
-            window.scrollTo(0, document.body.scrollHeight / 1.5);
-        };
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
-            height: 225vh; /* Make sure the page is tall enough to scroll */
-            background-color: #f0f0f0; /* Light background */
-            color: #333; /* Text color */
-        }
-        p {
-            word-wrap: break-word;
-            white-space: normal;
+            background-color: #f0f0f0;
+            color: #333;
+            font-size: 0.875rem; /* Reduced font size */
         }
         .container {
             background-color: white;
-            font-size: 0.8em; /* Adjust the value as needed */
             border-radius: 15px;
-            padding: 20px;
+            padding: 1rem; /* Further reduced padding */
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem; /* Added margin-bottom to create a gap between containers */
+            max-width: 900px; /* Added max-width to reduce the width of the containers */
         }
         .card {
-            background: linear-gradient(to bottom, #688697, #ffffff); /* Gradient background */
-            color: white; /* White text */
+            background: linear-gradient(to bottom, #688697, #ffffff);
+            color: white;
             position: relative;
+            margin-bottom: 0rem; /* Adjusted margin */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
         }
         .card-title {
-            font-size: 1.0rem; /* Larger "ABOUT" title */
-            color: black; /* Make "ABOUT" text black */
+            font-size: 1.25rem; /* Reduced font size */
+            color: black;
         }
         .card-body {
-            font-size: 1.0rem; /* Slightly larger card body text */
+            font-size: 1rem; /* Reduced font size */
         }
         p1 {
-            font-size: 1.0rem; /* Larger main text */
-            color: #061a1a; /* Blue text color */
+            font-size: 1rem; /* Reduced font size */
+            color: #061a1a;
         }
         .navbar {
             overflow: hidden;
@@ -57,7 +54,7 @@
             display: block;
             color: white;
             text-align: center;
-            padding: 14px 20px;
+            padding: 0.75rem 1rem; /* Adjusted padding */
             text-decoration: none;
         }
         .navbar a:hover {
@@ -65,41 +62,45 @@
             color: black;
         }
         .content-container {
-            margin: 80px 20px 20px 20px; /* Adjusted margin to account for fixed navbar */
-            padding: 20px;
+            margin: 5rem 1.5rem 1.5rem 1.5rem; /* Further reduced margin */
+            padding: 2rem;
             border: 1px solid #ddd;
             border-radius: 5px;
         }
         .card-title-small {
-            font-size: 1.0rem; /* Reduced font size for specific card title */
-        }
-        .container {
-            margin-top: 20px;
+            font-size: 1.25rem; /* Reduced font size */
         }
         .chart-container {
             position: relative;
-            height: 400px;
+            height: 14rem;
+        }
+        @media (max-width: 768px) {
+            .card-title {
+                font-size: 1.25rem; /* Reduced font size */
+            }
+            .card-body {
+                font-size: 0.75rem; /* Reduced font size */
+            }
         }
     </style>
 </head>
 <body>
-
     <!-- Menu Bar -->
     <div class="navbar">
         <a href="index.html">Home</a>
         <a href="articles.html">Articles</a>
         <a href="aboutus.html">About</a>
         <a href="services.html">Services</a>
-        <a href="contactus.html">Contact</a>
+        <a href="contactus.html">Contact Us</a>
     </div>
 
     <!-- Content -->
     <div class="content-container">
-        <h1 style="font-size: 32px; margin-top: 20px; margin-left: 10px;">Articles</h1>
+        <h2 style="margin-left: 20px;">Articles</h2> <!-- Reduced left margin -->
     </div>
 
-    <div class="container d-flex flex-column vh-110">
-        <div class="row align-items-start justify-content-center w-80">
+    <div class="container d-flex flex-column vh-90">
+        <div class="row align-items-start justify-content-center w-100">
             <div class="col-md-10">
                 <div class="card mb-3">
                     <div class="card-body">
@@ -116,8 +117,8 @@
             </div>
         </div>
     </div>
-    <div class="container fixed-width-container vh-40">
-        <div class="row align-items-start justify-content-center w-80">
+    <div class="container d-flex flex-column vh-90">
+        <div class="row align-items-start justify-content-center w-100">
             <div class="col-md-10">
                 <div class="card mb-3">
                     <div class="card-body">
@@ -127,7 +128,7 @@
                     </div>
                 </div>
                 <div class="container">
-                    <h5 class="text-center">Racial Disparities In Maternal Mortality Rates</h5>
+                    <h2 class="text-center">Racial Disparities In Maternal Mortality Rates</h2>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="chart-container">
@@ -139,9 +140,8 @@
             </div>
         </div>
     </div>
-
-    <div class="container d-flex flex-column vh-80">
-        <div class="row align-items-start justify-content-center w-80">
+    <div class="container d-flex flex-column vh-90">
+        <div class="row align-items-start justify-content-center w-100">
             <div class="col-md-10">
                 <div class="card mb-3">
                     <div class="card-body">
@@ -155,8 +155,8 @@
         </div>
     </div>
 
-    <div class="container d-flex flex-column vh-70">
-        <div class="row align-items-start justify-content-center w-80">
+    <div class="container d-flex flex-column vh-90">
+        <div class="row align-items-start justify-content-center w-100">
             <div class="col-md-10">
                 <div class="card mb-3">
                     <div class="card-body">
@@ -170,11 +170,7 @@
                     <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/tu1aY5BUgNI?start=889&end=1247" allowfullscreen></iframe>
                 </div>
                 </div>
-                <p class="card-text mt-3">...Bringing Reproductive Justice To The Forefront Of Medicine.</p>
-            </div>
-        </div>
-    </div>
-
+                <p class="card-text mt-3">...Bringing Reproductive Justice To The Forefront Of 
     <script>
         // Sample JSON string representing dynamic data over time
         const jsonData = `

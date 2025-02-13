@@ -9,7 +9,7 @@
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            height: 105vh; /* Make sure the page is tall enough to scroll */
+            height: 100vh; /* Make sure the page is tall enough to scroll */
             background-color: #f0f0f0;
             margin: 0;
         }
@@ -51,7 +51,7 @@
             justify-content: center;
             align-items: center;
         }
-        .card {
+        .desktop-card {
             width: 150px;
             height: 150px;
             background-color: grey;
@@ -63,19 +63,19 @@
             font-family: Arial, sans-serif;
             border-radius: 50%;
         }
-        .card img {
+        .desktop-card img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             border-radius: 50%;
         }
-        .card2 { transform: rotate(60deg) translate(0, -170px) rotate(-60deg); }
-        .card3 { transform: rotate(120deg) translate(0, -170px) rotate(-120deg); }
-        .card4 { transform: rotate(180deg) translate(0, -170px) rotate(-180deg); }
-        .card5 { transform: rotate(240deg) translate(0, -170px) rotate(-240deg); }
-        .card6 { transform: rotate(300deg) translate(0, -170px) rotate(-300deg); }
-        .card1 { transform: rotate(360deg) translate(0, -170px) rotate(-360deg); }
-        .card7 { transform: rotate(420deg) translate(0, -170px) rotate(-420deg); }
+        .desktop-card2 { transform: rotate(60deg) translate(0, -170px) rotate(-60deg); }
+        .desktop-card3 { transform: rotate(120deg) translate(0, -170px) rotate(-120deg); }
+        .desktop-card4 { transform: rotate(180deg) translate(0, -170px) rotate(-180deg); }
+        .desktop-card5 { transform: rotate(240deg) translate(0, -170px) rotate(-240deg); }
+        .desktop-card6 { transform: rotate(300deg) translate(0, -170px) rotate(-300deg); }
+        .desktop-card1 { transform: rotate(360deg) translate(0, -170px) rotate(-360deg); }
+        .desktop-card7 { transform: rotate(420deg) translate(0, -170px) rotate(-420deg); }
         .logo {
             margin-left: auto;
         }
@@ -97,7 +97,7 @@
             font-size: 300%;
             animation: typing .80s steps(40, end), blink-caret .75s step-end infinite;
         }
-        a.card-link {
+        a.desktop-card-link {
             position: absolute;
             width: 150px;
             height: 150px;
@@ -108,12 +108,12 @@
             text-decoration: none;
         }
 
-        .card-link {
+        .desktop-card-link {
             position: relative;
             display: inline-block;
         }
 
-        .card-link .tooltiptext {
+        .desktop-card-link .tooltiptext {
             visibility: hidden;
             width: 150%;
             background-color: black;
@@ -130,7 +130,7 @@
             transition: opacity 0.3s;
         }
 
-        .card-link:hover .tooltiptext {
+        .desktop-card-link:hover .tooltiptext {
             visibility: visible;
             opacity: 1;
         }
@@ -174,6 +174,8 @@
     </script>
 </head>
 <body onload="window.scrollTo(0, document.body.scrollHeight);">
+
+
     <div class="title-bar">
         <div class="typed-out">
             <span class="highlight-black">We Are</span> <span class="highlight-green">Health Equity</span> <span class="highlight-red">Impact!</span>
@@ -181,48 +183,50 @@
         <img src="https://1drv.ms/i/s!AvqHyv24mZ4wu_RZBmfncBT4CPfl7w?embed=1&width=150&height=150" alt="HEI Logo" class="logo">
     </div>
     <div class="container">
-        <a href="https://womacromax.github.io/HEI/articles.html" class="card-link">
-            <div class="card card6">
+        <a href="https://womacromax.github.io/HEI/articles.html" class="desktop-card-link">
+            <div class="desktop-card desktop-card6">
                 <img src="https://1drv.ms/i/s!AvqHyv24mZ4wu_UQlMdqF17kiJrP2w?embed=1&width=293&height=172" alt="Articles">
                 <span class="tooltiptext">Articles</span>
             </div>
         </a>
-        <a href="https://womacromax.github.io/HEI/services.html" class="card-link">
-            <div class="card card5">
+        <a href="https://womacromax.github.io/HEI/services.html" class="desktop-card-link">
+            <div class="desktop-card desktop-card5">
                 <img src="https://1drv.ms/i/s!AvqHyv24mZ4wu_RYxHFA-f41ccO9oA?embed=1&width=1024&height=1024" alt="services">
                 <span class="tooltiptext">CHW Management</span>
             </div>
         </a>
-        <a href="https://womacromax.github.io/HEI/articles.html" class="card-link">
-            <div class="card card4">
+        <a href="https://womacromax.github.io/HEI/articles.html" class="desktop-card-link">
+            <div class="desktop-card desktop-card4">
                 <img src="https://1drv.ms/i/s!AvqHyv24mZ4wu_R-qZ-3mtEVJrvMjg?embed=1&width=557&height=550" alt="Research Development">
                 <span class="tooltiptext">Research Development</span>
             </div>
         </a>
-        <a href="https://womacromax.github.io/HEI/Manage%20Clinical%20Trial%20Inspection.html" class="card-link">
-            <div class="card card3">
+        <a href="https://womacromax.github.io/HEI/Manage%20Clinical%20Trial%20Inspection.html" class="desktop-card-link">
+            <div class="desktop-card desktop-card3">
                 <img src="https://1drv.ms/i/s!AvqHyv24mZ4wu_RcCJoZS0TBGtciaQ?embed=1&width=1024&height=1024" alt="Clinical Operations">
                 <span class="tooltiptext">Clinical Operations Support</span>
             </div>
         </a>
-        <a href="https://womacromax.github.io/HEI/articles.html" class="card-link">
-            <div class="card card2">
+        <a href="https://womacromax.github.io/HEI/articles.html" class="desktop-card-link">
+            <div class="desktop-card desktop-card2">
                 <img src="https://1drv.ms/i/s!AvqHyv24mZ4wu_RYxHFA-f41ccO9oA?embed=1&width=1024&height=1024" alt="CHW-Access">
                 <span class="tooltiptext">CHW-Access</span>
             </div>
         </a>
-        <a href="https://womacromax.github.io/HEI/aboutus.html" class="card-link">
-            <div class="card card1">
+        <a href="https://womacromax.github.io/HEI/aboutus.html" class="desktop-card-link">
+            <div class="desktop-card desktop-card1">
                 <img src="https://1drv.ms/i/s!AvqHyv24mZ4wu_RaDAM25aijBL2_vA?embed=1&width=412&height=424" alt="About Us">
                 <span class="tooltiptext">About Us</span>
             </div>
         </a>
-        <a href="https://womacromax.github.io/HEI/services.html" class="card-link">
-            <div class="card card7">
+        <a href="https://womacromax.github.io/HEI/services.html" class="desktop-card-link">
+            <div class="desktop-card desktop-card7">
                 <img src="https://1drv.ms/i/s!AvqHyv24mZ4wu_URGjizisehK3PjcA?embed=1&width=280&height=180">
                 <span class="tooltiptext">services</span>
             </div>
         </a>
     </div>
+
+
 </body>
 </html>
