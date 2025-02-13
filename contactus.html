@@ -71,6 +71,11 @@
         .form-group button:hover {
             background-color: #555;
         }
+        /* Add this CSS to reduce the card width */
+        .card-container {
+            max-width: 600px; /* Set the desired maximum width */
+            margin: 0 auto;   /* Center the card horizontally */
+        }
     </style>
 </head>
 <body>
@@ -89,7 +94,7 @@
     </div>
 
     <!-- Content -->
-    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg">
+    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg card-container">
         <main class="p-6 space-y-6">
           <!-- Chat Text Section -->
           <section>
