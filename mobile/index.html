@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Cards</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .card {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+                border: none;
+        }
+        @media (max-width: 600px) {
+            .card-mobile {
+                display: block;
+                border: none;
+            }
+        }
+        @media (min-width: 601px) and (max-width: 1024px) {
+            .card-tablet {
+                display: block;
+                border: none;
+            }
+        }
+        @media (min-width: 1025px) {
+            .card-desktop {
+                display: block;
+                border: none;
+            }
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+                border: none;
+        }
+        .modal-content {
+            background-color: #fff;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 300px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                border: none;
+        }
+    .circle-card {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: #007bff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      transition: all 0.5s ease;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+      transform: translateY(0);
+      margin: 10px; /* Add margin to create space */
+    }
+    .circle-card img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
+    .circle-card:hover {
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+      transform: translateY(-15px);
+    }
+    .circle-container {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .outer-container {
+      height: 50vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+                border: none;
+    }
+    .service-card {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      max-width: 300px;
+      margin: 180px auto 0 auto; /* Add top margin */
+      text-align: center;
+                border: none;
+    }
+    svg {
+      max-width: 100%;
+      height: auto;
+    }
+    @media (max-width: 768px) {
+      .circle-card {
+        margin: 1px; /* Adjust margin for smaller screens */
+      }
+      .circle-container {
+        flex-direction: row;
+        justify-content: center;
+      }
+    }
+    .service-card {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      max-width: 300px;
+      margin: 180px auto 0 auto; /* Add top margin */
+      text-align: center;
+      background-color: rgba(255, 255, 255, 0.5); /* Set background color with transparency */
+      position: relative;
+                border: none;
+    }
+        .title-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: right;
+            padding: 3px;
+            padding-left: 20px; /* Added padding to the left side */
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            width: 100%;
+            transition: background-color 0.5s ease, box-shadow 0.5s ease;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+            height: auto; /* Set height to auto */
+        }
+
+        .title-bar img {
+            max-height: 0%; /* Ensure images fit within the title bar */
+        }
+
+        .title-bar:hover {
+            background-color: #e0e0e0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .highlight-black { color: black; }
+        .highlight-green { color: black; }
+        .highlight-red { color: black; }
+        .container {
+            position: absolute;
+            top: calc(50% + 1in);
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .desktop-card {
+            width: 150px;
+            height: 150px;
+            background-color: grey;
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-family: Arial, sans-serif;
+            border-radius: 50%;
+        }
+        .desktop-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        .desktop-card2 { transform: rotate(60deg) translate(0, -170px) rotate(-60deg); }
+        .desktop-card3 { transform: rotate(120deg) translate(0, -170px) rotate(-120deg); }
+        .desktop-card4 { transform: rotate(180deg) translate(0, -170px) rotate(-180deg); }
+        .desktop-card5 { transform: rotate(240deg) translate(0, -170px) rotate(-240deg); }
+        .desktop-card6 { transform: rotate(300deg) translate(0, -170px) rotate(-300deg); }
+        .desktop-card1 { transform: rotate(360deg) translate(0, -170px) rotate(-360deg); }
+        .desktop-card7 { transform: rotate(420deg) translate(0, -170px) rotate(-420deg); }
+        .logo {
+            margin-left: auto;
+        }
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 7.5ch; }
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            20% { border-color: white; }
+        }
+        .typed-out {
+            width: 16ch;
+            padding: 2px;
+            border-right: .1em solid black;
+            white-space: nowrap;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            font-size: 300%;
+            animation: typing .80s steps(40, end), blink-caret .75s step-end infinite;
+        }
+        a.desktop-card-link {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .desktop-card-link {
+            position: relative;
+            display: inline-block;
+        }
+
+        .desktop-card-link .tooltiptext {
+            visibility: hidden;
+            width: 150%;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px 0;
+            position: absolute;
+            z-index: 1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .desktop-card-link:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+    <script>
+        function preloadImages(imageArray, callback) {
+            let loadedImages = 0;
+            const totalImages = imageArray.length;
+
+            imageArray.forEach((src, index) => {
+                const img = new Image();
+                img.src = src;
+                img.onload = () => {
+                    loadedImages++;
+                    if (loadedImages === totalImages) {
+                        callback();
+                    }
+                };
+                img.onerror = () => {
+                    console.error(`Failed to load image: ${src}`);
+                };
+            });
+        }
+
+        window.addEventListener('load', () => {
+            preloadImages(images, () => {
+                console.log('All images preloaded!');
+            });
+        });
+
+    </script>
+</head>
+<body>
+    <div class="card card-mobile">
+
+
+
+    <div class="title-bar">
+        <div class="typed-out"><span class="highlight-red">Impact!</span>
+        </div>
+    </div>
+
+
+
+  <div class="outer-container">
+    <div class="circle-container">
+      <a href="https://womacromax.github.io/HEI/mobile/aboutus.html" class="circle-card" alt="1" data-toggle="tooltip" title="Our Mission and Goals:"><img src="https://womacromax.github.io/HEI/media/AboutUs.jpg" alt="About Us"></a>
+
+
+      <a href="https://womacromax.github.io/HEI/mobile/Compliance Monitoring.html" class="circle-card" alt="2" data-toggle="tooltip" title="CHW Management"><img src="https://womacromax.github.io/HEI/media/CHW Management.png" alt="CHW Management"></a>
+
+
+      <a href="https://womacromax.github.io/HEI/mobile/services.html" class="circle-card" alt="3" data-toggle="tooltip" title="Business Services"><img src="https://womacromax.github.io/HEI/media/Business Services.jpg" alt="Business Services"></a>
+
+
+      <a href="https://womacromax.github.io/HEI/mobile/articles.html" class="circle-card" alt="4" data-toggle="tooltip" title="Articles"><img src="https://womacromax.github.io/HEI/media/Articles.jpg" alt="Articles"></a>
+
+
+      <a href="https://womacromax.github.io/HEI/mobile/Certifications.html" class="circle-card" alt="5" data-toggle="tooltip" title="Clinical Trial Management"><img src="https://womacromax.github.io/HEI/media/Clinical Operations.jpg" alt="We Provide Management of Clinical Trial Management and Support"></a>
+
+
+      <a href="https://womacromax.github.io/HEI/Compliance mobile/Monitoring.html" class="circle-card" alt="6" data-toggle="tooltip" title="Research and Development"><img src="https://womacromax.github.io/HEI/media/Research Development.png" alt="Research and Development"></a>
+    </div>
+  </div>
+
+
+
+</div>
+<div class="card card-tablet">This is a tablet card
+
+
+
+  <div class="outer-container">
+    <div class="circle-container">
+      <a href="#" class="circle-card" alt="1" data-toggle="tooltip" title="Our Mission and Goals:"><img src="https://1drv.ms/i/s!AvqHyv24mZ4wu_RZBmfncBT4CPfl7w?embed=1&width=150&height=150" alt="About Us"></a>
+      <a href="#" class="circle-card" alt="2" data-toggle="tooltip" title="Articles"><img src="https://1drv.ms/i/s!AvqHyv24mZ4wu_UQlMdqF17kiJrP2w?embed=1&width=293&height=172" alt="Articles"></a>
+      <a href="#" class="circle-card" alt="3" data-toggle="tooltip" title="Business Services"><img src="https://1drv.ms/i/s!AvqHyv24mZ4wu_URGjizisehK3PjcA?embed=1&width=280&height=180" alt="Business Services"></a>
+      <a href="#" class="circle-card" alt="4" data-toggle="tooltip" title="CHW Management"><img src="https://1drv.ms/i/s!AvqHyv24mZ4wu_RYxHFA-f41ccO9oA?embed=1&width=1024&height=1024" alt="We Manage Multidisciplinary Teams"></a>
+      <a href="#" class="circle-card" alt="5" data-toggle="tooltip" title="Clinical Operations and Support"><img src="https://1drv.ms/i/s!AvqHyv24mZ4wu_RcCJoZS0TBGtciaQ?embed=1&width=1024&height=1024" alt="We Provide Management of Clinical Operations and Support"></a>
+      <a href="#" class="circle-card" alt="6" data-toggle="tooltip" title="Research and Development"><img src="https://1drv.ms/i/s!AvqHyv24mZ4wu_R-qZ-3mtEVJrvMjg?embed=1&width=557&height=550" alt="Research and Development"></a>
+    </div>
+  </div>
+
+
+
+    </div>
+
+
+    <div class="card card-desktop">This is a desktop card</div>
+
+
+
+    <div id="myModal" class="modal">
+        <div class="modal-content" id="modalContent"></div>
+    </div>
+
+
+  <script>
+    // Initialize Bootstrap tooltips
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip();
+    });
+  </script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        window.onload = function() {
+            var modal = document.getElementById('myModal');
+            var modalContent = document.getElementById('modalContent');
+            var message = '';
+
+            if (window.matchMedia("(max-width:1700px)").matches) {
+                message = 'You are using a mobile device.';
+      const outerContainer = document.querySelector('.outer-container');
+      if (outerContainer) {
+        outerContainer.remove();
+      }
+            } else if (window.matchMedia("(min-width: 1701px) and (max-width: 1800px)").matches) {
+                message = 'You are using a tablet device.';
+      const outerContainer = document.querySelector('.outer-container');
+      if (outerContainer) {
+        outerContainer.remove();
+      }
+        };
+    </script>
+</body>
+</html>
