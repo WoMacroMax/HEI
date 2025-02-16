@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Articles</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            color: #333;
+            font-size: 0.875rem; /* Reduced font size */
+        }
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            padding: 1rem; /* Further reduced padding */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem; /* Added margin-bottom to create a gap between containers */
+            max-width: 800px; /* Added max-width to reduce the width of the containers */
+        }
+        .card {
+            background: linear-gradient(to bottom, #688697, #ffffff);
+            color: white;
+            position: relative;
+            margin-bottom: 0rem; /* Adjusted margin */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+        .card-title {
+            font-size: 1.25rem; /* Reduced font size */
+            color: black;
+        }
+        .card-body {
+            font-size: 1rem; /* Reduced font size */
+        }
+        p1 {
+            font-size: 1rem; /* Reduced font size */
+            color: #061a1a;
+        }
+        .navbar {
+            overflow: hidden;
+            background-color: #333;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        .navbar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 0.75rem 1rem; /* Adjusted padding */
+            text-decoration: none;
+        }
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .content-container {
+            margin: 5rem 1.5rem 1.5rem 1.5rem; /* Further reduced margin */
+            padding: 2rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .card-title-small {
+            font-size: 1.25rem; /* Reduced font size */
+        }
+        .chart-container {
+            position: relative;
+            height: 14rem;
+        }
+        @media (max-width: 768px) {
+            .card-title {
+                font-size: 1.25rem; /* Reduced font size */
+            }
+            .card-body {
+                font-size: 0.75rem; /* Reduced font size */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Menu Bar -->
+    <div class="navbar">
+        <a href="index.html">Home</a>
+        <a href="articles.html">Articles</a>
+        <a href="aboutus.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="contactus.html">Contact Us</a>
+    </div>
+
+    <!-- Content -->
+    <div class="content-container">
+        <h2 style="margin-left: 20px;">Articles</h2> <!-- Reduced left margin -->
+    </div>
+
+    <div class="container d-flex flex-column vh-90">
+        <div class="row align-items-start justify-content-center w-100">
+            <div class="col-md-10">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h6 class="card-title card-title-small">What are the unique challenges of conducting clinical trials among sickle cell patients?</h6>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+                <ul>
+                    <li>Identifying and establishing trial sites.</li>
+                    <li>Collecting and monitoring patient data in sickle cell disease registries, across disparate geographies.</li>
+                    <li>Enhancing patient support and education during trials.</li>
+                    <li>Addressing ethical regulations and patient safety when conducting clinical research among pregnant persons with Sickle Cell Disease.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container d-flex flex-column vh-90">
+        <div class="row align-items-start justify-content-center w-100">
+            <div class="col-md-10">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h6 class="card-title card-title-small">
+                    Rationale for Clinical Trial to address racial disparities in maternal mortality</h6>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+                <div class="container">
+                    <h2 class="text-center">Racial Disparities In Maternal Mortality Rates</h2>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="chart-container">
+                                <canvas id="myChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container d-flex flex-column vh-90">
+        <div class="row align-items-start justify-content-center w-100">
+            <div class="col-md-10">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h6 class="card-title card-title-small">
+                    References</h6>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+                <p>Early ML, Eke AC, Gemmill A, Lanzkron S, Pecker LH. Severe Maternal Morbidity and Mortality in Sickle Cell Disease in the National Inpatient Sample, 2012-2018. JAMA Netw Open. 2023 Feb 1;6(2):e2254552. doi: 10.1001/jamanetworkopen.2022.54552. PMID: 36729452; PMCID: PMC9896307.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container d-flex flex-column vh-90">
+        <div class="row align-items-start justify-content-center w-100">
+            <div class="col-md-10">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h6 class="card-title card-title-small">
+                    Black Girl Ventures Pitch Competition</h6>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/tu1aY5BUgNI?start=889&end=1247" allowfullscreen></iframe>
+                </div>
+                </div>
+                <p class="card-text mt-3">...Bringing Reproductive Justice To The Forefront Of 
+    <script>
+        // Sample JSON string representing dynamic data over time
+        const jsonData = `
+        [
+            {"time": "", "x": 1, "y": 10, "z": 26}
+        ]`;
+
+        // Parse the JSON string into a JavaScript object
+        const data = JSON.parse(jsonData);
+
+        // Extract labels and datasets
+        const labels = data.map(item => item.time);
+        const xValues = data.map(item => item.x);
+        const yValues = data.map(item => item.y);
+        const zValues = data.map(item => item.z);
+
+        // Create the chart
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Non-Black Pregnant Control Group',
+                        data: xValues,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Black Pregnant Group',
+                        data: yValues,
+                        backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                        borderColor: 'rgba(153, 102, 255, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Sickle Cell Disease Black Pregnant Group',
+                        data: zValues,
+                        backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                        borderColor: 'rgba(255, 159, 64, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Pregnant Persons'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Maternal Mortality Rates'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Load the menu from the external file
+        fetch('menu.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('menu-placeholder').innerHTML = data;
+            });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
