@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -20,14 +21,15 @@
             padding: 1rem; /* Further reduced padding */
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin-bottom: 1rem; /* Added margin-bottom to create a gap between containers */
-            max-width: 600px; /* Added max-width to reduce the width of the containers */
+            max-width: calc(100% - 0.8in); /* Adjusted max-width to reduce the width of the containers */
+            float: right; /* Right justify the container */
         }
         .card {
             background: linear-gradient(to bottom, #688697, #ffffff); /* Gradient background */
             color: white; /* White text */
             position: relative;
-            margin-left: 0.8in; /* Move card 0.8 inches away from the sidebar */
             transition: background 0.3s ease-in-out; /* Adjust transition duration for quicker gradient */
+            float: right; /* Right justify the card */
         }
         .card-title {
             font-size: 1.0rem; /* Larger "ABOUT" title */
@@ -83,10 +85,10 @@
             cursor: pointer;
             background: none;
             border: none;
-            color: #688697;
+            color: pink; /* Change hamburger menu color to pink */
             position: fixed;
-            top: 50%;
-            right: 15px;
+            top: 15px; /* Move to the top */
+            right: 15px; /* Move to the right */
             transform: translateY(-50%);
             z-index: 2;
         }
@@ -142,10 +144,10 @@
     <div class="container d-flex flex-column vh-110">
         <div class="row align-items-start justify-content-center w-100">
             <div class="col-md-10">
-                <div class="card mb-3">
                     <div class="card-body">
                         <h6 class="card-title">Clinical Trial Inspection Management</h6>
                     </div>
+                <div class="card mb-3">
                 </div>
     <div class="indented-div"> 
         Managing clinical trial audit inspections involves several key steps to ensure compliance and readiness. Here’s a comprehensive guide:
