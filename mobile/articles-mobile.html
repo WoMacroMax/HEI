@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Services</title>
+    <title>Articles</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
     <style>
         p {
             word-wrap: break-word;
@@ -19,84 +21,16 @@
             border-radius: 15px;
             padding: 1rem; /* Further reduced padding */
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 1rem; /* Added margin-bottom to create a gap between containers */
-            max-width: calc(100% - .8in); /* Stretch the width of the container minus 2 inches */
+            margin-bottom: 1.5rem; /* Added margin-bottom to create a gap between containers */
+            max-width: calc(100% - 0.2in); /* Adjusted max-width to reduce the width of the containers */
+            float: right; /* Right justify the container */
         }
         .card {
             background: linear-gradient(to bottom, #688697, #ffffff); /* Gradient background */
             color: white; /* White text */
             position: relative;
-            text-align: right; /* Right justify the gradient cards */
-        }
-        .card-title {
-            font-size: 1.0rem; /* Larger "ABOUT" title */
-            color: black; /* Make "ABOUT" text black */
-        }
-        .card-body {
-            font-size: 1.0rem; /* Slightly larger card body text */
-        }
-        p1 {
-            font-size: 1.0rem; /* Larger main text */
-            color: #061a1a; /* Blue text color */
-        }
-        .navbar {
-            overflow: hidden;
-            background-color: #333;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-        }
-        .navbar a {
-            float: left;
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 20px;
-            text-decoration: none;
-        }
-        .navbar a:hover {
-            background-color: #ddd;
-            color: black;
-        }
-        .content-container {
-            margin: 80px 20px 20px 20px; /* Adjusted margin to account for fixed navbar */
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        .card-title-small {
-            font-size: 1.0rem; /* Reduced font size for specific card title */
-        }
-        .container {
-            margin-top: 20px;
-        }
-        .chart-container {
-            position: relative;
-            height: 400px;
-        }
-        p {
-            word-wrap: break-word;
-            white-space: normal;
-        }
-        body {
-            background-color: #f0f0f0;
-            color: #333;
-            font-size: 0.875rem; /* Reduced font size */
-        }
-        .container {
-            background-color: white;
-            border-radius: 15px;
-            padding: 1rem; /* Further reduced padding */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 1rem; /* Added margin-bottom to create a gap between containers */
-            max-width: calc(100% - 2in); /* Stretch the width of the container minus 2 inches */
-        }
-        .card {
-            background: linear-gradient(to bottom, #688697, #ffffff); /* Gradient background */
-            color: white; /* White text */
-            position: relative;
-            text-align: right; /* Right justify the gradient cards */
+            transition: background 0.3s ease-in-out; /* Adjust transition duration for quicker gradient */
+            float: right; /* Right justify the card */
         }
         .card-title {
             font-size: 1.0rem; /* Larger "ABOUT" title */
@@ -152,10 +86,11 @@
             cursor: pointer;
             background: none;
             border: none;
-            color: pink; /* Make hamburger menu pink */
+            color: pink; /* Change hamburger menu color to pink */
             position: fixed;
-            top: 10px;
-            right: 10px;
+            top: 15px; /* Move to the top */
+            right: 15px; /* Move to the right */
+            transform: translateY(-50%);
             z-index: 2;
         }
         .content-container {
@@ -193,14 +128,6 @@
     <a href="javascript:void(0);" class="closebtn" onclick="closeNav()">&times;</a>
 </div>
 
-    <script>
-        // Load the menu from the external file
-        fetch('menu.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('menu-placeholder').innerHTML = data;
-            });
-    </script>
     <!-- Menu Bar -->
     <div class="navbar">
         <a href="index-mobile.html">Home</a>
@@ -247,7 +174,7 @@
                 <div class="container">
                     <h6 class="text-center">Racial Disparities In Maternal Mortality Rates</h6>
 <div class="row">
-    <div class="col-md-12" style="display: flex; justify-content: center;">
+    <div class="col-md-11" style="display: flex; justify-content: left;">
     <div class="chart-container">
         <img src="https://womacromax.github.io/HEI/media/racial disparities report 000.png" alt="CHW Management" style="width: 110%; height: auto;">
     </div>
@@ -290,70 +217,6 @@
                 </div>
                 <p class="card-text mt-3">...Bringing Reproductive Justice To The Forefront Of 
     <script>
-        // Sample JSON string representing dynamic data over time
-        const jsonData = `
-        [
-            {"time": "", "x": 1, "y": 10, "z": 26}
-        ]`;
-
-        // Parse the JSON string into a JavaScript object
-        const data = JSON.parse(jsonData);
-
-        // Extract labels and datasets
-        const labels = data.map(item => item.time);
-        const xValues = data.map(item => item.x);
-        const yValues = data.map(item => item.y);
-        const zValues = data.map(item => item.z);
-
-        // Create the chart
-        const ctx = document.getElementById('myChart').getContext('2d');
-        const myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [
-                    {
-                        label: 'Non-Black Pregnant Control Group',
-                        data: xValues,
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'Black Pregnant Group',
-                        data: yValues,
-                        backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                        borderColor: 'rgba(153, 102, 255, 1)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'Sickle Cell Disease Black Pregnant Group',
-                        data: zValues,
-                        backgroundColor: 'rgba(255, 159, 64, 0.2)',
-                        borderColor: 'rgba(255, 159, 64, 1)',
-                        borderWidth: 1
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Pregnant Persons'
-                        }
-                    },
-                    y: {
-                        title: {
-                            display: true,
-                            text: 'Maternal Mortality Rates'
-                        }
-                    }
-                }
-            }
-        });
-
         // Load the menu from the external file
         fetch('menu.html')
             .then(response => response.text())
@@ -408,8 +271,6 @@
     // Initialize navigation links
     createNavLinks(links);
 </script>
-
-
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
