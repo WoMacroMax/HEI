@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Table with Actions</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Invoice Form</h2>
+        <form id="invoiceForm">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Quantity</th>
+                        <th>U/M</th>
+                        <th>Description</th>
+                        <th>Unit Price</th>
+                        <th>Amount</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="invoiceTableBody">
+                    <tr>
+                        <td><input type="number" class="form-control" name="quantity" value="5"></td>
+                        <td><input type="text" class="form-control" name="um" value="BOX"></td>
+                        <td><input type="text" class="form-control" name="description" value="Walker's Wood Jerk (Hot) Seasoning - 24 x 10 oz"></td>
+                        <td><input type="number" class="form-control" name="unitPrice" value="80.00"></td>
+                        <td><input type="number" class="form-control" name="amount" value="400.00"></td>
+                        <td><button type="button" class="btn btn-danger" onclick="removeRow(this)">Remove</button></td>
+                    </tr>
+                    <!-- Repeat similar rows for other items -->
+                    <!-- Add row for subtotals -->
+                    <tr class="font-weight-bold">
+                        <td id="totalQty">47</td>
+                        <td></td>
+                        <td>Total</td>
+                        <td></td>
+                        <td id="totalAmount">$4,088.00</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="button" class="btn btn-primary" onclick="addRow()">Add Row</button>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function addRow() {
+            var table = document.getElementById("invoiceTableBody");
+            var row = table.insertRow(table.rows.length - 1); // Insert before subtotal row
+
+            row.innerHTML = `
+                <td><input type="number" class="form-control" name="quantity"></td>
+                <td><input type="text" class="form-control" name="um"></td>
+                <td><input type="text" class="form-control" name="description"></td>
+                <td><input type="number" class="form-control" name="unitPrice"></td>
+                <td><input type="number" class="form-control" name="amount"></td>
+                <td><button type="button" class="btn btn-danger" onclick="removeRow(this)">Remove</button></td>
+            `;
+        }
+
+        function removeRow(button) {
+            var row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        }
+    </script>
+</body>
+</html>
