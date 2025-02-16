@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -21,14 +20,16 @@
             padding: 1rem; /* Further reduced padding */
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin-bottom: 1rem; /* Added margin-bottom to create a gap between containers */
-            max-width: 600px; /* Added max-width to reduce the width of the containers */
+            max-width: calc(100% - 2in); /* Reduce width by 2 inches */
         }
         .card {
             background: linear-gradient(to bottom, #688697, #ffffff); /* Gradient background */
             color: white; /* White text */
             position: relative;
-            margin-left: 0.8in; /* Move card 0.8 inches away from the sidebar */
+            margin-left: auto; /* Right justify the card */
+            margin-right: 0.8in; /* Move card 0.8 inches away from the right edge */
             transition: background 0.3s ease-in-out; /* Adjust transition duration for quicker gradient */
+            width: 100%; /* Stretch the card to full width of the container */
         }
         .card-title {
             font-size: 1.0rem; /* Larger "ABOUT" title */
@@ -86,10 +87,10 @@
             border: none;
             color: #688697;
             position: fixed;
-            top: 50%;
-            right: 15px;
-            transform: translateY(-50%);
+            top: 20px; /* Move to top of the screen */
+            right: 20px; /* Move to right of the screen */
             z-index: 2;
+            color: pink; /* Change the color to pink */
         }
         .content-container {
             margin: 80px 20px 20px 20px; /* Adjusted margin to account for fixed navbar */
@@ -99,9 +100,6 @@
         }
         .card-title-small {
             font-size: 1.0rem; /* Reduced font size for specific card title */
-        }
-        .container {
-            margin-top: 20px;
         }
         .chart-container {
             position: relative;
@@ -166,6 +164,11 @@
                 </div>
             </div>
         </div>
+
+
+
+<!-- SCRIPT SECTION -->
+
 
     <script>
         // Load the menu from the external file
