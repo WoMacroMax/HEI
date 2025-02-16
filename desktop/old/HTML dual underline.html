@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dual Underline Text Example</title>
+    <style>
+        .dual-underline {
+            position: relative;
+            display: inline-block;
+        }
+        .dual-underline::after,
+        .dual-underline::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 2px; /* thickness of the underline */
+            background-color: black; /* color of the underline */
+        }
+        .dual-underline::before {
+            bottom: -4px; /* distance from text */
+        }
+        .dual-underline::after {
+            bottom: -8px; /* distance from text for second line */
+        }
+    </style>
+</head>
+<body>
+    <h1>Dual Underline Text Example</h1>
+    <p>This is an example of <span class="dual-underline">dual underlined text</span>.</p>
+</body>
+</html>
