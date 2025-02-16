@@ -20,12 +20,13 @@
             padding: 1rem; /* Further reduced padding */
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin-bottom: 1rem; /* Added margin-bottom to create a gap between containers */
-            max-width: 600px; /* Added max-width to reduce the width of the containers */
+            max-width: calc(100% - 2in); /* Stretch the width of the container minus 2 inches */
         }
         .card {
             background: linear-gradient(to bottom, #688697, #ffffff); /* Gradient background */
             color: white; /* White text */
             position: relative;
+            text-align: right; /* Right justify the gradient cards */
         }
         .card-title {
             font-size: 1.0rem; /* Larger "ABOUT" title */
@@ -89,14 +90,13 @@
             padding: 1rem; /* Further reduced padding */
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin-bottom: 1rem; /* Added margin-bottom to create a gap between containers */
-            max-width: 600px; /* Added max-width to reduce the width of the containers */
+            max-width: calc(100% - 2in); /* Stretch the width of the container minus 2 inches */
         }
         .card {
             background: linear-gradient(to bottom, #688697, #ffffff); /* Gradient background */
             color: white; /* White text */
             position: relative;
-            margin-left: 0.8in; /* Move card 0.8 inches away from the sidebar */
-            transition: background 0.3s ease-in-out; /* Adjust transition duration for quicker gradient */
+            text-align: right; /* Right justify the gradient cards */
         }
         .card-title {
             font-size: 1.0rem; /* Larger "ABOUT" title */
@@ -152,11 +152,10 @@
             cursor: pointer;
             background: none;
             border: none;
-            color: #688697;
+            color: pink; /* Make hamburger menu pink */
             position: fixed;
-            top: 50%;
-            right: 15px;
-            transform: translateY(-50%);
+            top: 10px;
+            right: 10px;
             z-index: 2;
         }
         .content-container {
@@ -177,8 +176,6 @@
         }
     </style>
 </head>
-    </style>
-</head>
 <body onclick="hideNavbar(event)">
 
     <!-- Menu Bar -->
@@ -195,8 +192,6 @@
 <div class="navbar" id="myNavbar">
     <a href="javascript:void(0);" class="closebtn" onclick="closeNav()">&times;</a>
 </div>
-
-
 
     <script>
         // Load the menu from the external file
@@ -239,6 +234,9 @@
             </div>
         </div>
     </div>
+
+<!-- SCRIPT SECTION -->
+
 
     <script>
         // Load the menu from the external file

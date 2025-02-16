@@ -3,10 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Articles</title>
+    <title>Services</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
+        p {
+            word-wrap: break-word;
+            white-space: normal;
+        }
+        body {
+            background-color: #f0f0f0; /* Light background */
+            color: #333; /* Text color */
+        }
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            padding: 1rem; /* Further reduced padding */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem; /* Added margin-bottom to create a gap between containers */
+            max-width: calc(100% - 2in); /* Stretch the width of the container minus 2 inches */
+        }
+        .card {
+            background: linear-gradient(to bottom, #688697, #ffffff); /* Gradient background */
+            color: white; /* White text */
+            position: relative;
+            text-align: right; /* Right justify the gradient cards */
+        }
+        .card-title {
+            font-size: 1.0rem; /* Larger "ABOUT" title */
+            color: black; /* Make "ABOUT" text black */
+        }
+        .card-body {
+            font-size: 1.0rem; /* Slightly larger card body text */
+        }
+        p1 {
+            font-size: 1.0rem; /* Larger main text */
+            color: #061a1a; /* Blue text color */
+        }
+        .navbar {
+            overflow: hidden;
+            background-color: #333;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        .navbar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .content-container {
+            margin: 80px 20px 20px 20px; /* Adjusted margin to account for fixed navbar */
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .card-title-small {
+            font-size: 1.0rem; /* Reduced font size for specific card title */
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .chart-container {
+            position: relative;
+            height: 400px;
+        }
         p {
             word-wrap: break-word;
             white-space: normal;
@@ -22,14 +90,13 @@
             padding: 1rem; /* Further reduced padding */
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin-bottom: 1rem; /* Added margin-bottom to create a gap between containers */
-            max-width: 600px; /* Added max-width to reduce the width of the containers */
+            max-width: calc(100% - 2in); /* Stretch the width of the container minus 2 inches */
         }
         .card {
             background: linear-gradient(to bottom, #688697, #ffffff); /* Gradient background */
             color: white; /* White text */
             position: relative;
-            margin-left: 0.8in; /* Move card 0.8 inches away from the sidebar */
-            transition: background 0.3s ease-in-out; /* Adjust transition duration for quicker gradient */
+            text-align: right; /* Right justify the gradient cards */
         }
         .card-title {
             font-size: 1.0rem; /* Larger "ABOUT" title */
@@ -85,11 +152,10 @@
             cursor: pointer;
             background: none;
             border: none;
-            color: #688697;
+            color: pink; /* Make hamburger menu pink */
             position: fixed;
-            top: 50%;
-            right: 15px;
-            transform: translateY(-50%);
+            top: 10px;
+            right: 10px;
             z-index: 2;
         }
         .content-container {
@@ -126,8 +192,6 @@
 <div class="navbar" id="myNavbar">
     <a href="javascript:void(0);" class="closebtn" onclick="closeNav()">&times;</a>
 </div>
-
-
 
     <script>
         // Load the menu from the external file
