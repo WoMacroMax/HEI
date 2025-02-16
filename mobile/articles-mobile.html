@@ -7,6 +7,10 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
+        p {
+            word-wrap: break-word;
+            white-space: normal;
+        }
         body {
             background-color: #f0f0f0;
             color: #333;
@@ -18,74 +22,121 @@
             padding: 1rem; /* Further reduced padding */
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin-bottom: 1rem; /* Added margin-bottom to create a gap between containers */
-            max-width: 800px; /* Added max-width to reduce the width of the containers */
+            max-width: 600px; /* Added max-width to reduce the width of the containers */
         }
         .card {
-            background: linear-gradient(to bottom, #688697, #ffffff);
-            color: white;
+            background: linear-gradient(to bottom, #688697, #ffffff); /* Gradient background */
+            color: white; /* White text */
             position: relative;
-            margin-bottom: 0rem; /* Adjusted margin */
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 100%;
+            margin-left: 0.8in; /* Move card 0.8 inches away from the sidebar */
+            transition: background 0.3s ease-in-out; /* Adjust transition duration for quicker gradient */
         }
         .card-title {
-            font-size: 1.25rem; /* Reduced font size */
-            color: black;
+            font-size: 1.0rem; /* Larger "ABOUT" title */
+            color: black; /* Make "ABOUT" text black */
         }
         .card-body {
-            font-size: 1rem; /* Reduced font size */
+            font-size: 1.0rem; /* Slightly larger card body text */
         }
         p1 {
-            font-size: 1rem; /* Reduced font size */
-            color: #061a1a;
+            font-size: 1.0rem; /* Larger main text */
+            color: #061a1a; /* Blue text color */
+            margin-left: 0.5in; /* Shift text to the left by 0.5 inches */
         }
         .navbar {
-            overflow: hidden;
-            background-color: #333;
+            height: 100%;
+            width: 0;
             position: fixed;
+            z-index: 1;
             top: 0;
-            width: 100%;
-            z-index: 1000;
+            left: 0;
+            background-color: #688697;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
         }
         .navbar a {
-            float: left;
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 0.75rem 1rem; /* Adjusted padding */
+            padding: 8px 8px 8px 32px;
             text-decoration: none;
+            font-size: 25px;
+            color: white;
+            display: flex;
+            align-items: center;
+            transition: 0.3s;
+        }
+        .navbar a img {
+            margin-right: 10px;
+            width: 40px; /* Increase size for better visibility */
+            height: 40px; /* Increase size for better visibility */
+            border-radius: 50%; /* Make images round */
+            box-shadow: 0 0 6px rgba(0,0,0,0.3); /* Add a subtle shadow for card effect */
         }
         .navbar a:hover {
-            background-color: #ddd;
-            color: black;
+            background-color: #575757;
+        }
+        .navbar .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+        }
+        .hamburger {
+            font-size: 30px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: #688697;
+            position: fixed;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            z-index: 2;
         }
         .content-container {
-            margin: 5rem 1.5rem 1.5rem 1.5rem; /* Further reduced margin */
-            padding: 2rem;
+            margin: 80px 20px 20px 20px; /* Adjusted margin to account for fixed navbar */
+            padding: 20px;
             border: 1px solid #ddd;
             border-radius: 5px;
         }
         .card-title-small {
-            font-size: 1.25rem; /* Reduced font size */
+            font-size: 1.0rem; /* Reduced font size for specific card title */
+        }
+        .container {
+            margin-top: 20px;
         }
         .chart-container {
             position: relative;
-            height: 14rem;
-        }
-        @media (max-width: 768px) {
-            .card-title {
-                font-size: 1.25rem; /* Reduced font size */
-            }
-            .card-body {
-                font-size: 0.75rem; /* Reduced font size */
-            }
+            height: 400px;
         }
     </style>
 </head>
-<body>
+<body onclick="hideNavbar(event)">
 
+    <!-- Menu Bar -->
+    <div class="navbar">
+        <a href="index-mobile.html">Home</a>
+        <a href="articles-mobile.html">Articles</a>
+        <a href="Certifications-mobile.html">Certifications</a>
+        <a href="services-mobile.html">Services</a>
+        <a href="Compliance Monitoring-mobile.html">Compliance</a>
+    </div>
+
+<button class="hamburger" onclick="openNav(event)">☰</button>
+
+<div class="navbar" id="myNavbar">
+    <a href="javascript:void(0);" class="closebtn" onclick="closeNav()">&times;</a>
+</div>
+
+
+
+    <script>
+        // Load the menu from the external file
+        fetch('menu.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('menu-placeholder').innerHTML = data;
+            });
+    </script>
     <!-- Menu Bar -->
     <div class="navbar">
         <a href="index-mobile.html">Home</a>
@@ -246,6 +297,55 @@
                 document.getElementById('menu-placeholder').innerHTML = data;
             });
     </script>
+<script>
+    const jsonString = `[
+        {"name": "Home", "url": "index-mobile.html", "icon": "https://womacromax.github.io/HEI/media/Health Equity Impact LOGO.png"},
+        {"name": "Articles", "url": "articles-mobile.html", "icon": "https://womacromax.github.io/HEI/media/Articles.jpg"},
+        {"name": "About", "url": "aboutus-mobile.html", "icon": "https://womacromax.github.io/HEI/media/CHW Management.png"},
+        {"name": "Services", "url": "services-mobile.html", "icon": "https://womacromax.github.io/HEI/media/Business Services.jpg"},
+        {"name": "Compliance", "url": "Compliance Monitoring-mobile.html", "icon": "https://womacromax.github.io/HEI/media/compliance.png"},
+        {"name": "Certifications", "url": "certifications-mobile.html", "icon": "https://womacromax.github.io/HEI/media/certifications.jpg"}
+    ]`;
+
+    const links = JSON.parse(jsonString);
+
+    function createNavLinks(links) {
+        const navbar = document.getElementById('myNavbar');
+        links.forEach((link) => {
+            const a = document.createElement('a');
+            a.href = link.url;
+
+            const img = document.createElement('img');
+            img.src = link.icon;
+            img.alt = link.name;
+
+            a.appendChild(img);
+            a.appendChild(document.createTextNode(link.name));
+            navbar.appendChild(a);
+        });
+    }
+
+    function openNav(event) {
+        event.stopPropagation();
+        document.getElementById("myNavbar").style.width = "250px";
+    }
+
+    function closeNav() {
+        document.getElementById("myNavbar").style.width = "0";
+    }
+
+    function hideNavbar(event) {
+        if (event.target.classList.contains('hamburger') || event.target.classList.contains('closebtn')) {
+            return;
+        }
+        closeNav();
+    }
+
+    // Initialize navigation links
+    createNavLinks(links);
+</script>
+
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

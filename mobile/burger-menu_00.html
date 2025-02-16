@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Side Menu with Modals</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            position: relative;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .navbar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: lightgreen;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+        .navbar a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: white;
+            display: block;
+            transition: 0.3s;
+        }
+        .navbar a:hover {
+            background-color: #575757;
+        }
+        .navbar .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+        }
+        .hamburger {
+            font-size: 30px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: lightgreen;
+            position: fixed;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            z-index: 2;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            padding-top: 100px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body onclick="hideNavbar(event)">
+
+<button class="hamburger" onclick="openNav(event)">☰</button>
+
+<div class="navbar" id="myNavbar">
+    <a href="javascript:void(0);" class="closebtn" onclick="closeNav()">&times;</a>
+</div>
+
+<!-- Modals -->
+<div id="modals-container"></div>
+
+<script>
+    const jsonString = `[
+        {"name": "Link 1", "content": "Content for Link 1"},
+        {"name": "Link 2", "content": "Content for Link 2"},
+        {"name": "Link 3", "content": "Content for Link 3"},
+        {"name": "Link 4", "content": "Content for Link 4"},
+        {"name": "Link 5", "content": "Content for Link 5"},
+        {"name": "Link 6", "content": "Content for Link 6"}
+    ]`;
+
+    const links = JSON.parse(jsonString);
+
+    function createNavLinks(links) {
+        const navbar = document.getElementById('myNavbar');
+        links.forEach((link, index) => {
+            const a = document.createElement('a');
+            a.href = 'javascript:void(0);';
+            a.innerText = link.name;
+            a.onclick = (event) => {
+                event.stopPropagation();
+                openModal('modal' + (index + 1));
+            };
+            navbar.appendChild(a);
+        });
+    }
+
+    function createModals(links) {
+        const modalsContainer = document.getElementById('modals-container');
+        links.forEach((link, index) => {
+            const modal = document.createElement('div');
+            modal.id = 'modal' + (index + 1);
+            modal.className = 'modal';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal('modal${index + 1}')">&times;</span>
+                    <p>${link.content}</p>
+                </div>
+            `;
+            modalsContainer.appendChild(modal);
+        });
+    }
+
+    function openNav(event) {
+        event.stopPropagation();
+        document.getElementById("myNavbar").style.width = "250px";
+    }
+
+    function closeNav() {
+        document.getElementById("myNavbar").style.width = "0";
+    }
+
+    function openModal(modalId) {
+        document.getElementById(modalId).style.display = "block";
+    }
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = "none";
+    }
+
+    function hideNavbar(event) {
+        if (event.target.classList.contains('hamburger') || event.target.classList.contains('closebtn')) {
+            return;
+        }
+        closeNav();
+    }
+
+    // Initialize navigation links and modals
+    createNavLinks(links);
+    createModals(links);
+</script>
+
+</body>
+</html>

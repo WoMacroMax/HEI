@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -26,6 +27,8 @@
             background: linear-gradient(to bottom, #688697, #ffffff); /* Gradient background */
             color: white; /* White text */
             position: relative;
+            margin-left: 0.8in; /* Move card 0.8 inches away from the sidebar */
+            transition: background 0.3s ease-in-out; /* Adjust transition duration for quicker gradient */
         }
         .card-title {
             font-size: 1.0rem; /* Larger "ABOUT" title */
@@ -37,26 +40,56 @@
         p1 {
             font-size: 1.0rem; /* Larger main text */
             color: #061a1a; /* Blue text color */
+            margin-left: 0.5in; /* Shift text to the left by 0.5 inches */
         }
         .navbar {
-            overflow: hidden;
-            background-color: #333;
+            height: 100%;
+            width: 0;
             position: fixed;
+            z-index: 1;
             top: 0;
-            width: 100%;
-            z-index: 1000;
+            left: 0;
+            background-color: #688697;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
         }
         .navbar a {
-            float: left;
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 0.75rem 1rem; /* Adjusted padding */
+            padding: 8px 8px 8px 32px;
             text-decoration: none;
+            font-size: 25px;
+            color: white;
+            display: flex;
+            align-items: center;
+            transition: 0.3s;
+        }
+        .navbar a img {
+            margin-right: 10px;
+            width: 40px; /* Increase size for better visibility */
+            height: 40px; /* Increase size for better visibility */
+            border-radius: 50%; /* Make images round */
+            box-shadow: 0 0 6px rgba(0,0,0,0.3); /* Add a subtle shadow for card effect */
         }
         .navbar a:hover {
-            background-color: #ddd;
-            color: black;
+            background-color: #575757;
+        }
+        .navbar .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+        }
+        .hamburger {
+            font-size: 30px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: #688697;
+            position: fixed;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            z-index: 2;
         }
         .content-container {
             margin: 80px 20px 20px 20px; /* Adjusted margin to account for fixed navbar */
@@ -76,7 +109,7 @@
         }
     </style>
 </head>
-<body>
+<body onclick="hideNavbar(event)">
 
     <!-- Menu Bar -->
     <div class="navbar">
@@ -87,9 +120,14 @@
         <a href="Compliance Monitoring-mobile.html">Compliance</a>
     </div>
 
+<button class="hamburger" onclick="openNav(event)">☰</button>
+
+<div class="navbar" id="myNavbar">
+    <a href="javascript:void(0);" class="closebtn" onclick="closeNav()">&times;</a>
+</div>
 
     <div class="content-container">
-        <h1 style="font-size: 32px; margin-top: 20px; margin-left: 10px;">About Us</h1>
+        <h1 style="font-size: 32px; margin-top: 20px; margin-left: 0.5in;">About Us</h1>
     </div>
 
         <div class="container d-flex flex-column vh-110">
@@ -137,8 +175,58 @@
                 document.getElementById('menu-placeholder').innerHTML = data;
             });
     </script>
+<script>
+    const jsonString = `[
+        {"name": "Home", "url": "index-mobile.html", "icon": "https://womacromax.github.io/HEI/media/Health Equity Impact LOGO.png"},
+        {"name": "Articles", "url": "articles-mobile.html", "icon": "https://womacromax.github.io/HEI/media/Articles.jpg"},
+        {"name": "About", "url": "aboutus-mobile.html", "icon": "https://womacromax.github.io/HEI/media/CHW Management.png"},
+        {"name": "Services", "url": "services-mobile.html", "icon": "https://womacromax.github.io/HEI/media/Business Services.jpg"},
+        {"name": "Compliance", "url": "Compliance Monitoring-mobile.html", "icon": "https://womacromax.github.io/HEI/media/compliance.png"},
+        {"name": "Certifications", "url": "certifications-mobile.html", "icon": "https://womacromax.github.io/HEI/media/certifications.jpg"}
+    ]`;
+
+    const links = JSON.parse(jsonString);
+
+    function createNavLinks(links) {
+        const navbar = document.getElementById('myNavbar');
+        links.forEach((link) => {
+            const a = document.createElement('a');
+            a.href = link.url;
+
+            const img = document.createElement('img');
+            img.src = link.icon;
+            img.alt = link.name;
+
+            a.appendChild(img);
+            a.appendChild(document.createTextNode(link.name));
+            navbar.appendChild(a);
+        });
+    }
+
+    function openNav(event) {
+        event.stopPropagation();
+        document.getElementById("myNavbar").style.width = "250px";
+    }
+
+    function closeNav() {
+        document.getElementById("myNavbar").style.width = "0";
+    }
+
+    function hideNavbar(event) {
+        if (event.target.classList.contains('hamburger') || event.target.classList.contains('closebtn')) {
+            return;
+        }
+        closeNav();
+    }
+
+    // Initialize navigation links
+    createNavLinks(links);
+</script>
+
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 </html>
