@@ -45,20 +45,22 @@
         }
         .navbar {
             height: 100%;
-            width: 0;
+            width: 250px; /* Set a specific width for the sidebar */
             position: fixed;
             z-index: 1;
             top: 0;
             left: 0;
             background-color: #688697;
+            overflow-y: auto; /* Enable vertical scrolling */
             overflow-x: hidden;
             transition: 0.5s;
             padding-top: 60px;
+            font-size: 16px; /* Reduced font size */
         }
         .navbar a {
             padding: 8px 8px 8px 32px;
             text-decoration: none;
-            font-size: 25px;
+            font-size: 16px; /* Reduced font size */
             color: white;
             display: flex;
             align-items: center;
@@ -85,12 +87,11 @@
             cursor: pointer;
             background: none;
             border: none;
-            color: #688697;
+            color: pink; /* Change hamburger menu color to pink */
             position: fixed;
             top: 20px; /* Move to top of the screen */
             right: 20px; /* Move to right of the screen */
             z-index: 2;
-            color: pink; /* Change the color to pink */
         }
         .content-container {
             margin: 80px 20px 20px 20px; /* Adjusted margin to account for fixed navbar */
@@ -109,6 +110,23 @@
 </head>
 <body onclick="hideNavbar(event)">
 
+<button class="hamburger" onclick="openNav(event)">☰</button>
+
+<div class="navbar" id="myNavbar">
+    <a href="javascript:void(0);" class="closebtn" onclick="closeNav()">&times;</a>
+</div>
+
+<!-- Menu Bar -->
+<div class="navbar">
+    <a href="index-mobile.html">Home</a>
+    <a href="aboutus-mobile.html">About Us</a>
+    <a href="articles-mobile.html">Articles</a>
+    <a href="services-mobile.html">Services</a>
+    <a href="Certifications-mobile.html">Certifications</a>
+</div>
+
+<body onclick="hideNavbar(event)">
+
     <!-- Menu Bar -->
     <div class="navbar">
         <a href="index-mobile.html">Home</a>
@@ -123,10 +141,15 @@
 <div class="navbar" id="myNavbar">
     <a href="javascript:void(0);" class="closebtn" onclick="closeNav()">&times;</a>
 </div>
+    
+
+    <!-- Content -->
+
 
     <div class="content-container">
         <h1 style="font-size: 32px; margin-top: 20px; margin-left: 0.5in;">About Us</h1>
     </div>
+
 
         <div class="container d-flex flex-column vh-110">
             <div class="row align-items-start justify-content-center w-150">
@@ -185,7 +208,7 @@
         {"name": "About", "url": "aboutus-mobile.html", "icon": "https://womacromax.github.io/HEI/media/CHW Management.png"},
         {"name": "Services", "url": "services-mobile.html", "icon": "https://womacromax.github.io/HEI/media/Business Services.jpg"},
         {"name": "Compliance", "url": "Compliance Monitoring-mobile.html", "icon": "https://womacromax.github.io/HEI/media/compliance.png"},
-        {"name": "Certifications", "url": "certifications-mobile.html", "icon": "https://womacromax.github.io/HEI/media/certifications.jpg"}
+        {"name": "Certifications", "url": "Certifications-mobile.html", "icon": "https://womacromax.github.io/HEI/media/certifications.png"}
     ]`;
 
     const links = JSON.parse(jsonString);
