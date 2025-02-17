@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=.8">
     <title>IRB Submission</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -21,16 +21,16 @@
             padding: 1rem; /* Further reduced padding */
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin-bottom: 1rem; /* Added margin-bottom to create a gap between containers */
-            max-width: calc(100% - .8in); /* Adjusted max-width to reduce the width of the containers */
-            float: right; /* Right justify the container */
+            max-width: calc(100% - .8in); /* Reduce width by 2 inches */
         }
         .card {
             background: linear-gradient(to bottom, #688697, #ffffff); /* Gradient background */
             color: white; /* White text */
             position: relative;
-            margin-left: 0.8in; /* Move card 0.8 inches away from the sidebar */
+            margin-left: auto; /* Right justify the card */
+            margin-right: 0.8in; /* Move card 0.8 inches away from the right edge */
             transition: background 0.3s ease-in-out; /* Adjust transition duration for quicker gradient */
-            float: right; /* Right justify the card */
+            width: 100%; /* Stretch the card to full width of the container */
         }
         .card-title {
             font-size: 1.0rem; /* Larger "ABOUT" title */
@@ -86,12 +86,12 @@
             cursor: pointer;
             background: none;
             border: none;
-            color: pink; /* Change hamburger menu color to pink */
+            color: #688697;
             position: fixed;
-            top: 15px; /* Move to the top */
-            right: 15px; /* Move to the right */
-            transform: translateY(-50%);
+            top: 20px; /* Move to top of the screen */
+            right: 20px; /* Move to right of the screen */
             z-index: 2;
+            color: pink; /* Change the color to pink */
         }
         .content-container {
             margin: 80px 20px 20px 20px; /* Adjusted margin to account for fixed navbar */
@@ -101,9 +101,6 @@
         }
         .card-title-small {
             font-size: 1.0rem; /* Reduced font size for specific card title */
-        }
-        .container {
-            margin-top: 20px;
         }
         .chart-container {
             position: relative;
@@ -128,18 +125,10 @@
     <a href="javascript:void(0);" class="closebtn" onclick="closeNav()">&times;</a>
 </div>
 
-    <!-- Menu Bar -->
-    <div class="navbar">
-        <a href="index.html">Home</a>
-        <a href="articles.html">Articles</a>
-        <a href="aboutus.html">About</a>
-        <a href="services.html">Services</a>
-        <a href="contactus.html">Contact</a>
-    </div>
-
     <!-- Content -->
+
     <div class="content-container">
-        <h1 style="margin-left: 20px;">IRB Submission</h1>
+        <h2 style="margin-left: 20px;">IRB Submission</h2>
     </div>
 
     <div class="container d-flex flex-column vh-110">
@@ -214,7 +203,7 @@
         {"name": "About", "url": "aboutus-mobile.html", "icon": "https://womacromax.github.io/HEI/media/CHW Management.png"},
         {"name": "Services", "url": "services-mobile.html", "icon": "https://womacromax.github.io/HEI/media/Business Services.jpg"},
         {"name": "Compliance", "url": "Compliance Monitoring-mobile.html", "icon": "https://womacromax.github.io/HEI/media/compliance.png"},
-        {"name": "Certifications", "url": "certifications-mobile.html", "icon": "https://womacromax.github.io/HEI/media/certifications.jpg"}
+        {"name": "Certifications", "url": "Certifications-mobile.html", "icon": "https://womacromax.github.io/HEI/media/certifications.png"}
     ]`;
 
     const links = JSON.parse(jsonString);
@@ -265,6 +254,67 @@
                 document.getElementById('menu-placeholder').innerHTML = data;
             });
     </script>
+    
+
+<!-- SCRIPT SECTION -->
+
+
+    <script>
+        // Load the menu from the external file
+        fetch('menu.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('menu-placeholder').innerHTML = data;
+            });
+    </script>
+<script>
+    const jsonString = `[
+        {"name": "Home", "url": "index-mobile.html", "icon": "https://womacromax.github.io/HEI/media/Health Equity Impact LOGO.png"},
+        {"name": "Articles", "url": "articles-mobile.html", "icon": "https://womacromax.github.io/HEI/media/Articles.jpg"},
+        {"name": "About", "url": "aboutus-mobile.html", "icon": "https://womacromax.github.io/HEI/media/CHW Management.png"},
+        {"name": "Services", "url": "services-mobile.html", "icon": "https://womacromax.github.io/HEI/media/Business Services.jpg"},
+        {"name": "Compliance", "url": "Compliance Monitoring-mobile.html", "icon": "https://womacromax.github.io/HEI/media/compliance.png"},
+        {"name": "Certifications", "url": "Certifications-mobile.html", "icon": "https://womacromax.github.io/HEI/media/certifications.png"}
+    ]`;
+
+    const links = JSON.parse(jsonString);
+
+    function createNavLinks(links) {
+        const navbar = document.getElementById('myNavbar');
+        links.forEach((link) => {
+            const a = document.createElement('a');
+            a.href = link.url;
+
+            const img = document.createElement('img');
+            img.src = link.icon;
+            img.alt = link.name;
+
+            a.appendChild(img);
+            a.appendChild(document.createTextNode(link.name));
+            navbar.appendChild(a);
+        });
+    }
+
+    function openNav(event) {
+        event.stopPropagation();
+        document.getElementById("myNavbar").style.width = "250px";
+    }
+
+    function closeNav() {
+        document.getElementById("myNavbar").style.width = "0";
+    }
+
+    function hideNavbar(event) {
+        if (event.target.classList.contains('hamburger') || event.target.classList.contains('closebtn')) {
+            return;
+        }
+        closeNav();
+    }
+
+    // Initialize navigation links
+    createNavLinks(links);
+</script>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
