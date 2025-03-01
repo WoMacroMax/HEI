@@ -1,0 +1,738 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"manae",
+				"management"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"contents": "",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/HEI/desktop/contactus-desktop.html",
+			"settings":
+			{
+				"buffer_size": 5588,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			},
+			"undo_stack":
+			[
+				[
+					3,
+					1,
+					"left_delete",
+					null,
+					"AQAAAFoKAAAAAAAAWgoAAAAAAAABAAAAcw",
+					"AQAAAAAAAAABAAAAWwoAAAAAAABbCgAAAAAAAAAAAAAAAPC/"
+				]
+			]
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"auto",
+				"Toggle AutoSave: all files"
+			],
+			[
+				"color",
+				"UI: Select Color Scheme"
+			],
+			[
+				"title",
+				"Convert Case: Title Case"
+			],
+			[
+				"matching",
+				"Jump to Matching Bracket"
+			],
+			[
+				"file",
+				"File: Move…"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"rena",
+				"File: Rename File"
+			],
+			[
+				"path",
+				"Copy File Path"
+			],
+			[
+				"folder",
+				"Project: Add Folder"
+			],
+			[
+				"file m",
+				"File: Move…"
+			],
+			[
+				"ren",
+				"File: Rename File"
+			],
+			[
+				"renam",
+				"File: Rename File"
+			],
+			[
+				"pro",
+				"Project: Save As"
+			],
+			[
+				"com",
+				"Toggle Comment"
+			],
+			[
+				"html",
+				"Set Syntax: HTML"
+			],
+			[
+				"qui",
+				"Quick File Move: Move Current File"
+			],
+			[
+				"quick",
+				"Quick File Move: Move Current File"
+			],
+			[
+				"save all",
+				"File: Save All"
+			],
+			[
+				"lower",
+				"Convert Case: Lower Case"
+			],
+			[
+				"lo",
+				"Convert Case: Lower Case"
+			],
+			[
+				"rename",
+				"File: Rename File"
+			],
+			[
+				"autosave",
+				"Toggle AutoSave: all files"
+			],
+			[
+				"wrap",
+				"Word Wrap: Toggle"
+			],
+			[
+				"",
+				"Copy File Path"
+			],
+			[
+				"live",
+				"LiveReload: Help"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"back",
+				"Create backup copy of file"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"install ",
+				"Package Control: Install Package"
+			],
+			[
+				"tit",
+				"Convert Case: Title Case"
+			],
+			[
+				"titl",
+				"Convert Case: Title Case"
+			],
+			[
+				"the",
+				"UI: Select Theme"
+			],
+			[
+				"save",
+				"File: Save All"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/HEI"
+	],
+	"file_history":
+	[
+		"/C/Users/WoMax/Documents/GitHub/HEI/desktop/contactus-desktop.html",
+		"/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/INFO/Copilot Prompts.txt",
+		"/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/Stack Pallets Side-By-Side 02252502.html",
+		"/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/Choose to Move with Tabs.html",
+		"/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/Load View.html",
+		"/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/Stack Pallets Side-By-Side with remove button 16.html",
+		"/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/temp2.html",
+		"/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/Choose Your Items (Pallet Loader) 1.html",
+		"/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/skeleton view.html",
+		"/C/Users/WoMax/Documents/SubmittalCheck Verification.html",
+		"/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/Archives/TripOmeter.html",
+		"/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/truck-load grid. 2.html",
+		"/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/Load Manager 19 align top-left.html",
+		"/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/Archives/Fill the Truck.html",
+		"/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/Stacked Pallet 12 max cases.html",
+		"/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/Stacked Pallet 09 working images.html",
+		"/C/Users/WoMax/AppData/Roaming/Sublime Text/Packages/User/Bash.sublime-build",
+		"/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/temp.html",
+		"/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/powershell - backup folder to onedrive.ps1",
+		"/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/place the hamburger menu at the top right of the s",
+		"/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/the Impact Effect.html",
+		"/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/truck-load COUNT-07.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/mobile/burger-menu (icons) 02.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/mobile/Certifications-mobile.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/mobile/Compliance Monitoring-mobile.html",
+		"/C/Users/WoMax/Documents/WoMacroMAX Publishing/MoveCheap/Name Your Price Tool/place the hamburger menu at the top right of the s",
+		"/C/Users/WoMax/Documents/WoMacroMAX Publishing/MoveCheap/Name Your Price Tool/TripOmeter.html",
+		"/C/Users/WoMax/Documents/WoMacroMAX Publishing/MoveCheap/Name Your Price Tool/truck-load COUNT-07.html",
+		"/C/Users/WoMax/Documents/truck-load COUNT-07.html",
+		"/C/Users/WoMax/Documents/WoMacroMAX Publishing/MoveCheap/Name Your Price Tool/Fill the Truck.html",
+		"/C/Users/WoMax/Documents/HTML/Fill the Truck.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/mobile/Manage Clinical Trial Inspection-mobile.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/mobile/articles-mobile.html",
+		"/C/Users/WoMax/Documents/WoMacroMAX Publishing/MoveCheap/Name Your Price Tool/the Impact Effect.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/mobile/the Impact Effect.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/mobile/aboutus-mobile.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/mobile/services-mobile.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/index.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/mobile/index-mobile.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/mobile/contactus.html",
+		"/C/Users/WoMax/Documents/WoMacroMAX Publishing/MoveCheap/Name Your Price Tool/each color represents a random food name.txt",
+		"/C/Users/WoMax/Documents/GitHub/HEI/mobile/IRB Submission-mobile.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/desktop/chw management-desktop.html.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/desktop/certifications-desktop.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/desktop/articles-desktop.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/desktop/aboutus-desktop.html",
+		"/C/Users/WoMax/Documents/HTML/hamburger-side from JSON string with modal -02.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/mobile/mobile-header.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/desktop/services-desktop.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/desktop/menu-desktop.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/desktop/manage clinical trial-desktop.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/desktop/irb submission-desktop.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/desktop/electronic forms-desktop.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/desktop/compliance monitoring-desktop.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/mobile/Electronic Forms-mobile.html",
+		"/C/Users/WoMax/Documents/HTML/MoveCheap TripOmeter.html",
+		"/C/Users/WoMax/Documents/HTML/add to JSON - fill the truck.html",
+		"/C/Users/WoMax/Documents/HTML/stacked pallet 02.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/mobile/index.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/media/Health Equity Impact Logo.png",
+		"/C/Users/WoMax/Documents/GitHub/HEI/desktop/index-desktop.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/desktop/AboutUs.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/index-mobile.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/a black woman helping a black grandmother.png",
+		"/C/Users/WoMax/Documents/HTML/Python on Web.html",
+		"/C/Users/WoMax/Documents/HTML/order form with removal button.html",
+		"/C/Users/WoMax/Documents/HTML/HTML MySQL - CRUD example/kill all except explorer.ps1",
+		"/C/Users/WoMax/Documents/HTML/021325 Click Zones 001.html",
+		"/C/Users/WoMax/Documents/HTML/HTML example to create a card that shows all events and coordinates, displayed in the bottom-right corner of the screen.html",
+		"/C/Users/WoMax/Documents/HTML/iOS simulator.html",
+		"/C/Users/WoMax/Documents/HTML/Bootstrap Html Inventory Form That Cruds To Mongo.html",
+		"/C/Users/WoMax/Documents/HTML/npm install express mongoose body-parser cors.instructions",
+		"/C/Users/WoMax/Documents/HTML/find distance between ZIPCODES.html",
+		"/C/Users/WoMax/Documents/HTML/node.js",
+		"/C/Users/WoMax/Documents/HTML/HTML inventory form that cruds to mongoDB.html",
+		"/C/Users/WoMax/Documents/HTML/Create A Sortable Bootstrap Form With Headers2.instructions",
+		"/C/Users/WoMax/Documents/HTML/Create A Sortable Bootstrap Form With Headers choose from dropdown.instructions",
+		"/C/Users/WoMax/Documents/HTML/Create A Sortable Bootstrap Form With Headers4.instructions",
+		"/C/Users/WoMax/Documents/HTML/Create A Sortable Bootstrap Form With Headers 3.instructions",
+		"/C/Users/WoMax/Documents/HTML/Create A Sortable Bootstrap Form With Headers.instructions",
+		"/C/Users/WoMax/Documents/HTML/Give An Example Of Html Page Find Distance Between Two Zipcodes.instructions",
+		"/C/Users/WoMax/Documents/HTML/Give An Example Form Giving Distance Between Two Zipcode1.instructions",
+		"/C/Users/WoMax/Documents/HTML/Give An Example Form Giving Distance Between Two Zipcode.instructions",
+		"/C/Users/WoMax/Documents/HTML/Give An Example Form Giving Distance Between Two Zipcode",
+		"/C/Users/WoMax/Documents/HTML/Order-Form.html",
+		"/C/Users/WoMax/Documents/HTML/Order-Form with Dropdown.html",
+		"/C/Users/WoMax/Documents/HTML/Implement Excel Functionality using HTML page.html",
+		"/C/Users/WoMax/Documents/HTML/data.json",
+		"/C/Users/WoMax/Documents/HTML/import.py",
+		"/C/Users/WoMax/Documents/HTML/order-menu.json",
+		"/C/Users/WoMax/Documents/HTML/Dropdown Menu to Grid.html",
+		"/C/Users/WoMax/Documents/HTML/options.json",
+		"/C/Users/WoMax/Documents/HTML/Read Into Dropdown from JSON.html",
+		"/C/Users/WoMax/Documents/HTML/food-items-script.js",
+		"/C/Users/WoMax/Documents/HTML/Dropdown Menu  from file.html",
+		"/C/Users/WoMax/Documents/HTML/data1.json",
+		"/C/Users/WoMax/Documents/HTML/read JSON.py"
+	],
+	"find":
+	{
+		"height": 27.2
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"scrollbar_highlights": true,
+		"show_context": true,
+		"use_buffer2": true,
+		"use_gitignore": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"stack_multiselect": false,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/HEI/desktop/contactus-desktop.html",
+					"selected": true,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5588,
+						"regions":
+						{
+							"col_00000019":
+							{
+								"flags": 16,
+								"regions":
+								[
+									[
+										677,
+										695
+									]
+								],
+								"scope": "col_00000019"
+							},
+							"col_00000019_icon":
+							{
+								"flags": 16,
+								"icon": "Packages/User/Color Highlight.cache/col_00000019_circle.png",
+								"regions":
+								[
+									[
+										644,
+										644
+									]
+								],
+								"scope": "col_gutter"
+							},
+							"col_000000FF":
+							{
+								"flags": 16,
+								"regions":
+								[
+									[
+										1191,
+										1196
+									]
+								],
+								"scope": "col_000000FF"
+							},
+							"col_000000FF_icon":
+							{
+								"flags": 16,
+								"icon": "Packages/User/Color Highlight.cache/col_000000FF_circle.png",
+								"regions":
+								[
+									[
+										1172,
+										1172
+									]
+								],
+								"scope": "col_gutter"
+							},
+							"col_333333FF":
+							{
+								"flags": 16,
+								"regions":
+								[
+									[
+										493,
+										497
+									],
+									[
+										785,
+										789
+									],
+									[
+										1965,
+										1969
+									]
+								],
+								"scope": "col_333333FF"
+							},
+							"col_333333FF_icon":
+							{
+								"flags": 16,
+								"icon": "Packages/User/Color Highlight.cache/col_333333FF_circle.png",
+								"regions":
+								[
+									[
+										474,
+										474
+									],
+									[
+										755,
+										755
+									],
+									[
+										1935,
+										1935
+									]
+								],
+								"scope": "col_gutter"
+							},
+							"col_555555FF":
+							{
+								"flags": 16,
+								"regions":
+								[
+									[
+										2159,
+										2163
+									]
+								],
+								"scope": "col_555555FF"
+							},
+							"col_555555FF_icon":
+							{
+								"flags": 16,
+								"icon": "Packages/User/Color Highlight.cache/col_555555FF_circle.png",
+								"regions":
+								[
+									[
+										2129,
+										2129
+									]
+								],
+								"scope": "col_gutter"
+							},
+							"col_DDDDDDFF":
+							{
+								"flags": 16,
+								"regions":
+								[
+									[
+										1166,
+										1170
+									],
+									[
+										1385,
+										1389
+									],
+									[
+										1516,
+										1520
+									]
+								],
+								"scope": "col_DDDDDDFF"
+							},
+							"col_DDDDDDFF_icon":
+							{
+								"flags": 16,
+								"icon": "Packages/User/Color Highlight.cache/col_DDDDDDFF_circle.png",
+								"regions":
+								[
+									[
+										1136,
+										1136
+									],
+									[
+										1355,
+										1355
+									],
+									[
+										1486,
+										1486
+									]
+								],
+								"scope": "col_gutter"
+							},
+							"col_F0F0F0FF":
+							{
+								"flags": 16,
+								"regions":
+								[
+									[
+										442,
+										449
+									]
+								],
+								"scope": "col_F0F0F0FF"
+							},
+							"col_F0F0F0FF_icon":
+							{
+								"flags": 16,
+								"icon": "Packages/User/Color Highlight.cache/col_F0F0F0FF_circle.png",
+								"regions":
+								[
+									[
+										412,
+										412
+									]
+								],
+								"scope": "col_gutter"
+							},
+							"col_FEFEFEFF":
+							{
+								"flags": 16,
+								"regions":
+								[
+									[
+										577,
+										582
+									],
+									[
+										994,
+										999
+									],
+									[
+										1990,
+										1995
+									]
+								],
+								"scope": "col_FEFEFEFF"
+							},
+							"col_FEFEFEFF_icon":
+							{
+								"flags": 16,
+								"icon": "Packages/User/Color Highlight.cache/col_FEFEFEFF_circle.png",
+								"regions":
+								[
+									[
+										547,
+										547
+									],
+									[
+										975,
+										975
+									],
+									[
+										1971,
+										1971
+									]
+								],
+								"scope": "col_gutter"
+							}
+						},
+						"selection":
+						[
+							[
+								2650,
+								2650
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 54.4,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"stack_multiselect": false,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 27.2
+	},
+	"input":
+	{
+		"height": 48.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 150.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "Packages/Python/Python.sublime-build",
+	"project": "HEI Publish 030125001.sublime-project",
+	"replace":
+	{
+		"height": 51.2
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 415.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
