@@ -3,62 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Compliance Monitoring</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Clinical Health Research and Development</title>
     <style>
         body {
-            background-color: #f0f0f0; /* Light background */
-            color: #333; /* Text color */
-        }
-        .container {
-            background-color: white;
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .card {
-            background: linear-gradient(to bottom, #688697, #ffffff); /* Gradient background */
-            color: white; /* White text */
-            position: relative;
-        }
-        .card-title {
-            font-size: 2.5rem; /* Larger title */
-            color: black; /* Make title text black */
-        }
-        .card-body {
-            font-size: 1.2rem; /* Slightly larger card body text */
-        }
-        p1 {
-            font-size: 1.5rem; /* Larger main text */
-            color: #061a1a; /* Blue text color */
-        }
-        .navbar {
-            overflow: hidden;
-            background-color: #333;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-        }
-        .navbar a {
-            float: left;
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 20px;
-            text-decoration: none;
-        }
-        .navbar a:hover {
-            background-color: #ddd;
-            color: black;
+            background-color: #f0f0f0;
+            color: #333;
+            font-size: 1rem;
+            font-family: Arial, sans-serif;
         }
         .content-container {
-            margin: 80px 20px 20px 20px; /* Adjusted margin to account for fixed navbar */
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        .content2-container {
             background-color: white;
             border-radius: 15px;
             padding: 2rem;
@@ -86,28 +39,8 @@
     </style>
 </head>
 <body>
-    <!-- Menu Bar -->
-    <div class="navbar">
-        <a href="index-desktop.html">Home</a>
-        <a href="aboutus-desktop.html">About</a>
-        <a href="services-desktop.html">Services</a>
-        <a href="articles-desktop.html">Articles</a>
-    </div>
-
-    <!-- Content -->
     <div class="content-container">
-        <h6 style="margin-left: 20px;"></h6>
-    </div>
-
-    <div class="container d-flex flex-column vh-150">
-        <div class="row align-items-start justify-content-center w-100">
-            <div class="col-md-10">
-                <div class="card mb-3">
-                    <div class="card-body">
-                    </div>
-                        <h3 class="card-title">Clinical Health Research and Development</h3>
-                </div>
-                <div class="content2-container">
+        <h1>Clinical Health Research and Development</h1>
         <p>At <span class="highlight-blue">Health Equity Impact</span>, our Clinical Health Research and Development team is dedicated to advancing the frontiers of medical science and improving patient outcomes through rigorous research and innovative development. Our mission is to translate scientific discoveries into practical healthcare solutions that address the most pressing medical challenges.</p>
         
         <div class="focus-area">
@@ -122,20 +55,5 @@
         <h2>Our Vision:</h2>
         <p>Our vision is to lead the way in clinical health research and development, shaping the future of medicine through innovative solutions and a steadfast commitment to improving global health. By bridging the gap between scientific discovery and clinical application, we aim to bring hope and healing to patients worldwide.</p>
     </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Load the menu from the external file
-        fetch('menu.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('menu-placeholder').innerHTML = data;
-            });
-    </script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
