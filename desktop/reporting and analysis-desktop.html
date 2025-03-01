@@ -185,11 +185,15 @@
         const xValues = data.map(item => item.x);
         const yValues = data.map(item => item.y);
         const zValues = data.map(item => item.z);
-        // auto scroll on launch
+        
+        // Make view adjustments prior to launch
         window.onload = function() {
-            window.scrollTo(0, 400); // Scroll down 5 inches (480 pixels) on page load
             document.body.style.zoom = "90%"; // Zoom page to 90% on page load
-        };
+            window.scrollTo(0, 420); // Scroll down 5 inches (480 pixels) on page load
+            setTimeout(function() {
+                document.querySelector('.hidden-content').style.display = 'block'; // Show the content after delay
+            }, 100); // Adjust the delay as needed (100 milliseconds in this example)
+        }
 
         // Create the chart
         const ctx = document.getElementById('myChart').getContext('2d');
