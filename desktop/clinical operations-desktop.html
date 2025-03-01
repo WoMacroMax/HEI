@@ -7,34 +7,42 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #f0f0f0; /* Light background */
-            color: #333; /* Text color */
+            background-color: #f0f0f0;
+            color: #333;
+            font-size: 0.875rem; /* Reduced font size */
         }
         .container {
             background-color: white;
             border-radius: 15px;
-            padding: 20px;
+            padding: 1rem; /* Further reduced padding */
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem; /* Added margin-bottom to create a gap between containers */
+            max-width: 800px; /* Added max-width to reduce the width of the containers */
         }
         .card {
-            background: linear-gradient(to bottom, #688697, #ffffff); /* Gradient background */
-            color: white; /* White text */
+            background: linear-gradient(to bottom, #688697, #ffffff);
+            color: white;
             position: relative;
+            margin-bottom: 0rem; /* Adjusted margin */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
         }
         .card-title {
-            font-size: 2.5rem; /* Larger title */
-            color: black; /* Make title text black */
+            font-size: 1.25rem; /* Reduced font size */
+            color: black;
         }
         .card-body {
-            font-size: 1.2rem; /* Slightly larger card body text */
+            font-size: 1rem; /* Reduced font size */
         }
         p1 {
-            font-size: 1.5rem; /* Larger main text */
-            color: #061a1a; /* Blue text color */
+            font-size: 1rem; /* Reduced font size */
+            color: #061a1a;
         }
         .navbar {
             overflow: hidden;
-            background-color: #31B39C;
+            background-color: #333;
             position: fixed;
             top: 0;
             width: 100%;
@@ -45,7 +53,7 @@
             display: block;
             color: white;
             text-align: center;
-            padding: 14px 20px;
+            padding: 0.75rem 1rem; /* Adjusted padding */
             text-decoration: none;
         }
         .navbar a:hover {
@@ -53,10 +61,25 @@
             color: black;
         }
         .content-container {
-            margin: 80px 20px 20px 20px; /* Adjusted margin to account for fixed navbar */
-            padding: 20px;
+            margin: 5rem 1.5rem 1.5rem 1.5rem; /* Further reduced margin */
+            padding: 2rem;
             border: 1px solid #ddd;
             border-radius: 5px;
+        }
+        .card-title-small {
+            font-size: 1.25rem; /* Reduced font size */
+        }
+        .chart-container {
+            position: relative;
+            height: 14rem;
+        }
+        @media (max-width: 768px) {
+            .card-title {
+                font-size: 1.25rem; /* Reduced font size */
+            }
+            .card-body {
+                font-size: 0.75rem; /* Reduced font size */
+            }
         }
     </style>
 </head>
