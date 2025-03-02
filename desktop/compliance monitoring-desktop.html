@@ -7,38 +7,34 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #f0f0f0;
-            color: #333;
-            font-size: 0.875rem; /* Reduced font size */
+            background-color: #f0f0f0; /* Light background */
+            color: #333; /* Text color */
         }
         .container {
             background-color: white;
             border-radius: 15px;
-            padding: 1rem; /* Further reduced padding */
+            padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 1rem; /* Added margin-bottom to create a gap between containers */
-            max-width: 800px; /* Added max-width to reduce the width of the containers */
         }
         .card {
-            background: linear-gradient(to bottom, #black, #ffffff);
-            color: white;
+            background: linear-gradient(to bottom, #688697, #ffffff); /* Gradient background */
+            color: white; /* White text */
             position: relative;
-            margin-bottom: 0rem; /* Adjusted margin */
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 100%;
+            height: 80%; /* Increased height by 60% */
+            overflow: hidden; /* Ensure content is hidden if it overflows */
+            padding-bottom: 0px; /* Reduced padding at the bottom */
         }
         .card-title {
-            font-size: 1.25rem; /* Reduced font size */
-            color: black;
+            font-size: 2.5rem; /* Larger title */
+            color: black; /* Make title text black */
         }
         .card-body {
-            font-size: 1rem; /* Reduced font size */
+            font-size: 1.2rem; /* Slightly larger card body text */
+            overflow: auto; /* Enable scrolling if content overflows */
         }
         p1 {
-            font-size: 1rem; /* Reduced font size */
-            color: #061a1a;
+            font-size: 1.5rem; /* Larger main text */
+            color: #061a1a; /* Blue text color */
         }
         .navbar {
             overflow: hidden;
@@ -53,7 +49,7 @@
             display: block;
             color: white;
             text-align: center;
-            padding: 0.75rem 1rem; /* Adjusted padding */
+            padding: 14px 20px;
             text-decoration: none;
         }
         .navbar a:hover {
@@ -61,25 +57,10 @@
             color: black;
         }
         .content-container {
-            margin: 5rem 1.5rem 1.5rem 1.5rem; /* Further reduced margin */
-            padding: 2rem;
+            margin: 80px 20px 20px 20px; /* Adjusted margin to account for fixed navbar */
+            padding: 20px;
             border: 1px solid #ddd;
             border-radius: 5px;
-        }
-        .card-title-small {
-            font-size: 1.25rem; /* Reduced font size */
-        }
-        .chart-container {
-            position: relative;
-            height: 14rem;
-        }
-        @media (max-width: 768px) {
-            .card-title {
-                font-size: 1.25rem; /* Reduced font size */
-            }
-            .card-body {
-                font-size: 0.75rem; /* Reduced font size */
-            }
         }
     </style>
 </head>
@@ -94,19 +75,18 @@
 
 
     <!-- Content -->
-
-
     <div class="content-container">
-        <h6 style="margin-left: 20px;"></h6>
+        <h1 style="margin-left: 20px;">Compliance Monitoring</h1>
     </div>
+
 
     <div class="container d-flex flex-column vh-100">
         <div class="row align-items-start justify-content-center w-100">
             <div class="col-md-10">
                 <div class="card mb-3">
                     <div class="card-body">
+                        <h6 class="card-title">Compliance Monitoring</h6>
                     </div>
-                        <h7 class="card-title">Compliance Monitoring</h7>
                 </div>
                         <p class="card-text">Our compliance monitoring services ensure that all clinical trials adhere to regulatory requirements and Good Clinical Practice (GCP) guidelines. We provide comprehensive monitoring to ensure data integrity and patient safety.</p>
                         <ul>
