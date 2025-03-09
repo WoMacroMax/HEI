@@ -10,35 +10,35 @@
         body {
             background-color: #f0f0f0;
             color: #333;
-            font-size: 0.875rem;
+            font-size: 0.875rem; /* Reduced font size */
         }
         .container {
             background-color: white;
             border-radius: 15px;
-            padding: 1rem;
+            padding: 1rem; /* Further reduced padding */
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 1rem;
-            max-width: 800px;
+            margin-bottom: 1rem; /* Added margin-bottom to create a gap between containers */
+            max-width: 800px; /* Added max-width to reduce the width of the containers */
         }
         .card {
             background: linear-gradient(to bottom, #688697, #ffffff);
             color: white;
             position: relative;
-            margin-bottom: 0rem;
+            margin-bottom: 0rem; /* Adjusted margin */
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             height: 100%;
         }
         .card-title {
-            font-size: 1.25rem;
+            font-size: 1.25rem; /* Reduced font size */
             color: black;
         }
         .card-body {
-            font-size: 1rem;
+            font-size: 1rem; /* Reduced font size */
         }
         p1 {
-            font-size: 1rem;
+            font-size: 1rem; /* Reduced font size */
             color: #061a1a;
         }
         .navbar {
@@ -54,7 +54,7 @@
             display: block;
             color: white;
             text-align: center;
-            padding: 0.75rem 1rem;
+            padding: 0.75rem 1rem; /* Adjusted padding */
             text-decoration: none;
         }
         .navbar a:hover {
@@ -62,13 +62,13 @@
             color: black;
         }
         .content-container {
-            margin: 5rem 1.5rem 1.5rem 1.5rem;
+            margin: 5rem 1.5rem 1.5rem 1.5rem; /* Further reduced margin */
             padding: 2rem;
             border: 1px solid #ddd;
             border-radius: 5px;
         }
         .card-title-small {
-            font-size: 1.25rem;
+            font-size: 1.25rem; /* Reduced font size */
         }
         .chart-container {
             position: relative;
@@ -76,38 +76,14 @@
         }
         @media (max-width: 768px) {
             .card-title {
-                font-size: 1.25rem;
+                font-size: 1.25rem; /* Reduced font size */
             }
             .card-body {
-                font-size: 0.75rem;
+                font-size: 0.75rem; /* Reduced font size */
             }
         }
-        .top-link {
-            text-align: right;
-            margin-top: 1rem;
-        }
-        .top-link a {
-            text-decoration: none;
-            color: #333;
-        }
-        .centered-links {
-            text-align: center;
-            color: #333; /* Adjusted color for the links */
-        }
-        .centered-links a {
-<<<<<<< HEAD
-            color: #007bff; /* Adjusted color for the links */
-        }
-        .centered-links a:hover {
-            color: #0056b3; /* Adjusted hover color for the links */
-=======
-            color: #black; /* Adjusted color for the links */
-        }
-        .centered-links a:hover {
-            color: #black; /* Adjusted hover color for the links */
->>>>>>> 724e14f4703a233ed80f35e5c9dda5a3d70f3008
-        }
     </style>
+</head>
 <body>
     <!-- Menu Bar -->
     <div class="navbar">
@@ -119,18 +95,10 @@
 
     <!-- Content -->
     <div class="content-container">
-        <div class="centered-links">
-            <h2>
-                <a href="#articles">Articles</a> | 
-                <a href="#unique-challenges">Unique Challenges</a> | 
-                <a href="#rational">Rational</a> | 
-                <a href="#black-girl-ventures">Black Girl Ventures</a>
-            </h2>
-        </div>
+        <h2 style="margin-left: 20px;">Articles</h2> <!-- Reduced left margin -->
     </div>
 
-    <!-- Sections -->
-    <div class="container d-flex flex-column vh-90" id="unique-challenges">
+    <div class="container d-flex flex-column vh-90">
         <div class="row align-items-start justify-content-center w-100">
             <div class="col-md-10">
                 <div class="card mb-3">
@@ -145,19 +113,16 @@
                     <li>Enhancing patient support and education during trials.</li>
                     <li>Addressing ethical regulations and patient safety when conducting clinical research among pregnant persons with Sickle Cell Disease.</li>
                 </ul>
-                <div class="top-link">
-                    <a href="#top">Return to top</a>
-                </div>
             </div>
         </div>
     </div>
-
-    <div class="container d-flex flex-column vh-90" id="rational">
+    <div class="container d-flex flex-column vh-90">
         <div class="row align-items-start justify-content-center w-100">
             <div class="col-md-10">
                 <div class="card mb-3">
                     <div class="card-body">
-                        <h6 class="card-title card-title-small">Rationale for Clinical Trial to address racial disparities in maternal mortality</h6>
+                        <h6 class="card-title card-title-small">
+                    Rationale for Clinical Trial to address racial disparities in maternal mortality</h6>
                         <p class="card-text"></p>
                     </div>
                 </div>
@@ -171,36 +136,31 @@
                         </div>
                     </div>
                 </div>
-                <div class="top-link">
-                    <a href="#top">Return to top</a>
-                </div>
             </div>
         </div>
     </div>
-
-    <div class="container d-flex flex-column vh-90" id="references">
+    <div class="container d-flex flex-column vh-90">
         <div class="row align-items-start justify-content-center w-100">
             <div class="col-md-10">
                 <div class="card mb-3">
                     <div class="card-body">
-                        <h6 class="card-title card-title-small">References</h6>
+                        <h6 class="card-title card-title-small">
+                    References</h6>
                         <p class="card-text"></p>
                     </div>
                 </div>
                 <p>Early ML, Eke AC, Gemmill A, Lanzkron S, Pecker LH. Severe Maternal Morbidity and Mortality in Sickle Cell Disease in the National Inpatient Sample, 2012-2018. JAMA Netw Open. 2023 Feb 1;6(2):e2254552. doi: 10.1001/jamanetworkopen.2022.54552. PMID: 36729452; PMCID: PMC9896307.</p>
-                <div class="top-link">
-                    <a href="#top">Return to top</a>
-                </div>
             </div>
         </div>
     </div>
 
-    <div class="container d-flex flex-column vh-90" id="black-girl-ventures">
+    <div class="container d-flex flex-column vh-90">
         <div class="row align-items-start justify-content-center w-100">
             <div class="col-md-10">
                 <div class="card mb-3">
                     <div class="card-body">
-                        <h6 class="card-title card-title-small">Black Girl Ventures Pitch Competition</h6>
+                        <h6 class="card-title card-title-small">
+                    Black Girl Ventures Pitch Competition</h6>
                         <p class="card-text"></p>
                     </div>
                 </div>
@@ -208,9 +168,8 @@
                 <div class="embed-responsive embed-responsive-16by9">
                     <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/tu1aY5BUgNI?start=889&end=1247" allowfullscreen></iframe>
                 </div>
-                <p class="card-text mt-3">...Bringing Reproductive Justice To The Forefront Of</p>
-                <div class="top-link">
-                    <a href="#top">Return to top
+                </div>
+                <p class="card-text mt-3">...Bringing Reproductive Justice To The Forefront Of 
     <script>
         // Sample JSON string representing dynamic data over time
         const jsonData = `
@@ -226,6 +185,15 @@
         const xValues = data.map(item => item.x);
         const yValues = data.map(item => item.y);
         const zValues = data.map(item => item.z);
+        
+        // Make view adjustments prior to launch
+        window.onload = function() {
+            document.body.style.zoom = "90%"; // Zoom page to 90% on page load
+            window.scrollTo(0, 420); // Scroll down 5 inches (480 pixels) on page load
+            setTimeout(function() {
+                document.querySelector('.hidden-content').style.display = 'block'; // Show the content after delay
+            }, 100); // Adjust the delay as needed (100 milliseconds in this example)
+        }
 
         // Create the chart
         const ctx = document.getElementById('myChart').getContext('2d');
