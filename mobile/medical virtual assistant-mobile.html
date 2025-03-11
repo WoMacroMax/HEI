@@ -110,6 +110,21 @@
             color: #061a1a; /* Blue text color */
             margin-left: 0.5in; /* Shift text to the left by 0.5 inches */
         }
+        .button-container {
+            display: flex;
+            justify-content: left; /* Centers the button horizontally */
+            align-items: center; /* Centers the button vertically */
+            height: 100vh; /* Ensures the container takes the full viewport height */
+        }
+
+        .btn-primary {
+            background-color: #007bff; /* Example: Standard Bootstrap primary color */
+            border: none;
+            padding: 10px 20px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
         .navbar {
             height: 100%;
             width: 0;
@@ -333,10 +348,8 @@
                     <!-- Selected items will be displayed here -->
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Request Info</button>
                 </div>
-            </div>
-        </div>
+                <div class="button-container"><button type="submit" class="btn btn-primary">Request Info</button></div></div>
 </div>
 
             <script>

@@ -66,6 +66,21 @@
         .btn-primary:hover {
             background-color: #0056b3; /* Darker blue on hover */
         }
+        .button-container {
+        display: flex;
+        justify-content: center; /* Centers the button horizontally */
+        align-items: center; /* Centers the button vertically */
+        height: 100vh; /* Ensures the container takes the full viewport height */
+        }
+
+        .btn-primary {
+        background-color: #007bff; /* Example: Standard Bootstrap primary color */
+        border: none;
+        padding: 10px 20px;
+        font-weight: bold;
+        transition: background-color 0.3s;
+}
+
 
         .modal-header, .modal-footer {
             border: none;
@@ -178,7 +193,7 @@
                             <label class="form-check-label" for="service16">Electronic & On-site ISF/TMF management</label>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#selectedModal" onclick="showSelected()">Next</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#selectedModal" onclick="showSelected()">Next</button>
                 </form>
             </div>
         </div>
@@ -223,7 +238,10 @@
                     <!-- Selected items will be displayed here -->
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Request Info</button>
+                    <div class="button-container">
+                    <button type="submit" class="btn-primary">Request Info</button>
+</div>
+
                 </div>
             </div>
         </div>
