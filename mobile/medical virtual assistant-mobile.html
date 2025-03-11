@@ -319,14 +319,14 @@
                         <h4  id="selectedModalLabel">Contact Information</h4>
             </br>
                         <div class="row">
-                            <!-- Name and Title -->
+                            <!-- Name and Email Address -->
                             <div class="col-md-6 mb-3">
                                 <label for="name" class="form-label">Name:</label>
                                 <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="title" class="form-label">Title:</label>
-                                <input type="text" class="form-control" id="title" name="title" placeholder="Enter your title" required>
+                                <label for="email" class="form-label">Email:</label>
+                                <input type="text" class="form-control" id="email" name="title" placeholder="Enter your email address" required>
                             </div>
                         </div>
                         <div class="row">
@@ -385,7 +385,7 @@ document.getElementById('modalForm').addEventListener('submit', function(event) 
     // Collect contact info
     const contactInfo = {
         name: document.getElementById('name').value,
-        title: document.getElementById('title').value,
+        email: document.getElementById('email').value,
         companyName: document.getElementById('companyName').value,
         date: document.getElementById('date').value
     };
