@@ -204,17 +204,15 @@
                 <div class="form-section">
                     <h2>Tell us about your needs</h2>
                     <div class="question">
-                        <label for="specialty">What medical specialty do you need help with?</label>
-                        <br>
-                        <select id="specialty">
-                            <option value="primary-care">Primary Care</option>
-                            <option value="pediatrics">Pediatrics</option>
-                            <option value="surgery">Surgery</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                    <div class="question">
-                        <label>What type of service are you looking for?</label>
+                        <label>What type of primary care service are you looking for?</label>
+                        <div class="options">
+                            <input type="radio" id="support" name="service" value="scheduling">
+                            <label for="scheduling">Clinical Support</label>
+                        </div>
+                        <div class="options">
+                            <input type="radio" id="system" name="service" value="scheduling">
+                            <label for="scheduling">EHR/EMR System Support</label>
+                        </div>
                         <div class="options">
                             <input type="radio" id="billing" name="service" value="billing">
                             <label for="billing">Billing Support</label>
@@ -240,7 +238,7 @@
                     <ul class="underline-checklist">
                         <li class="underline-checklist__item">Answer a few simple questions</li>
                         <li class="underline-checklist__item">Get ready-to-go personalized task ideas</li>
-                        <li class="underline-checklist__item">Claim $150 off your first month</li>
+                        <li class="underline-checklist__item">Get discounts for bundled services</li>
                     </ul>
                     <div style="margin-top: 25px; margin-bottom: 10px;">
                         <span style="font-weight: bold;">Client Review<br></span>
