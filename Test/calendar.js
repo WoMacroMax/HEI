@@ -1,104 +1,80 @@
-// Replace this with your OAuth2 Client ID
-const CLIENT_ID = '<webClient>';
-const SCOPES = 'https://www.googleapis.com/auth/calendar.events';
+// Client ID from Google Cloud Console
+const CLIENT_ID = '321777232839-i4dp9qk1m13docho5r3tllb9hauhhi5h.apps.googleusercontent.com';
+const API_KEY = 'AIzaSyAfamBWQ9-3134QIJjjwcm3T7LcrfC2GXs';
 
-let tokenClient;
-let accessToken = null;
+const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest';
+const SCOPES = 'https://www.googleapis.com/auth/calendar';
 
-function gapiLoaded() {
-    gapi.load('client', initializeGapiClient);
+// buttons
+const authorizeButton = document.getElementById('authorize_button');
+const signoutButton = document.getElementById('signout_button');
+
+function handleClientLoad() {
+  gapi.load('client', initClient);
 }
 
-async function initializeGapiClient() {
-    await gapi.client.init({
-        discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"],
-    });
+async function initClient() {
+  await gapi.client.init({
+    apiKey: API_KEY,
+    clientId: CLIENT_ID,
+    discoveryDocs: [DISCOVERY_DOC],
+    scope: SCOPES
+  });
+
+  // Listen for sign-in state changes
+  gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+  
+  // Handle initial sign-in state
+  updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+  
+  authorizeButton.onclick = handleAuthClick;
+  signoutButton.onclick = handleSignoutClick;
 }
 
-function gisLoaded() {
-    tokenClient = google.accounts.oauth2.initTokenClient({
-        client_id: CLIENT_ID,
-        scope: SCOPES,
-        callback: (response) => {
-            if (response.error) {
-                console.error(response);
-                return;
-            }
-            accessToken = response.access_token;
-            document.getElementById('authorize_button').classList.add('d-none');
-            document.getElementById('signout_button').classList.remove('d-none');
-            fetchEvents();
-        },
-    });
-
-    document.getElementById('authorize_button').onclick = () => {
-        tokenClient.requestAccessToken();
-    };
-    document.getElementById('signout_button').onclick = revokeToken;
+function updateSigninStatus(isSignedIn) {
+  if (isSignedIn) {
+    authorizeButton.classList.add('d-none');
+    signoutButton.classList.remove('d-none');
+    listUpcomingEvents();
+  } else {
+    authorizeButton.classList.remove('d-none');
+    signoutButton.classList.add('d-none');
+  }
 }
 
-function revokeToken() {
-    google.accounts.oauth2.revoke(accessToken, () => {
-        document.getElementById('authorize_button').classList.remove('d-none');
-        document.getElementById('signout_button').classList.add('d-none');
-        document.getElementById('eventsList').innerHTML = '';
-    });
+function handleAuthClick(event) {
+  gapi.auth2.getAuthInstance().signIn();
 }
 
-async function fetchEvents() {
-    let response = await gapi.client.calendar.events.list({
-        calendarId: 'primary',
-        timeMin: new Date().toISOString(),
-        maxResults: 10,
-        singleEvents: true,
-        orderBy: 'startTime',
-    });
+function handleSignoutClick(event) {
+  gapi.auth2.getAuthInstance().signOut();
+}
 
+function listUpcomingEvents() {
+  gapi.client.calendar.events.list({
+    'calendarId': 'primary',
+    'timeMin': (new Date()).toISOString(),
+    'showDeleted': false,
+    'singleEvents': true,
+    'maxResults': 10,
+    'orderBy': 'startTime'
+  }).then(function(response) {
     const events = response.result.items;
     const eventsList = document.getElementById('eventsList');
     eventsList.innerHTML = '';
 
-    if (events.length === 0) {
-        eventsList.innerHTML = '<li class="list-group-item">No upcoming events.</li>';
-        return;
-    }
-
-    events.forEach((event) => {
+    if (events.length > 0) {
+      events.forEach(event => {
         const li = document.createElement('li');
         li.className = 'list-group-item';
-        li.textContent = `${event.summary} (${new Date(event.start.dateTime).toLocaleString()})`;
+        li.textContent = `${event.summary} (${event.start.dateTime || event.start.date})`;
         eventsList.appendChild(li);
-    });
+      });
+    } else {
+      eventsList.innerHTML = '<li class="list-group-item">No upcoming events found.</li>';
+    }
+  });
 }
 
-document.getElementById('eventForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-
-    if (!accessToken) {
-        alert("Please sign in first.");
-        return;
-    }
-
-    const event = {
-        summary: document.getElementById('title').value,
-        start: { dateTime: new Date(document.getElementById('start').value).toISOString() },
-        end: { dateTime: new Date(document.getElementById('end').value).toISOString() },
-    };
-
-    try {
-        const response = await gapi.client.calendar.events.insert({
-            calendarId: 'primary',
-            resource: event,
-        });
-        alert(`Event created: ${response.result.summary}`);
-        fetchEvents();
-    } catch (err) {
-        alert(`Error creating event: ${err.result.error.message}`);
-    }
-});
-
-// Load APIs on window load
-window.onload = function() {
-    gapiLoaded();
-    gisLoaded();
-};
+// Load auth2 library
+window.onload = handleClientLoad;
