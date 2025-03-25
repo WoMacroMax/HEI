@@ -23,8 +23,8 @@ function gisLoaded() {
                 console.error(response);
                 return;
             }
-            document.getElementById('authorize_button').style.display = 'none';
-            document.getElementById('signout_button').style.display = 'block';
+            document.getElementById('authorize_button').classList.add('d-none');
+            document.getElementById('signout_button').classList.remove('d-none');
             fetchEvents();
         },
     });
@@ -34,11 +34,12 @@ function gisLoaded() {
 
 function revokeToken() {
     google.accounts.oauth2.revoke(tokenClient.access_token, () => {
-        document.getElementById('authorize_button').style.display = 'block';
-        document.getElementById('signout_button').style.display = 'none';
+        document.getElementById('authorize_button').classList.remove('d-none');
+        document.getElementById('signout_button').classList.add('d-none');
         document.getElementById('eventsList').innerHTML = '';
     });
 }
+
 
 async function fetchEvents() {
     const response = await gapi.client.calendar.events.list({
