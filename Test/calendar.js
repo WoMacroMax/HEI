@@ -1,21 +1,23 @@
 const apiKey = 'AIzaSyAfamBWQ9-3134QIJjjwcm3T7LcrfC2GXs';
 const calendarId = 'ayoblab@gmail.com';
 
-function loadClient() {
-    gapi.client.setApiKey(apiKey);
-    return gapi.client.load("https://content.googleapis.com/discovery/v1/apis/calendar/v3/rest")
-        .then(fetchEvents, err => console.error("Error loading GAPI client", err));
+async function loadClient() {
+    await gapi.client.setApiKey(apiKey);
+    await gapi.client.load("https://content.googleapis.com/discovery/v1/apis/calendar/v3/rest");
+    fetchEvents();
 }
 
-function fetchEvents() {
-    gapi.client.calendar.events.list({
-        calendarId,
-        timeMin: (new Date()).toISOString(),
-        showDeleted: false,
-        singleEvents: true,
-        maxResults: 10,
-        orderBy: 'startTime'
-    }).then(response => {
+async function fetchEvents() {
+    try {
+        const response = await gapi.client.calendar.events.list({
+            calendarId,
+            timeMin: (new Date()).toISOString(),
+            showDeleted: false,
+            singleEvents: true,
+            maxResults: 10,
+            orderBy: 'startTime'
+        });
+
         const events = response.result.items;
         const list = document.getElementById("eventsList");
         list.innerHTML = '';
@@ -30,28 +32,33 @@ function fetchEvents() {
         } else {
             list.innerHTML = '<li class="list-group-item">No upcoming events.</li>';
         }
-    });
+    } catch (err) {
+        console.error('Failed to fetch events:', err);
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('eventForm').addEventListener('submit', function(e) {
+    gapi.load("client", loadClient);
+
+    document.getElementById('eventForm').addEventListener('submit', async function(e) {
         e.preventDefault();
+
         const event = {
-            'summary': document.getElementById('title').value,
-            'start': {'dateTime': new Date(document.getElementById('start').value).toISOString()},
-            'end': {'dateTime': new Date(document.getElementById('end').value).toISOString()}
+            summary: document.getElementById('title').value,
+            start: { dateTime: new Date(document.getElementById('start').value).toISOString() },
+            end: { dateTime: new Date(document.getElementById('end').value).toISOString() }
         };
 
-        gapi.client.calendar.events.insert({
-            calendarId,
-            resource: event
-        }).then(response => {
+        try {
+            const response = await gapi.client.calendar.events.insert({
+                calendarId,
+                resource: event
+            });
+
             alert('Event created: ' + response.result.summary);
             fetchEvents();
-        }, err => {
-            alert('Error: ' + err.result.error.message);
-        });
+        } catch (err) {
+            alert('Error creating event: ' + err.result.error.message);
+        }
     });
-
-    gapi.load("client", loadClient);
 });
