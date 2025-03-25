@@ -9,6 +9,15 @@ const SCOPES = 'https://www.googleapis.com/auth/calendar';
 const authorizeButton = document.getElementById('authorize_button');
 const signoutButton = document.getElementById('signout_button');
 
+document.getElementById('authorize_button').addEventListener('click', () => {
+    gapi.auth2.getAuthInstance().signIn().then(() => {
+        console.log("Signed in");
+    }).catch(error => {
+        console.error("Sign-in error:", error);
+    });
+});
+
+
 function handleClientLoad() {
   gapi.load('client', initClient);
 }
