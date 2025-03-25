@@ -10,26 +10,37 @@
 <body>
 <div class="container py-5">
     <h3 class="mb-4">Google Calendar Event Manager</h3>
-    <form id="eventForm">
-        <div class="mb-3">
-            <label class="form-label">Event Title</label>
-            <input type="text" class="form-control" id="title" required>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <form id="eventForm">
+                        <div class="mb-3">
+                            <label class="form-label">Event Title</label>
+                            <input type="text" class="form-control" id="title" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Start Time</label>
+                            <input type="datetime-local" class="form-control" id="start" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">End Time</label>
+                            <input type="datetime-local" class="form-control" id="end" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Create Event</button>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="mb-3">
-            <label class="form-label">Start Time</label>
-            <input type="datetime-local" class="form-control" id="start" required>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Upcoming Events</h5>
+                    <ul class="list-group" id="eventsList"></ul>
+                </div>
+            </div>
         </div>
-        <div class="mb-3">
-            <label class="form-label">End Time</label>
-            <input type="datetime-local" class="form-control" id="end" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Create Event</button>
-    </form>
-
-    <hr class="my-5">
-
-    <h4>Upcoming Events</h4>
-    <ul class="list-group" id="eventsList"></ul>
+    </div>
 </div>
 
 <script src="https://apis.google.com/js/api.js"></script>
