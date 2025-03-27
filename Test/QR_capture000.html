@@ -31,19 +31,20 @@
   </style>
 </head>
 <body>
-  <div class="container mt-5">
-    <div id="loadAreaCard" class="card">
+  <div class="container mt-5 d-flex flex-wrap">
+    <div id="stopCard" class="card" style="width: 20rem;">
       <div class="card-header text-white bg-primary">
-        Load Area 1
+        Package 1
       </div>
       <div class="card-body">
-        <h4 class="card-title">QR/Barcode Scanner with Image Capture</h4>
-        <div id="cameraContainer" class="camera-container mb-4" style="width: 300px; height: 300px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+        <div id="cameraContainer" class="camera-container mb-4" 
+             style="width: 200px; height: 200px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; overflow: hidden;">
           <video id="camera" autoplay></video>
           <canvas id="snapshotCanvas" hidden></canvas>
         </div>
         <div id="imageContainer" class="mb-3"></div>
-        <div class="button-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 300px;">
+        <div class="button-grid" 
+             style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 200px;">
           <button id="scanButton" class="btn btn-grey">Scan</button>
           <button id="captureButton" class="btn btn-green">Capture</button>
           <button id="removeButton" class="btn btn-red">Remove</button>
@@ -54,6 +55,8 @@
 
   <script src="https://cdn.jsdelivr.net/npm/html5-qrcode@latest/minified/html5-qrcode.min.js"></script>
   <script>
+    let cardCount = 1; // Initialize card count
+
     const video = document.getElementById("camera");
     const canvas = document.getElementById("snapshotCanvas");
     const context = canvas.getContext("2d");
@@ -62,7 +65,7 @@
     const captureButton = document.getElementById("captureButton");
     const removeButton = document.getElementById("removeButton");
     const cameraContainer = document.getElementById("cameraContainer");
-    const loadAreaCard = document.getElementById("loadAreaCard");
+    const stopCard = document.getElementById("stopCard");
     const imageContainer = document.getElementById("imageContainer");
 
     // Access the webcam
@@ -101,11 +104,42 @@
 
       // Hide camera container
       cameraContainer.classList.add("hidden");
-    });
 
-    // Remove only the captured image
-    removeButton.addEventListener("click", () => {
-      imageContainer.innerHTML = ""; // Clear the content of the image container
+      // Duplicate the stopCard
+      const stopCardClone = stopCard.cloneNode(true);
+      cardCount++; // Increment the card count
+      stopCardClone.id = `stopCard-${cardCount}`; // Assign a unique ID to the new card
+      document.querySelector(".container").appendChild(stopCardClone);
+
+      // Update the card header to include the card number
+      const cardHeader = stopCardClone.querySelector(".card-header");
+      cardHeader.textContent = `Package ${cardCount}`;
+
+      // Update event listeners for the new card
+      const newScanButton = stopCardClone.querySelector("#scanButton");
+      const newCaptureButton = stopCardClone.querySelector("#captureButton");
+      const newRemoveButton = stopCardClone.querySelector("#removeButton");
+      const newImageContainer = stopCardClone.querySelector("#imageContainer");
+      const newCameraContainer = stopCardClone.querySelector("#cameraContainer");
+
+      // Add event listener for the new scan button
+      newScanButton.addEventListener("click", () => {
+        qrCodeReader.start({ facingMode: "environment" }, {}, (decodedText) => {
+          const scannedCodeArea = document.createElement("input");
+          scannedCodeArea.classList.add("form-control");
+          scannedCodeArea.placeholder = decodedText;
+          newImageContainer.innerHTML = "";
+          newImageContainer.appendChild(scannedCodeArea);
+          qrCodeReader.stop();
+        }, () => {
+          console.log("No QR/Barcode detected.");
+        });
+      });
+
+      // Add event listener for the new remove button
+      newRemoveButton.addEventListener("click", () => {
+        stopCardClone.remove(); // Remove the entire card
+      });
     });
   </script>
 </body>
