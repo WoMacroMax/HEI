@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Mobile Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui/1.12.1/jquery-ui.min.js"></script>
+    <style>
+        body {
+            font-size: calc(12px + 0.5vw); /* Responsive font size */
+        }
+        .card {
+            margin-bottom: 15px;
+            border-radius: 10px;
+            min-width: 280px; /* Ensures the card is wide enough */
+            flex: 1 1 45%; /* Two cards per row */
+        }
+        .scrollable-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 5px;
+            white-space: nowrap;
+        }
+        .slot-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 5px;
+            margin-top: 10px;
+        }
+        .slot {
+            padding: 5px;
+            border: 1px solid #ddd;
+            text-align: center;
+            border-radius: 5px;
+            cursor: move;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            font-size: calc(10px + 0.4vw); /* Responsive font size */
+        }
+        .capture-list {
+            margin-top: 10px;
+            min-height: 50px;
+            border: 1px dashed #aaa;
+            padding: 5px;
+        }
+        .remove-btn {
+            font-size: calc(8px + 0.3vw); /* Responsive font size */
+            margin-top: 5px;
+            color: red;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-3">
+    <div class="scrollable-row">
+        <script>
+            $(document).ready(function() {
+                let captureCount = 0;
+                const colors = ["#ffcccc", "#ccffcc", "#ccccff", "#ffffcc", "#ffccff", "#ccffff", "#ffddcc", "#ddccff"];
+
+                colors.forEach((color, index) => {
+                    const cardHtml = `
+                        <div class="card" style="background-color: ${color};">
+                            <div class="card-body">
+                                <h5 class="card-title">Load Area ${index + 1}</h5>
+                                <button class="btn btn-primary capture-btn" data-index="${index}">Capture</button>
+                                <div class="capture-list slot-grid droppable" id="list-${index}"></div>
+                            </div>
+                        </div>
+                    `;
+                    $(".scrollable-row").append(cardHtml);
+                });
+
+                $(document).on('click', '.capture-btn', function() {
+                    captureCount++;
+                    const index = $(this).data('index');
+                    const addressId = `STOP ${String(captureCount).padStart(3, '0')}: `;
+
+                    const listItem = $(`
+                        <div class='slot draggable' id='${addressId}'>
+                            <div class='address-label'>${addressId}</div>
+                            <input type="checkbox" class="completion-checkbox">
+                            <div class="remove-btn">Remove</div>
+                        </div>
+                    `);
+
+                    $(`#list-${index}`).append(listItem);
+                    listItem.draggable({
+                        helper: "clone"
+                    });
+                });
+
+                $(".droppable").droppable({
+                    accept: ".draggable",
+                    drop: function(event, ui) {
+                        const droppedItem = $(ui.helper).clone();
+                        $(this).append(droppedItem);
+                        droppedItem.removeClass('ui-draggable-dragging');
+                        droppedItem.draggable({
+                            helper: "clone"
+                        });
+                    }
+                });
+
+                $(document).on('click', '.remove-btn', function() {
+                    const parentSlot = $(this).closest('.slot');
+                    if (parentSlot.length) {
+                        parentSlot.remove();
+                        updateAddressEnumeration();
+                    }
+                });
+
+                function updateAddressEnumeration() {
+                    captureCount = 0;
+                    $('.slot').each(function() {
+                        captureCount++;
+                        const newAddressId = `STOP ${String(captureCount).padStart(3, '0')}: `;
+                        $(this).attr('id', newAddressId);
+                        $(this).find('.address-label').text(newAddressId);
+                    });
+                }
+            });
+        </script>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
