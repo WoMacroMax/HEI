@@ -36,11 +36,11 @@
           <canvas id="snapshotCanvas" hidden></canvas>
         </div>
         <div class="button-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 300px;">
-          <button id="scanButton" class="btn btn-grey">Start Scan</button>
-          <button id="captureButton" class="btn btn-green">Capture Image</button>
+          <button id="scanButton" class="btn btn-grey">Scan</button>
+          <button id="captureButton" class="btn btn-green">Capture</button>
           <button id="removeButton" class="btn btn-red">Remove</button>
         </div>
-        <input type="text" id="scannedCode" class="form-control mt-3" placeholder="Scanned code will appear here" readonly>
+        <div id="imageContainer" class="mt-3"></div>
       </div>
     </div>
   </div>
@@ -54,8 +54,8 @@
     const scanButton = document.getElementById("scanButton");
     const captureButton = document.getElementById("captureButton");
     const removeButton = document.getElementById("removeButton");
-    const scannedCode = document.getElementById("scannedCode");
     const loadAreaCard = document.getElementById("loadAreaCard");
+    const imageContainer = document.getElementById("imageContainer");
 
     // Access the webcam
     navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
@@ -68,18 +68,28 @@
     // QR/Barcode Scanner
     scanButton.addEventListener("click", () => {
       qrCodeReader.start({ facingMode: "environment" }, {}, (decodedText) => {
-        scannedCode.value = decodedText;
+        const scannedCodeArea = document.createElement("input");
+        scannedCodeArea.classList.add("form-control");
+        scannedCodeArea.placeholder = decodedText;
+        imageContainer.innerHTML = "";
+        imageContainer.appendChild(scannedCodeArea);
         qrCodeReader.stop();
       }, () => {
         console.log("No QR/Barcode detected.");
       });
     });
 
-    // Capture the image
+    // Capture the image and display it
     captureButton.addEventListener("click", () => {
-      canvas.hidden = false;
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
       context.drawImage(video, 0, 0, canvas.width, canvas.height);
-      alert("Image captured. You can process it further.");
+      const capturedImage = canvas.toDataURL("image/png");
+      const imgElement = document.createElement("img");
+      imgElement.src = capturedImage;
+      imgElement.style.width = "100%";
+      imageContainer.innerHTML = ""; // Clear existing content
+      imageContainer.appendChild(imgElement); // Append new image
     });
 
     // Remove the card from the view
