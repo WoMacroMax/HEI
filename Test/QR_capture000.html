@@ -21,6 +21,13 @@
       color: white;
       border: none;
     }
+    .hidden {
+      display: none !important;
+    }
+    img.small {
+      width: 3in;
+      height: 3in;
+    }
   </style>
 </head>
 <body>
@@ -31,16 +38,16 @@
       </div>
       <div class="card-body">
         <h4 class="card-title">QR/Barcode Scanner with Image Capture</h4>
-        <div class="camera-container mb-4" style="width: 300px; height: 300px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+        <div id="cameraContainer" class="camera-container mb-4" style="width: 300px; height: 300px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; overflow: hidden;">
           <video id="camera" autoplay></video>
           <canvas id="snapshotCanvas" hidden></canvas>
         </div>
+        <div id="imageContainer" class="mb-3"></div>
         <div class="button-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 300px;">
           <button id="scanButton" class="btn btn-grey">Scan</button>
           <button id="captureButton" class="btn btn-green">Capture</button>
           <button id="removeButton" class="btn btn-red">Remove</button>
         </div>
-        <div id="imageContainer" class="mt-3"></div>
       </div>
     </div>
   </div>
@@ -54,6 +61,7 @@
     const scanButton = document.getElementById("scanButton");
     const captureButton = document.getElementById("captureButton");
     const removeButton = document.getElementById("removeButton");
+    const cameraContainer = document.getElementById("cameraContainer");
     const loadAreaCard = document.getElementById("loadAreaCard");
     const imageContainer = document.getElementById("imageContainer");
 
@@ -87,14 +95,17 @@
       const capturedImage = canvas.toDataURL("image/png");
       const imgElement = document.createElement("img");
       imgElement.src = capturedImage;
-      imgElement.style.width = "100%";
+      imgElement.className = "small";
       imageContainer.innerHTML = ""; // Clear existing content
       imageContainer.appendChild(imgElement); // Append new image
+
+      // Hide camera container
+      cameraContainer.classList.add("hidden");
     });
 
-    // Remove the card from the view
+    // Remove only the captured image
     removeButton.addEventListener("click", () => {
-      loadAreaCard.remove();
+      imageContainer.innerHTML = ""; // Clear the content of the image container
     });
   </script>
 </body>
