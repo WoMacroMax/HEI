@@ -5,3 +5,7 @@ if the slot is unavailable then  show the next available appointment in a new ca
 working hours are 9am-5pm
 
 Here’s the updated HTML script. It now includes functionality to find and display the next available appointment time (within working hours, 9 AM to 5 PM) if the selected slot is unavailable:
+
+
+show a view of the calendar on the selected day [in a separate 'Availability' card] so the user can choose an open slot:
+show the updated HTML
