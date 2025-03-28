@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Google Calendar Scheduling Client</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://accounts.google.com/gsi/client"></script>
+    <style>
+        body { padding: 20px; }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="card shadow-lg mt-5" style="max-width: 600px; margin: auto;">
+            <div class="card-body">
+                <h3 class="card-title text-center">Google Calendar Scheduling Client</h3>
+                <form id="schedule-form">
+                    <div class="form-group">
+                        <label for="date">Select Date:</label>
+                        <input type="date" id="date" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="time">Select Time:</label>
+                        <input type="time" id="time" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="duration">Select Duration:</label>
+                        <select id="duration" class="form-control"></select>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Check Availability</button>
+                </form>
+                <div id="result" class="mt-4"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+    const CLIENT_ID = "321777232839-i4dp9qk1m13docho5r3tllb9hauhhi5h.apps.googleusercontent.com";
+    const API_KEY = "AIzaSyAfamBWQ9-3134QIJjjwcm3T7LcrfC2GXs";
+    const DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
+    const SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
+
+    let tokenClient;
+    let accessToken = null;
+
+    // Initialize the Google API Client
+    function handleClientLoad() {
+        gapi.load("client", initClient);
+    }
+
+    async function initClient() {
+        await gapi.client.init({
+            apiKey: API_KEY,
+            discoveryDocs: DISCOVERY_DOCS,
+        });
+        console.log("Google API Initialized");
+
+        // Token client initialization
+        tokenClient = google.accounts.oauth2.initTokenClient({
+            client_id: CLIENT_ID,
+            scope: SCOPES,
+            callback: (tokenResponse) => {
+                accessToken = tokenResponse.access_token;
+                console.log("Access Token Acquired");
+            },
+        });
+    }
+
+    function checkAvailability(date, time) {
+        if (!accessToken) {
+            tokenClient.requestAccessToken();
+            return;
+        }
+
+        const dateTime = new Date(`${date}T${time}:00Z`);
+        const endDateTime = new Date(dateTime.getTime() + 30 * 60000); // 30 minutes later
+
+        gapi.client.calendar.events
+            .list({
+                calendarId: "primary",
+                timeMin: dateTime.toISOString(),
+                timeMax: endDateTime.toISOString(),
+                singleEvents: true,
+                orderBy: "startTime",
+            })
+            .then((response) => {
+                const events = response.result.items;
+
+                if (events.length > 0) {
+                    $("#result").html('<div class="alert alert-danger">Time slot is unavailable.</div>');
+                } else {
+                    $("#result").html('<div class="alert alert-success">Time slot is available!</div>');
+                }
+            });
+    }
+
+    $(document).ready(() => {
+        // Generate duration options
+        const durationDropdown = $("#duration");
+        for (let minutes = 15; minutes <= 480; minutes += 15) {
+            const hours = Math.floor(minutes / 60);
+            const mins = minutes % 60;
+            const label = hours > 0 ? `${hours}h ${mins}min` : `${mins}min`;
+            durationDropdown.append(new Option(label, minutes));
+        }
+
+        // Form submission
+        $("#schedule-form").submit((event) => {
+            event.preventDefault();
+            const date = $("#date").val();
+            const time = $("#time").val();
+            const duration = $("#duration").val(); // Get selected duration
+
+            console.log(`Duration selected: ${duration} minutes`);
+            checkAvailability(date, time);
+        });
+
+        handleClientLoad();
+    });
+    </script>
+</body>
+
+</html>
