@@ -26,7 +26,11 @@
           </div>
           <div class="form-group">
             <label for="duration">Select Duration:</label>
-            <select id="duration" class="form-control"></select>
+            <select id="duration" class="form-control" required>
+              <option value="" disabled selected>Select Duration</option>
+              <option value="30">30 minutes</option>
+              <option value="60">1 hour</option>
+            </select>
           </div>
           <button type="submit" class="btn btn-primary w-100">Check Availability</button>
         </form>
@@ -53,7 +57,7 @@
     const DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
     const SCOPES = "https://www.googleapis.com/auth/calendar";
 
-    async function fetchAvailableSlots(date) {
+    async function fetchAvailableSlots(date, duration) {
       // Mock data for demonstration purposes
       const availableSlots = [
         "10:00 AM - 10:30 AM",
@@ -74,10 +78,22 @@
       availabilityCard.classList.remove('d-none');
     }
 
-    document.getElementById('date').addEventListener('change', (event) => {
-      const selectedDate = event.target.value;
-      fetchAvailableSlots(selectedDate);
+    document.getElementById('date').addEventListener('change', () => {
+      validateInputs();
     });
+
+    document.getElementById('duration').addEventListener('change', () => {
+      validateInputs();
+    });
+
+    function validateInputs() {
+      const date = document.getElementById('date').value;
+      const duration = document.getElementById('duration').value;
+
+      if (date && duration) {
+        fetchAvailableSlots(date, duration);
+      }
+    }
   </script>
 </body>
 </html>
