@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scrollable Horizontal Package</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js/dist/tesseract.min.js"></script>
+  <style>
+    .btn-red {
+      background-color: red;
+      color: white;
+      border: none;
+    }
+    .btn-green {
+      background-color: green;
+      color: white;
+      border: none;
+    }
+    .btn-grey {
+      background-color: grey;
+      color: white;
+      border: none;
+    }
+    .btn-yellow {
+      background-color: yellow;
+      color: black;
+      border: none;
+    }
+    .btn-blue {
+      background-color: blue;
+      color: white;
+      border: none;
+    }
+    .hidden {
+      display: none !important;
+    }
+    img.small {
+      width: 3in;
+      height: 3in;
+    }
+    .scrollable-container {
+      display: flex;
+      overflow-x: auto;
+      padding: 10px;
+      gap: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #f8f9fa;
+    }
+    .scrollable-container::-webkit-scrollbar {
+      height: 8px;
+    }
+    .scrollable-container::-webkit-scrollbar-thumb {
+      background: #ccc;
+      border-radius: 4px;
+    }
+    .card {
+      flex: 0 0 auto; /* Prevent shrinking and enable horizontal flow */
+      width: 25rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <div class="scrollable-container" id="loadAreasContainer">
+      <div id="stopCard" class="card mb-3">
+        <div class="card-header text-white bg-primary">Package 1</div>
+        <div class="card-body">
+          <div id="cameraContainer" class="camera-container mb-3" 
+               style="width: 100%; height: 200px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+            <video class="camera" autoplay></video>
+            <canvas class="snapshotCanvas" hidden></canvas>
+          </div>
+          <div class="imageContainer mb-3"></div>
+          <div class="button-grid mb-3" 
+               style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+            <button class="scanButton btn btn-grey">Scan</button>
+            <button class="captureButton btn btn-green">Capture</button>
+            <button class="removeButton btn btn-red">Remove</button>
+            <button class="flashButton btn btn-yellow">Toggle Flash</button>
+          </div>
+          <label class="recognizedTextLabel form-label mb-3"></label>
+        </div>
+      </div>
+    </div>
+    <button id="duplicateButton" class="btn btn-blue mt-3">Add Package</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/html5-qrcode@latest/minified/html5-qrcode.min.js"></script>
+  <script>
+    const loadAreasContainer = document.getElementById("loadAreasContainer");
+    const duplicateButton = document.getElementById("duplicateButton");
+
+    let loadAreaCount = 1;
+
+    // Event handler for Package buttons (Scan, Capture, Remove, Flash)
+    function attachEventHandlers(cardElement) {
+      const video = cardElement.querySelector(".camera");
+      const canvas = cardElement.querySelector(".snapshotCanvas");
+      const context = canvas.getContext("2d");
+      const imageContainer = cardElement.querySelector(".imageContainer");
+      const recognizedTextLabel = cardElement.querySelector(".recognizedTextLabel");
+      const scanButton = cardElement.querySelector(".scanButton");
+      const captureButton = cardElement.querySelector(".captureButton");
+      const removeButton = cardElement.querySelector(".removeButton");
+      const flashButton = cardElement.querySelector(".flashButton");
+      const cameraContainer = cardElement.querySelector(".camera-container");
+      let track;
+      let imageCapture;
+
+      // Access the webcam for this Package
+      navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+        .then((stream) => {
+          video.srcObject = stream;
+          track = stream.getVideoTracks()[0];
+          imageCapture = new ImageCapture(track);
+        }).catch((error) => {
+          console.error("Error accessing the camera", error);
+        });
+
+      // Scan button functionality
+      scanButton.addEventListener("click", () => {
+        const qrCodeReader = new Html5Qrcode("reader" + loadAreaCount);
+        qrCodeReader.start({ facingMode: "environment" }, {}, (decodedText) => {
+          recognizedTextLabel.textContent = `Recognized text: ${decodedText}`;
+          qrCodeReader.stop();
+        }, () => {
+          console.log("No QR/Barcode detected.");
+        });
+      });
+
+      // Capture button functionality
+      captureButton.addEventListener("click", () => {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        const capturedImage = canvas.toDataURL("image/png");
+        const imgElement = document.createElement("img");
+        imgElement.src = capturedImage;
+        imgElement.className = "small";
+        imageContainer.innerHTML = ""; // Clear existing content
+        imageContainer.appendChild(imgElement); // Append new image
+
+        // Run OCR using Tesseract.js
+        Tesseract.recognize(capturedImage, 'eng')
+          .then(({ data: { text } }) => {
+            recognizedTextLabel.textContent = `OCR Result: ${text}`;
+          }).catch((error) => {
+            console.error("OCR Error:", error);
+            recognizedTextLabel.textContent = "Error: Unable to recognize text.";
+          });
+
+        // Hide live stream (cameraContainer) after capturing
+        cameraContainer.classList.add("hidden");
+      });
+
+      // Remove button functionality
+      removeButton.addEventListener("click", () => {
+        const allCards = document.querySelectorAll(".card");
+        if (allCards.length === 1) {
+          imageContainer.innerHTML = ""; // Clear image container content if there's only one card
+          recognizedTextLabel.textContent = ""; // Clear the label text
+        } else {
+          cardElement.remove(); // Remove the entire card if there are multiple cards
+        }
+      });
+
+      // Flash button functionality
+      flashButton.addEventListener("click", () => {
+        if (track && track.getCapabilities().torch) {
+          track.applyConstraints({
+            advanced: [{ torch: !track.getSettings().torch }]
+          }).catch((error) => {
+            console.error("Flashlight toggle error:", error);
+          });
+        } else {
+          alert("Torch mode not supported on this device.");
+        }
+      });
+    }
+
+    // Attach event handlers to the initial Package
+    attachEventHandlers(document.getElementById("stopCard"));
+
+    // Duplicate Package functionality
+    duplicateButton.addEventListener("click", () => {
+      loadAreaCount++;
+      const originalLoadArea = document.querySelector("#stopCard");
+      const newLoadArea = originalLoadArea.cloneNode(true);
+
+      // Clear the imageContainer and recognizedTextLabel in the duplicated Package
+      const newImageContainer = newLoadArea.querySelector(".imageContainer");
+      newImageContainer.innerHTML = ""; // Ensure no images are duplicated
+
+      const newRecognizedTextLabel = newLoadArea.querySelector(".recognizedTextLabel");
+      newRecognizedTextLabel.textContent = ""; // Ensure no text is duplicated
+
+      // Update IDs and labels for the new Package
+      newLoadArea.querySelector(".card-header").textContent = `Package ${loadAreaCount}`;
+      newLoadArea.id = `stopCard${loadAreaCount}`;
+
+      // Attach event handlers to the new Package
+      attachEventHandlers(newLoadArea);
+
+      // Append the duplicated Package to the container
+      loadAreasContainer.appendChild(newLoadArea);
+    });
+  </script>
+</body>
+</html>

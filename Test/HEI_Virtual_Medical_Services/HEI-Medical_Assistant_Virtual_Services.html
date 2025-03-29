@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HEI - Medical Assistant Virtual Services</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+
+    body {
+        background-color: #f8f9fa;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+        .card {
+            width: 8.5in;
+            height: 11in;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            overflow: auto;
+        }
+        h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h2 {
+            font-size: 1.25rem;
+        }
+        input, textarea, canvas {
+            background-color: #ffffff;
+            border: 1px solid #ced4da;
+        }
+        canvas {
+            display: block;
+            border: 1px solid #ced4da;
+            margin-bottom: 15px;
+            cursor: crosshair;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        @media print {
+            .no-print {
+                display: none;
+            }
+        }
+        .card {
+            width: 100%; /* Allow cards to adjust to the container's width */
+            height: 100vh; /* Make the card height fill the viewport */
+            margin: auto;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
+            display: none; /* Hide all cards initially */
+        }
+        .card.active {
+            display: block; /* Show only the active card */
+        }
+        .card-white { background-color: white;  color: black; }
+        .card-blue { background-color: white;  color: black;  }
+        .card-green { background-color: white; color: black; }
+        .card-yellow { background-color: white;  color: black; }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px; /* Space between buttons */
+            position: relative;
+            padding-right: 1rem;
+        }
+
+        /* Responsive adjustments for mobile view */
+        @media (max-width: 768px) {
+            .nav-buttons {
+                position: fixed; /* Fix the buttons at the bottom */
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%); /* Center the buttons horizontally */
+                justify-content: center;
+                width: 100%;
+                padding: 0;
+                gap: 20px; /* Increase spacing between buttons on mobile */
+            }
+        }
+
+        /* Custom adjustments for width less than or equal to 333px */
+        @media (max-width: 333px) {
+            .card {
+                height: 100vh; /* Extend the card to fill the viewport */
+            }
+
+            .nav-buttons {
+                position: fixed;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                justify-content: center;
+                width: 100%;
+                padding: 0;
+                gap: 20px;
+            }
+        }
+
+
+        header {
+            background-color: #0288d1;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+        .container {
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 20px auto;
+            gap: 20px;
+        }
+        .content {
+            flex: 1;
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(38, 198, 218, 0.5); /* Updated box shadow */
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .content-inner {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .form-section {
+            flex: 1;
+            min-width: 300px;
+        }
+        .contact__sidebar {
+            flex: 1;
+            background: #b2ebf2; /* Updated background color */
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            min-width: 300px;
+        }
+        .contact__sidebar h4 {
+            color: #0288d1;
+            margin-bottom: 10px;
+        }
+        .underline-checklist__item {
+            list-style: disc inside;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #0288d1;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #26c6da; /* Updated hover color */
+        }
+        .review-stars {
+            color: black; /* Makes the stars golden */
+            font-size: 20px; /* Adjusts the star size */
+        }
+        @media (max-width: 768px) {
+            .content-inner {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container my-4">
+        <div id="cards">
+            <div class="card card-white active" id="card1">
+                <div class="card-body">
+<!-- BEGIN: card body -->
+
+    <header>
+        <h1>Medical Assistant Virtual Services</h1>
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfQAAAH0CAIAAABEtEjdAAAACXBIWXMAAA7EAAAOxAGVKw4bAAADfGlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSfvu78nIGlkPSdXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQnPz4KPHg6eG1wbWV0YSB4bWxuczp4PSdhZG9iZTpuczptZXRhLyc+CjxyZGY6UkRGIHhtbG5zOnJkZj0naHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyc+CgogPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9JycKICB4bWxuczpBdHRyaWI9J2h0dHA6Ly9ucy5hdHRyaWJ1dGlvbi5jb20vYWRzLzEuMC8nPgogIDxBdHRyaWI6QWRzPgogICA8cmRmOlNlcT4KICAgIDxyZGY6bGkgcmRmOnBhcnNlVHlwZT0nUmVzb3VyY2UnPgogICAgIDxBdHRyaWI6Q3JlYXRlZD4yMDI0LTEyLTIzPC9BdHRyaWI6Q3JlYXRlZD4KICAgICA8QXR0cmliOkV4dElkPjM4OWU4MGVkLTk2MzMtNGRhYS05NmY4LWFlNmZkNTAyMGEwZjwvQXR0cmliOkV4dElkPgogICAgIDxBdHRyaWI6RmJJZD41MjUyNjU5MTQxNzk1ODA8L0F0dHJpYjpGYklkPgogICAgIDxBdHRyaWI6VG91Y2hUeXBlPjI8L0F0dHJpYjpUb3VjaFR5cGU+CiAgICA8L3JkZjpsaT4KICAgPC9yZGY6U2VxPgogIDwvQXR0cmliOkFkcz4KIDwvcmRmOkRlc2NyaXB0aW9uPgoKIDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PScnCiAgeG1sbnM6ZGM9J2h0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvJz4KICA8ZGM6dGl0bGU+CiAgIDxyZGY6QWx0PgogICAgPHJkZjpsaSB4bWw6bGFuZz0neC1kZWZhdWx0Jz5SZWQgYW5kIEdyZWVuIENsaW5pY2FsIEZyaWVuZGx5IEhlYWx0aCBMb2dvIC0gMTwvcmRmOmxpPgogICA8L3JkZjpBbHQ+CiAgPC9kYzp0aXRsZT4KIDwvcmRmOkRl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" 
+        alt="Logo" class="logo">
+    </header>
+    <div class="container">
+        <section class="content">
+            <div class="content-inner">
+                <div class="form-section">
+                    <h2>Tell us about your needs</h2>
+                    <div class="question">
+                        <label>What type of Primary Care services are you looking for?</label>
+                        <div class="options">
+                            <input type="radio" id="billing" name="service" value="billing">
+                            <label for="billing">Billing Support</label>
+                        </div>
+                        <div class="options">
+                            <input type="radio" id="scheduling" name="service" value="scheduling">
+                            <label for="scheduling">Scheduling Assistance</label>
+                        </div>
+                        <div class="options">
+                            <input type="radio" id="other" name="service" value="other">
+                            <label for="other">Other</label>
+                        </div>
+                    </div>
+                    <button>Continue</button>
+                </div>
+                <aside class="contact__sidebar">
+                    <h4>Here's how it works</h4>
+                    <ul class="underline-checklist">
+                        <li class="underline-checklist__item">Answer a few simple questions</li>
+                        <li class="underline-checklist__item">Get ready-to-go personalized task ideas</li>
+                        <li class="underline-checklist__item">Claim $150 off your first month</li>
+                    </ul>
+                    <div style="margin-top: 25px; margin-bottom: 10px;">
+                        <span style="font-weight: bold;">Client Review<br></span>
+                        <p style="margin-top: 10px; font-style: italic;">
+                            "I'm a huge fan of this service! My assistant from Time etc is excellent and totally on top of it – I trust her completely. Partnering with Time etc makes my life and work much more doable and enjoyable."
+                        </p>
+                    </div>
+                    <div class="review-stars">★★★★★ - Chinyere Okunji</div>
+                </aside>
+            </div>
+        </section>
+    </div>
+<!--   END: card body -->
+                </div>
+            </div>
+            <div class="card card-blue" id="card2">
+                <div class="card-body">
+<!-- BEGIN: card body -->
+
+    <div class="container">
+            <h1>Medical Virtual Assistant Services</h1>
+
+    <div class="container">
+                <div class="card-body">
+                    <form id="servicesForm">
+                        <div class="mb-3">
+                            <h5>Create and maintain EHR/EMR system records</h5>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Document new patient and referral intake" id="service1">
+                                <label class="form-check-label" for="service1">Document new patient and referral intake</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Record patient medical history, symptoms, previous medical diagnoses" id="service2">
+                                <label class="form-check-label" for="service2">Record patient medical history, symptoms, previous medical diagnoses</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Input patient information, medical records, and billing data" id="service3">
+                                <label class="form-check-label" for="service3">Input patient information, medical records, and billing data</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Manage appointment bookings, cancellations, and rescheduling" id="service4">
+                                <label class="form-check-label" for="service4">Manage appointment bookings, cancellations, and rescheduling</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Assist with processing insurance claims" id="service5">
+                                <label class="form-check-label" for="service5">Assist with processing insurance claims</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Respond to incoming patient inquiries" id="service6">
+                                <label class="form-check-label" for="service6">Respond to incoming patient inquiries</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Assist in analyzing healthcare data, preparing reports, and maintaining records" id="service7">
+                                <label class="form-check-label" for="service7">Assist in analyzing healthcare data, preparing reports, and maintaining records</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Document physician’s or health care provider’s findings, follow-up instructions, and prescribed treatments" id="service8">
+                                <label class="form-check-label" for="service8">Document physician’s or health care provider’s findings, follow-up instructions, and prescribed treatments</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Transcribe verbal orders and medical dictation related to patient orders like laboratory tests and medications" id="service9">
+                                <label class="form-check-label" for="service9">Transcribe verbal orders and medical dictation related to patient orders like laboratory tests and medications</label>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <h5>Clinical Support Services</h5>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Process Laboratory Specimens" id="service10">
+                                <label class="form-check-label" for="service10">Process Laboratory Specimens</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Collect Vital Signs" id="service11">
+                                <label class="form-check-label" for="service11">Collect Vital Signs</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Prepare for audits" id="service12">
+                                <label class="form-check-label" for="service12">Prepare for audits</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Implement patient recruitment calls to accelerate enrollment" id="service13">
+                                <label class="form-check-label" for="service13">Implement patient recruitment calls to accelerate enrollment</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Create ICF and source documents and prepare for IRB Submission" id="service14">
+                                <label class="form-check-label" for="service14">Create ICF and source documents and prepare for IRB Submission</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="EDC entry within 24 hours & Query Resolution" id="service15">
+                                <label class="form-check-label" for="service15">EDC entry within 24 hours & Query Resolution</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Electronic & On-site ISF/TMF management" id="service16">
+                                <label class="form-check-label" for="service16">Electronic & On-site ISF/TMF management</label>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#selectedModal" onclick="showSelected()">Schedule</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+<!--   END: card body -->
+                </div>
+            </div>
+            <div class="card card-green" id="card3">
+                <div class="card-body">
+<!-- BEGIN: card body -->
+                    <h1>Service Contract</h1>
+                    <form>
+                        <!-- Top Half -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <h2 for="companyName">Company Name</h2>
+                                    <input type="text" class="form-control" id="companyName" value="MoveCheap & Store It LLC (MC&S LLC)">
+                                </div>
+                                <div class="form-group">
+                                    <h2 for="services">Services Provided</h2>
+                                    <textarea class="form-control" id="services" rows="3">Sales, Administrative Support</textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <h2 for="contractorName">Contractor Name</h2>
+                                    <input type="text" class="form-control" id="contractorName" value="Rodney Womack">
+                                </div>
+                                <div class="form-group">
+                                    <h2 for="equipment">Equipment Provided</h2>
+                                    <textarea class="form-control" id="equipment" rows="3">Phone, Computer (returnable upon completion of the contract)</textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Half -->
+                        <div class="form-group">
+                            <h2 for="entireAgreement">Entire Agreement</h2>
+                            <textarea class="form-control" id="entireAgreement" rows="5">This Service Contract Agreement constitutes the entire agreement between MC&S LLC and Rodney Womack. Any modifications must be made in writing and signed by authorized representatives of both parties.</textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <h2 for="contractStartDate">Contract Start Date</h2>
+                                    <input type="date" class="form-control" id="contractStartDate">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <h2 for="contractEndDate">Contract End Date</h2>
+                                    <input type="date" class="form-control" id="contractEndDate">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <h2 for="signature">Contractor Signature</h2>
+                                    <canvas id="signatureCanvas" width="400" height="150" style="border: 1px solid #ccc;"></canvas>
+                                    <p1 for="signatureName">Print Full Name</p1>
+                                    <input type="text" class="form-control" id="signatureName" placeholder="print full name">
+                                </div>
+                                <div class="form-group">
+                                    <p1 for="submissionDate">Date</p1>
+                                    <input type="date" class="form-control" id="submissionDate">
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary float-right">Submit</button>
+                    </form>
+<!--   END: card body -->
+                </div>
+            </div>
+            <div class="card card-yellow" id="card4">
+                <div class="card-body">
+<!-- BEGIN: card body -->
+                    <h1 class="card-title">Service Confirmation</h1>
+                    <p class="card-text">your appointment is confirmed here are the details</p>
+                <!-- Center and Bold Selected Services -->
+            </br>
+                <h4 class="modal-title text-center2" id="selectedModalLabel">Selected Services</h4>
+                <div class="modal-body" id="selectedServices">
+                    <!-- Selected items will be displayed here -->
+                </div>
+<!--   END: card body -->
+                </div>
+            </div>
+        </div>
+
+
+    <!-- Summary Modal -->
+    <div class="modal fade" id="summaryModal" tabindex="-1" role="dialog" aria-labelledby="summaryModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="summaryModalLabel">Service Contract Summary</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="font-family: Arial, sans-serif;">
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <h2>AGREEMENT FOR CONTRACT SERVICES</h2>
+                        <h3>MoveCheap & Store It LLC (MC&S)</h3>
+                        <h4>AND</h4>
+                        <h3 id="contractorNameSummary">Rodney Womack</h3>
+                    </div>
+                    <div>
+                        <p><strong>Company Name:</strong> <span id="companyNameSummary"></span></p>
+                        <p><strong>Contractor Name:</strong> <span id="contractorNameSummaryAlt"></span></p>
+                        <p><strong>Services Provided:</strong> <span id="servicesSummary"></span></p>
+                        <p><strong>Equipment Provided:</strong> <span id="equipmentSummary"></span></p>
+                        <p><strong>Entire Agreement:</strong></p>
+                        <p id="entireAgreementSummary" style="white-space: pre-wrap;"></p>
+                        <p><strong>Contract Start Date:</strong> <span id="contractStartDateSummary"></span></p>
+                        <p><strong>Contract End Date:</strong> <span id="contractEndDateSummary"></span></p>
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <p><strong>Contractor Signature:</strong></p>
+                        <img id="signatureImage" style="max-width: 100%; border: 1px solid #ccc;" alt="Signature Image">
+                        <p><strong>Name:</strong> <span id="signatureNameSummary"></span></p>
+                        <p><strong>Date:</strong> <span id="submissionDateSummary"></span></p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary no-print" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary no-print" onclick="window.print()">Print</button>
+                </div>
+            </div>
+        </div>
+    </div>
+        <div class="nav-buttons mt-3">
+            <button class="btn btn-primary" id="prevBtn">Previous</button>
+            <button class="btn btn-primary" id="nextBtn">Next</button>
+        </div>
+    </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="selectedModal" tabindex="-1" aria-labelledby="selectedModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 8.5in;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <form id="modalForm">
+                        <!-- Center and Bold Contact Information -->
+                        <h4  id="selectedModalLabel">Contact Information</h4>
+            </br>
+                        <div class="row">
+                            <!-- Name and Email Address -->
+                            <div class="col-md-6 mb-3">
+                                <label for="name" class="form-label">Name:</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label">Email:</label>
+                                <input type="text" class="form-control" id="email" name="title" placeholder="Enter your email address" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!-- Company Name and Date -->
+                            <div class="col-md-6 mb-3">
+                                <label for="companyName" class="form-label">Company Name:</label>
+                                <input type="text" class="form-control" id="companyName" name="companyName" placeholder="Enter your company name" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="date" class="form-label">Date:</label>
+                                <input type="date" class="form-control" id="date" name="date" required>
+                            </div>
+                        </div>
+                </div>
+                <!-- Center and Bold Selected Services -->
+            </br>
+                <h4 class="modal-title text-center2" id="selectedModalLabel">Selected Services</h4>
+                <div class="modal-body" id="modalBody">
+                    <!-- Selected items will be displayed here -->
+                </div>
+                <div class="modal-footer">
+                </div>
+                <div class="button-container"><button type="submit" class="btn btn-primary">Create Contract</button></div></div>
+</div>
+
+
+
+
+
+
+<!-- scripts -->
+    <script>
+        const cards = document.querySelectorAll('.card');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        let currentCard = 0;
+
+        // Show the card based on the current index
+        function showCard(index) {
+            cards.forEach((card, i) => {
+                card.classList.toggle('active', i === index);
+            });
+
+            // Disable buttons as needed
+            prevBtn.disabled = (currentCard === 0);
+            nextBtn.disabled = (currentCard === cards.length - 1);
+        }
+
+        // Swipe detection
+        let startX = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            const endX = e.changedTouches[0].clientX;
+            const deltaX = endX - startX;
+
+            if (deltaX > 50) {
+                // Swipe right (previous card)
+                if (currentCard > 0) {
+                    currentCard--;
+                    showCard(currentCard);
+                }
+            } else if (deltaX < -50) {
+                // Swipe left (next card)
+                if (currentCard < cards.length - 1) {
+                    currentCard++;
+                    showCard(currentCard);
+                }
+            }
+        });
+
+        // Initial setup
+        showCard(currentCard);
+
+        prevBtn.addEventListener('click', () => {
+            if (currentCard > 0) {
+                currentCard--;
+                showCard(currentCard);
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentCard < cards.length - 1) {
+                currentCard++;
+                showCard(currentCard);
+            }
+        });
+    </script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js">   
+</script>
+<script>
+    const canvas = document.getElementById('signatureCanvas');
+const ctx = canvas.getContext('2d');
+let isDrawing = false;
+
+// Mouse events for drawing
+canvas.addEventListener('mousedown', () => isDrawing = true);
+canvas.addEventListener('mouseup', () => isDrawing = false);
+canvas.addEventListener('mousemove', draw);
+
+// Function to draw on the canvas
+function draw(event) {
+    if (!isDrawing) return;
+    ctx.lineWidth = 2;
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = '#000';
+    ctx.lineTo(event.offsetX, event.offsetY);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(event.offsetX, event.offsetY);
+}
+
+// Clear the signature (optional: you can add a "Clear" button if needed)
+canvas.addEventListener('mouseleave', () => isDrawing = false);
+
+// Handle form submission and show summary modal
+document.querySelector("button[type='submit']").addEventListener("click", function(event) {
+    event.preventDefault(); // Prevent form submission
+
+  // Convert the canvas content to a Base64 data URL
+        const canvasDataURL = signatureCanvas.toDataURL();
+
+        // Alert the Base64 string (or handle it as needed)
+        console.log("Signature Canvas Data URL:", canvasDataURL);
+        //alert("Signature Canvas Data URL:\n" + canvasDataURL);
+
+
+    // Populate modal with form data
+    document.getElementById('companyNameSummary').textContent = document.getElementById('companyName').value;
+    document.getElementById('contractorNameSummary').textContent = document.getElementById('contractorName').value;
+    document.getElementById('contractorNameSummaryAlt').textContent = document.getElementById('contractorName').value;
+    document.getElementById('servicesSummary').textContent = document.getElementById('services').value;
+    document.getElementById('equipmentSummary').textContent = document.getElementById('equipment').value;
+    document.getElementById('entireAgreementSummary').textContent = document.getElementById('entireAgreement').value;
+    document.getElementById('contractStartDateSummary').textContent = document.getElementById('contractStartDate').value;
+    document.getElementById('contractEndDateSummary').textContent = document.getElementById('contractEndDate').value;
+    document.getElementById('signatureNameSummary').textContent = document.getElementById('signatureName').value;
+    document.getElementById('submissionDateSummary').textContent = document.getElementById('submissionDate').value;
+
+    // Show the modal
+    $('#summaryModal').modal('show');
+});
+
+// Print only the modal content
+function printModal() {
+    const modalContent = document.querySelector('.modal-content');
+    const originalContent = document.body.innerHTML;
+
+    // Replace body content with the modal content
+    document.body.innerHTML = modalContent.outerHTML;
+
+    // Print the modal
+    window.print();
+
+    // Restore original body content
+    document.body.innerHTML = originalContent;
+
+    // Rebind necessary event listeners
+    setupEventListeners();
+}
+
+// Rebind event listeners after restoring the content
+function setupEventListeners() {
+    document.querySelector("button[type='submit']").addEventListener("click", function(event) {
+        event.preventDefault();
+        document.getElementById('companyNameSummary').textContent = document.getElementById('companyName').value;
+        document.getElementById('contractorNameSummary').textContent = document.getElementById('contractorName').value;
+        document.getElementById('contractorNameSummaryAlt').textContent = document.getElementById('contractorName').value;
+        document.getElementById('servicesSummary').textContent = document.getElementById('services').value;
+        document.getElementById('equipmentSummary').textContent = document.getElementById('equipment').value;
+        document.getElementById('entireAgreementSummary').textContent = document.getElementById('entireAgreement').value;
+        document.getElementById('contractStartDateSummary').textContent = document.getElementById('contractStartDate').value;
+        document.getElementById('contractEndDateSummary').textContent = document.getElementById('contractEndDate').value;
+        document.getElementById('signatureNameSummary').textContent = document.getElementById('signatureName').value;
+        document.getElementById('submissionDateSummary').textContent = document.getElementById('submissionDate').value;
+
+        //$('#summaryModal').modal('show');
+    });
+}
+document.addEventListener("DOMContentLoaded", function () {
+    const signatureCanvas = document.getElementById("signatureCanvas");
+    const form = document.querySelector("form");
+    const modalImage = document.createElement("img"); // Create an image element for the modal
+    modalImage.style.maxWidth = "100%"; // Ensure it fits nicely in the modal
+
+    // Render the canvasDataURL on the modal
+    form.addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent form submission for demonstration
+    $('#summaryModal').modal('show');
+
+        // Convert the canvas content to a Base64 data URL
+        const canvasDataURL = signatureCanvas.toDataURL();
+
+        // Display the Base64 data URL in the modal as an image
+        modalImage.src = canvasDataURL;
+
+        // Add the image to the modal body
+        const modalBody = document.querySelector(".modal-body");
+        modalBody.innerHTML = ""; // Clear existing content in the modal body
+        modalBody.appendChild(modalImage);
+
+        // Trigger the modal to open (requires Bootstrap's modal functionality)
+        //$('#summaryModal').modal('show');
+    });
+});
+
+// Initial setup for event listeners
+setupEventListeners();
+
+</script>
+
+
+<!-- SCRIPT SECTION -->
+
+
+            <script>
+                function showSelected() {
+                let selected = [];
+                document.querySelectorAll('input[type=checkbox]:checked').forEach((checkbox) => {
+                selected.push(`<span>✔</span> ${checkbox.value}`);
+                });
+
+                const contactInfo = `
+                `;
+
+                const servicesList = selected.length > 0 ? selected.join('<br>') : 'No services selected';
+
+                document.getElementById('modalBody').innerHTML = contactInfo + '<hr>' + servicesList;
+                }
+            </script>
+            
+
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const today = new Date().toISOString().split('T')[0];
+                    document.getElementById('date').value = today;
+                });
+
+                document.getElementById('modalForm').addEventListener('submit', function(event) {
+                    event.preventDefault(); // Prevent actual form submission
+                    
+                    // Collect checked services
+                    let selectedServices = [];
+                    document.querySelectorAll('input[type=checkbox]:checked').forEach((checkbox) => {
+                        selectedServices.push(checkbox.value);
+                    });
+                    
+                    // Collect contact info
+                    const contactInfo = {
+                        name: document.getElementById('name').value,
+                        email: document.getElementById('email').value,
+                        companyName: document.getElementById('companyName').value,
+                        date: document.getElementById('date').value
+                    };
+
+                    // Combine into one JSON object
+                    const formData = {
+                        contactInfo: contactInfo,
+                        selectedServices: selectedServices
+                    };
+
+                    // Alert the JSON object as a string
+                    alert(JSON.stringify(formData, null, 2));
+                });
+            </script>
+          
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

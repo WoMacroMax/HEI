@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compliance</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        p {
+            word-wrap: break-word;
+            white-space: normal;
+        }
+        body {
+            background-color: #f0f0f0; /* Light background */
+            color: #333; /* Text color */
+        }
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            padding: 1rem; /* Further reduced padding */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem; /* Added margin-bottom to create a gap between containers */
+            max-width: calc(100% - .8in); /* Adjusted max-width to reduce the width of the containers */
+            float: right; /* Right justify the container */
+        }
+        .card {
+            background: linear-gradient(to bottom, #688697, #ffffff); /* Gradient background */
+            color: white; /* White text */
+            position: relative;
+            margin-left: 0in; /* Move card 0.8 inches away from the sidebar */
+            transition: background 0.3s ease-in-out; /* Adjust transition duration for quicker gradient */
+            float: right; /* Right justify the card */
+        }
+        .card-title {
+            font-size: 1.0rem; /* Larger "ABOUT" title */
+            color: black; /* Make "ABOUT" text black */
+        }
+        .card-body {
+            font-size: 1.0rem; /* Slightly larger card body text */
+        }
+        p1 {
+            font-size: 1.0rem; /* Larger main text */
+            color: #061a1a; /* Blue text color */
+            margin-left: 0.5in; /* Shift text to the left by 0.5 inches */
+        }
+        .navbar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #688697;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+        .navbar a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: white;
+            display: flex;
+            align-items: center;
+            transition: 0.3s;
+        }
+        .navbar a img {
+            margin-right: 10px;
+            width: 40px; /* Increase size for better visibility */
+            height: 40px; /* Increase size for better visibility */
+            border-radius: 50%; /* Make images round */
+            box-shadow: 0 0 6px rgba(0,0,0,0.3); /* Add a subtle shadow for card effect */
+        }
+        .navbar a:hover {
+            background-color: #575757;
+        }
+        .navbar .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+        }
+        .hamburger {
+            font-size: 30px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: pink; /* Change hamburger menu color to pink */
+            position: fixed;
+            top: 15px; /* Move to the top */
+            right: 15px; /* Move to the right */
+            transform: translateY(-50%);
+            z-index: 2;
+        }
+        .content-container {
+            margin: 80px 20px 20px 20px; /* Adjusted margin to account for fixed navbar */
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .card-title-small {
+            font-size: 1.0rem; /* Reduced font size for specific card title */
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .chart-container {
+            position: relative;
+            height: 400px;
+        }
+    </style>
+</head>
+
+<body onclick="hideNavbar(event)">
+
+<body>
+<button class="hamburger" onclick="openNav(event)">☰</button>
+
+<div class="navbar" id="myNavbar">
+    <a href="javascript:void(0);" class="closebtn" onclick="closeNav()">&times;</a>
+</div>
+
+    <!-- Menu Bar -->
+    <div class="navbar">
+        <a href="index-mobile.html">Home</a>
+        <a href="aboutus-mobile.html">About Us</a>
+        <a href="articles-mobile.html">Articles</a>
+        <a href="services-mobile.html">Services</a>
+        <a href="Certifications-mobile.html">Certifications</a>
+    </div>
+
+
+
+    <!-- Content -->
+
+
+    <div class="content-container">
+        <h6 style="font-size: 32px; margin-top: 20px; margin-left: 10px;">Compliance</h6>
+    </div>
+
+        <div class="container d-flex flex-column vh-110">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                             <h6 class="card-title card-title-small">Compliance Monitoring Services</h6>
+                            <p class="card-text"></p>
+                        </div>
+                    </div>
+            <div class="row align-items-start justify-content-center w-80">
+            <div class="col-md-10">
+                        <p class="card-text">Our compliance monitoring services ensure that all clinical trials adhere to regulatory requirements and Good Clinical Practice (GCP) guidelines. We provide comprehensive monitoring to ensure data integrity and patient safety.</p>
+                        <ul>
+                            <li>Regular site visits</li>
+                            <li>Data verification</li>
+                            <li>Regulatory compliance checks</li>
+                            <li>Patient safety monitoring</li>
+                            <li>Audit preparation and support</li>
+                            <!-- Add more services as needed -->
+                        </ul>
+            </div>
+            <div class="col-md-10">
+    <h5>Clinical Research</h5>
+    <div class="indented-div"> 
+        <p1>
+            Compliance Monitoring in Clinical Research:
+            Protection of Participants: Ensuring that the rights and well-being of human subjects are protected throughout the study.<br>
+            <br>
+            Data Integrity: Verifying that the reported trial data are accurate, complete, and verifiable from source documents.<br>
+            <br>
+            Protocol Adherence: Ensuring that the conduct of the trial complies with the approved protocol, GCP, and applicable regulatory requirements.<br>
+            <br>
+            Risk-Based Monitoring: Implementing a systematic, prioritized, risk-based approach to monitoring clinical trials.<br>
+            <br>
+            Documentation and Reporting: Keeping detailed records of compliance activities and reporting to regulatory bodies as required.<br>
+            <br>
+            Roles and Responsibilities:<br>
+            Sponsors: Responsible for ensuring that trials are adequately monitored.<br>
+            <br>
+            Monitors: Appointed by the sponsor to conduct on-site visits, review documentation, and ensure compliance.<br>
+            <br>
+            Principal Investigators (PIs): Oversee the clinical trial process, manage study records, and ensure participant safety.<br>
+            <br>
+            Benefits:<br>
+            Regulatory Compliance: Helps avoid fines and legal issues associated with non-compliance.<br>
+            <br>
+            Enhanced Data Quality: Ensures data accuracy and consistency.<br>
+            <br>
+            Participant Safety: Protects the safety and well-being of trial participants.<br>
+            <br>
+            Operational Efficiency: Streamlines trial operations and reduces delays.
+        </p1>
+    </div>
+    </div>
+            </div>
+
+            
+        </div>
+    </div>
+
+    <script>
+        // Load the menu from the external file
+        fetch('menu.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('menu-placeholder').innerHTML = data;
+            });
+    </script>
+<script>
+    const jsonString = `[
+        {"name": "Home", "url": "index-mobile.html", "icon": "https://womacromax.github.io/HEI/media/Health Equity Impact LOGO.png"},
+        {"name": "Articles", "url": "articles-mobile.html", "icon": "https://womacromax.github.io/HEI/media/Articles.jpg"},
+        {"name": "About", "url": "aboutus-mobile.html", "icon": "https://womacromax.github.io/HEI/media/CHW Management.png"},
+        {"name": "Services", "url": "services-mobile.html", "icon": "https://womacromax.github.io/HEI/media/Business Services.jpg"},
+        {"name": "Compliance", "url": "Compliance Monitoring-mobile.html", "icon": "https://womacromax.github.io/HEI/media/compliance.png"},
+        {"name": "Certifications", "url": "Certifications-mobile.html", "icon": "https://womacromax.github.io/HEI/media/certifications.png"}
+    ]`;
+
+    const links = JSON.parse(jsonString);
+
+    function createNavLinks(links) {
+        const navbar = document.getElementById('myNavbar');
+        links.forEach((link) => {
+            const a = document.createElement('a');
+            a.href = link.url;
+
+            const img = document.createElement('img');
+            img.src = link.icon;
+            img.alt = link.name;
+
+            a.appendChild(img);
+            a.appendChild(document.createTextNode(link.name));
+            navbar.appendChild(a);
+        });
+    }
+
+    function openNav(event) {
+        event.stopPropagation();
+        document.getElementById("myNavbar").style.width = "250px";
+    }
+
+    function closeNav() {
+        document.getElementById("myNavbar").style.width = "0";
+    }
+
+    function hideNavbar(event) {
+        if (event.target.classList.contains('hamburger') || event.target.classList.contains('closebtn')) {
+            return;
+        }
+        closeNav();
+    }
+
+    // Initialize navigation links
+    createNavLinks(links);
+</script>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

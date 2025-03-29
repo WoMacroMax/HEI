@@ -1,0 +1,33 @@
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.modal-content {
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+    background-color: #0056b3;
+    color: white;
+    border-bottom: none;
+}
+
+.modal-footer {
+    border-top: none;
+    text-align: center;
+}
+
+button.btn-primary {
+    background-color: #0056b3;
+    border-color: #0056b3;
+    border-radius: 5px;
+    padding: 10px 20px;
+}

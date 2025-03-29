@@ -1,0 +1,15 @@
+if the slot is available then schedule the appointment and show the appointment in a new card 
+
+if the slot is unavailable then  show the next available appointment in a new card 
+
+working hours are 9am-5pm
+
+Here’s the updated HTML script. It now includes functionality to find and display the next available appointment time (within working hours, 9 AM to 5 PM) if the selected slot is unavailable:
+
+
+show a view of the calendar on the selected day [in a separate 'Availability' card] so the user can choose an open slot:
+show the updated HTML
+
+the duration dropdown must continue to work and then the availability must be show using the duration set in the dropdown; require the duration dropdown to be set prior to showing Available slots
+
+To make the duration dropdown functional and ensure availability is displayed only after it has been set, we can add some validations and adjustments to the JavaScript code. Here's the updated HTML and JavaScript:
