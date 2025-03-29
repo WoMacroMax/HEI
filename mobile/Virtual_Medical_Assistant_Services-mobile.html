@@ -1,9 +1,10 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Services</title>
+    <title>Virtual Medical Services</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         p {
@@ -14,30 +15,62 @@
             background-color: #f0f0f0; /* Light background */
             color: #333; /* Text color */
         }
-        .container {
-            background-color: white;
-            border-radius: 15px;
-            padding: 1rem; /* Further reduced padding */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 1rem; /* Added margin-bottom to create a gap between containers */
-            max-width: calc(100% - .0in); /* Stretch the width of the container minus 2 inches */
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
         }
-        .card {
-            background: linear-gradient(to bottom, #688697, #ffffff); /* Gradient background */
-            color: white; /* White text */
-            position: relative;
-            text-align: right; /* Right justify the gradient cards */
+        p {
+            margin-bottom: 1rem;
         }
-        .card-title {
-            font-size: 1.0rem; /* Larger "ABOUT" title */
-            color: black; /* Make "ABOUT" text black */
+
+        h2 {
+            font-size: 1.75rem;
+            font-weight: bold;
+            color: #007bff; /* Example: Bootstrap's primary color */
+            margin-bottom: 1.5rem;
         }
-        .card-body {
-            font-size: 1.0rem; /* Slightly larger card body text */
+
+        h5 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #495057; /* Example: Muted dark gray for headers */
         }
-        p1 {
-            font-size: 1.0rem; /* Larger main text */
-            color: #061a1a; /* Blue text color */
+
+        .form-check-label {
+            font-size: 1rem;
+            color: #212529;
+        }
+
+        .btn-primary {
+            background-color: #007bff; /* Example: Standard Bootstrap primary color */
+            border: none;
+            padding: 10px 20px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+        .button-container {
+        display: flex;
+        justify-content: center; /* Centers the button horizontally */
+        align-items: center; /* Centers the button vertically */
+        height: 5vh; /* Ensures the container takes the full viewport height */
+        }
+
+        .btn-primary {
+        background-color: #007bff; /* Example: Standard Bootstrap primary color */
+        border: none;
+        padding: 10px 20px;
+        font-weight: bold;
+        transition: background-color 0.3s;
+}
+
+
+        .modal-header, .modal-footer {
+            border: none;
         }
         .navbar {
             overflow: hidden;
@@ -45,7 +78,7 @@
             position: fixed;
             top: 0;
             width: 100%;
-            z-index: 1000;
+            z-index: 1000\
         }
         .navbar a {
             float: left;
@@ -59,69 +92,35 @@
             background-color: #ddd;
             color: black;
         }
-        .content-container {
-            margin: 80px 20px 20px 20px; /* Adjusted margin to account for fixed navbar */
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        .card-title-small {
-            font-size: 1.0rem; /* Reduced font size for specific card title */
-        }
-        .container {
-            margin-top: 20px;
-        }
-        .chart-container {
-            position: relative;
-            height: 400px;
-        }
-        p {
-            word-wrap: break-word;
-            white-space: normal;
-        }
-        body {
-            background-color: #f0f0f0;
-            color: #333;
-            font-size: 0.875rem; /* Reduced font size */
-        }
         .container {
             background-color: white;
             border-radius: 15px;
             padding: 1rem; /* Further reduced padding */
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin-bottom: 1rem; /* Added margin-bottom to create a gap between containers */
-            max-width: calc(100% - .70in); /* Stretch the width of the container minus 2 inches */
+            max-width: calc(100% - .8in); /* Adjusted max-width to reduce the width of the containers */
+            float: right; /* Right justify the container */
         }
         .card {
             background: linear-gradient(to bottom, #688697, #ffffff); /* Gradient background */
             color: white; /* White text */
             position: relative;
-            text-align: right; /* Right justify the gradient cards */
+            margin-left: 0in; /* Move card 0.8 inches away from the sidebar */
+            transition: background 0.3s ease-in-out; /* Adjust transition duration for quicker gradient */
+            float: right; /* Right justify the card */
         }
         .card-title {
             font-size: 1.0rem; /* Larger "ABOUT" title */
             color: black; /* Make "ABOUT" text black */
+        }
+        .card-body {
+            font-size: 1.0rem; /* Slightly larger card body text */
         }
         p1 {
             font-size: 1.0rem; /* Larger main text */
             color: #061a1a; /* Blue text color */
             margin-left: 0.5in; /* Shift text to the left by 0.5 inches */
         }
-        .button-container {
-            display: flex;
-            justify-content: left; /* Centers the button horizontally */
-            align-items: center; /* Centers the button vertically */
-            height: 100vh; /* Ensures the container takes the full viewport height */
-        }
-
-        .btn-primary {
-            background-color: #007bff; /* Example: Standard Bootstrap primary color */
-            border: none;
-            padding: 10px 20px;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
-
         .navbar {
             height: 100%;
             width: 0;
@@ -164,10 +163,11 @@
             cursor: pointer;
             background: none;
             border: none;
-            color: pink; /* Make hamburger menu pink */
+            color: pink; /* Change hamburger menu color to pink */
             position: fixed;
-            top: 10px;
-            right: 10px;
+            top: 15px; /* Move to the top */
+            right: 15px; /* Move to the right */
+            transform: translateY(-50%);
             z-index: 2;
         }
         .content-container {
@@ -188,48 +188,46 @@
         }
     </style>
 </head>
+
 <body onclick="hideNavbar(event)">
 
-    <!-- Menu Bar -->
-    <div class="navbar">
-        <a href="index-mobile.html">Home</a>
-        <a href="articles-mobile.html">Articles</a>
-        <a href="Certifications-mobile.html">Certifications</a>
-        <a href="services-mobile.html">Services</a>
-        <a href="Compliance Monitoring-mobile.html">Compliance</a>
-    </div>
-
+<body>
 <button class="hamburger" onclick="openNav(event)">☰</button>
 
 <div class="navbar" id="myNavbar">
     <a href="javascript:void(0);" class="closebtn" onclick="closeNav()">&times;</a>
 </div>
 
-    <script>
-        // Load the menu from the external file
-        fetch('menu.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('menu-placeholder').innerHTML = data;
-            });
-    </script>
     <!-- Menu Bar -->
     <div class="navbar">
         <a href="index-mobile.html">Home</a>
         <a href="aboutus-mobile.html">About Us</a>
-        <a href="Certifications-mobile.html">Certifications</a>
+        <a href="articles-mobile.html">Articles</a>
         <a href="services-mobile.html">Services</a>
-        <a href="Compliance Monitoring-mobile.html">Compliance</a>
-        <a href="medical virtual assistant-mobile.html">medical virtual</a> 
+        <a href="Certifications-mobile.html">Certifications</a>
     </div>
 
-   <div class="container">
-        <h1>Medical Virtual Assistant Services</h1>
 
-<div class="container">
+
+    <!-- Content -->
+
+
+    <div class="content-container">
+        <h6 style="font-size: 32px; margin-top: 20px; margin-left: 10px;">Virtual Medical Services</h6>
+    </div>
+
+        <div class="container d-flex flex-column vh-110">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                             <h6 class="card-title card-title-small">Virtual Medical Assistant Services</h6>
+                            <p class="card-text"></p>
+                        </div>
+                    </div>
+            <div class="row align-items-start justify-content-center w-80">
+            <div class="col-md-10">
+                       <div class="container">
             <div class="card-body">
                 <form id="servicesForm">
-                    <div class="mb-3">
                         <h5>Create and maintain EHR/EMR system records</h5>
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="Document new patient and referral intake" id="service1">
@@ -268,7 +266,6 @@
                             <label class="form-check-label" for="service9">Transcribe verbal orders and medical dictation related to patient orders like laboratory tests and medications</label>
                         </div>
                     </div>
-                    
                     <div class="mb-3">
                         <h5>Clinical Support Services</h5>
                         <div class="form-check">
@@ -300,115 +297,137 @@
                             <label class="form-check-label" for="service16">Electronic & On-site ISF/TMF management</label>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#selectedModal" onclick="showSelected()">Next</button>
+                    <div class="text-end">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#selectedModal" onclick="showSelected()">Show Summary</button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="selectedModal" tabindex="-1" aria-labelledby="selectedModalLabel" aria-hidden="true">
-        <div class="modal-dialog" style="width: 8.5in;">
-            <div class="modal-content">
-                <div class="modal-header">
+    <!--BEGIN: Bootstrap Card -->
+    <div class="card-body">
+        <!-- Modal -->
+        <div class="modal fade" id="selectedModal" tabindex="-1" aria-labelledby="selectedModalLabel" aria-hidden="true">
+            <div class="card shadow-lg border-0" style="max-width: 100%; width: 90%; margin: auto; background-color: #f8f9fa;">
+            </div>
+            <div class="modal-dialog" style="width: 8.5in;">
+                <div class="modal-content">
                     <form id="modalForm">
-                        <!-- Center and Bold Contact Information -->
-                        <h4  id="selectedModalLabel">Contact Information</h4>
-            </br>
-                        <div class="row">
-                            <!-- Name and Email Address -->
-                            <div class="col-md-6 mb-3">
-                                <label for="name" class="form-label">Name:</label>
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
+                        <div class="modal-body" style="max-width: 100%; width: 90%; margin: auto; background-color: #f8f9fa;">
+                            <h4 class="mb-0">
+                                <div class="modal-header">
+                                    <h2 id="selectedModalLabel" class="modal-title" style="color: white;">Contact Information</h2>
+                                </div>
+                            </h4>
+                            <div class="row">
+                                <!-- Name and Title -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="name" class="form-label">Name:</label>
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required style="font-size: 80%;">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="title" class="form-label">Title:</label>
+                                    <input type="text" class="form-control" id="title" name="title" placeholder="Enter your title" required style="font-size: 80%;">
+                                </div>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="email" class="form-label">Email:</label>
-                                <input type="text" class="form-control" id="email" name="title" placeholder="Enter your email address" required>
+                            <div class="row">
+                                <!-- Company Name and Date -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="companyName" class="form-label">Company Name:</label>
+                                    <input type="text" class="form-control" id="companyName" name="companyName" placeholder="Enter your company name" required style="font-size: 80%;">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="date" class="form-label">Date:</label>
+                                    <input type="date" class="form-control" id="date" name="date" required style="font-size: 80%;">
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <!-- Company Name and Date -->
-                            <div class="col-md-6 mb-3">
-                                <label for="companyName" class="form-label">Company Name:</label>
-                                <input type="text" class="form-control" id="companyName" name="companyName" placeholder="Enter your company name" required>
+                            <h5 class="text-center mt-4">Requested Services</h5>
+                            <div id="modalBody" style="
+                                                max-width: 100%;
+                                                width: 100%;
+                                                margin: auto;
+                                                font-size: 80%;
+                                                background-color: #f8f9fa;
+                                                max-height: 400px; /* Adjust height as needed */
+                                                overflow-y: auto; /* Enable vertical scrolling */
+                                                overflow-x: hidden; /* Prevent horizontal scrolling */
+                                                padding: 10px; /* Optional: Add padding for better appearance */
+                                                border: 1px solid #dee2e6; /* Optional: Add a border for clarity */
+                                            ">
+                                <!-- Selected items will be displayed here -->
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="date" class="form-label">Date:</label>
-                                <input type="date" class="form-control" id="date" name="date" required>
-                            </div>
-                        </div>
-                </div>
-                <!-- Center and Bold Selected Services -->
-            </br>
-                <h4 class="modal-title text-center2" id="selectedModalLabel">Selected Services</h4>
-                <div class="modal-body" id="modalBody">
-                    <!-- Selected items will be displayed here -->
+                    </form>
                 </div>
                 <div class="modal-footer">
+                    <div class="button-container">
+                        <button type="submit" class="btn btn-primary">Request Info</button>
+                    </div>
                 </div>
-                <div class="button-container"><button type="submit" class="btn btn-primary">Request Info</button></div></div>
-</div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!--  END: Bootstrap Card -->
+    </div>
+    </div>
+    </div>
+    </div>
+    <script>
+    function showSelected() {
+        let selected = [];
+        document.querySelectorAll('input[type=checkbox]:checked').forEach((checkbox) => {
+            selected.push(`<span>✔</span> ${checkbox.value}`);
+        });
 
-            <script>
-                function showSelected() {
-            let selected = [];
-            document.querySelectorAll('input[type=checkbox]:checked').forEach((checkbox) => {
-                selected.push(`<span>✔</span> ${checkbox.value}`);
-            });
-
-            const contactInfo = `
+        const contactInfo = `
             `;
 
-            const servicesList = selected.length > 0 ? selected.join('<br>') : 'No services selected';
+        const servicesList = selected.length > 0 ? selected.join('<br>') : 'No services selected';
 
-            document.getElementById('modalBody').innerHTML = contactInfo + '<hr>' + servicesList;
-        }
-            </script>
-            <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const today = new Date().toISOString().split('T')[0];
-    document.getElementById('date').value = today;
-});
-
-document.getElementById('modalForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent actual form submission
-    
-    // Collect checked services
-    let selectedServices = [];
-    document.querySelectorAll('input[type=checkbox]:checked').forEach((checkbox) => {
-        selectedServices.push(checkbox.value);
+        document.getElementById('modalBody').innerHTML = contactInfo + '<hr>' + servicesList;
+    }
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('date').value = today;
     });
-    
-    // Collect contact info
-    const contactInfo = {
-        name: document.getElementById('name').value,
-        email: document.getElementById('email').value,
-        companyName: document.getElementById('companyName').value,
-        date: document.getElementById('date').value
-    };
 
-    // Combine into one JSON object
-    const formData = {
-        contactInfo: contactInfo,
-        selectedServices: selectedServices
-    };
+    document.getElementById('modalForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent actual form submission
 
-    // Alert the JSON object as a string
-    alert(JSON.stringify(formData, null, 2));
-});
+        // Collect checked services
+        let selectedServices = [];
+        document.querySelectorAll('input[type=checkbox]:checked').forEach((checkbox) => {
+            selectedServices.push(checkbox.value);
+        });
 
+        // Collect contact info
+        const contactInfo = {
+            name: document.getElementById('name').value,
+            title: document.getElementById('title').value,
+            companyName: document.getElementById('companyName').value,
+            date: document.getElementById('date').value
+        };
 
-            </script>
+        // Combine into one JSON object
+        const formData = {
+            contactInfo: contactInfo,
+            selectedServices: selectedServices
+        };
+
+        // Alert the JSON object as a string
+        alert(JSON.stringify(formData, null, 2));
+    });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </div>
+    </div>
+            </div>
+
             
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-
-</body>
-</html>
-
-
-<!-- SCRIPT SECTION -->
-
+        </div>
+    </div>
 
     <script>
         // Load the menu from the external file
@@ -465,6 +484,7 @@ document.getElementById('modalForm').addEventListener('submit', function(event) 
     // Initialize navigation links
     createNavLinks(links);
 </script>
+
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
