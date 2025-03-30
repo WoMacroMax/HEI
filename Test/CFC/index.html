@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,6 +16,10 @@
 
     .blue-text {
       color: #007bff;
+    }
+
+    .black-text {
+      color: black;
     }
 
     .menu-container {
@@ -82,9 +85,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 10px;
+      padding: 5px;
       margin: 10px auto;
-      font-size: 20px;
+      font-size: 10px;
       text-align: center;
       color: black;
       border: none;
@@ -99,11 +102,11 @@
     .menu button:nth-child(3) { background-color: #cccccc; }
     .menu button:nth-child(4) { background-color: #bbbbbb; }
     .menu button:nth-child(5) { background-color: #aaaaaa; }
-    .menu button:nth-child(6) { background-color: #999999; }
-    .menu button:nth-child(7) { background-color: #888888; }
-    .menu button:nth-child(8) { background-color: #777777; }
-    .menu button:nth-child(9) { background-color: #666666; }
-    .menu button:nth-child(10) { background-color: #555555; }
+    .menu button:nth-child(6) { background-color: #aaaaaa; }
+    .menu button:nth-child(7) { background-color: #aaaaaa; }
+    .menu button:nth-child(8) { background-color: #aaaaaa; }
+    .menu button:nth-child(9) { background-color: #aaaaaa; }
+    .menu button:nth-child(10) { background-color: #aaaaaa; }
 
     .menu button:hover {
       filter: brightness(90%);
@@ -173,19 +176,26 @@
     .card {
       display: none;
       margin-top: 10px;
+      max-height: 90px;
+      overflow-y: auto;
       padding: 15px;
-      background: linear-gradient(to bottom, #ffffff, #333333);
+      background: linear-gradient(to bottom, #ffffff, #cccccc);
       background-size: 100% 300%;
       background-position: top;
       animation: gradientFlow 10s ease-in-out infinite alternate;
       border-radius: 5px;
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
       color: black;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
     }
 
     .text-card {
       display: none;
-      margin-top: 20px;
+      margin-top: 2px;
       padding: 20px;
       background-color: white;
       border-radius: 5px;
@@ -194,13 +204,8 @@
     }
 
     @keyframes gradientFlow {
-      0% {
-        background-position: top;
-      }
-
-      100% {
-        background-position: bottom;
-      }
+      0% { background-position: top; }
+      100% { background-position: bottom; }
     }
 
     .homepage-content {
@@ -236,59 +241,8 @@
     .social-links a:hover {
       color: #007bff;
     }
-
-    /* Responsive styles */
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 24px;
-      }
-
-      h2 {
-        font-size: 20px;
-      }
-
-      p,
-      .menu button {
-        font-size: 16px;
-      }
-
-      .breadcrumb {
-        font-size: 12px;
-      }
-
-      .menu-icon-image {
-        height: 80px;
-      }
-
-      .circle-card {
-        width: 80px;
-        height: 80px;
-      }
-    }
-
-    @media (max-width: 500px) {
-      .logo-title h1 {
-        font-size: 20px;
-        white-space: normal;
-      }
-
-      .menu-icon {
-        position: relative;
-        left: 0%;
-      }
-
-      .circle-card {
-        width: 60px;
-        height: 60px;
-      }
-
-      .menu-icon-image {
-        height: 60px;
-      }
-    }
   </style>
 </head>
-
 <body>
   <div class="menu-container">
     <div class="menu-top">
@@ -300,8 +254,7 @@
       <div class="logo-title">
         <h1>Community <span class="blue-text">Family</span> Clinic</h1>
         <div class="circle-card">
-          <img src="community_family_clinic_logo.png" alt="Community Family Clinic Logo" class="menu-icon-image"
-            onclick="showHomepage()" />
+          <img src="community_family_clinic_logo.png" alt="Community Family Clinic Logo" class="menu-icon-image" onclick="showHomepage()" />
         </div>
       </div>
     </div>
@@ -321,12 +274,10 @@
   </div>
 
   <div id="homepage" class="homepage-content">
-    <h1>Welcome</h1>
+    <h1>Welcome!</h1>
     <p>
-      At Community <span class="blue-text">Family</span> Clinic, we provide compassionate, high-quality care for
-      <span class="blue-text">families</span> and individuals in our community. Our services include primary care,
-      preventive health screenings, immunizations, mental health support, and more. We strive to make healthcare
-      accessible to everyone, ensuring a healthy and thriving community.
+      Here at <b>Community <span class="blue-text">Family</span> Clinic</b>, we provide compassionate, high-quality care for
+      families and individuals in our community.
     </p>
   </div>
 
@@ -335,39 +286,84 @@
 
   <footer>
     <div class="social-links">
-      <a href="https://facebook.com/YourPage" target="_blank" rel="noopener noreferrer">📘</a>
-      <a href="https://instagram.com/YourPage" target="_blank" rel="noopener noreferrer">📸</a>
-      <a href="https://wa.me/YourNumber" target="_blank" rel="noopener noreferrer">📱</a>
-      <a href="https://twitter.com/YourPage" target="_blank" rel="noopener noreferrer">✖️</a>
+      <a href="https://facebook.com/YourPage" target="_blank">📘</a>
+      <a href="https://instagram.com/YourPage" target="_blank">📸</a>
+      <a href="https://wa.me/YourNumber" target="_blank">📱</a>
+      <a href="https://twitter.com/YourPage" target="_blank">✖️</a>
     </div>
   </footer>
 
   <script>
-    const randomText = [
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      "Sed ut perspiciatis unde omnis iste natus error sit voluptatem.",
-      "But I must explain to you how all this mistaken idea of denouncing pleasure.",
-      "At vero eos et accusamus et iusto odio dignissimos ducimus.",
-      "On the other hand, we denounce with righteous indignation and dislike men."
-    ];
+    const contentData = {
+      "Home": {
+        title: "<h2><span class='black-text'>Welcome to Community Family Clinic</span></h2>",
+        text: "<p>We provide compassionate, high-quality care for families and individuals in our community.</p>"
+      },
+      "Mission": {
+        title: "<h2>Our <span class='black-text'>Mission</span></h2>",
+        text: "<p>To provide <strong>high-quality, affordable healthcare</strong> for all individuals and families.</p>"
+      },
+      "Services": {
+        title: "<h2>Our <span class='black-text'>Services</span></h2>",
+        text: `
+          <ul>
+            <li>General Checkups</li>
+            <li>Immunizations</li>
+            <li>Women's Health</li>
+            <li>Mental Health Counseling</li>
+            <li>Chronic Condition Management</li>
+          </ul>`
+      },
+      "Credentials": {
+        title: "<h2>Our <span class='black-text'>Credentials</span></h2>",
+        text: "<p>Board-certified physicians, licensed nurses, and experienced healthcare professionals.</p>"
+      },
+      "Contact Us": {
+        title: "<h2><span class='black-text'>Contact Us</span></h2>",
+        text: `
+          <p>Reach out to us:</p>
+          <ul>
+            <li>Phone: (123) 456-7890</li>
+            <li>Email: info@communityclinic.org</li>
+            <li>Address: 123 Wellness Ave, Caretown, USA</li>
+          </ul>`
+      },
+      "Team": {
+        title: "<h2>Meet Our <span class='black-text'>Team</span></h2>",
+        text: "<p>Meet our compassionate team dedicated to your care and well-being.</p>"
+      },
+      "Gallery": {
+        title: "<h2><span class='black-text'>Gallery</span></h2>",
+        text: "<p>Take a virtual tour and meet the friendly faces that make us who we are.</p>"
+      },
+      "Blog": {
+        title: "<h2><span class='black-text'>Blog & News</span></h2>",
+        text: "<p>Stay informed with health tips, updates, and community stories.</p>"
+      },
+      "FAQ": {
+        title: "<h2><span class='black-text'>FAQs</span></h2>",
+        text: `
+          <p><strong>Q:</strong> Do I need insurance?</p>
+          <p><strong>A:</strong> No, we provide care regardless of insurance status.</p>`
+      },
+      "Donate": {
+        title: "<h2><span class='black-text'>Support Us</span></h2>",
+        text: "<p>Your <strong>donation</strong> helps us offer care to those in need. <a href='#'>Click here to donate</a>.</p>"
+      }
+    };
 
     let breadcrumbHistory = [];
 
     function toggleMenu() {
       const menu = document.getElementById("menu");
       menu.classList.toggle("open");
-      const expanded = menu.classList.contains("open");
-      document.querySelector(".menu-icon").setAttribute("aria-expanded", expanded);
+      document.querySelector(".menu-icon").setAttribute("aria-expanded", menu.classList.contains("open"));
     }
 
     function showCard(menuItem) {
-      const card = document.getElementById("card");
-      const textCard = document.getElementById("text-card");
-      const homepage = document.getElementById("homepage");
-
-      homepage.style.display = "none";
-      card.style.display = "block";
-      textCard.style.display = "block";
+      document.getElementById("homepage").style.display = "none";
+      document.getElementById("card").style.display = "flex";
+      document.getElementById("text-card").style.display = "block";
 
       breadcrumbHistory.push(menuItem);
       updateContent(menuItem);
@@ -376,49 +372,48 @@
     }
 
     function updateContent(menuItem) {
-      const card = document.getElementById("card");
-      const textCard = document.getElementById("text-card");
-      const breadcrumb = document.getElementById("breadcrumb");
-
-      const text = randomText[Math.floor(Math.random() * randomText.length)];
-
-      card.innerHTML = `<h2>${menuItem}</h2>`;
-      textCard.innerHTML = `<p>${text}</p>`;
-      breadcrumb.innerHTML = generateBreadcrumbHTML();
-      breadcrumb.style.display = "block";
+      const content = contentData[menuItem] || { title: "<h2>Not Found</h2>", text: "<p>Content not found.</p>" };
+      document.getElementById("card").innerHTML = content.title;
+      document.getElementById("text-card").innerHTML = content.text;
+      document.getElementById("breadcrumb").innerHTML = generateBreadcrumbHTML();
+      document.getElementById("breadcrumb").style.display = "block";
     }
 
     function generateBreadcrumbHTML() {
       return `
-        <a href="#" onclick="showHomepage()">Home</a>
-        ${breadcrumbHistory.map((item, index) => {
-        if (index === breadcrumbHistory.length - 1) {
-          return `<span>› ${item}</span>`;
-        } else {
-          return `<a href="#" onclick="navigateTo(${index})">› ${item}</a>`;
-        }
-      }).join('')}`;
+        <a href="#" onclick="showHomepage()">WELCOME</a>
+        ${breadcrumbHistory.map((item, i) => i === breadcrumbHistory.length - 1
+          ? `<span>› ${item}</span>`
+          : `<a href="#" onclick="navigateTo(${i})">› ${item}</a>`).join('')}
+      `;
     }
 
     function navigateTo(index) {
       breadcrumbHistory = breadcrumbHistory.slice(0, index + 1);
-      const menuItem = breadcrumbHistory[index];
-      updateContent(menuItem);
+      updateContent(breadcrumbHistory[index]);
     }
 
     function showHomepage() {
-      const homepage = document.getElementById("homepage");
-      const card = document.getElementById("card");
-      const textCard = document.getElementById("text-card");
-      const breadcrumb = document.getElementById("breadcrumb");
-
-      homepage.style.display = "block";
-      card.style.display = "none";
-      textCard.style.display = "none";
-      breadcrumb.style.display = "none";
+      document.getElementById("homepage").style.display = "block";
+      document.getElementById("card").style.display = "none";
+      document.getElementById("text-card").style.display = "none";
+      document.getElementById("breadcrumb").style.display = "none";
       breadcrumbHistory = [];
     }
+
+    document.getElementById("menu").addEventListener("mouseleave", () => {
+      document.getElementById("menu").classList.remove("open");
+      document.querySelector(".menu-icon").setAttribute("aria-expanded", false);
+    });
+
+    document.addEventListener("touchstart", (e) => {
+      const menu = document.getElementById("menu");
+      const icon = document.querySelector(".menu-icon");
+      if (menu.classList.contains("open") && !menu.contains(e.target) && !icon.contains(e.target)) {
+        menu.classList.remove("open");
+        icon.setAttribute("aria-expanded", false);
+      }
+    });
   </script>
 </body>
-
 </html>
