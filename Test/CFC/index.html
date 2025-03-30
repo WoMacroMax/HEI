@@ -278,10 +278,10 @@
   </div>
 
   <div id="homepage" class="homepage-content">
-    <h2>Welcome!</h2>
+    <h2>Marketing and Promotions Landing Page</h2>
     <p>
       Here at <b>Community <span class="blue-text">Family</span> Clinic</b>, we provide compassionate, high-quality care for
-      families and individuals in our community.
+      families and individuals in our community. Please view the current promotions we offer (below).
     </p>
   </div>
 
@@ -417,7 +417,7 @@
 
     function generateBreadcrumbHTML() {
       return `
-        <a href="#" onclick="showHomepage()">WELCOME</a>
+        <a href="#" onclick="showHomepage()">PROMOTIONS</a>
         ${breadcrumbHistory.map((item, i) => i === breadcrumbHistory.length - 1
           ? `<span>› ${item}</span>`
           : `<a href="#" onclick="navigateTo(${i})">› ${item}</a>`).join('')}`;
