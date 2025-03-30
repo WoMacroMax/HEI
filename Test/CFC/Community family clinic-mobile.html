@@ -25,12 +25,18 @@
       right: 0;
       background-color: #ffffff;
       padding: 2px 10px;
-      height: 90px; /* Adjusted for bigger logo */
+      height: auto;
       z-index: 20;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .menu-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      height: 90px;
     }
 
     .menu-icon {
@@ -89,14 +95,14 @@
     }
 
     .menu-icon-image {
-      height: 93px; /* Increased from 60px to 90px */
+      height: 93px;
       margin-left: auto;
       cursor: pointer;
     }
 
     .breadcrumb {
       display: none;
-      margin-top: 20px;
+      margin: 10px 0 0 0;
       background-color: #ffffff;
       padding: 5px 10px;
       border-radius: 5px;
@@ -189,12 +195,15 @@
 <body>
   <!-- Hamburger Menu -->
   <div class="menu-container">
-    <div class="menu-icon" onclick="toggleMenu()" role="button" aria-expanded="false">
-      <div class="line"></div>
-      <div class="line"></div>
-      <div class="line"></div>
+    <div class="menu-top">
+      <div class="menu-icon" onclick="toggleMenu()" role="button" aria-expanded="false">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+      </div>
+      <img src="community_family_clinic_logo.png" alt="Community Family Clinic Logo" class="menu-icon-image" onclick="showHomepage()" />
     </div>
-    <img src="community_family_clinic_logo.png" alt="Community Family Clinic Logo" class="menu-icon-image" onclick="showHomepage()" />
+    <nav id="breadcrumb" class="breadcrumb"></nav>
     <div id="menu" class="menu" role="menu">
       <a onclick="showCard('Home')">Home</a>
       <a onclick="showCard('Mission')">Mission</a>
@@ -214,9 +223,6 @@
       accessible to everyone, ensuring a healthy and thriving community.
     </p>
   </div>
-
-  <!-- Breadcrumb -->
-  <nav id="breadcrumb" class="breadcrumb"></nav>
 
   <!-- Card Output -->
   <div id="card" class="card"></div>
