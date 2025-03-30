@@ -237,7 +237,7 @@
       color: #007bff;
     }
 
-    /* Responsive text styles */
+    /* Responsive styles */
     @media (max-width: 768px) {
       h1 {
         font-size: 24px;
@@ -266,26 +266,23 @@
       }
     }
 
-    @media (max-width: 480px) {
-      h1 {
+    @media (max-width: 500px) {
+      .logo-title h1 {
         font-size: 20px;
+        white-space: normal;
       }
 
-      h2 {
-        font-size: 18px;
-      }
-
-      p,
-      .menu button {
-        font-size: 14px;
-      }
-
-      .menu-icon-image {
-        height: 60px;
+      .menu-icon {
+        position: relative;
+        left: 0%;
       }
 
       .circle-card {
         width: 60px;
+        height: 60px;
+      }
+
+      .menu-icon-image {
         height: 60px;
       }
     }
@@ -322,6 +319,7 @@
       <button onclick="showCard('Donate')">Donate</button>
     </div>
   </div>
+
   <div id="homepage" class="homepage-content">
     <h1>Welcome</h1>
     <p>
@@ -331,8 +329,10 @@
       accessible to everyone, ensuring a healthy and thriving community.
     </p>
   </div>
+
   <div id="card" class="card"></div>
   <div id="text-card" class="text-card"></div>
+
   <footer>
     <div class="social-links">
       <a href="https://facebook.com/YourPage" target="_blank" rel="noopener noreferrer">📘</a>
@@ -341,6 +341,7 @@
       <a href="https://twitter.com/YourPage" target="_blank" rel="noopener noreferrer">✖️</a>
     </div>
   </footer>
+
   <script>
     const randomText = [
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -396,8 +397,7 @@
         } else {
           return `<a href="#" onclick="navigateTo(${index})">› ${item}</a>`;
         }
-      }).join('')}
-      `;
+      }).join('')}`;
     }
 
     function navigateTo(index) {
