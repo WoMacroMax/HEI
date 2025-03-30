@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -25,7 +26,6 @@
       right: 0;
       background-color: #ffffff;
       padding: 2px 10px;
-      height: auto;
       z-index: 20;
       display: flex;
       flex-direction: column;
@@ -68,6 +68,8 @@
       opacity: 0;
       pointer-events: none;
       transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+      overflow-y: auto;
+      max-height: 100vh;
     }
 
     .menu.open {
@@ -76,47 +78,59 @@
       pointer-events: auto;
     }
 
-    .menu a {
+    .menu button {
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 10px;
       margin: 10px auto;
       font-size: 20px;
-      text-decoration: none;
+      text-align: center;
       color: black;
+      border: none;
       border-radius: 20px;
       width: 90%;
+      cursor: pointer;
       transition: background-color 0.3s;
-      text-align: center;
     }
 
-    /* Different gray shades */
-    .menu a:nth-child(1) {
-      background-color: #e0e0e0;
-    }
-    .menu a:nth-child(2) {
-      background-color: #d0d0d0;
-    }
-    .menu a:nth-child(3) {
-      background-color: #c0c0c0;
-    }
-    .menu a:nth-child(4) {
-      background-color: #b0b0b0;
-    }
-    .menu a:nth-child(5) {
-      background-color: #a0a0a0;
-    }
+    .menu button:nth-child(1) { background-color: #eeeeee; }
+    .menu button:nth-child(2) { background-color: #dddddd; }
+    .menu button:nth-child(3) { background-color: #cccccc; }
+    .menu button:nth-child(4) { background-color: #bbbbbb; }
+    .menu button:nth-child(5) { background-color: #aaaaaa; }
+    .menu button:nth-child(6) { background-color: #999999; }
+    .menu button:nth-child(7) { background-color: #888888; }
+    .menu button:nth-child(8) { background-color: #777777; }
+    .menu button:nth-child(9) { background-color: #666666; }
+    .menu button:nth-child(10) { background-color: #555555; }
 
-    .menu a:hover {
+    .menu button:hover {
       filter: brightness(90%);
     }
 
     .menu-icon-image {
-      padding-top: 5px;
       height: 120px;
       cursor: pointer;
+    }
+
+    .circle-card {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: #ffffff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
       margin-left: 15px;
+    }
+
+    .circle-card img {
+      width: 80%;
+      height: auto;
+      object-fit: contain;
     }
 
     .logo-title {
@@ -183,6 +197,7 @@
       0% {
         background-position: top;
       }
+
       100% {
         background-position: bottom;
       }
@@ -221,10 +236,63 @@
     .social-links a:hover {
       color: #007bff;
     }
+
+    /* Responsive text styles */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 24px;
+      }
+
+      h2 {
+        font-size: 20px;
+      }
+
+      p,
+      .menu button {
+        font-size: 16px;
+      }
+
+      .breadcrumb {
+        font-size: 12px;
+      }
+
+      .menu-icon-image {
+        height: 80px;
+      }
+
+      .circle-card {
+        width: 80px;
+        height: 80px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 20px;
+      }
+
+      h2 {
+        font-size: 18px;
+      }
+
+      p,
+      .menu button {
+        font-size: 14px;
+      }
+
+      .menu-icon-image {
+        height: 60px;
+      }
+
+      .circle-card {
+        width: 60px;
+        height: 60px;
+      }
+    }
   </style>
 </head>
+
 <body>
-  <!-- Hamburger Menu -->
   <div class="menu-container">
     <div class="menu-top">
       <div class="menu-icon" onclick="toggleMenu()" role="button" aria-expanded="false">
@@ -234,20 +302,26 @@
       </div>
       <div class="logo-title">
         <h1>Community <span class="blue-text">Family</span> Clinic</h1>
-        <img src="community_family_clinic_logo.png" alt="Community Family Clinic Logo" class="menu-icon-image" onclick="showHomepage()" />
+        <div class="circle-card">
+          <img src="community_family_clinic_logo.png" alt="Community Family Clinic Logo" class="menu-icon-image"
+            onclick="showHomepage()" />
+        </div>
       </div>
     </div>
     <nav id="breadcrumb" class="breadcrumb"></nav>
     <div id="menu" class="menu" role="menu">
-      <a onclick="showCard('Home')">Home</a>
-      <a onclick="showCard('Mission')">Mission</a>
-      <a onclick="showCard('Services')">Services</a>
-      <a onclick="showCard('Credentials')">Credentials</a>
-      <a onclick="showCard('Contact Us')">Contact Us</a>
+      <button onclick="showCard('Home')">Home</button>
+      <button onclick="showCard('Mission')">Mission</button>
+      <button onclick="showCard('Services')">Services</button>
+      <button onclick="showCard('Credentials')">Credentials</button>
+      <button onclick="showCard('Contact Us')">Contact Us</button>
+      <button onclick="showCard('Team')">Team</button>
+      <button onclick="showCard('Gallery')">Gallery</button>
+      <button onclick="showCard('Blog')">Blog</button>
+      <button onclick="showCard('FAQ')">FAQ</button>
+      <button onclick="showCard('Donate')">Donate</button>
     </div>
   </div>
-
-  <!-- Homepage -->
   <div id="homepage" class="homepage-content">
     <h1>Welcome</h1>
     <p>
@@ -257,12 +331,8 @@
       accessible to everyone, ensuring a healthy and thriving community.
     </p>
   </div>
-
-  <!-- Card Output -->
   <div id="card" class="card"></div>
   <div id="text-card" class="text-card"></div>
-
-  <!-- Footer -->
   <footer>
     <div class="social-links">
       <a href="https://facebook.com/YourPage" target="_blank" rel="noopener noreferrer">📘</a>
@@ -271,7 +341,6 @@
       <a href="https://twitter.com/YourPage" target="_blank" rel="noopener noreferrer">✖️</a>
     </div>
   </footer>
-
   <script>
     const randomText = [
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -322,12 +391,12 @@
       return `
         <a href="#" onclick="showHomepage()">Home</a>
         ${breadcrumbHistory.map((item, index) => {
-          if (index === breadcrumbHistory.length - 1) {
-            return `<span>› ${item}</span>`;
-          } else {
-            return `<a href="#" onclick="navigateTo(${index})">› ${item}</a>`;
-          }
-        }).join('')}
+        if (index === breadcrumbHistory.length - 1) {
+          return `<span>› ${item}</span>`;
+        } else {
+          return `<a href="#" onclick="navigateTo(${index})">› ${item}</a>`;
+        }
+      }).join('')}
       `;
     }
 
@@ -351,4 +420,5 @@
     }
   </script>
 </body>
+
 </html>
