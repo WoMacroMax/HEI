@@ -14,19 +14,12 @@
       padding-bottom: 80px;
     }
 
-    .blue-text {
-      color: #007bff;
-    }
-
-    .black-text {
-      color: black;
-    }
+    .blue-text { color: #007bff; }
+    .black-text { color: black; }
 
     .menu-container {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       background-color: #ffffff;
       padding: 2px 10px;
       z-index: 20;
@@ -46,6 +39,7 @@
       cursor: pointer;
       width: 40px;
       padding: 10px;
+      transform: translateX(10%);
     }
 
     .line {
@@ -57,8 +51,7 @@
 
     .menu {
       position: fixed;
-      top: 0;
-      left: 0;
+      top: 0; left: 0;
       height: 100%;
       width: 250px;
       background: white;
@@ -97,20 +90,8 @@
       transition: background-color 0.3s;
     }
 
-    .menu button:nth-child(1) { background-color: #eeeeee; }
-    .menu button:nth-child(2) { background-color: #dddddd; }
-    .menu button:nth-child(3) { background-color: #cccccc; }
-    .menu button:nth-child(4) { background-color: #bbbbbb; }
-    .menu button:nth-child(5) { background-color: #aaaaaa; }
-    .menu button:nth-child(6) { background-color: #aaaaaa; }
-    .menu button:nth-child(7) { background-color: #aaaaaa; }
-    .menu button:nth-child(8) { background-color: #aaaaaa; }
-    .menu button:nth-child(9) { background-color: #aaaaaa; }
-    .menu button:nth-child(10) { background-color: #aaaaaa; }
-
-    .menu button:hover {
-      filter: brightness(90%);
-    }
+    .menu button:nth-child(n) { background-color: #aaaaaa; }
+    .menu button:hover { filter: brightness(90%); }
 
     .menu-icon-image {
       height: 120px;
@@ -174,7 +155,6 @@
     }
 
     .card {
-      display: none;
       margin-top: 10px;
       max-height: 90px;
       overflow-y: auto;
@@ -187,7 +167,7 @@
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
       color: black;
       text-align: left;
-      display: flex;
+      display: none;
       align-items: center;
       justify-content: center;
       flex-direction: column;
@@ -218,9 +198,7 @@
 
     footer {
       position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
+      bottom: 0; left: 0; right: 0;
       background-color: #ffffff;
       padding: 10px 30px;
       display: flex;
@@ -240,6 +218,12 @@
 
     .social-links a:hover {
       color: #007bff;
+    }
+
+    @media (max-width: 600px) {
+      html { font-size: 70%; }
+      .logo-title h1 { font-size: 19.2px; }
+      .menu-icon { transform: translateX(10%); }
     }
   </style>
 </head>
@@ -274,7 +258,7 @@
   </div>
 
   <div id="homepage" class="homepage-content">
-    <h1>Welcome!</h1>
+    <h2>Welcome!</h2>
     <p>
       Here at <b>Community <span class="blue-text">Family</span> Clinic</b>, we provide compassionate, high-quality care for
       families and individuals in our community.
@@ -362,21 +346,31 @@
 
     function showCard(menuItem) {
       document.getElementById("homepage").style.display = "none";
-      document.getElementById("card").style.display = "flex";
-      document.getElementById("text-card").style.display = "block";
-
       breadcrumbHistory.push(menuItem);
       updateContent(menuItem);
-
       toggleMenu();
     }
 
     function updateContent(menuItem) {
-      const content = contentData[menuItem] || { title: "<h2>Not Found</h2>", text: "<p>Content not found.</p>" };
-      document.getElementById("card").innerHTML = content.title;
-      document.getElementById("text-card").innerHTML = content.text;
-      document.getElementById("breadcrumb").innerHTML = generateBreadcrumbHTML();
-      document.getElementById("breadcrumb").style.display = "block";
+      const content = contentData[menuItem];
+      const card = document.getElementById("card");
+      const textCard = document.getElementById("text-card");
+      const breadcrumb = document.getElementById("breadcrumb");
+
+      if (!content || (!content.title.trim() && !content.text.trim())) {
+        card.style.display = "none";
+        textCard.style.display = "none";
+        breadcrumb.style.display = "none";
+        return;
+      }
+
+      card.innerHTML = content.title;
+      textCard.innerHTML = content.text;
+
+      card.style.display = content.title.trim() ? "flex" : "none";
+      textCard.style.display = content.text.trim() ? "block" : "none";
+      breadcrumb.innerHTML = generateBreadcrumbHTML();
+      breadcrumb.style.display = "block";
     }
 
     function generateBreadcrumbHTML() {
