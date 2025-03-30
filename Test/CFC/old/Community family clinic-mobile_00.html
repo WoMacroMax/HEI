@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Community <span class="blue-text">Family</span> Clinic</title>
+  <title>Community Family Clinic</title>
   <style>
+    /* Your existing styles remain unchanged */
     body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -14,18 +15,13 @@
       padding-bottom: 80px;
     }
 
-    .blue-text {
-      color: #007bff;
-    }
-
     .menu-container {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       background-color: #ffffff;
-      padding: 2px 10px;
-      height: 90px; /* Adjusted for bigger logo */
+      padding: 20px 30px;
       z-index: 20;
       display: flex;
       justify-content: space-between;
@@ -35,52 +31,46 @@
 
     .menu-icon {
       cursor: pointer;
-      width: 40px;
-      padding: 10px;
+      width: 30px; /* Reduced size */
     }
 
     .line {
       width: 100%;
-      height: 5px;
+      height: 4px; /* Reduced thickness */
       background-color: black;
-      margin: 6px 0;
+      margin: 5px 0; /* Adjusted spacing */
     }
 
     .menu {
       position: fixed;
       top: 0;
       left: 0;
-      height: 100%;
-      width: 250px;
+      height: 100%; /* Full height */
+      width: 250px; /* Set menu width */
       background: white;
       padding: 20px;
       box-shadow: 2px 0 15px rgba(0, 0, 0, 0.1);
       z-index: 10;
-      display: flex;
-      flex-direction: column;
-      transform: translateX(-100%);
-      opacity: 0;
-      pointer-events: none;
-      transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+      display: none; /* Hide menu by default */
+      flex-direction: column; /* Align items vertically */
+      transition: all 0.3s ease;
     }
 
     .menu.open {
-      transform: translateX(0);
-      opacity: 1;
-      pointer-events: auto;
+      display: flex; /* Show menu when open */
     }
 
     .menu a {
       display: block;
-      padding: 5px;
+      padding: 15px;
       margin: 10px auto;
       font-size: 20px;
-      text-align: left;
+      text-align: left; /* Align to the left */
       text-decoration: none;
       color: black;
       background-color: #d3d3d3;
       border-radius: 20px;
-      width: 90%;
+      width: 90%; /* Adjusted width */
       transition: background-color 0.3s;
     }
 
@@ -89,40 +79,15 @@
     }
 
     .menu-icon-image {
-      height: 93px; /* Increased from 60px to 90px */
+      height: 75px; /* Increased size */
       margin-left: auto;
       cursor: pointer;
     }
 
-    .breadcrumb {
-      display: none;
-      margin-top: 20px;
-      background-color: #ffffff;
-      padding: 5px 10px;
-      border-radius: 5px;
-      font-size: 13px;
-      z-index: 1;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    }
-
-    .breadcrumb a {
-      color: #007bff;
-      text-decoration: none;
-      margin-right: 5px;
-    }
-
-    .breadcrumb a:hover {
-      text-decoration: underline;
-    }
-
-    .breadcrumb span {
-      margin-right: 5px;
-    }
-
     .card {
       display: none;
-      margin-top: 10px;
-      padding: 15px;
+      margin-top: 30px;
+      padding: 25px;
       background: linear-gradient(to bottom, #ffffff, #333333);
       background-size: 100% 300%;
       background-position: top;
@@ -152,7 +117,7 @@
     }
 
     .homepage-content {
-      margin-top: 0px;
+      margin-top: 30px;
       padding: 25px;
       background-color: white;
       border-radius: 5px;
@@ -206,17 +171,13 @@
 
   <!-- Homepage -->
   <div id="homepage" class="homepage-content">
-    <h1>Welcome to Community <span class="blue-text">Family</span> Clinic</h1>
+    <h1>Welcome to Community Family Clinic</h1>
     <p>
-      At Community <span class="blue-text">Family</span> Clinic, we provide compassionate, high-quality care for
-      <span class="blue-text">families</span> and individuals in our community. Our services include primary care,
-      preventive health screenings, immunizations, mental health support, and more. We strive to make healthcare
-      accessible to everyone, ensuring a healthy and thriving community.
+      At Community Family Clinic, we provide compassionate, high-quality care for families and individuals
+      in our community. Our services include primary care, preventive health screenings, immunizations, mental health
+      support, and more. We strive to make healthcare accessible to everyone, ensuring a healthy and thriving community.
     </p>
   </div>
-
-  <!-- Breadcrumb -->
-  <nav id="breadcrumb" class="breadcrumb"></nav>
 
   <!-- Card Output -->
   <div id="card" class="card"></div>
@@ -241,8 +202,6 @@
       "On the other hand, we denounce with righteous indignation and dislike men."
     ];
 
-    let breadcrumbHistory = [];
-
     function toggleMenu() {
       const menu = document.getElementById("menu");
       menu.classList.toggle("open");
@@ -254,61 +213,24 @@
       const card = document.getElementById("card");
       const textCard = document.getElementById("text-card");
       const homepage = document.getElementById("homepage");
-
-      homepage.style.display = "none";
-      card.style.display = "block";
-      textCard.style.display = "block";
-
-      breadcrumbHistory.push(menuItem);
-      updateContent(menuItem);
-
-      toggleMenu();
-    }
-
-    function updateContent(menuItem) {
-      const card = document.getElementById("card");
-      const textCard = document.getElementById("text-card");
-      const breadcrumb = document.getElementById("breadcrumb");
-
       const text = randomText[Math.floor(Math.random() * randomText.length)];
 
+      homepage.style.display = "none";
       card.innerHTML = `<h2>${menuItem}</h2>`;
+      card.style.display = "block";
       textCard.innerHTML = `<p>${text}</p>`;
-      breadcrumb.innerHTML = generateBreadcrumbHTML();
-      breadcrumb.style.display = "block";
-    }
-
-    function generateBreadcrumbHTML() {
-      return `
-        <a href="#" onclick="showHomepage()">Home</a>
-        ${breadcrumbHistory.map((item, index) => {
-          if (index === breadcrumbHistory.length - 1) {
-            return `<span>› ${item}</span>`;
-          } else {
-            return `<a href="#" onclick="navigateTo(${index})">› ${item}</a>`;
-          }
-        }).join('')}
-      `;
-    }
-
-    function navigateTo(index) {
-      breadcrumbHistory = breadcrumbHistory.slice(0, index + 1);
-      const menuItem = breadcrumbHistory[index];
-      updateContent(menuItem);
+      textCard.style.display = "block";
+      toggleMenu();
     }
 
     function showHomepage() {
       const homepage = document.getElementById("homepage");
       const card = document.getElementById("card");
       const textCard = document.getElementById("text-card");
-      const breadcrumb = document.getElementById("breadcrumb");
 
       homepage.style.display = "block";
       card.style.display = "none";
       textCard.style.display = "none";
-      breadcrumb.style.display = "none";
-      breadcrumbHistory = [];
     }
   </script>
-</body>
-</html>
+</body
