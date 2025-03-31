@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Community Family Clinic</title>
+  <style>
+    /* Your existing styles remain unchanged */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      padding: 0 20px;
+      padding-top: 120px;
+      padding-bottom: 80px;
+    }
+
+    .menu-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: #ffffff;
+      padding: 20px 30px;
+      z-index: 20;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .menu-icon {
+      cursor: pointer;
+      width: 30px; /* Reduced size */
+    }
+
+    .line {
+      width: 100%;
+      height: 4px; /* Reduced thickness */
+      background-color: black;
+      margin: 5px 0; /* Adjusted spacing */
+    }
+
+    .menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%; /* Full height */
+      width: 250px; /* Set menu width */
+      background: white;
+      padding: 20px;
+      box-shadow: 2px 0 15px rgba(0, 0, 0, 0.1);
+      z-index: 10;
+      display: none; /* Hide menu by default */
+      flex-direction: column; /* Align items vertically */
+      transition: all 0.3s ease;
+    }
+
+    .menu.open {
+      display: flex; /* Show menu when open */
+    }
+
+    .menu a {
+      display: block;
+      padding: 15px;
+      margin: 10px auto;
+      font-size: 20px;
+      text-align: left; /* Align to the left */
+      text-decoration: none;
+      color: black;
+      background-color: #d3d3d3;
+      border-radius: 20px;
+      width: 90%; /* Adjusted width */
+      transition: background-color 0.3s;
+    }
+
+    .menu a:hover {
+      background-color: #b3b3b3;
+    }
+
+    .menu-icon-image {
+      height: 75px; /* Increased size */
+      margin-left: auto;
+      cursor: pointer;
+    }
+
+    .card {
+      display: none;
+      margin-top: 30px;
+      padding: 25px;
+      background: linear-gradient(to bottom, #ffffff, #333333);
+      background-size: 100% 300%;
+      background-position: top;
+      animation: gradientFlow 10s ease-in-out infinite alternate;
+      border-radius: 5px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      color: black;
+    }
+
+    .text-card {
+      display: none;
+      margin-top: 20px;
+      padding: 20px;
+      background-color: white;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      color: black;
+    }
+
+    @keyframes gradientFlow {
+      0% {
+        background-position: top;
+      }
+      100% {
+        background-position: bottom;
+      }
+    }
+
+    .homepage-content {
+      margin-top: 30px;
+      padding: 25px;
+      background-color: white;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: #ffffff;
+      padding: 10px 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 25;
+      box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .social-links a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: black;
+      font-size: 24px;
+      transition: color 0.3s;
+    }
+
+    .social-links a:hover {
+      color: #007bff;
+    }
+  </style>
+</head>
+<body>
+  <!-- Hamburger Menu -->
+  <div class="menu-container">
+    <div class="menu-icon" onclick="toggleMenu()" role="button" aria-expanded="false">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+    </div>
+    <img src="community_family_clinic_logo.png" alt="Community Family Clinic Logo" class="menu-icon-image" onclick="showHomepage()" />
+    <div id="menu" class="menu" role="menu">
+      <a onclick="showCard('Home')">Home</a>
+      <a onclick="showCard('Mission')">Mission</a>
+      <a onclick="showCard('Services')">Services</a>
+      <a onclick="showCard('Credentials')">Credentials</a>
+      <a onclick="showCard('Contact Us')">Contact Us</a>
+    </div>
+  </div>
+
+  <!-- Homepage -->
+  <div id="homepage" class="homepage-content">
+    <h1>Welcome to Community Family Clinic</h1>
+    <p>
+      At Community Family Clinic, we provide compassionate, high-quality care for families and individuals
+      in our community. Our services include primary care, preventive health screenings, immunizations, mental health
+      support, and more. We strive to make healthcare accessible to everyone, ensuring a healthy and thriving community.
+    </p>
+  </div>
+
+  <!-- Card Output -->
+  <div id="card" class="card"></div>
+  <div id="text-card" class="text-card"></div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="social-links">
+      <a href="https://facebook.com/YourPage" target="_blank" rel="noopener noreferrer">📘</a>
+      <a href="https://instagram.com/YourPage" target="_blank" rel="noopener noreferrer">📸</a>
+      <a href="https://wa.me/YourNumber" target="_blank" rel="noopener noreferrer">📱</a>
+      <a href="https://twitter.com/YourPage" target="_blank" rel="noopener noreferrer">✖️</a>
+    </div>
+  </footer>
+
+  <script>
+    const randomText = [
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      "Sed ut perspiciatis unde omnis iste natus error sit voluptatem.",
+      "But I must explain to you how all this mistaken idea of denouncing pleasure.",
+      "At vero eos et accusamus et iusto odio dignissimos ducimus.",
+      "On the other hand, we denounce with righteous indignation and dislike men."
+    ];
+
+    function toggleMenu() {
+      const menu = document.getElementById("menu");
+      menu.classList.toggle("open");
+      const expanded = menu.classList.contains("open");
+      document.querySelector(".menu-icon").setAttribute("aria-expanded", expanded);
+    }
+
+    function showCard(menuItem) {
+      const card = document.getElementById("card");
+      const textCard = document.getElementById("text-card");
+      const homepage = document.getElementById("homepage");
+      const text = randomText[Math.floor(Math.random() * randomText.length)];
+
+      homepage.style.display = "none";
+      card.innerHTML = `<h2>${menuItem}</h2>`;
+      card.style.display = "block";
+      textCard.innerHTML = `<p>${text}</p>`;
+      textCard.style.display = "block";
+      toggleMenu();
+    }
+
+    function showHomepage() {
+      const homepage = document.getElementById("homepage");
+      const card = document.getElementById("card");
+      const textCard = document.getElementById("text-card");
+
+      homepage.style.display = "block";
+      card.style.display = "none";
+      textCard.style.display = "none";
+    }
+  </script>
+</body
