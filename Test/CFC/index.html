@@ -5,12 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Community Family Clinic</title>
 
-
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Font Awesome -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-
 
   <style>
     body {
@@ -197,11 +195,44 @@
     }
 
     .homepage-content {
-      margin-top: 0px;
-      padding: 25px;
+      max-height: 60vh;
+      overflow-y: auto;
       background-color: white;
       border-radius: 5px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .homepage-title {
+      text-align: center;
+    }
+    .homepage-title-box {
+      position: sticky;
+      top: 0;
+      background-color: white;
+      padding: 20px 25px;
+      margin: 0;
+      z-index: 1;
+      border-bottom: 1px solid #eee;
+    }
+
+    .homepage-scroll {
+      padding: 25px;
+    }
+
+    .promo-card-wrapper {
+      text-decoration: none;
+    }
+
+    .promo-card {
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      padding: 20px;
+      transition: box-shadow 0.3s ease;
+      height: 100%;
+    }
+
+    .promo-card:hover {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     }
 
     footer {
@@ -278,11 +309,52 @@
   </div>
 
   <div id="homepage" class="homepage-content">
-    <h2>Marketing and Promotions Landing Page</h2>
-    <p>
-      Here at <b>Community <span class="blue-text">Family</span> Clinic</b>, we provide compassionate, high-quality care for
-      families and individuals in our community. Please view the current promotions we offer (below).
-    </p>
+    <div class="homepage-title-box">
+    <div class="homepage-title">
+      <h2>Marketing and Promotions Landing Page</h2>
+    </div>
+      <p>
+        Here at <b>Community <span class="blue-text">Family</span> Clinic</b>, we provide compassionate, high-quality care for
+        families and individuals in our community. Please view the current promotions we offer (below).
+      </p>
+    </div>
+
+    <div class="homepage-scroll">
+      <div style="border: 1px solid #ccc; border-radius: 12px; padding: 20px; max-width: 800px; margin: 20px auto; box-shadow: 0 2px 8px rgba(0,0,0,0.1); background-color: #fff;">
+        <!--BEGIN: Place Ads Here--><div id="promo-cards" class="row g-4">
+
+  <div class="col-md-6">
+    <a href="https://example.com/health-screenings" target="_blank" class="promo-card-wrapper text-decoration-none">
+      <div class="promo-card" style="background-color: #FFEBEE;">
+        <h5 class="mb-2">🩺 <strong>Free Health Screenings</strong></h5>
+        <p>Join us every <b>Friday</b> for:</p>
+        <ul class="mb-0">
+          <li>✔️ Blood Pressure Checks</li>
+          <li>✔️ Glucose Tests</li>
+        </ul>
+      </div>
+    </a>
+  </div>
+
+  <div class="col-md-6">
+    <a href="https://example.com/new-patient" target="_blank" class="promo-card-wrapper text-decoration-none">
+      <div class="promo-card" style="background-color: #E8F5E9;">
+        <h5 class="mb-2">🎉 <strong>New Patient Discount</strong></h5>
+        <p><b>20% off</b> all services for first-time patients through <em>April</em>.</p>
+        <img src="discount-banner.jpg" alt="Discount" style="width: 100%; border-radius: 5px; margin-top: 10px;">
+      </div>
+    </a>
+  </div>
+
+  <div class="col-md-6">
+    <a href="https://example.com/immunization-drive" target="_blank" class="promo-card-wrapper text-decoration-none">
+      <div class="promo-card" style="background-color: #E3F2FD;">
+        <h5 class="mb-2">💉 <strong>Immunization Drive</strong></h5>
+        <p>Walk-ins welcome — get
+
+        <!--END: Place Ads Here-->
+      </div>
+    </div>
   </div>
 
   <div id="card" class="card"></div>
@@ -290,35 +362,20 @@
 
   <footer>
     <div class="social-links">
-        <a href="https://facebook.com" target="_blank" class="text-decoration-none text-primary fs-4">
-          <i class="fab fa-facebook"></i>
-        </a>
-        <a href="https://twitter.com" target="_blank" class="text-decoration-none text-info fs-4">
-          <i class="fab fa-twitter"></i>
-        </a>
-        <a href="https://instagram.com" target="_blank" class="text-decoration-none text-danger fs-4">
-          <i class="fab fa-instagram"></i>
-        </a>
-        <a href="https://linkedin.com" target="_blank" class="text-decoration-none text-primary fs-4">
-          <i class="fab fa-linkedin"></i>
-        </a>
-        <a href="https://wa.me/1234567890" target="_blank" class="text-success fs-4">
-          <i class="fab fa-whatsapp"></i>
-        </a>
-        <a href="mailto:info@example.com" class="text-dark fs-4" title="Email Us">
-          <i class="fas fa-envelope"></i>
-        </a>
-        <a href="#" class="text-dark fs-4" title="Chat With Us">
-          <i class="fas fa-comment-dots"></i>
-        </a>
-        <a href="tel:+1234567890" class="text-dark fs-4" title="Call Us">
-          <i class="fas fa-phone"></i>
-        </a>
+      <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+      <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+      <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="https://wa.me/1234567890" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      <a href="mailto:info@example.com"><i class="fas fa-envelope"></i></a>
+      <a href="#"><i class="fas fa-comment-dots"></i></a>
+      <a href="tel:+1234567890"><i class="fas fa-phone"></i></a>
     </div>
   </footer>
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
   <script>
     const contentData = {
       "Home": {
