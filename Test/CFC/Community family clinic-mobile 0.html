@@ -195,14 +195,44 @@
       0% { background-position: top; }
       100% { background-position: bottom; }
     }
+.homepage-content {
+  max-height: 60vh;
+  overflow-y: auto;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-    .homepage-content {
-      margin-top: 0px;
-      padding: 25px;
-      background-color: white;
-      border-radius: 5px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
+.homepage-title {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  padding: 20px 25px;
+  margin: 0;
+  z-index: 1;
+  border-bottom: 1px solid #eee;
+}
+
+.homepage-scroll {
+  padding: 25px;
+}
+
+.promo-card-wrapper {
+  text-decoration: none;
+}
+
+.promo-card {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 20px;
+  transition: box-shadow 0.3s ease;
+  height: 100%;
+}
+
+.promo-card:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
 
     footer {
       position: fixed;
@@ -277,13 +307,115 @@
     </div>
   </div>
 
-  <div id="homepage" class="homepage-content">
+<div id="homepage" class="homepage-content">
+  <div class="homepage-title">
     <h2>Marketing and Promotions Landing Page</h2>
+
     <p>
       Here at <b>Community <span class="blue-text">Family</span> Clinic</b>, we provide compassionate, high-quality care for
       families and individuals in our community. Please view the current promotions we offer (below).
     </p>
+
   </div>
+
+  <div class="homepage-scroll">
+    <div style="border: 1px solid #ccc; border-radius: 12px; padding: 20px; max-width: 800px; margin: 20px auto; box-shadow: 0 2px 8px rgba(0,0,0,0.1); background-color: #fff;">
+
+<!--BEGIN: Place Ads Here-->
+
+<div class="row g-4">
+  <div class="col-md-6">
+    <div class="promo-card" style="background-color: #FFEBEE;">
+      <h5 class="mb-2">Free Health Screenings</h5>
+      <p>Visit us every Friday for free blood pressure and glucose checks.</p>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="promo-card" style="background-color: #E8F5E9;">
+      <h5 class="mb-2">New Patient Discount</h5>
+      <p>First-time patients receive 20% off all services during April!</p>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="promo-card" style="background-color: #E3F2FD;">
+      <h5 class="mb-2">Immunization Drive</h5>
+      <p>Get your vaccines updated this month—walk-ins welcome!</p>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="promo-card" style="background-color: #FFF3E0;">
+      <h5 class="mb-2">Women's Wellness Week</h5>
+      <p>Specialized screenings and care packages available all week.</p>
+    </div>
+  </div>
+</div>
+
+</br>
+
+<!--Ad Content-->
+<div class="container">
+    <div class="row">
+        <!-- Single Column -->
+        <div class="col-12">
+            <!-- BEGIN:email ad -->
+            <a href="https://womacromax.github.io/HEI/Test/HEI_Virtual_Medical_Services/Medical_assistant_virtual_services-mobile.html" 
+               target="_blank" 
+               class="promo-card-wrapper text-decoration-none">
+                <table width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #white; padding: 20px;">
+                    <tr>
+                        <td align="center">
+                            <table width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width: 600px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); overflow: hidden;">
+                                <!-- Header -->
+                                <tr>
+                                    <td style="background-color: #0288d1; padding: 10px 20px; text-align: center; color: #ffffff;">
+                                        <h1 style="margin: 0; font-size: 24px;">Medical Assistant Virtual Services</h1>
+                                    </td>
+                                </tr>
+                                <!-- Main Content -->
+                                <tr>
+                                    <td style="padding: 20px;">
+                                        <h2 style="color: #0288d1; margin-top: 0;">Tell us about your needs</h2>
+                                        <p>What medical specialty do you need help with?</p>
+                                        <select style="width: 100%; padding: 10px; margin-bottom: 20px; border-radius: 5px; border: 1px solid #cccccc;">
+                                            <option value="primary-care">Primary Care</option>
+                                            <option value="pediatrics">Pediatrics</option>
+                                            <option value="surgery">Surgery</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                        <p>What type of service are you looking for?</p>
+                                        <div>
+                                            <input type="radio" id="billing" name="service" value="billing">
+                                            <label for="billing">Billing Support</label><br>
+                                            <input type="radio" id="scheduling" name="service" value="scheduling">
+                                            <label for="scheduling">Scheduling Assistance</label><br>
+                                            <input type="radio" id="other" name="service" value="other">
+                                            <label for="other">Other</label>
+                                        </div>
+                                        <table cellspacing="0" cellpadding="0" border="0" align="center">
+                                            <tr>
+                                                <td align="center" bgcolor="#0288d1" style="border-radius: 4px; padding: 10px;">
+                                                    <a href="https://womacromax.github.io/HEI/mobile/medical%20virtual%20assistant-mobile.html" 
+                                                       target="_blank" 
+                                                       style="display: inline-block; font-family: Arial, sans-serif; font-size: 14px; color: #ffffff; text-decoration: none; background-color: #0288d1; border: 1px solid #0288d1; border-radius: 4px; padding: 10px;">
+                                                        Continue
+                                                    </a>
+                                               
+
+<!--END:Ad Content-->
+<!--  END: Place Ads Here-->
+
+
+
+
+
+</div>
+
+
+
+  </div>
+</div>
+
+
 
   <div id="card" class="card"></div>
   <div id="text-card" class="text-card"></div>
