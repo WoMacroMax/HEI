@@ -2,7 +2,7 @@ html, body {
   transform: scale(1.00);
   transform-origin: top center;
   overflow: hidden; /* Lock full page scrolling */
-  height: 100vh;
+  height: 95vh;
   margin: 0;
   padding: 0;
   background-color: #f8f9fa;
