@@ -1,13 +1,17 @@
-body, html {
+html, body {
   transform: scale(1.00);
   transform-origin: top center;
-  overflow-x: hidden;
-  height: 110%;
+  overflow: hidden; /* Lock full page scrolling */
+  height: 100vh;
   margin: 0;
-  padding-bottom: 0px; /* Adjust based on footer height */
+  padding: 0;
   background-color: #f8f9fa;
+
+  display: flex;
+  flex-direction: column;
 }
 
+/* Title and Footer shared styling */
 .title-bar, .footer-bar {
   background-color: #d8b7dd;
   padding: 1rem 2rem;
@@ -19,18 +23,25 @@ body, html {
   position: sticky;
   top: 0;
   z-index: 1000;
+  flex-shrink: 0;
 }
 
+/* Scrollable content section */
 .scroll-section {
-  height: calc(100vh - 180px);
+  flex: 1 1 auto;
   overflow-y: auto;
+  height: auto;
   padding: 1rem;
 }
 
+/* Footer pinned to bottom */
 .footer-bar {
   border-radius: 2rem 2rem 0 0;
+  flex-shrink: 0;
+  position: relative; /* Keeps it in layout flow but always visible */
 }
 
+/* Social icons styling */
 .social-icons a {
   margin: 0 0.6rem;
   font-size: 1.6rem;
@@ -43,14 +54,17 @@ body, html {
 .social-icons .fa-envelope { color: #c71610; }
 .social-icons .fa-phone { color: #ffffff; }
 
+/* Modal adjustments */
 .modal-header .btn-close {
   margin: -0.5rem -0.5rem -0.5rem auto;
 }
 
+/* Checkbox interaction */
 .form-check-input {
   pointer-events: none;
 }
 
+/* Dialpad styles */
 .dial-btn {
   font-size: 1.4rem;
   padding: 10px 0;
@@ -84,6 +98,7 @@ body, html {
   color: white;
 }
 
+/* Email modal buttons */
 .cancel-btn {
   background-color: #fce58b;
   color: #5a2670;
