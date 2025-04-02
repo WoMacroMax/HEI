@@ -1,81 +1,12 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Resident Services</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
-  <style>
-    body, html {
-      height: 100%;
-      margin: 0;
-      background-color: #f8f9fa;
-    }
-    .title-bar, .footer-bar {
-      background-color: #d8b7dd;
-      padding: 1rem 2rem;
-      color: white;
-    }
-    .title-bar {
-      border-radius: 0 0 2rem 2rem;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-    .scroll-section {
-      height: calc(100vh - 180px);
-      overflow-y: auto;
-      padding: 1rem;
-    }
-    .footer-bar {
-      border-radius: 2rem 2rem 0 0;
-    }
-    .social-icons a {
-      margin: 0 0.6rem;
-      font-size: 1.6rem;
-      cursor: pointer;
-    }
-    .social-icons .fa-facebook-f { color: #3b5998; }
-    .social-icons .fa-twitter { color: #1da1f2; }
-    .social-icons .fa-instagram { color: #e1306c; }
-    .social-icons .fa-envelope { color: #c71610; }
-    .social-icons .fa-phone { color: #ffffff; }
-    .modal-header .btn-close {
-      margin: -0.5rem -0.5rem -0.5rem auto;
-    }
-    .form-check-input {
-      pointer-events: none;
-    }
-    .dial-btn {
-      font-size: 1.4rem;
-      padding: 10px 0;
-      border: none;
-      background: none;
-      color: white;
-    }
-    .dial-btn small {
-      display: block;
-      font-size: 0.6rem;
-      color: #aaa;
-    }
-    .dial-input {
-      font-size: 1.8rem;
-      text-align: center;
-      background: #000;
-      border: none;
-      color: #fff;
-      margin-bottom: 1rem;
-    }
-    .call-button {
-      background-color: #28a745;
-      border: none;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      font-size: 1.3rem;
-      color: white;
-    }
-  </style>
+  <link href="styles.css" rel="stylesheet" />
 </head>
 <body>
   <!-- Title Bar -->
@@ -141,7 +72,7 @@
         <div class="modal-body" id="serviceModalBody">Service description goes here.</div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" id="cancelServiceBtn" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" id="acceptServiceBtn" class="btn btn-primary">Accept</button>
+          <button type="button" id="acceptServiceBtn" class="btn btn-primary">Select</button>
         </div>
       </div>
     </div>
@@ -182,7 +113,7 @@
   <!-- Email Modal -->
   <div class="modal fade" id="emailModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content position-relative" style="background: linear-gradient(135deg, #f8e1ff 0%, #fff9e3 100%); border-radius: 1rem; overflow: hidden;">
+      <div class="modal-content position-relative">
         <div class="modal-header border-0">
           <h5 class="modal-title text-purple fw-bold">Send Us an Email</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
@@ -195,9 +126,9 @@
               <div class="invalid-feedback">Please enter your name.</div>
             </div>
             <div class="mb-3">
-              <label class="form-label text-purple">Your Email</label>
-              <input type="email" class="form-control border-purple-subtle" id="yourEmail" placeholder="your@email.com" required>
-              <div class="invalid-feedback">Please enter a valid email address.</div>
+              <label class="form-label text-purple">Your Zipcode</label>
+              <input type="text" class="form-control border-purple-subtle" id="yourZipcode" placeholder="e.g. 20019" required>
+              <div class="invalid-feedback">Please enter a valid 5-digit ZIP code.</div>
             </div>
             <div class="mb-3">
               <label class="form-label text-purple">Your Phone Number</label>
@@ -219,133 +150,15 @@
           </form>
         </div>
         <div class="modal-footer border-0">
-          <button class="btn" style="background-color: #fce58b; color: #5a2670;" data-bs-dismiss="modal">Cancel</button>
-          <button class="btn" style="background-color: #a855f7; color: white;" onclick="sendEmail()">Send</button>
+          <button class="btn cancel-btn" data-bs-dismiss="modal">Cancel</button>
+          <button class="btn send-btn" onclick="sendEmail()">Send</button>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Scripts -->
-  <script>
-    function openEmailModalWithServices() {
-      const checked = Array.from(document.querySelectorAll('#servicesForm input[type=checkbox]:checked'));
-      const selectedServices = checked.map(cb => `- ${cb.nextElementSibling.textContent.trim()}`).join('\n');
-      const messageField = document.getElementById('emailMessage');
-      const subjectField = document.getElementById('emailSubject');
-      subjectField.value = "Resident Services Request";
-      messageField.value = "I would like to request the following services:\n" + selectedServices;
-      new bootstrap.Modal(document.getElementById('emailModal')).show();
-    }
-
-    function launchDialpad() {
-      const input = document.getElementById('dialInput');
-      input.value = '';
-      const modal = new bootstrap.Modal(document.getElementById('dialpadModal'));
-      modal.show();
-      const number = "7035962482";
-      let i = 0;
-      const interval = setInterval(() => {
-        if (i < number.length) {
-          input.value += number[i++];
-        } else {
-          clearInterval(interval);
-        }
-      }, 200);
-    }
-
-    function appendDial(val) {
-      const input = document.getElementById('dialInput');
-      input.value += val;
-    }
-
-    function callNumber() {
-      const number = document.getElementById('dialInput').value.replace(/[^0-9+]/g, '');
-      if (number) {
-        window.location.href = `tel:${number}`;
-      }
-    }
-
-    function sendEmail() {
-      const name = document.getElementById('emailName').value.trim();
-      const email = document.getElementById('yourEmail').value.trim();
-      const phone = document.getElementById('yourPhone').value.trim();
-      const subject = encodeURIComponent(document.getElementById('emailSubject').value);
-      const message = document.getElementById('emailMessage').value.trim();
-      const to = document.getElementById('emailTo').value;
-      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      const phonePattern = /^\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/;
-      if (!name || !emailPattern.test(email) || !phonePattern.test(phone)) {
-        alert("Please enter a valid name, email, and phone number.");
-        return;
-      }
-
-      // Save for next time
-      localStorage.setItem("userName", name);
-      localStorage.setItem("userEmail", email);
-      localStorage.setItem("userPhone", phone);
-
-      const fullMessage = `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n\n${message}`;
-      const body = encodeURIComponent(fullMessage);
-      window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
-      bootstrap.Modal.getInstance(document.getElementById('emailModal')).hide();
-    }
-
-    let currentServiceId = null;
-    const services = [
-      { id: "rental", name: "Rental Assistance", details: "We help you find rental assistance programs in your area." },
-      { id: "utility", name: "Utility Assistance", details: "Support for electric, water, and other essential utilities." },
-      { id: "health", name: "Health and Wellness", details: "Access to health clinics, screenings, and mental health resources." },
-      { id: "family", name: "Family Programming", details: "Programs that support children, parents, and family wellness." },
-      { id: "more", name: "And much more", details: "Discover even more services tailored to your needs." }
-    ];
-
-    document.addEventListener("DOMContentLoaded", () => {
-      // Restore saved values
-      const nameInput = document.getElementById("emailName");
-      const emailInput = document.getElementById("yourEmail");
-      const phoneInput = document.getElementById("yourPhone");
-
-      nameInput.value = localStorage.getItem("userName") || "";
-      emailInput.value = localStorage.getItem("userEmail") || "";
-      phoneInput.value = localStorage.getItem("userPhone") || "";
-
-      // Auto-save on input
-      nameInput.addEventListener("input", () => localStorage.setItem("userName", nameInput.value));
-      emailInput.addEventListener("input", () => localStorage.setItem("userEmail", emailInput.value));
-      phoneInput.addEventListener("input", () => localStorage.setItem("userPhone", phoneInput.value));
-
-      services.forEach(service => {
-        const label = document.querySelector(`label[for="${service.id}"]`);
-        if (label) {
-          label.style.cursor = "pointer";
-          label.addEventListener("click", () => {
-            currentServiceId = service.id;
-            showServiceModal(service);
-          });
-        }
-      });
-
-      document.getElementById("cancelServiceBtn").addEventListener("click", () => {
-        if (currentServiceId) {
-          document.getElementById(currentServiceId).checked = false;
-        }
-      });
-    });
-
-    function showServiceModal(service) { 
-      const modalTitle = document.getElementById("serviceModalLabel");
-      const modalBody = document.getElementById("serviceModalBody");
-      const acceptBtn = document.getElementById("acceptServiceBtn");
-      modalTitle.textContent = service.name;
-      modalBody.textContent = service.details;
-      acceptBtn.onclick = () => {
-        document.getElementById(service.id).checked = true;
-        bootstrap.Modal.getInstance(document.getElementById("serviceModal")).hide();
-      };
-      new bootstrap.Modal(document.getElementById("serviceModal")).show();
-    }
-  </script>
+  <script src="scripts.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

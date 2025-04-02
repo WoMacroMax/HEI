@@ -1,4 +1,7 @@
 body, html {
+  transform: scale(0.9);
+  transform-origin: top center;
+  overflow-x: hidden;
   height: 100%;
   margin: 0;
   background-color: #f8f9fa;
