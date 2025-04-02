@@ -1,8 +1,9 @@
 html, body {
-  transform: scale(1.00);
+  transform: scale(.90);
   transform-origin: top center;
   overflow: hidden; /* Lock full page scrolling */
-  height: 95vh;
+  height: 125vh;
+  width: 80vh;
   margin: 0;
   padding: 0;
   background-color: #f8f9fa;
