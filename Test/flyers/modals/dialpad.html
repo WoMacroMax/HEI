@@ -1,0 +1,30 @@
+<div class="modal fade" id="dialpadModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-black text-white rounded-4 p-3">
+      <div class="modal-header border-0 p-2">
+        <h5 class="modal-title">Dialpad</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body text-center p-2">
+        <input id="dialInput" type="text" class="form-control dial-input mb-3" readonly value="" />
+        <div class="d-grid mb-2" style="grid-template-columns: repeat(3, 1fr); gap: 6px;">
+          <button class="dial-btn" onclick="appendDial('1')">1<small></small></button>
+          <button class="dial-btn" onclick="appendDial('2')">2<small>ABC</small></button>
+          <button class="dial-btn" onclick="appendDial('3')">3<small>DEF</small></button>
+          <button class="dial-btn" onclick="appendDial('4')">4<small>GHI</small></button>
+          <button class="dial-btn" onclick="appendDial('5')">5<small>JKL</small></button>
+          <button class="dial-btn" onclick="appendDial('6')">6<small>MNO</small></button>
+          <button class="dial-btn" onclick="appendDial('7')">7<small>PQRS</small></button>
+          <button class="dial-btn" onclick="appendDial('8')">8<small>TUV</small></button>
+          <button class="dial-btn" onclick="appendDial('9')">9<small>WXYZ</small></button>
+          <button class="dial-btn" onclick="appendDial('*')">*</button>
+          <button class="dial-btn" onclick="appendDial('0')">0<small>+</small></button>
+          <button class="dial-btn" onclick="appendDial('#')">#</button>
+        </div>
+        <button class="call-button mt-2" onclick="callNumber()">
+          <i class="fas fa-phone"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
