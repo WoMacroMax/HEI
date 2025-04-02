@@ -120,33 +120,38 @@
         </div>
         <div class="modal-body">
           <form id="emailForm">
+            <div class="row">
+<div class="card border border-purple-subtle mb-3">
+  <div class="card-header bg-light text-purple fw-semibold">
+    Contact Info
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <input type="text" class="form-control border-purple-subtle" id="emailName" placeholder="Your Name" required>
+        <div class="invalid-feedback">Please enter your name.</div>
+      </div>
+      <div class="col-md-6 mb-3">
+        <input type="text" class="form-control border-purple-subtle" id="yourZipcode" placeholder="e.g. 20019" required>
+        <div class="invalid-feedback">Please enter a valid 5-digit ZIP code.</div>
+      </div>
+      <div class="col-12 mb-3">
+        <input type="tel" class="form-control border-purple-subtle" id="yourPhone" placeholder="(xxx) xxx-xxxx" required>
+        <div class="invalid-feedback">Please enter a valid phone number.</div>
+      </div>
             <div class="mb-3">
-              <label class="form-label text-purple">Your Name</label>
-              <input type="text" class="form-control border-purple-subtle" id="emailName" placeholder="Your Name" required>
-              <div class="invalid-feedback">Please enter your name.</div>
-            </div>
-            <div class="mb-3">
-              <label class="form-label text-purple">Your Zipcode</label>
-              <input type="text" class="form-control border-purple-subtle" id="yourZipcode" placeholder="e.g. 20019" required>
-              <div class="invalid-feedback">Please enter a valid 5-digit ZIP code.</div>
-            </div>
-            <div class="mb-3">
-              <label class="form-label text-purple">Your Phone Number</label>
-              <input type="tel" class="form-control border-purple-subtle" id="yourPhone" placeholder="(xxx) xxx-xxxx" required>
-              <div class="invalid-feedback">Please enter a valid phone number.</div>
-            </div>
-            <div class="mb-3">
-              <label class="form-label text-purple">To</label>
-              <input type="email" class="form-control border-purple-subtle" id="emailTo" value="blab942@yahoo.com" readonly>
-            </div>
-            <div class="mb-3">
-              <label class="form-label text-purple">Subject</label>
-              <input type="text" class="form-control border-purple-subtle" id="emailSubject" placeholder="Enter subject">
+              <input type="hidden" id="emailTo" value="blab942@yahoo.com">
             </div>
             <div class="mb-3">
               <label class="form-label text-purple">Message</label>
               <textarea class="form-control border-purple-subtle" id="emailMessage" rows="4" placeholder="Write your message here..."></textarea>
             </div>
+            <div class="mb-3">
+              <input type="hidden" id="emailSubject" value="Resident Services Request">
+            </div>
+    </div>
+  </div>
+</div>
           </form>
         </div>
         <div class="modal-footer border-0">

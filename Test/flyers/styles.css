@@ -96,7 +96,24 @@ html, body {
   border-radius: 50%;
   font-size: 1.3rem;
   color: white;
+}#emailModal .modal-content {
+  padding: 1rem;
+  font-size: 0.9rem;
+  max-width: 400px;
+  margin: auto;
+  border-radius: 1rem;
 }
+
+#emailModal .modal-body,
+#emailModal .modal-footer {
+  padding: 1rem;
+}
+
+#emailModal .form-control {
+  font-size: 0.85rem;
+  padding: 0.4rem 0.6rem;
+}
+
 
 /* Email modal buttons */
 .cancel-btn {
