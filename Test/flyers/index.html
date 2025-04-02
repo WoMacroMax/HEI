@@ -57,110 +57,12 @@
       <a href="#"><i class="fab fa-twitter"></i></a>
       <a href="#"><i class="fab fa-instagram"></i></a>
       <a onclick="launchDialpad()"><i class="fas fa-phone"></i></a>
-      <a onclick="new bootstrap.Modal(document.getElementById('emailModal')).show()"><i class="fas fa-envelope"></i></a>
+      <a onclick="openEmailModalWithServices()"><i class="fas fa-envelope"></i></a>
     </div>
   </div>
 
-  <!-- Service Modal -->
-  <div class="modal fade" id="serviceModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content rounded-4">
-        <div class="modal-header">
-          <h5 class="modal-title" id="serviceModalLabel">Service Title</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body" id="serviceModalBody">Service description goes here.</div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" id="cancelServiceBtn" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" id="acceptServiceBtn" class="btn btn-primary">Select</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Dialpad Modal -->
-  <div class="modal fade" id="dialpadModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content bg-black text-white rounded-4 p-3">
-        <div class="modal-header border-0 p-2">
-          <h5 class="modal-title">Dialpad</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body text-center p-2">
-          <input id="dialInput" type="text" class="form-control dial-input mb-3" readonly value="" />
-          <div class="d-grid mb-2" style="grid-template-columns: repeat(3, 1fr); gap: 6px;">
-            <button class="dial-btn" onclick="appendDial('1')">1<small></small></button>
-            <button class="dial-btn" onclick="appendDial('2')">2<small>ABC</small></button>
-            <button class="dial-btn" onclick="appendDial('3')">3<small>DEF</small></button>
-            <button class="dial-btn" onclick="appendDial('4')">4<small>GHI</small></button>
-            <button class="dial-btn" onclick="appendDial('5')">5<small>JKL</small></button>
-            <button class="dial-btn" onclick="appendDial('6')">6<small>MNO</small></button>
-            <button class="dial-btn" onclick="appendDial('7')">7<small>PQRS</small></button>
-            <button class="dial-btn" onclick="appendDial('8')">8<small>TUV</small></button>
-            <button class="dial-btn" onclick="appendDial('9')">9<small>WXYZ</small></button>
-            <button class="dial-btn" onclick="appendDial('*')">*</button>
-            <button class="dial-btn" onclick="appendDial('0')">0<small>+</small></button>
-            <button class="dial-btn" onclick="appendDial('#')">#</button>
-          </div>
-          <button class="call-button mt-2" onclick="callNumber()">
-            <i class="fas fa-phone"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Email Modal -->
-  <div class="modal fade" id="emailModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content position-relative">
-        <div class="modal-header border-0">
-          <h5 class="modal-title text-purple fw-bold">Send Us an Email</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <form id="emailForm">
-            <div class="row">
-<div class="card border border-purple-subtle mb-3">
-  <div class="card-header bg-light text-purple fw-semibold">
-    Contact Info
-  </div>
-  <div class="card-body">
-    <div class="row">
-      <div class="col-md-6 mb-3">
-        <input type="text" class="form-control border-purple-subtle" id="emailName" placeholder="Your Name" required>
-        <div class="invalid-feedback">Please enter your name.</div>
-      </div>
-      <div class="col-md-6 mb-3">
-        <input type="text" class="form-control border-purple-subtle" id="yourZipcode" placeholder="e.g. 20019" required>
-        <div class="invalid-feedback">Please enter a valid 5-digit ZIP code.</div>
-      </div>
-      <div class="col-12 mb-3">
-        <input type="tel" class="form-control border-purple-subtle" id="yourPhone" placeholder="(xxx) xxx-xxxx" required>
-        <div class="invalid-feedback">Please enter a valid phone number.</div>
-      </div>
-            <div class="mb-3">
-              <input type="hidden" id="emailTo" value="blab942@yahoo.com">
-            </div>
-            <div class="mb-3">
-              <label class="form-label text-purple">Message</label>
-              <textarea class="form-control border-purple-subtle" id="emailMessage" rows="4" placeholder="Write your message here..."></textarea>
-            </div>
-            <div class="mb-3">
-              <input type="hidden" id="emailSubject" value="Resident Services Request">
-            </div>
-    </div>
-  </div>
-</div>
-          </form>
-        </div>
-        <div class="modal-footer border-0">
-          <button class="btn cancel-btn" data-bs-dismiss="modal">Cancel</button>
-          <button class="btn send-btn" onclick="sendEmail()">Send</button>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- Dynamic Modal Container -->
+  <div id="modalContainer"></div>
 
   <!-- Scripts -->
   <script src="scripts.js"></script>

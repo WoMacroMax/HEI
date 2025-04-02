@@ -1,39 +1,45 @@
+function loadAndShowModal(file, modalId, afterLoadCallback = null) {
+  fetch(file)
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById('modalContainer').innerHTML = html;
+      const modalElement = document.getElementById(modalId);
+      const modal = new bootstrap.Modal(modalElement);
+      if (afterLoadCallback) afterLoadCallback();
+      modal.show();
+    })
+    .catch(err => console.error("Failed to load modal:", err));
+}
+
 function openEmailModalWithServices() {
   const checked = Array.from(document.querySelectorAll('#servicesForm input[type=checkbox]:checked'));
   const selectedServices = checked.map(cb => `- ${cb.nextElementSibling.textContent.trim()}`).join('\n');
-  const messageField = document.getElementById('emailMessage');
-  const subjectField = document.getElementById('emailSubject');
-  subjectField.value = "Resident Services Request";
-  messageField.value = "I would like to request the following services:\n" + selectedServices;
-  new bootstrap.Modal(document.getElementById('emailModal')).show();
-}
 
-function launchDialpad() {
-  const input = document.getElementById('dialInput');
-  input.value = '';
-  const modal = new bootstrap.Modal(document.getElementById('dialpadModal'));
-  modal.show();
-  const number = "7035962482";
-  let i = 0;
-  const interval = setInterval(() => {
-    if (i < number.length) {
-      input.value += number[i++];
-    } else {
-      clearInterval(interval);
+  loadAndShowModal('modals/email-modal.html', 'emailModal', () => {
+    const messageField = document.getElementById('emailMessage');
+    const subjectField = document.getElementById('emailSubject');
+
+    if (messageField && subjectField) {
+      subjectField.value = "Resident Services Request";
+      messageField.value = "I would like to request the following services:\n" + selectedServices;
     }
-  }, 200);
-}
 
-function appendDial(val) {
-  const input = document.getElementById('dialInput');
-  input.value += val;
-}
+    // Pre-fill from localStorage
+    document.getElementById("emailName").value = localStorage.getItem("userName") || "";
+    document.getElementById("yourZipcode").value = localStorage.getItem("userZipcode") || "";
+    document.getElementById("yourPhone").value = localStorage.getItem("userPhone") || "";
 
-function callNumber() {
-  const number = document.getElementById('dialInput').value.replace(/[^0-9+]/g, '');
-  if (number) {
-    window.location.href = `tel:${number}`;
-  }
+    // Save to localStorage on input
+    document.getElementById("emailName").addEventListener("input", e => {
+      localStorage.setItem("userName", e.target.value);
+    });
+    document.getElementById("yourZipcode").addEventListener("input", e => {
+      localStorage.setItem("userZipcode", e.target.value);
+    });
+    document.getElementById("yourPhone").addEventListener("input", e => {
+      localStorage.setItem("userPhone", e.target.value);
+    });
+  });
 }
 
 function sendEmail() {
@@ -43,6 +49,7 @@ function sendEmail() {
   const subject = encodeURIComponent(document.getElementById('emailSubject').value);
   const message = document.getElementById('emailMessage').value.trim();
   const to = document.getElementById('emailTo').value;
+
   const zipPattern = /^\d{5}$/;
   const phonePattern = /^\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/;
 
@@ -51,16 +58,40 @@ function sendEmail() {
     return;
   }
 
-  localStorage.setItem("userName", name);
-  localStorage.setItem("userZipcode", zipcode);
-  localStorage.setItem("userPhone", phone);
-
   const fullMessage = `Name: ${name}\nZipcode: ${zipcode}\nPhone: ${phone}\n\n${message}`;
   const body = encodeURIComponent(fullMessage);
   window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
   bootstrap.Modal.getInstance(document.getElementById('emailModal')).hide();
 }
 
+function launchDialpad() {
+  const number = "7035962482";
+  loadAndShowModal('modals/dialpad.html', 'dialpadModal', () => {
+    const input = document.getElementById('dialInput');
+    input.value = "";
+
+    let i = 0;
+    const interval = setInterval(() => {
+      if (i < number.length) {
+        input.value += number[i++];
+      } else {
+        clearInterval(interval);
+      }
+    }, 200);
+  });
+}
+
+function appendDial(val) {
+  const input = document.getElementById('dialInput');
+  if (input) input.value += val;
+}
+
+function callNumber() {
+  const number = document.getElementById('dialInput').value.replace(/[^0-9+]/g, '');
+  if (number) window.location.href = `tel:${number}`;
+}
+
+// Show service info
 let currentServiceId = null;
 const services = [
   { id: "rental", name: "Rental Assistance", details: "We help you find rental assistance programs in your area." },
@@ -71,18 +102,6 @@ const services = [
 ];
 
 document.addEventListener("DOMContentLoaded", () => {
-  const nameInput = document.getElementById("emailName");
-  const zipInput = document.getElementById("yourZipcode");
-  const phoneInput = document.getElementById("yourPhone");
-
-  nameInput.value = localStorage.getItem("userName") || "";
-  zipInput.value = localStorage.getItem("userZipcode") || "";
-  phoneInput.value = localStorage.getItem("userPhone") || "";
-
-  nameInput.addEventListener("input", () => localStorage.setItem("userName", nameInput.value));
-  zipInput.addEventListener("input", () => localStorage.setItem("userZipcode", zipInput.value));
-  phoneInput.addEventListener("input", () => localStorage.setItem("userPhone", phoneInput.value));
-
   services.forEach(service => {
     const label = document.querySelector(`label[for="${service.id}"]`);
     if (label) {
@@ -93,26 +112,25 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   });
-
-  document.getElementById("cancelServiceBtn").addEventListener("click", () => {
-    if (currentServiceId) {
-      document.getElementById(currentServiceId).checked = false;
-    }
-  });
 });
 
 function showServiceModal(service) {
-  const modalTitle = document.getElementById("serviceModalLabel");
-  const modalBody = document.getElementById("serviceModalBody");
-  const acceptBtn = document.getElementById("acceptServiceBtn");
+  loadAndShowModal('modals/service-modal.html', 'serviceModal', () => {
+    const modalTitle = document.getElementById("serviceModalLabel");
+    const modalBody = document.getElementById("serviceModalBody");
+    const acceptBtn = document.getElementById("acceptServiceBtn");
+    const cancelBtn = document.getElementById("cancelServiceBtn");
 
-  modalTitle.textContent = service.name;
-  modalBody.textContent = service.details;
+    modalTitle.textContent = service.name;
+    modalBody.textContent = service.details;
 
-  acceptBtn.onclick = () => {
-    document.getElementById(service.id).checked = true;
-    bootstrap.Modal.getInstance(document.getElementById("serviceModal")).hide();
-  };
+    acceptBtn.onclick = () => {
+      document.getElementById(service.id).checked = true;
+      bootstrap.Modal.getInstance(document.getElementById('serviceModal')).hide();
+    };
 
-  new bootstrap.Modal(document.getElementById("serviceModal")).show();
+    cancelBtn.onclick = () => {
+      document.getElementById(service.id).checked = false;
+    };
+  });
 }
