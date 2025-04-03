@@ -94,7 +94,7 @@ function callNumber() {
 // Show service info
 let currentServiceId = null;
 const services = [
-  { id: "rental", name: "Rental Assistance", details: "We help you find rental assistance programs in your area." },
+  { id: "rental", name: "Rental Assistance", details: "https://womacromax.github.io/HEI/Test/flyers/modals/rental-assistance-modal.html" },
   { id: "utility", name: "Utility Assistance", details: "Support for electric, water, and other essential utilities." },
   { id: "health", name: "Health and Wellness", details: "Access to health clinics, screenings, and mental health resources." },
   { id: "family", name: "Family Programming", details: "Programs that support children, parents, and family wellness." },
