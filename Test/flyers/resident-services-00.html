@@ -70,7 +70,7 @@
   <script>
     window.addEventListener('DOMContentLoaded', () => {
       const params = new URLSearchParams(window.location.search);
-      if (params.get('rentalAssistanceClick') === 'true') {
+      if (params.get('rental') === 'true') {
         const rentalCheckbox = document.getElementById('rental');
         if (rentalCheckbox) {
           rentalCheckbox.click(); // Triggers click event (not just checked = true)
