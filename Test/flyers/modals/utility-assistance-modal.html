@@ -56,7 +56,7 @@
               <div class="col text-end">
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                   <button class="btn btn-outline-secondary me-2" id="cancelButton">Cancel</button>
-                  <button class="btn btn-primary" onclick="selectRentalAssistance()">Select</button>
+                  <button class="btn btn-primary" onclick="selectUtilityAssistance()">Select</button>
                 </div>
               </div>
             </div>
@@ -76,13 +76,13 @@
 
       // Redirect on Cancel
       document.getElementById("cancelButton").addEventListener("click", () => {
-        window.location.href = "https://womacromax.github.io/HEI/Test/flyers/resident-services-00.html?rental=false";
+        window.location.href = "https://womacromax.github.io/HEI/Test/flyers/resident-services-00.html?utility=false";
       });
     });
 
     // Redirect with query string to trigger checkbox click
-    function selectRentalAssistance() {
-      window.location.href = "https://womacromax.github.io/HEI/Test/flyers/resident-services-00.html?rental=true";
+    function selectUtilityAssistance() {
+      window.location.href = "https://womacromax.github.io/HEI/Test/flyers/resident-services-00.html?utility=true";
     }
   </script>
 </body>
