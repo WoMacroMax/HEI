@@ -1,14 +1,21 @@
-<div class="modal fade" id="serviceModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content rounded-4">
+<div class="modal fade" id="serviceModal" tabindex="-1" aria-labelledby="serviceModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="serviceModalLabel">Service Title</h5>
+        <h5 class="modal-title" id="serviceModalLabel">Loading...</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body" id="serviceModalBody">Service description goes here.</div>
+      <div class="modal-body" id="serviceModalBody">
+        <!-- Loading spinner -->
+        <div id="serviceLoadingSpinner" class="d-flex justify-content-center align-items-center" style="height: 150px;">
+          <div class="spinner-border text-primary" role="status" aria-label="Loading service details...">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" id="cancelServiceBtn" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" id="acceptServiceBtn" class="btn btn-primary">Select</button>
+        <button type="button" id="acceptServiceBtn" class="btn btn-primary">Accept</button>
+        <button type="button" id="cancelServiceBtn" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
       </div>
     </div>
   </div>
