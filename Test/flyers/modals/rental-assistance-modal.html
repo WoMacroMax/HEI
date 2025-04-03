@@ -55,7 +55,7 @@
             <div class="row mt-4">
               <div class="col text-end">
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                  <button class="btn btn-outline-secondary me-2" data-bs-dismiss="modal">Cancel</button>
+                  <button class="btn btn-outline-secondary me-2" id="cancelButton">Cancel</button>
                   <button class="btn btn-primary" onclick="selectRentalAssistance()">Select</button>
                 </div>
               </div>
@@ -71,7 +71,13 @@
   <script>
     // Show modal on page load
     window.addEventListener("DOMContentLoaded", () => {
-      new bootstrap.Modal(document.getElementById('rentalAssistanceModal')).show();
+      const rentalModal = new bootstrap.Modal(document.getElementById('rentalAssistanceModal'));
+      rentalModal.show();
+
+      // Redirect on Cancel
+      document.getElementById("cancelButton").addEventListener("click", () => {
+        window.location.href = "https://womacromax.github.io/HEI/Test/flyers/resident-services-00.html?rentalAssistanceClick=false";
+      });
     });
 
     // Redirect with query string to trigger checkbox click
