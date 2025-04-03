@@ -44,14 +44,15 @@
           <label class="form-check-label" for="more">And much more</label>
         </div>
         <div class="text-end">
-          <button type="submit" class="btn btn-primary mt-3">Request Services</button>
+          <button type="button" class="btn btn-primary mt-3" onclick="openEmailModalWithServices()">Request Services</button>
         </div>
       </form>
     </div>
+
     <div class="card p-4 shadow-sm">
       <h5>Get in touch with us:</h5>
       <p><strong>Rodney Womack</strong><br />Sr. Resident Service Coordinator<br />
-        <span>+1-703-596-2482</span><br />
+        <span>703-596-2482</span><br />
         <a href="mailto:blab942@yahoo.com">blab942@yahoo.com</a><br />
         4442 Alabama Avenue SE, DC 20019
       </p>
@@ -66,39 +67,31 @@
       <a href="#"><i class="fab fa-facebook-f"></i></a>
       <a href="#"><i class="fab fa-twitter"></i></a>
       <a href="#"><i class="fab fa-instagram"></i></a>
-      <a href="https://womacromax.github.io/HEI/Test/flyers/modals/dialpad.html" target="_blank">
-        <i class="fas fa-phone"></i>
-      </a>
-      <a href="https://womacromax.github.io/HEI/Test/flyers/modals/email-modal-complete.html">
-        <i class="fas fa-envelope"></i>
-      </a>
+      <a onclick="launchDialpad()"><i class="fas fa-phone"></i></a>
+      <a onclick="openEmailModalWithServices()"><i class="fas fa-envelope"></i></a>
     </div>
   </div>
 
-  <!-- Script to handle checkbox redirects -->
+  <!-- Scripts -->
+  <script src="scripts.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    document.getElementById("rental").addEventListener("change", function () {
-      if (this.checked) {
-        window.location.href = "https://womacromax.github.io/HEI/Test/flyers/modals/rental-assistance-modal.html";
-      }
-    });
+    document.addEventListener('DOMContentLoaded', () => {
+      const redirectMap = {
+        rental: 'https://womacromax.github.io/HEI/Test/flyers/modals/rental-assistance-modal.html',
+        utility: 'https://womacromax.github.io/HEI/Test/flyers/modals/utility-assistance-modal.html',
+        health: 'https://womacromax.github.io/HEI/Test/flyers/modals/health-wellness-modal.html',
+        family: 'https://womacromax.github.io/HEI/Test/flyers/modals/family-programming-modal.html'
+      };
 
-    document.getElementById("utility").addEventListener("change", function () {
-      if (this.checked) {
-        window.location.href = "https://womacromax.github.io/HEI/Test/flyers/modals/utility-assistance-modal.html";
-      }
-    });
-
-    document.getElementById("health").addEventListener("change", function () {
-      if (this.checked) {
-        window.location.href = "https://womacromax.github.io/HEI/Test/flyers/modals/health-wellness-modal.html";
-      }
-    });
-
-    document.getElementById("family").addEventListener("change", function () {
-      if (this.checked) {
-        window.location.href = "https://womacromax.github.io/HEI/Test/flyers/modals/family-programming-modal.html";
-      }
+      Object.entries(redirectMap).forEach(([id, url]) => {
+        const checkbox = document.getElementById(id);
+        checkbox.addEventListener('change', () => {
+          if (checkbox.checked) {
+            window.location.href = url;
+          }
+        });
+      });
     });
   </script>
 </body>
