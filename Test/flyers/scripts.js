@@ -1,3 +1,32 @@
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('rental') === 'true') {
+        const rentalCheckbox = document.getElementById('rental');
+        if (rentalCheckbox) {
+          rentalCheckbox.click(); // Triggers click event (not just checked = true)
+        }
+      }
+      if (params.get('utility') === 'true') {
+        const utiltiyCheckbox = document.getElementById('utility');
+        if (utiltiyCheckbox) {
+          utiltiyCheckbox.click(); // Triggers click event (not just checked = true)
+        }
+      }
+      if (params.get('health') === 'true') {
+        const healthCheckbox = document.getElementById('health');
+        if (healthCheckbox) {
+          healthCheckbox.click(); // Triggers click event (not just checked = true)
+        }
+      }
+      if (params.get('family') === 'true') {
+        const familyCheckbox = document.getElementById('family');
+        if (familyCheckbox) {
+          familyCheckbox.click(); // Triggers click event (not just checked = true)
+        }
+      }
+    });
+
 function loadAndShowModal(file, modalId, afterLoadCallback = null) {
   fetch(file)
     .then(response => response.text())
