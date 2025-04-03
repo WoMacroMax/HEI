@@ -70,6 +70,8 @@
   <script>
     window.addEventListener('DOMContentLoaded', () => {
       const params = new URLSearchParams(window.location.search);
+      
+
       if (params.get('rental') === 'true') {
         const rentalCheckbox = document.getElementById('rental');
         if (rentalCheckbox) {
@@ -92,6 +94,31 @@
         const familyCheckbox = document.getElementById('family');
         if (familyCheckbox) {
           familyCheckbox.click(); // Triggers click event (not just checked = true)
+        }
+      }      
+
+      if (params.get('rental') === 'false') {
+        const rentalCheckbox = document.getElementById('rental');
+        if (rentalCheckbox) {
+          rentalCheckbox.click(); // Triggers click event (not just checked = false)
+        }
+      }
+      if (params.get('utility') === 'false') {
+        const utiltiyCheckbox = document.getElementById('utility');
+        if (utiltiyCheckbox) {
+          utiltiyCheckbox.click(); // Triggers click event (not just checked = false)
+        }
+      }
+      if (params.get('health') === 'false') {
+        const healthCheckbox = document.getElementById('health');
+        if (healthCheckbox) {
+          healthCheckbox.click(); // Triggers click event (not just checked = false)
+        }
+      }
+      if (params.get('family') === 'false') {
+        const familyCheckbox = document.getElementById('family');
+        if (familyCheckbox) {
+          familyCheckbox.click(); // Triggers click event (not just checked = false)
         }
       }
     });
