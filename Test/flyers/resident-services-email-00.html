@@ -1,15 +1,87 @@
-<div class="modal fade" id="serviceModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content rounded-4">
-      <div class="modal-header">
-        <h5 class="modal-title" id="serviceModalLabel">Service Title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body" id="serviceModalBody">Service description goes here.</div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" id="cancelServiceBtn" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" id="acceptServiceBtn" class="btn btn-primary">Select</button>
-      </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Resident Services</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <link href="styles.css" rel="stylesheet" />
+</head>
+<body>
+  <!-- Title Bar -->
+  <div class="title-bar text-center shadow">
+    <h1 class="m-0 fw-bold">Resident Services</h1>
+  </div>
+
+  <!-- Scrollable Content Section -->
+  <div class="scroll-section container">
+    <div class="card p-4 shadow-sm mb-4">
+      <p class="text-muted">
+        Our Resident Service Coordinator will provide assistance and access to community-based supports,
+        skills training and resources.
+      </p>
+      <h4 class="mb-3">Our Services Connect You With:</h4>
+      <form id="servicesForm">
+        <div class="form-check mb-2">
+          <input class="form-check-input" type="checkbox" id="rental" />
+          <label class="form-check-label" for="rental">Rental Assistance</label>
+        </div>
+        <div class="form-check mb-2">
+          <input class="form-check-input" type="checkbox" id="utility" />
+          <label class="form-check-label" for="utility">Utility Assistance</label>
+        </div>
+        <div class="form-check mb-2">
+          <input class="form-check-input" type="checkbox" id="health" />
+          <label class="form-check-label" for="health">Health and Wellness</label>
+        </div>
+        <div class="form-check mb-2">
+          <input class="form-check-input" type="checkbox" id="family" />
+          <label class="form-check-label" for="family">Family Programming</label>
+        </div>
+        <div class="form-check mb-2">
+          <input class="form-check-input" type="checkbox" id="more" />
+          <label class="form-check-label" for="more">And much more</label>
+        </div>
+        <div class="text-end">
+          <button type="submit" class="btn btn-primary mt-3">Request Services</button>
+        </div>
+      </form>
+    </div>
+    <div class="card p-4 shadow-sm">
+      <h5>Get in touch with us:</h5>
+      <p><strong>Rodney Womack</strong><br />Sr. Resident Service Coordinator<br />
+        <span>+1-703-596-2482</span><br />
+        <a href="mailto:blab942@yahoo.com">blab942@yahoo.com</a><br />
+        4442 Alabama Avenue SE, DC 20019
+      </p>
+      <p>Scan the QR code below for more info:</p>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?data=4442%20Alabama%20Ave%20SE,%20DC%2020019%20Learning%20Center&size=150x150" alt="QR Code" />
     </div>
   </div>
-</div>
+
+  <!-- Footer -->
+  <div class="footer-bar text-center shadow">
+    <div class="social-icons d-flex justify-content-center flex-wrap">
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="https://womacromax.github.io/HEI/Test/flyers/modals/dialpad.html" target="_blank">
+        <i class="fas fa-phone"></i>
+      </a>
+      <a href="https://womacromax.github.io/HEI/Test/flyers/modals/email-modal-complete.html">
+        <i class="fas fa-envelope"></i>
+      </a>
+    </div>
+  </div>
+
+  <!-- Script to handle checkbox redirect -->
+  <script>
+    document.getElementById("rental").addEventListener("change", function () {
+      if (this.checked) {
+        window.location.href = "https://womacromax.github.io/HEI/Test/flyers/modals/rental-assistance-modal.html";
+      }
+    });
+  </script>
+</body>
+</html>
