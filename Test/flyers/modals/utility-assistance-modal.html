@@ -24,8 +24,8 @@
 </head>
 <body>
 
-  <!-- Rental Assistance Modal -->
-  <div class="modal fade" id="rentalAssistanceModal" tabindex="-1" aria-labelledby="rentalAssistanceLabel" aria-hidden="true">
+  <!-- utility Assistance Modal -->
+  <div class="modal fade" id="utilityAssistanceModal" tabindex="-1" aria-labelledby="utilityAssistanceLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-body">
@@ -33,21 +33,33 @@
             <div class="row">
               <!-- Left Column: Text -->
               <div class="col-md-6">
-                <h5 class="text-purple mb-3">Rental Assistance Program</h5>
+                <h5 class="text-purple mb-3">Utility Assistance Program</h5>
                 <p>
-                  Our Rental Assistance Program helps eligible residents stay in their homes by covering overdue rent,
-                  preventing eviction, and connecting them with long-term resources.
+                  💡 Utility Assistance Support – How We Help
+We understand how stressful it can be to keep up with utility bills during tough times. That’s why we offer utility assistance support to help individuals and families maintain essential services like electricity, water, and heating.
+
+Our team works closely with local agencies and utility providers to connect eligible households with available assistance programs. Whether you’re facing a temporary hardship or need help navigating long-term support options, we’re here to help.
+
+Our services include:
+
+Guidance on applying for programs like LIHEAP and other energy assistance resources
+
+Help with gathering documentation and completing applications
+
+Direct referrals to community partners and emergency relief funds
+
+Follow-up support to help prevent future service interruptions
+
+If you or someone you know is at risk of utility disconnection or struggling to stay current with bills, don’t wait—reach out to us today. Together, we’ll explore the options and get you the support you need.
+
+
                 </p>
-                <ul>
-                  <li>Temporary financial aid for rent</li>
-                  <li>Eviction prevention support</li>
-                  <li>Housing resource referrals</li>
-                </ul>
+
               </div>
 
               <!-- Right Column: Image -->
               <div class="col-md-6 text-center">
-                <img src="https://womacromax.github.io/HEI/Test/flyers/modals/images/image-woman-helping-couple.png" alt="Woman helping couple" class="img-fluid rounded">
+                <img src="https://womacromax.github.io/HEI/Test/flyers/modals/images/image-electricity-is-working.png" alt="Restored Utility" class="img-fluid rounded">
               </div>
             </div>
 
@@ -71,8 +83,8 @@
   <script>
     // Show modal on page load
     window.addEventListener("DOMContentLoaded", () => {
-      const rentalModal = new bootstrap.Modal(document.getElementById('rentalAssistanceModal'));
-      rentalModal.show();
+      const utilityModal = new bootstrap.Modal(document.getElementById('utilityAssistanceModal'));
+      utilityModal.show();
 
       // Redirect on Cancel
       document.getElementById("cancelButton").addEventListener("click", () => {
