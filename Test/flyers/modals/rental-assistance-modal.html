@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Resident Services</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      background-color: #f8f9fa;
+    }
+    .modal-header .btn-close {
+      margin: -0.5rem -0.5rem -0.5rem auto;
+    }
+    .form-check-input {
+      pointer-events: none;
+    }
+    .text-purple { color: #6f42c1; }
+    .border-purple-subtle { border-color: #d6b3f5; }
+  </style>
+</head>
+<body>
+
+  <!-- Rental Assistance Modal -->
+  <div class="modal fade" id="rentalAssistanceModal" tabindex="-1" aria-labelledby="rentalAssistanceLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div class="row">
+              <!-- Left Column: Text -->
+              <div class="col-md-6">
+                <h5 class="text-purple mb-3">Rental Assistance Program</h5>
+                <p>
+                  Our Rental Assistance Program helps eligible residents stay in their homes by covering overdue rent,
+                  preventing eviction, and connecting them with long-term resources.
+                </p>
+                <ul>
+                  <li>Temporary financial aid for rent</li>
+                  <li>Eviction prevention support</li>
+                  <li>Housing resource referrals</li>
+                </ul>
+              </div>
+
+              <!-- Right Column: Image -->
+              <div class="col-md-6 text-center">
+                <img src="https://womacromax.github.io/HEI/Test/flyers/modals/images/image-woman-helping-couple.png" alt="Woman helping couple" class="img-fluid rounded">
+              </div>
+            </div>
+
+            <!-- Bottom Buttons -->
+            <div class="row mt-4">
+              <div class="col text-end">
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                  <button class="btn btn-outline-secondary me-2" data-bs-dismiss="modal">Cancel</button>
+                  <button class="btn btn-primary" onclick="selectRentalAssistance()">Select</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Show modal on page load
+    window.addEventListener("DOMContentLoaded", () => {
+      new bootstrap.Modal(document.getElementById('rentalAssistanceModal')).show();
+    });
+
+    // Redirect with query string to trigger checkbox click
+    function selectRentalAssistance() {
+      window.location.href = "https://womacromax.github.io/HEI/Test/flyers/resident-services-00.html?rentalAssistanceClick=true";
+    }
+  </script>
+</body>
+</html>
