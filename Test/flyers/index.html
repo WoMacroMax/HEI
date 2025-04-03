@@ -75,11 +75,23 @@
     </div>
   </div>
 
-  <!-- Script to handle checkbox redirect -->
+  <!-- Script to handle checkbox redirects -->
   <script>
     document.getElementById("rental").addEventListener("change", function () {
       if (this.checked) {
         window.location.href = "https://womacromax.github.io/HEI/Test/flyers/modals/rental-assistance-modal.html";
+      }
+    });
+
+    document.getElementById("utility").addEventListener("change", function () {
+      if (this.checked) {
+        window.location.href = "https://womacromax.github.io/HEI/Test/flyers/modals/utility-assistance-modal.html";
+      }
+    });
+
+    document.getElementById("health").addEventListener("change", function () {
+      if (this.checked) {
+        window.location.href = "https://womacromax.github.io/HEI/Test/flyers/modals/health-wellness-modal.html";
       }
     });
   </script>
