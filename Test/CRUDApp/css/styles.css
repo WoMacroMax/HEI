@@ -1,0 +1,44 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+.container {
+  width: 700px;
+  margin: 0 auto;
+}
+
+form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+input {
+  flex: 1;
+  padding: 8px;
+}
+
+button {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+th {
+  background-color: #f4f4f4;
+}
+
+.actions button {
+  margin-right: 5px;
+}
