@@ -56,6 +56,7 @@
         </div>
       </form>
     </div>
+
     <div class="card p-4 shadow-sm">
       <h5>Get in touch with us:</h5>
       <p><strong>Rodney Womack</strong><br />Sr. Resident Service Coordinator<br />
@@ -83,18 +84,53 @@
     </div>
   </div>
 
-  <!-- JavaScript to update checkboxes based on URL query -->
+  <!-- JavaScript for checkbox state persistence using cookies -->
   <script>
-    const queryParams = new URLSearchParams(window.location.search);
     const checkboxIds = ['rental', 'utility', 'health', 'family', 'more'];
 
-    checkboxIds.forEach(id => {
-      const checkbox = document.getElementById(id);
-      if (checkbox && queryParams.has(id)) {
-        const value = queryParams.get(id).toLowerCase();
-        checkbox.checked = (value === 'true');
+    function loadCheckboxStates() {
+      checkboxIds.forEach(id => {
+        const checkbox = document.getElementById(id);
+        const value = getCookie(id);
+        if (checkbox && value) {
+          checkbox.checked = (value === 'true');
+        }
+      });
+    }
+
+    function saveCheckboxStates() {
+      checkboxIds.forEach(id => {
+        const checkbox = document.getElementById(id);
+        if (checkbox) {
+          setCookie(id, checkbox.checked, 7); // cookie expires in 7 days
+        }
+      });
+    }
+
+    function setCookie(name, value, days) {
+      const d = new Date();
+      d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+      const expires = "expires=" + d.toUTCString();
+      document.cookie = `${name}=${value};${expires};path=/`;
+    }
+
+    function getCookie(name) {
+      const decodedCookie = decodeURIComponent(document.cookie);
+      const ca = decodedCookie.split(';');
+      for (let c of ca) {
+        while (c.charAt(0) === ' ') c = c.substring(1);
+        if (c.indexOf(name + "=") === 0) {
+          return c.substring(name.length + 1);
+        }
       }
+      return "";
+    }
+
+    document.getElementById('servicesForm').addEventListener('submit', function () {
+      saveCheckboxStates();
     });
+
+    window.addEventListener('DOMContentLoaded', loadCheckboxStates);
   </script>
 </body>
 </html>
