@@ -25,34 +25,41 @@
       <form id="servicesForm">
         <div class="form-check mb-2">
           <input class="form-check-input" type="checkbox" id="rental" />
-          <label class="form-check-label" for="rental">Rental Assistance</label>
+          <label class="form-check-label" for="rental">
+            <a href="https://womacromax.github.io/HEI/Test/flyers/modals/rental-assistance-modal.html" target="_blank">Rental Assistance</a>
+          </label>
         </div>
         <div class="form-check mb-2">
           <input class="form-check-input" type="checkbox" id="utility" />
-          <label class="form-check-label" for="utility">Utility Assistance</label>
+          <label class="form-check-label" for="utility">
+            <a href="https://womacromax.github.io/HEI/Test/flyers/modals/utility-assistance-modal.html" target="_blank">Utility Assistance</a>
+          </label>
         </div>
         <div class="form-check mb-2">
           <input class="form-check-input" type="checkbox" id="health" />
-          <label class="form-check-label" for="health">Health and Wellness</label>
+          <label class="form-check-label" for="health">
+            <a href="https://womacromax.github.io/HEI/Test/flyers/modals/health-wellness-modal.html" target="_blank">Health and Wellness</a>
+          </label>
         </div>
         <div class="form-check mb-2">
           <input class="form-check-input" type="checkbox" id="family" />
-          <label class="form-check-label" for="family">Family Programming</label>
+          <label class="form-check-label" for="family">
+            <a href="https://womacromax.github.io/HEI/Test/flyers/modals/family-programming-modal.html" target="_blank">Family Programming</a>
+          </label>
         </div>
         <div class="form-check mb-2">
           <input class="form-check-input" type="checkbox" id="more" />
           <label class="form-check-label" for="more">And much more</label>
         </div>
         <div class="text-end">
-          <button type="button" class="btn btn-primary mt-3" onclick="openEmailModalWithServices()">Request Services</button>
+          <button type="submit" class="btn btn-primary mt-3">Request Services</button>
         </div>
       </form>
     </div>
-
     <div class="card p-4 shadow-sm">
       <h5>Get in touch with us:</h5>
       <p><strong>Rodney Womack</strong><br />Sr. Resident Service Coordinator<br />
-        <span>703-596-2482</span><br />
+        <span>+1-703-596-2482</span><br />
         <a href="mailto:blab942@yahoo.com">blab942@yahoo.com</a><br />
         4442 Alabama Avenue SE, DC 20019
       </p>
@@ -67,31 +74,26 @@
       <a href="#"><i class="fab fa-facebook-f"></i></a>
       <a href="#"><i class="fab fa-twitter"></i></a>
       <a href="#"><i class="fab fa-instagram"></i></a>
-      <a onclick="launchDialpad()"><i class="fas fa-phone"></i></a>
-      <a onclick="openEmailModalWithServices()"><i class="fas fa-envelope"></i></a>
+      <a href="https://womacromax.github.io/HEI/Test/flyers/modals/dialpad.html" target="_blank">
+        <i class="fas fa-phone"></i>
+      </a>
+      <a href="https://womacromax.github.io/HEI/Test/flyers/modals/email-modal-complete.html">
+        <i class="fas fa-envelope"></i>
+      </a>
     </div>
   </div>
 
-  <!-- Scripts -->
-  <script src="scripts.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- JavaScript to update checkboxes based on URL query -->
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const redirectMap = {
-        rental: 'https://womacromax.github.io/HEI/Test/flyers/modals/rental-assistance-modal.html',
-        utility: 'https://womacromax.github.io/HEI/Test/flyers/modals/utility-assistance-modal.html',
-        health: 'https://womacromax.github.io/HEI/Test/flyers/modals/health-wellness-modal.html',
-        family: 'https://womacromax.github.io/HEI/Test/flyers/modals/family-programming-modal.html'
-      };
+    const queryParams = new URLSearchParams(window.location.search);
+    const checkboxIds = ['rental', 'utility', 'health', 'family', 'more'];
 
-      Object.entries(redirectMap).forEach(([id, url]) => {
-        const checkbox = document.getElementById(id);
-        checkbox.addEventListener('change', () => {
-          if (checkbox.checked) {
-            window.location.href = url;
-          }
-        });
-      });
+    checkboxIds.forEach(id => {
+      const checkbox = document.getElementById(id);
+      if (checkbox && queryParams.has(id)) {
+        const value = queryParams.get(id).toLowerCase();
+        checkbox.checked = (value === 'true');
+      }
     });
   </script>
 </body>
