@@ -26,14 +26,42 @@
       color: #6f42c1;
       text-decoration: underline;
     }
+
+    /* Modal Responsiveness */
+    .modal-content {
+      max-height: 90vh;
+      overflow-y: auto;
+      border-radius: 1rem;
+      padding: 1rem;
+    }
+
+    @media (max-width: 576px) {
+      .modal-content {
+        padding: 1rem;
+        font-size: 0.95rem;
+      }
+
+      .modal-body,
+      .modal-header,
+      .modal-footer {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+    }
+
+    @media (max-height: 500px) {
+      .modal-content {
+        max-height: 80vh;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="modal fade show d-block" id="emailModal" tabindex="-1" aria-hidden="true" style="background-color: rgba(0,0,0,0.5);">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content position-relative">
         <div class="modal-header border-0">
-          <h5 class="modal-title text-purple fw-bold">Send Us an Email</h5>
+          <h5 class="modal-title text-purple fw-bold">Request A Callback</h5>
           <a href="../index.html" class="btn-close" aria-label="Close"></a>
         </div>
         <div class="modal-body">
@@ -86,9 +114,9 @@
             </div>
           </form>
         </div>
-        <div class="modal-footer border-0">
-          <a href="../index.html" class="btn cancel-btn">Cancel</a>
-          <button class="btn send-btn" onclick="sendEmail()">Send</button>
+        <div class="modal-footer border-0 d-flex justify-content-between flex-wrap">
+          <a href="../index.html" class="btn cancel-btn">Unselect</a>
+          <button class="btn send-btn" onclick="sendEmail()">Select</button>
         </div>
       </div>
     </div>
@@ -129,7 +157,7 @@
           return `<li><a href="${url}" target="_blank">${service}</a></li>`;
         }).join('');
 
-        // Build rich message with service URLs
+        // Build message
         const messageText = services.length
           ? "I would like to request the following services:\n" +
             services.map(service => {
