@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Food App with Firebase</title>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore-compat.js"></script>
+
+  <!-- Firebase Initialization -->
+  <script src="scripts/firebaseConfig.js"></script>
+
+  <!-- Food Storage Functions -->
+  <script src="scripts/foodStorage.js"></script>
+</head>
+<body>
+
+<script>
+  // Example: Fetch and log all foods
+  getAllFoods().then(foods => {
+    console.log("Foods fetched from Firestore:", foods);
+  }).catch(console.error);
+</script>
+
+</body>
+</html>

@@ -7,6 +7,17 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
   <link href="styles.css" rel="stylesheet" />
+  <style>
+    .modal-link {
+      color: #0d6efd;
+      text-decoration: underline;
+      cursor: pointer;
+      font-size: 0.9em;
+    }
+    .form-check {
+      margin-bottom: 1rem;
+    }
+  </style>
 </head>
 <body>
   <!-- Title Bar -->
@@ -23,28 +34,52 @@
       </p>
       <h4 class="mb-3">Our Services Connect You With:</h4>
       <form id="servicesForm">
-        <div class="form-check mb-2">
-          <input class="form-check-input" type="checkbox" id="rental" />
-          <label class="form-check-label" for="rental">Rental Assistance</label>
+        <!--BEGIN::Modals-->
+        <div class="container mt-5">
+
+          <div class="form-check d-flex align-items-center">
+            <input class="form-check-input me-2" type="checkbox" id="rentalCheckbox">
+            <label class="form-check-label me-2" for="rentalCheckbox">Rental Assistance</label>
+            <span class="modal-link" data-bs-toggle="modal" data-bs-target="#rentalModal">(info)</span>
+          </div>
+
+          <div class="form-check d-flex align-items-center">
+            <input class="form-check-input me-2" type="checkbox" id="utilityCheckbox">
+            <label class="form-check-label me-2" for="utilityCheckbox">Utility Assistance</label>
+            <span class="modal-link" data-bs-toggle="modal" data-bs-target="#utilityModal">(info)</span>
+          </div>
+
+          <div class="form-check d-flex align-items-center">
+            <input class="form-check-input me-2" type="checkbox" id="wellnessCheckbox">
+            <label class="form-check-label me-2" for="wellnessCheckbox">Health & Wellness Program</label>
+            <span class="modal-link" data-bs-toggle="modal" data-bs-target="#healthWelnessModal">(info)</span>
+          </div>
+
+          <div class="form-check d-flex align-items-center">
+            <input class="form-check-input me-2" type="checkbox" id="familyCheckbox">
+            <label class="form-check-label me-2" for="familyCheckbox">Family Support</label>
+            <span class="modal-link" data-bs-toggle="modal" data-bs-target="#familyModal">(info)</span>
+          </div>
+
+          <div class="form-check d-flex align-items-center">
+            <input class="form-check-input me-2" type="checkbox" id="otherCheckbox">
+            <label class="form-check-label me-2" for="otherCheckbox">Other Services</label>
+            <span class="modal-link" data-bs-toggle="modal" data-bs-target="#otherModal">(info)</span>
+          </div>
         </div>
-        <div class="form-check mb-2">
-          <input class="form-check-input" type="checkbox" id="utility" />
-          <label class="form-check-label" for="utility">Utility Assistance</label>
+
+        <!-- Modal containers -->
+        <div id="modal-container">
+          <div id="rentalModalContainer"></div>
+          <div id="utilityModalContainer"></div>
+          <div id="healthWelnessModalContainer"></div>
+          <div id="familyModalContainer"></div>
+          <div id="otherModalContainer"></div>
         </div>
-        <div class="form-check mb-2">
-          <input class="form-check-input" type="checkbox" id="health" />
-          <label class="form-check-label" for="health">Health and Wellness</label>
-        </div>
-        <div class="form-check mb-2">
-          <input class="form-check-input" type="checkbox" id="family" />
-          <label class="form-check-label" for="family">Family Programming</label>
-        </div>
-        <div class="form-check mb-2">
-          <input class="form-check-input" type="checkbox" id="more" />
-          <label class="form-check-label" for="more">And much more</label>
-        </div>
+        <!--END::Modals-->
+
         <div class="text-end">
-          <button type="button" class="btn btn-primary mt-3" onclick="openEmailModalWithServices()">Request Services</button>
+          <button type="submit" class="btn btn-primary mt-3">Request Services</button>
         </div>
       </form>
     </div>
@@ -52,12 +87,12 @@
     <div class="card p-4 shadow-sm">
       <h5>Get in touch with us:</h5>
       <p><strong>Rodney Womack</strong><br />Sr. Resident Service Coordinator<br />
-        <span>703-596-2482</span><br />
+        <span>+1-703-596-2482</span><br />
         <a href="mailto:blab942@yahoo.com">blab942@yahoo.com</a><br />
         4442 Alabama Avenue SE, DC 20019
       </p>
       <p>Scan the QR code below for more info:</p>
-      <img src="https://api.qrserver.com/v1/create-qr-code/?data=4442%20Alabama%20Ave%20SE,%20DC%2020019%20Learning%20Center&size=150x150" alt="QR Code" />
+      <img src="https://api.qrserver.com/v1/create-qr-code/?data=4442%20Alabama%20Ave%20SE,%20DC%2020019%20Learning%20Center&size=150x150" alt="QR Code" style="width: 75px; height: 75px;" />
     </div>
   </div>
 
@@ -67,32 +102,90 @@
       <a href="#"><i class="fab fa-facebook-f"></i></a>
       <a href="#"><i class="fab fa-twitter"></i></a>
       <a href="#"><i class="fab fa-instagram"></i></a>
-      <a onclick="launchDialpad()"><i class="fas fa-phone"></i></a>
-      <a onclick="openEmailModalWithServices()"><i class="fas fa-envelope"></i></a>
+      <a href="tel:+17035962482"><i class="fas fa-phone"></i></a>
+      <a href="https://womacromax.github.io/HEI/Test/flyers/modals/email-modal-complete.html"><i class="fas fa-envelope"></i></a>
     </div>
   </div>
 
   <!-- Scripts -->
-  <script src="scripts.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const redirectMap = {
-        rental: 'https://womacromax.github.io/HEI/Test/flyers/modals/rental-assistance-modal.html',
-        utility: 'https://womacromax.github.io/HEI/Test/flyers/modals/utility-assistance-modal.html',
-        health: 'https://womacromax.github.io/HEI/Test/flyers/modals/health-wellness-modal.html',
-        family: 'https://womacromax.github.io/HEI/Test/flyers/modals/family-programming-modal.html'
-      };
+    $(document).ready(function () {
+      $('#rentalModalContainer').load('rental-assistance-modal.html');
+      $('#utilityModalContainer').load('utility-assistance-modal.html');
+      $('#healthWelnessModalContainer').load('health-wellness-modal.html');
+      $('#familyModalContainer').load('family-support-modal.html');
+      $('#otherModalContainer').load('other-modal.html');
 
-      Object.entries(redirectMap).forEach(([id, url]) => {
-        const checkbox = document.getElementById(id);
-        checkbox.addEventListener('change', () => {
-          if (checkbox.checked) {
-            window.location.href = url;
-          }
-        });
+      $('#servicesForm').on('submit', function (e) {
+        e.preventDefault();
+
+        const selected = [];
+        if ($('#rentalCheckbox').is(':checked')) selected.push('Rental Assistance');
+        if ($('#utilityCheckbox').is(':checked')) selected.push('Utility Assistance');
+        if ($('#wellnessCheckbox').is(':checked')) selected.push('Health & Wellness');
+        if ($('#familyCheckbox').is(':checked')) selected.push('Family Support');
+        if ($('#otherCheckbox').is(':checked')) selected.push('Other Services');
+
+        const message = selected.length > 0
+          ? 'I would like to request the following services: ' + selected.join(', ')
+          : 'No services were selected.';
+
+        console.log(message); // Log or handle the form data
       });
     });
+
+    // Modal toggle functions
+    function selectRental() {
+      $('#rentalCheckbox').prop('checked', true);
+      bootstrap.Modal.getOrCreateInstance(document.getElementById('rentalModal')).hide();
+    }
+
+    function cancelRental() {
+      $('#rentalCheckbox').prop('checked', false);
+      bootstrap.Modal.getOrCreateInstance(document.getElementById('rentalModal')).hide();
+    }
+
+    function selectUtility() {
+      $('#utilityCheckbox').prop('checked', true);
+      bootstrap.Modal.getOrCreateInstance(document.getElementById('utilityModal')).hide();
+    }
+
+    function cancelUtility() {
+      $('#utilityCheckbox').prop('checked', false);
+      bootstrap.Modal.getOrCreateInstance(document.getElementById('utilityModal')).hide();
+    }
+
+    function selecthealthWelness() {
+      $('#wellnessCheckbox').prop('checked', true);
+      bootstrap.Modal.getOrCreateInstance(document.getElementById('healthWelnessModal')).hide();
+    }
+
+    function cancelhealthWelness() {
+      $('#wellnessCheckbox').prop('checked', false);
+      bootstrap.Modal.getOrCreateInstance(document.getElementById('healthWelnessModal')).hide();
+    }
+
+    function selectFamily() {
+      $('#familyCheckbox').prop('checked', true);
+      bootstrap.Modal.getOrCreateInstance(document.getElementById('familyModal')).hide();
+    }
+
+    function cancelFamily() {
+      $('#familyCheckbox').prop('checked', false);
+      bootstrap.Modal.getOrCreateInstance(document.getElementById('familyModal')).hide();
+    }
+
+    function selectOther() {
+      $('#otherCheckbox').prop('checked', true);
+      bootstrap.Modal.getOrCreateInstance(document.getElementById('otherModal')).hide();
+    }
+
+    function cancelOther() {
+      $('#otherCheckbox').prop('checked', false);
+      bootstrap.Modal.getOrCreateInstance(document.getElementById('otherModal')).hide();
+    }
   </script>
 </body>
 </html>
