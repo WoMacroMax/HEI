@@ -57,6 +57,16 @@
         max-height: 80vh;
       }
     }
+
+    /* Zoom to 85% for small screens under 400px wide */
+    @media (max-width: 400px) {
+      body {
+        transform: scale(0.85);
+        transform-origin: top center;
+        width: 117.65%;
+        overflow-x: hidden;
+      }
+    }
   </style>
 </head>
 <body>
