@@ -83,30 +83,17 @@
     </div>
   </div>
 
-  <!-- JavaScript for localStorage support -->
+  <!-- JavaScript to update checkboxes based on URL query -->
   <script>
+    const queryParams = new URLSearchParams(window.location.search);
     const checkboxIds = ['rental', 'utility', 'health', 'family', 'more'];
 
-    // Load saved checkbox values
     checkboxIds.forEach(id => {
       const checkbox = document.getElementById(id);
-      const saved = localStorage.getItem(`checkbox-${id}`);
-      if (checkbox && saved !== null) {
-        checkbox.checked = saved === 'true';
+      if (checkbox && queryParams.has(id)) {
+        const value = queryParams.get(id).toLowerCase();
+        checkbox.checked = (value === 'true');
       }
-
-      // Save changes to localStorage
-      checkbox.addEventListener('change', () => {
-        localStorage.setItem(`checkbox-${id}`, checkbox.checked);
-      });
-    });
-
-    // Optional: Handle form submission
-    document.getElementById('servicesForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      alert('Your preferences have been saved!');
-      // Uncomment below if you want to clear saved selections after submission
-      // checkboxIds.forEach(id => localStorage.removeItem(`checkbox-${id}`));
     });
   </script>
 </body>
