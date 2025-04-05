@@ -23,13 +23,21 @@
                   <input type="tel" class="form-control border-purple-subtle" id="yourPhone" placeholder="(xxx) xxx-xxxx" required>
                   <div class="invalid-feedback">Please enter a valid phone number.</div>
                 </div>
+
                 <div class="mb-3">
                   <input type="hidden" id="emailTo" value="blab942@yahoo.com">
                 </div>
+
+                <!-- Injected message display (optional visual) -->
+                <div class="mb-3 d-none">
+                  <p id="requestMessage"></p> <!-- This is where injected text goes -->
+                </div>
+
                 <div class="mb-3">
                   <label class="form-label text-purple">Message</label>
                   <textarea class="form-control border-purple-subtle" id="emailMessage" rows="4" placeholder="Write your message here..."></textarea>
                 </div>
+
                 <div class="mb-3">
                   <input type="hidden" id="emailSubject" value="Resident Services Request">
                 </div>
@@ -45,3 +53,36 @@
     </div>
   </div>
 </div>
+
+<script>
+  // This gets run after the modal is loaded via .load()
+  // It moves #requestMessage into the textarea for editing
+  document.addEventListener('DOMContentLoaded', function () {
+    const requestMsg = document.getElementById('requestMessage');
+    const emailMsg = document.getElementById('emailMessage');
+    if (requestMsg && emailMsg && requestMsg.textContent.trim()) {
+      emailMsg.value = requestMsg.textContent.trim();
+    }
+  });
+
+  function sendEmail() {
+    // You can replace this with your actual send logic (e.g., EmailJS, Formspree, etc.)
+    const name = document.getElementById('emailName').value.trim();
+    const phone = document.getElementById('yourPhone').value.trim();
+    const zip = document.getElementById('yourZipcode').value.trim();
+    const message = document.getElementById('emailMessage').value.trim();
+    const to = document.getElementById('emailTo').value;
+    const subject = document.getElementById('emailSubject').value;
+
+    if (!name || !phone || !zip || !message) {
+      alert("Please complete all required fields.");
+      return;
+    }
+
+    alert(`This would send an email to: ${to}\nSubject: ${subject}\n\nName: ${name}\nPhone: ${phone}\nZIP: ${zip}\n\nMessage:\n${message}`);
+
+    // Close modal after "sending"
+    const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('emailModal'));
+    modal.hide();
+  }
+</script>
