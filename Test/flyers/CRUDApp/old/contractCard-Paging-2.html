@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Form with LocalStorage & Firebase</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      position: relative;
+    }
+
+    .fixed-btn {
+      width: 120px;
+    }
+
+    .alt-row:nth-child(odd) {
+      background-color: #f8f9fa; /* light gray */
+    }
+
+    .alt-row:nth-child(even) {
+      background-color: #ffffff; /* white */
+    }
+
+    .pagination {
+      justify-content: center;
+    }
+  </style>
+</head>
+<body class="bg-light">
+  <div class="container mt-5">
+    <div class="row g-4">
+      <!-- Contact Form Card -->
+      <div class="col-md-6">
+        <div class="card shadow-lg h-100">
+          <div class="card-body d-flex flex-column">
+            <h2 class="text-center mb-4">Contact Form</h2>
+            <form id="contactForm" class="flex-grow-1 d-flex flex-column justify-content-between">
+              <div>
+                <div class="mb-3">
+                  <label for="name" class="form-label">Your Name</label>
+                  <input type="text" id="name" class="form-control" required />
+                </div>
+                <div class="mb-3">
+                  <label for="email" class="form-label">Your Email</label>
+                  <input type="email" id="email" class="form-control" required />
+                </div>
+                <div class="mb-3">
+                  <label for="phone" class="form-label">Your Phone Number</label>
+                  <input type="tel" id="phone" class="form-control" required />
+                </div>
+                <div class="mb-3">
+                  <label for="message" class="form-label">Your Message</label>
+                  <textarea id="message" class="form-control" rows="4" required></textarea>
+                </div>
+              </div>
+              <div>
+                <span id="consoleMessage" class="text-center mt-2 d-block"></span>
+                <div class="d-flex justify-content-end gap-2 mt-3">
+                  <button type="submit" id="AddBtn" class="btn btn-primary fixed-btn">Add</button>
+                  <button type="button" id="deleteBtn" class="btn btn-danger fixed-btn">Delete</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stored Contacts Card -->
+      <div class="col-md-6">
+        <div class="card shadow-lg h-100">
+          <div class="card-body d-flex flex-column">
+            <h2 class="text-center mb-4">Stored Contacts</h2>
+            <div class="table-responsive flex-grow-1">
+              <table class="table table-bordered">
+                <thead class="table-dark">
+                  <tr><th>Name</th><th>Email</th><th>Phone</th><th>Message</th></tr>
+                </thead>
+                <tbody id="contactsTable"></tbody>
+              </table>
+            </div>
+            <nav>
+              <ul class="pagination mt-3" id="pagination"></ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Error Modal -->
+  <div class="modal fade" id="errorModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title">Error Occurred</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body" id="errorMessage"></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase + App Script -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+    import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, updateDoc, query, where } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCKpH3zexEOTDhZZ_GZc__ZZ20uyvnjAXM",
+      authDomain: "womacromax-automation.firebaseapp.com",
+      projectId: "womacromax-automation",
+      storageBucket: "womacromax-automation.appspot.com",
+      messagingSenderId: "50651858310",
+      appId: "1:50651858310:web:139f54247487571db85807",
+      measurementId: "G-SQZ80LFP4Z"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const contactsTable = document.getElementById("contactsTable");
+    const AddBtn = document.getElementById("AddBtn");
+    const contactForm = document.getElementById("contactForm");
+    const consoleMessage = document.getElementById("consoleMessage");
+    const pagination = document.getElementById("pagination");
+
+    let selectedId = null;
+    let allContacts = [];
+    let currentPage = 1;
+    const recordsPerPage = 10;
+
+    function showErrorModal(message) {
+      document.getElementById("errorMessage").innerHTML = `<p class='text-danger'>${message}</p>`;
+      new bootstrap.Modal(document.getElementById("errorModal")).show();
+    }
+
+    function renderTablePage() {
+      contactsTable.innerHTML = "";
+      const start = (currentPage - 1) * recordsPerPage;
+      const end = start + recordsPerPage;
+      const paginatedContacts = allContacts.slice(start, end);
+
+      paginatedContacts.forEach((contact, index) => {
+        const row = document.createElement("tr");
+        row.className = "alt-row";
+        row.setAttribute("data-id", contact.id);
+        row.onclick = () => selectRow(row);
+        row.innerHTML = `
+          <td>${contact.name}</td>
+          <td>${contact.email}</td>
+          <td>${contact.phone}</td>
+          <td>${contact.message}</td>`;
+        contactsTable.appendChild(row);
+      });
+
+      renderPagination();
+    }
+
+    function renderPagination() {
+      const pageCount = Math.ceil(allContacts.length / recordsPerPage);
+      pagination.innerHTML = "";
+
+      for (let i = 1; i <= pageCount; i++) {
+        const li = document.createElement("li");
+        li.className = `page-item ${i === currentPage ? 'active' : ''}`;
+        li.innerHTML = `<button class="page-link">${i}</button>`;
+        li.querySelector("button").onclick = () => {
+          currentPage = i;
+          renderTablePage();
+        };
+        pagination.appendChild(li);
+      }
+    }
+
+    function clearForm() {
+      contactForm.reset();
+      AddBtn.textContent = "Add";
+      selectedId = null;
+    }
+
+    async function fetchContacts() {
+      allContacts = [];
+      contactsTable.innerHTML = "";
+      try {
+        const querySnapshot = await getDocs(collection(db, "contacts"));
+        querySnapshot.forEach((docSnap) => {
+          const data = docSnap.data();
+          allContacts.push({ ...data, id: docSnap.id });
+        });
+        renderTablePage();
+      } catch (error) {
+        showErrorModal(`❌ Error fetching contacts: ${error.message}`);
+      }
+    }
+
+    function saveToLocalStorage(contact) {
+      let contacts = JSON.parse(localStorage.getItem("contacts")) || [];
+      contacts.push(contact);
+      localStorage.setItem("contacts", JSON.stringify(contacts));
+    }
+
+    function removeFromLocalStorageByEmail(email) {
+      let contacts = JSON.parse(localStorage.getItem("contacts")) || [];
+      contacts = contacts.filter(c => c.email !== email);
+      localStorage.setItem("contacts", JSON.stringify(contacts));
+    }
+
+    window.selectRow = function(row) {
+      document.querySelectorAll("#contactsTable tr").forEach(r => r.classList.remove("table-active"));
+      row.classList.add("table-active");
+      selectedId = row.getAttribute("data-id");
+
+      const cells = row.querySelectorAll("td");
+      document.getElementById("name").value = cells[0].innerText;
+      document.getElementById("email").value = cells[1].innerText;
+      document.getElementById("phone").value = cells[2].innerText;
+      document.getElementById("message").value = cells[3].innerText;
+
+      AddBtn.textContent = "Update";
+    }
+
+    contactForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const phone = document.getElementById("phone").value;
+      const message = document.getElementById("message").value;
+
+      try {
+        if (selectedId) {
+          await updateDoc(doc(db, "contacts", selectedId), { name, email, phone, message });
+          consoleMessage.innerHTML = `<span class='text-success'>✅ Contact updated successfully!</span>`;
+          selectedId = null;
+          AddBtn.textContent = "Add";
+        } else {
+          const q = query(collection(db, "contacts"), where("email", "==", email));
+          const querySnapshot = await getDocs(q);
+          if (!querySnapshot.empty) {
+            showErrorModal(`❌ A contact with this email already exists.`);
+            return;
+          }
+
+          const newContact = { name, email, phone, message };
+          await addDoc(collection(db, "contacts"), newContact);
+          saveToLocalStorage(newContact);
+          consoleMessage.innerHTML = `<span class='text-success'>✅ Message sent successfully!</span>`;
+        }
+
+        contactForm.reset();
+        fetchContacts();
+      } catch (error) {
+        showErrorModal(`❌ Error submitting form: ${error.message}`);
+      }
+    });
+
+    document.getElementById("deleteBtn").addEventListener("click", async () => {
+      if (selectedId) {
+        try {
+          const emailToDelete = document.getElementById("email").value;
+          await deleteDoc(doc(db, "contacts", selectedId));
+          removeFromLocalStorageByEmail(emailToDelete);
+          clearForm();
+          fetchContacts();
+        } catch (error) {
+          showErrorModal(`❌ Error deleting contact: ${error.message}`);
+        }
+      }
+    });
+
+    document.addEventListener("click", (e) => {
+      const formEl = document.getElementById("contactForm");
+      const isInsideForm = formEl.contains(e.target);
+      const isInsideTable = contactsTable.contains(e.target);
+
+      if (!isInsideForm && !isInsideTable) {
+        document.querySelectorAll("#contactsTable tr").forEach(r => r.classList.remove("table-active"));
+        clearForm();
+      }
+    });
+
+    fetchContacts();
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
