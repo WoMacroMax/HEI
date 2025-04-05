@@ -82,5 +82,19 @@
       </a>
     </div>
   </div>
+
+  <!-- JavaScript to update checkboxes based on URL query -->
+  <script>
+    const queryParams = new URLSearchParams(window.location.search);
+    const checkboxIds = ['rental', 'utility', 'health', 'family', 'more'];
+
+    checkboxIds.forEach(id => {
+      const checkbox = document.getElementById(id);
+      if (checkbox && queryParams.has(id)) {
+        const value = queryParams.get(id).toLowerCase();
+        checkbox.checked = (value === 'true');
+      }
+    });
+  </script>
 </body>
 </html>
