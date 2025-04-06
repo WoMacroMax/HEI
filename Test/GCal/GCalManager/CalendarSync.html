@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Calendar Sync Form</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .form-container {
+            margin: 0 auto;
+            max-width: 600px;
+        }
+        .sync-button {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container form-container">
+        <h1 class="text-center mb-4">Calendar Sync Form</h1>
+        <form id="sync-form">
+            <!-- Google Calendar Credentials -->
+            <div class="form-group">
+                <label for="google-credentials">Google Calendar Credentials (Paste JSON):</label>
+                <textarea id="google-credentials" class="form-control" rows="5" placeholder="Paste your Google Calendar credentials here"></textarea>
+            </div>
+
+            <!-- iOS Calendar Credentials -->
+            <div class="form-group">
+                <label for="ios-credentials">iOS Calendar Credentials (API Keys):</label>
+                <textarea id="ios-credentials" class="form-control" rows="3" placeholder="Paste your iOS Calendar credentials here"></textarea>
+            </div>
+
+            <!-- Outlook Calendar Credentials -->
+            <div class="form-group">
+                <label for="outlook-credentials">Outlook Calendar Credentials (OAuth):</label>
+                <textarea id="outlook-credentials" class="form-control" rows="5" placeholder="Paste your Outlook Calendar credentials here"></textarea>
+            </div>
+
+            <!-- Sync Button -->
+            <div class="sync-button">
+                <button type="button" class="btn btn-primary btn-lg" onclick="syncCalendars()">Sync Calendars</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Sample Sync Script
+        async function syncCalendars() {
+            const googleCredentials = document.getElementById('google-credentials').value.trim();
+            const iosCredentials = document.getElementById('ios-credentials').value.trim();
+            const outlookCredentials = document.getElementById('outlook-credentials').value.trim();
+
+            // Basic validation
+            if (!googleCredentials || !iosCredentials || !outlookCredentials) {
+                alert('Please provide credentials for all calendar types.');
+                return;
+            }
+
+            // Display confirmation
+            alert('Syncing calendars... Please ensure your credentials are accurate.');
+
+            // Example: Use fetch or APIs to process credentials
+            try {
+                // Handle Google Calendar Sync
+                console.log("Google Credentials:", googleCredentials);
+
+                // Handle iOS Calendar Sync
+                console.log("iOS Credentials:", iosCredentials);
+
+                // Handle Outlook Calendar Sync
+                console.log("Outlook Credentials:", outlookCredentials);
+
+                // TODO: Add your syncing logic here
+                alert('Calendars synced successfully!');
+            } catch (error) {
+                console.error('Sync failed:', error);
+                alert('Error syncing calendars. Please check your credentials and try again.');
+            }
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

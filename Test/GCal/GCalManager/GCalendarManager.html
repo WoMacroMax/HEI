@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Responsive Form with Calendar</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    .fixed-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: linear-gradient(to right, rgba(255, 165, 0, 0.8), rgba(255, 99, 71, 0.8));
+      color: white;
+      padding: 10px 0;
+      z-index: 999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 0 0 15px 15px;
+      box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+    }
+    .fixed-header h1 {
+      margin: 0;
+      font-size: 20px;
+    }
+    .social-media-icons {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .social-media-icons a {
+      margin: 0 5px;
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+    }
+    .scrolling-text {
+      padding: 70px 20px;
+      height: 150vh;
+      overflow-y: auto;
+    }
+    .rounded-card {
+      position: fixed;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      border-radius: 15px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+      cursor: grab;
+      z-index: 10;
+      width: 300px;
+      background-color: #fff;
+    }
+    .card-title {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fixed Header -->
+  <div class="fixed-header">
+    <h1>Responsive Form</h1>
+    <div class="social-media-icons">
+      <a href="#" class="btn btn-primary"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" class="btn btn-info"><i class="fab fa-twitter"></i></a>
+      <a href="#" class="btn btn-danger"><i class="fab fa-instagram"></i></a>
+      <a href="tel:+1234567890" class="btn btn-success"><i class="fas fa-phone"></i></a>
+      <a href="sms:+1234567890" class="btn btn-warning"><i class="fas fa-sms"></i></a>
+    </div>
+  </div>
+
+  <!-- Scrolling Text Content -->
+  <div class="scrolling-text">
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin volutpat augue id sapien sollicitudin, ac tincidunt urna blandit. Lorem ipsum dolor sit amet...</p>
+    <p>More content here to enable scrolling and demonstrate layout behavior.</p>
+  </div>
+
+  <!-- Draggable Event Card -->
+  <div id="rounded-card" class="card rounded-card p-3">
+    <div class="card-body">
+      <h5 class="card-title text-center">Schedule Event</h5>
+      <form id="eventForm">
+        <div class="form-group">
+          <label for="eventTitle">Event Title</label>
+          <input type="text" class="form-control" id="eventTitle" required>
+        </div>
+
+        <div class="form-group">
+          <label for="eventDescription">Description</label>
+          <textarea class="form-control" id="eventDescription" rows="2"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="eventDateTime">Date & Time</label>
+          <input type="datetime-local" class="form-control" id="eventDateTime" required>
+          <small id="availabilityStatus" class="form-text text-danger"></small>
+        </div>
+
+        <div class="form-group">
+          <label for="eventAttachment">Attach File (Optional)</label>
+          <input type="file" class="form-control-file" id="eventAttachment">
+        </div>
+
+        <button type="submit" class="btn btn-success btn-block mt-2">Create Event</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Dragging Script -->
+  <script>
+    const card = document.getElementById("rounded-card");
+    let isDragging = false, offsetX, offsetY;
+
+    card.addEventListener("mousedown", (e) => {
+      isDragging = true;
+      offsetX = e.clientX - card.getBoundingClientRect().left;
+      offsetY = e.clientY - card.getBoundingClientRect().top;
+      card.style.cursor = "grabbing";
+    });
+
+    document.addEventListener("mousemove", (e) => {
+      if (isDragging) {
+        card.style.left = `${e.clientX - offsetX}px`;
+        card.style.top = `${e.clientY - offsetY}px`;
+      }
+    });
+
+    document.addEventListener("mouseup", () => {
+      isDragging = false;
+      card.style.cursor = "grab";
+    });
+  </script>
+
+  <!-- Event Form Script -->
+  <script>
+    const form = document.getElementById('eventForm');
+    const dateTimeInput = document.getElementById('eventDateTime');
+    const availabilityStatus = document.getElementById('availabilityStatus');
+
+    function isTimeAvailable(dateTime) {
+      const date = new Date(dateTime);
+      return date.getDate() !== 15; // Example rule: block the 15th
+    }
+
+    dateTimeInput.addEventListener('change', () => {
+      const selectedTime = dateTimeInput.value;
+      availabilityStatus.textContent = isTimeAvailable(selectedTime)
+        ? ''
+        : 'This time slot is not available.';
+    });
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const selectedTime = dateTimeInput.value;
+      if (!isTimeAvailable(selectedTime)) {
+        alert("Please choose an available time.");
+        return;
+      }
+
+      alert("Event created successfully!");
+      form.reset();
+    });
+  </script>
+
+  <!-- Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

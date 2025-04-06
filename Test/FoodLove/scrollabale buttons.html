@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Responsive Form</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .fixed-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to right, rgba(255, 165, 0, 0.8), rgba(255, 99, 71, 0.8)); /* Gradient tangerine effect */
+            color: white;
+            padding: 10px 0;
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 0 0 15px 15px; /* Rounded bottom edges */
+            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+        }
+        .fixed-header h1 {
+            margin: 0;
+            font-size: 20px; /* Adjusted font size for better alignment */
+        }
+        .social-media-icons {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .social-media-icons a {
+            margin: 0 5px;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .scrolling-text {
+            padding: 70px 20px; /* Leaves space for the fixed header */
+            height: 150vh;
+            overflow-y: auto;
+        }
+        .rounded-card {
+            position: fixed;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            border-radius: 15px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+            cursor: grab;
+            z-index: 10;
+        }
+        .card-title {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Fixed Title Bar with Gradient and Rounded Bottom Edges -->
+    <div class="fixed-header">
+        <h1>Responsive Form</h1>
+        <div class="social-media-icons">
+            <a href="#" class="btn btn-primary"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="btn btn-info"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="btn btn-danger"><i class="fab fa-instagram"></i></a>
+            <a href="tel:+1234567890" class="btn btn-success"><i class="fas fa-phone"></i></a>
+            <a href="sms:+1234567890" class="btn btn-warning"><i class="fas fa-sms"></i></a>
+        </div>
+    </div>
+
+    <!-- Scrolling Text -->
+    <div class="scrolling-text">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin volutpat augue id sapien sollicitudin, ac tincidunt urna blandit. Lorem ipsum dolor sit amet...</p>
+        <!-- Add more content for scrolling -->
+    </div>
+
+    <!-- Fixed, Rounded, and Draggable Card -->
+    <div id="rounded-card" class="card rounded-card">
+        <div class="card-body text-center">
+            <h5 class="card-title">Action Card</h5>
+            <div class="btn-group" role="group" aria-label="Button group">
+                <button type="button" class="btn btn-primary">Select</button>
+                <button type="button" class="btn btn-secondary">Deselect</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for Dragging -->
+    <script>
+        const card = document.getElementById("rounded-card");
+        let isDragging = false, offsetX, offsetY;
+
+        card.addEventListener("mousedown", (e) => {
+            isDragging = true;
+            offsetX = e.clientX - card.getBoundingClientRect().left;
+            offsetY = e.clientY - card.getBoundingClientRect().top;
+            card.style.cursor = "grabbing";
+        });
+
+        document.addEventListener("mousemove", (e) => {
+            if (isDragging) {
+                card.style.left = `${e.clientX - offsetX}px`;
+                card.style.top = `${e.clientY - offsetY}px`;
+            }
+        });
+
+        document.addEventListener("mouseup", () => {
+            isDragging = false;
+            card.style.cursor = "grab";
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
