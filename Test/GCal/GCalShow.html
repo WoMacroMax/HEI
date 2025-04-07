@@ -27,10 +27,16 @@
 </div>
 
 <script>
-  const CLIENT_ID = "321777232839-i4dp9qk1m13docho5r3tllb9hauhhi5h.apps.googleusercontent.com";
-  const API_KEY = "AIzaSyCKpH3zexEOTDhZZ_GZc__ZZ20uyvnjAXM";
+  // ✅ Your Google OAuth Client ID (frontend safe)
+  const CLIENT_ID = "890181851518-tvj7ohonesi8fnggenvf1kl91fuktj1i.apps.googleusercontent.com";
+
+  // ✅ Your API Key (Calendar API must be enabled)
+  const API_KEY = "AIzaSyDG2ue7QAPaRidpd6Nc6WYYcEctXZp-5hc";
+
+  // ✅ Full access scope (read + write)
+  const SCOPES = "https://www.googleapis.com/auth/calendar";
+
   const DISCOVERY_DOC = "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest";
-  const SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
 
   let tokenClient, gapiInited = false, gisInited = false;
 
@@ -39,11 +45,15 @@
   }
 
   async function initializeGapiClient() {
+    try {
     await gapi.client.init({
       apiKey: API_KEY,
       discoveryDocs: [DISCOVERY_DOC],
     });
     gapiInited = true;
+    } catch (error) {
+      console.error("Error initializing GAPI client:", error);
+    }
   }
 
   function gisLoaded() {
@@ -61,9 +71,7 @@
       return;
     }
 
-    // ✅ Set token to gapi
     gapi.client.setToken({ access_token: response.access_token });
-
     document.getElementById("authArea").style.display = "none";
     listEvents();
   }
