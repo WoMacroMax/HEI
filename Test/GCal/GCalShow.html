@@ -46,11 +46,11 @@
 
   async function initializeGapiClient() {
     try {
-    await gapi.client.init({
-      apiKey: API_KEY,
-      discoveryDocs: [DISCOVERY_DOC],
-    });
-    gapiInited = true;
+      await gapi.client.init({
+        apiKey: API_KEY,
+        discoveryDocs: [DISCOVERY_DOC],
+      });
+      gapiInited = true;
     } catch (error) {
       console.error("Error initializing GAPI client:", error);
     }
