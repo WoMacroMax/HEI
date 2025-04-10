@@ -1,0 +1,127 @@
+html, body {
+  transform: scale(1.00);
+  transform-origin: top center;
+  overflow: hidden; /* Lock full page scrolling */
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa;
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* Title and Footer shared styling */
+.title-bar, .footer-bar {
+  background-color: #89CFF0;
+  padding: 1rem 2rem;
+  color: white;
+}
+
+.title-bar {
+  border-radius: 0 0 2rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  flex-shrink: 0;
+}
+
+/* Scrollable content section */
+.scroll-section {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  height: auto;
+  padding: 1rem;
+}
+
+/* Footer pinned to bottom */
+.footer-bar {
+  border-radius: 2rem 2rem 0 0;
+  flex-shrink: 0;
+  position: relative; /* Keeps it in layout flow but always visible */
+}
+
+/* Social icons styling */
+.social-icons a {
+  margin: 0 0.6rem;
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+
+.social-icons .fa-facebook-f { color: #3b5998; }
+.social-icons .fa-twitter { color: #1da1f2; }
+.social-icons .fa-instagram { color: #e1306c; }
+.social-icons .fa-envelope { color: #c71610; }
+.social-icons .fa-phone { color: #ffffff; }
+
+/* Modal adjustments */
+.modal-header .btn-close {
+  margin: -0.5rem -0.5rem -0.5rem auto;
+}
+
+/* Checkbox interaction */
+.form-check-input {
+  pointer-events: none;
+}
+
+/* Dialpad styles */
+.dial-btn {
+  font-size: 1.4rem;
+  padding: 10px 0;
+  border: none;
+  background: none;
+  color: white;
+}
+
+.dial-btn small {
+  display: block;
+  font-size: 0.6rem;
+  color: #aaa;
+}
+
+.dial-input {
+  font-size: 1.8rem;
+  text-align: center;
+  background: #000;
+  border: none;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.call-button {
+  background-color: #28a745;
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 1.3rem;
+  color: white;
+}#emailModal .modal-content {
+  padding: 1rem;
+  font-size: 0.9rem;
+  max-width: 400px;
+  margin: auto;
+  border-radius: 1rem;
+}
+
+#emailModal .modal-body,
+#emailModal .modal-footer {
+  padding: 1rem;
+}
+
+#emailModal .form-control {
+  font-size: 0.85rem;
+  padding: 0.4rem 0.6rem;
+}
+
+
+/* Email modal buttons */
+.cancel-btn {
+  background-color: #fce58b;
+  color: #5a2670;
+}
+
+.send-btn {
+  background-color: #89CFF0;
+  color: white;
+}
