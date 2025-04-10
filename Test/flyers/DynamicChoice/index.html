@@ -28,11 +28,26 @@
     .title-bar {
       position: sticky;
       top: 0;
-      background-color: #0d6efd;
       z-index: 1050;
+      background: linear-gradient(to right, white, #0d6efd);
     }
 
-    /* Responsive Modal Styling */
+    .footer-bar {
+      background: linear-gradient(to right, white, #0d6efd);
+      color: white;
+    }
+
+    .footer-bar a {
+      font-size: 1.3rem;
+    }
+
+    .red-outline-card {
+      border: 2px solid red;
+      border-radius: 1rem;
+      padding: 1rem;
+      background-color: #fff;
+    }
+
     .modal-dialog {
       max-width: 90vw;
       margin: 1.75rem auto;
@@ -65,7 +80,6 @@
       }
     }
 
-    /* Zoom to 85% for small screens under 400px wide */
     @media (max-width: 400px) {
       body {
         transform: scale(0.99);
@@ -80,79 +94,126 @@
 
   <!-- Sticky Title Bar with Logo -->
   <div class="title-bar d-flex align-items-center justify-content-center shadow p-2">
-    <img src="Dynamic_Choice_Salon_icon.PNG" alt="Dynamic Choice Logo" style="height: 50px; margin-right: 15px;" />
-    <h1 class="m-0 fw-bold text-center flex-grow-1">Natural Scalp Care</h1>
+    <img src="media/Dynamic_Choice_Salon_icon.PNG" alt="Dynamic Choice Logo" style="height: 50px; margin-right: 15px;" />
+    <h1 class="m-0 fw-bold text-center flex-grow-1"> Natural Scalp Care
+    </h1>
   </div>
 
   <!-- Scrollable Content Section -->
   <div class="scroll-section container">
+    <!-- Top card with image and service list -->
     <div class="card p-4 shadow-sm mb-4">
       <p class="text-muted">
         Our Scalp Care Expert will provide assistance and access to seed oil-based treatment products,
         and service options.
       </p>
-      <h4 class="mb-3">Our Salon (scalp treatment center) is Here To Connect You With:</h4>
-      <form id="servicesForm">
-        <div id="serviceCheckboxGroup" class="container mt-5">
-          <div class="form-check d-flex align-items-center">
-            <input class="form-check-input me-2" type="checkbox" id="sunflowerseedoilCheckbox">
-            <label class="form-check-label me-2" for="sunflowerseedoilCheckbox">Sunflower Seed (based) Hair Oil</label>
-            <span class="modal-link" data-bs-toggle="modal" data-bs-target="#sunflowerModal">(info)</span>
-          </div>
-          <div class="form-check d-flex align-items-center">
-            <input class="form-check-input me-2" type="checkbox" id="grapeseedoilCheckbox">
-            <label class="form-check-label me-2" for="grapeseedoilCheckbox">Grape Seed (based) Hair Oil</label>
-            <span class="modal-link" data-bs-toggle="modal" data-bs-target="#grapeseedModal">(info)</span>
-          </div>
-          <div class="form-check d-flex align-items-center">
-            <input class="form-check-input me-2" type="checkbox" id="almondoilbaseCheckbox">
-            <label class="form-check-label me-2" for="almondoilbaseCheckbox">Almond Oil (based) Hair Oil</label>
-            <span class="modal-link" data-bs-toggle="modal" data-bs-target="#almondoilModal">(info)</span>
-          </div>
-          <div class="form-check d-flex align-items-center">
-            <input class="form-check-input me-2" type="checkbox" id="familyCheckbox">
-            <label class="form-check-label me-2" for="familyCheckbox">Family Support</label>
-            <span class="modal-link" data-bs-toggle="modal" data-bs-target="#familyModal">(info)</span>
-          </div>
-          <div class="form-check d-flex align-items-center">
-            <input class="form-check-input me-2" type="checkbox" id="otherServicesCheckbox">
-            <label class="form-check-label me-2" for="otherServicesCheckbox">Other Services</label>
-            <span class="modal-link" data-bs-toggle="modal" data-bs-target="#otherModal">(info)</span>
-          </div>
+      <h4 class="mb-3"><span class="text-primary">Dynamic</span><span class="text-danger">Choice</span> Salon (your scalp treatment center) is here to connect you with:</h4>
+      <div class="row d-flex align-items-center">
+        <!-- Image on the left -->
+        <div class="col-md-4 text-center mb-3 mb-md-0">
+          <img src="media/Dynamic_Choice_Salon_Natural_Hair_Oil_Ad.PNG" alt="Hair Oil Ad" class="img-fluid rounded" />
         </div>
+        <!-- Red bordered card on the right -->
+        <div class="col-md-8">
+          <div class="red-outline-card p-3 mb-3">
+            <form id="servicesForm">
+              <div id="serviceCheckboxGroup" class="container">
+                <div class="form-check d-flex align-items-center">
+                  <input class="form-check-input me-2" type="checkbox" id="sunflowerseedoilCheckbox">
+                  <label class="form-check-label me-2" for="sunflowerseedoilCheckbox">Sunflower Seed (based) Hair Oil</label>
+                  <span class="modal-link" data-bs-toggle="modal" data-bs-target="#sunflowerModal">(info)</span>
+                </div>
+                <div class="form-check d-flex align-items-center">
+                  <input class="form-check-input me-2" type="checkbox" id="grapeseedoilCheckbox">
+                  <label class="form-check-label me-2" for="grapeseedoilCheckbox">Grape Seed (based) Hair Oil</label>
+                  <span class="modal-link" data-bs-toggle="modal" data-bs-target="#grapeseedModal">(info)</span>
+                </div>
+                <div class="form-check d-flex align-items-center">
+                  <input class="form-check-input me-2" type="checkbox" id="almondoilbaseCheckbox">
+                  <label class="form-check-label me-2" for="almondoilbaseCheckbox">Almond Oil (based) Hair Oil</label>
+                  <span class="modal-link" data-bs-toggle="modal" data-bs-target="#almondoilModal">(info)</span>
+                </div>
+                <div class="form-check d-flex align-items-center">
+                  <input class="form-check-input me-2" type="checkbox" id="familyCheckbox">
+                  <label class="form-check-label me-2" for="familyCheckbox">Family Support</label>
+                  <span class="modal-link" data-bs-toggle="modal" data-bs-target="#familyModal">(info)</span>
+                </div>
+                <div class="form-check d-flex align-items-center">
+                  <input class="form-check-input me-2" type="checkbox" id="otherServicesCheckbox">
+                  <label class="form-check-label me-2" for="otherServicesCheckbox">Other Services</label>
+                  <span class="modal-link" data-bs-toggle="modal" data-bs-target="#otherModal">(info)</span>
+                </div>
+              </div>
 
-        <!-- Modal containers -->
-        <div id="modal-container">
-          <div id="sunflowerseedoilModalContainer"></div>
-          <div id="grapeseedModalContainer"></div>
-          <div id="almondoilModalContainer"></div>
-          <div id="familyModalContainer"></div>
-          <div id="otherModalContainer"></div>
-        </div>
+              <!-- Modal containers -->
+              <div id="modal-container">
+                <div id="sunflowerseedoilModalContainer"></div>
+                <div id="grapeseedModalContainer"></div>
+                <div id="almondoilModalContainer"></div>
+                <div id="familyModalContainer"></div>
+                <div id="otherModalContainer"></div>
+              </div>
 
-        <div class="text-end">
-          <button type="button" class="btn btn-primary mt-3" id="ordernowBtn">
-            Order Now!
-          </button>
+              <div class="text-end">
+                <button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#orderModal">
+                  Order Now!
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-      </form>
+      </div>
     </div>
 
+    <!-- Get in touch card -->
     <div class="card p-4 shadow-sm">
-      <h5>Get in touch with us:</h5>
-      <p><strong>Cindy the Dry Scalp Doctor</strong><br />Sr. Dry Scalp Specialist<br />
-        <span>+1-240 355-2945</span><br />
-        <a href="mailto:blab942@yahoo.com">blab942@yahoo.com</a><br />
-         8004 Flower Ave, Takoma Park, MD 20912
-      </p>
-      <p>Scan the QR code below for more info:</p>
-      <img src="https://api.qrserver.com/v1/create-qr-code/?data=4442%20Alabama%20Ave%20SE,%20DC%2020019%20Learning%20Center&size=150x150" alt="QR Code" style="width: 75px; height: 75px;" />
+      <div class="row">
+        <div class="col-md-6">
+          <h5>Get in touch with us:</h5>
+          <p><strong>Cindy the Dry Scalp Doctor</strong><br />Sr. Dry Scalp Specialist<br />
+            <span>+1-240 355-2945</span><br />
+            <a href="mailto:blab942@yahoo.com">blab942@yahoo.com</a><br />
+            8004 Flower Ave, Takoma Park, MD 20912
+          </p>
+        </div>
+        <div class="col-md-6 text-center">
+          <p>Scan the QR code below for more info:</p>
+          <img src="https://api.qrserver.com/v1/create-qr-code/?data=4442%20Alabama%20Ave%20SE,%20DC%2020019%20Learning%20Center&size=150x150" alt="QR Code" style="width: 75px; height: 75px;" />
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Footer -->
-  <div class="footer-bar text-center shadow">
-    <div class="social-icons d-flex justify-content-center flex-wrap">
+  <!-- Order Modal -->
+  <div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="orderModalLabel">Confirm Your Order</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Please confirm your selected services and proceed with your order. A representative will contact you shortly.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Confirm Order</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer with colorful icons -->
+  <div class="footer-bar text-center shadow mt-4 p-3">
+    <div class="social-icons d-flex justify-content-center align-items-center flex-wrap gap-3">
       <a href="#"><i class="fab fa-facebook-f"></i></a>
       <a href="#"><i class="fab fa-twitter"></i></a>
       <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="tel:+12403552945"><i class="fas fa-phone"></i></a>
+      <a href="tel:+12403552945" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
