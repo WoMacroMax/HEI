@@ -48,18 +48,18 @@
       margin-bottom: 96px;
     }
 
-    .logo, .qr {
+    .logo {
       position: absolute;
-      bottom: 20px;
+      top: 20px;
+      right: 20px;
       height: 60px;
     }
 
-    .logo {
-      left: 20px;
-    }
-
     .qr {
+      position: absolute;
+      bottom: 20px;
       right: 20px;
+      height: 60px;
     }
 
     .logo-top-left {
@@ -74,9 +74,7 @@
 <body>
 
 <div class="card custom-card p-4">
-  <!-- External Logo via URL (Top Left) -->
-  <img src="media/womacromax_logo.png" alt="WoMacroMAX Logo" class="logo-top-left">
-
+  <img src="media/WoMacroMAXAutomation-logo-02.png" alt="WoMacroMAX Logo" class="logo-top-left">
   <h4 class="mb-3 text-center">WoMacro<span style='color:red;'>MAX</span> ContentCreator</h4>
   <form oninput="updateCard()">
     <div class="row g-3">
@@ -90,7 +88,12 @@
       </div>
       <div class="col-12">
         <label class="form-label">Message</label>
-        <textarea class="form-control" id="inputBody" rows="3">To maintain our no gymtimidation environment, please no jeans, boots, sandals or string tanktops.</textarea>
+        <textarea class="form-control" id="inputBody" rows="3"><span style='color:white;'>Enter content here!</span></textarea>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">QR Code Text (URL or Text)</label>
+        <input type="text" class="form-control" id="qrTextSource" value="https://womacromax.com">
       </div>
 
       <div class="col-12">
@@ -128,11 +131,11 @@
       </div>
       <div class="col-md-6">
         <label class="form-label">Logo Image URL</label>
-        <input type="text" class="form-control" id="logoUrl" placeholder="media/planet_fitness_logo.png">
+        <input type="text" class="form-control" id="logoUrl" placeholder="enter Logo URL here">
       </div>
       <div class="col-md-6">
-        <label class="form-label">QR Code Image URL</label>
-        <input type="text" class="form-control" id="qrUrl" placeholder="media/qr-code.png">
+        <label class="form-label">QR Code Image URL (optional override)</label>
+        <input type="text" class="form-control" id="qrUrl" placeholder="">
       </div>
       <div class="col-md-6">
         <label class="form-label">Export Filename</label>
@@ -152,7 +155,7 @@
     <div class="mt-4 d-flex gap-3">
       <div class="dropdown">
         <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-          Download As
+          Download
         </button>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item" href="#" onclick="downloadCard('pdf')">PDF</a></li>
@@ -161,7 +164,7 @@
           <li><a class="dropdown-item" href="#" onclick="downloadCard('svg')">SVG</a></li>
         </ul>
       </div>
-      <button type="button" class="btn btn-success" onclick="emailCard()">Send via Email</button>
+      <button type="button" class="btn btn-success" onclick="emailCard()">Email</button>
     </div>
   </form>
 </div>
@@ -169,12 +172,10 @@
 <!-- Preview Card -->
 <div id="cardPreview" class="dress-code-card" style="background-color: #6c1e7d; border: 6px solid yellow; font-family: 'Open Sans', sans-serif;">
   <div id="previewTitle" class="dress-code-title" style="color: yellow;">WoMacro<span style="color:red;">MAX</span></div>
-  <div id="previewBody" class="dress-code-text" style="color: white;">
-    To maintain our no gymtimidation environment, please no jeans, boots, sandals or string tanktops.
-  </div>
+  <div id="previewBody" class="dress-code-text" style="color: white;">enter your <span style="color:blue;">content</span> here</div>
   <div id="previewThanks" class="thank-you" style="color: yellow;">Thank You!</div>
   <img id="logoImg" src="media/planet_fitness_logo.png" class="logo" alt="Logo">
-  <img id="qrImg" src="media/qr-code.png" class="qr" alt="QR Code">
+  <img id="qrImg" src="" class="qr" alt="QR Code">
 </div>
 
 <!-- Output Modal -->
@@ -196,8 +197,6 @@
   </div>
 </div>
 
-<!-- JS Section -->
-<script>
 <script>
   function updateCard() {
     document.getElementById('previewTitle').innerHTML = document.getElementById('inputTitle').value;
@@ -211,7 +210,8 @@
     const thank = document.getElementById('thankColor').value;
     const font = document.getElementById('fontSelector').value;
     const logo = document.getElementById('logoUrl').value;
-    const qr = document.getElementById('qrUrl').value;
+    const qrOverride = document.getElementById('qrUrl').value;
+    const qrText = document.getElementById('qrTextSource').value;
 
     const card = document.getElementById('cardPreview');
     card.style.backgroundColor = bg;
@@ -223,7 +223,7 @@
     document.getElementById('previewThanks').style.color = thank;
 
     if (logo) document.getElementById('logoImg').src = logo;
-    if (qr) document.getElementById('qrImg').src = qr;
+    document.getElementById('qrImg').src = qrOverride || `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(qrText)}&size=150x150`;
   }
 
   function emailCard() {
@@ -271,6 +271,14 @@
       clone.appendChild(wm);
     }
 
+    const hiddenWrapper = document.createElement("div");
+    hiddenWrapper.style.position = "fixed";
+    hiddenWrapper.style.top = "-10000px";
+    hiddenWrapper.style.left = "-10000px";
+    hiddenWrapper.style.zIndex = "-1";
+    hiddenWrapper.appendChild(clone);
+    document.body.appendChild(hiddenWrapper);
+
     if (type === 'pdf' || type === 'png' || type === 'jpg') {
       const canvas = await html2canvas(clone);
       const format = type === 'pdf' ? 'pdf' : type === 'png' ? 'image/png' : 'image/jpeg';
@@ -300,9 +308,7 @@
 
       allElems.forEach(elem => {
         const styles = window.getComputedStyle(elem);
-        const styleStr = Array.from(styles).reduce((acc, key) => {
-          return `${acc}${key}:${styles.getPropertyValue(key)};`;
-        }, "");
+        const styleStr = Array.from(styles).reduce((acc, key) => `${acc}${key}:${styles.getPropertyValue(key)};`, "");
         elem.setAttribute("style", styleStr);
       });
 
@@ -322,10 +328,13 @@
       link.click();
       document.body.removeChild(link);
     }
+
+    document.body.removeChild(hiddenWrapper);
   }
-</script>
 
+  ['qrTextSource', 'qrUrl', 'logoUrl'].forEach(id => {
+    document.getElementById(id).addEventListener('input', updateCard);
+  });
 </script>
-
 </body>
 </html>
