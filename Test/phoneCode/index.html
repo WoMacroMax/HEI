@@ -48,18 +48,18 @@
       margin-bottom: 96px;
     }
 
-    .logo, .qr {
+    .logo {
       position: absolute;
-      bottom: 20px;
+      top: 20px;
+      right: 20px;
       height: 60px;
     }
 
-    .logo {
-      left: 20px;
-    }
-
     .qr {
+      position: absolute;
+      bottom: 20px;
       right: 20px;
+      height: 60px;
     }
 
     .logo-top-left {
@@ -74,8 +74,7 @@
 <body>
 
 <div class="card custom-card p-4">
-  <!-- External Logo via URL (Top Left) -->
-  <img src="media/womacromax_logo.png" alt="WoMacroMAX Logo" class="logo-top-left">
+  <img src="media/WoMacroMAXAutomation-logo-02.png" alt="WoMacroMAX Logo" class="logo-top-left">
 
   <h4 class="mb-3 text-center">WoMacro<span style='color:red;'>MAX</span> ContentCreator</h4>
   <form oninput="updateCard()">
@@ -91,6 +90,11 @@
       <div class="col-12">
         <label class="form-label">Message</label>
         <textarea class="form-control" id="inputBody" rows="3">To maintain our no gymtimidation environment, please no jeans, boots, sandals or string tanktops.</textarea>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">QR Code Text (URL or Text)</label>
+        <input type="text" class="form-control" id="qrTextSource" value="https://womacromax.com">
       </div>
 
       <div class="col-12">
@@ -128,11 +132,11 @@
       </div>
       <div class="col-md-6">
         <label class="form-label">Logo Image URL</label>
-        <input type="text" class="form-control" id="logoUrl" placeholder="media/planet_fitness_logo.png">
+        <input type="text" class="form-control" id="media/WoMacroMAXAutomation-logo-02.png" placeholder="enter Logo URL here">
       </div>
       <div class="col-md-6">
-        <label class="form-label">QR Code Image URL</label>
-        <input type="text" class="form-control" id="qrUrl" placeholder="media/qr-code.png">
+        <label class="form-label">QR Code Image URL (optional override)</label>
+        <input type="text" class="form-control" id="qrUrl" placeholder="">
       </div>
       <div class="col-md-6">
         <label class="form-label">Export Filename</label>
@@ -174,7 +178,7 @@
   </div>
   <div id="previewThanks" class="thank-you" style="color: yellow;">Thank You!</div>
   <img id="logoImg" src="media/planet_fitness_logo.png" class="logo" alt="Logo">
-  <img id="qrImg" src="media/qr-code.png" class="qr" alt="QR Code">
+  <img id="qrImg" src="" class="qr" alt="QR Code">
 </div>
 
 <!-- Output Modal -->
@@ -196,8 +200,6 @@
   </div>
 </div>
 
-<!-- JS Section -->
-<script>
 <script>
   function updateCard() {
     document.getElementById('previewTitle').innerHTML = document.getElementById('inputTitle').value;
@@ -211,7 +213,8 @@
     const thank = document.getElementById('thankColor').value;
     const font = document.getElementById('fontSelector').value;
     const logo = document.getElementById('logoUrl').value;
-    const qr = document.getElementById('qrUrl').value;
+    const qrOverride = document.getElementById('qrUrl').value;
+    const qrText = document.getElementById('qrTextSource').value;
 
     const card = document.getElementById('cardPreview');
     card.style.backgroundColor = bg;
@@ -223,7 +226,7 @@
     document.getElementById('previewThanks').style.color = thank;
 
     if (logo) document.getElementById('logoImg').src = logo;
-    if (qr) document.getElementById('qrImg').src = qr;
+    document.getElementById('qrImg').src = qrOverride || `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(qrText)}&size=150x150`;
   }
 
   function emailCard() {
@@ -324,8 +327,5 @@
     }
   }
 </script>
-
-</script>
-
 </body>
 </html>
