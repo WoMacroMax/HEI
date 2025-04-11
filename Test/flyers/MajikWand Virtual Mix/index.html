@@ -27,13 +27,23 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
 
   <style>
+    html {
+      font-size: clamp(14px, 1.5vw, 18px);
+    }
     body {
       background: #121212;
       color: #000;
       font-family: 'Segoe UI', sans-serif;
       padding: 1in;
+      margin: 0;
     }
-
+    .container {
+      background-color: #1a1a1a;
+      border-radius: 16px;
+      padding: 2rem;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
     .card {
       background: #f8f9fa;
       border-radius: 15px;
@@ -41,35 +51,30 @@
       position: relative;
       padding-top: 100px;
       color: #000;
+      width: 100%;
     }
-
+    .card-logo,
+    .online-avatar,
+    .responsive-icon {
+      width: clamp(80px, 12vw, 150px);
+      height: clamp(80px, 12vw, 150px);
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid red;
+      transition: all 0.3s ease;
+    }
     .card-logo {
       position: absolute;
-      top: -40px;
-      left: -40px;
-      width: 150px;
-      height: 150px;
-      object-fit: cover;
+      top: -2vw;
+      left: -2vw;
       z-index: 2;
-      border-radius: 50%;
-      border: 3px solid red;
     }
-
     .online-overlay {
       position: absolute;
-      top: -40px;
-      right: -40px;
+      top: -2vw;
+      right: -2vw;
       z-index: 2;
     }
-
-    .online-avatar {
-      width: 150px;
-      height: 150px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 3px solid red;
-    }
-
     .card-title {
       font-size: 2rem;
       color: #4b0082;
@@ -78,13 +83,11 @@
       justify-content: center;
       gap: 10px;
     }
-
     .magic-icon {
       font-size: 2rem;
       color: #ffd700;
       transform: rotate(-20deg);
     }
-
     .highlight {
       color: #0dcaf0;
       font-weight: 20;
@@ -92,7 +95,6 @@
       padding: 1in;
       position: relative;
     }
-
     .wand-effect {
       position: absolute;
       top: 50%;
@@ -102,19 +104,15 @@
       animation: sparkleTrail 15.5s infinite linear;
       white-space: nowrap;
     }
-
     @keyframes sparkleTrail {
       0% { transform: translateX(0) translateY(-50%); opacity: 0; }
       25% { opacity: 1; }
       100% { transform: translateX(200px) translateY(-50%); opacity: 0; }
     }
-
     .btn-upload { background-color: #0dcaf0; color: #000; border: none; }
     .btn-submit { background-color: #20c997; color: #fff; border: none; }
     .btn-download { background-color: #6610f2; color: #fff; border: none; }
-
     .btn-upload:hover, .btn-submit:hover, .btn-download:hover { opacity: 0.9; }
-
     .social-icons {
       display: flex;
       justify-content: center;
@@ -122,7 +120,6 @@
       margin-bottom: 5px;
       font-size: 1.8rem;
     }
-
     .social-labels {
       display: flex;
       justify-content: center;
@@ -131,51 +128,68 @@
       color: #ccc;
       margin-bottom: 20px;
     }
-
     .grid-container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+      display: flex;
+      flex-direction: row;
       gap: 30px;
-      margin-top: 3rem;
+      flex-wrap: wrap;
     }
-
     .grid-card {
+      flex: 1 1 300px;
+      min-width: 280px;
       background: #f8f9fa;
       border-radius: 12px;
       padding: 1.5rem;
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
       color: #000;
     }
-
     ul.custom-bullets li::before {
       content: '🎵 ';
     }
-
     .modal-content.upload-bg { background-color: #0dcaf0; color: #000; }
     .modal-content.submit-bg { background-color: #20c997; color: #fff; }
     .modal-content.download-bg { background-color: #6610f2; color: #fff; }
-
-    .button-section {
-      padding-top: 96px;
-      text-align: center;
+    .button-section { padding-top: 96px; text-align: center; }
+    @media (max-width: 768px) {
+      body { padding: 2rem; }
+      .highlight { padding: 2rem !important; }
+      .card-title { font-size: 1.5rem; }
+      .button-section { padding-top: 48px; }
+      .social-icons { gap: 24px; }
+      .social-labels { gap: 24px; font-size: 0.7rem; }
+      .grid-container { flex-direction: column; }
     }
   </style>
 </head>
 <body>
-
 <div class="container">
   <div class="card p-4">
-    <img src="media/MVM_1.PNG" alt="Main Logo" class="card-logo">
-    <a href="https://www.facebook.com/majik.reed" target="_blank" class="online-overlay">
-      <img src="media/MajikOnline.jpg" alt="Online Logo" class="online-avatar">
-    </a>
+    <!-- ICON MODE TOGGLE -->
+    <div class="form-check form-switch d-flex justify-content-center mb-4">
+      <input class="form-check-input" type="checkbox" role="switch" id="iconModeToggle">
+      <label class="form-check-label ms-2" for="iconModeToggle">Inline Icon Mode</label>
+    </div>
+
+    <!-- CORNER ICONS -->
+    <div id="cornerIcons">
+      <img src="media/MVM_1.PNG" alt="Main Logo" class="card-logo">
+      <a href="https://www.facebook.com/majik.reed" target="_blank" class="online-overlay">
+        <img src="media/MajikOnline.jpg" alt="Online Logo" class="online-avatar">
+      </a>
+    </div>
+
+    <!-- INLINE ICONS -->
+    <div id="inlineIcons" class="d-none text-center mb-4">
+      <img src="media/MVM_1.PNG" alt="Main Logo" class="responsive-icon me-3">
+      <img src="media/MajikOnline.jpg" alt="Online Logo" class="responsive-icon">
+    </div>
 
     <div class="card-body">
       <div class="social-icons">
-        <a href="https://www.linkedin.com/in/your-profile" target="_blank" style="color:#0dcaf0;"><i class="fab fa-linkedin"></i></a>
-        <a href="https://tawk.to/chat" target="_blank" style="color:#0dcaf0;"><i class="fas fa-comments"></i></a>
-        <a href="tel:+1234567890" style="color:#0dcaf0;"><i class="fas fa-phone-alt"></i></a>
-        <a href="https://wa.me/1234567890" target="_blank" style="color:#0dcaf0;"><i class="fab fa-whatsapp"></i></a>
+        <a href="#" style="color:#0dcaf0;"><i class="fab fa-linkedin"></i></a>
+        <a href="#" style="color:#0dcaf0;"><i class="fas fa-comments"></i></a>
+        <a href="#" style="color:#0dcaf0;"><i class="fas fa-phone-alt"></i></a>
+        <a href="#" style="color:#0dcaf0;"><i class="fab fa-whatsapp"></i></a>
       </div>
       <div class="social-labels">
         <div>LinkedIn</div>
@@ -201,9 +215,9 @@
 
       <div class="grid-container mt-5">
         <div class="grid-card">
-          <p>At <strong>Magical Virtual Mixing and Mastering</strong>, we combine a <strong>lifetime of experience in music production</strong> with the <strong>latest in audio technology</strong>—all to bring professional-grade sound right to your fingertips.</p>
-          <p>Whether you're a passionate indie artist or a seasoned studio vet, our virtual studio is designed to make your best work even better. With just a few clicks, you can <strong>upload and email your multitrack recordings</strong>, and we’ll take care of the rest—breathing life, clarity, depth, and magic into your music.</p>
-          <p>From subtle warmth and space to powerful punch and polish, we use a <em>wizard's touch</em> on every mix and master. Our process blends analog sensibilities with high-fidelity digital workflows to ensure your track <strong>stands out on every platform</strong>.</p>
+          <p><strong>Magical Virtual Mixing and Mastering</strong> combines timeless experience with the latest audio technology—bringing pro-grade sound to your fingertips.</p>
+          <p>Whether you're an indie artist or seasoned producer, just upload your multitrack files and let us bring clarity, depth, and magic to your mix.</p>
+          <p>We blend analog warmth with digital punch to ensure your sound <strong>stands out everywhere</strong>.</p>
           <h5 class="text-center mt-4">✨ Let us work the wand. You bring the music. We’ll bring the magic.</h5>
         </div>
 
@@ -211,12 +225,12 @@
           <h4>How to Get Started:</h4>
           <ul class="custom-bullets">
             <li>Prepare your multitrack WAV files</li>
-            <li>Label each track clearly (e.g., "LeadVox.wav")</li>
+            <li>Label each track clearly</li>
             <li>Compress into a ZIP or RAR file</li>
-            <li>Click <strong>Upload Your Tracks</strong></li>
-            <li>Use the <strong>Submit</strong> button to send extra notes</li>
-            <li>We'll review and respond</li>
-            <li>Use <strong>Download Your Tracks</strong> after delivery</li>
+            <li>Click <strong>Upload</strong></li>
+            <li>Add notes via <strong>Submit</strong></li>
+            <li>Receive your magic touch</li>
+            <li><strong>Download</strong> your final mix</li>
           </ul>
         </div>
       </div>
@@ -229,7 +243,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content upload-bg">
       <div class="modal-header">
-        <h5 class="modal-title" id="uploadModalLabel">Upload Your Tracks</h5>
+        <h5 class="modal-title">Upload Your Tracks</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body">
@@ -244,7 +258,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content submit-bg">
       <div class="modal-header">
-        <h5 class="modal-title" id="submitModalLabel">Submit Notes</h5>
+        <h5 class="modal-title">Submit Notes</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body">
@@ -259,7 +273,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content download-bg">
       <div class="modal-header">
-        <h5 class="modal-title" id="downloadModalLabel">Download Your Final Mix</h5>
+        <h5 class="modal-title">Download Your Final Mix</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body text-center">
@@ -271,5 +285,14 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  const toggle = document.getElementById('iconModeToggle');
+  const cornerIcons = document.getElementById('cornerIcons');
+  const inlineIcons = document.getElementById('inlineIcons');
+  toggle.addEventListener('change', () => {
+    cornerIcons.classList.toggle('d-none', toggle.checked);
+    inlineIcons.classList.toggle('d-none', !toggle.checked);
+  });
+</script>
 </body>
 </html>
