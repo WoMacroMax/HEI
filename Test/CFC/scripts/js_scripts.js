@@ -33,17 +33,24 @@ const contentData = {
 
 let breadcrumbHistory = [];
 
-function toggleMenu() {
+function toggleMenu(forceClose = false) {
   const menu = document.getElementById("menu");
-  menu.classList.toggle("open");
-  document.querySelector(".menu-icon").setAttribute("aria-expanded", menu.classList.contains("open"));
+  const icon = document.querySelector(".menu-icon");
+
+  if (forceClose) {
+    menu.classList.remove("open");
+    icon.setAttribute("aria-expanded", false);
+  } else {
+    const isOpen = menu.classList.toggle("open");
+    icon.setAttribute("aria-expanded", isOpen);
+  }
 }
 
 function showCard(menuItem) {
   document.getElementById("homePage").style.display = "none";
   breadcrumbHistory.push(menuItem);
   updateContent(menuItem);
-  toggleMenu();
+  toggleMenu(true);
 }
 
 function updateContent(menuItem) {
@@ -71,7 +78,6 @@ function updateContent(menuItem) {
   card.classList.remove("show");
   textCard.classList.remove("show");
 
-  // Smooth scroll to top of cards
   card.scrollTo({ top: 0, behavior: "smooth" });
   textCard.scrollTo({ top: 0, behavior: "smooth" });
 
@@ -119,24 +125,28 @@ function showhomePage() {
   document.getElementById("card").style.display = "none";
   document.getElementById("text-card").style.display = "none";
   document.getElementById("breadcrumb").style.display = "none";
+
   document.getElementById("card").classList.remove("show");
   document.getElementById("text-card").classList.remove("show");
+
   breadcrumbHistory = [];
+  toggleMenu(true);
 }
 
 // Close menu when mouse leaves
 document.getElementById("menu").addEventListener("mouseleave", () => {
-  document.getElementById("menu").classList.remove("open");
-  document.querySelector(".menu-icon").setAttribute("aria-expanded", false);
+  toggleMenu(true);
 });
 
 // Close menu on outside tap (mobile)
 document.addEventListener("touchstart", (e) => {
   const menu = document.getElementById("menu");
   const icon = document.querySelector(".menu-icon");
-  if (menu.classList.contains("open") && !menu.contains(e.target) && !icon.contains(e.target)) {
-    menu.classList.remove("open");
-    icon.setAttribute("aria-expanded", false);
+
+  if (menu.classList.contains("open") &&
+      !menu.contains(e.target) &&
+      !icon.contains(e.target)) {
+    toggleMenu(true);
   }
 });
 
