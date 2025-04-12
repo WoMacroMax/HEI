@@ -4,8 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Community Family Clinic</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
   <style>
-    /* Your existing styles remain unchanged */
     body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -15,91 +20,168 @@
       padding-bottom: 80px;
     }
 
+    .blue-text { color: #007bff; }
+    .black-text { color: black; }
+
     .menu-container {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       background-color: #ffffff;
-      padding: 20px 30px;
+      padding: 2px 10px;
       z-index: 20;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .menu-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      height: 90px;
     }
 
     .menu-icon {
       cursor: pointer;
-      width: 30px; /* Reduced size */
+      width: 60px;
+      padding: 10px;
+      transform: translateX(10%);
     }
 
     .line {
       width: 100%;
-      height: 4px; /* Reduced thickness */
+      height: 5px;
       background-color: black;
-      margin: 5px 0; /* Adjusted spacing */
+      margin: 6px 0;
     }
 
     .menu {
       position: fixed;
-      top: 0;
-      left: 0;
-      height: 100%; /* Full height */
-      width: 250px; /* Set menu width */
+      top: 0; left: 0;
+      height: 100%;
+      width: 250px;
       background: white;
       padding: 20px;
       box-shadow: 2px 0 15px rgba(0, 0, 0, 0.1);
       z-index: 10;
-      display: none; /* Hide menu by default */
-      flex-direction: column; /* Align items vertically */
-      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(-100%);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+      overflow-y: auto;
+      max-height: 100vh;
     }
 
     .menu.open {
-      display: flex; /* Show menu when open */
+      transform: translateX(0);
+      opacity: 1;
+      pointer-events: auto;
     }
 
-    .menu a {
-      display: block;
-      padding: 15px;
+    .menu button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px;
       margin: 10px auto;
       font-size: 20px;
-      text-align: left; /* Align to the left */
-      text-decoration: none;
+      text-align: center;
       color: black;
-      background-color: #d3d3d3;
+      border: none;
       border-radius: 20px;
-      width: 90%; /* Adjusted width */
+      width: 90%;
+      cursor: pointer;
       transition: background-color 0.3s;
     }
 
-    .menu a:hover {
-      background-color: #b3b3b3;
-    }
+    .menu button:nth-child(n) { background-color: #aaaaaa; }
+    .menu button:hover { filter: brightness(90%); }
 
     .menu-icon-image {
-      height: 75px; /* Increased size */
-      margin-left: auto;
+      height: 120px;
       cursor: pointer;
     }
 
-    .card {
+    .circle-card {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: #ffffff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin-left: 15px;
+    }
+
+    .circle-card img {
+      width: 90%;
+      height: 90%;
+      object-fit: contain;
+    }
+
+    .logo-title {
+      display: flex;
+      align-items: center;
+      margin-left: auto;
+    }
+
+    .logo-title h1 {
+      margin: 0 10px;
+      font-size: 32px;
+      white-space: nowrap;
+    }
+
+    .breadcrumb {
       display: none;
-      margin-top: 30px;
-      padding: 25px;
-      background: linear-gradient(to bottom, #ffffff, #333333);
+      margin: 10px 0 0 0;
+      background-color: #ffffff;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 13px;
+      z-index: 1;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .breadcrumb a {
+      color: #007bff;
+      text-decoration: none;
+      margin-right: 5px;
+    }
+
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+
+    .breadcrumb span {
+      margin-right: 5px;
+    }
+
+    .card {
+      margin-top: 10px;
+      max-height: 90px;
+      overflow-y: auto;
+      padding: 15px;
+      background: linear-gradient(to bottom, #ffffff, #cccccc);
       background-size: 100% 300%;
       background-position: top;
       animation: gradientFlow 10s ease-in-out infinite alternate;
       border-radius: 5px;
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
       color: black;
+      text-align: left;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
     }
 
     .text-card {
       display: none;
-      margin-top: 20px;
+      margin-top: 2px;
       padding: 20px;
       background-color: white;
       border-radius: 5px;
@@ -108,27 +190,51 @@
     }
 
     @keyframes gradientFlow {
-      0% {
-        background-position: top;
-      }
-      100% {
-        background-position: bottom;
-      }
+      0% { background-position: top; }
+      100% { background-position: bottom; }
     }
 
     .homepage-content {
-      margin-top: 30px;
-      padding: 25px;
+      max-height: 60vh;
+      overflow-y: auto;
       background-color: white;
       border-radius: 5px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
+    .homepage-title {
+      position: sticky;
+      top: 0;
+      background-color: white;
+      padding: 20px 25px;
+      margin: 0;
+      z-index: 1;
+      border-bottom: 1px solid #eee;
+    }
+
+    .homepage-scroll {
+      padding: 25px;
+    }
+
+    .promo-card-wrapper {
+      text-decoration: none;
+    }
+
+    .promo-card {
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      padding: 20px;
+      transition: box-shadow 0.3s ease;
+      height: 100%;
+    }
+
+    .promo-card:hover {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
     footer {
       position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
+      bottom: 0; left: 0; right: 0;
       background-color: #ffffff;
       padding: 10px 30px;
       display: flex;
@@ -149,204 +255,291 @@
     .social-links a:hover {
       color: #007bff;
     }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+
+    .page-wrapper {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    #homepage {
+      flex: 1;
+    }
+
+    @media (max-width: 600px) {
+      html { font-size: 70%; }
+      .logo-title h1 { font-size: 19.2px; }
+    }
+
+    @media (max-width: 500px) {
+      .menu-icon {
+        transform: translateX(30%);
+        width: 24px;
+        padding: 6px;
+      }
+
+      .line {
+        height: 3px;
+        margin: 4px 0;
+      }
+    }
   </style>
 </head>
-<body>
-  <!-- Hamburger Menu -->
+<body class="bg-light">
   <div class="menu-container">
-    <div class="menu-icon" onclick="toggleMenu()" role="button" aria-expanded="false">
-      <div class="line"></div>
-      <div class="line"></div>
-      <div class="line"></div>
+    <div class="menu-top">
+      <div class="menu-icon" onclick="toggleMenu()" role="button" aria-expanded="false">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+      </div>
+
+      <!-- Inserted image -->
+      <img src="media/CFC.jpeg" alt="Menu Image" style="height: 70px; width: auto; margin-left: 10px;">
+
+      <div class="logo-title">
+        <h1>Community <span class="blue-text">Family</span> Clinic</h1>
+        <div class="circle-card">
+          <img src="media/community_family_clinic_logo.png" alt="Community Family Clinic Logo" class="menu-icon-image" onclick="showHomepage()" />
+        </div>
+      </div>
     </div>
-    <img src="community_family_clinic_logo.png" alt="Community Family Clinic Logo" class="menu-icon-image" onclick="showHomepage()" />
+
+    <nav id="breadcrumb" class="breadcrumb"></nav>
     <div id="menu" class="menu" role="menu">
-      <a onclick="showCard('Home')">Home</a>
-      <a onclick="showCard('Mission')">Mission</a>
-      <a onclick="showCard('Services')">Services</a>
-      <a onclick="showCard('Credentials')">Credentials</a>
-      <a onclick="showCard('Contact Us')">Contact Us</a>
+      <button onclick="showCard('Home')">Home</button>
+      <button onclick="showCard('Mission')">Mission</button>
+      <button onclick="showCard('Services')">Services</button>
+      <button onclick="showCard('Credentials')">Credentials</button>
+      <button onclick="showCard('Contact Us')">Contact Us</button>
+      <button onclick="showCard('Team')">Team</button>
+      <button onclick="showCard('About Us')">About Us</button>
+      <button onclick="showCard('Blog')">Blog</button>
+      <button onclick="showCard('FAQ')">FAQ</button>
+      <button onclick="showCard('Donate')">Donate</button>
     </div>
   </div>
 
-  <!-- Homepage -->
-  <div id="homepage" class="homepage-content">
-    <h1>Welcome to Community Family Clinic</h1>
-    <p>
-      At Community Family Clinic, we provide compassionate, high-quality care for families and individuals
-      in our community. Our services include primary care, preventive health screenings, immunizations, mental health
-      support, and more. We strive to make healthcare accessible to everyone, ensuring a healthy and thriving community.
-    </p>
-  </div>
+  <div class="page-wrapper">
+    <div id="homepage" class="homepage-content">
+      <div class="homepage-title">
+        <h2 style="text-align: center;">Join us for our Grand Opening Celebration!</h2>
+        <p style="text-align: center;"><b>Community <span class="blue-text">Family</span> Clinic</b> grand opening promotions we offer (below).</p>
+      </div>
+      <div class="homepage-scroll">
 
-<div class="homepage-scroll">
-    <div style="border: 1px solid #ccc; border-radius: 12px; padding: 20px; max-width: 800px; margin: 20px auto; box-shadow: 0 2px 8px rgba(0,0,0,0.1); background-color: #fff;">
-<!-- BEGIN: Place Ads Here -->
-<div class="row">
-  <!-- Single Column -->
-  <div class="col-12">
-    <!-- BEGIN: Email Ad -->
-    <a href="https://womacromax.github.io/HEI/Test/HEI_Virtual_Medical_Services/Medical_assistant_virtual_services-mobile.html"
-       target="_blank"
-       class="promo-card-wrapper text-decoration-none">
-      <table width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #fff; padding: 20px;">
-        <tr>
-          <td align="center">
-            <table width="100%" cellspacing="0" cellpadding="0" border="0"
-                   style="max-width: 600px; background-color: #ffffff; border-radius: 8px;
-                          box-shadow: 0 2px 5px rgba(0,0,0,0.1); overflow: hidden;">
-              <!-- Header -->
-              <tr>
-                <td style="background-color: #0288d1; padding: 10px 20px; text-align: center; color: #ffffff;">
-                  <h1 style="margin: 0; font-size: 24px;">Medical Assistant Virtual Services</h1>
-                </td>
-              </tr>
+        <!-- Ad Block 1 -->
+        <div style="border: 1px solid #ccc; border-radius: 12px; padding: 20px; max-width: 800px; margin: 20px auto; box-shadow: 0 2px 8px rgba(0,0,0,0.1); background-color: #fff;">
+          <div class="row">
+            <div class="col-12">
+              <a href="https://womacromax.github.io/HEI/Test/HEI_Virtual_Medical_Services/Medical_assistant_virtual_services-mobile.html"
+                 target="_blank"
+                 class="promo-card-wrapper text-decoration-none">
+                <div class="promo-card">
+                  <h3>👩‍⚕️ Medical Assistant Virtual Services</h3>
+                  <p>Need help with primary care, pediatrics, or billing? We're here to assist you remotely.</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
 
-              <!-- Main Content -->
-              <tr>
-                <td style="padding: 20px;">
-                  <h2 style="color: #0288d1; margin-top: 0;">Tell us about your needs</h2>
+        <!-- Ad Block 2 -->
+        <a href="https://example.com/wellness-check" target="_blank" class="promo-card-wrapper text-decoration-none">
+          <div style="border: 1px solid #000; border-radius: 12px; padding: 25px; max-width: 800px; margin: 20px auto; background-color: #fff; color: #000; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.2s ease;">
+            <div class="promo-card">
+              <h3>🩺 Free Wellness Check – Limited Time!</h3>
+              <p>We're offering complimentary wellness checks for all new patients. No insurance required.</p>
+              <ul>
+                <li>✔️ Blood pressure and vitals check</li>
+                <li>✔️ Optional lab testing</li>
+                <li>✔️ Personalized wellness planning</li>
+              </ul>
+              <p><i>Now available through April 30. Walk-ins welcome!</i></p>
+            </div>
+          </div>
+        </a>
 
-                  <p>What medical specialty do you need help with?</p>
-                  <select style="width: 100%; padding: 10px; margin-bottom: 20px;
-                                 border-radius: 5px; border: 1px solid #cccccc;">
-                    <option value="primary-care">Primary Care</option>
-                    <option value="pediatrics">Pediatrics</option>
-                    <option value="surgery">Surgery</option>
-                    <option value="other">Other</option>
-                  </select>
-
-                  <p>What type of service are you looking for?</p>
-                  <div>
-                    <input type="radio" id="billing" name="service" value="billing">
-                    <label for="billing">Billing Support</label><br>
-
-                    <input type="radio" id="scheduling" name="service" value="scheduling">
-                    <label for="scheduling">Scheduling Assistance</label><br>
-
-                    <input type="radio" id="other" name="service" value="other">
-                    <label for="other">Other</label>
-                  </div>
-
-                  <!-- Button -->
-                  <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin-top: 20px;">
-                    <tr>
-                      <td align="center" bgcolor="#0288d1" style="border-radius: 4px; padding: 10px;">
-                        <a href="https://womacromax.github.io/HEI/mobile/medical%20virtual%20assistant-mobile.html"
-                           target="_blank"
-                           style="display: inline-block; font-family: Arial, sans-serif; font-size: 14px;
-                                  color: #ffffff; text-decoration: none; background-color: #0288d1;
-                                  border: 1px solid #0288d1; border-radius: 4px; padding: 10px;">
-                          Continue
-                        </a>
-                      </td>
-                    </tr>
-                  </table>
-
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
-    </a>
-    <!-- END: Email Ad -->
-  </div>
-</div>
-</div>
-<!-- END: Place Ads Here -->
-
-<!-- BEGIN: Duplicate Ad Container -->
-<div style="border: 1px solid #ccc; border-radius: 12px; padding: 20px; max-width: 800px; margin: 20px auto; box-shadow: 0 2px 8px rgba(0,0,0,0.1); background-color: #fff;">
-  <div class="row">
-    <!-- Single Column -->
-    <div class="col-12">
-      <a href="https://womacromax.github.io/HEI/Test/HEI_Virtual_Medical_Services/Medical_assistant_virtual_services-mobile.html"
-         target="_blank"
-         class="promo-card-wrapper text-decoration-none">
-        <table width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #fff; padding: 20px;">
-      <!-- BEGIN: Additional Ad -->
-  <!-- BEGIN: Black & White Clickable Ad with Icons -->
-<a href="https://example.com/wellness-check" target="_blank" class="promo-card-wrapper text-decoration-none">
-  <div style="border: 1px solid #000; border-radius: 12px; padding: 25px; max-width: 800px; margin: 20px auto; background-color: #fff; color: #000; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.2s ease;">
-    <div class="promo-card">
-      <h3 style="font-size: 24px; margin-top: 0;">🩺 Free Wellness Check – Limited Time!</h3>
-      <p style="font-size: 16px; line-height: 1.6;">
-        We're offering <strong>complimentary wellness checks</strong> for all new patients at Community Family Clinic.
-        Prioritize your health with a quick, easy visit — no insurance required.
-      </p>
-      <ul style="padding-left: 20px; margin: 10px 0; list-style: none;">
-        <li>✔️ Blood pressure and vitals check</li>
-        <li>✔️ Optional lab testing</li>
-        <li>✔️ Personalized wellness planning</li>
-      </ul>
-      <p style="font-size: 15px; font-style: italic;">Now available through April 30. Walk-ins welcome!</p>
+      </div>
     </div>
-  </div>
-</a>
-<!-- END: Black & White Clickable Ad with Icons -->
 
-      <!-- END: Additional Ad -->
-    </div>
+    <div id="card" class="card"></div>
+    <div id="text-card" class="text-card"></div>
   </div>
-<!-- END: Duplicate Ad Container -->
-</div>
-    </div>
-  </div>
-</div>
-    
 
-  <div id="card" class="card"></div>
-  <div id="text-card" class="text-card"></div>
-
-  <!-- Footer -->
   <footer>
     <div class="social-links">
-      <a href="https://facebook.com/YourPage" target="_blank" rel="noopener noreferrer">📘</a>
-      <a href="https://instagram.com/YourPage" target="_blank" rel="noopener noreferrer">📸</a>
-      <a href="https://wa.me/YourNumber" target="_blank" rel="noopener noreferrer">📱</a>
-      <a href="https://twitter.com/YourPage" target="_blank" rel="noopener noreferrer">✖️</a>
+      <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+      <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+      <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="https://wa.me/1234567890" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      <a href="mailto:info@example.com"><i class="fas fa-envelope"></i></a>
+      <a href="#"><i class="fas fa-comment-dots"></i></a>
+      <a href="tel:+17035962482"><i class="fas fa-phone"></i></a>
     </div>
   </footer>
 
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    const randomText = [
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      "Sed ut perspiciatis unde omnis iste natus error sit voluptatem.",
-      "But I must explain to you how all this mistaken idea of denouncing pleasure.",
-      "At vero eos et accusamus et iusto odio dignissimos ducimus.",
-      "On the other hand, we denounce with righteous indignation and dislike men."
-    ];
+    const contentData = {
+      "Home": {
+        title: "<h2><span class='black-text'>Welcome to Community Family Clinic</span></h2>",
+        text: "<p>We provide compassionate, high-quality care for families and individuals in our community.</p>"
+      },
+      "Mission": {
+        title: "<h2>Our <span class='black-text'>Mission</span></h2>",
+        text: "<p>To provide <strong>high-quality, affordable healthcare</strong> for all individuals and families.</p>"
+      },
+      "Services": {
+        title: "<h2>Our <span class='black-text'>Services</span></h2>",
+        text: `
+
+  <p><strong>CFC provides primary care, including:</strong></p>
+  <p><br />CFC provides primary care which covers a wide range of routine and preventive healthcare services, such as:</p>
+  <ul style="list-style-type: circle;">
+  <li>annual physicals</li>
+  <li>laboratory testing, such as&nbsp;blood tests&nbsp;and urine tests</li>
+  <li>vaccinations</li>
+  <li>screening and treatment for conditions like&nbsp;high cholesterol,&nbsp;high blood pressure, or&nbsp;diabetes</li>
+  <li>care for minor symptoms, such as sore throat, cough, or nasal congestion</li>
+  <li>treatment for common illnesses like colds,&nbsp;the flu, or&nbsp;urinary tract infections (UTIs)</li>
+  <li>treatment of some injuries, such as minor cuts or burns</li>
+  </ul>
+  <p>Others include:</p>
+  <ul style="list-style-type: circle;">
+  <li>Health education</li>
+  <li>Health Promotion and Disease Prevention</li>
+  <li>Diabetes and Hypertension education</li>
+  <li>Test, screenings and physicals</li>
+  <li>Nutrition guidance</li>
+  <li>Immunization</li>
+  <li>Anemia management</li>
+  <li>Pregnancy test</li>
+  <li>Annual physicals</li>
+  <li>Blood tests</li>
+  <li>Cardiology</li>
+  <li>Case management</li>
+  <li>Counseling</li>
+  <li>Sexually transmitted infection</li>
+  </ul>`
+      },
+      "Credentials": {
+        title: "<h2>Our <span class='black-text'>Credentials</span></h2>",
+        text: "<p>Board-certified physicians, licensed nurses, and experienced healthcare professionals.</p>"
+      },
+      "Contact Us": {
+        title: "<h2><span class='black-text'>Contact Us</span></h2>",
+        text: `
+          <p>Reach out to us:</p>
+          <ul>
+            <li>Phone: (123) 456-7890</li>
+            <li>Email: info@communityclinic.org</li>
+            <li>Address: 123 Wellness Ave, Caretown, USA</li>
+          </ul>`
+      },
+      "Team": {
+        title: "<h2>Meet Our <span class='black-text'>Team</span></h2>",
+        text: "<p>Meet our compassionate team dedicated to your care and well-being.</p>"
+      },
+      "About Us": {
+        title: "<h2><span class='black-text'>About Us</span></h2>",
+        text: "<h2>Biography</h2><p>Dr. Okunji is a Tenured Full Professor and Family Nurse Practitioner at Howard, College of Nursing and Allied Health Sciences. She obtained her BS and MS degrees in nursing and informatics, with nursing leadership minor respectively from the University of Maryland and earned her PhD in Health Sciences with a concentration in International Health Education and Research at the Trident International University, Cypress, California. Dr. Okunji has worked on multiple NIH grants that were funded through the National Institute on Minority Health and Health Disparities (IS22 MD00241-21, A. Wutoh, PI) and National Institute on Drug Abuse (5R24DA02 1470-04, S. Phillips, PI), as well as two Howard Advanced Faculty Seed grants (<em><strong>Okunji, PI</strong></em>) and two DC.gov grants (<em><strong>Okunji, PI</strong></em>). Dr. Okunji is the Howard Co-PI of the ongoing NIH-funded AIM-AHEAD Contract (OTA-21-017-1OT2OD032581-01,&nbsp;<em><strong>Okunji, Co-PI)</strong></em>. She is the lead investigator at using the academic electronic health record (EHR) to improve the data analytic skills of nursing students prior to clinical rotation/practice. She has just completed her latest seed grant funded by the Naval Office Research Human-Centered Artificial Intelligence (GRT00370B,&nbsp;<em><strong>Okunji, PI</strong></em>) titled, &ldquo;<em>Enhancing Academic EHR (SimChart) To Improve Patient Outcome (e-EHR)</em>&rdquo;. In addition, Dr. Okunji is a recipient of the 2023 HU&nbsp;<em><strong>President&rsquo;s Medal</strong></em>&nbsp;of Achievement, recipient of the 2022 Graduate School Medal for Teaching Excellence, 2026-2017 NIH Cardiovascular Disparities Programs for Inclusion and Diversity Among Individuals Engaged in Health-Related Research (PRIDE) award, 2015 NIH UCLA Mobile Health (mHealth) Scholar, 2014 NIH NIMHD Health Disparities Course Scholar, and 2012 Faculty Senate &ldquo;<em><strong>Emerging Scholar</strong></em>&rdquo; award. Her professional background merges over 25 years of teaching, clinical, and research experience in microbiology, nursing, leadership and informatics. Dr. Okunji is frequently invited to deliver presentations at both national and international conferences and has more than 60 publications, including 3-book chapters and&nbsp;<em><strong>Nursing Informatics textbook</strong></em>, for which she is a&nbsp;<em><strong>sole author</strong></em>. As a senior faculty, Dr. Okunji has mentored 15 junior and senior faculty in scholarship and grantsmanship, such as the just completed Artificial Intelligence/Machine Learning Consortium to Advance Health Equity and Researcher Diversity (AIM-AHEAD) program, which provided clinical research and stipend support for the DON faculty. She also mentored numerous graduate and undergraduate students on scholarly writings. Dr. Okunji served as a&nbsp;<em><strong>primary advisor</strong></em>&nbsp;for Dr. Karyn Onyenoho&rsquo;s PhD dissertation entitled &ldquo;<em>Genetic Determinants of Type 2 Diabetes Mellitus in African Adults: Identification of the Associated Factors</em>.&rdquo; Dr. Onyenoho is currently an advisor for Genomic Data Sharing in the Division of Neuroscience at the NIH National Institute on Aging. As an NIH Cardiovascular Health-Related Research PRIDE Cohort V Scholar, Dr. Okunji has been invited to mentor many new program applicants and helped disseminate flyers for the ongoing cohort XI recruitment and she is a member of the DC Cardiovascular Health and Obesity Collaborative (DC CHOC) Executive Community Advisory Committee through joint research with HU and NHLBI since 2013.&nbsp;</p>"
+      },
+      "Blog": {
+        title: "<h2><span class='black-text'>Blog & News</span></h2>",
+        text: "<p>Stay informed with health tips, updates, and community stories.</p>"
+      },
+      "FAQ": {
+        title: "<h2><span class='black-text'>FAQs</span></h2>",
+        text: `
+          <p><strong>Q:</strong> Do I need insurance?</p>
+          <p><strong>A:</strong> No, we provide care regardless of insurance status.</p>`
+      },
+      "Donate": {
+        title: "<h2><span class='black-text'>Support Us</span></h2>",
+        text: "<p>Your <strong>donation</strong> helps us offer care to those in need. <a href='#'>Click here to donate</a>.</p>"
+      }
+    };
+
+    let breadcrumbHistory = [];
 
     function toggleMenu() {
       const menu = document.getElementById("menu");
       menu.classList.toggle("open");
-      const expanded = menu.classList.contains("open");
-      document.querySelector(".menu-icon").setAttribute("aria-expanded", expanded);
+      document.querySelector(".menu-icon").setAttribute("aria-expanded", menu.classList.contains("open"));
     }
 
     function showCard(menuItem) {
-      const card = document.getElementById("card");
-      const textCard = document.getElementById("text-card");
-      const homepage = document.getElementById("homepage");
-      const text = randomText[Math.floor(Math.random() * randomText.length)];
-
-      homepage.style.display = "none";
-      card.innerHTML = `<h2>${menuItem}</h2>`;
-      card.style.display = "block";
-      textCard.innerHTML = `<p>${text}</p>`;
-      textCard.style.display = "block";
+      document.getElementById("homepage").style.display = "none";
+      breadcrumbHistory.push(menuItem);
+      updateContent(menuItem);
       toggleMenu();
     }
 
-    function showHomepage() {
-      const homepage = document.getElementById("homepage");
+    function updateContent(menuItem) {
+      const content = contentData[menuItem];
       const card = document.getElementById("card");
       const textCard = document.getElementById("text-card");
+      const breadcrumb = document.getElementById("breadcrumb");
 
-      homepage.style.display = "block";
-      card.style.display = "none";
-      textCard.style.display = "none";
+      if (!content || (!content.title.trim() && !content.text.trim())) {
+        card.style.display = "none";
+        textCard.style.display = "none";
+        breadcrumb.style.display = "none";
+        return;
+      }
+
+      card.innerHTML = content.title;
+      textCard.innerHTML = content.text;
+
+      card.style.display = content.title.trim() ? "flex" : "none";
+      textCard.style.display = content.text.trim() ? "block" : "none";
+      breadcrumb.innerHTML = generateBreadcrumbHTML();
+      breadcrumb.style.display = "block";
     }
+
+    function generateBreadcrumbHTML() {
+      return `
+        <a href="#" onclick="showHomepage()">PROMOTIONS</a>
+        ${breadcrumbHistory.map((item, i) => i === breadcrumbHistory.length - 1
+          ? `<span>› ${item}</span>`
+          : `<a href="#" onclick="navigateTo(${i})">› ${item}</a>`).join('')}`;
+    }
+
+    function navigateTo(index) {
+      breadcrumbHistory = breadcrumbHistory.slice(0, index + 1);
+      updateContent(breadcrumbHistory[index]);
+    }
+
+    function showHomepage() {
+      document.getElementById("homepage").style.display = "block";
+      document.getElementById("card").style.display = "none";
+      document.getElementById("text-card").style.display = "none";
+      document.getElementById("breadcrumb").style.display = "none";
+      breadcrumbHistory = [];
+    }
+
+    document.getElementById("menu").addEventListener("mouseleave", () => {
+      document.getElementById("menu").classList.remove("open");
+      document.querySelector(".menu-icon").setAttribute("aria-expanded", false);
+    });
+
+    document.addEventListener("touchstart", (e) => {
+      const menu = document.getElementById("menu");
+      const icon = document.querySelector(".menu-icon");
+      if (menu.classList.contains("open") && !menu.contains(e.target) && !icon.contains(e.target)) {
+        menu.classList.remove("open");
+        icon.setAttribute("aria-expanded", false);
+      }
+    });
   </script>
-</body
+</body>
+</html>
