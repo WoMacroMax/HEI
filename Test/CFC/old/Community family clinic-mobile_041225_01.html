@@ -368,8 +368,8 @@
   <script>
     const contentData = {
       "Home": {
-        title: "<h2><span class='black-text'>Welcome to Community Family Clinic</span></h2>",
-        text: "<p>We provide compassionate, high-quality care for families and individuals in our community.</p>"
+        title: "",
+        text: ""
       },
       "Mission": {
         title: "<h2>Our <span class='black-text'>Mission</span></h2>",
@@ -441,10 +441,9 @@
           <p><strong>A:</strong> No, we provide care regardless of insurance status.</p>`
       },
       "Promotions": {
-        title: "<h2><span class='black-text'>Promotions</span></h2>",
-        text: "" // Will be loaded dynamically
+        title: "<h2><span class='black-text'>Support Us</span></h2>",
+        text: "<p>Your <strong>donation</strong> helps us offer care to those in need. <a href='#'>Click here to donate</a>.</p>"
       }
-
     };
 
     let breadcrumbHistory = [];
@@ -462,47 +461,27 @@
       toggleMenu();
     }
 
-function updateContent(menuItem) {
-  const content = contentData[menuItem];
-  const card = document.getElementById("card");
-  const textCard = document.getElementById("text-card");
-  const breadcrumb = document.getElementById("breadcrumb");
+    function updateContent(menuItem) {
+      const content = contentData[menuItem];
+      const card = document.getElementById("card");
+      const textCard = document.getElementById("text-card");
+      const breadcrumb = document.getElementById("breadcrumb");
 
-  if (!content || (!content.title.trim() && !content.text.trim())) {
-    card.style.display = "none";
-    textCard.style.display = "none";
-    breadcrumb.style.display = "none";
-    return;
-  }
+      if (!content || (!content.title.trim() && !content.text.trim())) {
+        card.style.display = "none";
+        textCard.style.display = "none";
+        breadcrumb.style.display = "none";
+        return;
+      }
 
-  card.innerHTML = content.title;
+      card.innerHTML = content.title;
+      textCard.innerHTML = content.text;
 
-  if (menuItem === "Promotions") {
-    fetch("promotions/promotions.html")
-      .then(response => response.text())
-      .then(data => {
-        textCard.innerHTML = data;
-        card.style.display = content.title.trim() ? "flex" : "none";
-        textCard.style.display = "block";
-        breadcrumb.innerHTML = generateBreadcrumbHTML();
-        breadcrumb.style.display = "block";
-      })
-      .catch(err => {
-        textCard.innerHTML = "<p>Unable to load promotions at this time.</p>";
-        card.style.display = content.title.trim() ? "flex" : "none";
-        textCard.style.display = "block";
-        breadcrumb.innerHTML = generateBreadcrumbHTML();
-        breadcrumb.style.display = "block";
-      });
-  } else {
-    textCard.innerHTML = content.text;
-    card.style.display = content.title.trim() ? "flex" : "none";
-    textCard.style.display = content.text.trim() ? "block" : "none";
-    breadcrumb.innerHTML = generateBreadcrumbHTML();
-    breadcrumb.style.display = "block";
-  }
-}
-
+      card.style.display = content.title.trim() ? "flex" : "none";
+      textCard.style.display = content.text.trim() ? "block" : "none";
+      breadcrumb.innerHTML = generateBreadcrumbHTML();
+      breadcrumb.style.display = "block";
+    }
 
     function generateBreadcrumbHTML() {
       return `
