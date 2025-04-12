@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Site Management Setup</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    body {
+      padding: 120px 20px 30px;
+      background-color: #f9f9f9;
+    }
+    .fixed-header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: linear-gradient(to right, orange, tomato);
+      color: white;
+      padding: 10px 0;
+      z-index: 1000;
+      text-align: center;
+      border-radius: 0 0 15px 15px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+    .social-media-icons {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .social-media-icons a {
+      margin: 0 5px;
+      color: white;
+    }
+    .card {
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .action-buttons .btn {
+      width: 70px;
+    }
+    #connectionStatus {
+      transition: color 0.3s ease;
+      font-weight: bold;
+    }
+    @media (min-width: 768px) {
+      .dual-panel {
+        display: flex;
+        gap: 20px;
+      }
+    }
+    .btn:active i.fas.fa-sync-alt {
+      transform: rotate(360deg);
+      transition: transform 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+
+<div class="fixed-header">
+  <h4 class="m-0">Site Management Setup</h4>
+  <div class="social-media-icons">
+    <a href="#" class="btn btn-primary btn-sm"><i class="fab fa-facebook-f"></i></a>
+    <a href="#" class="btn btn-info btn-sm"><i class="fab fa-twitter"></i></a>
+    <a href="#" class="btn btn-danger btn-sm"><i class="fab fa-instagram"></i></a>
+    <a href="tel:+1234567890" class="btn btn-success btn-sm"><i class="fas fa-phone"></i></a>
+    <a href="sms:+1234567890" class="btn btn-warning btn-sm"><i class="fas fa-sms"></i></a>
+  </div>
+</div>
+
+<!-- Firebase connection status -->
+<div id="connectionStatus" class="text-center text-muted mb-2">Checking connection...</div>
+
+<div class="container dual-panel mt-3">
+
+  <!-- Left Card: Form -->
+  <div class="card p-4 flex-fill mb-4" style="min-width: 300px;">
+    <h5 class="mb-3">Add / Edit Task</h5>
+    <form id="taskForm">
+      <input type="hidden" id="taskId">
+      <div class="form-group">
+        <label for="taskName">Task Name</label>
+        <input type="text" class="form-control" id="taskName" required />
+      </div>
+      <div class="form-group">
+        <label for="taskDesc">Description</label>
+        <textarea class="form-control" id="taskDesc" rows="2" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="taskDuration">Duration (minutes)</label>
+        <input type="number" class="form-control" id="taskDuration" required />
+      </div>
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <button type="submit" class="btn btn-success">Save Task</button>
+          <button type="button" class="btn btn-secondary ml-2" onclick="loadTasks()">Refresh</button>
+        </div>
+        <button id="undoDelete" type="button" class="btn btn-warning" disabled>Undo Delete</button>
+      </div>
+      <div id="formMsg" class="mt-3 text-success" style="display: none;">Task saved!</div>
+    </form>
+  </div>
+
+  <!-- Right Card: Task Grid -->
+  <div class="card p-4 flex-fill mb-4" style="min-width: 300px;">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h5 class="mb-0">Tasks List</h5>
+      <button class="btn btn-sm btn-outline-secondary" onclick="loadTasks()" title="Refresh task list">
+        <i class="fas fa-sync-alt"></i>
+      </button>
+    </div>
+    <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+      <table class="table table-bordered table-sm mb-0" id="taskTable">
+        <thead class="thead-light">
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Duration</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="taskList"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-database.js"></script>
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyCKpH3zexEOTDhZZ_GZc__ZZ20uyvnjAXM",
+    authDomain: "womacromax-automation.firebaseapp.com",
+    projectId: "womacromax-automation",
+    storageBucket: "womacromax-automation.firebasestorage.app",
+    messagingSenderId: "50651858310",
+    appId: "1:50651858310:web:139f54247487571db85807"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  const form = document.getElementById('taskForm');
+  const taskList = document.getElementById('taskList');
+  const undoDeleteBtn = document.getElementById('undoDelete');
+  const statusEl = document.getElementById("connectionStatus");
+  let lastDeleted = null;
+
+  // Real-time Firebase connection check
+  firebase.database().ref(".info/connected").on("value", (snap) => {
+    const connected = snap.val() === true;
+    statusEl.textContent = connected ? "Connected to Firebase" : "Disconnected";
+    statusEl.classList.toggle("text-success", connected);
+    statusEl.classList.toggle("text-danger", !connected);
+  });
+
+  function loadTasks() {
+    taskList.innerHTML = "";
+    db.collection("Site Management Setup").orderBy("createdAt", "desc").get().then(snapshot => {
+      snapshot.forEach(doc => {
+        const task = doc.data();
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${task.name}</td>
+          <td>${task.description}</td>
+          <td>${task.duration}</td>
+          <td class="action-buttons">
+            <div class="btn-group btn-group-sm" role="group">
+              <button class="btn btn-outline-info" onclick="editTask('${doc.id}')">Edit</button>
+              <button class="btn btn-outline-danger" onclick="deleteTask('${doc.id}', '${task.name}', '${task.description}', ${task.duration})">Delete</button>
+            </div>
+          </td>
+        `;
+        taskList.appendChild(row);
+      });
+    });
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const id = document.getElementById("taskId").value;
+    const name = document.getElementById("taskName").value.trim();
+    const description = document.getElementById("taskDesc").value.trim();
+    const duration = parseInt(document.getElementById("taskDuration").value);
+    const data = { name, description, duration, createdAt: new Date().toISOString() };
+
+    if (id) {
+      db.collection("Site Management Setup").doc(id).update(data).then(() => {
+        resetForm();
+        loadTasks();
+      });
+    } else {
+      db.collection("Site Management Setup").add(data).then(() => {
+        resetForm();
+        loadTasks();
+      });
+    }
+  });
+
+  function editTask(id) {
+    db.collection("Site Management Setup").doc(id).get().then(doc => {
+      const task = doc.data();
+      document.getElementById("taskId").value = doc.id;
+      document.getElementById("taskName").value = task.name;
+      document.getElementById("taskDesc").value = task.description;
+      document.getElementById("taskDuration").value = task.duration;
+    });
+  }
+
+  function deleteTask(id, name, description, duration) {
+    lastDeleted = { id, name, description, duration };
+    db.collection("Site Management Setup").doc(id).delete().then(() => {
+      undoDeleteBtn.disabled = false;
+      loadTasks();
+    });
+  }
+
+  undoDeleteBtn.addEventListener("click", () => {
+    if (lastDeleted) {
+      db.collection("Site Management Setup").add({
+        name: lastDeleted.name,
+        description: lastDeleted.description,
+        duration: lastDeleted.duration,
+        createdAt: new Date().toISOString()
+      }).then(() => {
+        lastDeleted = null;
+        undoDeleteBtn.disabled = true;
+        loadTasks();
+      });
+    }
+  });
+
+  function resetForm() {
+    form.reset();
+    document.getElementById("taskId").value = "";
+    document.getElementById("formMsg").style.display = "block";
+    setTimeout(() => {
+      document.getElementById("formMsg").style.display = "none";
+    }, 2000);
+  }
+
+  window.onload = loadTasks;
+</script>
+
+</body>
+</html>

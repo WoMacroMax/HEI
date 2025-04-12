@@ -86,18 +86,18 @@
       <form id="servicesForm">
         <div id="serviceCheckboxGroup" class="container mt-5">
           <div class="form-check d-flex align-items-center">
-            <input class="form-check-input me-2" type="checkbox" id="rentalCheckbox">
-            <label class="form-check-label me-2" for="rentalCheckbox">Rental Assistance</label>
+            <input class="form-check-input me-2" type="checkbox" id="sunflowerseedoilCheckbox">
+            <label class="form-check-label me-2" for="sunflowerseedoilCheckbox">Rental Assistance</label>
             <span class="modal-link" data-bs-toggle="modal" data-bs-target="#rentalModal">(info)</span>
           </div>
           <div class="form-check d-flex align-items-center">
-            <input class="form-check-input me-2" type="checkbox" id="utilityCheckbox">
-            <label class="form-check-label me-2" for="utilityCheckbox">Utility Assistance</label>
+            <input class="form-check-input me-2" type="checkbox" id="grapeseedoilCheckbox">
+            <label class="form-check-label me-2" for="grapeseedoilCheckbox">Utility Assistance</label>
             <span class="modal-link" data-bs-toggle="modal" data-bs-target="#utilityModal">(info)</span>
           </div>
           <div class="form-check d-flex align-items-center">
-            <input class="form-check-input me-2" type="checkbox" id="wellnessCheckbox">
-            <label class="form-check-label me-2" for="wellnessCheckbox">Health & Wellness Program</label>
+            <input class="form-check-input me-2" type="checkbox" id="almondoilbaseCheckbox">
+            <label class="form-check-label me-2" for="almondoilbaseCheckbox">Health & Wellness Program</label>
             <span class="modal-link" data-bs-toggle="modal" data-bs-target="#healthWelnessModal">(info)</span>
           </div>
           <div class="form-check d-flex align-items-center">
@@ -106,17 +106,17 @@
             <span class="modal-link" data-bs-toggle="modal" data-bs-target="#familyModal">(info)</span>
           </div>
           <div class="form-check d-flex align-items-center">
-            <input class="form-check-input me-2" type="checkbox" id="otherCheckbox">
-            <label class="form-check-label me-2" for="otherCheckbox">Other Services</label>
+            <input class="form-check-input me-2" type="checkbox" id="otherServicesCheckbox">
+            <label class="form-check-label me-2" for="otherServicesCheckbox">Other Services</label>
             <span class="modal-link" data-bs-toggle="modal" data-bs-target="#otherModal">(info)</span>
           </div>
         </div>
 
         <!-- Modal containers -->
         <div id="modal-container">
-          <div id="rentalModalContainer"></div>
-          <div id="utilityModalContainer"></div>
-          <div id="healthWelnessModalContainer"></div>
+          <div id="sunflowerseedoilModalContainer"></div>
+          <div id="grapeseedModalContainer"></div>
+          <div id="almondoilModalContainer"></div>
           <div id="familyModalContainer"></div>
           <div id="otherModalContainer"></div>
         </div>
@@ -131,10 +131,10 @@
 
     <div class="card p-4 shadow-sm">
       <h5>Get in touch with us:</h5>
-      <p><strong>Rodney Womack</strong><br />Sr. Resident Service Coordinator<br />
-        <span>+1-703-596-2482</span><br />
+      <p><strong>Cindy the Dry Scalp Doctor</strong><br />Sr. Dry Scalp Specialist<br />
+        <span>+1-240 355-2945</span><br />
         <a href="mailto:blab942@yahoo.com">blab942@yahoo.com</a><br />
-        4442 Alabama Avenue SE, DC 20019
+         8004 Flower Ave, Takoma Park, MD 20912
       </p>
       <p>Scan the QR code below for more info:</p>
       <img src="https://api.qrserver.com/v1/create-qr-code/?data=4442%20Alabama%20Ave%20SE,%20DC%2020019%20Learning%20Center&size=150x150" alt="QR Code" style="width: 75px; height: 75px;" />
@@ -158,11 +158,11 @@
   <script>
     function saveCheckboxStates() {
       const checkboxIds = [
-        'rentalCheckbox',
-        'utilityCheckbox',
-        'wellnessCheckbox',
+        'sunflowerseedoilCheckbox',
+        'grapeseedoilCheckbox',
+        'almondoilbaseCheckbox',
         'familyCheckbox',
-        'otherCheckbox'
+        'otherServicesCheckbox'
       ];
       checkboxIds.forEach(id => {
         const isChecked = document.getElementById(id).checked;
@@ -172,11 +172,11 @@
 
     function loadCheckboxStates() {
       const checkboxIds = [
-        'rentalCheckbox',
-        'utilityCheckbox',
-        'wellnessCheckbox',
+        'sunflowerseedoilCheckbox',
+        'grapeseedoilCheckbox',
+        'almondoilbaseCheckbox',
         'familyCheckbox',
-        'otherCheckbox'
+        'otherServicesCheckbox'
       ];
       checkboxIds.forEach(id => {
         const savedState = localStorage.getItem(id);
@@ -187,9 +187,9 @@
     }
 
     $(document).ready(function () {
-      $('#rentalModalContainer').load('rental-assistance-modal.html');
-      $('#utilityModalContainer').load('utility-assistance-modal.html');
-      $('#healthWelnessModalContainer').load('health-wellness-modal.html');
+      $('#sunflowerseedoilModalContainer').load('rental-assistance-modal.html');
+      $('#grapeseedModalContainer').load('utility-assistance-modal.html');
+      $('#almondoilModalContainer').load('health-wellness-modal.html');
       $('#familyModalContainer').load('family-support-modal.html');
       $('#otherModalContainer').load('other-modal.html');
 
@@ -199,11 +199,11 @@
 
       $('#requestServicesBtn').on('click', function () {
         const selected = [];
-        if ($('#rentalCheckbox').is(':checked')) selected.push('Rental Assistance');
-        if ($('#utilityCheckbox').is(':checked')) selected.push('Utility Assistance');
-        if ($('#wellnessCheckbox').is(':checked')) selected.push('Health & Wellness');
+        if ($('#sunflowerseedoilCheckbox').is(':checked')) selected.push('Rental Assistance');
+        if ($('#grapeseedoilCheckbox').is(':checked')) selected.push('Utility Assistance');
+        if ($('#almondoilbaseCheckbox').is(':checked')) selected.push('Health & Wellness');
         if ($('#familyCheckbox').is(':checked')) selected.push('Family Support');
-        if ($('#otherCheckbox').is(':checked')) selected.push('Other Services');
+        if ($('#otherServicesCheckbox').is(':checked')) selected.push('Other Services');
 
         const checkboxGroup = $('#serviceCheckboxGroup');
 
@@ -224,32 +224,32 @@
     });
 
     function selectRental() {
-      $('#rentalCheckbox').prop('checked', true).trigger('change');
+      $('#sunflowerseedoilCheckbox').prop('checked', true).trigger('change');
       bootstrap.Modal.getOrCreateInstance(document.getElementById('rentalModal')).hide();
     }
 
     function cancelRental() {
-      $('#rentalCheckbox').prop('checked', false).trigger('change');
+      $('#sunflowerseedoilCheckbox').prop('checked', false).trigger('change');
       bootstrap.Modal.getOrCreateInstance(document.getElementById('rentalModal')).hide();
     }
 
     function selectUtility() {
-      $('#utilityCheckbox').prop('checked', true).trigger('change');
+      $('#grapeseedoilCheckbox').prop('checked', true).trigger('change');
       bootstrap.Modal.getOrCreateInstance(document.getElementById('utilityModal')).hide();
     }
 
     function cancelUtility() {
-      $('#utilityCheckbox').prop('checked', false).trigger('change');
+      $('#grapeseedoilCheckbox').prop('checked', false).trigger('change');
       bootstrap.Modal.getOrCreateInstance(document.getElementById('utilityModal')).hide();
     }
 
     function selecthealthWelness() {
-      $('#wellnessCheckbox').prop('checked', true).trigger('change');
+      $('#almondoilbaseCheckbox').prop('checked', true).trigger('change');
       bootstrap.Modal.getOrCreateInstance(document.getElementById('healthWelnessModal')).hide();
     }
 
     function cancelhealthWelness() {
-      $('#wellnessCheckbox').prop('checked', false).trigger('change');
+      $('#almondoilbaseCheckbox').prop('checked', false).trigger('change');
       bootstrap.Modal.getOrCreateInstance(document.getElementById('healthWelnessModal')).hide();
     }
 
@@ -264,15 +264,14 @@
     }
 
     function selectOther() {
-      $('#otherCheckbox').prop('checked', true).trigger('change');
+      $('#otherServicesCheckbox').prop('checked', true).trigger('change');
       bootstrap.Modal.getOrCreateInstance(document.getElementById('otherModal')).hide();
     }
 
     function cancelOther() {
-      $('#otherCheckbox').prop('checked', false).trigger('change');
+      $('#otherServicesCheckbox').prop('checked', false).trigger('change');
       bootstrap.Modal.getOrCreateInstance(document.getElementById('otherModal')).hide();
     }
   </script>
 </body>
 </html>
-KB

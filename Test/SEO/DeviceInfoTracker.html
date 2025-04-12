@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Click Tracker</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Click Tracker</h1>
+            <p>Click any link below to track its data:</p>
+            <a href="https://example.com" class="tracked-link">Example Link</a>
+            <a href="https://google.com" class="tracked-link">Google Link</a>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <h2>Click Details</h2>
+            <pre id="click-info" class="border p-3 bg-light"></pre>
+        </div>
+    </div>
+</div>
+
+<script>
+document.querySelectorAll('.tracked-link').forEach(link => {
+    link.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        let clickData = {
+            url: this.href,
+            timestamp: new Date().toISOString(),
+            userAgent: navigator.userAgent,
+            referrer: document.referrer,
+            viewportSize: `${window.innerWidth} x ${window.innerHeight}`,
+            mousePosition: `${event.clientX}, ${event.clientY}`,
+            eventType: event.type
+        };
+
+        document.getElementById('click-info').textContent = JSON.stringify(clickData, null, 2);
+    });
+});
+</script>
+
+</body>
+</html>p

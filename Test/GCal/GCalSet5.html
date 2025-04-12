@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Job Scheduler</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    body { margin: 0; padding-bottom: 400px; }
+    .fixed-header {
+      position: fixed;
+      top: 0; left: 0; width: 100%;
+      background: linear-gradient(to right, rgba(255,165,0,0.8), rgba(255,99,71,0.8));
+      color: white; padding: 10px 0; z-index: 999;
+      display: flex; justify-content: center; align-items: center;
+      border-radius: 0 0 15px 15px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .fixed-header h1 { margin: 0; font-size: 20px; }
+    .fixed-header button { margin-left: 10px; }
+    .social-media-icons {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .scrolling-text {
+      padding-top: 120px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .summary-card {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      background-color: #fff8c4;
+      border: 1px solid #f1c40f;
+      border-radius: 10px;
+      padding: 10px;
+      width: 280px;
+      z-index: 1000;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    #pull-down-message {
+      text-align: center;
+      color: gray;
+      font-size: 14px;
+      margin-bottom: 10px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="fixed-header">
+  <h1 class="mr-3">Job Scheduler</h1>
+  <button id="refreshBtn" class="btn btn-sm btn-light ml-2">
+    <i class="fas fa-sync-alt"></i>
+  </button>
+  <div class="social-media-icons">
+    <a href="#" class="btn btn-primary"><i class="fab fa-facebook-f"></i></a>
+    <a href="#" class="btn btn-info"><i class="fab fa-twitter"></i></a>
+    <a href="#" class="btn btn-danger"><i class="fab fa-instagram"></i></a>
+    <a href="tel:+1234567890" class="btn btn-success"><i class="fas fa-phone"></i></a>
+    <a href="sms:+1234567890" class="btn btn-warning"><i class="fas fa-sms"></i></a>
+  </div>
+</div>
+
+<!-- Content Section -->
+<div class="container scrolling-text" id="scrollArea">
+  <div id="pull-down-message">↓ Pull down to refresh</div>
+  <div class="row">
+    <!-- Task List Card -->
+    <div class="col-md-6 mb-4">
+      <div class="card p-3">
+        <h5>Task List</h5>
+        <div class="form-inline mb-2">
+          <label class="mr-2">Sort by:</label>
+          <select id="sortSelect" class="form-control form-control-sm">
+            <option value="none">None</option>
+            <option value="name">Name (A-Z)</option>
+            <option value="duration">Duration (Shortest First)</option>
+          </select>
+        </div>
+        <div id="taskList"></div>
+      </div>
+    </div>
+
+    <!-- Check Availability Card -->
+    <div class="col-md-6 mb-4">
+      <div class="card p-3">
+        <h5>Check Availability</h5>
+        <button class="btn btn-info mt-2" id="checkAvailabilityBtn">Find Open Time Slots</button>
+        <ul class="mt-3" id="availabilityResults"></ul>
+      </div>
+    </div>
+
+    <!-- Add Miscellaneous Task Card -->
+    <div class="col-md-6 mb-4">
+      <div class="card p-3">
+        <h5>Add Miscellaneous Task</h5>
+        <form id="miscTaskForm">
+          <div class="form-group">
+            <label>Task Name</label>
+            <input type="text" id="miscName" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <input type="text" id="miscDescription" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label>Duration</label>
+            <select id="miscDuration" class="form-control" required>
+              <option value="15">15 minutes</option>
+              <option value="30">30 minutes</option>
+              <option value="60">1 hour</option>
+              <option value="120">2 hours</option>
+              <option value="240">4 hours</option>
+              <option value="480">8 hours</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-success">Add Task</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Schedule Event Card -->
+    <div class="col-md-6 mb-4">
+      <div class="card p-3">
+        <h5>Schedule Event</h5>
+        <form id="eventForm">
+          <div class="form-group">
+            <label for="eventTitle">Event Title</label>
+            <input type="text" class="form-control" id="eventTitle" required />
+          </div>
+          <div class="form-group">
+            <label for="eventDateTime">Date & Time</label>
+            <input type="datetime-local" class="form-control" id="eventDateTime" required />
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Create Event</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Floating Summary Card -->
+<div class="summary-card">
+  <h6>Selected Tasks</h6>
+  <ul id="selectedTasks" class="pl-3 mb-1"></ul>
+  <p class="mb-0"><strong>Total Time:</strong> <span id="totalDuration">0 mins</span></p>
+</div>
+
+<!-- Firebase & Google Calendar APIs -->
+<script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-firestore.js"></script>
+<script src="https://apis.google.com/js/api.js"></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyCKpH3zexEOTDhZZ_GZc__ZZ20uyvnjAXM",
+    authDomain: "womacromax-automation.firebaseapp.com",
+    projectId: "womacromax-automation",
+    storageBucket: "womacromax-automation.firebasestorage.app",
+    messagingSenderId: "50651858310",
+    appId: "1:50651858310:web:139f54247487571db85807",
+    measurementId: "G-SQZ80LFP4Z"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  const CLIENT_ID = "890181851518-tvj7ohonesi8fnggenvf1kl91fuktj1i.apps.googleusercontent.com";
+  const API_KEY = "AIzaSyDG2ue7QAPaRidpd6Nc6WYYcEctXZp-5hc";
+  const SCOPES = "https://www.googleapis.com/auth/calendar";
+  const DISCOVERY_DOC = "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest";
+
+  let taskData = [], selectedTasks = [];
+  let tokenClient, gapiInited = false, gisInited = false;
+
+  function gapiLoaded() {
+    gapi.load('client', initializeGapiClient);
+  }
+
+  async function initializeGapiClient() {
+    await gapi.client.init({
+      apiKey: API_KEY,
+      discoveryDocs: [DISCOVERY_DOC]
+    });
+    gapiInited = true;
+  }
+
+  function gisLoaded() {
+    tokenClient = google.accounts.oauth2.initTokenClient({
+      client_id: CLIENT_ID,
+      scope: SCOPES,
+      callback: '',
+    });
+    gisInited = true;
+  }
+
+  document.getElementById('refreshBtn').addEventListener('click', loadTasks);
+
+  document.getElementById('sortSelect').addEventListener('change', () => {
+    sortTasks();
+    renderTaskList();
+  });
+
+  document.getElementById('checkAvailabilityBtn').addEventListener('click', () => {
+    if (!gapiInited || !gisInited) return alert("Google API not ready.");
+    tokenClient.callback = async (resp) => {
+      if (resp.error) throw resp;
+      const now = new Date();
+      const oneMonthLater = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000);
+      const durationMins = selectedTasks.reduce((sum, t) => sum + t.duration, 0);
+      const durationMs = durationMins * 60 * 1000;
+
+      const res = await gapi.client.calendar.freebusy.query({
+        timeMin: now.toISOString(),
+        timeMax: oneMonthLater.toISOString(),
+        timeZone: 'UTC',
+        items: [{ id: 'primary' }]
+      });
+
+      const busy = res.result.calendars.primary.busy.map(b => ({
+        start: new Date(b.start), end: new Date(b.end)
+      })).sort((a, b) => a.start - b.start);
+
+      const availability = [];
+      let pointer = now;
+      for (const block of busy) {
+        if (block.start - pointer >= durationMs) {
+          availability.push({ start: new Date(pointer), end: new Date(block.start) });
+        }
+        if (block.end > pointer) pointer = new Date(block.end);
+      }
+      if (oneMonthLater - pointer >= durationMs) {
+        availability.push({ start: pointer, end: oneMonthLater });
+      }
+
+      const resultList = document.getElementById('availabilityResults');
+      resultList.innerHTML = availability.length === 0
+        ? "<li>No available slots found.</li>"
+        : availability.slice(0, 5).map(a =>
+            `<li>${a.start.toLocaleString()} - ${a.end.toLocaleTimeString()}</li>`
+          ).join('');
+    };
+    tokenClient.requestAccessToken();
+  });
+
+  document.getElementById('eventForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const title = document.getElementById('eventTitle').value;
+    const dateTime = new Date(document.getElementById('eventDateTime').value);
+    const totalMins = selectedTasks.reduce((sum, t) => sum + t.duration, 0);
+    const endTime = new Date(dateTime.getTime() + totalMins * 60000);
+    const description = selectedTasks.map(t => `${t.name}: ${t.description} (${t.duration}m)`).join('\n');
+
+    if (!gapiInited || !gisInited) {
+      alert("Google API not ready. Try again shortly.");
+      return;
+    }
+
+    tokenClient.callback = async (resp) => {
+      if (resp.error) throw resp;
+      const event = {
+        summary: title,
+        description,
+        start: { dateTime: dateTime.toISOString() },
+        end: { dateTime: endTime.toISOString() }
+      };
+      const request = gapi.client.calendar.events.insert({
+        calendarId: 'primary',
+        resource: event
+      });
+      request.execute(event => {
+        alert('Event created: ' + event.htmlLink);
+        db.collection("events").add({
+          title,
+          dateTime: dateTime.toISOString(),
+          duration: totalMins,
+          tasks: selectedTasks,
+          createdAt: new Date().toISOString()
+        });
+      });
+    };
+    tokenClient.requestAccessToken();
+  });
+
+  document.getElementById('miscTaskForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = document.getElementById('miscName').value;
+    const description = document.getElementById('miscDescription').value;
+    const duration = parseInt(document.getElementById('miscDuration').value);
+    const task = { name, description, duration };
+    taskData.push(task);
+    selectedTasks.push(task);
+    renderTaskList();
+    updateSummary();
+    this.reset();
+  });
+
+  function loadTasks() {
+    db.collection('SiteManagement').get().then(snapshot => {
+      taskData = [];
+      selectedTasks = [];
+      document.getElementById('taskList').innerHTML = '';
+      document.getElementById('selectedTasks').innerHTML = '';
+      document.getElementById('totalDuration').textContent = '0 mins';
+      snapshot.forEach(doc => taskData.push(doc.data()));
+      sortTasks();
+      renderTaskList();
+    });
+  }
+
+  function renderTaskList() {
+    const taskList = document.getElementById('taskList');
+    taskList.innerHTML = '';
+    taskData.forEach((task, index) => {
+      const div = document.createElement('div');
+      div.className = 'form-check mb-2';
+      const input = document.createElement('input');
+      input.type = 'checkbox';
+      input.className = 'form-check-input';
+      input.id = `task_${index}`;
+      input.addEventListener('change', () => {
+        if (input.checked) selectedTasks.push(task);
+        else selectedTasks = selectedTasks.filter(t => t.name !== task.name);
+        updateSummary();
+      });
+      const label = document.createElement('label');
+      label.className = 'form-check-label';
+      label.setAttribute('for', input.id);
+      label.innerHTML = `<strong>${task.name}</strong><br><small>${task.description} (${task.duration} mins)</small>`;
+      div.appendChild(input);
+      div.appendChild(label);
+      taskList.appendChild(div);
+    });
+  }
+
+  function updateSummary() {
+    const list = document.getElementById('selectedTasks');
+    const totalEl = document.getElementById('totalDuration');
+    list.innerHTML = '';
+    let total = 0;
+    selectedTasks.forEach(t => {
+      const li = document.createElement('li');
+      li.textContent = `${t.name} (${t.duration}m)`;
+      list.appendChild(li);
+      total += t.duration;
+    });
+    totalEl.textContent = `${total} mins`;
+  }
+
+  function sortTasks() {
+    const sortValue = document.getElementById('sortSelect').value;
+    if (sortValue === 'name') taskData.sort((a, b) => a.name.localeCompare(b.name));
+    else if (sortValue === 'duration') taskData.sort((a, b) => a.duration - b.duration);
+  }
+
+  // Pull-to-refresh
+  let startY = 0, pulling = false;
+  const scrollArea = document.getElementById('scrollArea');
+  const pullMsg = document.getElementById('pull-down-message');
+
+  scrollArea.addEventListener('touchstart', (e) => {
+    if (scrollArea.scrollTop === 0) {
+      startY = e.touches[0].clientY;
+      pulling = true;
+    }
+  });
+  scrollArea.addEventListener('touchmove', (e) => {
+    if (!pulling) return;
+    const dist = e.touches[0].clientY - startY;
+    if (dist > 40) {
+      pullMsg.style.display = 'block';
+      pullMsg.textContent = '↻ Releasing will refresh...';
+    }
+  });
+  scrollArea.addEventListener('touchend', () => {
+    if (pulling) {
+      pulling = false;
+      if (pullMsg.style.display === 'block') {
+        loadTasks();
+        pullMsg.textContent = '✓ Refreshed!';
+        setTimeout(() => pullMsg.style.display = 'none', 1000);
+      }
+    }
+  });
+
+  window.onload = () => {
+    gapiLoaded();
+    gisLoaded();
+    loadTasks();
+  };
+</script>
+
+</body>
+</html>

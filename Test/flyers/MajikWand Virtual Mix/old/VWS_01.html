@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Magical Virtual Mixing & Mastering</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background: linear-gradient(to right, #1a1a1a, #333);
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 2rem;
+    }
+
+    .card {
+      background: #222;
+      border-radius: 15px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+      position: relative;
+      padding-top: 100px;
+    }
+
+    .card-logo {
+      position: absolute;
+      top: -40px;
+      left: -40px;
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      z-index: 2;
+      border-radius: 50%;
+      border: 3px solid red;
+    }
+
+    .online-overlay {
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      z-index: 2;
+    }
+
+    .online-avatar {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid red;
+    }
+
+    .card-title {
+      font-size: 2rem;
+      color: #ffcc00;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .magic-icon {
+      font-size: 2rem;
+      color: #ffd700;
+      transform: rotate(-20deg);
+    }
+
+    .highlight {
+      color: #0dcaf0;
+      font-weight: 20;
+      display: inline-block;
+      padding: 1in;
+      position: relative;
+    }
+
+    .wand-effect {
+      position: absolute;
+      top: 50%;
+      left: -40px;
+      transform: translateY(-90%);
+      font-size: 1rem;
+      animation: sparkleTrail 15.5s infinite linear;
+      white-space: nowrap;
+    }
+
+    @keyframes sparkleTrail {
+      0% {
+        transform: translateX(0) translateY(-50%);
+        opacity: 0;
+      }
+      25% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateX(200px) translateY(-50%);
+        opacity: 0;
+      }
+    }
+
+    .btn-magic {
+      background-color: #ff4081;
+      border: none;
+    }
+
+    .btn-magic:hover {
+      background-color: #e03570;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="card p-4">
+
+    <!-- MAIN ICON TOP LEFT -->
+    <img src="media/MVM_1.PNG" alt="Main Logo" class="card-logo">
+
+    <!-- ONLINE ICON TOP RIGHT -->
+    <a href="https://www.facebook.com/majik.reed" target="_blank" class="online-overlay">
+      <img src="media/MajikOnline.jpg" alt="Online Logo" class="online-avatar">
+    </a>
+
+    <div class="card-body">
+      <h2 class="card-title text-center mb-3">
+        <span class="magic-icon">🪄✨</span>
+        Magical Virtual Mixing and Mastering
+      </h2>
+      
+      <!-- Magic Wand Trail + Highlighted Span -->
+      <div class="position-relative mb-3 text-center">
+        <span class="wand-effect">✨✨✨✨✨✨<span class="highlight">Where Timeless Talent Meets Cutting-Edge Tech</span>✨✨✨✨✨✨
+        </span>
+      </div>
+
+      <p class="card-text">
+        At <strong>Magical Virtual Mixing and Mastering</strong>, we combine a <strong>lifetime of experience in music production</strong> with the <strong>latest in audio technology</strong>—all to bring professional-grade sound right to your fingertips.
+      </p>
+      <p class="card-text">
+        Whether you're a passionate indie artist or a seasoned studio vet, our virtual studio is designed to make your best work even better. With just a few clicks, you can <strong>upload and email your multitrack recordings</strong>, and we’ll take care of the rest—breathing life, clarity, depth, and magic into your music.
+      </p>
+      <p class="card-text">
+        From subtle warmth and space to powerful punch and polish, we use a <em>wizard's touch</em> on every mix and master. Our process blends analog sensibilities with high-fidelity digital workflows to ensure your track <strong>stands out on every platform</strong>—streaming, radio, or live.
+      </p>
+      <h5 class="text-center mt-4">✨ Let us work the wand. You bring the music. We’ll bring the magic.</h5>
+      <div class="text-center mt-4">
+        <a href="#upload" class="btn btn-magic px-4 py-2">Upload Your Tracks</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Food Love</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+  <style>
+    html { zoom: 70%; }
+
+    body {
+      background: linear-gradient(to bottom, #bd4ef7, #ffb1cf);
+      font-family: 'Segoe UI', sans-serif;
+      color: #000;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .summary-panel {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding: 1rem;
+      height: 100vh;
+      overflow-y: auto;
+      box-sizing: border-box;
+      justify-content: flex-start;
+      align-content: flex-start;
+    }
+
+    .food-section {
+      width: 300px;
+      flex: 0 0 300px;
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 1rem;
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+
+    .food-section.selected {
+      border: 2px solid #000;
+    }
+
+    .food-grid {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding-bottom: 0.5rem;
+    }
+
+    .food-item {
+      flex: 0 0 120px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      cursor: pointer;
+      border-radius: 0.5rem;
+      transition: transform 0.2s ease;
+    }
+
+    .food-item.selected {
+      outline: 3px dashed #333;
+      transform: scale(1.05);
+    }
+
+    .food-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .green  { background-color: #a8df65; }
+    .blue   { background-color: #94dbff; }
+    .yellow { background-color: #ffd966; }
+    .pink   { background-color: #ffb4c0; }
+    .orange { background-color: #ffb84d; }
+    .red    { background-color: #f97a7a; }
+    .purple { background-color: #d4b1ff; }
+    .teal   { background-color: #9fffe0; }
+
+    .floating-panel {
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 1rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      padding: 1rem;
+      position: fixed;
+      bottom: 2%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      width: 66%;
+      max-width: 900px;
+      cursor: move;
+    }
+
+    .footer-controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .filter-input {
+      width: 300px;
+    }
+
+    .editable {
+      cursor: text;
+      outline: none;
+    }
+
+    .editable:focus {
+      outline: 2px dashed #333;
+      background-color: rgba(255, 255, 255, 0.4);
+    }
+  </style>
+</head>
+<body>
+
+<div class="summary-panel" id="foodWrapper"></div>
+
+<div id="floatingControls" class="floating-panel">
+  <div class="footer-controls mb-2">
+    <input type="text" class="form-control filter-input" id="foodFilter" placeholder="Type to filter foods...">
+    <button class="btn btn-secondary" onclick="addCategory()">Add Category</button>
+    <button class="btn btn-warning" onclick="removeCategory()">Remove Last Category</button>
+    <button class="btn btn-info" onclick="addFoodToSelected()">Add Food to Selected Category</button>
+    <button class="btn btn-danger" onclick="removeSelectedFood()">Remove Selected Food</button>
+    <button class="btn btn-primary">Submit Order</button>
+  </div>
+  <p class="text-muted text-center small mb-0">&copy; 2025 HappyYam International</p>
+</div>
+
+<script>
+  const foodWrapper = document.getElementById('foodWrapper');
+  const filterInput = document.getElementById('foodFilter');
+  let selectedCategory = null;
+  let selectedFoodItem = null;
+
+  const foodTypes = [
+    { name: 'Vegetables', color: 'green', emoji: '🥗' },
+    { name: 'Soups', color: 'blue', emoji: '🍲' },
+    { name: 'Bakery', color: 'yellow', emoji: '🍞' },
+    { name: 'Desserts', color: 'pink', emoji: '🍰' },
+    { name: 'Meats', color: 'orange', emoji: '🍗' },
+    { name: 'Stews', color: 'red', emoji: '🍛' },
+    { name: 'Roots', color: 'purple', emoji: '🍠' },
+    { name: 'Fruits', color: 'teal', emoji: '🥥' }
+  ];
+
+  const itemNames = [
+    'Spinach', 'Okra', 'Fufu', 'Jollof', 'Beans', 'Pie', 'Yam', 'Coconut',
+    'Chicken', 'Egusi', 'Meat Pie', 'Plantain', 'Chin Chin', 'Tilapia',
+    'Suya', 'Cassava', 'Rice', 'Soup', 'Cake', 'Bread'
+  ];
+
+  function getRandomItems(max = 20) {
+    const shuffled = [...itemNames].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, Math.floor(Math.random() * max) + 1);
+  }
+
+  function categoryExists(name) {
+    return [...document.querySelectorAll('.food-section h5')]
+      .some(h => h.innerText.toLowerCase() === name.toLowerCase());
+  }
+
+  function foodAlreadyExists(name) {
+    return document.querySelector(`[data-name="${name.toLowerCase()}"]`) !== null;
+  }
+
+  function createFoodItem(name, color, emoji) {
+    const item = document.createElement('div');
+    item.className = 'food-item';
+    item.setAttribute('data-name', name.toLowerCase());
+    item.innerHTML = `<div class="food-icon ${color}">${emoji}</div><p>${name}</p>`;
+    item.onclick = () => {
+      if (selectedFoodItem) selectedFoodItem.classList.remove('selected');
+      selectedFoodItem = item;
+      item.classList.add('selected');
+    };
+    return item;
+  }
+
+  function createFoodSection(type) {
+    if (categoryExists(type.name)) return;
+
+    const section = document.createElement('div');
+    section.className = 'food-section';
+    section.innerHTML = `<h5 class="text-center editable" contenteditable="true">${type.name}</h5>`;
+
+    section.onclick = e => {
+      if (!e.target.closest('.food-item')) {
+        document.querySelectorAll('.food-section').forEach(s => s.classList.remove('selected'));
+        selectedCategory = section;
+        section.classList.add('selected');
+      }
+    };
+
+    const grid = document.createElement('div');
+    grid.className = 'food-grid';
+
+    const items = getRandomItems(8);
+    items.forEach(name => {
+      if (!foodAlreadyExists(name)) {
+        const item = createFoodItem(name, type.color, type.emoji);
+        grid.appendChild(item);
+      }
+    });
+
+    section.appendChild(grid);
+    foodWrapper.appendChild(section);
+    saveCategoriesToLocalStorage();
+  }
+
+  function addCategory() {
+    const available = foodTypes.filter(ft => !categoryExists(ft.name));
+    if (available.length === 0) return;
+    const type = available[Math.floor(Math.random() * available.length)];
+    createFoodSection(type);
+  }
+
+  function removeCategory() {
+    const sections = document.querySelectorAll('.food-section');
+    if (sections.length > 0) {
+      sections[sections.length - 1].remove();
+      saveCategoriesToLocalStorage();
+    }
+  }
+
+  function addFoodToSelected() {
+    if (!selectedCategory) return;
+    const name = prompt("Enter food name:");
+    if (!name || foodAlreadyExists(name)) return alert("Food already exists in a category!");
+
+    const color = 'teal';
+    const emoji = '🍴';
+    const item = createFoodItem(name, color, emoji);
+    selectedCategory.querySelector('.food-grid').appendChild(item);
+    saveCategoriesToLocalStorage();
+  }
+
+  function removeSelectedFood() {
+    if (selectedFoodItem) {
+      selectedFoodItem.remove();
+      selectedFoodItem = null;
+      saveCategoriesToLocalStorage();
+    }
+  }
+
+  function saveCategoriesToLocalStorage() {
+    const categories = [...document.querySelectorAll('.food-section')].map(section => {
+      const name = section.querySelector('h5').innerText;
+      const items = [...section.querySelectorAll('.food-item')].map(item => ({
+        name: item.querySelector('p').innerText,
+        emoji: item.querySelector('.food-icon').innerText,
+        color: item.querySelector('.food-icon').classList[1]
+      }));
+      return { name, items };
+    });
+    localStorage.setItem('foodCategories', JSON.stringify(categories));
+  }
+
+  function loadCategoriesFromLocalStorage() {
+    const saved = JSON.parse(localStorage.getItem('foodCategories') || '[]');
+    saved.forEach(cat => {
+      const section = document.createElement('div');
+      section.className = 'food-section';
+      section.innerHTML = `<h5 class="text-center editable" contenteditable="true">${cat.name}</h5>`;
+
+      section.onclick = e => {
+        if (!e.target.closest('.food-item')) {
+          document.querySelectorAll('.food-section').forEach(s => s.classList.remove('selected'));
+          selectedCategory = section;
+          section.classList.add('selected');
+        }
+      };
+
+      const grid = document.createElement('div');
+      grid.className = 'food-grid';
+
+      cat.items.forEach(({ name, emoji, color }) => {
+        const item = createFoodItem(name, color, emoji);
+        grid.appendChild(item);
+      });
+
+      section.appendChild(grid);
+      foodWrapper.appendChild(section);
+    });
+  }
+
+  filterInput.addEventListener('input', () => {
+    const filter = filterInput.value.toLowerCase();
+    document.querySelectorAll('.food-section').forEach(section => {
+      const items = section.querySelectorAll('.food-item');
+      let visibleCount = 0;
+      items.forEach(item => {
+        const name = item.getAttribute('data-name');
+        const match = name.includes(filter);
+        item.style.display = match ? 'flex' : 'none';
+        if (match) visibleCount++;
+      });
+      section.style.display = visibleCount > 0 ? '' : 'none';
+    });
+  });
+
+  document.addEventListener('input', e => {
+    if (e.target.classList.contains('editable')) saveCategoriesToLocalStorage();
+  });
+
+  Sortable.create(foodWrapper, {
+    animation: 150,
+    ghostClass: 'bg-light',
+    handle: 'h5',
+    onEnd: saveCategoriesToLocalStorage
+  });
+
+  // Floating panel dragging
+  const floating = document.getElementById('floatingControls');
+  let isDragging = false, offsetX = 0, offsetY = 0;
+
+  floating.addEventListener('mousedown', e => {
+    isDragging = true;
+    offsetX = e.clientX - floating.offsetLeft;
+    offsetY = e.clientY - floating.offsetTop;
+    document.body.style.userSelect = 'none';
+  });
+
+  document.addEventListener('mousemove', e => {
+    if (isDragging) {
+      floating.style.left = e.clientX - offsetX + 'px';
+      floating.style.top = e.clientY - offsetY + 'px';
+      floating.style.transform = 'none';
+    }
+  });
+
+  document.addEventListener('mouseup', () => {
+    isDragging = false;
+    document.body.style.userSelect = '';
+  });
+
+  loadCategoriesFromLocalStorage();
+</script>
+
+</body>
+</html>
