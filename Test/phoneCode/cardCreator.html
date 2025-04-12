@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WoMacroMAX Builder</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Open+Sans:wght@600;700&family=Roboto:wght@500&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+    body {
+      background-color: #6c1e7d;
+      padding: 2rem;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .custom-card {
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .dress-code-card {
+      color: white;
+      border-radius: 25px;
+      padding: 2rem;
+      position: relative;
+    }
+
+    .dress-code-title {
+      font-size: 2.2rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .dress-code-text {
+      font-size: 1.4rem;
+      font-weight: 700;
+      line-height: 1.6;
+    }
+
+    .thank-you {
+      font-size: 1.8rem;
+      text-align: right;
+      margin-top: 2rem;
+      margin-bottom: 96px;
+    }
+
+    .logo {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      height: 60px;
+    }
+
+    .qr {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      height: 60px;
+      cursor: pointer;
+    }
+
+    .logo-top-left {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 80px;
+      height: 80px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card custom-card p-4">
+  <img src="media/WoMacroMAXAutomation-logo-02.png" alt="WoMacroMAX Logo" class="logo-top-left">
+  <h4 class="mb-3 text-center">WoMacro<span style='color:red;'>MAX</span> ContentCreator</h4>
+  <form oninput="updateCard()">
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label class="form-label">Title</label>
+        <input type="text" class="form-control" id="inputTitle" value="WoMacro<span style='color:red;'>MAX</span>  Automation">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Thank You Text</label>
+        <input type="text" class="form-control" id="inputThanks" value="Thank You!">
+      </div>
+      <div class="col-12">
+        <label class="form-label">Message</label>
+        <textarea class="form-control" id="inputBody" rows="3"><span style='color:white;'>Enter content here!</span></textarea>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label d-flex justify-content-between align-items-center">
+          QR Code Text (URL or Text)
+          <button type="button" class="btn btn-warning rounded-circle btn-sm ms-2" onclick="generateQR()" title="Generate QR Code">
+          <i class="bi bi-qr-code-scan fs-5"></i>
+          </button>
+        </label>
+        <input type="text" class="form-control" id="qrTextSource" value="https://womacromax.com">
+      </div>
+
+      <div class="col-12">
+        <div class="row row-cols-1 row-cols-md-2 g-3">
+          <div class="col">
+            <label class="form-label">Background Color</label>
+            <input type="color" class="form-control form-control-color" id="bgColor" value="#6c1e7d">
+          </div>
+          <div class="col">
+            <label class="form-label">Border Color</label>
+            <input type="color" class="form-control form-control-color" id="borderColor" value="#ffff00">
+          </div>
+          <div class="col">
+            <label class="form-label">Text Color</label>
+            <input type="color" class="form-control form-control-color" id="textColor" value="#ffffff">
+          </div>
+          <div class="col">
+            <label class="form-label">Title Color</label>
+            <input type="color" class="form-control form-control-color" id="titleColor" value="#ffff00">
+          </div>
+          <div class="col">
+            <label class="form-label">Thank You Color</label>
+            <input type="color" class="form-control form-control-color" id="thankColor" value="#ffff00">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Font Style</label>
+        <select class="form-select" id="fontSelector">
+          <option value="'Anton', sans-serif">Anton</option>
+          <option value="'Open Sans', sans-serif" selected>Open Sans</option>
+          <option value="'Roboto', sans-serif">Roboto</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Logo Image URL</label>
+        <input type="text" class="form-control" id="logoUrl" placeholder="enter Logo URL here">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">QR Code Image URL (optional override)</label>
+        <input type="text" class="form-control" id="qrUrl" placeholder="">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Export Filename</label>
+        <input type="text" class="form-control" id="filenameInput" placeholder="card">
+      </div>
+      <div class="form-check mt-2 ms-2">
+        <input class="form-check-input" type="checkbox" id="includeWatermark">
+        <label class="form-check-label" for="includeWatermark">Include Watermark</label>
+      </div>
+    </div>
+
+    <div class="form-check form-switch ms-auto mt-4">
+      <input class="form-check-input" type="checkbox" role="switch" id="exportModeSwitch">
+      <label class="form-check-label" for="exportModeSwitch">Export as HTML Partial</label>
+    </div>
+
+    <div class="mt-4 d-flex gap-3">
+      <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+          Download
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#" onclick="downloadCard('pdf')">PDF</a></li>
+          <li><a class="dropdown-item" href="#" onclick="downloadCard('png')">PNG</a></li>
+          <li><a class="dropdown-item" href="#" onclick="downloadCard('jpg')">JPG</a></li>
+          <li><a class="dropdown-item" href="#" onclick="downloadCard('svg')">SVG</a></li>
+        </ul>
+      </div>
+      <button type="button" class="btn btn-success" onclick="emailCard()">Email</button>
+    </div>
+  </form>
+</div>
+
+<!-- Preview Card -->
+<div id="cardPreview" class="dress-code-card" style="background-color: #6c1e7d; border: 6px solid yellow; font-family: 'Open Sans', sans-serif;">
+  <div id="previewTitle" class="dress-code-title" style="color: yellow;">WoMacro<span style="color:red;">MAX</span></div>
+  <div id="previewBody" class="dress-code-text" style="color: white;">enter your <span style="color:blue;">content</span> here</div>
+  <div id="previewThanks" class="thank-you" style="color: yellow;">Thank You!</div>
+  <img id="logoImg" src="media/planet_fitness_logo.png" class="logo" alt="Logo">
+  <img id="qrImg" src="" class="qr" alt="QR Code" data-bs-toggle="modal" data-bs-target="#qrPreviewModal">
+</div>
+
+<!-- Output Modal -->
+<div class="modal fade" id="outputModal" tabindex="-1" aria-labelledby="outputModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="outputModalLabel">Rendered Output</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="modalCardContainer" class="p-3 border bg-light"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="copyToClipboard()">Copy HTML to Clipboard</button>
+        <button class="btn btn-success" onclick="finalizeEmail()">Send via Email</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- QR Preview Modal -->
+<div class="modal fade" id="qrPreviewModal" tabindex="-1" aria-labelledby="qrPreviewModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center">
+      <div class="modal-header">
+        <h5 class="modal-title" id="qrPreviewModalLabel">QR Code Preview</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <img id="qrModalImg" src="" alt="QR Code Full View" class="img-fluid p-3" style="max-height:400px;">
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function updateCard() {
+    document.getElementById('previewTitle').innerHTML = document.getElementById('inputTitle').value;
+    document.getElementById('previewBody').innerHTML = document.getElementById('inputBody').value;
+    document.getElementById('previewThanks').innerHTML = document.getElementById('inputThanks').value;
+
+    const bg = document.getElementById('bgColor').value;
+    const border = document.getElementById('borderColor').value;
+    const text = document.getElementById('textColor').value;
+    const title = document.getElementById('titleColor').value;
+    const thank = document.getElementById('thankColor').value;
+    const font = document.getElementById('fontSelector').value;
+    const logo = document.getElementById('logoUrl').value;
+
+    const card = document.getElementById('cardPreview');
+    card.style.backgroundColor = bg;
+    card.style.border = `6px solid ${border}`;
+    card.style.fontFamily = font;
+
+    document.getElementById('previewTitle').style.color = title;
+    document.getElementById('previewBody').style.color = text;
+    document.getElementById('previewThanks').style.color = thank;
+
+    if (logo) document.getElementById('logoImg').src = logo;
+  }
+
+  function generateQR() {
+    const qrText = document.getElementById('qrTextSource').value.trim();
+    const qrOverride = document.getElementById('qrUrl').value.trim();
+
+    const qrImg = document.getElementById('qrImg');
+    const qrModal = document.getElementById('qrModalImg');
+
+    if (!qrOverride && qrText) {
+      const apiURL = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(qrText)}&size=150x150`;
+      const modalURL = apiURL.replace('150x150', '300x300');
+      qrImg.src = apiURL;
+      qrModal.src = modalURL;
+    } else {
+      qrImg.src = '';
+      qrModal.src = '';
+    }
+  }
+
+  function emailCard() {
+    updateCard();
+    const container = document.getElementById("modalCardContainer");
+    container.innerHTML = "";
+    const cardClone = document.getElementById("cardPreview").cloneNode(true);
+    container.appendChild(cardClone);
+    const modal = new bootstrap.Modal(document.getElementById('outputModal'));
+    modal.show();
+  }
+
+  function copyToClipboard() {
+    const container = document.getElementById("modalCardContainer");
+    const tempTextarea = document.createElement("textarea");
+    tempTextarea.value = container.innerHTML;
+    document.body.appendChild(tempTextarea);
+    tempTextarea.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempTextarea);
+    alert("Rendered HTML copied to clipboard!");
+  }
+
+  function finalizeEmail() {
+    const subject = encodeURIComponent("WoMacroMAX Card Output");
+    const body = encodeURIComponent("Please see the attached visual below or paste the copied content into your email.");
+    window.location.href = `mailto:?subject=${subject}&body=${body}`;
+  }
+
+  async function downloadCard(type) {
+    const card = document.getElementById('cardPreview');
+    const filename = document.getElementById('filenameInput').value || 'card';
+    const includeWatermark = document.getElementById('includeWatermark').checked;
+    const clone = card.cloneNode(true);
+    clone.style.position = 'relative';
+
+    if (includeWatermark) {
+      const wm = document.createElement('div');
+      wm.innerText = "WoMacroMAX Watermark";
+      wm.style.position = "absolute";
+      wm.style.bottom = "10px";
+      wm.style.right = "10px";
+      wm.style.color = "rgba(255,255,255,0.2)";
+      wm.style.fontSize = "1.2rem";
+      wm.style.fontWeight = "bold";
+      wm.style.pointerEvents = "none";
+      wm.style.zIndex = "10";
+      clone.appendChild(wm);
+    }
+
+    const hiddenWrapper = document.createElement("div");
+    hiddenWrapper.style.position = "fixed";
+    hiddenWrapper.style.top = "-10000px";
+    hiddenWrapper.style.left = "-10000px";
+    hiddenWrapper.style.zIndex = "-1";
+    hiddenWrapper.appendChild(clone);
+    document.body.appendChild(hiddenWrapper);
+
+    const canvas = await html2canvas(clone);
+    const link = document.createElement("a");
+    if (type === 'pdf') {
+      const { jsPDF } = window.jspdf;
+      const imgData = canvas.toDataURL("image/png");
+      const doc = new jsPDF();
+      const pdfWidth = doc.internal.pageSize.getWidth();
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+      doc.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      doc.save(`${filename}.pdf`);
+    } else {
+      link.download = `${filename}.${type}`;
+      link.href = canvas.toDataURL(`image/${type}`);
+      link.click();
+    }
+
+    document.body.removeChild(hiddenWrapper);
+  }
+
+  document.getElementById("qrImg").addEventListener("click", () => {
+    const qrText = document.getElementById("qrTextSource").value.trim();
+    try {
+      const url = new URL(qrText);
+      window.open(url.href, "_blank");
+    } catch (e) {
+      const modalImg = document.getElementById("qrModalImg");
+      modalImg.src = document.getElementById("qrImg").src;
+      const qrPreviewModal = new bootstrap.Modal(document.getElementById("qrPreviewModal"));
+      qrPreviewModal.show();
+    }
+  });
+
+  ['logoUrl', 'inputTitle', 'inputThanks', 'inputBody', 'bgColor', 'borderColor', 'textColor', 'titleColor', 'thankColor', 'fontSelector'].forEach(id => {
+    document.getElementById(id).addEventListener('input', updateCard);
+  });
+</script>
+
+
+</body>
+</html>

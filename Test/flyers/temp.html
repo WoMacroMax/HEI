@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Launch Modal Example</title>
+  <!-- Reference your CSS -->
+  <link href="styles.css" rel="stylesheet">
+  <!-- Add Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Main Content -->
+  <div class="container text-center my-5">
+    <h1>Welcome to Modal Integration</h1>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#emailModal">
+      Open Email Modal
+    </button>
+  </div>
+
+  <!-- Include your modal partial file -->
+  <div class="modal-placeholder">
+    <!-- If you're using a server-side framework, render the modal content here dynamically -->
+    <!-- Example: {% include 'emailModal.html' %} in Django or @include('emailModal') in Laravel -->
+    <div class="modal fade" id="emailModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content position-relative">
+          <div class="modal-header border-0">
+            <h5 class="modal-title text-purple fw-bold">Send Us an Email</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <form id="emailForm">
+              <div class="card border border-purple-subtle mb-3">
+                <div class="card-header bg-light text-purple fw-semibold">Contact Info</div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <input type="text" class="form-control border-purple-subtle" id="emailName" placeholder="Your Name" required>
+                      <div class="invalid-feedback">Please enter your name.</div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <input type="text" class="form-control border-purple-subtle" id="yourZipcode" placeholder="e.g. 20019" required>
+                      <div class="invalid-feedback">Please enter a valid 5-digit ZIP code.</div>
+                    </div>
+                    <div class="col-12 mb-3">
+                      <input type="tel" class="form-control border-purple-subtle" id="yourPhone" placeholder="(xxx) xxx-xxxx" required>
+                      <div class="invalid-feedback">Please enter a valid phone number.</div>
+                    </div>
+                    <div class="mb-3">
+                      <input type="hidden" id="emailTo" value="blab942@yahoo.com">
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label text-purple">Message</label>
+                      <textarea class="form-control border-purple-subtle" id="emailMessage" rows="4" placeholder="Write your message here..."></textarea>
+                    </div>
+                    <div class="mb-3">
+                      <input type="hidden" id="emailSubject" value="Resident Services Request">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer border-0">
+            <button class="btn cancel-btn" data-bs-dismiss="modal">Cancel</button>
+            <button class="btn send-btn" onclick="sendEmail()">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Bootstrap JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Add custom JavaScript -->
+  <script>
+    function sendEmail() {
+      const emailTo = document.getElementById("emailTo").value;
+      const emailSubject = document.getElementById("emailSubject").value;
+      const emailMessage = document.getElementById("emailMessage").value;
+
+      console.log(`Email To: ${emailTo}`);
+      console.log(`Subject: ${emailSubject}`);
+      console.log(`Message: ${emailMessage}`);
+
+      alert("Email sent successfully!");
+    }
+  </script>
+</body>
+</html>

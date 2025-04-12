@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pay MoveCheap</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: #f8f9fa;
+      padding-top: 60px;
+    }
+    .payment-card {
+      max-width: 450px;
+      margin: auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+    }
+    .cashapp-logo {
+      width: 75px;
+      height: 75px;
+    }
+    .btn-cashapp {
+      background-color: #00d632;
+      border: none;
+      color: white;
+    }
+    .btn-cashapp:hover {
+      background-color: #00b728;
+    }
+    .hidden-img {
+      display: none;
+    }
+    .status-pill {
+      display: inline-block;
+      padding: 5px 12px;
+      font-size: 0.875rem;
+      border-radius: 20px;
+      color: white;
+    }
+    .status-pending {
+      background-color: #ffc107;
+    }
+    .status-sent {
+      background-color: #28a745;
+    }
+  </style>
+<meta property="og:image" content="https://womacromax.github.io/HEI/Test/Payment Gateway/Images/GatewaytoPayMoveCheap.png" />
+</head>
+<body>
+
+<div class="container">
+  <div id="contentArea" class="text-center"></div>
+</div>
+
+<script>
+  function getQueryParam(name) {
+    const params = new URLSearchParams(window.location.search);
+    return params.get(name);
+  }
+
+  function renderPayment(amount) {
+    const amountDisplay = amount && amount > 0 ? `$${amount}.00` : '';
+    const cashAppLink = amount && amount > 0
+      ? `https://cash.app/$paymovecheap/${amount}`
+      : `https://cash.app/$paymovecheap`;
+
+    const container = document.getElementById("contentArea");
+    container.innerHTML = `
+      <div class="payment-card text-center">
+        <img src="https://womacromax.github.io/HEI/Test/Payment Gateway/Images/WoMacroMaxPublishing_QR_payment_code.png" alt="Cash App" 
+        class="cashapp-logo mb-3">
+        <h4 class="mb-1">Pay MoveCheap</h4>
+        <p class="text-muted mb-2">Send a payment using CashApp</p>
+
+        ${amountDisplay ? `<h2 class="text-success mb-3">${amountDisplay}</h2>` : ""}
+
+        <p class="mb-2">To: <strong>$paymovecheap</strong></p>
+
+        <a href="${cashAppLink}" target="_blank" class="btn btn-cashapp btn-lg mt-3 w-100">Open in CashApp</a>
+
+        <hr class="my-4">
+
+        <p class="text-muted small mb-0">
+          You will be redirected to CashApp to complete your payment.
+        </p>
+      </div>
+    `;
+
+    // Fake status update (simulated)
+    setTimeout(() => {
+      const status = document.getElementById('paymentStatus');
+      if (status) {
+        status.classList.remove('status-pending');
+        status.classList.add('status-sent');
+        status.textContent = 'Sent';
+      }
+    }, 3000); // simulate payment status after 3 seconds
+  }
+
+  window.onload = () => {
+    let amount = null;
+    try {
+      const dataParam = getQueryParam("data");
+      if (dataParam) {
+        const parsed = JSON.parse(decodeURIComponent(dataParam));
+        amount = parseFloat(parsed.amount);
+        if (!amount || amount <= 0) amount = null;
+      }
+    } catch (e) {
+      // No error handling needed — we just bypass the amount
+    }
+
+    renderPayment(amount);
+  };
+</script>
+
+</body>
+</html>

@@ -1,88 +1,202 @@
-<div class="modal fade" id="emailModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content position-relative">
-      <div class="modal-header border-0">
-        <h5 class="modal-title text-purple fw-bold">Send Us an Email</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <form id="emailForm">
-          <div class="card border border-purple-subtle mb-3">
-            <div class="card-header bg-light text-purple fw-semibold">Contact Info</div>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <input type="text" class="form-control border-purple-subtle" id="emailName" placeholder="Your Name" required>
-                  <div class="invalid-feedback">Please enter your name.</div>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <input type="text" class="form-control border-purple-subtle" id="yourZipcode" placeholder="e.g. 20019" required>
-                  <div class="invalid-feedback">Please enter a valid 5-digit ZIP code.</div>
-                </div>
-                <div class="col-12 mb-3">
-                  <input type="tel" class="form-control border-purple-subtle" id="yourPhone" placeholder="(xxx) xxx-xxxx" required>
-                  <div class="invalid-feedback">Please enter a valid phone number.</div>
-                </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Email Modal</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <link href="../styles.css" rel="stylesheet" />
+  <style>
+    .border-purple-subtle {
+      border-color: #c29dda !important;
+    }
+    .text-purple {
+      color: #6f42c1 !important;
+    }
+    .cancel-btn {
+      background-color: #e0e0e0;
+      color: #333;
+    }
+    .send-btn {
+      background-color: #6f42c1;
+      color: #fff;
+    }
+    .linked-services a {
+      color: #6f42c1;
+      text-decoration: underline;
+    }
 
-                <div class="mb-3">
-                  <input type="hidden" id="emailTo" value="blab942@yahoo.com">
-                </div>
+    /* Modal Responsiveness */
+    .modal-content {
+      max-height: 90vh;
+      overflow-y: auto;
+      border-radius: 1rem;
+      padding: 1rem;
+    }
 
-                <!-- Injected message display (optional visual) -->
-                <div class="mb-3 d-none">
-                  <p id="requestMessage"></p> <!-- This is where injected text goes -->
-                </div>
+    @media (max-width: 576px) {
+      .modal-content {
+        padding: 1rem;
+        font-size: 0.95rem;
+      }
 
-                <div class="mb-3">
-                  <label class="form-label text-purple">Message</label>
-                  <textarea class="form-control border-purple-subtle" id="emailMessage" rows="4" placeholder="Write your message here..."></textarea>
-                </div>
+      .modal-body,
+      .modal-header,
+      .modal-footer {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+    }
 
-                <div class="mb-3">
-                  <input type="hidden" id="emailSubject" value="Resident Services Request">
+    @media (max-height: 500px) {
+      .modal-content {
+        max-height: 80vh;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="modal fade show d-block" id="emailModal" tabindex="-1" aria-hidden="true" style="background-color: rgba(0,0,0,0.5);">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content position-relative">
+        <div class="modal-header border-0">
+          <h5 class="modal-title text-purple fw-bold">Request A Callback</h5>
+          <a href="../index.html" class="btn-close" aria-label="Close"></a>
+        </div>
+        <div class="modal-body">
+          <form id="emailForm">
+            <div class="card border border-purple-subtle mb-3">
+              <div class="card-header bg-light text-purple fw-semibold">Contact Info</div>
+              <div class="card-body">
+                <div class="row">
+                  <!-- First & Last Name -->
+                  <div class="col-md-6 mb-3">
+                    <input type="text" class="form-control border-purple-subtle" id="emailFirstName" placeholder="First Name" required>
+                    <div class="invalid-feedback">Please enter your first name.</div>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <input type="text" class="form-control border-purple-subtle" id="emailLastName" placeholder="Last Name" required>
+                    <div class="invalid-feedback">Please enter your last name.</div>
+                  </div>
+
+                  <!-- ZIP -->
+                  <div class="col-md-6 mb-3">
+                    <input type="text" class="form-control border-purple-subtle" id="yourZipcode" placeholder="e.g. 20019" required>
+                    <div class="invalid-feedback">Please enter a valid 5-digit ZIP code.</div>
+                  </div>
+
+                  <!-- Phone -->
+                  <div class="col-md-6 mb-3">
+                    <input type="tel" class="form-control border-purple-subtle" id="yourPhone" placeholder="(xxx) xxx-xxxx" required>
+                    <div class="invalid-feedback">Please enter a valid phone number.</div>
+                  </div>
+
+                  <!-- Hidden Inputs -->
+                  <div class="mb-3">
+                    <input type="hidden" id="emailTo" value="blab942@yahoo.com">
+                    <input type="hidden" id="emailSubject" value="Resident Services Request">
+                  </div>
+
+                  <!-- Services Display -->
+                  <div class="mb-3">
+                    <label class="form-label text-purple fw-semibold">Requested Services</label>
+                    <ul id="requestMessage" class="linked-services border border-purple-subtle rounded p-2 bg-light text-secondary small"></ul>
+                  </div>
+
+                  <!-- Message -->
+                  <div class="mb-3">
+                    <label class="form-label text-purple">Message</label>
+                    <textarea class="form-control border-purple-subtle" id="emailMessage" rows="4" placeholder="Write your message here..."></textarea>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer border-0">
-        <button class="btn cancel-btn" data-bs-dismiss="modal">Cancel</button>
-        <button class="btn send-btn" onclick="sendEmail()">Send</button>
+          </form>
+        </div>
+        <div class="modal-footer border-0 d-flex justify-content-between flex-wrap">
+          <a href="../index.html" class="btn cancel-btn">Unselect</a>
+          <button class="btn send-btn" onclick="sendEmail()">Select</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<script>
-  // This gets run after the modal is loaded via .load()
-  // It moves #requestMessage into the textarea for editing
-  document.addEventListener('DOMContentLoaded', function () {
-    const requestMsg = document.getElementById('requestMessage');
-    const emailMsg = document.getElementById('emailMessage');
-    if (requestMsg && emailMsg && requestMsg.textContent.trim()) {
-      emailMsg.value = requestMsg.textContent.trim();
-    }
-  });
-
-  function sendEmail() {
-    // You can replace this with your actual send logic (e.g., EmailJS, Formspree, etc.)
-    const name = document.getElementById('emailName').value.trim();
-    const phone = document.getElementById('yourPhone').value.trim();
-    const zip = document.getElementById('yourZipcode').value.trim();
-    const message = document.getElementById('emailMessage').value.trim();
-    const to = document.getElementById('emailTo').value;
-    const subject = document.getElementById('emailSubject').value;
-
-    if (!name || !phone || !zip || !message) {
-      alert("Please complete all required fields.");
-      return;
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
     }
 
-    alert(`This would send an email to: ${to}\nSubject: ${subject}\n\nName: ${name}\nPhone: ${phone}\nZIP: ${zip}\n\nMessage:\n${message}`);
+    async function fetchServiceLinks() {
+      try {
+        const response = await fetch('../service-links.json');
+        return await response.json();
+      } catch (error) {
+        console.error("Failed to load service-links.json:", error);
+        return {};
+      }
+    }
 
-    // Close modal after "sending"
-    const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('emailModal'));
-    modal.hide();
-  }
-</script>
+    document.addEventListener('DOMContentLoaded', async function () {
+      const requestMsg = document.getElementById('requestMessage');
+      const emailMsg = document.getElementById('emailMessage');
+      const messageFromURL = getQueryParam('message');
+      const serviceLinks = await fetchServiceLinks();
+
+      if (messageFromURL && emailMsg) {
+        const decoded = decodeURIComponent(messageFromURL);
+        const services = decoded.split(':')[1]?.split(',').map(s => s.trim()).filter(Boolean) || [];
+
+        // Render linked services in preview
+        requestMsg.innerHTML = services.map(service => {
+          const url = serviceLinks[service] || "#";
+          return `<li><a href="${url}" target="_blank">${service}</a></li>`;
+        }).join('');
+
+        // Build message
+        const messageText = services.length
+          ? "I would like to request the following services:\n" +
+            services.map(service => {
+              const url = serviceLinks[service] || "#";
+              return `- ${service}: ${url}`;
+            }).join('\n')
+          : decoded;
+
+        emailMsg.value = messageText;
+      }
+    });
+
+    function sendEmail() {
+      const firstName = document.getElementById('emailFirstName').value.trim();
+      const lastName = document.getElementById('emailLastName').value.trim();
+      const phone = document.getElementById('yourPhone').value.trim();
+      const zip = document.getElementById('yourZipcode').value.trim();
+      const message = document.getElementById('emailMessage').value.trim();
+      const to = document.getElementById('emailTo').value;
+      const subject = document.getElementById('emailSubject').value;
+
+      if (!firstName || !lastName || !phone || !zip || !message) {
+        alert("Please complete all required fields.");
+        return;
+      }
+
+      const emailData = {
+        to,
+        subject,
+        firstName,
+        lastName,
+        phone,
+        zip,
+        message
+      };
+
+      alert("JSON Payload:\n" + JSON.stringify(emailData, null, 2));
+      window.location.href = "../index.html";
+    }
+  </script>
+</body>
+</html>

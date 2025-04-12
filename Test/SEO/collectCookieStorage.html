@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Storage & Cookies Tracker</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-4">
+    <h1>Storage & Cookies Data Collection</h1>
+    <p>Click the button to fetch stored data.</p>
+    <button id="fetchData" class="btn btn-primary">Fetch Data</button>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <h2>Cookie Data</h2>
+            <pre id="cookieData" class="border p-3 bg-light"></pre>
+        </div>
+        <div class="col-md-6">
+            <h2>Local Storage Data</h2>
+            <pre id="localStorageData" class="border p-3 bg-light"></pre>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <h2>Test Panel</h2>
+            <p>Use these buttons to add test data.</p>
+            <button id="setTestCookie" class="btn btn-success">Set Test Cookie</button>
+            <button id="setTestLocalStorage" class="btn btn-warning">Set Test Local Storage</button>
+            <pre id="testPanel" class="border p-3 bg-light mt-2"></pre>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById("fetchData").addEventListener("click", function() {
+    // Collect Cookies
+    let cookies = document.cookie.split("; ").reduce((acc, cookie) => {
+        let [key, value] = cookie.split("=");
+        acc[key] = value;
+        return acc;
+    }, {});
+
+    // Collect Local Storage Data
+    let localStorageData = {};
+    for (let i = 0; i < localStorage.length; i++) {
+        let key = localStorage.key(i);
+        localStorageData[key] = localStorage.getItem(key);
+    }
+
+    // Display Data
+    document.getElementById("cookieData").textContent = JSON.stringify(cookies, null, 2);
+    document.getElementById("localStorageData").textContent = JSON.stringify(localStorageData, null, 2);
+});
+
+document.getElementById("setTestCookie").addEventListener("click", function() {
+    document.cookie = "testCookie=HelloWorld; path=/";
+    document.getElementById("testPanel").textContent = "Test cookie set!";
+});
+
+document.getElementById("setTestLocalStorage").addEventListener("click", function() {
+    localStorage.setItem("testKey", "Sample Data");
+    document.getElementById("testPanel").textContent = "Test local storage set!";
+});
+</script>
+
+</body>
+</html>

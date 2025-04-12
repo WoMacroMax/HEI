@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Add Task - Site Management Setup</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    body { margin: 0; padding: 0; }
+    .fixed-header {
+      position: fixed;
+      top: 0; left: 0; width: 100%;
+      background: linear-gradient(to right, rgba(255,165,0,0.8), rgba(255,99,71,0.8));
+      color: white; padding: 10px 0; z-index: 999;
+      display: flex; justify-content: center; align-items: center;
+      border-radius: 0 0 15px 15px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .fixed-header h1 { margin: 0; font-size: 20px; }
+    .social-media-icons {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .social-media-icons a {
+      margin: 0 5px;
+      color: white;
+      font-size: 16px;
+      text-decoration: none;
+    }
+    .main-content {
+      padding: 100px 20px 30px;
+      max-width: 600px;
+      margin: auto;
+    }
+    .card {
+      border-radius: 15px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header with Social Icons -->
+<div class="fixed-header">
+  <h1>Add New Task</h1>
+  <div class="social-media-icons">
+    <a href="#" class="btn btn-primary"><i class="fab fa-facebook-f"></i></a>
+    <a href="#" class="btn btn-info"><i class="fab fa-twitter"></i></a>
+    <a href="#" class="btn btn-danger"><i class="fab fa-instagram"></i></a>
+    <a href="tel:+1234567890" class="btn btn-success"><i class="fas fa-phone"></i></a>
+    <a href="sms:+1234567890" class="btn btn-warning"><i class="fas fa-sms"></i></a>
+  </div>
+</div>
+
+<!-- Main Form Content -->
+<div class="main-content">
+  <div class="card p-4">
+    <h4 class="mb-3">Add a Task to <em>Site Management Setup</em></h4>
+    <form id="taskForm">
+      <div class="form-group">
+        <label for="taskName">Task Name</label>
+        <input type="text" class="form-control" id="taskName" required />
+      </div>
+      <div class="form-group">
+        <label for="taskDesc">Description</label>
+        <textarea class="form-control" id="taskDesc" rows="3" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="taskDuration">Duration (minutes)</label>
+        <input type="number" class="form-control" id="taskDuration" required />
+      </div>
+      <button type="submit" class="btn btn-success btn-block">Add Task</button>
+      <div id="successMsg" class="mt-3 text-success" style="display: none;">Task added successfully!</div>
+    </form>
+  </div>
+</div>
+
+<!-- Firebase JS -->
+<script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-firestore.js"></script>
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyCKpH3zexEOTDhZZ_GZc__ZZ20uyvnjAXM",
+    authDomain: "womacromax-automation.firebaseapp.com",
+    projectId: "womacromax-automation",
+    storageBucket: "womacromax-automation.firebasestorage.app",
+    messagingSenderId: "50651858310",
+    appId: "1:50651858310:web:139f54247487571db85807",
+    measurementId: "G-SQZ80LFP4Z"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  const form = document.getElementById('taskForm');
+  const msg = document.getElementById('successMsg');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const name = document.getElementById('taskName').value.trim();
+    const description = document.getElementById('taskDesc').value.trim();
+    const duration = parseInt(document.getElementById('taskDuration').value);
+
+    if (!name || !description || isNaN(duration)) {
+      alert("Please complete all fields.");
+      return;
+    }
+
+    db.collection('Site Management Setup').add({
+      name,
+      description,
+      duration,
+      createdAt: new Date().toISOString()
+    }).then(() => {
+      msg.style.display = 'block';
+      form.reset();
+    }).catch(err => {
+      alert("Error adding task: " + err.message);
+    });
+  });
+</script>
+
+</body>
+</html>
