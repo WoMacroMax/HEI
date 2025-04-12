@@ -2,542 +2,323 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Community Family Clinic</title>
-
-  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Font Awesome -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
 
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #f0f0f0;
-      padding: 0 20px;
-      padding-top: 120px;
-      padding-bottom: 80px;
+      padding: 0;
+      background-color: #f8f9fa;
     }
 
-    .blue-text { color: #007bff; }
-    .black-text { color: black; }
-
-  .menu-container {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    background-color: #e6ccff; /* updated to lilac */
-    padding: 2px 10px;
-    z-index: 20;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-
-
-    .menu-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 90px;
-    }
-
-    .menu-icon {
-      cursor: pointer;
-      width: 60px;
-      padding: 10px;
-      transform: translateX(10%);
-    }
-
-    .line {
-      width: 100%;
-      height: 5px;
-      background-color: black;
-      margin: 6px 0;
-    }
-
-    .menu {
+    .title-bar {
       position: fixed;
-      top: 0; left: 0;
-      height: 100%;
-      width: 250px;
-      background: white;
-      padding: 20px;
-      box-shadow: 2px 0 15px rgba(0, 0, 0, 0.1);
-      z-index: 10;
-      display: flex;
-      flex-direction: column;
-      transform: translateX(-100%);
-      opacity: 0;
-      pointer-events: none;
-      transition: transform 0.5s ease-out, opacity 0.5s ease-out;
-      overflow-y: auto;
-      max-height: 100vh;
-    }
-
-    .menu.open {
-      transform: translateX(0);
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .menu button {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 5px;
-      margin: 10px auto;
-      font-size: 20px;
-      text-align: center;
-      color: black;
-      border: none;
-      border-radius: 20px;
-      width: 90%;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    .menu button:nth-child(n) { background-color: #e6ccff; }
-    .menu button:hover { filter: brightness(90%); }
-
-    .menu-icon-image {
-      height: 120px;
-      cursor: pointer;
-    }
-
-    .circle-card {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      background-color: #ffffff;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      margin-left: 15px;
-    }
-
-    .circle-card img {
-      width: 90%;
-      height: 90%;
-      object-fit: contain;
-    }
-
-.logo-title {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-left: auto;
-  width: 100%;
-}
-
-    .breadcrumb {
-      display: none;
-      margin: 10px 0 0 0;
-      background-color: #ffffff;
-      padding: 5px 10px;
-      border-radius: 5px;
-      font-size: 13px;
-      z-index: 1;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    }
-
-    .breadcrumb a {
-      color: #007bff;
-      text-decoration: none;
-      margin-right: 5px;
-    }
-
-    .breadcrumb a:hover {
-      text-decoration: underline;
-    }
-
-    .breadcrumb span {
-      margin-right: 5px;
-    }
-
-    .card {
-      margin-top: 10px;
-      max-height: 90px;
-      overflow-y: auto;
-      padding: 15px;
-      background: linear-gradient(to bottom, #ffffff, #cccccc);
-      background-size: 100% 300%;
-      background-position: top;
-      animation: gradientFlow 10s ease-in-out infinite alternate;
-      border-radius: 5px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-      color: black;
-      text-align: left;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-    }
-
-    .text-card {
-      display: none;
-      margin-top: 2px;
-      padding: 20px;
-      background-color: white;
-      border-radius: 5px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      color: black;
-    }
-
-    @keyframes gradientFlow {
-      0% { background-position: top; }
-      100% { background-position: bottom; }
-    }
-
-    .homePage-content {
-      max-height: 60vh;
-      overflow-y: auto;
-      background-color: white;
-      border-radius: 5px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .homePage-title {
-      position: sticky;
       top: 0;
-      background-color: white;
-      padding: 20px 25px;
-      margin: 0;
-      z-index: 1;
-      border-bottom: 1px solid #eee;
+      left: 0;
+      right: 0;
+      z-index: 1050;
     }
 
-    .homePage-scroll {
-      padding: 25px;
+    .lilac-card {
+      background-color: #e6ccff;
+      display: flex;
+      width: 100%;
+      position: relative;
     }
 
-    .promo-card-wrapper {
-      text-decoration: none;
-    }
-
-    .promo-card {
-      background-color: #f9f9f9;
-      border-radius: 8px;
-      padding: 20px;
-      transition: box-shadow 0.3s ease;
-      height: 100%;
-    }
-
-    .promo-card:hover {
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    }
-
-    footer {
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      background-color: #ffffff;
-      padding: 10px 30px;
+    .image-cell {
+      position: relative;
+      flex: 1;
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 25;
-      box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
     }
 
-    .social-links a {
-      margin: 0 15px;
-      text-decoration: none;
-      color: black;
-      font-size: 24px;
-      transition: color 0.3s;
+    .image-cell img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      opacity: 0.05;
+      animation: fadeInOut 20s linear infinite;
     }
 
-.social-links a.facebook { color: #3b5998; }
-.social-links a.twitter { color: #1da1f2; }
-.social-links a.instagram { color: #e4405f; }
-.social-links a.linkedin { color: #0077b5; }
-.social-links a.whatsapp { color: #25d366; }
-.social-links a.email { color: #ea4335; }
-.social-links a.chat { color: #6c757d; }
-.social-links a.phone { color: #28a745; }
-
-.social-links a:hover {
-  opacity: 0.8;
-  transform: scale(1.1);
-  transition: all 0.2s ease-in-out;
-}
-
-    html, body {
-      height: 100%;
-      margin: 0;
+    .image-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(230, 204, 255, 0.3);
+      pointer-events: none;
     }
 
-    .page-wrapper {
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 0.05; }
+      50% { opacity: 0.1; }
+    }
+
+    .welcome-overlay-card {
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 192px;
+      background: transparent;
       display: flex;
-      flex-direction: column;
-      min-height: 100vh;
+      justify-content: center;
+      align-items: center;
+      padding: 0 1.5rem;
+      z-index: 1100;
     }
 
-    #homePage {
-      flex: 1;
+    .welcome-line {
+      font-size: 3rem;
+      font-weight: 600;
+      white-space: nowrap;
+      color: #000;
+      display: flex;
+      align-items: center;
+      margin-left: 20rem;
     }
 
-    @media (max-width: 600px) {
-      html { font-size: 70%; }
-      .logo-title h1 { font-size: 19.2px; }
+    .title-icon-img {
+      height: 150px;
+      margin-left: 3rem;
+      margin-right: 300px;
+      transition: height 0.3s ease;
     }
 
-    @media (max-width: 500px) {
-      .menu-icon {
-        transform: translateX(30%);
-        width: 24px;
-        padding: 6px;
+    .hamburger-fixed {
+      position: fixed;
+      top: 120px;
+      left: 20px;
+      z-index: 1200;
+      background-color: #e6ccff;
+      color: white;
+      border: none;
+      font-size: 1.5rem;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .grid-container {
+      margin-top: 200px;
+      padding: 20px;
+    }
+
+    .grid-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .grid-card {
+      flex: 1 1 calc(50% - 20px);
+      min-height: 300px;
+      border-radius: 10px;
+      padding: 20px;
+      color: #000;
+      background-color: #fff !important;
+      border: 1px solid #dee2e6;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      transform: translateY(30px);
+      animation: slideFadeIn 0.8s ease forwards;
+      position: relative;
+    }
+
+    .grid-card:nth-child(1) { animation-delay: 0.2s; }
+    .grid-card:nth-child(2) { animation-delay: 0.4s; }
+    .grid-card:nth-child(3) { animation-delay: 0.6s; }
+    .grid-card:nth-child(4) { animation-delay: 0.8s; }
+
+    @keyframes slideFadeIn {
+      to {
+        opacity: 10;
+        transform: translateY(0);
+      }
+    }
+
+    .icon-overlay {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background-color: rgba(0, 0, 0, 0.03);
+      padding: 10px 12px;
+      border-radius: 10px;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .icon-overlay i {
+      font-size: 1.8rem;
+      color: #6f42c1;
+      opacity: .3;
+    }
+
+    .card-4 form label,
+    .card-4 form input,
+    .card-4 form select {
+      color: #000;
+    }
+
+    .card-4 form input,
+    .card-4 form select {
+      background-color: #fff;
+      color: #000;
+      border: 1px solid #ced4da;
+    }
+
+    .card-4 button.btn {
+      background-color: #6f42c1;
+      color: #fff;
+    }
+
+    @media (max-width: 768px) {
+      .grid-card {
+        flex: 1 1 100%;
       }
 
-      .line {
-        height: 3px;
-        margin: 4px 0;
+      .welcome-overlay-card {
+        flex-direction: column;
+        padding: 1rem;
+        height: auto;
       }
+
+      .welcome-line {
+        font-size: 1.2rem;
+        flex-wrap: wrap;
+        text-align: center;
+        margin-left: 0;
+      }
+
+      .hamburger-fixed {
+        top: 20px;
+        left: 20px;
+      }
+
+      .title-icon-img {
+        height: 150px;
+        margin-left: 18rem;
+        margin-right: 3px;
+        transition: height 0.3s ease;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .hamburger-fixed {
+        top: 40px;
+      }
+      .title-icon-img {
+        height: 60px;
+      }
+      .title-bar,
+      .welcome-overlay-card,
+      .title-icon-img {
+        transform: translateY(16%);
+      }
+      .grid-container {
+      margin-top: 100px;
+      padding: 20px;
+      }
+
+
+    .welcome-line {
+      font-size: 1.5rem;
+      font-weight: 600;
+      white-space: nowrap;
+      color: #000;
+      display: flex;
+      align-items: center;
+      margin-left: 0rem;
+    }
+
+
     }
   </style>
-</head>
-<body class="bg-light">
-  <div class="menu-container">
-    <div class="menu-top">
-      <div class="menu-icon" onclick="toggleMenu()" role="button" aria-expanded="false">
-        <div class="line"></div>
-        <div class="line"></div>
-        <div class="line"></div>
-      </div>
-
-
-
-
-      <div class="logo-title">
-        <h1>Community <span class="blue-text">Family</span> Clinic</h1>
-<div class="logo-box">
-  <img src="media/community_family_clinic_logo.png" alt="Community Family Clinic Logo" class="menu-icon-image" onclick="showhomePage()" />
-</div>
-
-      </div>
-    </div>
-
-    <nav id="breadcrumb" class="breadcrumb"></nav>
-    <div id="menu" class="menu" role="menu">
-      <button onclick="showCard('Home')">Home</button>
-      <button onclick="showCard('Mission')">Mission</button>
-      <button onclick="showCard('Services')">Services</button>
-      <button onclick="showCard('Credentials')">Credentials</button>
-      <button onclick="showCard('Contact Us')">Contact Us</button>
-      <button onclick="showCard('Team')">Team</button>
-      <button onclick="showCard('About Us')">About Us</button>
-      <button onclick="showCard('Blog')">Blog</button>
-      <button onclick="showCard('FAQ')">FAQ</button>
-      <button onclick="showCard('Promotions')">Promotions</button>
-    </div>
-  </div>
-
-  <div class="page-wrapper">
-
-<!--BEGIN: Home Page-->    
-<div id="homePage" class="homePage-content">
-    <h2><span class='black-text'>Welcome to Community Family Clinic</span></h2>
-    <p>We provide compassionate, high-quality care for families and individuals in our community.</p>
-</div>
-<!--  END: Home Page-->    
-
-    <div id="card" class="card"></div>
-    <div id="text-card" class="text-card"></div>
-  </div>
-
-<!--BEGIN: Footer-->    
- <footer>
-  <div class="social-links">
-    <a href="https://facebook.com" target="_blank" class="facebook"><i class="fab fa-facebook"></i></a>
-    <a href="https://twitter.com" target="_blank" class="twitter"><i class="fab fa-twitter"></i></a>
-    <a href="https://instagram.com" target="_blank" class="instagram"><i class="fab fa-instagram"></i></a>
-    <a href="https://linkedin.com" target="_blank" class="linkedin"><i class="fab fa-linkedin"></i></a>
-    <a href="https://wa.me/1234567890" target="_blank" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
-    <a href="mailto:info@example.com" class="email"><i class="fas fa-envelope"></i></a>
-    <a href="#" class="chat"><i class="fas fa-comment-dots"></i></a>
-    <a href="tel:+17035962482" class="phone"><i class="fas fa-phone"></i></a>
-  </div>
-</footer>
-<!--  END: Footer-->    
-
-
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    const contentData = {
-      "Home": {
-        title: "<h2><span class='black-text'>Welcome to Community Family Clinic</span></h2>",
-        text: "<p>We provide compassionate, high-quality care for families and individuals in our community.</p>"
-      },
-      "Mission": {
-        title: "<h2>Our <span class='black-text'>Mission</span></h2>",
-        text: "<p>To provide <strong>high-quality, affordable healthcare</strong> for all individuals and families.</p>"
-      },
-      "Services": {
-        title: "<h2>Our <span class='black-text'>Services</span></h2>",
-        text: `
-
-  <p><strong>CFC provides primary care, including:</strong></p>
-  <p><br />CFC provides primary care which covers a wide range of routine and preventive healthcare services, such as:</p>
-  <ul style="list-style-type: circle;">
-  <li>annual physicals</li>
-  <li>laboratory testing, such as&nbsp;blood tests&nbsp;and urine tests</li>
-  <li>vaccinations</li>
-  <li>screening and treatment for conditions like&nbsp;high cholesterol,&nbsp;high blood pressure, or&nbsp;diabetes</li>
-  <li>care for minor symptoms, such as sore throat, cough, or nasal congestion</li>
-  <li>treatment for common illnesses like colds,&nbsp;the flu, or&nbsp;urinary tract infections (UTIs)</li>
-  <li>treatment of some injuries, such as minor cuts or burns</li>
-  </ul>
-  <p>Others include:</p>
-  <ul style="list-style-type: circle;">
-  <li>Health education</li>
-  <li>Health Promotion and Disease Prevention</li>
-  <li>Diabetes and Hypertension education</li>
-  <li>Test, screenings and physicals</li>
-  <li>Nutrition guidance</li>
-  <li>Immunization</li>
-  <li>Anemia management</li>
-  <li>Pregnancy test</li>
-  <li>Annual physicals</li>
-  <li>Blood tests</li>
-  <li>Cardiology</li>
-  <li>Case management</li>
-  <li>Counseling</li>
-  <li>Sexually transmitted infection</li>
-  </ul>`
-      },
-      "Credentials": {
-        title: "<h2>Our <span class='black-text'>Credentials</span></h2>",
-        text: "<p>Board-certified physicians, licensed nurses, and experienced healthcare professionals.</p>"
-      },
-      "Contact Us": {
-        title: "<h2><span class='black-text'>Contact Us</span></h2>",
-        text: `
-          <p>Reach out to us:</p>
-          <ul>
-            <li>Phone: (123) 456-7890</li>
-            <li>Email: info@communityclinic.org</li>
-            <li>Address: 123 Wellness Ave, Caretown, USA</li>
-          </ul>`
-      },
-      "Team": {
-        title: "<h2>Meet Our <span class='black-text'>Team</span></h2>",
-        text: "<p>Meet our compassionate team dedicated to your care and well-being.</p>"
-      },
-      "About Us": {
-        title: "<h2><span class='black-text'>About Us</span></h2>",
-        text: "<h2>Biography</h2><p>Dr. Okunji is a Tenured Full Professor and Family Nurse Practitioner at Howard, College of Nursing and Allied Health Sciences. She obtained her BS and MS degrees in nursing and informatics, with nursing leadership minor respectively from the University of Maryland and earned her PhD in Health Sciences with a concentration in International Health Education and Research at the Trident International University, Cypress, California. Dr. Okunji has worked on multiple NIH grants that were funded through the National Institute on Minority Health and Health Disparities (IS22 MD00241-21, A. Wutoh, PI) and National Institute on Drug Abuse (5R24DA02 1470-04, S. Phillips, PI), as well as two Howard Advanced Faculty Seed grants (<em><strong>Okunji, PI</strong></em>) and two DC.gov grants (<em><strong>Okunji, PI</strong></em>). Dr. Okunji is the Howard Co-PI of the ongoing NIH-funded AIM-AHEAD Contract (OTA-21-017-1OT2OD032581-01,&nbsp;<em><strong>Okunji, Co-PI)</strong></em>. She is the lead investigator at using the academic electronic health record (EHR) to improve the data analytic skills of nursing students prior to clinical rotation/practice. She has just completed her latest seed grant funded by the Naval Office Research Human-Centered Artificial Intelligence (GRT00370B,&nbsp;<em><strong>Okunji, PI</strong></em>) titled, &ldquo;<em>Enhancing Academic EHR (SimChart) To Improve Patient Outcome (e-EHR)</em>&rdquo;. In addition, Dr. Okunji is a recipient of the 2023 HU&nbsp;<em><strong>President&rsquo;s Medal</strong></em>&nbsp;of Achievement, recipient of the 2022 Graduate School Medal for Teaching Excellence, 2026-2017 NIH Cardiovascular Disparities Programs for Inclusion and Diversity Among Individuals Engaged in Health-Related Research (PRIDE) award, 2015 NIH UCLA Mobile Health (mHealth) Scholar, 2014 NIH NIMHD Health Disparities Course Scholar, and 2012 Faculty Senate &ldquo;<em><strong>Emerging Scholar</strong></em>&rdquo; award. Her professional background merges over 25 years of teaching, clinical, and research experience in microbiology, nursing, leadership and informatics. Dr. Okunji is frequently invited to deliver presentations at both national and international conferences and has more than 60 publications, including 3-book chapters and&nbsp;<em><strong>Nursing Informatics textbook</strong></em>, for which she is a&nbsp;<em><strong>sole author</strong></em>. As a senior faculty, Dr. Okunji has mentored 15 junior and senior faculty in scholarship and grantsmanship, such as the just completed Artificial Intelligence/Machine Learning Consortium to Advance Health Equity and Researcher Diversity (AIM-AHEAD) program, which provided clinical research and stipend support for the DON faculty. She also mentored numerous graduate and undergraduate students on scholarly writings. Dr. Okunji served as a&nbsp;<em><strong>primary advisor</strong></em>&nbsp;for Dr. Karyn Onyenoho&rsquo;s PhD dissertation entitled &ldquo;<em>Genetic Determinants of Type 2 Diabetes Mellitus in African Adults: Identification of the Associated Factors</em>.&rdquo; Dr. Onyenoho is currently an advisor for Genomic Data Sharing in the Division of Neuroscience at the NIH National Institute on Aging. As an NIH Cardiovascular Health-Related Research PRIDE Cohort V Scholar, Dr. Okunji has been invited to mentor many new program applicants and helped disseminate flyers for the ongoing cohort XI recruitment and she is a member of the DC Cardiovascular Health and Obesity Collaborative (DC CHOC) Executive Community Advisory Committee through joint research with HU and NHLBI since 2013.&nbsp;</p>"
-      },
-      "Blog": {
-        title: "<h2><span class='black-text'>Blog & News</span></h2>",
-        text: "<p>Stay informed with health tips, updates, and community stories.</p>"
-      },
-      "FAQ": {
-        title: "<h2><span class='black-text'>FAQs</span></h2>",
-        text: `
-          <p><strong>Q:</strong> Do I need insurance?</p>
-          <p><strong>A:</strong> No, we provide care regardless of insurance status.</p>`
-      },
-      "Promotions": {
-        title: "<h2><span class='black-text'>Promotions</span></h2>",
-        text: "" // Will be loaded dynamically
-      }
-
+    window.onbeforeunload = function () {
+      window.scrollTo(0, 0);
     };
-
-    let breadcrumbHistory = [];
-
-    function toggleMenu() {
-      const menu = document.getElementById("menu");
-      menu.classList.toggle("open");
-      document.querySelector(".menu-icon").setAttribute("aria-expanded", menu.classList.contains("open"));
-    }
-
-    function showCard(menuItem) {
-      document.getElementById("homePage").style.display = "none";
-      breadcrumbHistory.push(menuItem);
-      updateContent(menuItem);
-      toggleMenu();
-    }
-
-function updateContent(menuItem) {
-  const content = contentData[menuItem];
-  const card = document.getElementById("card");
-  const textCard = document.getElementById("text-card");
-  const breadcrumb = document.getElementById("breadcrumb");
-
-  if (!content || (!content.title.trim() && !content.text.trim())) {
-    card.style.display = "none";
-    textCard.style.display = "none";
-    breadcrumb.style.display = "none";
-    return;
-  }
-
-  card.innerHTML = content.title;
-
-  if (menuItem === "Promotions") {
-    fetch("promotions/promotions.html")
-      .then(response => response.text())
-      .then(data => {
-        textCard.innerHTML = data;
-        card.style.display = content.title.trim() ? "flex" : "none";
-        textCard.style.display = "block";
-        breadcrumb.innerHTML = generateBreadcrumbHTML();
-        breadcrumb.style.display = "block";
-      })
-      .catch(err => {
-        textCard.innerHTML = "<p>Unable to load promotions at this time.</p>";
-        card.style.display = content.title.trim() ? "flex" : "none";
-        textCard.style.display = "block";
-        breadcrumb.innerHTML = generateBreadcrumbHTML();
-        breadcrumb.style.display = "block";
-      });
-  } else {
-    textCard.innerHTML = content.text;
-    card.style.display = content.title.trim() ? "flex" : "none";
-    textCard.style.display = content.text.trim() ? "block" : "none";
-    breadcrumb.innerHTML = generateBreadcrumbHTML();
-    breadcrumb.style.display = "block";
-  }
-}
-
-
-    function generateBreadcrumbHTML() {
-      return `
-        <a href="#" onclick="showhomePage()">Home</a>
-        ${breadcrumbHistory.map((item, i) => i === breadcrumbHistory.length - 1
-          ? `<span>› ${item}</span>`
-          : `<a href="#" onclick="navigateTo(${i})">› ${item}</a>`).join('')}`;
-    }
-
-    function navigateTo(index) {
-      breadcrumbHistory = breadcrumbHistory.slice(0, index + 1);
-      updateContent(breadcrumbHistory[index]);
-    }
-
-    function showhomePage() {
-      document.getElementById("homePage").style.display = "block";
-      document.getElementById("card").style.display = "none";
-      document.getElementById("text-card").style.display = "none";
-      document.getElementById("breadcrumb").style.display = "none";
-      breadcrumbHistory = [];
-    }
-
-    document.getElementById("menu").addEventListener("mouseleave", () => {
-      document.getElementById("menu").classList.remove("open");
-      document.querySelector(".menu-icon").setAttribute("aria-expanded", false);
-    });
-
-    document.addEventListener("touchstart", (e) => {
-      const menu = document.getElementById("menu");
-      const icon = document.querySelector(".menu-icon");
-      if (menu.classList.contains("open") && !menu.contains(e.target) && !icon.contains(e.target)) {
-        menu.classList.remove("open");
-        icon.setAttribute("aria-expanded", false);
-      }
-    });
   </script>
+</head>
+<body>
+
+  <!-- Fixed Hamburger Menu -->
+  <button class="hamburger-fixed"><i class="fas fa-bars"></i></button>
+
+  <!-- Title Bar with Fading People -->
+  <div class="title-bar">
+    <div class="lilac-card">
+      <div class="image-cell">
+        <img src="/media/CFC-Icon Filler 01.png" alt="Figure 1" />
+        <div class="image-overlay"></div>
+      </div>
+      <div class="image-cell">
+        <img src="/media/CFC-Icon Filler 00.png" alt="Figure 2" />
+        <div class="image-overlay"></div>
+      </div>
+      <div class="image-cell">
+        <img src="/media/CFC-Icon Filler 01.png" alt="Figure 3" />
+        <div class="image-overlay"></div>
+      </div>
+
+      <!-- Transparent Welcome Message Overlay -->
+      <div class="welcome-overlay-card">
+        <div class="welcome-line">
+          Community <span class="text-primary px-1">FAMILY</span> Clinic
+          <img src="/media/CFC-Icon-House-People.png" alt="Clinic Icon" class="title-icon-img">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Grid Section -->
+  <div class="container-fluid grid-container" id="services">
+    <div class="grid-row">
+      <div class="grid-card card-1">
+        <div class="icon-overlay"><i class="fas fa-hands-helping"></i></div>
+        <h5>Community Support</h5>
+        <p>Empowering families with care and compassion.</p>
+      </div>
+      <div class="grid-card card-2">
+        <div class="icon-overlay"><i class="fas fa-stethoscope"></i></div>
+        <h5>Health Services</h5>
+        <p>Affordable healthcare and wellness options for all ages.</p>
+      </div>
+      <div class="grid-card card-3">
+        <div class="icon-overlay"><i class="fas fa-bullhorn"></i></div>
+        <h5>Outreach</h5>
+        <p>Connecting the community to vital resources and programs.</p>
+      </div>
+      <div class="grid-card card-4">
+        <h5>Request Assistance</h5>
+        <form>
+          <div class="mb-3">
+            <label for="fullName" class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="fullName" placeholder="Enter your name">
+          </div>
+          <div class="mb-3">
+            <label for="emailAddress" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="emailAddress" placeholder="name@example.com">
+          </div>
+          <div class="mb-3">
+            <label for="assistanceType" class="form-label">Type of Assistance</label>
+            <select class="form-select" id="assistanceType">
+              <option selected>Choose...</option>
+              <option>Medical</option>
+              <option>Housing</option>
+              <option>Wellness</option>
+            </select>
+          </div>
+          <button type="submit" class="btn">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>
