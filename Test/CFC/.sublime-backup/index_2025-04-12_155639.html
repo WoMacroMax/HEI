@@ -11,68 +11,24 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
   <!-- External CSS -->
   <link href="css/styles.css" rel="stylesheet" />
-
-  <style>
-    @media (max-width: 340px) {
-      .menu-top {
-        height: 70px;
-        padding: 0 10px;
-      }
-
-      .menu-icon {
-        width: 30px;
-        padding: 5px;
-        margin: 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        z-index: 1000;
-        transform: none;
-      }
-
-      .line {
-        height: 3px;
-        margin: 3px 0;
-        background-color: black;
-      }
-
-      .logo-title h1 {
-        font-size: 6vw;
-        padding: 0;
-        margin: 0;
-        white-space: nowrap;
-      }
-
-      .menu-icon-image {
-        height: 50px;
-        padding: 6px;
-      }
-    }
-  </style>
 </head>
 <body class="bg-light">
   <div class="menu-container">
     <div class="menu-top">
-      <!-- Burger Menu -->
       <div class="menu-icon" onclick="toggleMenu()" role="button" aria-expanded="false">
         <div class="line"></div>
         <div class="line"></div>
         <div class="line"></div>
       </div>
-
-      <!-- Title and Icon -->
       <div class="logo-title">
         <h1>Community <span class="blue-text">Family</span> Clinic</h1>
         <div class="logo-box">
-          <img src="media/CFC-Icon-House-People-3.png" alt="Community Family Clinic Logo" class="menu-icon-image" onclick="showhomePage()" />
+          <img src="media/CFC-Icon-House-People.png" alt="Community Family Clinic Logo" class="menu-icon-image" onclick="showhomePage()" />
         </div>
       </div>
     </div>
 
-    <!-- Breadcrumb nav -->
     <nav id="breadcrumb" class="breadcrumb"></nav>
-
-    <!-- Sidebar Menu -->
     <div id="menu" class="menu" role="menu">
       <button onclick="showCard('Home')">Home</button>
       <button onclick="showCard('Mission')">Mission</button>
@@ -87,7 +43,6 @@
     </div>
   </div>
 
-  <!-- Main Page Content -->
   <div class="page-wrapper">
     <div id="homePage" class="homePage-content">
       <h2><span class='black-text'>Welcome to Community Family Clinic</span></h2>
@@ -98,7 +53,6 @@
     <div id="text-card" class="text-card"></div>
   </div>
 
-  <!-- Footer -->
   <footer>
     <div class="social-links">
       <a href="https://facebook.com" target="_blank" class="facebook"><i class="fab fa-facebook"></i></a>

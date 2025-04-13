@@ -12,30 +12,37 @@
 
   <style>
     body {
+      transform: scale(1);
       margin: 0;
       font-family: Arial, sans-serif;
       background-color: #f0f0f0;
       padding: 0 20px;
       padding-top: 120px;
       padding-bottom: 80px;
+      transform-origin: top left;
+      width: 100%; /* Compensate for scale to avoid horizontal scroll */
     }
 
     .blue-text { color: #007bff; }
     .black-text { color: black; }
 
-    .menu-container {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      background-color: #ffffff;
-      padding: 2px 10px;
-      z-index: 20;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
+  .menu-container {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background-color: #e6ccff; /* updated to lilac */
+    padding: 2px 10px;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+.logo-title h1 {
+  margin-left: .5in;
+}
     .menu-top {
       display: flex;
+      transform: scale(1);
+      transform-origin: top right;
       justify-content: space-between;
       align-items: center;
       height: 90px;
@@ -55,24 +62,26 @@
       margin: 6px 0;
     }
 
-    .menu {
-      position: fixed;
-      top: 0; left: 0;
-      height: 100%;
-      width: 250px;
-      background: white;
-      padding: 20px;
-      box-shadow: 2px 0 15px rgba(0, 0, 0, 0.1);
-      z-index: 10;
-      display: flex;
-      flex-direction: column;
-      transform: translateX(-100%);
-      opacity: 0;
-      pointer-events: none;
-      transition: transform 0.5s ease-out, opacity 0.5s ease-out;
-      overflow-y: auto;
-      max-height: 100vh;
-    }
+.menu {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: auto;
+  background: white;
+  padding: 10px 15px;
+  box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.1);
+  z-index: 30;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  transform: translateY(100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+  overflow-x: auto;
+}
 
     .menu.open {
       transform: translateX(0);
@@ -96,7 +105,7 @@
       transition: background-color 0.3s;
     }
 
-    .menu button:nth-child(n) { background-color: #aaaaaa; }
+    .menu button:nth-child(n) { background-color: #e6ccff; }
     .menu button:hover { filter: brightness(90%); }
 
     .menu-icon-image {
@@ -123,17 +132,13 @@
       object-fit: contain;
     }
 
-    .logo-title {
-      display: flex;
-      align-items: center;
-      margin-left: auto;
-    }
-
-    .logo-title h1 {
-      margin: 0 10px;
-      font-size: 32px;
-      white-space: nowrap;
-    }
+.logo-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: auto;
+  width: 100%;
+}
 
     .breadcrumb {
       display: none;
@@ -194,7 +199,7 @@
       100% { background-position: bottom; }
     }
 
-    .homepage-content {
+    .homePage-content {
       max-height: 60vh;
       overflow-y: auto;
       background-color: white;
@@ -202,7 +207,7 @@
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
-    .homepage-title {
+    .homePage-title {
       position: sticky;
       top: 0;
       background-color: white;
@@ -212,7 +217,7 @@
       border-bottom: 1px solid #eee;
     }
 
-    .homepage-scroll {
+    .homePage-scroll {
       padding: 25px;
     }
 
@@ -252,9 +257,20 @@
       transition: color 0.3s;
     }
 
-    .social-links a:hover {
-      color: #007bff;
-    }
+.social-links a.facebook { color: #3b5998; }
+.social-links a.twitter { color: #1da1f2; }
+.social-links a.instagram { color: #e4405f; }
+.social-links a.linkedin { color: #0077b5; }
+.social-links a.whatsapp { color: #25d366; }
+.social-links a.email { color: #ea4335; }
+.social-links a.chat { color: #6c757d; }
+.social-links a.phone { color: #28a745; }
+
+.social-links a:hover {
+  opacity: 0.8;
+  transform: scale(1.1);
+  transition: all 0.2s ease-in-out;
+}
 
     html, body {
       height: 100%;
@@ -267,7 +283,7 @@
       min-height: 100vh;
     }
 
-    #homepage {
+    #homePage {
       flex: 1;
     }
 
@@ -298,13 +314,19 @@
         <div class="line"></div>
         <div class="line"></div>
       </div>
+
+
+
+
       <div class="logo-title">
         <h1>Community <span class="blue-text">Family</span> Clinic</h1>
-        <div class="circle-card">
-          <img src="community_family_clinic_logo.png" alt="Community Family Clinic Logo" class="menu-icon-image" onclick="showHomepage()" />
-        </div>
+<div class="logo-box">
+  <img src="media/community_family_clinic_logo.png" alt="Community Family Clinic Logo" class="menu-icon-image" onclick="showhomePage()" />
+</div>
+
       </div>
     </div>
+
     <nav id="breadcrumb" class="breadcrumb"></nav>
     <div id="menu" class="menu" role="menu">
       <button onclick="showCard('Home')">Home</button>
@@ -316,69 +338,37 @@
       <button onclick="showCard('About Us')">About Us</button>
       <button onclick="showCard('Blog')">Blog</button>
       <button onclick="showCard('FAQ')">FAQ</button>
-      <button onclick="showCard('Donate')">Donate</button>
+      <button onclick="showCard('Promotions')">Promotions</button>
     </div>
   </div>
 
   <div class="page-wrapper">
-    <div id="homepage" class="homepage-content">
-      <div class="homepage-title">
-        <h2 style="text-align: center;">Join us for our Grand Opening Celebration!</h2>
-        <p style="text-align: center;"><b>Community <span class="blue-text">Family</span> Clinic</b> grand opening promotions we offer (below).</p>
-      </div>
-      <div class="homepage-scroll">
 
-        <!-- Ad Block 1 -->
-        <div style="border: 1px solid #ccc; border-radius: 12px; padding: 20px; max-width: 800px; margin: 20px auto; box-shadow: 0 2px 8px rgba(0,0,0,0.1); background-color: #fff;">
-          <div class="row">
-            <div class="col-12">
-              <a href="https://womacromax.github.io/HEI/Test/HEI_Virtual_Medical_Services/Medical_assistant_virtual_services-mobile.html"
-                 target="_blank"
-                 class="promo-card-wrapper text-decoration-none">
-                <div class="promo-card">
-                  <h3>👩‍⚕️ Medical Assistant Virtual Services</h3>
-                  <p>Need help with primary care, pediatrics, or billing? We're here to assist you remotely.</p>
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Ad Block 2 -->
-        <a href="https://example.com/wellness-check" target="_blank" class="promo-card-wrapper text-decoration-none">
-          <div style="border: 1px solid #000; border-radius: 12px; padding: 25px; max-width: 800px; margin: 20px auto; background-color: #fff; color: #000; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.2s ease;">
-            <div class="promo-card">
-              <h3>🩺 Free Wellness Check – Limited Time!</h3>
-              <p>We're offering complimentary wellness checks for all new patients. No insurance required.</p>
-              <ul>
-                <li>✔️ Blood pressure and vitals check</li>
-                <li>✔️ Optional lab testing</li>
-                <li>✔️ Personalized wellness planning</li>
-              </ul>
-              <p><i>Now available through April 30. Walk-ins welcome!</i></p>
-            </div>
-          </div>
-        </a>
-
-      </div>
-    </div>
+<!--BEGIN: Home Page-->    
+<div id="homePage" class="homePage-content">
+    <h2><span class='black-text'>Welcome to Community Family Clinic</span></h2>
+    <p>We provide compassionate, high-quality care for families and individuals in our community.</p>
+</div>
+<!--  END: Home Page-->    
 
     <div id="card" class="card"></div>
     <div id="text-card" class="text-card"></div>
   </div>
 
-  <footer>
-    <div class="social-links">
-      <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
-      <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
-      <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-      <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
-      <a href="https://wa.me/1234567890" target="_blank"><i class="fab fa-whatsapp"></i></a>
-      <a href="mailto:info@example.com"><i class="fas fa-envelope"></i></a>
-      <a href="#"><i class="fas fa-comment-dots"></i></a>
-      <a href="tel:+17035962482"><i class="fas fa-phone"></i></a>
-    </div>
-  </footer>
+<!--BEGIN: Footer-->    
+ <footer>
+  <div class="social-links">
+    <a href="https://facebook.com" target="_blank" class="facebook"><i class="fab fa-facebook"></i></a>
+    <a href="https://twitter.com" target="_blank" class="twitter"><i class="fab fa-twitter"></i></a>
+    <a href="https://instagram.com" target="_blank" class="instagram"><i class="fab fa-instagram"></i></a>
+    <a href="https://linkedin.com" target="_blank" class="linkedin"><i class="fab fa-linkedin"></i></a>
+    <a href="https://wa.me/1234567890" target="_blank" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
+    <a href="mailto:info@example.com" class="email"><i class="fas fa-envelope"></i></a>
+    <a href="#" class="chat"><i class="fas fa-comment-dots"></i></a>
+    <a href="tel:+17035962482" class="phone"><i class="fas fa-phone"></i></a>
+  </div>
+</footer>
+<!--  END: Footer-->    
 
 
   <!-- Bootstrap JS -->
@@ -458,10 +448,11 @@
           <p><strong>Q:</strong> Do I need insurance?</p>
           <p><strong>A:</strong> No, we provide care regardless of insurance status.</p>`
       },
-      "Donate": {
-        title: "<h2><span class='black-text'>Support Us</span></h2>",
-        text: "<p>Your <strong>donation</strong> helps us offer care to those in need. <a href='#'>Click here to donate</a>.</p>"
+      "Promotions": {
+        title: "<h2><span class='black-text'>Promotions</span></h2>",
+        text: "" // Will be loaded dynamically
       }
+
     };
 
     let breadcrumbHistory = [];
@@ -473,37 +464,57 @@
     }
 
     function showCard(menuItem) {
-      document.getElementById("homepage").style.display = "none";
+      document.getElementById("homePage").style.display = "none";
       breadcrumbHistory.push(menuItem);
       updateContent(menuItem);
       toggleMenu();
     }
 
-    function updateContent(menuItem) {
-      const content = contentData[menuItem];
-      const card = document.getElementById("card");
-      const textCard = document.getElementById("text-card");
-      const breadcrumb = document.getElementById("breadcrumb");
+function updateContent(menuItem) {
+  const content = contentData[menuItem];
+  const card = document.getElementById("card");
+  const textCard = document.getElementById("text-card");
+  const breadcrumb = document.getElementById("breadcrumb");
 
-      if (!content || (!content.title.trim() && !content.text.trim())) {
-        card.style.display = "none";
-        textCard.style.display = "none";
-        breadcrumb.style.display = "none";
-        return;
-      }
+  if (!content || (!content.title.trim() && !content.text.trim())) {
+    card.style.display = "none";
+    textCard.style.display = "none";
+    breadcrumb.style.display = "none";
+    return;
+  }
 
-      card.innerHTML = content.title;
-      textCard.innerHTML = content.text;
+  card.innerHTML = content.title;
 
-      card.style.display = content.title.trim() ? "flex" : "none";
-      textCard.style.display = content.text.trim() ? "block" : "none";
-      breadcrumb.innerHTML = generateBreadcrumbHTML();
-      breadcrumb.style.display = "block";
-    }
+  if (menuItem === "Promotions") {
+    fetch("promotions/promotions.html")
+      .then(response => response.text())
+      .then(data => {
+        textCard.innerHTML = data;
+        card.style.display = content.title.trim() ? "flex" : "none";
+        textCard.style.display = "block";
+        breadcrumb.innerHTML = generateBreadcrumbHTML();
+        breadcrumb.style.display = "block";
+      })
+      .catch(err => {
+        textCard.innerHTML = "<p>Unable to load promotions at this time.</p>";
+        card.style.display = content.title.trim() ? "flex" : "none";
+        textCard.style.display = "block";
+        breadcrumb.innerHTML = generateBreadcrumbHTML();
+        breadcrumb.style.display = "block";
+      });
+  } else {
+    textCard.innerHTML = content.text;
+    card.style.display = content.title.trim() ? "flex" : "none";
+    textCard.style.display = content.text.trim() ? "block" : "none";
+    breadcrumb.innerHTML = generateBreadcrumbHTML();
+    breadcrumb.style.display = "block";
+  }
+}
+
 
     function generateBreadcrumbHTML() {
       return `
-        <a href="#" onclick="showHomepage()">PROMOTIONS</a>
+        <a href="#" onclick="showhomePage()">Home</a>
         ${breadcrumbHistory.map((item, i) => i === breadcrumbHistory.length - 1
           ? `<span>› ${item}</span>`
           : `<a href="#" onclick="navigateTo(${i})">› ${item}</a>`).join('')}`;
@@ -514,8 +525,8 @@
       updateContent(breadcrumbHistory[index]);
     }
 
-    function showHomepage() {
-      document.getElementById("homepage").style.display = "block";
+    function showhomePage() {
+      document.getElementById("homePage").style.display = "block";
       document.getElementById("card").style.display = "none";
       document.getElementById("text-card").style.display = "none";
       document.getElementById("breadcrumb").style.display = "none";

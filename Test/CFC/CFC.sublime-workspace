@@ -1,0 +1,816 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"manae",
+				"management"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"contents": "const contentData = {\n  \"Home\": {\n    title: \"<h2><span class='black-text'>Welcome to Community Family Clinic</span></h2>\",\n    text: \"<p>We provide compassionate, high-quality care for families and individuals in our community.</p>\"\n  },\n  \"Mission\": {\n    title: \"<h2>Our <span class='black-text'>Mission</span></h2>\",\n    text: \"<p>To provide <strong>high-quality, affordable healthcare</strong> for all individuals and families.</p>\"\n  },\n  \"Services\": {\n    title: \"<h2>Our <span class='black-text'>Services</span></h2>\",\n    text: `\n      <p><strong>CFC provides primary care, including:</strong></p>\n      <ul style=\"list-style-type: circle;\">\n        <li>annual physicals</li>\n        <li>laboratory testing</li>\n        <li>vaccinations</li>\n        <li>screening and treatment for chronic conditions</li>\n        <li>care for minor symptoms</li>\n        <li>treatment of common illnesses</li>\n        <li>minor injury care</li>\n      </ul>\n      <p>Others include:</p>\n      <ul style=\"list-style-type: circle;\">\n        <li>Health education</li>\n        <li>Nutrition guidance</li>\n        <li>Pregnancy tests</li>\n        <li>Immunization</li>\n        <li>Cardiology</li>\n        <li>Counseling</li>\n        <li>Case management</li>\n      </ul>`\n  },\n  \"Credentials\": {\n    title: \"<h2>Our <span class='black-text'>Credentials</span></h2>\",\n    text: \"<p>Board-certified physicians, licensed nurses, and experienced healthcare professionals.</p>\"\n  },\n  \"Contact Us\": {\n    title: \"<h2><span class='black-text'>Contact Us</span></h2>\",\n    text: `\n      <p>Reach out to us:</p>\n      <ul>\n        <li>Phone: (123) 456-7890</li>\n        <li>Email: info@communityclinic.org</li>\n        <li>Address: 123 Wellness Ave, Caretown, USA</li>\n      </ul>`\n  },\n  \"Team\": {\n    title: \"<h2>Meet Our <span class='black-text'>Team</span></h2>\",\n    text: \"<p>Meet our compassionate team dedicated to your care and well-being.</p>\"\n  },\n  \"About Us\": {\n    title: \"<h2><span class='black-text'>About Us</span></h2>\",\n    text: \"<p>Biography and credentials of Dr. Okunji and her significant academic and research achievements.</p>\"\n  },\n  \"Blog\": {\n    title: \"<h2><span class='black-text'>Blog & News</span></h2>\",\n    text: \"<p>Stay informed with health tips, updates, and community stories.</p>\"\n  },\n  \"FAQ\": {\n    title: \"<h2><span class='black-text'>FAQs</span></h2>\",\n    text: `\n      <p><strong>Q:</strong> Do I need insurance?</p>\n      <p><strong>A:</strong> No, we provide care regardless of insurance status.</p>`\n  },\n  \"Promotions\": {\n    title: \"<h2><span class='black-text'>Promotions</span></h2>\",\n    text: \"\"\n  }\n};",
+			"settings":
+			{
+				"buffer_size": 2635,
+				"line_ending": "Windows"
+			},
+			"undo_stack":
+			[
+				[
+					1,
+					1,
+					"paste",
+					null,
+					"AQAAAAAAAAAAAAAASwoAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
+				]
+			]
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"server",
+				"Live Server Plus: Start"
+			],
+			[
+				"back",
+				"Create backup copy of file"
+			],
+			[
+				"auto",
+				"Toggle AutoSave: all files"
+			],
+			[
+				"",
+				"Colorsublime: Install Theme"
+			],
+			[
+				"path",
+				"Copy File Path"
+			],
+			[
+				"comm",
+				"Toggle Comment"
+			],
+			[
+				"pret",
+				"HTMLPrettify"
+			],
+			[
+				"upper",
+				"Convert Case: Upper Case"
+			],
+			[
+				"autoa",
+				"Toggle AutoSave: all files"
+			],
+			[
+				"serve",
+				"Live Server: Start"
+			],
+			[
+				"serv",
+				"Live Server Plus: Start"
+			],
+			[
+				"start",
+				"Live Server: Start"
+			],
+			[
+				"title",
+				"Convert Case: Title Case"
+			],
+			[
+				"save",
+				"File: Save All"
+			],
+			[
+				"live",
+				"Live Server Plus: Start"
+			],
+			[
+				"renam",
+				"File: Rename File"
+			],
+			[
+				"prett",
+				"HTMLPrettify"
+			],
+			[
+				"ren",
+				"File: Rename File"
+			],
+			[
+				"ti",
+				"Convert Case: Title Case"
+			],
+			[
+				"rename",
+				"File: Rename File"
+			],
+			[
+				"brackt",
+				"Jump to Matching Bracket"
+			],
+			[
+				"fold",
+				"Code Folding: Fold All"
+			],
+			[
+				"fold ",
+				"Code Folding: Fold All"
+			],
+			[
+				"color",
+				"UI: Select Color Scheme"
+			],
+			[
+				"matching",
+				"Jump to Matching Bracket"
+			],
+			[
+				"file",
+				"File: Move…"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"rena",
+				"File: Rename File"
+			],
+			[
+				"folder",
+				"Project: Add Folder"
+			],
+			[
+				"file m",
+				"File: Move…"
+			],
+			[
+				"pro",
+				"Project: Save As"
+			],
+			[
+				"com",
+				"Toggle Comment"
+			],
+			[
+				"html",
+				"Set Syntax: HTML"
+			],
+			[
+				"qui",
+				"Quick File Move: Move Current File"
+			],
+			[
+				"quick",
+				"Quick File Move: Move Current File"
+			],
+			[
+				"save all",
+				"File: Save All"
+			],
+			[
+				"lower",
+				"Convert Case: Lower Case"
+			],
+			[
+				"lo",
+				"Convert Case: Lower Case"
+			],
+			[
+				"autosave",
+				"Toggle AutoSave: all files"
+			],
+			[
+				"wrap",
+				"Word Wrap: Toggle"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"install ",
+				"Package Control: Install Package"
+			],
+			[
+				"tit",
+				"Convert Case: Title Case"
+			],
+			[
+				"titl",
+				"Convert Case: Title Case"
+			],
+			[
+				"the",
+				"UI: Select Theme"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/CFC"
+	],
+	"file_history":
+	[
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/CFC/promotions/promotions.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/CFC/home/home.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/CFC/old/cardIndexView.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/other-modal.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/health-wellness-modal.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/family-support-modal.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/rental-assistance-modal.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/utility-assistance-modal.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/CFC/media/CFC-Icon Filler 03.png",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/CFC/media/CFC-Icon Filler 00.png",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/CFC/Community family clinic-mobile.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/CFC/index 2",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/flyers/scripts.js",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/flyers/modals/service-modal.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/flyers/internal modals/rental-assistance-modal.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/flyers/internal modals/health-wellness-modal.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/flyers/styles.css",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/flyers/resident-services-00.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/index.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/flyers/resident-services-03.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/flyers/modals/rental-assistance-modal.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/flyers/modals/utility-assistance-modal.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/flyers/modals/family-programming-modal.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/flyers/resident-services-email-00.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/flyers/index.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/flyers/old/scripts_load modal from JSON.js",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/flyers/resident-services-04 last of JSON feed.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/flyers/resident-services-03.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/flyers/resident-services-email-00.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/flyers/modals/service-modal.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/flyers/modals/dialpad.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/flyers/modals/email-modal-complete.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/flyers/modals/rental-assistance-modal.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/flyers/resident-services-01.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/flyers/resident-services-02.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Social Media/Social Media in iFrames/build files2.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/CFC/CFC-desktop.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Social Media/Social Media in iFrames/build files/14.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Social Media/Social Media in iFrames/build files/.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Social Media/Social Media in iFrames/build files/12.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Social Media/Social Media in iFrames/build files/10.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Social Media/Social Media in iFrames/build files/9.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Social Media/Social Media in iFrames/build files/8.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Social Media/Social Media in iFrames/build files/7.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Social Media/Social Media in iFrames/build files/6.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Social Media/Social Media in iFrames/build files/5.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Social Media/Social Media in iFrames/build files/3.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Social Media/Social Media in iFrames/build files/prompts.AI",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Social Media/Social Media in iFrames/styles.css",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Social Media/Social Media in iFrames/scripts.js",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Social Media/Social Media in iFrames/modals.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Social Media/social_media_links.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/CFC/Community family clinic-mobile.html",
+		"/C/Users/blab9/OneDrive/WoMacroMAX Publishing-LoMax/Community Family Clinic/Community family clinic-mobile.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/CFC/old/Community family clinic-mobile_033125.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Medical Virtual Services View/Zelle Service Payment Form.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Medical Virtual Services View/tell us about your needs [with javascript].html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Medical Virtual Services View/HEI-Medical Assistant Virtual Services.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Medical Virtual Services View/tell us about your needs [without javascript]-links.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Medical Virtual Services View/email-friendly version.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Quad Color Cards View/medical assistant virtual services.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Medical Virtual Services View/HEI Logo.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Interacts With Google Calendar/Interacts With Microsoft Graph -Shows Availabilit.AI",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Interacts With Google Calendar/Interacts With Microsoft 365 Calendar -Shows Availability and Sets.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Interacts With Google Calendar/Interacts With Google Calendar -Shows Availability and Sets.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Quad Color Cards View/MCS Contract index.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/mobile/services-mobile.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/MCS Sales Contract with Equipment.css",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/MCS Sales Contract with Equipment.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/mobile/medical virtual assistant-mobile.html",
+		"/C/Users/blab9/OneDrive/WoMacroMAX Publishing-LoMax/HEI/desktop/services-desktop.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/desktop/forms/temp.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/MCS Sales Contract with Equipment.js",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Quad Color Cards View/Quad Color Cards View_03 swipe.AI",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/desktop/forms/Quad Color Cards swipe.AI_2",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Quad Color Cards View/Quad Color Cards View_03 swipe.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Quad Color Cards View/Quad Color Cards View_01.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Quad Color Cards View/Quad Color Cards View_00.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/desktop/forms/Virtual Medical Assistant-desktop.html",
+		"/C/Users/blab9/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/INFO/Name Your Price.INFO",
+		"/C/Users/blab9/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/INFO/Copilot Prompts.txt",
+		"/C/Users/blab9/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/Archives/TripOmeter.html",
+		"/C/Users/blab9/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/temp.html",
+		"/C/Users/blab9/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/Choose Your Items (Pallet Loader) 1.html",
+		"/C/Users/blab9/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/skeleton view.html",
+		"/C/Users/blab9/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/Choose to Move with Tabs.html",
+		"/C/Users/blab9/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/Archives/Description-2.html",
+		"/C/Users/blab9/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/Archives/Stacked Pallet 09 working images.html",
+		"/C/Users/blab9/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/Stack Pallets Side-By-Side with remove button 17.html",
+		"/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/truck-load grid. 2.html",
+		"/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/Load Manager 19 align top-left.html",
+		"/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/Archives/Fill the Truck.html",
+		"/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/Stacked Pallet 12 max cases.html",
+		"/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/Stacked Pallet 09 working images.html",
+		"/C/Users/WoMax/AppData/Roaming/Sublime Text/Packages/User/Bash.sublime-build",
+		"/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/temp.html",
+		"/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/powershell - backup folder to onedrive.ps1",
+		"/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/place the hamburger menu at the top right of the s",
+		"/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/the Impact Effect.html",
+		"/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/truck-load COUNT-07.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/mobile/burger-menu (icons) 02.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/mobile/Certifications-mobile.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/mobile/Compliance Monitoring-mobile.html",
+		"/C/Users/WoMax/Documents/WoMacroMAX Publishing/MoveCheap/Name Your Price Tool/place the hamburger menu at the top right of the s",
+		"/C/Users/WoMax/Documents/WoMacroMAX Publishing/MoveCheap/Name Your Price Tool/TripOmeter.html",
+		"/C/Users/WoMax/Documents/WoMacroMAX Publishing/MoveCheap/Name Your Price Tool/truck-load COUNT-07.html",
+		"/C/Users/WoMax/Documents/truck-load COUNT-07.html",
+		"/C/Users/WoMax/Documents/WoMacroMAX Publishing/MoveCheap/Name Your Price Tool/Fill the Truck.html",
+		"/C/Users/WoMax/Documents/HTML/Fill the Truck.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/mobile/Manage Clinical Trial Inspection-mobile.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/mobile/articles-mobile.html",
+		"/C/Users/WoMax/Documents/WoMacroMAX Publishing/MoveCheap/Name Your Price Tool/the Impact Effect.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/mobile/the Impact Effect.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/mobile/aboutus-mobile.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/mobile/services-mobile.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/index.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/mobile/index-mobile.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/mobile/contactus.html",
+		"/C/Users/WoMax/Documents/WoMacroMAX Publishing/MoveCheap/Name Your Price Tool/each color represents a random food name.txt",
+		"/C/Users/WoMax/Documents/GitHub/HEI/mobile/IRB Submission-mobile.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/desktop/chw management-desktop.html.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/desktop/certifications-desktop.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/desktop/articles-desktop.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/desktop/aboutus-desktop.html",
+		"/C/Users/WoMax/Documents/HTML/hamburger-side from JSON string with modal -02.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/mobile/mobile-header.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/desktop/services-desktop.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/desktop/menu-desktop.html"
+	],
+	"find":
+	{
+		"height": 42.4
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"updateContent",
+			"promotion",
+			".menu",
+			"people",
+			"image",
+			".png.png",
+			".png\" alt",
+			"images",
+			"image",
+			"menu-icon",
+			"transform-origin",
+			"toggleMenu",
+			"1",
+			"menu",
+			"body",
+			"Home",
+			"Mission",
+			"Home",
+			"updateContent",
+			"Promotions",
+			"script>",
+			">\n",
+			"Donate",
+			"promotionsPage",
+			"homePage",
+			"promotionsPage",
+			"Home",
+			".menu-icon",
+			"Medical",
+			"icon",
+			"icon-",
+			"icon",
+			"icon-box",
+			"menu-icon",
+			".logo-title",
+			"logo-title",
+			"social-links",
+			"footer",
+			"CFC-NV.png",
+			"display",
+			"menu",
+			"menu-container",
+			"icon",
+			"index",
+			"Galler",
+			"about us",
+			"service",
+			"Services",
+			"rental",
+			"Rental Assistance",
+			"ho",
+			"Rental Assistance",
+			"Health",
+			"healthWelnessModalContainer",
+			"rental",
+			"rentalModal",
+			"rental",
+			"health",
+			"modal",
+			"wellnessCheckbox",
+			"rental",
+			"modal",
+			"serv",
+			"services",
+			"details",
+			"Rental",
+			"true",
+			"rental",
+			"rentalCheckbox",
+			"rental",
+			"eg",
+			"familyProgramming",
+			"familyProgramming=",
+			"health",
+			"healthWelness",
+			"utility",
+			"utilityAssistance",
+			"womac",
+			"rental",
+			"womacro",
+			"resident",
+			"rental",
+			"true",
+			"rentalAssistanceClick",
+			"rental",
+			"rentalAssistanceClick",
+			"selectRentalAssistance",
+			"womacro",
+			"we help",
+			"We hel",
+			"rental",
+			"close",
+			"7035962482",
+			".modal-dial",
+			"emailModal",
+			"emailmodal",
+			"selectServiceBtn",
+			"acceptServiceBtn",
+			"Accept",
+			"sendemail",
+			"funcion open",
+			"cjones@vestacorp.com",
+			"alert",
+			"openEmailModalWithServices",
+			"sendEmail",
+			"Teal",
+			"instagram",
+			".com",
+			"welcom",
+			"bundle.min.js",
+			"h1",
+			"400px",
+			"400",
+			"menu-icon",
+			"22",
+			"10%",
+			"Community",
+			"before",
+			"befor",
+			"800",
+			"center",
+			"blue-text",
+			">Home<",
+			"Home",
+			"\"",
+			"updateContent",
+			"menuItem",
+			"randomText"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"scrollbar_highlights": true,
+		"show_context": true,
+		"use_buffer2": true,
+		"use_gitignore": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"selected": true,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2635,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2393,
+								2525
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+									"1":
+									[
+										2529,
+										2530
+									]
+								},
+								"icon":
+								{
+									"1":
+									[
+										"Packages/BracketHighlighter/icons/curly_bracket.png",
+										"region.purplish"
+									]
+								},
+								"open":
+								{
+									"1":
+									[
+										2313,
+										2314
+									]
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content"
+							],
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 600.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"stack_multiselect": false,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"sheets":
+			[
+			]
+		},
+		{
+			"sheets":
+			[
+			]
+		},
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 29.3333333333
+	},
+	"input":
+	{
+		"height": 45.6
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			],
+			[
+				0,
+				1,
+				1,
+				2
+			],
+			[
+				1,
+				1,
+				2,
+				2
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.798124383021,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			0.797297297297,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 150.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.mdpopups":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "Packages/Python/Python.sublime-build",
+	"project": "CFC.sublime-project",
+	"replace":
+	{
+		"height": 54.6666666667
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 282.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
