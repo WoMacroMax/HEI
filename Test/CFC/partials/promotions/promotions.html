@@ -1,26 +1,86 @@
-      
-      <div class="promotionsPage-title">
-        <h2 style="text-align: center;">Join us for our Grand Opening Celebration!</h2>
-        <p style="text-align: center;"><b>Community <span class="blue-text">Family</span> Clinic</b> grand opening promotions we offer (below).</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Community Family Clinic Grand Opening</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+    }
+    .promo-card {
+      border: 1px solid #000;
+      border-radius: 12px;
+      padding: 25px;
+      background-color: #fff;
+      color: #000;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease;
+      max-width: 800px;
+      margin: 40px auto;
+      cursor: pointer;
+    }
+    .promo-card:hover {
+      transform: scale(1.05);
+    }
+    .promo-card h3 {
+      margin-bottom: 15px;
+    }
+    .promo-card ul {
+      margin: 15px 0;
+      padding-left: 20px;
+    }
+    .promo-card ul li {
+      margin-bottom: 10px;
+    }
+    .promo-card p {
+      font-style: italic;
+    }
+    .modal-dialog {
+      max-width: 90%;
+    }
+    .modal-body iframe {
+      width: 100%;
+      height: 80vh;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Clickable Promo Card -->
+  <div class="promo-card" data-bs-toggle="modal" data-bs-target="#urlModal">
+    <h3>Community Family Clinic - Grand Opening</h3>
+    <p>🩺 Free Wellness Check – Limited Time!</p>
+    <p>We're offering complimentary wellness checks for all new patients. No insurance required.</p>
+    <ul>
+      <li>✔️ Blood pressure and vitals check</li>
+      <li>✔️ Optional lab testing</li>
+      <li>✔️ Personalized wellness planning</li>
+    </ul>
+    <p><i>Now available through April 30. Walk-ins welcome!</i></p>
+  </div>
+
+  <!-- Modal with external URL -->
+  <div class="modal fade" id="urlModal" tabindex="-1" aria-labelledby="urlModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="urlModalLabel">Learn More: Community Family Clinic</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <iframe src="https://example.com" title="External Link"></iframe>
+        </div>
       </div>
+    </div>
+  </div>
 
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-      <div class="promotionsPage-scroll">
-  
-        <!-- Ad Block 1 -->
-        <a href="https://example.com/wellness-check" target="_blank" class="promo-card-wrapper text-decoration-none">
-          <div style="border: 1px solid #000; border-radius: 12px; padding: 25px; max-width: 800px; margin: 20px auto; background-color: #fff; color: #000; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.2s ease;">
-            <div class="promo-card">
-              <h3>🩺 Free Wellness Check – Limited Time!</h3>
-              <p>We're offering complimentary wellness checks for all new patients. No insurance required.</p>
-              <ul>
-                <li>✔️ Blood pressure and vitals check</li>
-                <li>✔️ Optional lab testing</li>
-                <li>✔️ Personalized wellness planning</li>
-              </ul>
-              <p><i>Now available through April 30. Walk-ins welcome!</i></p>
-            </div>
-          </div>
-        </a>
-
-      </div>
+</body>
+</html>
