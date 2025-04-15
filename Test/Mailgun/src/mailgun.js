@@ -1,4 +1,9 @@
 require('dotenv').config();
+
+const apiKey = process.env.API_KEY;
+console.log("API Key:", apiKey); // use it safely, e.g., in requests
+
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const axios = require('axios');
@@ -25,7 +30,7 @@ app.post('/send-email', async (req, res) => {
             {
                 auth: {
                     username: 'api',
-                    password: '' // Replace with your Mailgun API Key
+                    password: apiKey // Replace with your Mailgun API Key
                 }
             }
         );
