@@ -38,7 +38,7 @@
 document.getElementById("emailForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   const response = document.getElementById("response");
-  response.textContent = "Sending...";
+  response.innerHTML = "Sending...";
 
   const data = {
     to: document.getElementById("to").value,
@@ -47,7 +47,7 @@ document.getElementById("emailForm").addEventListener("submit", async (e) => {
   };
 
   try {
-    const res = await fetch("/send-email", {
+    const res = await fetch("/.netlify/functions/send-email", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -55,12 +55,12 @@ document.getElementById("emailForm").addEventListener("submit", async (e) => {
 
     const result = await res.json();
     if (res.ok) {
-      response.innerHTML = `<div class="alert alert-success">Email sent successfully!</div>`;
+      response.innerHTML = `<div class="alert alert-success">Email sent!</div>`;
     } else {
-      response.innerHTML = `<div class="alert alert-danger">Error: ${result.message}</div>`;
+      response.innerHTML = `<div class="alert alert-danger">${result.message}</div>`;
     }
   } catch (err) {
-    response.innerHTML = `<div class="alert alert-danger">Request failed.</div>`;
+    response.innerHTML = `<div class="alert alert-danger">Error sending email.</div>`;
   }
 });
 </script>
