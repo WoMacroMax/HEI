@@ -47,7 +47,7 @@ document.getElementById("emailForm").addEventListener("submit", async (e) => {
   };
 
   try {
-    const res = await fetch("/.netlify/functions/send-email", {
+    const res = await fetch("/functions/send-email", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
