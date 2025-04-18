@@ -26,7 +26,7 @@
 					"paste",
 					null,
 					"AQAAAAAAAAAAAAAASwoAAAAAAAAAAAAA",
-					"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
+					"AwAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwvw"
 				]
 			]
 		}
@@ -402,7 +402,7 @@
 	],
 	"find":
 	{
-		"height": 42.4
+		"height": 29.6
 	},
 	"find_in_files":
 	{
@@ -678,7 +678,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 600.0,
+						"translation.y": 540.8,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -705,7 +705,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 29.3333333333
+		"height": 29.6
 	},
 	"input":
 	{
@@ -770,7 +770,7 @@
 	"project": "CFC.sublime-project",
 	"replace":
 	{
-		"height": 54.6666666667
+		"height": 56.0
 	},
 	"save_all_on_build": true,
 	"select_file":
