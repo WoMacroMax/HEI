@@ -303,7 +303,8 @@
     <a href="#"><i class="fab fa-twitter"></i></a>
     <a href="#"><i class="fab fa-linkedin"></i></a>
     <a href="#"><i class="fab fa-whatsapp"></i></a>
-    <a href="#"><i class="fas fa-envelope"></i></a>
+    <a href="#" id="emailIcon"><i class="fas fa-envelope"></i></a>
+
   </div>
   <button class="portfolio-button" id="openPortfolioBtn">Portfolio</button>
 </section>
@@ -432,6 +433,14 @@ const emailPanel = document.getElementById('emailPanel');
 const closePortfolioBtn = document.getElementById('closePortfolioBtn');
 const closeEmailBtn = document.getElementById('closeEmailBtn');
 const overlay = document.getElementById('overlay');
+const emailIcon = document.getElementById('emailIcon');
+
+emailIcon.addEventListener('click', (e) => {
+  e.preventDefault();
+  portfolioPanel.classList.remove('show');
+  emailPanel.classList.add('show');
+  overlay.classList.add('show');
+});
 
 // Open Portfolio
 openPortfolioBtn.addEventListener('click', () => {
