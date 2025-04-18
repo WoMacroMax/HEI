@@ -11,6 +11,7 @@
 	},
 	"buffers":
 	[
+<<<<<<< HEAD
 		{
 			"contents": "const contentData = {\n  \"Home\": {\n    title: \"<h2><span class='black-text'>Welcome to Community Family Clinic</span></h2>\",\n    text: \"<p>We provide compassionate, high-quality care for families and individuals in our community.</p>\"\n  },\n  \"Mission\": {\n    title: \"<h2>Our <span class='black-text'>Mission</span></h2>\",\n    text: \"<p>To provide <strong>high-quality, affordable healthcare</strong> for all individuals and families.</p>\"\n  },\n  \"Services\": {\n    title: \"<h2>Our <span class='black-text'>Services</span></h2>\",\n    text: `\n      <p><strong>CFC provides primary care, including:</strong></p>\n      <ul style=\"list-style-type: circle;\">\n        <li>annual physicals</li>\n        <li>laboratory testing</li>\n        <li>vaccinations</li>\n        <li>screening and treatment for chronic conditions</li>\n        <li>care for minor symptoms</li>\n        <li>treatment of common illnesses</li>\n        <li>minor injury care</li>\n      </ul>\n      <p>Others include:</p>\n      <ul style=\"list-style-type: circle;\">\n        <li>Health education</li>\n        <li>Nutrition guidance</li>\n        <li>Pregnancy tests</li>\n        <li>Immunization</li>\n        <li>Cardiology</li>\n        <li>Counseling</li>\n        <li>Case management</li>\n      </ul>`\n  },\n  \"Credentials\": {\n    title: \"<h2>Our <span class='black-text'>Credentials</span></h2>\",\n    text: \"<p>Board-certified physicians, licensed nurses, and experienced healthcare professionals.</p>\"\n  },\n  \"Contact Us\": {\n    title: \"<h2><span class='black-text'>Contact Us</span></h2>\",\n    text: `\n      <p>Reach out to us:</p>\n      <ul>\n        <li>Phone: (123) 456-7890</li>\n        <li>Email: info@communityclinic.org</li>\n        <li>Address: 123 Wellness Ave, Caretown, USA</li>\n      </ul>`\n  },\n  \"Team\": {\n    title: \"<h2>Meet Our <span class='black-text'>Team</span></h2>\",\n    text: \"<p>Meet our compassionate team dedicated to your care and well-being.</p>\"\n  },\n  \"About Us\": {\n    title: \"<h2><span class='black-text'>About Us</span></h2>\",\n    text: \"<p>Biography and credentials of Dr. Okunji and her significant academic and research achievements.</p>\"\n  },\n  \"Blog\": {\n    title: \"<h2><span class='black-text'>Blog & News</span></h2>\",\n    text: \"<p>Stay informed with health tips, updates, and community stories.</p>\"\n  },\n  \"FAQ\": {\n    title: \"<h2><span class='black-text'>FAQs</span></h2>\",\n    text: `\n      <p><strong>Q:</strong> Do I need insurance?</p>\n      <p><strong>A:</strong> No, we provide care regardless of insurance status.</p>`\n  },\n  \"Promotions\": {\n    title: \"<h2><span class='black-text'>Promotions</span></h2>\",\n    text: \"\"\n  }\n};",
 			"settings":
@@ -30,6 +31,8 @@
 				]
 			]
 		}
+=======
+>>>>>>> a764fb1d52b7cbce9964ff772feb9e80aeb39d68
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -267,10 +270,20 @@
 	},
 	"expanded_folders":
 	[
-		"/C/Users/WoMax/Documents/GitHub/HEI/Test/CFC"
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/CFC"
 	],
 	"file_history":
 	[
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/CFC/css/styles.css",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/CFC/index-desktop.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/CFC/partials/promotions/promotions.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/CFC/partials/credentials/credentials.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/CFC/old/P Okunji Biography.txt",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/CFC/old/temp.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/mobilityPages/mbPage-10.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/CFC/old/cardIndexView.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/CFC/index-mobile.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/CFC/old/index-desktop_old.html",
 		"/C/Users/WoMax/Documents/GitHub/HEI/Test/CFC/promotions/promotions.html",
 		"/C/Users/WoMax/Documents/GitHub/HEI/Test/CFC/home/home.html",
 		"/C/Users/WoMax/Documents/GitHub/HEI/Test/CFC/old/cardIndexView.html",
@@ -388,21 +401,15 @@
 		"/C/Users/WoMax/Documents/GitHub/HEI/mobile/services-mobile.html",
 		"/C/Users/WoMax/Documents/GitHub/HEI/index.html",
 		"/C/Users/WoMax/Documents/GitHub/HEI/mobile/index-mobile.html",
-		"/C/Users/WoMax/Documents/GitHub/HEI/mobile/contactus.html",
-		"/C/Users/WoMax/Documents/WoMacroMAX Publishing/MoveCheap/Name Your Price Tool/each color represents a random food name.txt",
-		"/C/Users/WoMax/Documents/GitHub/HEI/mobile/IRB Submission-mobile.html",
-		"/C/Users/WoMax/Documents/GitHub/HEI/desktop/chw management-desktop.html.html",
-		"/C/Users/WoMax/Documents/GitHub/HEI/desktop/certifications-desktop.html",
-		"/C/Users/WoMax/Documents/GitHub/HEI/desktop/articles-desktop.html",
-		"/C/Users/WoMax/Documents/GitHub/HEI/desktop/aboutus-desktop.html",
-		"/C/Users/WoMax/Documents/HTML/hamburger-side from JSON string with modal -02.html",
-		"/C/Users/WoMax/Documents/GitHub/HEI/mobile/mobile-header.html",
-		"/C/Users/WoMax/Documents/GitHub/HEI/desktop/services-desktop.html",
-		"/C/Users/WoMax/Documents/GitHub/HEI/desktop/menu-desktop.html"
+		"/C/Users/WoMax/Documents/GitHub/HEI/mobile/contactus.html"
 	],
 	"find":
 	{
+<<<<<<< HEAD
 		"height": 29.6
+=======
+		"height": 28.0
+>>>>>>> a764fb1d52b7cbce9964ff772feb9e80aeb39d68
 	},
 	"find_in_files":
 	{
@@ -416,6 +423,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"our cred",
+			"\nOkunji",
+			"Okunji",
+			". ",
 			"updateContent",
 			"promotion",
 			".menu",
@@ -539,11 +550,7 @@
 			"center",
 			"blue-text",
 			">Home<",
-			"Home",
-			"\"",
-			"updateContent",
-			"menuItem",
-			"randomText"
+			"Home"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -565,6 +572,7 @@
 		{
 			"sheets":
 			[
+<<<<<<< HEAD
 				{
 					"buffer": 0,
 					"selected": true,
@@ -685,6 +693,8 @@
 					"stack_multiselect": false,
 					"type": "text"
 				}
+=======
+>>>>>>> a764fb1d52b7cbce9964ff772feb9e80aeb39d68
 			]
 		},
 		{
@@ -705,7 +715,11 @@
 	],
 	"incremental_find":
 	{
+<<<<<<< HEAD
 		"height": 29.6
+=======
+		"height": 28.0
+>>>>>>> a764fb1d52b7cbce9964ff772feb9e80aeb39d68
 	},
 	"input":
 	{
@@ -770,7 +784,11 @@
 	"project": "CFC.sublime-project",
 	"replace":
 	{
+<<<<<<< HEAD
 		"height": 56.0
+=======
+		"height": 52.8
+>>>>>>> a764fb1d52b7cbce9964ff772feb9e80aeb39d68
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -808,7 +826,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 282.0,
+	"side_bar_width": 356.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
