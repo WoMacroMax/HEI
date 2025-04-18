@@ -268,15 +268,13 @@
     }
 
     /* MARKETING WRITE-UP Section */
-    .marketing-section {
-      padding: 40px 20px;
-      max-width: 800px;
-      margin: 0 auto;
-      text-align: center;
-      opacity: 0;
-      transform: translateY(50px);
-      transition: all 1s ease;
-    }
+.marketing-section {
+  padding: 40px 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
     .marketing-section.visible {
       opacity: 1;
       transform: translateY(0);
@@ -470,15 +468,7 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// Fade-in Marketing Write-up
-const marketingSection = document.getElementById('marketingSection');
-window.addEventListener('scroll', () => {
-  const sectionTop = marketingSection.getBoundingClientRect().top;
-  const screenPosition = window.innerHeight / 1.3;
-  if(sectionTop < screenPosition) {
-    marketingSection.classList.add('visible');
-  }
-});
+
 </script>
 
 </body>
