@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>WoMacroMAX Automation Portfolio</title>
+  <title>WoMacroMAX Automation</title>
 
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -12,8 +12,9 @@
     html, body {
       margin: 0;
       padding: 0;
+      width: 100%;
       height: 100%;
-      overflow: hidden; /* No scrolling */
+      overflow-x: hidden;
       font-family: Arial, sans-serif;
       background-color: #f8f9fa;
     }
@@ -26,19 +27,18 @@
       right: 0;
       background-color: #ffc107;
       border-radius: 0 0 50px 50px;
-      padding: 20px 30px;
+      padding: 20px 15px;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      z-index: 1000;
+      z-index: 3000;
     }
 
     .title-bar h1 {
       margin: 0;
       font-weight: bold;
       font-size: 2rem;
-      text-align: center;
       color: black;
     }
 
@@ -46,10 +46,14 @@
       color: red;
     }
 
+    .button-grid {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: repeat(2, auto);
+      gap: 10px;
+    }
+
     .portfolio-button {
-      position: absolute;
-      top: 15px;
-      right: 30px;
       background-color: white;
       border: none;
       padding: 10px 20px;
@@ -57,7 +61,8 @@
       font-weight: bold;
       color: black;
       transition: background-color 0.3s ease;
-      z-index: 1001;
+      width: 100%;
+      white-space: nowrap;
     }
 
     .portfolio-button:hover {
@@ -65,82 +70,96 @@
       color: black;
     }
 
-    /* Main Container */
-    .main-container {
+    /* Logo Section */
+    .logo-container {
       width: 100%;
-      height: 100vh;
-      position: relative;
       overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      padding-top: 100px; /* Allow space for title bar */
-      box-sizing: border-box;
+      margin-top: calc(110px + 70px); /* Title bar + button grid */
+      padding-top: 0; /* Default no extra padding */
     }
 
-    /* Image Section */
-    .image-section {
+    .logo-container img {
       width: 100%;
-      height: 100%;
-      position: absolute;
-      top: 1in; /* 2 inches padding ONLY from the top */
-      left: 0;
-      right: 0;
-      bottom: 0;
-      overflow: hidden;
-      z-index: 0;
-    }
-
-    .image-section img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transform: translateY(-20%); /* Shift image upward 20% */
+      height: auto;
       display: block;
-      margin: 0;
-      padding: 0;
+      object-fit: cover;
     }
 
-    /* Portfolio Section */
-    .portfolio-container {
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 90%;
-      max-width: 1200px;
-      background: white;
-      padding: 30px 15px;
-      border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    /* Add 1 inch padding only when screen <= 300px */
+    @media (max-width: 300px) {
+      .logo-container {
+        padding-top: 96px; /* 1 inch top padding for very small screens */
+      }
+    }
+
+    /* Overlay Background */
+    #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 3500;
+      display: none;
       opacity: 0;
-      transition: top 0.8s ease, opacity 0.8s ease;
-      z-index: 2;
+      transition: opacity 0.5s ease;
     }
 
-    .portfolio-container.show {
-      top: 50%;
+    #overlay.show {
+      display: block;
       opacity: 1;
     }
 
-    .portfolio-title {
+    /* Panels */
+    .panel {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: white;
+      z-index: 4000;
+      display: none;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    .panel.show {
+      display: flex;
+      animation: fadeIn 0.6s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .panel-header {
+      position: sticky;
+      top: 0;
+      background: white;
+      padding: 15px;
       text-align: center;
-      margin-bottom: 30px;
       font-weight: bold;
       font-size: 2rem;
+      z-index: 10;
+      border-bottom: 1px solid #ddd;
     }
 
-    .carousel-inner {
-      width: 100%;
+    .panel-content {
+      padding: 20px;
     }
 
-    .carousel-item {
-      text-align: center;
+    /* Card Grid */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
     }
 
     .card {
-      width: 18rem;
-      margin: 0 auto;
+      width: 100%;
       border-radius: 15px;
       overflow: hidden;
       transition: transform 0.3s ease;
@@ -158,7 +177,7 @@
 
     .card-body {
       background: white;
-      padding: 15px;
+      padding: 10px;
     }
 
     .seo-blurb {
@@ -167,8 +186,38 @@
       margin-top: 5px;
     }
 
-    .modal-header {
-      background-color: #f8f9fa;
+    /* Email Form */
+    .email-form form {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .email-form .form-control {
+      margin-bottom: 15px;
+    }
+
+    /* Close Button */
+    .close-btn {
+      position: sticky;
+      top: 10px;
+      right: 10px;
+      margin-left: auto;
+      background: none;
+      border: none;
+      font-size: 2rem;
+      font-weight: bold;
+      color: black;
+      cursor: pointer;
+      z-index: 11;
+    }
+
+    @media (max-width: 576px) {
+      .button-grid {
+        grid-template-columns: 1fr;
+      }
+      .panel-header {
+        font-size: 1.5rem;
+      }
     }
   </style>
 </head>
@@ -176,128 +225,151 @@
 <body>
 
 <!-- Title Bar -->
-<section class="title-bar">
+<section class="title-bar" id="titleBar">
   <h1>WoMacro<span class="red">MAX</span> Automation</h1>
-  <button class="portfolio-button" id="openPortfolioBtn">Portfolio</button>
+  <div class="button-grid">
+    <button class="portfolio-button" id="emailNetlifyBtn">Email Us</button>
+    <button class="portfolio-button" id="openPortfolioBtn">Portfolio</button>
+  </div>
 </section>
 
-<!-- Main Container -->
-<div class="main-container">
-  
-  <!-- Image Section -->
-  <section class="image-section">
-    <img src="media/WoMacroMAXAutomation-logo-00.png" alt="WoMacroMAX Automation Logo">
-  </section>
+<!-- Logo Section -->
+<section class="logo-container" id="logoContainer">
+  <img src="media/WoMacroMAXAutomation-logo-00.png" alt="WoMacroMAX Automation Logo">
+</section>
 
-  <!-- Portfolio Section -->
-  <section class="portfolio-container" id="portfolioSection">
-    <h2 class="portfolio-title">Portfolio</h2>
+<!-- Overlay Background -->
+<div id="overlay"></div>
 
-    <div id="portfolioCarousel" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-inner">
+<!-- Portfolio Panel -->
+<section class="panel" id="portfolioPanel">
+  <button class="close-btn" id="closePortfolioBtn">&times;</button>
+  <div class="panel-header">Portfolio</div>
+  <div class="panel-content">
+    <div class="card-grid">
 
-        <!-- Card 1 -->
-        <div class="carousel-item active">
-          <a href="https://www.healthequityimpact.com" target="_blank" style="text-decoration:none; color:inherit;">
-            <div class="card bg-primary text-white">
-              <img src="https://www.healthequityimpact.com/assets/images/logo.png" alt="Health Equity Impact">
-              <div class="card-body">
-                <h5 class="card-title">Health Equity Impact</h5>
-                <p class="seo-blurb">Advancing community wellness through research, advocacy, and innovative solutions that promote health equity across diverse populations.</p>
-              </div>
-            </div>
-          </a>
+      <!-- All 6 Cards -->
+      <a href="https://www.healthequityimpact.com" target="_blank">
+        <div class="card bg-primary text-white">
+          <img src="https://www.healthequityimpact.com/assets/images/logo.png" alt="Health Equity Impact">
+          <div class="card-body">
+            <h5 class="card-title">Health Equity Impact</h5>
+            <p class="seo-blurb">Advancing community wellness through research and advocacy.</p>
+          </div>
         </div>
+      </a>
 
-        <!-- Card 2 -->
-        <div class="carousel-item">
-          <a href="https://www.communityfamilyclinic.com" target="_blank" style="text-decoration:none; color:inherit;">
-            <div class="card bg-success text-white">
-              <img src="https://www.communityfamilyclinic.com/assets/images/cfc-logo.png" alt="Community Family Clinic">
-              <div class="card-body">
-                <h5 class="card-title">Community Family Clinic</h5>
-                <p class="seo-blurb">Delivering compassionate, affordable healthcare services to families, with a focus on primary care, wellness, and preventive medicine.</p>
-              </div>
-            </div>
-          </a>
+      <a href="https://www.communityfamilyclinic.com" target="_blank">
+        <div class="card bg-success text-white">
+          <img src="https://www.communityfamilyclinic.com/assets/images/cfc-logo.png" alt="Community Family Clinic">
+          <div class="card-body">
+            <h5 class="card-title">Community Family Clinic</h5>
+            <p class="seo-blurb">Affordable healthcare focused on wellness and prevention.</p>
+          </div>
         </div>
+      </a>
 
-        <!-- Card 3 -->
-        <div class="carousel-item">
-          <a href="https://residentservices.womacromax.com" target="_blank" style="text-decoration:none; color:inherit;">
-            <div class="card bg-warning text-white">
-              <img src="https://residentservices.womacromax.com/assets/images/residentservices-logo.png" alt="Resident Services">
-              <div class="card-body">
-                <h5 class="card-title">Resident Services Portal</h5>
-                <p class="seo-blurb">Empowering residents with streamlined access to assistance programs, maintenance requests, and vital community support services.</p>
-              </div>
-            </div>
-          </a>
+      <a href="https://residentservices.womacromax.com" target="_blank">
+        <div class="card bg-warning text-white">
+          <img src="https://residentservices.womacromax.com/assets/images/residentservices-logo.png" alt="Resident Services">
+          <div class="card-body">
+            <h5 class="card-title">Resident Services Portal</h5>
+            <p class="seo-blurb">Access assistance programs and community services easily.</p>
+          </div>
         </div>
+      </a>
 
-        <!-- Card 4 -->
-        <div class="carousel-item">
-          <a href="https://dynamicchoice.womacromax.com" target="_blank" style="text-decoration:none; color:inherit;">
-            <div class="card bg-danger text-white">
-              <img src="https://dynamicchoice.womacromax.com/assets/images/dynamicchoice-logo.png" alt="Dynamic Choice">
-              <div class="card-body">
-                <h5 class="card-title">Dynamic Choice Platform</h5>
-                <p class="seo-blurb">Optimizing service selection and personalized options for clients, driving flexible, user-centered decision-making solutions online.</p>
-              </div>
-            </div>
-          </a>
+      <a href="https://dynamicchoice.womacromax.com" target="_blank">
+        <div class="card bg-danger text-white">
+          <img src="https://dynamicchoice.womacromax.com/assets/images/dynamicchoice-logo.png" alt="Dynamic Choice">
+          <div class="card-body">
+            <h5 class="card-title">Dynamic Choice Platform</h5>
+            <p class="seo-blurb">Flexible service selection and decision making online.</p>
+          </div>
         </div>
+      </a>
 
-        <!-- Card 5 (NEW) -->
-        <div class="carousel-item">
-          <a href="#" target="_blank" style="text-decoration:none; color:inherit;">
-            <div class="card bg-info text-white">
-              <img src="https://via.placeholder.com/300x150.png?text=Project+5" alt="New Project">
-              <div class="card-body">
-                <h5 class="card-title">New Project 5</h5>
-                <p class="seo-blurb">An exciting new solution currently being launched for improved resident digital experiences and service delivery.</p>
-              </div>
-            </div>
-          </a>
+      <a href="#">
+        <div class="card bg-info text-white">
+          <img src="https://via.placeholder.com/300x150.png?text=Project+5" alt="New Project 5">
+          <div class="card-body">
+            <h5 class="card-title">Digital Experience</h5>
+            <p class="seo-blurb">Exciting new digital experiences for residents and communities.</p>
+          </div>
         </div>
+      </a>
 
-        <!-- Card 6 (NEW) -->
-        <div class="carousel-item">
-          <a href="#" target="_blank" style="text-decoration:none; color:inherit;">
-            <div class="card bg-secondary text-white">
-              <img src="https://via.placeholder.com/300x150.png?text=Project+6" alt="Another Project">
-              <div class="card-body">
-                <h5 class="card-title">New Project 6</h5>
-                <p class="seo-blurb">Bringing dynamic choice solutions to an even broader market with smart integrations and expanded mobile options.</p>
-              </div>
-            </div>
-          </a>
+      <a href="#">
+        <div class="card bg-secondary text-white">
+          <img src="https://via.placeholder.com/300x150.png?text=Project+6" alt="New Project 6">
+          <div class="card-body">
+            <h5 class="card-title">New Project 6</h5>
+            <p class="seo-blurb">Smart integrations and expanded mobile-first solutions.</p>
+          </div>
         </div>
+      </a>
 
-      </div>
-
-      <button class="carousel-control-prev" type="button" data-bs-target="#portfolioCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#portfolioCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
-      </button>
     </div>
+  </div>
+</section>
 
-  </section>
+<!-- Email Panel -->
+<section class="panel" id="emailPanel">
+  <button class="close-btn" id="closeEmailBtn">&times;</button>
+  <div class="panel-header">Send an Email</div>
+  <div class="panel-content">
+    <div class="email-form">
+      <form>
+        <input type="text" class="form-control" placeholder="Your Name" required>
+        <input type="email" class="form-control" placeholder="Your Email" required>
+        <input type="text" class="form-control" placeholder="Subject" required>
+        <textarea class="form-control" placeholder="Your Message" rows="5" required></textarea>
+        <button type="submit" class="btn btn-warning w-100 mt-3">Send Email</button>
+      </form>
+    </div>
+  </div>
+</section>
 
-</div>
-
-<!-- Bootstrap Bundle with Popper -->
+<!-- Bootstrap Bundle and Script -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- JavaScript to open portfolio -->
 <script>
   const openPortfolioBtn = document.getElementById('openPortfolioBtn');
-  const portfolioSection = document.getElementById('portfolioSection');
+  const emailNetlifyBtn = document.getElementById('emailNetlifyBtn');
+  const portfolioPanel = document.getElementById('portfolioPanel');
+  const emailPanel = document.getElementById('emailPanel');
+  const closePortfolioBtn = document.getElementById('closePortfolioBtn');
+  const closeEmailBtn = document.getElementById('closeEmailBtn');
+  const overlay = document.getElementById('overlay');
 
   openPortfolioBtn.addEventListener('click', () => {
-    portfolioSection.classList.toggle('show');
+    emailPanel.classList.remove('show');
+    portfolioPanel.classList.toggle('show');
+    overlay.classList.toggle('show', portfolioPanel.classList.contains('show'));
+  });
+
+  emailNetlifyBtn.addEventListener('click', () => {
+    portfolioPanel.classList.remove('show');
+    emailPanel.classList.toggle('show');
+    overlay.classList.toggle('show', emailPanel.classList.contains('show'));
+  });
+
+  closePortfolioBtn.addEventListener('click', () => {
+    portfolioPanel.classList.remove('show');
+    overlay.classList.remove('show');
+  });
+
+  closeEmailBtn.addEventListener('click', () => {
+    emailPanel.classList.remove('show');
+    overlay.classList.remove('show');
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === "Escape") {
+      portfolioPanel.classList.remove('show');
+      emailPanel.classList.remove('show');
+      overlay.classList.remove('show');
+    }
   });
 </script>
 
