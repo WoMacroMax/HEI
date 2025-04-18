@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contractor Partner Agreement</title>
+
+  <!-- Bootstrap + Font Awesome + Signature Pad + AOS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.6/dist/signature_pad.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <style>
+    body {
+      background-color: #f5f5f5;
+      padding: 2rem;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .contract-wrapper {
+      background: #fff;
+      padding: 2rem;
+      max-width: 900px;
+      margin: auto;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    .pyramid-text p {
+      margin: 0;
+      text-align: center;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: #003366;
+      line-height: 1.2;
+      letter-spacing: 1px;
+    }
+
+    .p1 { font-size: 1.25rem; }
+    .p2 { font-size: 1.4rem; }
+    .p3 { font-size: 1.55rem; }
+    .p4 { font-size: 1.7rem; }
+    .p5 { font-size: 1.85rem; }
+    .p6 { font-size: 2rem; color: #005fa3; }
+    .p7 { font-size: 2.25rem; color: #0077c5; }
+    .p8 { font-size: 2.5rem; color: #009eff; font-weight: 800; }
+
+    .signature-pad {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      height: 150px;
+      width: 100%;
+    }
+
+    .modal-body {
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+<div class="contract-wrapper" id="contractForm">
+  <h2 class="text-center text-primary mb-4">Contractor Partner Phone Service Agreement</h2>
+
+  <div class="pyramid-text mb-4">
+    <p>📱</p>
+    <p class="p1">Do you</p>
+    <p class="p2">have phone</p>
+    <p class="p3">issues with</p>
+    <p class="p4">expensive unreliable</p>
+    <p class="p5">inconsistent billing?</p>
+    <p class="p6">Want</p>
+    <p class="p7">Free</p>
+    <p class="p8">Service?</p>
+  </div>
+
+  <div class="section-title border-bottom pb-2 mb-3 fw-bold text-primary">Partner Information</div>
+  <div class="row g-3">
+    <div class="col-md-6">
+      <label class="form-label">First Name</label>
+      <input type="text" class="form-control" placeholder="Your Name" required>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Last Name</label>
+      <input type="text" class="form-control" required>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Phone Number</label>
+      <input type="tel" class="form-control" required>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Email</label>
+      <input type="email" class="form-control" required>
+    </div>
+    <div class="col-md-12">
+      <label class="form-label">Address Line 1</label>
+      <input type="text" class="form-control" required>
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">City</label>
+      <input type="text" class="form-control" required>
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">State</label>
+      <input type="text" class="form-control" required>
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">Zip Code</label>
+      <input type="text" class="form-control" required>
+    </div>
+  </div>
+
+  <div class="text-end mt-4">
+    <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#viewContractModal">
+      <i class="fas fa-file-contract me-1"></i> View Contract Terms
+    </button>
+  </div>
+
+  <div class="mt-4">
+    <label class="form-label">Signature</label>
+    <canvas id="signature" class="signature-pad"></canvas>
+    <button class="btn btn-sm btn-outline-secondary mt-2" onclick="clearSignature()">Clear Signature</button>
+  </div>
+
+  <div class="text-center mt-4">
+    <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#submitModal">
+      Submit &raquo;
+    </button>
+  </div>
+</div>
+
+<!-- Submit Modal -->
+<div class="modal fade" id="submitModal" tabindex="-1" aria-labelledby="submitModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-4">
+      <div class="modal-header">
+        <h5 class="modal-title" id="submitModalLabel">What would you like to do?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body text-center">
+        <p class="mb-4">Thank you! You may now choose how to keep a copy of your signed agreement:</p>
+        <div class="d-flex justify-content-center gap-3">
+          <button class="btn btn-outline-primary" onclick="window.print()">
+            <i class="fas fa-print me-1"></i> Print
+          </button>
+          <button class="btn btn-outline-success" onclick="downloadContractPdf()">
+            <i class="fas fa-download me-1"></i> Download
+          </button>
+          <button class="btn btn-outline-secondary">
+            <i class="fas fa-envelope me-1"></i> Email
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- View Contract Modal -->
+<div class="modal fade" id="viewContractModal" tabindex="-1" aria-labelledby="viewContractModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="viewContractModalLabel">Contractor Partner Agreement</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body" id="contractPdf">
+        <p><strong>This Agreement</strong> is made between Community Connect Services, LLC (“Provider”) and the undersigned Contractor Partner (“Contractor”).</p>
+
+        <h6>1. Purpose</h6>
+        <p>This Agreement outlines the terms under which the Contractor will receive mobile phone services under the Business Partnership Program.</p>
+
+        <h6>2. Service Details</h6>
+        <ul>
+          <li>Mobile phone service with domestic calls, text, and data</li>
+          <li>Assigned SIM card number: <span id="simDisplay">__________________________</span></li>
+        </ul>
+
+        <h6>3. Maintenance Service Charge</h6>
+        <ul>
+          <li>Language translation support</li>
+          <li>SIM swap</li>
+          <li>Device counseling</li>
+        </ul>
+
+        <h6>4. Usage Restrictions</h6>
+        <ul>
+          <li>International calls are on-demand only</li>
+          <li>No unlawful use, robocalls, or unauthorized resale</li>
+        </ul>
+
+        <h6>5. Referral Incentive Program</h6>
+        <p>Refer a verified partner and the $40 fee is waived for that billing cycle (1/month).</p>
+
+        <h6>6. Term & Termination</h6>
+        <p>Either party may terminate with 10 days’ notice. SIM is deactivated upon termination.</p>
+
+        <h6>7. Limitation of Liability</h6>
+        <p>Provider is not liable for damages due to service outages or device incompatibility.</p>
+
+        <h6>8. Governing Law</h6>
+        <p>Subject to the laws of the provider’s jurisdiction.</p>
+
+        <h6>9. Entire Agreement</h6>
+        <p>This is the full agreement. Changes must be in writing.</p>
+
+        <p><strong>Signed and agreed on:</strong> <span id="signDate">___________</span></p>
+        <p><strong>Contractor:</strong> <span id="partnerName">_________________</span></p>
+
+        <label class="form-label mt-3">Signature</label>
+        <canvas id="contractSignature" class="signature-pad mb-2" style="border:1px solid #ccc; width:100%; height:120px;"></canvas>
+        <button class="btn btn-sm btn-outline-secondary mb-3" onclick="clearContractSignature()">Clear Signature</button>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button class="btn btn-outline-primary" onclick="window.print()"><i class="fas fa-print me-1"></i> Print</button>
+        <button class="btn btn-outline-success" onclick="downloadContractPdf()"><i class="fas fa-download me-1"></i> Download PDF</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  const signaturePad = new SignaturePad(document.getElementById("signature"));
+  const contractPad = new SignaturePad(document.getElementById("contractSignature"));
+
+  function clearSignature() {
+    signaturePad.clear();
+  }
+
+  function clearContractSignature() {
+    contractPad.clear();
+  }
+
+  function downloadContractPdf() {
+    const element = document.getElementById("contractPdf");
+
+    if (!contractPad.isEmpty()) {
+      const signatureImage = document.createElement("img");
+      signatureImage.src = contractPad.toDataURL();
+      signatureImage.style.maxWidth = "300px";
+      signatureImage.style.marginTop = "10px";
+      element.appendChild(signatureImage);
+    }
+
+    const opt = {
+      filename: 'contractor_agreement.pdf',
+      margin: 0.5,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+
+    html2pdf().set(opt).from(element).save();
+  }
+
+  document.querySelector('[data-bs-target="#viewContractModal"]').addEventListener('click', () => {
+    const fname = document.querySelector('input[placeholder="Your Name"]')?.value || '';
+    const lname = document.querySelectorAll('input')[1]?.value || '';
+    const simNum = 'SIM-' + Math.floor(Math.random() * 1000000);
+    document.getElementById('partnerName').textContent = `${fname} ${lname}`;
+    document.getElementById('signDate').textContent = new Date().toLocaleDateString();
+    document.getElementById('simDisplay').textContent = simNum;
+  });
+</script>
+</body>
+</html>

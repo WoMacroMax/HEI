@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevEdge API Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container my-5">
+        <h1 class="text-center text-primary mb-4">DevEdge API Service Form</h1>
+        <form class="p-4 border shadow rounded bg-light">
+            <!-- API Key -->
+            <div class="mb-3">
+                <label for="apiKey" class="form-label">API Key</label>
+                <input type="text" class="form-control" id="apiKey" placeholder="Enter your API Key" required>
+            </div>
+            <!-- API Endpoint -->
+            <div class="mb-3">
+                <label for="endpoint" class="form-label">API Endpoint</label>
+                <input type="text" class="form-control" id="endpoint" placeholder="Enter API Endpoint URL" required>
+            </div>
+            <!-- Parameters -->
+            <div class="mb-3">
+                <label for="parameters" class="form-label">Parameters</label>
+                <textarea class="form-control" id="parameters" rows="4" placeholder="Enter request parameters (JSON format)" required></textarea>
+            </div>
+            <!-- Request Type -->
+            <div class="mb-3">
+                <label for="requestType" class="form-label">Request Type</label>
+                <select class="form-select" id="requestType" required>
+                    <option value="">Choose request type</option>
+                    <option value="GET">GET</option>
+                    <option value="POST">POST</option>
+                    <option value="PUT">PUT</option>
+                    <option value="DELETE">DELETE</option>
+                </select>
+            </div>
+            <!-- API Actions -->
+            <div class="mb-3">
+                <label for="apiActions" class="form-label">API Actions</label>
+                <select class="form-select" id="apiActions" required>
+                    <option value="">Select an API Action</option>
+                    <option value="Device Status">Device Status</option>
+                    <option value="Device Location">Device Location</option>
+                    <option value="SIM Swap">SIM Swap</option>
+                    <option value="Quality on Demand">Quality on Demand</option>
+                    <option value="Bring Your Own Number (BYON)">Bring Your Own Number (BYON)</option>
+                    <option value="List Active Users">List Active Users</option>
+                    <option value="Deactivate Users">Deactivate Users</option>
+                    <option value="Current Bill Status">Current Bill Status</option>
+                    <option value="Track Billing Changes">Track Billing Changes</option>
+                </select>
+            </div>
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary w-100">Send Request</button>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
