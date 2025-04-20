@@ -14,18 +14,22 @@
       <h4 class="mb-0">Send Email</h4>
     </div>
     <div class="card-body">
-      <form id="emailForm">
+      <form 
+      id="emailForm"
+      name="contact" method="POST" data-netlify="true" onsubmit="submit" 
+      >
         <div class="mb-3">
           <label for="to" class="form-label">To</label>
-          <input type="email" class="form-control" id="to" required>
+          <input type="email" class="form-control" id="to" required name="to"
+          >
         </div>
         <div class="mb-3">
           <label for="subject" class="form-label">Subject</label>
-          <input type="text" class="form-control" id="subject" required>
+          <input type="text" class="form-control" id="subject" required name="subject">
         </div>
         <div class="mb-3">
           <label for="text" class="form-label">Message</label>
-          <textarea class="form-control" id="text" rows="5" required></textarea>
+          <textarea class="form-control" id="text" name="text" rows="5" required></textarea>
         </div>
         <button type="submit" class="btn btn-success w-100">Send Email</button>
       </form>
