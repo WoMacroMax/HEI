@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- SEO Metadata -->
+  <meta name="description" content="Rod WoMAX's Automation Suite customizes solutions to eliminate tedious manual work. Years of expertise in media, marketing, business, and coding make life easier and complete." />
+  <meta name="keywords" content="automation, Rod WoMAX, business automation, media solutions, marketing automation, coding automation, streamline processes, complete life, productivity tools" />
+  <meta name="author" content="Rod WoMAX Automation Suite" />
+  <meta property="og:title" content="Rod WoMAX Automation Suite - Complete Your Life with Automation" />
+  <meta property="og:description" content="Eliminate tedious manual processes. Automate your business and life with customized solutions by Rod WoMAX." />
+  <meta property="og:image" content="media/WoMacroMAXAutomation-logo-00.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.yourwebsite.com" />
+  <title>Rod WoMAX Automation Suite | Make Life Complete</title>
+  <link rel="icon" type="image/png" href="media/WoMacroMAXAutomation-logo-00.png" />
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+
+  <style>
+    /* GENERAL RESET */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+    }
+
+    /* TITLE BAR with sprayed gradient */
+    .title-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to bottom, #ffc107 30%, #ffffff 100%);
+      border-radius: 0 0 50px 50px;
+      padding: 20px 15px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      z-index: 3000;
+    }
+
+    .title-bar h1 {
+      margin: 0;
+      font-weight: bold;
+      font-size: clamp(1.5rem, 5vw, 2rem);
+      color: black;
+      white-space: nowrap;
+      text-align: center;
+      transition: font-size 0.3s ease;
+    }
+
+    .title-bar h1 span.red {
+      color: red;
+    }
+
+    /* SOCIAL ICONS including red email */
+    .social-icons {
+      margin-top: 8px;
+      font-size: 1.5rem;
+    }
+
+    .social-icons a {
+      margin: 0 8px;
+      transition: transform 0.3s ease;
+    }
+
+    .social-icons a:hover {
+      transform: scale(1.2);
+    }
+
+    .fa-facebook { color: #3b5998; }
+    .fa-twitter { color: #1da1f2; }
+    .fa-linkedin { color: #0077b5; }
+    .fa-whatsapp { color: #25d366; }
+    .fa-envelope { color: #ff0000; }
+
+    /* PORTFOLIO BUTTON Top-Right Centered on small screens */
+    .portfolio-button {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      background-color: #ffc107;
+      color: black;
+      font-weight: bold;
+      border: none;
+      border-radius: 50px;
+      padding: 8px 20px;
+      transition: background-color 0.3s ease;
+      z-index: 3001;
+    }
+
+    .portfolio-button:hover {
+      background-color: #e0a800;
+      color: black;
+    }
+
+    @media (max-width: 500px) {
+      .portfolio-button {
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+      }
+    }
+
+    /* LOGO section */
+    .logo-container {
+      width: 100%;
+      overflow: hidden;
+      margin-top: 140px;
+      text-align: center;
+    }
+
+    .logo-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    @media (max-width: 300px) {
+      .logo-container {
+        padding-top: 96px;
+      }
+    }
+    /* OVERLAY Background */
+    #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 3500;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    #overlay.show {
+      display: block;
+      opacity: 1;
+    }
+
+    /* PANELS (Email, Portfolio) falling animation */
+    .panel {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: white;
+      z-index: 4000;
+      display: none;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    .panel.show {
+      display: flex;
+      animation: fadeInDown 0.7s ease forwards;
+    }
+
+    @keyframes fadeInDown {
+      0% {
+        opacity: 0;
+        transform: translateY(-50px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .panel-header {
+      position: sticky;
+      top: 0;
+      background: white;
+      padding: 15px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 2rem;
+      z-index: 10;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .panel-content {
+      padding: 20px;
+      animation: fallDown 0.8s ease both;
+    }
+
+    @keyframes fallDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* PORTFOLIO CARD GRID */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      border-radius: 15px;
+      overflow: hidden;
+      transition: transform 0.4s ease;
+    }
+
+    /* BOUNCE effect on card hover */
+    .card:hover {
+      transform: scale(1.05) translateY(-5px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .card-body {
+      background: white;
+      padding: 10px;
+    }
+
+    .seo-blurb {
+      font-size: 0.8rem;
+      color: #6c757d;
+      margin-top: 5px;
+    }
+
+    /* EMAIL FORM */
+    .email-form form {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .email-form .form-control {
+      margin-bottom: 15px;
+    }
+
+    .close-btn {
+      position: sticky;
+      top: 10px;
+      right: 10px;
+      margin-left: auto;
+      background: none;
+      border: none;
+      font-size: 2rem;
+      font-weight: bold;
+      color: black;
+      cursor: pointer;
+      z-index: 11;
+    }
+
+    /* MARKETING WRITE-UP Section */
+.marketing-section {
+  padding: 40px 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+    .marketing-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .marketing-section h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .marketing-section p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: #555;
+    }
+  </style>
+</head>
+
+<body>
+<!-- TITLE BAR -->
+<section class="title-bar">
+  <h1>WoMacro<span class="red">MAX</span> Automation</h1>
+  <div class="social-icons">
+    <a href="#"><i class="fab fa-facebook"></i></a>
+    <a href="#"><i class="fab fa-twitter"></i></a>
+    <a href="#"><i class="fab fa-linkedin"></i></a>
+    <a href="#"><i class="fab fa-whatsapp"></i></a>
+    <a href="#" id="emailIcon"><i class="fas fa-envelope"></i></a>
+
+  </div>
+  <button class="portfolio-button" id="openPortfolioBtn">Portfolio</button>
+</section>
+
+<!-- LOGO -->
+<section class="logo-container">
+  <img src="media/WoMacroMAXAutomation-logo-00.png" alt="WoMacroMAX Automation Logo" />
+</section>
+
+<!-- OVERLAY -->
+<div id="overlay"></div>
+
+<!-- PORTFOLIO PANEL -->
+<section class="panel" id="portfolioPanel">
+  <button class="close-btn" id="closePortfolioBtn">&times;</button>
+  <div class="panel-header">Portfolio</div>
+  <div class="panel-content">
+    <div class="card-grid">
+      <!-- FULL 6 PORTFOLIO CARDS restored (next part) -->
+      <!-- CARD 1 -->
+      <a href="https://www.healthequityimpact.com" target="_blank">
+        <div class="card bg-primary text-white">
+          <img src="https://www.healthequityimpact.com/assets/images/logo.png" alt="Health Equity Impact" />
+          <div class="card-body">
+            <h5 class="card-title">Health Equity Impact</h5>
+            <p class="seo-blurb">Advancing community wellness through research, advocacy, and innovative solutions that promote health equity across diverse populations.</p>
+          </div>
+        </div>
+      </a>
+
+      <!-- CARD 2 -->
+      <a href="https://www.communityfamilyclinic.com" target="_blank">
+        <div class="card bg-success text-white">
+          <img src="https://www.communityfamilyclinic.com/assets/images/cfc-logo.png" alt="Community Family Clinic" />
+          <div class="card-body">
+            <h5 class="card-title">Community Family Clinic</h5>
+            <p class="seo-blurb">Delivering compassionate, affordable healthcare services to families, with a focus on primary care, wellness, and preventive medicine.</p>
+          </div>
+        </div>
+      </a>
+
+      <!-- CARD 3 -->
+      <a href="https://residentservices.womacromax.com" target="_blank">
+        <div class="card bg-warning text-white">
+          <img src="https://residentservices.womacromax.com/assets/images/residentservices-logo.png" alt="Resident Services Portal" />
+          <div class="card-body">
+            <h5 class="card-title">Resident Services Portal</h5>
+            <p class="seo-blurb">Empowering residents with streamlined access to assistance programs, maintenance requests, and vital community support services.</p>
+          </div>
+        </div>
+      </a>
+
+      <!-- CARD 4 -->
+      <a href="https://dynamicchoice.womacromax.com" target="_blank">
+        <div class="card bg-danger text-white">
+          <img src="https://dynamicchoice.womacromax.com/assets/images/dynamicchoice-logo.png" alt="Dynamic Choice Platform" />
+          <div class="card-body">
+            <h5 class="card-title">Dynamic Choice Platform</h5>
+            <p class="seo-blurb">Optimizing service selection and personalized options for clients, driving flexible, user-centered decision-making solutions online.</p>
+          </div>
+        </div>
+      </a>
+
+      <!-- CARD 5 -->
+      <a href="#">
+        <div class="card bg-info text-white">
+          <img src="https://via.placeholder.com/300x150.png?text=Project+5" alt="New Project 5" />
+          <div class="card-body">
+            <h5 class="card-title">New Project 5</h5>
+            <p class="seo-blurb">An exciting new solution currently being launched for improved resident digital experiences and service delivery.</p>
+          </div>
+        </div>
+      </a>
+
+      <!-- CARD 6 -->
+      <a href="#">
+        <div class="card bg-secondary text-white">
+          <img src="https://via.placeholder.com/300x150.png?text=Project+6" alt="New Project 6" />
+          <div class="card-body">
+            <h5 class="card-title">New Project 6</h5>
+            <p class="seo-blurb">Bringing dynamic choice solutions to an even broader market with smart integrations and expanded mobile options.</p>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- EMAIL PANEL -->
+<section class="panel" id="emailPanel">
+  <button class="close-btn" id="closeEmailBtn">&times;</button>
+  <div class="panel-header">Send an Email</div>
+  <div class="panel-content">
+    <div class="email-form">
+      <form>
+        <input type="text" class="form-control" placeholder="Your Name" required />
+        <input type="email" class="form-control" placeholder="Your Email" required />
+        <input type="text" class="form-control" placeholder="Subject" required />
+        <textarea class="form-control" placeholder="Your Message" rows="5" required></textarea>
+        <button type="submit" class="btn btn-warning w-100 mt-3">Send Email</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- MARKETING WRITE-UP -->
+<section class="marketing-section" id="marketingSection">
+  <h2>Rod WoMAX’s Automation Suite: Tailored Solutions for a Complete Life</h2>
+  <p>Rod WoMAX’s Automation Suite is uniquely crafted to suit your business and personal needs. 
+  With years of hands-on experience in media, marketing, business operations, and coding, Rod brings a deep understanding of how technology should work for you, not against you.<br><br>
+  Our solutions eliminate tedious manual processes, streamline procedures, and create seamless workflows that allow you to focus on what truly matters.<br><br>
+  Imagine reclaiming your time and energy — automation transforms busy work into joyful productivity!<br><br>
+  Whether you're a growing business, a startup, or just someone who values efficiency, the WoMAX Automation Suite is designed to be your personal toolkit for a smarter, easier, and COMPLETE digital life.<br><br>
+  From powerful media integration to customized marketing automations, business management, and coding optimizations — Rod WoMAX makes automation approachable, effective, and exciting.<br><br>
+  <strong>Experience the JOY of automation. Make life easier. Get COMPLETE with WoMAX.</strong></p>
+</section>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+const openPortfolioBtn = document.getElementById('openPortfolioBtn');
+const portfolioPanel = document.getElementById('portfolioPanel');
+const emailPanel = document.getElementById('emailPanel');
+const closePortfolioBtn = document.getElementById('closePortfolioBtn');
+const closeEmailBtn = document.getElementById('closeEmailBtn');
+const overlay = document.getElementById('overlay');
+const emailIcon = document.getElementById('emailIcon');
+
+emailIcon.addEventListener('click', (e) => {
+  e.preventDefault();
+  portfolioPanel.classList.remove('show');
+  emailPanel.classList.add('show');
+  overlay.classList.add('show');
+});
+
+// Open Portfolio
+openPortfolioBtn.addEventListener('click', () => {
+  emailPanel.classList.remove('show');
+  portfolioPanel.classList.toggle('show');
+  overlay.classList.toggle('show', portfolioPanel.classList.contains('show'));
+});
+
+// Close Portfolio
+closePortfolioBtn.addEventListener('click', () => {
+  portfolioPanel.classList.remove('show');
+  overlay.classList.remove('show');
+});
+
+// Close Email
+closeEmailBtn.addEventListener('click', () => {
+  emailPanel.classList.remove('show');
+  overlay.classList.remove('show');
+});
+
+// Escape Key Close
+document.addEventListener('keydown', (e) => {
+  if (e.key === "Escape") {
+    portfolioPanel.classList.remove('show');
+    emailPanel.classList.remove('show');
+    overlay.classList.remove('show');
+  }
+});
+
+
+</script>
+
+</body>
+</html>
