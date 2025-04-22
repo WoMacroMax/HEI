@@ -13,7 +13,6 @@
   <link href="css/styles.css" rel="stylesheet" />
 
   <style>
-    /* Existing Mobile Optimization */
     @media (max-width: 340px) {
       .menu-top {
         height: 70px;
@@ -49,100 +48,10 @@
         padding: 6px;
       }
     }
-
-    /* Additional Responsive Enhancements */
-    .menu-container {
-      background: #fff;
-      padding: 0.5rem;
-    }
-
-    .menu-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      position: relative;
-    }
-
-    .logo-title {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .logo-title h1 {
-      font-size: clamp(1rem, 5vw, 2rem);
-      margin: 0;
-    }
-
-    .menu-icon-image {
-      width: auto;
-      max-height: 60px;
-    }
-
-    .breadcrumb {
-      padding: 0.75rem 1rem;
-      background: #f8f9fa;
-      margin-bottom: 1rem;
-    }
-
-    .menu {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      padding: 1rem;
-      background: #e9ecef;
-      border-radius: 0.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .menu button {
-      flex: 1 1 calc(50% - 0.5rem);
-      min-width: 120px;
-      padding: 0.75rem;
-      background-color: #0d6efd;
-      color: white;
-      border: none;
-      border-radius: 0.5rem;
-      font-size: 1rem;
-    }
-
-    .page-wrapper {
-      padding: 1rem;
-    }
-
-    .homePage-content {
-      padding: 1rem;
-      background: #fff;
-      border-radius: 0.5rem;
-      margin-bottom: 1rem;
-      text-align: center;
-    }
-
-    footer {
-      background: #0d6efd;
-      color: white;
-      padding: 1rem 0;
-      margin-top: 2rem;
-      text-align: center;
-    }
-
-    .social-links a {
-      margin: 0 0.5rem;
-      color: white;
-      font-size: 1.5rem;
-      transition: color 0.3s;
-    }
-
-    .social-links a:hover {
-      color: #ffc107;
-    }
   </style>
 </head>
-
 <body class="bg-light">
-
-  <div class="menu-container container-fluid">
+  <div class="menu-container">
     <div class="menu-top">
       <!-- Burger Menu -->
       <div class="menu-icon" onclick="toggleMenu()" role="button" aria-expanded="false">
@@ -153,7 +62,7 @@
 
       <!-- Title and Icon -->
       <div class="logo-title">
-        <h1>Community <span class="text-primary">Family</span> Clinic</h1>
+        <h1>Community <span class="blue-text">Family</span> Clinic</h1>
         <div class="logo-box">
           <img src="media/CFC-Icon-House-People-3.png" alt="Community Family Clinic Logo" class="menu-icon-image" onclick="showhomePage()" />
         </div>
@@ -179,19 +88,19 @@
   </div>
 
   <!-- Main Page Content -->
-  <div class="page-wrapper container-fluid">
+  <div class="page-wrapper">
     <div id="homePage" class="homePage-content">
-      <h2><span class="text-dark">Welcome to Community Family Clinic</span></h2>
+      <h2><span class='black-text'>Welcome to Community Family Clinic</span></h2>
       <p>We provide compassionate, high-quality care for families and individuals in our community.</p>
     </div>
 
-    <div id="card" class="card p-3 mb-3"></div>
-    <div id="text-card" class="text-card p-3 mb-3"></div>
+    <div id="card" class="card"></div>
+    <div id="text-card" class="text-card"></div>
   </div>
 
   <!-- Footer -->
-  <footer class="container-fluid">
-    <div class="social-links d-flex justify-content-center">
+  <footer>
+    <div class="social-links">
       <a href="https://facebook.com" target="_blank" class="facebook"><i class="fab fa-facebook"></i></a>
       <a href="https://twitter.com" target="_blank" class="twitter"><i class="fab fa-twitter"></i></a>
       <a href="https://instagram.com" target="_blank" class="instagram"><i class="fab fa-instagram"></i></a>
