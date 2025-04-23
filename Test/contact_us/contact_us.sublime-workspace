@@ -11,6 +11,28 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "index.html",
+			"settings":
+			{
+				"buffer_size": 6397,
+				"line_ending": "Windows"
+			},
+			"undo_stack":
+			[
+			]
+		},
+		{
+			"file": "scripts/scripts.js",
+			"settings":
+			{
+				"buffer_size": 9231,
+				"line_ending": "Windows"
+			},
+			"undo_stack":
+			[
+			]
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -41,6 +63,10 @@
 		[
 			[
 				"server",
+				"Live Server Plus: Settings"
+			],
+			[
+				"Live",
 				"Live Server Plus: Start"
 			],
 			[
@@ -252,7 +278,8 @@
 	},
 	"expanded_folders":
 	[
-		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/contact_us"
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/contact_us",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/contact_us/scripts"
 	],
 	"file_history":
 	[
@@ -387,7 +414,7 @@
 	],
 	"find":
 	{
-		"height": 32.0
+		"height": 41.6
 	},
 	"find_in_files":
 	{
@@ -401,6 +428,12 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"timeVal <",
+			"clearAlert",
+			"callbackTimeInput",
+			"hiddenMessagePart1",
+			"hiddenPart",
+			"hiddenMessagePart1"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -422,6 +455,242 @@
 		{
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "index.html",
+					"selected": true,
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 6397,
+						"regions":
+						{
+							"col_E9ECEFFF":
+							{
+								"flags": 16,
+								"regions":
+								[
+									[
+										409,
+										416
+									]
+								],
+								"scope": "col_E9ECEFFF"
+							},
+							"col_E9ECEFFF_icon":
+							{
+								"flags": 16,
+								"icon": "Packages/User/Color Highlight.cache/col_E9ECEFFF_circle.png",
+								"regions":
+								[
+									[
+										385,
+										385
+									]
+								],
+								"scope": "col_gutter"
+							},
+							"col_F1F1F1FF":
+							{
+								"flags": 16,
+								"regions":
+								[
+									[
+										3466,
+										3473
+									]
+								],
+								"scope": "col_F1F1F1FF"
+							},
+							"col_F1F1F1FF_icon":
+							{
+								"flags": 16,
+								"icon": "Packages/User/Color Highlight.cache/col_F1F1F1FF_circle.png",
+								"regions":
+								[
+									[
+										3400,
+										3400
+									]
+								],
+								"scope": "col_gutter"
+							},
+							"col_F8F9FAFF":
+							{
+								"flags": 16,
+								"regions":
+								[
+									[
+										353,
+										360
+									]
+								],
+								"scope": "col_F8F9FAFF"
+							},
+							"col_F8F9FAFF_icon":
+							{
+								"flags": 16,
+								"icon": "Packages/User/Color Highlight.cache/col_F8F9FAFF_circle.png",
+								"regions":
+								[
+									[
+										329,
+										329
+									]
+								],
+								"scope": "col_gutter"
+							},
+							"col_FD7E14FF":
+							{
+								"flags": 16,
+								"regions":
+								[
+									[
+										568,
+										575
+									]
+								],
+								"scope": "col_FD7E14FF"
+							},
+							"col_FD7E14FF_icon":
+							{
+								"flags": 16,
+								"icon": "Packages/User/Color Highlight.cache/col_FD7E14FF_circle.png",
+								"regions":
+								[
+									[
+										544,
+										544
+									]
+								],
+								"scope": "col_gutter"
+							},
+							"col_FFFFFFFF":
+							{
+								"flags": 16,
+								"regions":
+								[
+									[
+										1150,
+										1155
+									]
+								],
+								"scope": "col_FFFFFFFF"
+							},
+							"col_FFFFFFFF_icon":
+							{
+								"flags": 16,
+								"icon": "Packages/User/Color Highlight.cache/col_FFFFFFFF_circle.png",
+								"regions":
+								[
+									[
+										1068,
+										1068
+									]
+								],
+								"scope": "col_gutter"
+							}
+						},
+						"selection":
+						[
+							[
+								5817,
+								5817
+							]
+						],
+						"settings":
+						{
+							"color_helper.box_height": 23,
+							"color_helper.color_scheme": "Packages/Colorsublime - Themes/cache/Colorsublime-Themes-master/themes/TwoStones.tmTheme",
+							"color_helper.refresh": false,
+							"color_helper.scan":
+							{
+								"allow_scanning": true,
+								"color_class":
+								[
+									{
+										"class": "css-level-4",
+										"scopes": ""
+									}
+								],
+								"color_trigger": "(?xi)\n(?:\n    \\b(?<![-#&$])(?:\n        color\\((?!\\s*-)|(?:hsla?|(?:ok)?(?:lch|lab)|hwb|rgba?)\\(\n) |\n\\b(?<![-#&$])[\\w]{3,}(?![(-])\\b|(?<![&])\\#)\n",
+								"current_ext": ".html",
+								"current_syntax": "HTML/HTML",
+								"enabled": true,
+								"last_updated": 1745372728.57,
+								"scanning": "meta.declaration-list.css -support.type.property-name.css -comment -string,meta.property-value.css -comment -string,meta.value.css -comment -string,meta.tag.inline.any.html string.quoted -constant.character.entity.html,meta.tag.any.html meta.attribute-with-value.style.html"
+							},
+							"rainbow_checked": true,
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 75718.6,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"stack_multiselect": false,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"sheets":
+			[
+				{
+					"buffer": 1,
+					"file": "scripts/scripts.js",
+					"selected": true,
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 9231,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7377,
+								7377
+							]
+						],
+						"settings":
+						{
+							"color_helper.box_height": 23,
+							"color_helper.color_scheme": "Packages/Colorsublime - Themes/cache/Colorsublime-Themes-master/themes/TwoStones.tmTheme",
+							"color_helper.refresh": false,
+							"color_helper.scan":
+							{
+								"allow_scanning": true,
+								"color_class":
+								[
+									{
+										"class": "css-level-4",
+										"scopes": ""
+									}
+								],
+								"color_trigger": "(?xi)\n(?:\n    \\b(?<![-#&$])(?:\n        color\\((?!\\s*-)|(?:hsla?|(?:ok)?(?:lch|lab)|hwb|rgba?)\\(\n) |\n\\b(?<![-#&$])[\\w]{3,}(?![(-])\\b|(?<![&])\\#)\n",
+								"current_ext": ".js",
+								"current_syntax": "JavaScript/JavaScript",
+								"enabled": true,
+								"last_updated": 1745372728.57,
+								"scanning": "string.quoted"
+							},
+							"rainbow_checked": true,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 4575.2,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"stack_multiselect": false,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -442,11 +711,18 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.1609375,
 			1.0
 		],
 		"rows":
@@ -509,7 +785,7 @@
 	"show_minimap": true,
 	"show_open_files": true,
 	"show_tabs": true,
-	"side_bar_visible": true,
+	"side_bar_visible": false,
 	"side_bar_width": 356.0,
 	"status_bar_visible": true,
 	"template_settings":
