@@ -77,7 +77,7 @@
   form.addEventListener('submit', function(e) {
     e.preventDefault();
     const message = encodeURIComponent(document.getElementById('userMessage').value.trim());
-    iframe.src = `https://inquiries.womacromax.com?message=${message}`;
+    iframe.src = `https://inquiries.womacromax.com/html/thankyou?message=${message}`;
     modal.show();
   });
 </script>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fancy HTML Message Form</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Quill.js CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.snow.css" rel="stylesheet" />
+
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .form-card {
+      background: #ffffff;
+      padding: 1.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+    .ql-editor {
+      min-height: 200px;
+    }
+    .btn-group {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container py-4">
+  <div class="form-card">
+    <h4 class="mb-3 text-center">Send Fancy Message</h4>
+
+    <!-- Quill Editor -->
+    <div id="editor"></div>
+
+    <!-- Buttons -->
+    <div class="btn-group justify-content-center">
+      <button type="button" class="btn btn-secondary" id="clearBtn">Clear</button>
+      <button type="button" class="btn btn-primary" id="sendBtn">Send</button>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap 5 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Quill.js JS -->
+<script src="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.min.js"></script>
+
+<script>
+  // Initialize Quill
+  const quill = new Quill('#editor', {
+    theme: 'snow'
+  });
+
+  // Clear Button
+  document.getElementById('clearBtn').addEventListener('click', () => {
+    quill.setText('');
+  });
+
+  // Send Button
+  document.getElementById('sendBtn').addEventListener('click', () => {
+    const htmlContent = quill.root.innerHTML;
+    console.log("Sending message:", htmlContent); // You can replace this with actual POST
+    alert("HTML Sent:\n\n" + htmlContent);
+  });
+</script>
+
+</body>
+</html>
