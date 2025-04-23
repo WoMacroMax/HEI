@@ -45,11 +45,6 @@
       80% { transform: scale(1.2); }
       100% { transform: scale(1); }
     }
-    .btn-fixed-width {
-      width: 2in; /* 2 inches wide */
-      margin-left: auto;
-      margin-right: auto;
-    }
   </style>
 </head>
 
@@ -71,8 +66,13 @@
           <p class="lead">We have received your message. A member of our team will contact you shortly.</p>
 
           <hr>
-          <div class="mt-4 d-flex justify-content-center">
-            <a href="/" class="btn btn-primary btn-fixed-width text-center">Return to Home</a>
+
+          <h5 class="mb-3 text-primary">Your Submission Summary:</h5>
+
+          <div id="submissionSummary" class="text-start"></div>
+
+          <div class="d-grid gap-2 mt-4">
+            <a href="/" class="btn btn-primary">Return to Home</a>
           </div>
 
         </div>
@@ -95,13 +95,13 @@ function getQueryParam(param) {
 const summaryDiv = document.getElementById('submissionSummary');
 const message = decodeURIComponent(getQueryParam('message')).replace(/\+/g, ' ');
 
-if (summaryDiv && message) {
+if (message) {
   summaryDiv.innerHTML = `
     <ul class="list-group list-group-flush">
       <li class="list-group-item"><strong>Message:</strong><br>${message.replace(/\n/g, '<br>')}</li>
     </ul>
   `;
-} else if (summaryDiv) {
+} else {
   summaryDiv.innerHTML = `
     <div class="alert alert-warning" role="alert">
       No message found. Please submit the form properly.
