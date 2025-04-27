@@ -11,6 +11,7 @@ const awadNumberInput = document.getElementById("awadNumber");
 const searchInput = document.getElementById("searchInput");
 
 const addItemModal = new bootstrap.Modal(document.getElementById("addItemModal"));
+const addItemForm = document.getElementById("addItemForm");
 const newAreaSelect = document.getElementById("newArea");
 const newAddress = document.getElementById("newAddress");
 const newQuantity = document.getElementById("newQuantity");
@@ -149,6 +150,7 @@ function renderStops() {
         </div>
         <div class="col-2 fw-bold">${stop.area}</div>
         <div class="col-2 editable awad" contenteditable="true">${stop.awad}</div>
+        <div class="col-2">${stop.address}</div>
         <div class="col-2">Stop ${stop.number}</div>
         <div class="col-2 editable quantity" contenteditable="true">${stop.quantity}</div>
         <div class="col-1">
@@ -212,7 +214,7 @@ function moveStopToArea(awadId, newArea) {
 }
 
 // ==========================
-// SORT AND DELETE
+// SORT and DELETE
 // ==========================
 function toggleSort() { sortField = "number"; sortAsc = !sortAsc; renderStops(); }
 function toggleSortAddress() { sortField = "address"; sortAsc = !sortAsc; renderStops(); }
@@ -244,7 +246,7 @@ function undoDelete() {
 }
 
 // ==========================
-// DRAG DROP
+// DRAG & DROP
 // ==========================
 function enableDragDrop() {
   Sortable.create(listItems, {
@@ -302,6 +304,25 @@ addItemForm.addEventListener("submit", function(e) {
   saveAll();
   renderStops();
   addItemModal.hide();
+});
+
+// ==========================
+// ADD STOP MODAL (double-click Area)
+/* ========================= */
+stopForm.addEventListener("submit", function(e) {
+  e.preventDefault();
+  stops.push({
+    number: stops.length + 1,
+    area: selectedArea || AREA_NAMES[0],
+    address: stopAddressInput.value.trim(),
+    quantity: parseInt(stopQuantityInput.value),
+    awad: awadNumberInput.value.trim(),
+    checked: false
+  });
+  reassignNumbers();
+  saveAll();
+  renderStops();
+  stopModal.hide();
 });
 
 // ==========================
