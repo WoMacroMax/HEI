@@ -28,13 +28,13 @@ h5 {
 /* ======================= */
 /* Offcanvas Fade-In Animation */
 /* ======================= */
-.offcanvas-end.fade-in-left {
-  transform: translateX(100%);
+.offcanvas-start.fade-in-left {
+  transform: translateX(-100%);
   transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
   opacity: 0;
 }
 
-.offcanvas-end.fade-in-left.show {
+.offcanvas-start.fade-in-left.show {
   transform: translateX(0);
   opacity: 1;
 }

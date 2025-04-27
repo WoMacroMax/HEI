@@ -124,7 +124,8 @@ function renderStops() {
   const filtered = stops.filter(s => {
     const matchesQuery = s.awad.toLowerCase().includes(query) || 
                          s.address.toLowerCase().includes(query) || 
-                         s.area.toLowerCase().includes(query);
+                         s.area.toLowerCase().includes(query) ||
+                         String(s.number).toLowerCase().includes(query); // Added check for Stop Number
     const matchesArea = lockedArea ? s.area === lockedArea : true;
     return matchesQuery && matchesArea;
   });
@@ -141,11 +142,6 @@ function renderStops() {
     const label = document.createElement("label");
     label.className = stop.checked ? "checked" : "unchecked";
 
-    label.setAttribute("draggable", "true");
-    label.addEventListener("dragstart", function(e) {
-      e.dataTransfer.setData("awad", stop.awad);
-    });
-
     const span = document.createElement("span");
     span.className = "checklist-item";
 
@@ -157,7 +153,7 @@ function renderStops() {
         <div class="col-2 fw-bold">${stop.area}</div>
         <div class="col-2">Stop ${stop.number}</div>
         <div class="col-2 editable awad" contenteditable="true">${stop.awad}</div>
-        <div class="col-3">${stop.address}</div>
+        <div class="col-3" contenteditable="false">${stop.address}</div>
         <div class="col-1 editable quantity" contenteditable="true">${stop.quantity}</div>
         <div class="col-1">
           <button class="btn btn-sm btn-danger delete-btn" onclick="deleteStop(${index})">X</button>
@@ -165,17 +161,16 @@ function renderStops() {
       </div>
     `;
 
-    span.querySelector(".awad").addEventListener("blur", function() {
-      stops[index].awad = this.innerText.trim();
-      saveAll();
-    });
+    // Add listener to trigger long-tap copy on address field
+    span.querySelector(".col-3").addEventListener("touchstart", function(e) {
+      const touchStart = Date.now();
 
-    span.querySelector(".quantity").addEventListener("blur", function() {
-      const newQty = parseInt(this.innerText.trim());
-      if (!isNaN(newQty) && newQty > 0) {
-        stops[index].quantity = newQty;
-        saveAll();
-      }
+      span.querySelector(".col-3").addEventListener("touchend", function(e) {
+        const touchEnd = Date.now();
+        if (touchEnd - touchStart > 500) { // Detect long tap (500ms)
+          copyAddressToClipboard(stop.address);
+        }
+      });
     });
 
     label.appendChild(span);
@@ -184,6 +179,7 @@ function renderStops() {
 
   renderAreas();
   enableDragDrop();
+  enableLongTapCopy();  // Re-enable long-tap copying after rendering the stops
 }
 
 function toggleCheck(index) {
@@ -293,6 +289,40 @@ stopForm.addEventListener("submit", function(e) {
   renderStops();
   stopModal.hide();
 });
+
+// ==========================
+// LONG-TAP TO COPY ADDRESS
+// ==========================
+function enableLongTapCopy() {
+  const stopItems = document.querySelectorAll(".checklist-item");
+
+  stopItems.forEach(item => {
+    const addressElement = item.querySelector(".col-3");  // The address column in each stop
+
+    addressElement.addEventListener("touchstart", function(e) {
+      // Track the touch start time
+      const touchStart = Date.now();
+
+      // When touch ends, check if it was long press
+      addressElement.addEventListener("touchend", function(e) {
+        const touchEnd = Date.now();
+        if (touchEnd - touchStart > 500) {  // Long press duration (500ms)
+          copyAddressToClipboard(addressElement.textContent.trim());
+        }
+      });
+    });
+  });
+}
+
+// Function to copy text to clipboard
+function copyAddressToClipboard(address) {
+  navigator.clipboard.writeText(address).then(() => {
+    const copyToast = new bootstrap.Toast(document.getElementById('copyToast'));
+    copyToast.show();
+  }).catch(err => {
+    console.error('Failed to copy address: ', err);
+  });
+}
 
 // ==========================
 // INITIALIZE
