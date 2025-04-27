@@ -25,6 +25,19 @@ h5 {
   text-align: center;
 }
 
+.navbar .container-fluid .row {
+  width: 100%;
+}
+
+.navbar .container-fluid .col-2 {
+  text-align: left;
+}
+
+.navbar .container-fluid .col-10 {
+  display: flex;
+  justify-content: center;
+}
+
 /* ======================= */
 /* Offcanvas Menu */
 /* ======================= */
@@ -57,17 +70,20 @@ h5 {
   box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.4);
 }
 
-/* Area Card */
+/* ======================= */
+/* Individual Area Card */
+/* ======================= */
 .area-card {
   background-color: #002b5c;
   border: 2px solid #0074D9;
   border-radius: 15px;
   padding: 1rem;
-  transition: all 0.4s ease;
+  transition: all 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
   color: white;
-  cursor: move;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  cursor: move;
 }
 
 .area-card.square {
@@ -76,6 +92,7 @@ h5 {
 
 .area-card.horizontal {
   width: 100%;
+  flex-direction: row;
 }
 
 .area-card.pivoting {
@@ -83,20 +100,29 @@ h5 {
   box-shadow: 0 0 20px 5px rgba(0, 255, 255, 0.7);
 }
 
+/* Area Internal Layout */
 .area-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  align-items: center;
   gap: 0.5rem;
+  width: 100%;
+}
+
+.area-grid button {
+  white-space: nowrap;
 }
 
 .awad-list {
   margin-top: 10px;
+  padding: 10px;
   max-height: 250px;
   overflow-y: auto;
+  width: 100%;
 }
 
 .awad-list a {
-  color: #0074D9;
+  color: #00bfff;
   text-decoration: none;
   display: block;
 }
@@ -112,19 +138,21 @@ h5 {
   background-color: #002b5c;
   border-radius: 10px;
   padding: 1rem;
+  max-height: 80vh;
 }
 
 .sticky-header {
+  position: sticky;
+  top: 0;
   background-color: #002b5c;
+  color: white;
   padding: 1rem;
   font-size: 1.2rem;
   text-align: center;
-  color: white;
-  position: sticky;
-  top: 0;
   z-index: 1;
 }
 
+/* Checklist Items */
 label {
   background-color: #003366;
   margin-bottom: 0.75rem;
@@ -145,11 +173,34 @@ label.unchecked {
   color: white;
 }
 
+/* Toasts */
+.toast {
+  opacity: 0.95;
+  border-radius: 8px;
+}
+
 /* ======================= */
-/* Responsive */
+/* Responsive Adjustments */
 /* ======================= */
 @media (max-width: 768px) {
   #areas.areas-grid {
     grid-template-columns: 1fr;
+  }
+
+  .navbar input[type="text"] {
+    max-width: 100%;
+  }
+
+  .area-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .controls .btn {
+    min-width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  label {
+    padding: 0.5rem;
   }
 }
