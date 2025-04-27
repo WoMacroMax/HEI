@@ -14,7 +14,7 @@ h5 {
 }
 
 /* ======================= */
-/* Navbar (Top) with 2-Column Layout */
+/* Navbar with Hamburger and Centered Search Bar */
 /* ======================= */
 .navbar {
   padding: 0.5rem 1rem;
@@ -66,7 +66,7 @@ h5 {
 }
 
 /* ======================= */
-/* Areas Section */
+/* Area Cards Layout (inside the pink-shaded card) */
 /* ======================= */
 .areas-container {
   display: flex;
