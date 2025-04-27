@@ -54,43 +54,21 @@ h5 {
 }
 
 /* ======================= */
-/* Larger Pink-Shaded Card to Contain Area Cards */
-/* ======================= */
-.pink-shaded-card {
-  background-color: #f7b8d2;
-  border: 2px dotted #d0918f;
-  border-radius: 10px;
-  padding: 1rem;
-  max-height: 600px; /* Scrollable area */
-  overflow-y: auto;
-}
-
-/* ======================= */
 /* Areas Section */
 /* ======================= */
-.areas-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: flex-start;
-}
-
 .area-card {
   border: 2px solid #0074D9;
   border-radius: 10px;
   padding: 1rem;
-  margin: 1rem;
+  margin: 1rem 0;
   background-color: rgba(0, 116, 217, 0.05);
   text-align: center;
   transition: background-color 0.3s, box-shadow 0.3s;
-  width: calc(25% - 1rem); /* 4 cards per row */
-  cursor: grab;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-/* Selected Area Card */
 .area-card.selected {
   background-color: rgba(0, 116, 217, 0.3);
 }
@@ -99,44 +77,16 @@ h5 {
   box-shadow: 0 0 15px 5px #00ffcc;
 }
 
-/* Area Card Layouts */
-.area-card.vertical {
-  flex-direction: column;
-}
-
-.area-card.horizontal {
-  flex-direction: row;
-  width: 100%;
-}
-
-/* ======================= */
-/* Area Grid (Buttons in Far-Right Column) */
-/* ======================= */
+/* Area Card Grid */
 .area-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr; /* Left content takes up 2 parts, right (buttons) takes 1 part */
-  gap: 0.5rem;
+  grid-template-columns: 1fr 1fr; /* 2-column layout for buttons and AWAD */
   align-items: center;
+  gap: 0.5rem;
 }
 
 .area-grid button {
   white-space: nowrap;
-}
-
-.area-grid .area-name {
-  text-align: left;
-}
-
-.area-grid .count {
-  text-align: left;
-}
-
-.area-grid .awad-list {
-  text-align: left;
-}
-
-.area-grid .btn {
-  width: 100%;
 }
 
 /* ======================= */
@@ -211,12 +161,8 @@ label.unchecked {
     max-width: 100%;
   }
 
-  .areas-container {
-    flex-direction: column;
-  }
-
-  .area-card {
-    width: calc(50% - 1rem); /* 2 cards per row */
+  .area-grid {
+    grid-template-columns: 1fr; /* Single column for mobile */
   }
 
   .controls .btn {
@@ -233,10 +179,16 @@ label.unchecked {
   }
 }
 
-@media (max-width: 480px) {
-  .area-card {
-    width: calc(100% - 1rem); /* 1 card per row */
-  }
+/* ======================= */
+/* Rotate Area Card Vertically or Horizontally */
+/* ======================= */
+.area-card.vertical {
+  flex-direction: column;
+}
+
+.area-card.horizontal {
+  flex-direction: row;
+  width: 100%;
 }
 
 /* ======================= */
