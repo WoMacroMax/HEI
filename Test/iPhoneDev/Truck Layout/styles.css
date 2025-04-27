@@ -1,0 +1,87 @@
+body {
+  background-color: #001f3f;
+  color: white;
+  padding: 1rem;
+  font-family: Arial, sans-serif;
+}
+.area-card {
+  border: 2px solid #0074D9;
+  border-radius: 10px;
+  padding: 2rem;
+  margin: 1rem 0;
+  background-color: rgba(0, 116, 217, 0.05);
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  position: relative;
+}
+.area-hover {
+  box-shadow: 0 0 15px 5px #00ffcc;
+}
+.area-card.selected {
+  background-color: rgba(0, 116, 217, 0.3);
+}
+.count {
+  color: #00ff00;
+  font-size: 2rem;
+}
+.checklist {
+  background-color: #002b5c;
+  border-radius: 10px;
+  padding: 1rem;
+  margin-top: 1rem;
+  overflow-y: auto;
+  max-height: 40vh;
+}
+label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+  position: relative;
+}
+.checked {
+  background-color: #2ecc40 !important;
+  color: white !important;
+}
+.unchecked {
+  background-color: #ff4136 !important;
+  color: white !important;
+}
+.checklist-item {
+  user-select: none;
+  font-size: 1rem;
+}
+.quantity-edit, .awad-edit {
+  color: #00ffcc;
+  font-weight: bold;
+  cursor: pointer;
+}
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.controls button, .controls input {
+  min-width: 140px;
+}
+.delete-btn {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  background-color: #dc3545;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  font-size: 0.8rem;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}

@@ -1,0 +1,579 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"manae",
+				"management"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "index.html",
+			"settings":
+			{
+				"buffer_size": 4497,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"server",
+				"Live Server Plus: Start"
+			],
+			[
+				"path",
+				"Copy File Path"
+			],
+			[
+				"backu",
+				"Create backup copy of file"
+			],
+			[
+				"auto",
+				"Toggle AutoSave: all files"
+			],
+			[
+				"back",
+				"Create backup copy of file"
+			],
+			[
+				"",
+				"Colorsublime: Install Theme"
+			],
+			[
+				"comm",
+				"Toggle Comment"
+			],
+			[
+				"pret",
+				"HTMLPrettify"
+			],
+			[
+				"upper",
+				"Convert Case: Upper Case"
+			],
+			[
+				"autoa",
+				"Toggle AutoSave: all files"
+			],
+			[
+				"serve",
+				"Live Server: Start"
+			],
+			[
+				"serv",
+				"Live Server Plus: Start"
+			],
+			[
+				"start",
+				"Live Server: Start"
+			],
+			[
+				"title",
+				"Convert Case: Title Case"
+			],
+			[
+				"save",
+				"File: Save All"
+			],
+			[
+				"live",
+				"Live Server Plus: Start"
+			],
+			[
+				"renam",
+				"File: Rename File"
+			],
+			[
+				"prett",
+				"HTMLPrettify"
+			],
+			[
+				"ren",
+				"File: Rename File"
+			],
+			[
+				"ti",
+				"Convert Case: Title Case"
+			],
+			[
+				"rename",
+				"File: Rename File"
+			],
+			[
+				"brackt",
+				"Jump to Matching Bracket"
+			],
+			[
+				"fold",
+				"Code Folding: Fold All"
+			],
+			[
+				"fold ",
+				"Code Folding: Fold All"
+			],
+			[
+				"color",
+				"UI: Select Color Scheme"
+			],
+			[
+				"matching",
+				"Jump to Matching Bracket"
+			],
+			[
+				"file",
+				"File: Move…"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"rena",
+				"File: Rename File"
+			],
+			[
+				"folder",
+				"Project: Add Folder"
+			],
+			[
+				"file m",
+				"File: Move…"
+			],
+			[
+				"pro",
+				"Project: Save As"
+			],
+			[
+				"com",
+				"Toggle Comment"
+			],
+			[
+				"html",
+				"Set Syntax: HTML"
+			],
+			[
+				"qui",
+				"Quick File Move: Move Current File"
+			],
+			[
+				"quick",
+				"Quick File Move: Move Current File"
+			],
+			[
+				"save all",
+				"File: Save All"
+			],
+			[
+				"lower",
+				"Convert Case: Lower Case"
+			],
+			[
+				"lo",
+				"Convert Case: Lower Case"
+			],
+			[
+				"autosave",
+				"Toggle AutoSave: all files"
+			],
+			[
+				"wrap",
+				"Word Wrap: Toggle"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"install ",
+				"Package Control: Install Package"
+			],
+			[
+				"tit",
+				"Convert Case: Title Case"
+			],
+			[
+				"titl",
+				"Convert Case: Title Case"
+			],
+			[
+				"the",
+				"UI: Select Theme"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/iPhoneDev/Truck Layout"
+	],
+	"file_history":
+	[
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/CFC/css/styles.css",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/PhoneService/index.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/Mailgun/mailgunAPI.txt",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/CFC/index2.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/CFC/index-mobility.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/CFC/index-desktop.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/CFC/partials/promotions/promotions.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/CFC/partials/credentials/credentials.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/CFC/old/P Okunji Biography.txt",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/CFC/old/temp.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/mobilityPages/mbPage-10.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/CFC/old/cardIndexView.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/CFC/index-mobile.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/CFC/old/index-desktop_old.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/CFC/promotions/promotions.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/CFC/home/home.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/CFC/old/cardIndexView.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/other-modal.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/health-wellness-modal.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/family-support-modal.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/rental-assistance-modal.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/utility-assistance-modal.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/CFC/media/CFC-Icon Filler 03.png",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/CFC/media/CFC-Icon Filler 00.png",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/CFC/Community family clinic-mobile.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/CFC/index 2",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/flyers/scripts.js",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/flyers/modals/service-modal.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/flyers/internal modals/rental-assistance-modal.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/flyers/internal modals/health-wellness-modal.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/flyers/styles.css",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/flyers/resident-services-00.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/index.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/flyers/resident-services-03.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/flyers/modals/rental-assistance-modal.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/flyers/modals/utility-assistance-modal.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/flyers/modals/family-programming-modal.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/flyers/resident-services-email-00.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/flyers/index.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/flyers/old/scripts_load modal from JSON.js",
+		"/C/Users/WoMax/Documents/GitHub/HEI/Test/flyers/resident-services-04 last of JSON feed.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/flyers/resident-services-03.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/flyers/resident-services-email-00.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/flyers/modals/service-modal.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/flyers/modals/dialpad.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/flyers/modals/email-modal-complete.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/flyers/modals/rental-assistance-modal.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/flyers/resident-services-01.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/flyers/resident-services-02.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Social Media/Social Media in iFrames/build files2.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/CFC/CFC-desktop.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Social Media/Social Media in iFrames/build files/14.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Social Media/Social Media in iFrames/build files/.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Social Media/Social Media in iFrames/build files/12.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Social Media/Social Media in iFrames/build files/10.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Social Media/Social Media in iFrames/build files/9.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Social Media/Social Media in iFrames/build files/8.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Social Media/Social Media in iFrames/build files/7.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Social Media/Social Media in iFrames/build files/6.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Social Media/Social Media in iFrames/build files/5.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Social Media/Social Media in iFrames/build files/3.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Social Media/Social Media in iFrames/build files/prompts.AI",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Social Media/Social Media in iFrames/styles.css",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Social Media/Social Media in iFrames/scripts.js",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Social Media/Social Media in iFrames/modals.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Social Media/social_media_links.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/CFC/Community family clinic-mobile.html",
+		"/C/Users/blab9/OneDrive/WoMacroMAX Publishing-LoMax/Community Family Clinic/Community family clinic-mobile.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/Test/CFC/old/Community family clinic-mobile_033125.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Medical Virtual Services View/Zelle Service Payment Form.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Medical Virtual Services View/tell us about your needs [with javascript].html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Medical Virtual Services View/HEI-Medical Assistant Virtual Services.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Medical Virtual Services View/tell us about your needs [without javascript]-links.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Medical Virtual Services View/email-friendly version.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Quad Color Cards View/medical assistant virtual services.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Medical Virtual Services View/HEI Logo.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Interacts With Google Calendar/Interacts With Microsoft Graph -Shows Availabilit.AI",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Interacts With Google Calendar/Interacts With Microsoft 365 Calendar -Shows Availability and Sets.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Interacts With Google Calendar/Interacts With Google Calendar -Shows Availability and Sets.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Quad Color Cards View/MCS Contract index.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/mobile/services-mobile.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/MCS Sales Contract with Equipment.css",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/MCS Sales Contract with Equipment.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/mobile/medical virtual assistant-mobile.html",
+		"/C/Users/blab9/OneDrive/WoMacroMAX Publishing-LoMax/HEI/desktop/services-desktop.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/desktop/forms/temp.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/MCS Sales Contract with Equipment.js",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Quad Color Cards View/Quad Color Cards View_03 swipe.AI",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/desktop/forms/Quad Color Cards swipe.AI_2",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Quad Color Cards View/Quad Color Cards View_03 swipe.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Quad Color Cards View/Quad Color Cards View_01.html",
+		"/C/Users/blab9/OneDrive/HTML/HTML snippets/Quad Color Cards View/Quad Color Cards View_00.html",
+		"/C/Users/blab9/OneDrive/Documents/GitHub/HEI/desktop/forms/Virtual Medical Assistant-desktop.html",
+		"/C/Users/blab9/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/INFO/Name Your Price.INFO",
+		"/C/Users/blab9/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/INFO/Copilot Prompts.txt",
+		"/C/Users/blab9/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/Archives/TripOmeter.html",
+		"/C/Users/blab9/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/temp.html",
+		"/C/Users/blab9/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/Choose Your Items (Pallet Loader) 1.html",
+		"/C/Users/blab9/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/skeleton view.html",
+		"/C/Users/blab9/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/Choose to Move with Tabs.html",
+		"/C/Users/blab9/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/Archives/Description-2.html",
+		"/C/Users/blab9/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/Archives/Stacked Pallet 09 working images.html",
+		"/C/Users/blab9/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/Stack Pallets Side-By-Side with remove button 17.html",
+		"/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/truck-load grid. 2.html",
+		"/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/Load Manager 19 align top-left.html",
+		"/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/Archives/Fill the Truck.html",
+		"/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/Stacked Pallet 12 max cases.html",
+		"/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/Stacked Pallet 09 working images.html",
+		"/C/Users/WoMax/AppData/Roaming/Sublime Text/Packages/User/Bash.sublime-build",
+		"/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/temp.html",
+		"/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/powershell - backup folder to onedrive.ps1",
+		"/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/place the hamburger menu at the top right of the s",
+		"/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/the Impact Effect.html",
+		"/C/Users/WoMax/OneDrive/WoMacroMAX Publishing-LoMax/MoveCheap/Name Your Price Tool/truck-load COUNT-07.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/mobile/burger-menu (icons) 02.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/mobile/Certifications-mobile.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/mobile/Compliance Monitoring-mobile.html",
+		"/C/Users/WoMax/Documents/WoMacroMAX Publishing/MoveCheap/Name Your Price Tool/place the hamburger menu at the top right of the s",
+		"/C/Users/WoMax/Documents/WoMacroMAX Publishing/MoveCheap/Name Your Price Tool/TripOmeter.html",
+		"/C/Users/WoMax/Documents/WoMacroMAX Publishing/MoveCheap/Name Your Price Tool/truck-load COUNT-07.html",
+		"/C/Users/WoMax/Documents/truck-load COUNT-07.html",
+		"/C/Users/WoMax/Documents/WoMacroMAX Publishing/MoveCheap/Name Your Price Tool/Fill the Truck.html",
+		"/C/Users/WoMax/Documents/HTML/Fill the Truck.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/mobile/Manage Clinical Trial Inspection-mobile.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/mobile/articles-mobile.html",
+		"/C/Users/WoMax/Documents/WoMacroMAX Publishing/MoveCheap/Name Your Price Tool/the Impact Effect.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/mobile/the Impact Effect.html",
+		"/C/Users/WoMax/Documents/GitHub/HEI/mobile/aboutus-mobile.html"
+	],
+	"find":
+	{
+		"height": 36.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"scrollbar_highlights": true,
+		"show_context": true,
+		"use_buffer2": true,
+		"use_gitignore": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "index.html",
+					"selected": true,
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 4497,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"color_helper.box_height": 27,
+							"color_helper.color_scheme": "Packages/Colorsublime - Themes/cache/Colorsublime-Themes-master/themes/TwoStones.tmTheme",
+							"color_helper.refresh": false,
+							"color_helper.scan":
+							{
+								"allow_scanning": true,
+								"color_class":
+								[
+									{
+										"class": "css-level-4",
+										"scopes": ""
+									}
+								],
+								"color_trigger": "(?xi)\n(?:\n    \\b(?<![-#&$])(?:\n        color\\((?!\\s*-)|(?:hsla?|(?:ok)?(?:lch|lab)|hwb|rgba?)\\(\n) |\n\\b(?<![-#&$])[\\w]{3,}(?![(-])\\b|(?<![&])\\#)\n",
+								"current_ext": ".html",
+								"current_syntax": "HTML/HTML",
+								"enabled": true,
+								"last_updated": 1745717026.03,
+								"scanning": "meta.declaration-list.css -support.type.property-name.css -comment -string,meta.property-value.css -comment -string,meta.value.css -comment -string,meta.tag.inline.any.html string.quoted -constant.character.entity.html,meta.tag.any.html meta.attribute-with-value.style.html"
+							},
+							"rainbow_checked": true,
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"stack_multiselect": false,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 36.0
+	},
+	"input":
+	{
+		"height": 45.6
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 150.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.mdpopups":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "Packages/Python/Python.sublime-build",
+	"project": "Truck Layout.sublime-project",
+	"replace":
+	{
+		"height": 69.6
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": false,
+	"side_bar_width": 356.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
