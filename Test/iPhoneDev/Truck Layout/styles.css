@@ -64,6 +64,9 @@ h5 {
   background-color: rgba(0, 116, 217, 0.05);
   text-align: center;
   transition: background-color 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .area-card.selected {
@@ -77,7 +80,7 @@ h5 {
 /* Area Card Grid */
 .area-grid {
   display: grid;
-  grid-template-columns: 2fr auto auto auto;
+  grid-template-columns: 1fr 1fr; /* 2-column layout for buttons and AWAD */
   align-items: center;
   gap: 0.5rem;
 }
@@ -159,7 +162,7 @@ label.unchecked {
   }
 
   .area-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr; /* Single column for mobile */
   }
 
   .controls .btn {
@@ -174,4 +177,37 @@ label.unchecked {
   label {
     padding: 0.5rem;
   }
+}
+
+/* ======================= */
+/* Rotate Area Card Vertically or Horizontally */
+/* ======================= */
+.area-card.vertical {
+  flex-direction: column;
+}
+
+.area-card.horizontal {
+  flex-direction: row;
+  width: 100%;
+}
+
+/* ======================= */
+/* Scrollable AWAD List */
+/* ======================= */
+.awad-list {
+  margin: 10px 0;
+  padding: 10px;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.awad-list a {
+  display: block;
+  color: #0074D9;
+  text-decoration: none;
+  margin-bottom: 5px;
+}
+
+.awad-list a:hover {
+  text-decoration: underline;
 }
