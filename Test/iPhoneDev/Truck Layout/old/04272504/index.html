@@ -3,20 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Checklist App - Pivoting Area Cards</title>
+  <title>Checklist App - Pivoting Areas</title>
 
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-
   <!-- Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-
   <!-- Custom Styles -->
   <link rel="stylesheet" href="styles.css" />
-
   <!-- SortableJS -->
   <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
-
   <!-- jsPDF -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
@@ -50,7 +46,6 @@
     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
   </div>
   <div class="offcanvas-body d-flex flex-column gap-3">
-
     <h6>📂 Area Management</h6>
     <button class="btn btn-primary" onclick="addArea()">Add Area</button>
     <button class="btn btn-warning" onclick="removeArea()">Remove Area</button>
@@ -60,6 +55,7 @@
     <button class="btn btn-light text-dark" onclick="loadFromLocal()">Load</button>
     <button class="btn btn-danger" onclick="deleteSelected()">Delete Selected</button>
     <button class="btn btn-outline-warning" onclick="undoDelete()">Undo Delete</button>
+    <button class="btn btn-outline-info" onclick="copyAllAddresses()">Copy All Addresses</button>
 
     <h6>🔃 Sort Options</h6>
     <button class="btn btn-outline-light" onclick="toggleSort()">Sort Stop #</button>
@@ -70,7 +66,6 @@
     <h6>📤 Exports</h6>
     <button class="btn btn-success" onclick="exportCSV()">Download CSV</button>
     <button class="btn btn-info text-white" onclick="exportPDF()">Download PDF</button>
-
   </div>
 </div>
 
@@ -79,31 +74,24 @@
 <!-- ================= -->
 <div class="container-fluid mt-3">
   <div class="row g-3">
-    <!-- Areas Section (Left) -->
+    <!-- Areas -->
     <div class="col-12 col-md-6">
-      <div id="areas" class="areas-grid">
-        <!-- Area Cards dynamically generated here -->
-      </div>
+      <div id="areas" class="areas-grid"></div>
     </div>
 
-    <!-- Checklist Section (Right) -->
+    <!-- Checklist -->
     <div class="col-12 col-md-6">
       <div class="checklist-card">
         <div class="sticky-header bg-dark">
           <h5 class="m-0 py-2 text-center">Selected Items:</h5>
         </div>
-
-        <div id="listItems" class="list-scroll">
-          <!-- Selected Items -->
-        </div>
+        <div id="listItems" class="list-scroll"></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ================= -->
-<!-- Stop Modal (Add Stop) -->
-<!-- ================= -->
+<!-- Stop Modal -->
 <div class="modal fade" id="stopModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content bg-dark text-light">
@@ -113,18 +101,9 @@
       </div>
       <div class="modal-body">
         <form id="stopForm">
-          <div class="mb-3">
-            <label class="form-label">AWAD#</label>
-            <input id="awadNumber" class="form-control" required />
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Address</label>
-            <input id="stopAddress" class="form-control" required />
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Quantity</label>
-            <input id="stopQuantity" type="number" class="form-control" min="1" value="1" required />
-          </div>
+          <div class="mb-3"><label class="form-label">AWAD#</label><input id="awadNumber" class="form-control" required /></div>
+          <div class="mb-3"><label class="form-label">Address</label><input id="stopAddress" class="form-control" required /></div>
+          <div class="mb-3"><label class="form-label">Quantity</label><input id="stopQuantity" type="number" class="form-control" min="1" value="1" required /></div>
           <button type="submit" class="btn btn-primary w-100">Save Stop</button>
         </form>
       </div>
@@ -132,9 +111,7 @@
   </div>
 </div>
 
-<!-- ================= -->
-<!-- Area Items Modal (List Stops by Area) -->
-<!-- ================= -->
+<!-- Area Items Modal -->
 <div class="modal fade" id="areaItemsModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content bg-dark text-light">
@@ -142,16 +119,12 @@
         <h5 class="modal-title" id="areaItemsModalLabel">Area Items</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
-      <div class="modal-body" id="areaItemsContent">
-        <!-- Stops inside Area populated dynamically -->
-      </div>
+      <div class="modal-body" id="areaItemsContent"></div>
     </div>
   </div>
 </div>
 
-<!-- ================= -->
 <!-- Toasts -->
-<!-- ================= -->
 <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 9999;">
   <div id="copyToast" class="toast bg-success text-white" role="alert">
     <div class="toast-body">Address Copied!</div>
@@ -161,9 +134,7 @@
   </div>
 </div>
 
-<!-- ================= -->
 <!-- Scripts -->
-<!-- ================= -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="scripts.js"></script>
 
