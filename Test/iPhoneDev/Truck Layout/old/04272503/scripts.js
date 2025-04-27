@@ -17,9 +17,10 @@ const areaItemsModalLabel = document.getElementById("areaItemsModalLabel");
 let AREA_NAMES = ["Area 1"];
 let stops = [];
 let selectedArea = null;
+let lockedArea = null;
+let lockedAWAD = null;
 let sortAsc = true;
 let sortField = "number";
-let lockedArea = null;
 let lastDeletedStop = null;
 
 // ==========================
@@ -37,14 +38,9 @@ function loadFromLocal() {
   const savedStops = localStorage.getItem("stops");
   if (savedAreas) {
     AREA_NAMES = JSON.parse(savedAreas);
-    if (!AREA_NAMES.length) AREA_NAMES = ["Area 1"];
-  } else {
-    AREA_NAMES = ["Area 1"];
   }
   if (savedStops) {
     stops = JSON.parse(savedStops);
-  } else {
-    stops = [];
   }
 }
 
@@ -58,7 +54,8 @@ function renderAreas() {
   AREA_NAMES.forEach(area => {
     const totalQty = stops.filter(s => s.area === area).reduce((sum, s) => sum + s.quantity, 0);
     const card = document.createElement("div");
-    card.className = "area-card square"; // Default shape
+    card.className = "area-card square";
+    card.setAttribute('data-area', area);
 
     card.innerHTML = `
       <div class="area-grid">
@@ -75,7 +72,14 @@ function renderAreas() {
       <div class="awad-list mt-2" id="awadList-${area}"></div>
     `;
 
-    // Restore saved layout
+    card.addEventListener("click", (e) => {
+      if (!e.target.closest('button')) {
+        lockedArea = area;
+        lockedAWAD = null;
+        renderStops();
+      }
+    });
+
     if (layouts[area] === "horizontal") {
       card.classList.remove('square');
       card.classList.add('horizontal');
@@ -83,14 +87,15 @@ function renderAreas() {
       if (pivotButton) pivotButton.className = "bi bi-arrows-expand";
     }
 
-    // AWAD links
     const awadList = card.querySelector(`#awadList-${area}`);
     awadList.innerHTML = stops.filter(s => s.area === area)
-      .map(stop => `<a href="#" onclick="scrollToStop(${stop.number})">${stop.awad}</a>`)
+      .map(stop => `<a href="#" onclick="lockAWAD('${stop.awad}')">${stop.awad}</a>`)
       .join("");
 
     areas.appendChild(card);
   });
+
+  enableAreaDragDrop();
 }
 
 function pivotAreaCard(button) {
@@ -99,7 +104,6 @@ function pivotAreaCard(button) {
   const rotateIcon = button.querySelector('i');
   const areaName = card.querySelector('.area-name')?.textContent?.trim();
 
-  // Add pivoting animation
   card.classList.add('pivoting');
   setTimeout(() => card.classList.remove('pivoting'), 400);
 
@@ -107,12 +111,12 @@ function pivotAreaCard(button) {
     card.classList.remove('square');
     card.classList.add('horizontal');
     if (rotateIcon) rotateIcon.className = "bi bi-arrows-expand";
-    if (areaName) saveAreaLayout(areaName, "horizontal");
+    saveAreaLayout(areaName, "horizontal");
   } else {
     card.classList.remove('horizontal');
     card.classList.add('square');
     if (rotateIcon) rotateIcon.className = "bi bi-arrow-repeat";
-    if (areaName) saveAreaLayout(areaName, "square");
+    saveAreaLayout(areaName, "square");
   }
 }
 
@@ -129,7 +133,6 @@ function renameAreaPrompt(oldName) {
     AREA_NAMES = AREA_NAMES.map(name => (name === oldName ? newName.trim() : name));
     stops.forEach(s => { if (s.area === oldName) s.area = newName.trim(); });
 
-    // Also update layout storage
     let layouts = JSON.parse(localStorage.getItem('areaLayouts') || '{}');
     if (layouts[oldName]) {
       layouts[newName.trim()] = layouts[oldName];
@@ -152,25 +155,10 @@ function openAddStopModal(area) {
   stopModal.show();
 }
 
-function openAreaStops(area) {
-  event.stopPropagation();
-  const stopsInArea = stops.filter(s => s.area === area);
-  areaItemsContent.innerHTML = "";
-
-  stopsInArea.forEach(stop => {
-    const itemDiv = document.createElement("div");
-    itemDiv.className = "p-2 mb-2 bg-secondary rounded";
-    itemDiv.innerHTML = `
-      <strong>Stop ${stop.number}</strong><br/>
-      AWAD#: ${stop.awad}<br/>
-      Address: ${stop.address}<br/>
-      Quantity: ${stop.quantity}
-    `;
-    areaItemsContent.appendChild(itemDiv);
-  });
-
-  areaItemsModalLabel.textContent = `Area: ${area}`;
-  areaItemsModal.show();
+function lockAWAD(awad) {
+  lockedAWAD = awad;
+  lockedArea = null;
+  renderStops();
 }
 
 // ==========================
@@ -179,12 +167,13 @@ function openAreaStops(area) {
 function renderStops() {
   const query = searchInput.value.toLowerCase();
   const filtered = stops.filter(s => {
-    const matchesQuery = s.awad.toLowerCase().includes(query) || 
-                         s.address.toLowerCase().includes(query) || 
+    if (lockedAWAD) return s.awad === lockedAWAD;
+    if (lockedArea) return s.area === lockedArea;
+    const matchesQuery = s.awad.toLowerCase().includes(query) ||
+                         s.address.toLowerCase().includes(query) ||
                          s.area.toLowerCase().includes(query) ||
-                         String(s.number).toLowerCase().includes(query);
-    const matchesArea = lockedArea ? s.area === lockedArea : true;
-    return matchesQuery && matchesArea;
+                         String(s.number).includes(query);
+    return matchesQuery;
   });
 
   const sorted = filtered.sort((a, b) => {
@@ -222,8 +211,7 @@ function renderStops() {
     listItems.appendChild(label);
   });
 
-  renderAreas();
-  enableDragDrop();
+  enableStopDragDrop();
 }
 
 // ==========================
@@ -275,20 +263,32 @@ function undoDelete() {
 // ==========================
 // DRAG & DROP
 // ==========================
-function enableDragDrop() {
+function enableAreaDragDrop() {
+  Sortable.create(areas, {
+    animation: 150,
+    onEnd: function (evt) {
+      const newAreaOrder = Array.from(areas.children).map(card => card.getAttribute('data-area'));
+      AREA_NAMES = newAreaOrder;
+      saveAll();
+      renderAreas();
+      renderStops();
+    }
+  });
+}
+
+function enableStopDragDrop() {
   Sortable.create(listItems, {
     animation: 150,
     onEnd: function () {
-      const newStops = [];
       const labels = Array.from(listItems.querySelectorAll("label"));
+      const newStops = [];
+
       labels.forEach(label => {
-        const awadSpan = label.querySelector(".awad");
-        if (awadSpan) {
-          const awadText = awadSpan.textContent.trim();
-          const stop = stops.find(s => s.awad === awadText);
-          if (stop) newStops.push(stop);
-        }
+        const awad = label.querySelector('.awad')?.textContent.trim();
+        const stop = stops.find(s => s.awad === awad);
+        if (stop) newStops.push(stop);
       });
+
       stops = newStops;
       reassignNumbers();
       saveAll();
