@@ -14,7 +14,7 @@ h5 {
 }
 
 /* ======================= */
-/* Navbar (Top) */
+/* Navbar (Top) with 2-Column Layout */
 /* ======================= */
 .navbar {
   padding: 0.5rem 1rem;
@@ -25,8 +25,22 @@ h5 {
   text-align: center;
 }
 
+/* 2-column layout for Hamburger Menu and Search Bar */
+.navbar .container-fluid .row {
+  width: 100%;
+}
+
+.navbar .container-fluid .col-2 {
+  text-align: left;
+}
+
+.navbar .container-fluid .col-10 {
+  display: flex;
+  justify-content: center;
+}
+
 /* ======================= */
-/* Offcanvas Fade-In Animation */
+/* Offcanvas Fade-In from Left */
 /* ======================= */
 .offcanvas-start.fade-in-left {
   transform: translateX(-100%);

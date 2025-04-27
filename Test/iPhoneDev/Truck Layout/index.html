@@ -19,14 +19,23 @@
 <body class="bg-dark text-light">
 
 <!-- ================= -->
-<!-- Navbar with Hamburger and Centered Search -->
+<!-- Navbar with Hamburger and Centered Search (2-column) -->
 <!-- ================= -->
 <nav class="navbar navbar-dark bg-dark sticky-top">
-  <div class="container-fluid justify-content-between">
-    <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu">
-      ☰
-    </button>
-    <input id="searchInput" type="text" class="form-control mx-auto text-center" placeholder="Search Stop #, AWAD#, Address, or Area" oninput="renderStops()" />
+  <div class="container-fluid">
+    <div class="row w-100">
+      <!-- Hamburger Menu (Left Column) -->
+      <div class="col-2">
+        <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu">
+          ☰
+        </button>
+      </div>
+      
+      <!-- Search Bar (Right Column) -->
+      <div class="col-10">
+        <input id="searchInput" type="text" class="form-control mx-auto text-center" placeholder="Search Stop #, AWAD#, Address, or Area" oninput="renderStops()" />
+      </div>
+    </div>
   </div>
 </nav>
 
@@ -77,7 +86,7 @@
 
         <!-- Sticky Title -->
         <div class="sticky-header bg-dark">
-          <h5 class="m-0 py-2 text-center">Selected Items:</h5>
+          <h5 class="m-0 py-2 text-center">All Items:</h5>
         </div>
 
         <!-- Scrollable List -->
