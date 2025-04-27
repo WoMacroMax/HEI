@@ -10,9 +10,12 @@ const stopQuantityInput = document.getElementById("stopQuantity");
 const awadNumberInput = document.getElementById("awadNumber");
 const searchInput = document.getElementById("searchInput");
 
-const areaItemsModal = new bootstrap.Modal(document.getElementById("areaItemsModal"));
-const areaItemsContent = document.getElementById("areaItemsContent");
-const areaItemsModalLabel = document.getElementById("areaItemsModalLabel");
+const addItemModal = new bootstrap.Modal(document.getElementById("addItemModal"));
+const addItemForm = document.getElementById("addItemForm");
+const newAreaSelect = document.getElementById("newArea");
+const newAddress = document.getElementById("newAddress");
+const newQuantity = document.getElementById("newQuantity");
+const newAWAD = document.getElementById("newAWAD");
 
 let AREA_NAMES = ["Area 1"];
 let stops = [];
@@ -35,19 +38,9 @@ function saveAll() {
 function loadFromLocal() {
   const savedAreas = localStorage.getItem("areas");
   const savedStops = localStorage.getItem("stops");
-  if (savedAreas) {
-    AREA_NAMES = JSON.parse(savedAreas);
-    if (!AREA_NAMES.length) AREA_NAMES = ["Area 1"]; // Ensure "Area 1" exists
-  } else {
-    AREA_NAMES = ["Area 1"]; // Ensure "Area 1" exists
-  }
-
-  if (savedStops) {
-    stops = JSON.parse(savedStops);
-  } else {
-    stops = [];
-  }
-
+  if (savedAreas) AREA_NAMES = JSON.parse(savedAreas);
+  if (savedStops) stops = JSON.parse(savedStops);
+  if (!AREA_NAMES.length) AREA_NAMES = ["Area 1"];
   renderAreas();
   renderStops();
 }
@@ -60,60 +53,61 @@ function renderAreas() {
   AREA_NAMES.forEach(area => {
     const totalQty = stops.filter(s => s.area === area).reduce((sum, s) => sum + s.quantity, 0);
     const card = document.createElement("div");
-    card.className = "area-card";
+    card.className = "area-card" + (selectedArea === area ? " selected" : "");
     card.innerHTML = `
-      <div class="area-grid">
-        <div class="area-name">${area}</div>
-        <button class="btn btn-sm btn-outline-warning" onclick="renameAreaPrompt('${area}')">✎</button>
-        <div class="count">${totalQty} items</div>
-        <button class="btn btn-sm btn-outline-success" onclick="openAddStopModal('${area}')">➕ Add</button>
-      </div>
+      <div class="area-name">${area}</div>
+      <div class="count">${totalQty} items</div>
     `;
-    card.addEventListener("click", () => openAreaStops(area));
+    card.addEventListener("click", () => { lockArea(area); });
+    card.addEventListener("dblclick", (e) => { e.preventDefault(); selectArea(area); });
+    card.addEventListener("dragover", (e) => { e.preventDefault(); card.classList.add("area-hover"); });
+    card.addEventListener("dragleave", () => { card.classList.remove("area-hover"); });
+    card.addEventListener("drop", (e) => {
+      e.preventDefault();
+      const awadId = e.dataTransfer.getData("awad");
+      if (awadId) moveStopToArea(awadId, area);
+      card.classList.remove("area-hover");
+    });
     areas.appendChild(card);
   });
 }
 
-function renameAreaPrompt(oldName) {
-  event.stopPropagation();
-  const newName = prompt("Rename area:", oldName);
-  if (newName && newName.trim() !== "" && !AREA_NAMES.includes(newName.trim())) {
-    AREA_NAMES = AREA_NAMES.map(name => (name === oldName ? newName.trim() : name));
-    stops.forEach(s => { if (s.area === oldName) s.area = newName.trim(); });
-    saveAll();
-    renderAreas();
-    renderStops();
+function addArea() {
+  AREA_NAMES.push(`Area ${AREA_NAMES.length + 1}`);
+  saveAll();
+  renderAreas();
+}
+
+function removeArea() {
+  if (AREA_NAMES.length > 1) {
+    const lastArea = AREA_NAMES[AREA_NAMES.length - 1];
+    if (stops.some(s => s.area === lastArea)) {
+      alert("Cannot remove an area that still contains items.");
+      return;
+    }
+    if (confirm(`Remove "${lastArea}"?`)) {
+      AREA_NAMES.pop();
+      saveAll();
+      renderAreas();
+      renderStops();
+    }
+  } else {
+    alert("At least one area must remain.");
   }
 }
 
-function openAddStopModal(area) {
-  event.stopPropagation();
+function lockArea(area) {
+  lockedArea = area;
+  renderStops();
+}
+
+function selectArea(area) {
   selectedArea = area;
   stopAddressInput.value = "";
   stopQuantityInput.value = "1";
   awadNumberInput.value = "";
+  renderAreas();
   stopModal.show();
-}
-
-function openAreaStops(area) {
-  event.stopPropagation();
-  const stopsInArea = stops.filter(s => s.area === area);
-  areaItemsContent.innerHTML = "";
-
-  stopsInArea.forEach(stop => {
-    const itemDiv = document.createElement("div");
-    itemDiv.className = "p-2 mb-2 bg-secondary rounded";
-    itemDiv.innerHTML = `
-      <strong>Stop ${stop.number}</strong><br/>
-      AWAD#: ${stop.awad}<br/>
-      Address: ${stop.address}<br/>
-      Quantity: ${stop.quantity}
-    `;
-    areaItemsContent.appendChild(itemDiv);
-  });
-
-  areaItemsModalLabel.textContent = `Area: ${area}`;
-  areaItemsModal.show();
 }
 
 // ==========================
@@ -155,10 +149,10 @@ function renderStops() {
           <input type="checkbox" ${stop.checked ? 'checked' : ''} onchange="toggleCheck(${index})" />
         </div>
         <div class="col-2 fw-bold">${stop.area}</div>
-        <div class="col-2">Stop ${stop.number}</div>
         <div class="col-2 editable awad" contenteditable="true">${stop.awad}</div>
-        <div class="col-3">${stop.address}</div>
-        <div class="col-1 editable quantity" contenteditable="true">${stop.quantity}</div>
+        <div class="col-2">${stop.address}</div>
+        <div class="col-2">Stop ${stop.number}</div>
+        <div class="col-2 editable quantity" contenteditable="true">${stop.quantity}</div>
         <div class="col-1">
           <button class="btn btn-sm btn-danger delete-btn" onclick="deleteStop(${index})">X</button>
         </div>
@@ -276,7 +270,44 @@ function enableDragDrop() {
 }
 
 // ==========================
-// STOP FORM (Double-click Add)
+// ADD ITEM MODAL
+// ==========================
+function openAddItemModal() {
+  populateAreaDropdown();
+  newAddress.value = "";
+  newQuantity.value = 1;
+  newAWAD.value = "";
+  addItemModal.show();
+}
+
+function populateAreaDropdown() {
+  newAreaSelect.innerHTML = "";
+  AREA_NAMES.forEach(area => {
+    const option = document.createElement("option");
+    option.value = area;
+    option.textContent = area;
+    newAreaSelect.appendChild(option);
+  });
+}
+
+addItemForm.addEventListener("submit", function(e) {
+  e.preventDefault();
+  stops.push({
+    number: stops.length + 1,
+    area: newAreaSelect.value,
+    address: newAddress.value.trim(),
+    quantity: parseInt(newQuantity.value),
+    awad: newAWAD.value.trim(),
+    checked: false
+  });
+  reassignNumbers();
+  saveAll();
+  renderStops();
+  addItemModal.hide();
+});
+
+// ==========================
+// ADD STOP MODAL (double-click Area)
 /* ========================= */
 stopForm.addEventListener("submit", function(e) {
   e.preventDefault();
