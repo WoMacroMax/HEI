@@ -7,10 +7,9 @@
 
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <!-- Bootstrap Icons -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-  <!-- Custom Styles -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+
   <!-- SortableJS -->
   <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
   <!-- jsPDF -->
@@ -26,9 +25,7 @@
   <div class="container-fluid">
     <div class="row w-100">
       <div class="col-2">
-        <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu">
-          ☰
-        </button>
+        <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu">☰</button>
       </div>
       <div class="col-10">
         <input id="searchInput" type="text" class="form-control mx-auto text-center" placeholder="Search Stop #, AWAD#, Address, or Area" oninput="renderStops()" />
@@ -74,12 +71,12 @@
 <!-- ================= -->
 <div class="container-fluid mt-3">
   <div class="row g-3">
-    <!-- Areas -->
+    <!-- Areas Section -->
     <div class="col-12 col-md-6">
       <div id="areas" class="areas-grid"></div>
     </div>
 
-    <!-- Checklist -->
+    <!-- Checklist Section -->
     <div class="col-12 col-md-6">
       <div class="checklist-card">
         <div class="sticky-header bg-dark">
@@ -91,7 +88,9 @@
   </div>
 </div>
 
-<!-- Stop Modal -->
+<!-- ================= -->
+<!-- Modals -->
+<!-- ================= -->
 <div class="modal fade" id="stopModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content bg-dark text-light">
@@ -111,7 +110,6 @@
   </div>
 </div>
 
-<!-- Area Items Modal -->
 <div class="modal fade" id="areaItemsModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content bg-dark text-light">
@@ -134,7 +132,9 @@
   </div>
 </div>
 
+<!-- ================= -->
 <!-- Scripts -->
+<!-- ================= -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="scripts.js"></script>
 
