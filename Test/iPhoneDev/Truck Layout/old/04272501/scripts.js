@@ -37,15 +37,19 @@ function loadFromLocal() {
   const savedStops = localStorage.getItem("stops");
   if (savedAreas) {
     AREA_NAMES = JSON.parse(savedAreas);
-    if (!AREA_NAMES.length) AREA_NAMES = ["Area 1"];
+    if (!AREA_NAMES.length) AREA_NAMES = ["Area 1"]; // Ensure "Area 1" exists
   } else {
-    AREA_NAMES = ["Area 1"];
+    AREA_NAMES = ["Area 1"]; // Ensure "Area 1" exists
   }
+
   if (savedStops) {
     stops = JSON.parse(savedStops);
   } else {
     stops = [];
   }
+
+  renderAreas();
+  renderStops();
 }
 
 // ==========================
@@ -53,73 +57,37 @@ function loadFromLocal() {
 // ==========================
 function renderAreas() {
   areas.innerHTML = "";
-  const layouts = JSON.parse(localStorage.getItem('areaLayouts') || '{}');
-
   AREA_NAMES.forEach(area => {
     const totalQty = stops.filter(s => s.area === area).reduce((sum, s) => sum + s.quantity, 0);
     const card = document.createElement("div");
-    card.className = "area-card square"; // Default shape
-
+    card.className = "area-card vertical"; // Default vertical layout
     card.innerHTML = `
       <div class="area-grid">
-        <div class="d-flex justify-content-between align-items-center">
-          <div class="area-name">${area}</div>
-          <div class="d-flex gap-2">
-            <button class="btn btn-sm btn-outline-warning" onclick="renameAreaPrompt('${area}')">✎</button>
-            <button class="btn btn-sm btn-outline-info" onclick="pivotAreaCard(this)"><i class="bi bi-arrow-repeat"></i></button>
-            <button class="btn btn-sm btn-outline-success" onclick="openAddStopModal('${area}')">➕</button>
-          </div>
-        </div>
-        <div class="count mt-2">${totalQty} items</div>
+        <div class="area-name">${area}</div>
+        <button class="btn btn-sm btn-outline-warning" onclick="renameAreaPrompt('${area}')">✎</button>
+        <div class="count">${totalQty} items</div>
+        <button class="btn btn-sm btn-outline-success" onclick="openAddStopModal('${area}')">➕ Add</button>
       </div>
-      <div class="awad-list mt-2" id="awadList-${area}"></div>
+      <div class="awad-list" id="awadList-${area}">
+        <!-- AWAD list will be dynamically populated here -->
+      </div>
     `;
 
-    // Restore saved layout
-    if (layouts[area] === "horizontal") {
-      card.classList.remove('square');
-      card.classList.add('horizontal');
-      const pivotButton = card.querySelector('.btn-outline-info i');
-      if (pivotButton) pivotButton.className = "bi bi-arrows-expand";
-    }
-
-    // AWAD links
+    // Adding AWAD# links for this area
     const awadList = card.querySelector(`#awadList-${area}`);
-    awadList.innerHTML = stops.filter(s => s.area === area)
-      .map(stop => `<a href="#" onclick="scrollToStop(${stop.number})">${stop.awad}</a>`)
-      .join("");
+    const awadLinks = stops.filter(s => s.area === area).map(stop => {
+      return `<a href="#" onclick="scrollToStop(${stop.number})">${stop.awad}</a>`;
+    }).join("");
+
+    awadList.innerHTML = awadLinks;
+
+    // Toggle between vertical and horizontal layout
+    card.addEventListener("click", function () {
+      toggleAreaLayout(area, card);
+    });
 
     areas.appendChild(card);
   });
-}
-
-function pivotAreaCard(button) {
-  event.stopPropagation();
-  const card = button.closest('.area-card');
-  const rotateIcon = button.querySelector('i');
-  const areaName = card.querySelector('.area-name')?.textContent?.trim();
-
-  // Add pivoting animation
-  card.classList.add('pivoting');
-  setTimeout(() => card.classList.remove('pivoting'), 400);
-
-  if (card.classList.contains('square')) {
-    card.classList.remove('square');
-    card.classList.add('horizontal');
-    if (rotateIcon) rotateIcon.className = "bi bi-arrows-expand";
-    if (areaName) saveAreaLayout(areaName, "horizontal");
-  } else {
-    card.classList.remove('horizontal');
-    card.classList.add('square');
-    if (rotateIcon) rotateIcon.className = "bi bi-arrow-repeat";
-    if (areaName) saveAreaLayout(areaName, "square");
-  }
-}
-
-function saveAreaLayout(area, layout) {
-  let layouts = JSON.parse(localStorage.getItem('areaLayouts') || '{}');
-  layouts[area] = layout;
-  localStorage.setItem('areaLayouts', JSON.stringify(layouts));
 }
 
 function renameAreaPrompt(oldName) {
@@ -128,18 +96,19 @@ function renameAreaPrompt(oldName) {
   if (newName && newName.trim() !== "" && !AREA_NAMES.includes(newName.trim())) {
     AREA_NAMES = AREA_NAMES.map(name => (name === oldName ? newName.trim() : name));
     stops.forEach(s => { if (s.area === oldName) s.area = newName.trim(); });
-
-    // Also update layout storage
-    let layouts = JSON.parse(localStorage.getItem('areaLayouts') || '{}');
-    if (layouts[oldName]) {
-      layouts[newName.trim()] = layouts[oldName];
-      delete layouts[oldName];
-      localStorage.setItem('areaLayouts', JSON.stringify(layouts));
-    }
-
     saveAll();
     renderAreas();
     renderStops();
+  }
+}
+
+function toggleAreaLayout(area, card) {
+  if (card.classList.contains('vertical')) {
+    card.classList.remove('vertical');
+    card.classList.add('horizontal');
+  } else {
+    card.classList.remove('horizontal');
+    card.classList.add('vertical');
   }
 }
 
@@ -182,7 +151,7 @@ function renderStops() {
     const matchesQuery = s.awad.toLowerCase().includes(query) || 
                          s.address.toLowerCase().includes(query) || 
                          s.area.toLowerCase().includes(query) ||
-                         String(s.number).toLowerCase().includes(query);
+                         String(s.number).toLowerCase().includes(query); // Added check for Stop Number
     const matchesArea = lockedArea ? s.area === lockedArea : true;
     return matchesQuery && matchesArea;
   });
@@ -213,10 +182,22 @@ function renderStops() {
         <div class="col-3" contenteditable="false">${stop.address}</div>
         <div class="col-1 editable quantity" contenteditable="true">${stop.quantity}</div>
         <div class="col-1">
-          <button class="btn btn-sm btn-danger" onclick="deleteStop(${index})">X</button>
+          <button class="btn btn-sm btn-danger delete-btn" onclick="deleteStop(${index})">X</button>
         </div>
       </div>
     `;
+
+    // Add listener to trigger long-tap copy on address field
+    span.querySelector(".col-3").addEventListener("touchstart", function(e) {
+      const touchStart = Date.now();
+
+      span.querySelector(".col-3").addEventListener("touchend", function(e) {
+        const touchEnd = Date.now();
+        if (touchEnd - touchStart > 500) { // Detect long tap (500ms)
+          copyAddressToClipboard(stop.address);
+        }
+      });
+    });
 
     label.appendChild(span);
     listItems.appendChild(label);
@@ -224,11 +205,9 @@ function renderStops() {
 
   renderAreas();
   enableDragDrop();
+  enableLongTapCopy();  // Re-enable long-tap copying after rendering the stops
 }
 
-// ==========================
-// CHECKLIST CONTROLS
-// ==========================
 function toggleCheck(index) {
   stops[index].checked = !stops[index].checked;
   saveAll();
@@ -251,6 +230,25 @@ function reassignNumbers() {
   });
 }
 
+function moveStopToArea(awadId, newArea) {
+  stops.forEach(stop => {
+    if (stop.awad === awadId) {
+      stop.area = newArea;
+    }
+  });
+  reassignNumbers();
+  saveAll();
+  renderStops();
+}
+
+// ==========================
+// SORT and DELETE
+// ==========================
+function toggleSort() { sortField = "number"; sortAsc = !sortAsc; renderStops(); }
+function toggleSortAddress() { sortField = "address"; sortAsc = !sortAsc; renderStops(); }
+function toggleSortQuantity() { sortField = "quantity"; sortAsc = !sortAsc; renderStops(); }
+function toggleSortAWAD() { sortField = "awad"; sortAsc = !sortAsc; renderStops(); }
+
 function deleteSelected() {
   if (confirm("Delete selected stops?")) {
     stops = stops.filter(stop => !stop.checked);
@@ -260,6 +258,9 @@ function deleteSelected() {
   }
 }
 
+// ==========================
+// UNDO DELETE
+// ==========================
 function undoDelete() {
   if (lastDeletedStop) {
     stops.push(lastDeletedStop);
@@ -297,8 +298,8 @@ function enableDragDrop() {
 }
 
 // ==========================
-// STOP FORM SUBMIT
-// ==========================
+// STOP FORM (Double-click Add)
+/* ========================= */
 stopForm.addEventListener("submit", function(e) {
   e.preventDefault();
   stops.push({
@@ -314,6 +315,72 @@ stopForm.addEventListener("submit", function(e) {
   renderStops();
   stopModal.hide();
 });
+
+// ==========================
+// LONG-TAP TO COPY ADDRESS
+// ==========================
+function enableLongTapCopy() {
+  const stopItems = document.querySelectorAll(".checklist-item");
+
+  stopItems.forEach(item => {
+    const addressElement = item.querySelector(".col-3");  // The address column in each stop
+
+    addressElement.addEventListener("touchstart", function(e) {
+      // Track the touch start time
+      const touchStart = Date.now();
+
+      // When touch ends, check if it was long press
+      addressElement.addEventListener("touchend", function(e) {
+        const touchEnd = Date.now();
+        if (touchEnd - touchStart > 500) {  // Long press duration (500ms)
+          copyAddressToClipboard(addressElement.textContent.trim());
+        }
+      });
+    });
+  });
+}
+
+// Function to copy text to clipboard
+function copyAddressToClipboard(address) {
+  navigator.clipboard.writeText(address).then(() => {
+    const copyToast = new bootstrap.Toast(document.getElementById('copyToast'));
+    copyToast.show();
+  }).catch(err => {
+    console.error('Failed to copy address: ', err);
+  });
+}
+function addArea() {
+  const newAreaName = prompt("Enter new area name:");
+  if (newAreaName && newAreaName.trim() !== "" && !AREA_NAMES.includes(newAreaName.trim())) {
+    AREA_NAMES.push(newAreaName.trim());
+    saveAll();
+    renderAreas();
+    renderStops();
+  } else if (AREA_NAMES.includes(newAreaName.trim())) {
+    alert("Area name already exists!");
+  }
+}
+
+function removeArea() {
+  const areaToRemove = prompt("Enter the exact name of the area you want to remove:");
+  if (!areaToRemove) return;
+
+  if (!AREA_NAMES.includes(areaToRemove.trim())) {
+    alert("Area not found!");
+    return;
+  }
+
+  const stopsInArea = stops.filter(stop => stop.area === areaToRemove.trim());
+  if (stopsInArea.length > 0) {
+    alert("Cannot delete an area that has stops assigned to it. Please move or delete the stops first.");
+    return;
+  }
+
+  AREA_NAMES = AREA_NAMES.filter(name => name !== areaToRemove.trim());
+  saveAll();
+  renderAreas();
+  renderStops();
+}
 
 // ==========================
 // INITIALIZE

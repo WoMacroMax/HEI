@@ -25,6 +25,7 @@ h5 {
   text-align: center;
 }
 
+/* 2-column layout for Hamburger Menu and Search Bar */
 .navbar .container-fluid .row {
   width: 100%;
 }
@@ -53,90 +54,51 @@ h5 {
 }
 
 /* ======================= */
-/* Areas Grid Layout (3 columns) */
+/* Areas Section */
 /* ======================= */
-#areas.areas-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: auto;
-  gap: 1rem;
-  justify-content: center;
-  align-items: start;
+.pink-card {
+  background-color: #ffe6f0 !important;
+  border: none;
+  border-radius: 10px;
+  padding: 1rem;
+  min-height: 80vh;
 }
 
-/* Area Card Styles */
 .area-card {
-  background-color: #002b5c;
   border: 2px solid #0074D9;
-  border-radius: 15px;
+  border-radius: 10px;
   padding: 1rem;
-  color: white;
+  margin: 1rem 0;
+  background-color: rgba(0, 116, 217, 0.05);
+  text-align: center;
+  transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
-  transition: all 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
-  cursor: move;
 }
 
-/* Layout Modes */
-.area-card.square {
-  width: 100%;
-  transform: scale(1);
-}
-
-.area-card.horizontal {
-  width: 100%;
-  transform: scale(1);
-}
-
-/* Pivot Boost Glow Animation */
-.area-card.pivoting {
-  transform: scale(1.05);
-  box-shadow: 0 0 20px 5px rgba(0, 255, 255, 0.7);
-}
-
-/* Area Hover */
-.area-hover {
-  box-shadow: 0 0 15px 5px #00ffcc;
-}
-
-/* Selected Area Highlight */
 .area-card.selected {
   background-color: rgba(0, 116, 217, 0.3);
 }
 
-/* Area Grid (inside card for buttons and info) */
+.area-card:hover {
+  transform: scale(1.02);
+}
+
+.area-hover {
+  box-shadow: 0 0 15px 5px #00ffcc;
+}
+
+/* Area Card Grid */
 .area-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr; /* 2-column layout for buttons and AWAD */
   align-items: center;
   gap: 0.5rem;
-  width: 100%;
 }
 
 .area-grid button {
   white-space: nowrap;
-}
-
-/* AWAD List */
-.awad-list {
-  margin-top: 10px;
-  padding: 10px;
-  max-height: 250px;
-  overflow-y: auto;
-  width: 100%;
-}
-
-.awad-list a {
-  display: block;
-  color: #0074D9;
-  text-decoration: none;
-  margin-bottom: 5px;
-}
-
-.awad-list a:hover {
-  text-decoration: underline;
 }
 
 /* ======================= */
@@ -150,10 +112,29 @@ h5 {
   max-height: 80vh;
 }
 
+.list-scroll {
+  max-height: 75vh;
+  overflow-y: auto;
+}
+
 .checklist {
   margin-top: 1rem;
   max-height: 60vh;
   overflow-y: auto;
+}
+
+/* ======================= */
+/* Sticky Header for Selected Items */
+/* ======================= */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: #002b5c;
+  color: white;
+  padding: 1rem;
+  font-size: 1.2rem;
+  text-align: center;
 }
 
 .checklist .row {
@@ -182,20 +163,6 @@ label.unchecked {
 }
 
 /* ======================= */
-/* Sticky Header for Selected Items */
-/* ======================= */
-.sticky-header {
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  background-color: #002b5c;
-  color: white;
-  padding: 1rem;
-  font-size: 1.2rem;
-  text-align: center;
-}
-
-/* ======================= */
 /* Toasts */
 /* ======================= */
 .toast {
@@ -207,16 +174,12 @@ label.unchecked {
 /* Responsive Adjustments */
 /* ======================= */
 @media (max-width: 768px) {
-  #areas.areas-grid {
-    grid-template-columns: 1fr; /* Stack areas on small screens */
-  }
-
   .navbar input[type="text"] {
     max-width: 100%;
   }
 
   .area-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* Single column for mobile */
   }
 
   .controls .btn {
@@ -231,4 +194,37 @@ label.unchecked {
   label {
     padding: 0.5rem;
   }
+}
+
+/* ======================= */
+/* Rotate Area Card Vertically or Horizontally */
+/* ======================= */
+.area-card.vertical {
+  flex-direction: column;
+}
+
+.area-card.horizontal {
+  flex-direction: row;
+  width: 100%;
+}
+
+/* ======================= */
+/* Scrollable AWAD List */
+/* ======================= */
+.awad-list {
+  margin: 10px 0;
+  padding: 10px;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.awad-list a {
+  display: block;
+  color: #0074D9;
+  text-decoration: none;
+  margin-bottom: 5px;
+}
+
+.awad-list a:hover {
+  text-decoration: underline;
 }

@@ -30,10 +30,10 @@
     }
 
     .page-wrapper {
-      height: calc(100vh - 140px);
+      height: calc(100vh - 140px); /* Adjust if top and bottom bars exist */
       overflow: hidden;
     }
-  
+
     footer {
       position: absolute;
       bottom: 0;
@@ -43,74 +43,50 @@
       text-align: center;
     }
 
-    /* Burger menu fixed on the left */
-    .menu-icon {
-      position: fixed;
-      left: .25in;
-      top: 10%;
-      transform: translateY(-50%);
-      width: 40px;
-      padding: 1px;
-      background-color: #e6ccff;
-      border-radius: 1px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      z-index: 1000;
-      cursor: pointer;
-      box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-    }
+    @media (max-width: 340px) {
+      .menu-top {
+        height: 70px;
+        padding: 0 10px;
+      }
 
-    .line {
-      height: 4px;
-      margin: 4px 0;
-      background-color: black;
-    }
-
-    .menu-top {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0.5rem 1rem;
-    }
-
-    .logo-title {
-      text-align: center;
-    }
-
-    .logo-title h1 {
-      font-size: 2rem;
-      margin: 0;
-      white-space: nowrap;
-    }
-
-    .menu-icon-image {
-      height: 80px;
-      padding: 6px;
-    }
-
-    @media (max-width: 400px) {
       .menu-icon {
-        left: 1.5in;
+        width: 30px;
+        padding: 5px;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        z-index: 1000;
+      }
+
+      .line {
+        height: 3px;
+        margin: 3px 0;
+        background-color: black;
       }
 
       .logo-title h1 {
         font-size: 6vw;
+        margin: 0;
+        white-space: nowrap;
+      }
+
+      .menu-icon-image {
+        height: 50px;
+        padding: 6px;
       }
     }
   </style>
 </head>
 <body class="bg-light">
-
-  <!-- Sticky Burger Menu (outside title bar) -->
-  <div class="menu-icon" onclick="toggleMenu()" role="button" aria-expanded="false">
-    <div class="line"></div>
-    <div class="line"></div>
-    <div class="line"></div>
-  </div>
-
   <div class="menu-container">
     <div class="menu-top">
+      <div class="menu-icon" onclick="toggleMenu()" role="button" aria-expanded="false">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+      </div>
+
       <div class="logo-title">
         <h1>Community <span class="blue-text">Family</span> Clinic</h1>
         <div class="logo-box">
