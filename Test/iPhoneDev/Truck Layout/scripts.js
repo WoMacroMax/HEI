@@ -81,15 +81,10 @@ function renderAreas() {
 
     awadList.innerHTML = awadLinks;
 
-    // Adding the rotate button
-    const rotateButton = document.createElement("button");
-    rotateButton.className = "btn btn-sm btn-outline-info mt-2";
-    rotateButton.innerText = "Rotate";
-    rotateButton.addEventListener("click", function() {
+    // Toggle between vertical and horizontal layout
+    card.addEventListener("click", function () {
       toggleAreaLayout(area, card);
     });
-
-    card.appendChild(rotateButton);
 
     areas.appendChild(card);
   });
