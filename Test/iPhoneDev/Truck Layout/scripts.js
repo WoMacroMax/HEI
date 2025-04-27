@@ -60,7 +60,7 @@ function renderAreas() {
   AREA_NAMES.forEach(area => {
     const totalQty = stops.filter(s => s.area === area).reduce((sum, s) => sum + s.quantity, 0);
     const card = document.createElement("div");
-    card.className = "area-card";
+    card.className = "area-card vertical"; // Default vertical layout
     card.innerHTML = `
       <div class="area-grid">
         <div class="area-name">${area}</div>
@@ -68,8 +68,24 @@ function renderAreas() {
         <div class="count">${totalQty} items</div>
         <button class="btn btn-sm btn-outline-success" onclick="openAddStopModal('${area}')">➕ Add</button>
       </div>
+      <div class="awad-list" id="awadList-${area}">
+        <!-- AWAD list will be dynamically populated here -->
+      </div>
     `;
-    card.addEventListener("click", () => openAreaStops(area));
+
+    // Adding AWAD# links for this area
+    const awadList = card.querySelector(`#awadList-${area}`);
+    const awadLinks = stops.filter(s => s.area === area).map(stop => {
+      return `<a href="#" onclick="scrollToStop(${stop.number})">${stop.awad}</a>`;
+    }).join("");
+
+    awadList.innerHTML = awadLinks;
+
+    // Toggle between vertical and horizontal layout
+    card.addEventListener("click", function () {
+      toggleAreaLayout(area, card);
+    });
+
     areas.appendChild(card);
   });
 }
@@ -83,6 +99,16 @@ function renameAreaPrompt(oldName) {
     saveAll();
     renderAreas();
     renderStops();
+  }
+}
+
+function toggleAreaLayout(area, card) {
+  if (card.classList.contains('vertical')) {
+    card.classList.remove('vertical');
+    card.classList.add('horizontal');
+  } else {
+    card.classList.remove('horizontal');
+    card.classList.add('vertical');
   }
 }
 
