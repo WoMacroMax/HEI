@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Checklist App - Area Drag Drop, Save Checked</title>
 
   <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
 
   <!-- SortableJS -->
   <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
@@ -19,47 +19,77 @@
 <body class="bg-dark text-light">
 
 <!-- ================= -->
-<!-- Controls Toolbar -->
+<!-- Navbar with Hamburger and Centered Search -->
 <!-- ================= -->
-<div class="container-fluid py-3">
-  <div class="row g-2 controls">
-    <div class="col-6 col-md-auto"><button class="btn btn-primary w-100" onclick="addArea()">Add Area</button></div>
-    <div class="col-6 col-md-auto"><button class="btn btn-warning w-100" onclick="removeArea()">Remove Area</button></div>
-    <div class="col-6 col-md-auto"><button class="btn btn-secondary w-100" onclick="saveAll()">Save</button></div>
-    <div class="col-6 col-md-auto"><button class="btn btn-light text-dark w-100" onclick="loadFromLocal()">Load</button></div>
-    <div class="col-6 col-md-auto"><button class="btn btn-outline-light w-100" onclick="toggleSort()">Sort Stop #</button></div>
-    <div class="col-6 col-md-auto"><button class="btn btn-outline-light w-100" onclick="toggleSortAddress()">Sort Address</button></div>
-    <div class="col-6 col-md-auto"><button class="btn btn-outline-light w-100" onclick="toggleSortQuantity()">Sort Quantity</button></div>
-    <div class="col-6 col-md-auto"><button class="btn btn-outline-light w-100" onclick="toggleSortAWAD()">Sort AWAD#</button></div>
-    <div class="col-6 col-md-auto"><button class="btn btn-success w-100" onclick="exportCSV()">Download CSV</button></div>
-    <div class="col-6 col-md-auto"><button class="btn btn-info w-100 text-white" onclick="exportPDF()">Download PDF</button></div>
-    <div class="col-6 col-md-auto"><button class="btn btn-danger w-100" onclick="deleteSelected()">Delete Selected</button></div>
-    <div class="col-6 col-md-auto"><button class="btn btn-outline-warning w-100" onclick="undoDelete()">Undo Delete</button></div>
-    <div class="col-6 col-md-auto"><button class="btn btn-outline-success w-100" onclick="openAddItemModal()">Add Item</button></div>
+<nav class="navbar navbar-dark bg-dark sticky-top">
+  <div class="container-fluid justify-content-between">
+    <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu">
+      ☰
+    </button>
+    <input id="searchInput" type="text" class="form-control mx-auto text-center" placeholder="Search AWAD#, Address, or Area" oninput="renderStops()" />
+  </div>
+</nav>
 
-    <div class="col-12 mt-2">
-      <input id="searchInput" class="form-control" placeholder="Search AWAD#, Address, or Area" oninput="renderStops()">
-    </div>
+<!-- ================= -->
+<!-- Hamburger Menu (Offcanvas) -->
+<!-- ================= -->
+<div class="offcanvas offcanvas-end fade-in-left bg-dark text-light" tabindex="-1" id="offcanvasMenu">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title">Menu</h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column gap-3">
+
+    <h6>📂 Area Management</h6>
+    <button class="btn btn-primary" onclick="addArea()">Add Area</button>
+    <button class="btn btn-warning" onclick="removeArea()">Remove Area</button>
+
+    <h6>📋 Stop Management</h6>
+    <button class="btn btn-secondary" onclick="saveAll()">Save</button>
+    <button class="btn btn-light text-dark" onclick="loadFromLocal()">Load</button>
+    <button class="btn btn-danger" onclick="deleteSelected()">Delete Selected</button>
+    <button class="btn btn-outline-warning" onclick="undoDelete()">Undo Delete</button>
+
+    <h6>🔃 Sort Options</h6>
+    <button class="btn btn-outline-light" onclick="toggleSort()">Sort Stop #</button>
+    <button class="btn btn-outline-light" onclick="toggleSortAddress()">Sort Address</button>
+    <button class="btn btn-outline-light" onclick="toggleSortQuantity()">Sort Quantity</button>
+    <button class="btn btn-outline-light" onclick="toggleSortAWAD()">Sort AWAD#</button>
+
+    <h6>📤 Exports</h6>
+    <button class="btn btn-success" onclick="exportCSV()">Download CSV</button>
+    <button class="btn btn-info text-white" onclick="exportPDF()">Download PDF</button>
+
   </div>
 </div>
 
 <!-- ================= -->
-<!-- Areas and Checklist -->
+<!-- Main Content: Areas + Checklist -->
 <!-- ================= -->
-<div class="container-fluid">
+<div class="container-fluid mt-3">
   <div class="row g-3">
     <div class="col-12 col-md-6" id="areas"></div>
+
     <div class="col-12 col-md-6">
-      <div id="checklist" class="checklist">
-        <h5>Selected Items:</h5>
-        <div id="listItems"></div>
+      <div class="checklist-card">
+        <!-- Area Grid Info above Checklist -->
+        <div id="areaInfo" class="area-grid"></div>
+
+        <!-- Sticky Title -->
+        <div class="sticky-header bg-dark">
+          <h5 class="m-0 py-2 text-center">Selected Items:</h5>
+        </div>
+
+        <!-- Scrollable List -->
+        <div id="listItems" class="list-scroll"></div>
       </div>
     </div>
+
   </div>
 </div>
 
 <!-- ================= -->
-<!-- Stop Modal (double-click area) -->
+<!-- Stop Modal (Add Stop) -->
 <!-- ================= -->
 <div class="modal fade" id="stopModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
@@ -70,9 +100,9 @@
       </div>
       <div class="modal-body">
         <form id="stopForm">
-          <div class="mb-3"><label class="form-label">AWAD#</label><input id="awadNumber" class="form-control" required></div>
-          <div class="mb-3"><label class="form-label">Address</label><input id="stopAddress" class="form-control" required></div>
-          <div class="mb-3"><label class="form-label">Quantity</label><input id="stopQuantity" type="number" class="form-control" min="1" value="1" required></div>
+          <div class="mb-3"><label class="form-label">AWAD#</label><input id="awadNumber" class="form-control" required /></div>
+          <div class="mb-3"><label class="form-label">Address</label><input id="stopAddress" class="form-control" required /></div>
+          <div class="mb-3"><label class="form-label">Quantity</label><input id="stopQuantity" type="number" class="form-control" min="1" value="1" required /></div>
           <button type="submit" class="btn btn-primary w-100">Save Stop</button>
         </form>
       </div>
@@ -81,30 +111,24 @@
 </div>
 
 <!-- ================= -->
-<!-- Add Item Modal (button) -->
+<!-- Area Items Modal -->
 <!-- ================= -->
-<div class="modal fade" id="addItemModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog">
+<div class="modal fade" id="areaItemsModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content bg-dark text-light">
       <div class="modal-header">
-        <h5 class="modal-title">Add New Item</h5>
+        <h5 class="modal-title" id="areaItemsModalLabel">Area Items</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
-      <div class="modal-body">
-        <form id="addItemForm">
-          <div class="mb-3"><label class="form-label">Area</label><select id="newArea" class="form-select" required></select></div>
-          <div class="mb-3"><label class="form-label">AWAD#</label><input id="newAWAD" class="form-control" required></div>
-          <div class="mb-3"><label class="form-label">Address</label><input id="newAddress" class="form-control" required></div>
-          <div class="mb-3"><label class="form-label">Quantity</label><input id="newQuantity" type="number" class="form-control" min="1" value="1" required></div>
-          <button type="submit" class="btn btn-primary w-100">Add Item</button>
-        </form>
+      <div class="modal-body" id="areaItemsContent">
+        <!-- dynamically populated -->
       </div>
     </div>
   </div>
 </div>
 
 <!-- ================= -->
-<!-- Toasts -->
+<!-- Toast Notifications -->
 <!-- ================= -->
 <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 9999">
   <div id="copyToast" class="toast bg-success text-white" role="alert">

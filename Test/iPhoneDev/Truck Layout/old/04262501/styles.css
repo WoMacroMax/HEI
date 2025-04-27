@@ -4,7 +4,7 @@
 body {
   background-color: #001f3f;
   color: white;
-  padding: 0;
+  padding: 1rem;
   font-family: Arial, sans-serif;
   min-height: 100vh;
 }
@@ -14,29 +14,14 @@ h5 {
 }
 
 /* ======================= */
-/* Navbar (Top) */
+/* Controls Toolbar */
 /* ======================= */
-.navbar {
-  padding: 0.5rem 1rem;
+.controls .btn {
+  min-width: 140px;
 }
 
-.navbar input[type="text"] {
-  max-width: 400px;
-  text-align: center;
-}
-
-/* ======================= */
-/* Offcanvas Fade-In Animation */
-/* ======================= */
-.offcanvas-end.fade-in-left {
-  transform: translateX(100%);
-  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
-  opacity: 0;
-}
-
-.offcanvas-end.fade-in-left.show {
-  transform: translateX(0);
-  opacity: 1;
+.controls input {
+  margin-top: 0.5rem;
 }
 
 /* ======================= */
@@ -45,9 +30,10 @@ h5 {
 .area-card {
   border: 2px solid #0074D9;
   border-radius: 10px;
-  padding: 1rem;
+  padding: 1.5rem;
   margin: 1rem 0;
   background-color: rgba(0, 116, 217, 0.05);
+  font-weight: bold;
   text-align: center;
   transition: background-color 0.3s, box-shadow 0.3s;
 }
@@ -60,51 +46,16 @@ h5 {
   box-shadow: 0 0 15px 5px #00ffcc;
 }
 
-/* Area Card Grid */
-.area-grid {
-  display: grid;
-  grid-template-columns: 2fr auto auto auto;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.area-grid button {
-  white-space: nowrap;
-}
-
 /* ======================= */
 /* Checklist Section */
 /* ======================= */
-.checklist-card {
+.checklist {
   background-color: #002b5c;
   border-radius: 10px;
   padding: 1rem;
   margin-top: 1rem;
   max-height: 80vh;
-}
-
-.checklist {
-  margin-top: 1rem;
-  max-height: 60vh;
   overflow-y: auto;
-}
-
-/* ======================= */
-/* Sticky Header for Selected Items */
-/* ======================= */
-.sticky-header {
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  background-color: #002b5c;
-  color: white;
-  padding: 1rem;
-  font-size: 1.2rem;
-  text-align: center;
-}
-
-.checklist .row {
-  align-items: center;
 }
 
 label {
@@ -128,6 +79,39 @@ label.unchecked {
   color: white !important;
 }
 
+.checklist .row {
+  align-items: center;
+}
+
+/* Bigger checkbox */
+.checklist input[type="checkbox"] {
+  transform: scale(1.5);
+  margin-top: 5px;
+}
+
+/* Editable fields */
+.editable {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+/* Delete Button */
+.delete-btn {
+  background-color: #dc3545;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  font-size: 0.8rem;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
 /* ======================= */
 /* Toasts */
 /* ======================= */
@@ -140,17 +124,18 @@ label.unchecked {
 /* Responsive Adjustments */
 /* ======================= */
 @media (max-width: 768px) {
-  .navbar input[type="text"] {
-    max-width: 100%;
-  }
-
-  .area-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-
   .controls .btn {
     min-width: 100%;
     margin-bottom: 0.5rem;
+  }
+
+  .controls input {
+    width: 100%;
+  }
+
+  .area-card {
+    font-size: 1.1rem;
+    padding: 1rem;
   }
 
   .checklist {
