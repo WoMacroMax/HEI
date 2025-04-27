@@ -9,12 +9,10 @@ const stopAddressInput = document.getElementById("stopAddress");
 const stopQuantityInput = document.getElementById("stopQuantity");
 const awadNumberInput = document.getElementById("awadNumber");
 const searchInput = document.getElementById("searchInput");
+const totalPackages = document.getElementById("totalPackages");
+const removeAreaSelect = document.getElementById("removeAreaSelect");
 
-const areaItemsModal = new bootstrap.Modal(document.getElementById("areaItemsModal"));
-const areaItemsContent = document.getElementById("areaItemsContent");
-const areaItemsModalLabel = document.getElementById("areaItemsModalLabel");
-
-let AREA_NAMES = ["Area 1"];
+let AREA_NAMES = [];
 let stops = [];
 let selectedArea = null;
 let lockedArea = null;
@@ -34,23 +32,60 @@ function saveAll() {
 }
 
 function loadFromLocal() {
-  const savedAreas = localStorage.getItem("areas");
-  const savedStops = localStorage.getItem("stops");
-  if (savedAreas) {
-    AREA_NAMES = JSON.parse(savedAreas);
-  }
-  if (savedStops) {
-    stops = JSON.parse(savedStops);
+  const savedAreas = JSON.parse(localStorage.getItem("areas") || "[]");
+  const savedStops = JSON.parse(localStorage.getItem("stops") || "[]");
+
+  AREA_NAMES = savedAreas.length ? savedAreas : ["Area 1"];
+  stops = savedStops;
+
+  saveAll(); // Save corrected if missing
+  renderAreas();
+  renderStops();
+}
+
+function resetApp() {
+  if (confirm("Reset the entire app? This will clear all saved data.")) {
+    localStorage.clear();
+    AREA_NAMES = ["Area 1"];
+    stops = [];
+    saveAll();
+    renderAreas();
+    renderStops();
   }
 }
 
 // ==========================
 // AREAS
 // ==========================
+function addArea() {
+  const name = prompt("Enter new Area name:");
+  if (name && !AREA_NAMES.includes(name.trim())) {
+    AREA_NAMES.push(name.trim());
+    saveAll();
+    renderAreas();
+    renderStops();
+  }
+}
+
+function confirmRemoveArea() {
+  const selected = removeAreaSelect.value;
+  if (selected && AREA_NAMES.includes(selected)) {
+    if (confirm(`Really remove Area "${selected}" and its stops?`)) {
+      AREA_NAMES = AREA_NAMES.filter(a => a !== selected);
+      stops = stops.filter(s => s.area !== selected);
+      saveAll();
+      renderAreas();
+      renderStops();
+    }
+  }
+}
+
+function updateRemoveAreaDropdown() {
+  removeAreaSelect.innerHTML = AREA_NAMES.map(area => `<option value="${area}">${area}</option>`).join("");
+}
+
 function renderAreas() {
   areas.innerHTML = "";
-  const layouts = JSON.parse(localStorage.getItem('areaLayouts') || '{}');
-
   AREA_NAMES.forEach(area => {
     const totalQty = stops.filter(s => s.area === area).reduce((sum, s) => sum + s.quantity, 0);
     const card = document.createElement("div");
@@ -72,30 +107,12 @@ function renderAreas() {
       <div class="awad-list mt-2" id="awadList-${area}"></div>
     `;
 
-    card.addEventListener('click', (e) => {
-      if (!e.target.closest('button')) {
-        lockedArea = area;
-        lockedAWAD = null;
-        renderStops();
-      }
-    });
-
-    // Allow Area to accept dropped Stops
-    card.addEventListener('dragover', (e) => {
-      e.preventDefault();
-    });
+    card.addEventListener('dragover', (e) => e.preventDefault());
     card.addEventListener('drop', (e) => {
       e.preventDefault();
       const awad = e.dataTransfer.getData('text/plain');
       moveStopToArea(awad, area);
     });
-
-    if (layouts[area] === "horizontal") {
-      card.classList.remove('square');
-      card.classList.add('horizontal');
-      const pivotButton = card.querySelector('.btn-outline-info i');
-      if (pivotButton) pivotButton.className = "bi bi-arrows-expand";
-    }
 
     const awadList = card.querySelector(`#awadList-${area}`);
     awadList.innerHTML = stops.filter(s => s.area === area)
@@ -105,51 +122,17 @@ function renderAreas() {
     areas.appendChild(card);
   });
 
+  updateRemoveAreaDropdown();
+  updateTotalPackages();
   enableAreaDragDrop();
-}
-
-function pivotAreaCard(button) {
-  event.stopPropagation();
-  const card = button.closest('.area-card');
-  const rotateIcon = button.querySelector('i');
-  const areaName = card.querySelector('.area-name')?.textContent?.trim();
-
-  card.classList.add('pivoting');
-  setTimeout(() => card.classList.remove('pivoting'), 400);
-
-  if (card.classList.contains('square')) {
-    card.classList.remove('square');
-    card.classList.add('horizontal');
-    if (rotateIcon) rotateIcon.className = "bi bi-arrows-expand";
-    saveAreaLayout(areaName, "horizontal");
-  } else {
-    card.classList.remove('horizontal');
-    card.classList.add('square');
-    if (rotateIcon) rotateIcon.className = "bi bi-arrow-repeat";
-    saveAreaLayout(areaName, "square");
-  }
-}
-
-function saveAreaLayout(area, layout) {
-  let layouts = JSON.parse(localStorage.getItem('areaLayouts') || '{}');
-  layouts[area] = layout;
-  localStorage.setItem('areaLayouts', JSON.stringify(layouts));
 }
 
 function renameAreaPrompt(oldName) {
   event.stopPropagation();
   const newName = prompt("Rename area:", oldName);
-  if (newName && newName.trim() !== "" && !AREA_NAMES.includes(newName.trim())) {
+  if (newName && !AREA_NAMES.includes(newName.trim())) {
     AREA_NAMES = AREA_NAMES.map(name => (name === oldName ? newName.trim() : name));
     stops.forEach(s => { if (s.area === oldName) s.area = newName.trim(); });
-
-    let layouts = JSON.parse(localStorage.getItem('areaLayouts') || '{}');
-    if (layouts[oldName]) {
-      layouts[newName.trim()] = layouts[oldName];
-      delete layouts[oldName];
-      localStorage.setItem('areaLayouts', JSON.stringify(layouts));
-    }
-
     saveAll();
     renderAreas();
     renderStops();
@@ -165,17 +148,19 @@ function openAddStopModal(area) {
   stopModal.show();
 }
 
-function lockAWAD(awad) {
-  event.preventDefault();
-  lockedAWAD = awad;
-  lockedArea = null;
-  renderStops();
-}
+function pivotAreaCard(button) {
+  event.stopPropagation();
+  const card = button.closest('.area-card');
+  card.classList.add('pivoting');
+  setTimeout(() => card.classList.remove('pivoting'), 400);
 
-function clearFilters() {
-  lockedAWAD = null;
-  lockedArea = null;
-  renderStops();
+  if (card.classList.contains('square')) {
+    card.classList.remove('square');
+    card.classList.add('horizontal');
+  } else {
+    card.classList.remove('horizontal');
+    card.classList.add('square');
+  }
 }
 
 // ==========================
@@ -229,42 +214,39 @@ function renderStops() {
 
     span.innerHTML = `
       <div class="row text-center align-items-center g-1">
-        <div class="col-1">
-          <input type="checkbox" ${stop.checked ? 'checked' : ''} onchange="toggleCheck(${index})" />
-        </div>
+        <div class="col-1"><input type="checkbox" ${stop.checked ? 'checked' : ''} onchange="toggleCheck(${index})" /></div>
         <div class="col-2 fw-bold">${stop.area}</div>
         <div class="col-2">Stop ${stop.number}</div>
         <div class="col-2 editable awad" contenteditable="true">${stop.awad}</div>
-        <div class="col-3" contenteditable="false">${stop.address}</div>
+        <div class="col-3 address-copy" contenteditable="false">${stop.address}</div>
         <div class="col-1 editable quantity" contenteditable="true">${stop.quantity}</div>
-        <div class="col-1">
-          <button class="btn btn-sm btn-danger" onclick="deleteStop(${index})">X</button>
-        </div>
+        <div class="col-1"><button class="btn btn-sm btn-danger" onclick="deleteStop(${index})">X</button></div>
       </div>
     `;
 
     label.appendChild(span);
     listItems.appendChild(label);
+
+    const addressField = span.querySelector(".address-copy");
+    addressField.addEventListener("touchstart", function(e) {
+      const touchStart = Date.now();
+      addressField.addEventListener("touchend", function(e) {
+        const touchEnd = Date.now();
+        if (touchEnd - touchStart > 500) {
+          copyTextToClipboard(addressField.textContent.trim());
+        }
+      }, { once: true });
+    });
   });
 
   enableStopDragDrop();
 }
 
-function moveStopToArea(awad, newArea) {
-  stops.forEach(stop => {
-    if (stop.awad === awad) {
-      stop.area = newArea;
-    }
-  });
-  reassignNumbers();
-  saveAll();
-  renderAreas();
-  renderStops();
+function updateTotalPackages() {
+  const total = stops.reduce((sum, s) => sum + s.quantity, 0);
+  totalPackages.innerText = `📦 ${total}`;
 }
 
-// ==========================
-// CHECKLIST CONTROLS
-// ==========================
 function toggleCheck(index) {
   stops[index].checked = !stops[index].checked;
   saveAll();
@@ -281,36 +263,24 @@ function deleteStop(index) {
   }
 }
 
-function reassignNumbers() {
-  stops.forEach((stop, index) => {
-    stop.number = index + 1;
+function clearFilters() {
+  lockedArea = null;
+  lockedAWAD = null;
+  renderStops();
+}
+
+function moveStopToArea(awad, newArea) {
+  stops.forEach(stop => {
+    if (stop.awad === awad) {
+      stop.area = newArea;
+    }
   });
+  reassignNumbers();
+  saveAll();
+  renderAreas();
+  renderStops();
 }
 
-function deleteSelected() {
-  if (confirm("Delete selected stops?")) {
-    stops = stops.filter(stop => !stop.checked);
-    reassignNumbers();
-    saveAll();
-    renderStops();
-  }
-}
-
-function undoDelete() {
-  if (lastDeletedStop) {
-    stops.push(lastDeletedStop);
-    lastDeletedStop = null;
-    reassignNumbers();
-    saveAll();
-    renderStops();
-  } else {
-    alert("No recently deleted stop to undo.");
-  }
-}
-
-// ==========================
-// DRAG & DROP
-// ==========================
 function enableAreaDragDrop() {
   Sortable.create(areas, {
     animation: 150,
@@ -344,28 +314,25 @@ function enableStopDragDrop() {
   });
 }
 
-// ==========================
-// STOP FORM SUBMIT
-// ==========================
-stopForm.addEventListener("submit", function(e) {
-  e.preventDefault();
-  stops.push({
-    number: stops.length + 1,
-    area: selectedArea || AREA_NAMES[0],
-    address: stopAddressInput.value.trim(),
-    quantity: parseInt(stopQuantityInput.value),
-    awad: awadNumberInput.value.trim(),
-    checked: false
+function copyTextToClipboard(text) {
+  navigator.clipboard.writeText(text).then(() => {
+    const toast = new bootstrap.Toast(document.getElementById('copyToast'));
+    toast.show();
   });
-  reassignNumbers();
-  saveAll();
-  renderStops();
-  stopModal.hide();
-});
+}
 
-// ==========================
-// INITIALIZE
-// ==========================
+function lockAWAD(awad) {
+  event.preventDefault();
+  lockedAWAD = awad;
+  lockedArea = null;
+  renderStops();
+}
+
+function reassignNumbers() {
+  stops.forEach((stop, index) => {
+    stop.number = index + 1;
+  });
+}
+
+// Initialize
 loadFromLocal();
-renderAreas();
-renderStops();
