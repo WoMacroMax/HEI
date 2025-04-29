@@ -90,7 +90,6 @@
         zoom: 1.2;
       }
     }
-    /* Toast placement at top-right */
     #toastContainer {
       position: fixed;
       top: 1rem;
@@ -232,7 +231,7 @@ function toggleClosed(day, el, forceClosed = false) {
   }
 }
 
-function saveHours() {
+async function saveHours() {
   const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
   const hours = {};
 
@@ -250,16 +249,28 @@ function saveHours() {
     hours[day] = { start, end };
   });
 
-  console.log('Saved Business Hours:', hours); // Optional debug line
+  try {
+    const response = await fetch('save_hours.php', { // <-- Your server endpoint
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(hours)
+    });
 
-  // Load the new page inside iframe
-  document.getElementById('hoursIframe').src = 'view_busines_hours.html';
-  const modal = new bootstrap.Modal(document.getElementById('hoursModal'));
-  modal.show();
+    if (!response.ok) throw new Error('Failed to save hours');
 
-  // Show toast notification
-  const toast = new bootstrap.Toast(document.getElementById('saveToast'));
-  toast.show();
+    // Proceed after successful save
+    document.getElementById('hoursIframe').src = 'view_busines_hours.html';
+    const modal = new bootstrap.Modal(document.getElementById('hoursModal'));
+    modal.show();
+
+    const toast = new bootstrap.Toast(document.getElementById('saveToast'));
+    toast.show();
+
+  } catch (error) {
+    console.error('Error posting business hours:', error);
+  }
 }
 
 loadHours();
