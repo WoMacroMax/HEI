@@ -100,16 +100,15 @@
     #toastContainer {
       position: absolute;
       top: 50%;
-      right: 10px; /* << small gap from the inside-right edge */
+      right: 10px;
       transform: translateY(-50%);
       z-index: 1055;
     }
-
   </style>
 </head>
 <body>
 
-<div class="title-bar">SET BUSINESS HOURS</div>
+<div class="title-bar">BUSINESS HOURS</div>
 
 <div class="form-overlay">
   <form id="hoursForm">
@@ -254,14 +253,18 @@ async function saveHours() {
   });
 
   try {
-    await db.collection('businessHours').doc('current').set(hours);
+    const writeResult = await db.collection('businessHours').doc('current').set(hours);
 
-    document.getElementById('hoursIframe').src = 'view_busines_hours.html';
-    const modal = new bootstrap.Modal(document.getElementById('hoursModal'));
-    modal.show();
+    if (writeResult !== undefined) {
+      document.getElementById('hoursIframe').src = 'view_busines_hours.html';
+      const modal = new bootstrap.Modal(document.getElementById('hoursModal'));
+      modal.show();
 
-    const toast = new bootstrap.Toast(document.getElementById('saveToast'));
-    toast.show();
+      const toast = new bootstrap.Toast(document.getElementById('saveToast'));
+      toast.show();
+    } else {
+      console.error('Firebase write failed: No result returned.');
+    }
   } catch (error) {
     console.error('Error saving hours to Firebase:', error);
   }
