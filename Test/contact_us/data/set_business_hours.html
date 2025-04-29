@@ -96,7 +96,7 @@
         zoom: 1.2;
       }
     }
-    /* Updated Toast Container */
+    /* Toast container inside overlay */
     #toastContainer {
       position: absolute;
       top: 50%;
@@ -166,7 +166,7 @@
     </div>
   </form>
 
-  <!-- Toast Container INSIDE Overlay -->
+  <!-- Toast Container inside Overlay -->
   <div id="toastContainer" aria-live="polite" aria-atomic="true">
     <div id="saveToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
       <div class="d-flex">
@@ -180,7 +180,7 @@
 
 </div>
 
-<!-- Modal -->
+<!-- Modal for updated hours -->
 <div class="modal fade" id="hoursModal" tabindex="-1" aria-labelledby="hoursModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -198,7 +198,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-// Firebase Config
+// Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyCKpH3zexEOTDhZZ_GZc__ZZ20uyvnjAXM",
   authDomain: "womacromax-automation.firebaseapp.com",
@@ -253,18 +253,20 @@ async function saveHours() {
   });
 
   try {
-    const writeResult = await db.collection('businessHours').doc('current').set(hours);
+    await db.collection('businessHours').doc('current').set(hours);
 
-    if (writeResult !== undefined) {
-      document.getElementById('hoursIframe').src = 'view_busines_hours.html';
-      const modal = new bootstrap.Modal(document.getElementById('hoursModal'));
-      modal.show();
+    document.getElementById('hoursIframe').src = 'view_busines_hours.html';
+    const modal = new bootstrap.Modal(document.getElementById('hoursModal'));
+    modal.show();
 
-      const toast = new bootstrap.Toast(document.getElementById('saveToast'));
-      toast.show();
-    } else {
-      console.error('Firebase write failed: No result returned.');
-    }
+    // Create Toast with autohide
+    const toastElement = document.getElementById('saveToast');
+    const toast = new bootstrap.Toast(toastElement, {
+      autohide: true,
+      delay: 3000 // auto-hide after 3 seconds
+    });
+    toast.show();
+    
   } catch (error) {
     console.error('Error saving hours to Firebase:', error);
   }
