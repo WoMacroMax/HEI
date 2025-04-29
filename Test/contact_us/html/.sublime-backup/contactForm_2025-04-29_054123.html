@@ -18,24 +18,16 @@
     .center-text {
       text-align: center;
     }
+    #welcomeText {
+      margin-bottom: 1rem;
+    }
     .bg-orange {
       background-color: #fd7e14;
     }
-    .tooltip-error {
-      position: absolute;
-      font-size: 0.9rem;
-      background-color: #f8d7da;
-      color: #721c24;
-      border: 1px solid #f5c6cb;
-      padding: 5px;
-      border-radius: 4px;
-      z-index: 1050;
-    }
-    .send-message-button {
-      position: fixed;
-      top: 2in; /* 2 inches from the top */
-      right: 20px;
-      z-index: 1050;
+    .sticky-card {
+      position: sticky;
+      top: 20px;
+      z-index: 1020;
     }
   </style>
 </head>
@@ -49,8 +41,23 @@
 
       <form id="contactForm" action="https://formsubmit.co/ayoblab@gmail.com" method="POST" enctype="multipart/form-data">
 
-        <!-- Fixed Send Message Button -->
-        <button type="submit" class="btn btn-success btn-lg send-message-button">Send Message</button>
+        <!-- Welcome Card (Sticky) -->
+        <div class="card card-offwhite shadow-sm mb-4 sticky-card">
+          <div class="card-header text-dark center-text" style="background-color: white;">
+            <h3 class="mb-0">Welcome!</h3>
+          </div>
+          <div class="card-body center-text">
+            <div id="welcomeText">
+              <p>
+                We would love your business! Please tell us a little about yourself and the details of your inquiry.
+                Feel free to attach pictures (if necessary). Someone from our team will call you back promptly.
+              </p>
+            </div>
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-success btn-lg">Send Message</button>
+            </div>
+          </div>
+        </div>
 
         <!-- Contact Information Card -->
         <div class="card card-grey shadow-sm mb-4">
@@ -133,29 +140,23 @@
 <!-- Bootstrap Bundle -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- JavaScript for Tooltip -->
+<!-- Combine hidden message and visible message before sending -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  const callbackDate = document.getElementById('callbackDate');
-  const callbackTime = document.getElementById('callbackTime');
-
-  // Add event listeners for validation
-  [callbackDate, callbackTime].forEach(field => {
-    field.addEventListener('invalid', function(event) {
-      event.preventDefault();
-      const tooltip = document.createElement('div');
-      tooltip.className = 'tooltip-error';
-      tooltip.textContent = 'Please enter a valid ' + field.getAttribute('name');
-      tooltip.style.top = field.offsetTop + field.offsetHeight + 'px';
-      tooltip.style.left = field.offsetLeft + 'px';
-      field.parentElement.appendChild(tooltip);
-
-      // Remove tooltip after 3 seconds
-      setTimeout(() => tooltip.remove(), 3000);
-    });
+  const form = document.getElementById('contactForm');
+  
+  form.addEventListener('submit', function(event) {
+    const hiddenPart = document.getElementById('hiddenMessagePart1').value;
+    const messageField = document.getElementById('message');
+    
+    // Combine hidden intro + user message
+    messageField.value = hiddenPart + "\n\n" + messageField.value;
   });
 });
 </script>
+
+<!-- Your other scripts (if any) -->
+<script src="scripts/scripts.js"></script>
 
 </body>
 </html>
