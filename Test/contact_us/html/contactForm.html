@@ -40,13 +40,11 @@
 
 <body class="bg-light">
 
-<div class="container py-3"> <!-- reduced padding -->
+<div class="container py-3">
   <div class="row justify-content-center">
     <div class="col-lg-10 col-md-11 col-sm-12">
 
       <form id="contactForm" enctype="multipart/form-data">
-
-        <!-- Fixed Send Message Button -->
         <button type="submit" class="btn btn-success btn-lg send-message-button">Send Message</button>
 
         <!-- Contact Information Card -->
@@ -83,7 +81,6 @@
                 </div>
               </div>
 
-              <!-- Hidden fields for manual fetch POST -->
               <input type="hidden" id="hiddenMessagePart1" value="Inquiry from Womacromax contact form.">
             </div>
           </div>
@@ -111,7 +108,6 @@
             </div>
           </div>
         </div>
-
       </form>
 
     </div>
@@ -132,6 +128,7 @@
     </div>
   </div>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
@@ -233,7 +230,7 @@ document.addEventListener('DOMContentLoaded', function() {
       });
 
       if (response.ok) {
-        window.location.href = '../html/thanks.html';
+        window.location.href = 'thanks.html';
       } else {
         console.error('Form submission failed.');
       }
