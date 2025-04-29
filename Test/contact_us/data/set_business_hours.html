@@ -80,14 +80,22 @@
     .modal-dialog {
       max-width: 95vw;
     }
-    .modal-body img {
+    .modal-body iframe {
       width: 100%;
-      height: auto;
+      height: 80vh;
+      border: none;
     }
     @media (max-width: 600px) {
       .form-overlay {
         zoom: 1.2;
       }
+    }
+    /* Toast placement at top-right */
+    #toastContainer {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 1055;
     }
   </style>
 </head>
@@ -161,8 +169,20 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <img id="previewImage" src="" alt="Business Hours Image" class="img-fluid">
+        <iframe id="hoursIframe" src=""></iframe>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Container -->
+<div id="toastContainer" aria-live="polite" aria-atomic="true">
+  <div id="saveToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body">
+        Business hours saved successfully!
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
   </div>
 </div>
@@ -230,15 +250,16 @@ function saveHours() {
     hours[day] = { start, end };
   });
 
-  const blob = new Blob([JSON.stringify(hours, null, 2)], { type: 'application/json' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'hours.json';
-  a.click();
+  console.log('Saved Business Hours:', hours); // Optional debug line
 
-  document.getElementById('previewImage').src = 'business_hours_cleaned_overlay.png';
+  // Load the new page inside iframe
+  document.getElementById('hoursIframe').src = 'view_busines_hours.html';
   const modal = new bootstrap.Modal(document.getElementById('hoursModal'));
   modal.show();
+
+  // Show toast notification
+  const toast = new bootstrap.Toast(document.getElementById('saveToast'));
+  toast.show();
 }
 
 loadHours();
