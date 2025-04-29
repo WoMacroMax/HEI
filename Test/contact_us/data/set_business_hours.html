@@ -250,7 +250,7 @@ async function saveHours() {
   });
 
   try {
-    const response = await fetch('save_hours.php', { // <-- Your server endpoint
+    const response = await fetch('hours.json', { // <-- Your server endpoint
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
