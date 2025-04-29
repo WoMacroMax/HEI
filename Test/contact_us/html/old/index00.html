@@ -11,6 +11,7 @@
       height: 100%;
       border: none;
     }
+
     .modal-header-custom {
       position: absolute;
       top: 0;
@@ -21,15 +22,18 @@
       padding: 0.75rem 1rem;
       box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
+
     .back-link {
       font-weight: bold;
       font-size: 1rem;
       color: #007bff;
       text-decoration: none;
     }
+
     .back-link:hover {
       text-decoration: underline;
     }
+
     .modal-body {
       padding-top: 3rem; /* for the sticky header */
     }
@@ -72,9 +76,8 @@
 
   form.addEventListener('submit', function(e) {
     e.preventDefault();
-    // Always send "Wake up rod!" instead of the user input
-    const fixedMessage = encodeURIComponent('Wake up rod!');
-    iframe.src = `https://inquiries.womacromax.com/contactForm.html?message=${fixedMessage}`;
+    const message = encodeURIComponent(document.getElementById('userMessage').value.trim());
+    iframe.src = `https://inquiries.womacromax.com?message=${message}`;
     modal.show();
   });
 </script>
