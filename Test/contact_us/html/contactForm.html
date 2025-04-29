@@ -159,6 +159,12 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
+// Function to get URL parameters
+function getQueryParam(param) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(param);
+}
+
 function showTooltip(field, message) {
   const existing = field.parentElement.querySelector('.tooltip-error');
   if (existing) existing.remove();
@@ -190,6 +196,9 @@ function validateEmail(email) {
 
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('contactForm');
+  const messageField = document.getElementById('message');
+  const hiddenPart = document.getElementById('hiddenMessagePart1').value;
+  const incomingMessage = getQueryParam('message') ? decodeURIComponent(getQueryParam('message')) : "";
 
   form.addEventListener('submit', async function(event) {
     event.preventDefault();
@@ -197,8 +206,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const email = document.getElementById('email');
     const callbackDate = document.getElementById('callbackDate');
     const callbackTime = document.getElementById('callbackTime');
-    const messageField = document.getElementById('message');
-    const hiddenPart = document.getElementById('hiddenMessagePart1').value;
 
     if (!validateEmail(email.value)) {
       showTooltip(email, "Invalid email address.");
@@ -232,7 +239,13 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      messageField.value = hiddenPart + "\n\n" + messageField.value;
+      // ✍️ Final correct combination
+      messageField.value = 
+        hiddenPart + "\n\n" +
+        incomingMessage + "\n\n" +
+        "Additional Notes:\n\n" +
+        (messageField.value || "");
+
       form.submit();
     } catch (error) {
       console.error('Validation failed:', error);
