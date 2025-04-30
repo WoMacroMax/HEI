@@ -4,48 +4,78 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Contact Form</title>
-
-  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-
   <style>
-    .card-offwhite { background-color: #f8f9fa; }
     .card-grey { background-color: #e9ecef; }
-    .center-text { text-align: center; }
     .bg-orange { background-color: #fd7e14; }
-    .sticky-card { position: sticky; top: 20px; z-index: 1020; }
-    .tooltip-error {
-      position: absolute;
-      font-size: 0.9rem;
-      background-color: #f8d7da;
-      color: #721c24;
-      border: 1px solid #f5c6cb;
-      padding: 5px;
-      border-radius: 4px;
-      z-index: 1050;
-      max-width: 300px;
+    .invalid-field { border: 2px solid #dc3545; }
+    #contactForm { padding-top: 1in; }
+
+    .overlay-btn-grid {
+      position: fixed;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: grid;
+      gap: 10px;
+      z-index: 1060;
+      width: 200px;
+      background: rgba(255,255,255,0.95);
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      cursor: move;
     }
-    .invalid-field {
-      border: 2px solid #dc3545;
+
+    .phone-pad {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-top: 2px solid #ccc;
+      z-index: 1070;
+      padding: 1rem;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+      display: none;
+      width: 300px;
+      border-radius: 10px 10px 0 0;
+      margin: auto;
+      left: calc(50% - 150px);
+      cursor: move;
     }
-    /* ➡️ NEW: Add 1 inch padding to top of form */
-    #contactForm {
-      padding-top: 1in;
+
+    .phone-pad .btn {
+      width: 30%;
+      margin: 5px;
+      font-size: 1.5rem;
+    }
+
+    .modal.modal-top .modal-dialog {
+      position: fixed;
+      top: 0;
+      margin: 0;
+      width: 100%;
+      max-width: none;
+      transition: transform 0.3s ease-out;
+    }
+
+    .modal.modal-top .modal-dialog-centered {
+      transform: translateY(-100%);
+    }
+
+    .modal.show .modal-dialog-centered {
+      transform: translateY(0);
     }
   </style>
 </head>
-
 <body class="bg-light">
-
 <div class="container py-3">
   <div class="row justify-content-center">
     <div class="col-lg-10 col-md-11 col-sm-12">
-
       <form id="contactForm" action="https://formsubmit.co/ayoblab@gmail.com" method="POST" enctype="multipart/form-data">
-
-        <!-- Contact Information Card -->
         <div class="card card-grey shadow-sm mb-4">
           <div class="card-header bg-orange text-white">
             <h3 class="mb-0">Contact Information</h3>
@@ -61,51 +91,21 @@
                 <input type="text" class="form-control" id="lastname" name="lastname" required />
               </div>
               <div class="col-md-6">
-                <label for="company" class="form-label">Company (optional)</label>
-                <input type="text" class="form-control" id="company" name="company" />
+                <label for="telephone" class="form-label">Telephone</label>
+                <input type="tel" class="form-control" id="telephone" name="telephone" required readonly />
               </div>
               <div class="col-md-6">
                 <label for="zipcode" class="form-label">Zip Code</label>
                 <input type="text" class="form-control" id="zipcode" name="zipcode" required />
               </div>
-              <div class="col-12">
+              <div class="col-md-6">
+                <label for="company" class="form-label">Company (optional)</label>
+                <input type="text" class="form-control" id="company" name="company" />
+              </div>
+              <div class="col-md-6">
                 <label for="email" class="form-label">Email Address</label>
                 <input type="email" class="form-control" id="email" name="email" required />
               </div>
-              <div class="col-12">
-                <div class="p-3 rounded bg-light">
-                  <label for="attachment" class="form-label">Attachment (optional)</label>
-                  <input class="form-control" type="file" id="attachment" name="attachment" accept="image/png, image/jpeg" />
-                  <small class="text-muted">Upload a photo or document if needed.</small>
-                </div>
-              </div>
-            </div>
-
-            <!-- Hidden Inputs -->
-            <input type="hidden" name="_next" value="https://inquiries.womacromax.com/thanks.html" />
-            <input type="hidden" name="_subject" value="New Form Submission!" />
-            <input type="hidden" name="_cc" value="notifications@womacromax.com" />
-            <input type="hidden" name="_captcha" value="false" />
-            <input type="text" name="_honey" style="display:none" />
-            <input type="hidden" name="_template" value="table" />
-            <input type="hidden" id="hiddenMessagePart1" value="Inquiry from Womacromax Template Flyer:
-
-            Requested Services:
-            " />
-          </div>
-        </div>
-
-        <!-- Message Card -->
-        <div class="card card-grey shadow-sm">
-          <div class="card-header bg-primary text-white">
-            <h3 class="mb-0">Your Message</h3>
-          </div>
-          <div class="card-body">
-            <div class="mb-3">
-              <label for="message" class="form-label">Message</label>
-              <textarea class="form-control" id="message" name="message" rows="6" placeholder="Type your message..."></textarea>
-            </div>
-            <div class="row g-3">
               <div class="col-md-6">
                 <label for="callbackDate" class="form-label">Preferred Callback Date</label>
                 <input type="date" class="form-control" id="callbackDate" name="callbackDate" required />
@@ -115,147 +115,141 @@
                 <input type="time" class="form-control" id="callbackTime" name="callbackTime" required />
               </div>
             </div>
+
+            <input type="hidden" name="_next" value="https://inquiries.womacromax.com/thanks.html" />
+            <input type="hidden" name="_subject" value="New Form Submission!" />
+            <input type="hidden" name="_cc" value="notifications@womacromax.com" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="text" name="_honey" style="display:none" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" id="hiddenMessagePart1" value="Inquiry from Womacromax Template Flyer:\n\nRequested Services:\n" />
           </div>
         </div>
-
       </form>
+    </div>
+  </div>
+</div>
+<!-- Draggable Button Grid -->
+<div class="overlay-btn-grid" id="dragButtons">
+  <button class="btn btn-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#messageModal">Add Details</button>
+  <button class="btn btn-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#attachmentModal">Add Attachment</button>
+  <button type="submit" form="contactForm" class="btn btn-success btn-lg">Send Message</button>
+</div>
 
+<!-- PhonePad Modal (iframe version) -->
+<div class="modal fade modal-top" id="phonePadModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content bg-dark text-white p-0 position-relative">
+      <span class="position-absolute top-0 end-0 fs-4 p-2 text-white" role="button"
+            onclick="bootstrap.Modal.getInstance(document.getElementById('phonePadModal')).hide()">×</span>
+      <iframe src="https://inquiries.womacromax.com/phonepad.html"
+              width="100%" height="500" frameborder="0" style="border-radius: 0 0 10px 10px;"></iframe>
     </div>
   </div>
 </div>
 
-<!-- Fixed Overlay Send Button -->
-<button type="submit" form="contactForm" class="btn btn-success btn-lg"
-  style="position: fixed; right: 20px; top: 50%; transform: translateY(-50%);
-         z-index: 1050; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
-  Send Message
-</button>
-
-<!-- Modal: Business Hours -->
-<div class="modal fade" id="businessHoursModal" tabindex="-1" aria-labelledby="businessHoursModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-fullscreen">
+<!-- Modals -->
+<div class="modal fade modal-top" id="messageModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Business Hours</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title">Your Message</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
-      <div class="modal-body p-0">
-        <iframe src="https://inquiries.womacromax.com/view_busines_hours.html" width="100%" height="100%" frameborder="0"></iframe>
+      <div class="modal-body">
+        <textarea class="form-control" id="message" name="message" rows="6" placeholder="Type your message..."></textarea>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Bootstrap JS -->
+<div class="modal fade modal-top" id="attachmentModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-dark text-white">
+        <h5 class="modal-title">Add Attachment</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <input type="file" class="form-control" name="attachment" accept="image/*" capture="environment" />
+        <button type="button" class="btn btn-outline-primary w-100 mt-3" onclick="captureImage()">Capture Image</button>
+        <button type="button" class="btn btn-outline-secondary w-100 mt-2" onclick="takeScreenshot()">Take Screenshot</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- Firebase Config & Validation -->
 <script>
-const firebaseConfig = {
-  apiKey: "AIzaSyCKpH3zexEOTDhZZ_GZc__ZZ20uyvnjAXM",
-  authDomain: "womacromax-automation.firebaseapp.com",
-  projectId: "womacromax-automation",
-  storageBucket: "womacromax-automation.firebasestorage.app",
-  messagingSenderId: "50651858310",
-  appId: "1:50651858310:web:8df70400afc261d5b85807"
-};
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-
-// Function to get URL parameters
-function getQueryParam(param) {
-  const urlParams = new URLSearchParams(window.location.search);
-  return urlParams.get(param);
-}
-
-function showTooltip(field, message) {
-  const existing = field.parentElement.querySelector('.tooltip-error');
-  if (existing) existing.remove();
-
-  const tooltip = document.createElement('div');
-  tooltip.className = 'tooltip-error';
-  tooltip.innerHTML = `${message}<br><a href="#" onclick="openHoursModal();return false;">View Business Hours</a>`;
-  tooltip.style.top = field.offsetTop + field.offsetHeight + 'px';
-  tooltip.style.left = field.offsetLeft + 'px';
-  field.parentElement.appendChild(tooltip);
-
-  field.classList.add('invalid-field');
-  field.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-  setTimeout(() => {
-    tooltip.remove();
-    field.classList.remove('invalid-field');
-  }, 5000);
-}
-
-function openHoursModal() {
-  const modal = new bootstrap.Modal(document.getElementById('businessHoursModal'));
-  modal.show();
-}
-
-function validateEmail(email) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('contactForm');
-  const messageField = document.getElementById('message');
-  const hiddenPart = document.getElementById('hiddenMessagePart1').value;
-  const incomingMessage = getQueryParam('message') ? decodeURIComponent(getQueryParam('message')) : "";
-
-  form.addEventListener('submit', async function(event) {
-    event.preventDefault();
-
-    const email = document.getElementById('email');
-    const callbackDate = document.getElementById('callbackDate');
-    const callbackTime = document.getElementById('callbackTime');
-
-    if (!validateEmail(email.value)) {
-      showTooltip(email, "Invalid email address.");
-      return;
-    }
-
-    try {
-      const doc = await db.collection('businessHours').doc('current').get();
-      if (!doc.exists) return;
-
-      const businessHours = doc.data();
-      const selectedDate = new Date(callbackDate.value + "T" + (callbackTime.value || "00:00"));
-      if (isNaN(selectedDate)) {
-        showTooltip(callbackDate, "Invalid date or time.");
-        return;
-      }
-
-      const dayName = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][selectedDate.getDay()];
-      const todayHours = businessHours[dayName];
-
-      if (!todayHours || todayHours.start === "CLOSED" || todayHours.end === "CLOSED") {
-        showTooltip(callbackDate, "We are closed on this day.");
-        return;
-      }
-
-      const openTime = new Date(callbackDate.value + "T" + todayHours.start);
-      const closeTime = new Date(callbackDate.value + "T" + todayHours.end);
-
-      if (selectedDate < openTime || selectedDate > closeTime) {
-        showTooltip(callbackTime, "Selected time is outside of business hours.");
-        return;
-      }
-
-      // ✍️ Final correct combination
-      messageField.value = 
-        hiddenPart + "\n\n" +
-        incomingMessage + "\n\n" +
-        "Additional Notes:\n\n" +
-        (messageField.value || "");
-
-      form.submit();
-    } catch (error) {
-      console.error('Validation failed:', error);
-    }
-  });
+const inputFields = ['firstname', 'lastname', 'telephone', 'zipcode', 'company', 'email', 'callbackDate', 'callbackTime', 'message'];
+inputFields.forEach(id => {
+  const el = document.getElementById(id);
+  if (el) {
+    el.value = localStorage.getItem(id) || '';
+    el.addEventListener('input', () => localStorage.setItem(id, el.value));
+  }
 });
-</script>
 
+let tempPhone = '';
+function appendDigit(d) { tempPhone += d; }
+function clearDigits() { tempPhone = ''; }
+function sendToInput() {
+  document.getElementById('telephone').value = tempPhone;
+  localStorage.setItem('telephone', tempPhone);
+  tempPhone = '';
+  document.getElementById('phonePad').style.display = 'none';
+}
+document.getElementById('telephone').addEventListener('focus', () => {
+  document.getElementById('phonePad').style.display = 'block';
+});
+
+document.addEventListener('click', function(e) {
+  const pad = document.getElementById('phonePad');
+  if (!pad.contains(e.target) && e.target.id !== 'telephone') {
+    pad.style.display = 'none';
+  }
+});
+
+function makeDraggable(id) {
+  const el = document.getElementById(id);
+  let pos = { x: 0, y: 0 };
+  el.onmousedown = dragMouseDown;
+
+  function dragMouseDown(e) {
+    e.preventDefault();
+    pos.x = e.clientX;
+    pos.y = e.clientY;
+    document.onmouseup = closeDrag;
+    document.onmousemove = drag;
+  }
+
+  function drag(e) {
+    e.preventDefault();
+    const dx = e.clientX - pos.x;
+    const dy = e.clientY - pos.y;
+    pos.x = e.clientX;
+    pos.y = e.clientY;
+    el.style.top = (el.offsetTop + dy) + "px";
+    el.style.left = (el.offsetLeft + dx) + "px";
+
+    // Snap to edges
+    const snapMargin = 30;
+    const vw = window.innerWidth;
+    if (el.offsetLeft < snapMargin) el.style.left = "0px";
+    if ((vw - el.offsetLeft - el.offsetWidth) < snapMargin) el.style.left = (vw - el.offsetWidth) + "px";
+  }
+
+  function closeDrag() {
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}
+makeDraggable('dragButtons');
+makeDraggable('phonePad');
+
+function captureImage() { alert("Capture image triggered."); }
+function takeScreenshot() { alert("Screenshot triggered."); }
+</script>
 </body>
 </html>
