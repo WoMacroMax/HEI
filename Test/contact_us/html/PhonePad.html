@@ -9,16 +9,49 @@
     body {
       background: #1e1e1e;
       margin: 0;
-      padding: 2rem 1rem 1rem;
+      padding-top: 110px;
+      padding-bottom: 20px;
       color: white;
       font-family: sans-serif;
+      text-align: center;
+    }
+
+    .top-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: #000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+
+    .top-bar button {
+      flex: 1;
+      margin: 0 0.25rem;
+      font-size: 1rem;
+      border-radius: 30px;
+      padding: 0.5rem;
+      font-weight: bold;
+    }
+
+    .preview-display {
+      font-size: 1.75rem;
+      font-weight: bold;
+      color: #00ffcc;
+      margin-bottom: 1rem;
+      word-break: break-word;
     }
 
     .dialer-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 12px;
-      justify-content: center;
+      padding: 0 1rem;
     }
 
     .dialer-grid button {
@@ -39,33 +72,15 @@
       background: #222;
     }
 
-    .submit-call {
-      margin-top: 1.5rem;
-      background: #28a745;
-      border: none;
-      color: white;
-      font-size: 1.1rem;
-      border-radius: 40px;
-      padding: 12px 30px;
-      width: 100%;
-      box-shadow: 0 4px #1c7430;
-      transition: all 0.1s ease-in-out;
-    }
-
-    .submit-call:active {
-      background: #218838;
-      box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
-      transform: translateY(2px);
-    }
-
     .back-button {
       background: #dc3545;
       color: white;
       font-size: 1.2rem;
       border-radius: 50px;
       padding: 10px 20px;
-      margin-top: 1rem;
-      width: 100%;
+      margin: 1rem auto 0;
+      display: block;
+      width: 90%;
       border: none;
       box-shadow: 0 4px #a71d2a;
       transition: all 0.1s ease-in-out;
@@ -80,6 +95,16 @@
 </head>
 <body>
 
+<!-- Top Bar with Clear and Submit -->
+<div class="top-bar">
+  <button class="btn btn-warning" onclick="clearNumber()">Clear</button>
+  <button class="btn btn-success" onclick="submitComplete()">Submit</button>
+</div>
+
+<!-- Live Preview of Number -->
+<div class="preview-display" id="numberPreview">‎</div>
+
+<!-- Dial Pad -->
 <div class="dialer-grid">
   <button onclick="appendDigit('1')">1</button>
   <button onclick="appendDigit('2')">2</button>
@@ -98,25 +123,37 @@
 <!-- Backspace -->
 <button class="back-button" onclick="removeLastDigit()">Back</button>
 
-<!-- Submit -->
-<button class="submit-call" onclick="submitComplete()">Submit Number</button>
-
 <script>
-let liveNumber = '';
+  let liveNumber = '';
 
-function appendDigit(digit) {
-  liveNumber += digit;
-  window.parent.postMessage(liveNumber, '*');
-}
+  function updatePreview() {
+    document.getElementById('numberPreview').textContent = liveNumber || '‎';
+  }
 
-function removeLastDigit() {
-  liveNumber = liveNumber.slice(0, -1);
-  window.parent.postMessage(liveNumber, '*');
-}
+  function appendDigit(digit) {
+    liveNumber += digit;
+    updatePreview();
+    window.parent.postMessage(liveNumber, '*');
+  }
 
-function submitComplete() {
-  window.parent.postMessage('__done__', '*');
-}
+  function removeLastDigit() {
+    liveNumber = liveNumber.slice(0, -1);
+    updatePreview();
+    window.parent.postMessage(liveNumber, '*');
+  }
+
+  function clearNumber() {
+    liveNumber = '';
+    updatePreview();
+    window.parent.postMessage(liveNumber, '*');
+  }
+
+  function submitComplete() {
+    window.parent.postMessage('__done__', '*');
+  }
+
+  // Initialize preview on load
+  updatePreview();
 </script>
 
 </body>
