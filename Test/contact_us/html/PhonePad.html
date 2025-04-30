@@ -57,6 +57,25 @@
       box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
       transform: translateY(2px);
     }
+
+    .back-button {
+      background: #dc3545;
+      color: white;
+      font-size: 1.2rem;
+      border-radius: 50px;
+      padding: 10px 20px;
+      margin-top: 1rem;
+      width: 100%;
+      border: none;
+      box-shadow: 0 4px #a71d2a;
+      transition: all 0.1s ease-in-out;
+    }
+
+    .back-button:active {
+      transform: translateY(2px);
+      background: #c82333;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
   </style>
 </head>
 <body>
@@ -76,6 +95,10 @@
   <button onclick="appendDigit('#')">#</button>
 </div>
 
+<!-- Backspace -->
+<button class="back-button" onclick="removeLastDigit()">Back</button>
+
+<!-- Submit -->
 <button class="submit-call" onclick="submitComplete()">Submit Number</button>
 
 <script>
@@ -83,6 +106,11 @@ let liveNumber = '';
 
 function appendDigit(digit) {
   liveNumber += digit;
+  window.parent.postMessage(liveNumber, '*');
+}
+
+function removeLastDigit() {
+  liveNumber = liveNumber.slice(0, -1);
   window.parent.postMessage(liveNumber, '*');
 }
 
