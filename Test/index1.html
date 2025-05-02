@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Checklist App with Stop # and Address Sorting</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+  <style>
+    body {
+      background-color: #001f3f;
+      color: white;
+      padding: 1rem;
+      font-family: Arial, sans-serif;
+    }
+    .area-card {
+      border: 2px solid #0074D9;
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 1rem 0;
+      background-color: rgba(0, 116, 217, 0.05);
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-align: center;
+    }
+    .count {
+      color: #00ff00;
+      font-size: 2rem;
+    }
+    .checklist {
+      background-color: #002b5c;
+      border-radius: 10px;
+      padding: 1rem;
+      margin-top: 1rem;
+      overflow-y: auto;
+      max-height: 40vh;
+    }
+    label {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 0.5rem;
+      padding: 0.5rem;
+      border-radius: 5px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .checked {
+      background-color: #2ecc40 !important;
+      color: white !important;
+    }
+    .unchecked {
+      background-color: #ff4136 !important;
+      color: white !important;
+    }
+    .checklist-item {
+      user-select: none;
+      font-size: 1rem;
+    }
+    .quantity-edit, .awad-edit {
+      color: #00ffcc;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .controls button, .controls input {
+      min-width: 140px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="controls">
+  <button class="btn btn-primary" onclick="addArea()">Add Area</button>
+  <button class="btn btn-warning" onclick="removeArea()">Remove Area</button>
+  <button class="btn btn-secondary" onclick="saveToLocal()">Save</button>
+  <button class="btn btn-light text-dark" onclick="loadFromLocal()">Load</button>
+  <button class="btn btn-outline-light" onclick="toggleSort()">Sort Stop #</button>
+  <button class="btn btn-outline-light" onclick="toggleSortAddress()">Sort Address</button>
+  <button class="btn btn-danger" onclick="deleteSelected()">Delete Selected</button>
+  <input class="form-control" id="searchInput" placeholder="Search AWAD#, address, or area" oninput="renderStops()" />
+</div>
+
+<div id="areas"></div>
+
+<div class="checklist" id="checklist">
+  <h5>Selected Items:</h5>
+  <div id="listItems"></div>
+</div>
+
+<div class="modal fade" id="stopModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content bg-dark text-light">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Stop</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="stopForm">
+          <div class="mb-3">
+            <label for="awadNumber" class="form-label">AWAD#</label>
+            <input type="text" class="form-control" id="awadNumber" required />
+          </div>
+          <div class="mb-3">
+            <label for="stopAddress" class="form-label">Address</label>
+            <input type="text" class="form-control" id="stopAddress" required />
+          </div>
+          <div class="mb-3">
+            <label for="stopQuantity" class="form-label">Quantity</label>
+            <input type="number" class="form-control" id="stopQuantity" required min="1" value="1" />
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Save Stop</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const areas = document.getElementById("areas");
+const listItems = document.getElementById("listItems");
+const stopForm = document.getElementById("stopForm");
+const stopModal = new bootstrap.Modal(document.getElementById("stopModal"));
+const stopAddressInput = document.getElementById("stopAddress");
+const stopQuantityInput = document.getElementById("stopQuantity");
+const awadNumberInput = document.getElementById("awadNumber");
+const searchInput = document.getElementById("searchInput");
+let AREA_NAMES = ["Area 1"];
+let stops = [];
+let selectedArea = null;
+let sortAsc = true;
+let sortField = "number";
+
+function renderAreas() {
+  areas.innerHTML = "";
+  AREA_NAMES.forEach((area, index) => {
+    const totalQty = stops.filter(s => s.area === area).reduce((sum, s) => sum + s.quantity, 0);
+    const card = document.createElement("div");
+    card.className = "area-card";
+    card.innerHTML = `
+      <span class="area-name" contenteditable="true"
+        onblur="renameArea(${index}, this.textContent)"
+        onkeydown="if(event.key==='Enter'){event.preventDefault(); this.blur();}">${area}</span>
+      <div class="count">${totalQty} items</div>
+    `;
+    card.addEventListener("touchend", () => {
+      selectedArea = area;
+      stopAddressInput.value = "";
+      stopQuantityInput.value = "1";
+      awadNumberInput.value = "";
+      stopModal.show();
+    });
+    areas.appendChild(card);
+  });
+}
+
+function renameArea(index, newName) {
+  const old = AREA_NAMES[index];
+  newName = newName.trim();
+  if (newName && !AREA_NAMES.includes(newName)) {
+    AREA_NAMES[index] = newName;
+    stops.forEach(s => { if (s.area === old) s.area = newName; });
+    saveAll();
+    renderAreas();
+    renderStops();
+  }
+}
+
+function addArea() {
+  AREA_NAMES.push(`Area ${AREA_NAMES.length + 1}`);
+  saveAll();
+  renderAreas();
+}
+
+function removeArea() {
+  if (AREA_NAMES.length > 1) {
+    if (confirm("Are you sure you want to remove the last area?")) {
+      const removed = AREA_NAMES.pop();
+      stops = stops.filter(s => s.area !== removed);
+      saveAll();
+      renderAreas();
+      renderStops();
+    }
+  } else {
+    alert("At least one area must remain.");
+  }
+}
+
+function renderStops() {
+  const query = searchInput.value.toLowerCase();
+  const filtered = stops.filter(s =>
+    s.awad.toLowerCase().includes(query) ||
+    s.address.toLowerCase().includes(query) ||
+    s.area.toLowerCase().includes(query)
+  );
+  const sorted = filtered.sort((a, b) => {
+    if (!a[sortField] || !b[sortField]) return 0;
+    return sortAsc
+      ? String(a[sortField]).localeCompare(String(b[sortField]))
+      : String(b[sortField]).localeCompare(String(a[sortField]));
+  });
+  listItems.innerHTML = "";
+  sorted.forEach((stop, index) => {
+    const label = document.createElement("label");
+    label.className = "unchecked";
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.style.marginBottom = "0.5rem";
+    checkbox.addEventListener("change", function () {
+      label.classList.toggle("checked", checkbox.checked);
+      label.classList.toggle("unchecked", !checkbox.checked);
+    });
+    const span = document.createElement("span");
+    span.className = "checklist-item";
+    span.innerHTML = `
+      Stop ${stop.number} (${stop.area}): ${stop.address}<br>
+      <span class="quantity-edit" onclick="editQuantity(${index})">Qty: ${stop.quantity}</span><br>
+      <span class="awad-edit" onclick="editAWAD(${index})">AWAD#: ${stop.awad}</span>
+    `;
+    label.appendChild(checkbox);
+    label.appendChild(span);
+    listItems.appendChild(label);
+  });
+  renderAreas();
+}
+
+function editQuantity(index) {
+  const newQty = prompt("Enter new quantity:", stops[index].quantity);
+  if (newQty && !isNaN(newQty) && parseInt(newQty) > 0) {
+    stops[index].quantity = parseInt(newQty);
+    saveAll();
+    renderStops();
+  }
+}
+
+function editAWAD(index) {
+  const newAWAD = prompt("Edit AWAD#:", stops[index].awad);
+  if (newAWAD && newAWAD.trim() !== "") {
+    stops[index].awad = newAWAD.trim();
+    saveAll();
+    renderStops();
+  }
+}
+
+function toggleSort() {
+  sortField = "number";
+  sortAsc = !sortAsc;
+  renderStops();
+}
+
+function toggleSortAddress() {
+  sortField = "address";
+  sortAsc = !sortAsc;
+  renderStops();
+}
+
+stopForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+  const address = stopAddressInput.value.trim();
+  const quantity = parseInt(stopQuantityInput.value.trim());
+  const awad = awadNumberInput.value.trim();
+  if (address && quantity > 0 && awad) {
+    const newNumber = stops.length ? Math.max(...stops.map(s => s.number)) + 1 : 1;
+    stops.push({ area: selectedArea, address, number: newNumber, quantity, awad });
+    saveAll();
+    renderStops();
+    stopModal.hide();
+  }
+});
+
+function saveAll() {
+  localStorage.setItem("areas", JSON.stringify(AREA_NAMES));
+  localStorage.setItem("stops", JSON.stringify(stops));
+}
+
+function saveToLocal() {
+  saveAll();
+}
+
+function loadFromLocal() {
+  const savedAreas = localStorage.getItem("areas");
+  const savedStops = localStorage.getItem("stops");
+  if (savedAreas) AREA_NAMES = JSON.parse(savedAreas);
+  if (savedStops) stops = JSON.parse(savedStops);
+  renderAreas();
+  renderStops();
+}
+
+function deleteSelected() {
+  const labels = Array.from(listItems.querySelectorAll("label"));
+  labels.forEach((label) => {
+    const checkbox = label.querySelector("input[type='checkbox']");
+    if (checkbox && checkbox.checked) {
+      const awadSpan = label.querySelector(".awad-edit");
+      if (awadSpan) {
+        const awadText = awadSpan.textContent.replace("AWAD#: ", "").trim();
+        stops = stops.filter(stop => stop.awad !== awadText);
+      }
+    }
+  });
+  saveAll();
+  renderStops();
+}
+
+loadFromLocal();
+</script>
+
+</body>
+</html>

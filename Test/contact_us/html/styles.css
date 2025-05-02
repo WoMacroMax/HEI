@@ -1,0 +1,53 @@
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+thead th {
+  position: sticky;
+  top: 0;
+  background-color: #f8f9fa;
+  z-index: 1;
+}
+table th, table td {
+  white-space: nowrap;
+  vertical-align: middle;
+}
+table th {
+  padding: 0.25rem 0.5rem;
+}
+table td input.form-control {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+}
+.small-text {
+  font-size: 0.75rem;
+}
+.saved-row {
+  outline: 2px solid #28a745 !important;
+  background-color: #e9f9ee;
+  position: relative;
+}
+.saved-row::after {
+  content: '✔';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  font-size: 1rem;
+  color: #28a745;
+}
+.copy-label {
+  word-break: break-all;
+  background-color: #fff;
+  padding: 0.75rem;
+  border: 1px solid #ced4da;
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  height: 100%;
+}
+.url-label {
+  font-weight: bold;
+  transition: color 0.5s;
+}
+.url-label.warning {
+  color: #b30000;
+}

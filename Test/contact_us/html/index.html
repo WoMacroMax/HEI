@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Task Form URL Generator</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      padding: 2rem;
+      background-color: #f8f9fa;
+    }
+    .copy-label {
+      word-break: break-word;
+      background-color: #fff;
+      padding: 0.75rem;
+      border: 1px solid #ced4da;
+      border-radius: 0.375rem;
+      min-height: 60px;
+    }
+    .small-text {
+      font-size: 0.75rem;
+    }
+    .warning {
+      color: red;
+      font-weight: bold;
+    }
+    .table-responsive {
+      max-height: 500px;
+      overflow-y: auto;
+    }
+    thead th {
+      position: sticky;
+      top: 0;
+      background: #fff;
+      z-index: 10;
+    }
+    tr.saved-row {
+      background-color: #e9ecef;
+    }
+    tr.unsaved-row {
+      background-color: #fff3cd;
+    }
+  </style>
+</head>
+
+<body>
+<div class="container-fluid py-4">
+  <h2 class="mb-4">📊 Task Submission Form [URL Generator]</h2>
+
+  <form id="mainForm" action="https://formsubmit.co/YOUR_EMAIL@example.com" method="POST">
+    <input type="hidden" name="_next" value="https://inquiries.womacromax.com/html/thanks.html">
+
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered" id="inputTable">
+        <thead>
+          <tr>
+            <th>Select</th>
+            <th>Item</th>
+            <th>Value</th>
+            <th>Device</th>
+            <th>IP</th>
+            <th>Timestamp</th>
+            <th>GUID</th>
+            <th>Open Link</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Choose format:</label>
+      <div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="format" id="bulletFormat" value="bullet" checked>
+          <label class="form-check-label" for="bulletFormat">Bulleted List</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="format" id="tableFormat" value="table">
+          <label class="form-check-label" for="tableFormat">Grid Table</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3 align-items-stretch mb-4">
+      <div class="col-md-3">
+        <label id="urlLabel" class="form-label url-label">Generated URL:</label>
+      </div>
+      <div class="col-md-5">
+        <div class="copy-label" id="urlOutput"></div>
+      </div>
+      <div class="col-md-2 d-grid">
+        <button type="button" id="copyBtn" class="btn btn-outline-primary">Copy URL</button>
+      </div>
+      <div class="col-md-2 d-grid">
+        <button type="button" id="sendBtn" class="btn btn-success">Send</button>
+      </div>
+    </div>
+
+    <div class="d-grid gap-2">
+      <button type="submit" id="submitBtn" class="btn btn-primary">Submit Selected Item and Value</button>
+    </div>
+  </form>
+</div>
+
+<script type="module">
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js';
+  import { getFirestore, doc, setDoc, deleteDoc } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js';
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCKpH3zexEOTDhZZ_GZc__ZZ20uyvnjAXM",
+    authDomain: "womacromax-automation.firebaseapp.com",
+    projectId: "womacromax-automation",
+    storageBucket: "womacromax-automation.appspot.com",
+    messagingSenderId: "50651858310",
+    appId: "1:50651858310:web:411bc4aa3d8085b7b85807",
+    measurementId: "G-D3HT2LSMT8"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  const baseUrl = 'https://inquiries.womacromax.com/contactForm.html?message=';
+  const table = document.querySelector('#inputTable tbody');
+  const urlOutput = document.getElementById('urlOutput');
+  const urlLabel = document.getElementById('urlLabel');
+  const copyBtn = document.getElementById('copyBtn');
+  const sendBtn = document.getElementById('sendBtn');
+  const mainForm = document.getElementById('mainForm');
+  const MAX_URL_LENGTH = 2000;
+  const WARN_THRESHOLD = 1800;
+  let fullUrl = '';
+
+  function generateGUID(ts, item, value) {
+    return btoa(`${ts}|${item}|${value}`).replace(/[^a-zA-Z0-9]/g, '').substring(0, 20);
+  }
+
+  function getSelectedFormat() {
+    return document.querySelector('input[name="format"]:checked')?.value || 'bullet';
+  }
+
+  function updateUrls() {
+    const rows = document.querySelectorAll('#inputTable tbody tr');
+    const selectedRows = Array.from(rows).map(row => {
+      const check = row.querySelector('.check-input')?.checked;
+      const item = row.querySelector('.item-input')?.value.trim();
+      const value = row.querySelector('.value-input')?.value.trim();
+      return check && item ? { item, value } : null;
+    }).filter(Boolean);
+
+    if (selectedRows.length === 0) {
+      fullUrl = '';
+      urlOutput.textContent = '';
+      copyBtn.disabled = true;
+      sendBtn.disabled = true;
+      return;
+    }
+
+    let messageText = '';
+    if (getSelectedFormat() === 'bullet') {
+      messageText = selectedRows.map(r => `• ${r.item}: ${r.value}`).join('\n');
+    } else {
+      const header = '| Item       | Value     |';
+      const divider = '|------------|-----------|';
+      const rows = selectedRows.map(r =>
+        `| ${r.item.padEnd(10).slice(0, 10)} | ${r.value.padEnd(9).slice(0, 9)} |`);
+      messageText = [header, divider, ...rows].join('\n');
+    }
+
+    fullUrl = baseUrl + encodeURIComponent(messageText);
+    urlOutput.textContent = fullUrl;
+    urlLabel.classList.toggle('warning', fullUrl.length > WARN_THRESHOLD);
+    const valid = fullUrl.length <= MAX_URL_LENGTH;
+    copyBtn.disabled = !valid;
+    sendBtn.disabled = !valid;
+  }
+
+  function createRow() {
+    const row = document.createElement('tr');
+    const ts = new Date().toISOString();
+
+    row.innerHTML = `
+      <td><input type="checkbox" class="form-check-input check-input"></td>
+      <td><input type="text" class="form-control item-input"></td>
+      <td><input type="text" class="form-control value-input"></td>
+      <td class="device-cell small-text"></td>
+      <td class="ip-cell small-text"></td>
+      <td class="timestamp-cell small-text">${ts}</td>
+      <td class="guid-cell small-text"></td>
+      <td><a class="preview-link small-text" target="_blank" style="display:none">Open</a></td>
+      <td><button class="btn btn-sm btn-danger delete-btn">Delete</button></td>
+    `;
+
+    const itemInput = row.querySelector('.item-input');
+    const valueInput = row.querySelector('.value-input');
+    const checkbox = row.querySelector('.check-input');
+    const guidCell = row.querySelector('.guid-cell');
+    const deviceCell = row.querySelector('.device-cell');
+    const ipCell = row.querySelector('.ip-cell');
+    const preview = row.querySelector('.preview-link');
+
+    const deviceType = /Mobi|Android/i.test(navigator.userAgent) ? 'Mobile' : 'Desktop';
+    deviceCell.textContent = deviceType;
+
+    fetch('https://api.ipify.org?format=json')
+      .then(res => res.json())
+      .then(data => { ipCell.textContent = data.ip; });
+
+    const markUnsaved = () => {
+      row.classList.remove('saved-row');
+      row.classList.add('unsaved-row');
+    };
+
+    const save = async () => {
+      const item = itemInput.value.trim();
+      const value = valueInput.value.trim();
+      if (!item) return;
+      const guid = generateGUID(ts, item, value);
+      guidCell.textContent = guid;
+      preview.href = value;
+      preview.style.display = value.startsWith('http') ? 'inline' : 'none';
+
+      await setDoc(doc(db, 'transactions', guid), {
+        item, value, timestamp: ts, guid,
+        device: deviceCell.textContent,
+        ip: ipCell.textContent,
+        updatedAt: new Date().toISOString()
+      });
+
+      row.classList.remove('unsaved-row');
+      row.classList.add('saved-row');
+      updateUrls();
+    };
+
+    itemInput.addEventListener('input', () => { markUnsaved(); save(); });
+    valueInput.addEventListener('input', () => { markUnsaved(); save(); });
+    checkbox.addEventListener('change', updateUrls);
+    row.querySelector('.delete-btn').addEventListener('click', async () => {
+      const guid = guidCell.textContent;
+      if (guid) await deleteDoc(doc(db, 'transactions', guid));
+      row.remove();
+      updateUrls();
+    });
+
+    table.appendChild(row);
+  }
+
+  for (let i = 0; i < 10; i++) createRow();
+  updateUrls();
+
+  document.querySelectorAll('input[name="format"]').forEach(radio =>
+    radio.addEventListener('change', updateUrls)
+  );
+
+  copyBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText(fullUrl).then(() => alert('✅ URL copied!'));
+  });
+
+  sendBtn.addEventListener('click', () => {
+    window.open(fullUrl, '_blank');
+  });
+
+  mainForm.addEventListener('submit', e => {
+    const oldHidden = mainForm.querySelectorAll('.dynamic-hidden');
+    oldHidden.forEach(input => input.remove());
+
+    const rows = document.querySelectorAll('#inputTable tbody tr');
+    let index = 0;
+    rows.forEach(row => {
+      const check = row.querySelector('.check-input')?.checked;
+      if (check) {
+        const item = row.querySelector('.item-input')?.value.trim();
+        const value = row.querySelector('.value-input')?.value.trim();
+        mainForm.appendChild(createHiddenInput(`item_${index}`, item));
+        mainForm.appendChild(createHiddenInput(`value_${index}`, value));
+        index++;
+      }
+    });
+  });
+
+  function createHiddenInput(name, value) {
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = name;
+    input.value = value || '';
+    input.classList.add('dynamic-hidden');
+    return input;
+  }
+</script>
+</body>
+</html>
