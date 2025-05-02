@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2-Column Table URL Generator</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    table {
+      border-collapse: separate;
+      border-spacing: 0;
+    }
+    thead th {
+      position: sticky;
+      top: 0;
+      background-color: #f8f9fa;
+      z-index: 1;
+    }
+    table th, table td {
+      white-space: nowrap;
+      vertical-align: middle;
+    }
+    table th {
+      padding: 0.25rem 0.5rem;
+    }
+    table td input.form-control {
+      padding: 0.25rem 0.5rem;
+      font-size: 0.875rem;
+    }
+    .small-text {
+      font-size: 0.75rem;
+    }
+    .saved-row {
+      outline: 2px solid #28a745 !important;
+      background-color: #e9f9ee;
+      position: relative;
+    }
+    .saved-row::after {
+      content: '✔';
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      font-size: 1rem;
+      color: #28a745;
+    }
+  </style>
+</head>
+<body>
+  <div class="container-fluid py-4">
+    <h2 class="mb-4">📊 Table URL Generator + Firebase + Persistent GUID</h2>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getFirestore, doc, setDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCKpH3zexEOTDhZZ_GZc__ZZ20uyvnjAXM",
+      authDomain: "womacromax-automation.firebaseapp.com",
+      projectId: "womacromax-automation",
+      storageBucket: "womacromax-automation.firebasestorage.app",
+      messagingSenderId: "50651858310",
+      appId: "1:50651858310:web:411bc4aa3d8085b7b85807",
+      measurementId: "G-D3HT2LSMT8"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    function generateDeterministicGUID(timestamp, item, value) {
+      return btoa(`${timestamp}|${item}|${value}`).replace(/[^a-zA-Z0-9]/g, '').substring(0, 20);
+    }
+
+    function showToast(msg, color = 'success') {
+      const toast = document.createElement('div');
+      toast.className = `toast align-items-center text-bg-${color} border-0 show`;
+      toast.setAttribute('role', 'alert');
+      toast.innerHTML = `<div class="d-flex"><div class="toast-body">${msg}</div></div>`;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+
+    function addRows() {
+      const inputTable = document.createElement('table');
+      inputTable.className = 'table table-bordered';
+      inputTable.innerHTML = `
+        <thead>
+          <tr>
+            <th>Select</th>
+            <th>Item</th>
+            <th>Value</th>
+            <th>Timestamp</th>
+            <th>GUID</th>
+            <th>Open Link</th>
+            <th>Delete</th>
+            <th>IP</th>
+            <th>Device</th>
+          </tr>
+        </thead>
+        <tbody id="inputTable">
+          ${Array.from({length: 10}).map(() => {
+            const timestamp = new Date().toISOString();
+            return `
+              <tr>
+                <td><input type="checkbox" class="check-input form-check-input"></td>
+                <td><input type="text" class="item-input form-control"></td>
+                <td><input type="text" class="value-input form-control"></td>
+                <td class="timestamp-cell small-text">${timestamp}</td>
+                <td class="guid-cell small-text" data-timestamp="${timestamp}"></td>
+                <td><a href="#" class="preview-link small-text" target="_blank" style="display:none">Open</a></td>
+                <td><button type="button" class="btn btn-sm btn-danger delete-btn d-none">Delete</button></td>
+                <td class="ip-cell small-text">Loading...</td>
+                <td class="device-cell small-text">${navigator.userAgent.includes('Mobi') ? 'Mobile' : 'Desktop'}</td>
+              </tr>`;
+          }).join('')}
+        </tbody>`;
+      document.querySelector('.container-fluid').appendChild(inputTable);
+
+      document.querySelectorAll('#inputTable tr').forEach(row => {
+        const checkbox = row.querySelector('.check-input');
+        const itemInput = row.querySelector('.item-input');
+        const valueInput = row.querySelector('.value-input');
+        const preview = row.querySelector('.preview-link');
+        const deleteBtn = row.querySelector('.delete-btn');
+
+        const saveOrUpdate = async () => {
+          const item = itemInput.value.trim();
+          const value = valueInput.value.trim();
+          const timestamp = row.querySelector('.timestamp-cell').innerText.trim();
+          const guid = generateDeterministicGUID(timestamp, item, value);
+          const ip = row.querySelector('.ip-cell').innerText;
+          const device = row.querySelector('.device-cell').innerText;
+          const guidCell = row.querySelector('.guid-cell');
+          guidCell.textContent = guid;
+
+          if (checkbox.checked && item) {
+            await setDoc(doc(db, "transactions", guid), {
+              item, value, timestamp, guid, ip, device,
+              updatedAt: new Date().toISOString()
+            });
+            row.classList.add('saved-row');
+            preview.style.display = value.startsWith('http') ? 'inline' : 'none';
+            deleteBtn.classList.remove('d-none');
+            showToast('✅ Saved/Updated', 'success');
+          }
+        };
+
+        itemInput.addEventListener('input', saveOrUpdate);
+        valueInput.addEventListener('input', () => {
+          updateLinkPreview();
+          saveOrUpdate();
+        });
+
+        checkbox.addEventListener('change', saveOrUpdate);
+
+        deleteBtn.addEventListener('click', async () => {
+          const guid = row.querySelector('.guid-cell').textContent;
+          if (!guid) return;
+          await deleteDoc(doc(db, "transactions", guid));
+          row.remove();
+          showToast('🗑️ Deleted', 'danger');
+        });
+      });
+    }
+
+    function updateLinkPreview() {
+      const rows = document.querySelectorAll('#inputTable tr');
+      rows.forEach(row => {
+        const value = row.querySelector('.value-input').value.trim();
+        const preview = row.querySelector('.preview-link');
+        if (value.startsWith('http://') || value.startsWith('https://')) {
+          preview.href = value;
+          preview.style.display = 'inline';
+        } else {
+          preview.href = '#';
+          preview.style.display = 'none';
+        }
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      addRows();
+      fetch('https://api.ipify.org?format=json')
+        .then(res => res.json())
+        .then(data => {
+          document.querySelectorAll('.ip-cell').forEach(cell => cell.innerText = data.ip);
+        });
+      updateLinkPreview();
+    });
+  </script>
+</body>
+</html>

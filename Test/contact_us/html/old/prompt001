@@ -1,0 +1,11 @@
+add 4 columns on each side of the grid:
+left-side checkbox 
+right-side time-stamp (EST) full date and time
+right-side 2 Generate UUID
+right-side 3 save button
+
+* none of these extra columns (except the checkbox) are associated with the URL operations*
+
+only the checked items are processed in the URL or saved and transmitted in the request summary
+
+Send button also sends a JSON string  of everything on the transaction grid

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Service Request Link</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 2rem;
+    }
+    .card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 1.5rem;
+    }
+    pre {
+      background: #eee;
+      padding: 1rem;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
+    a.button {
+      display: inline-block;
+      padding: 0.75rem 1.25rem;
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+    a.button:hover {
+      background-color: #0056b3;
+    }
+    .note {
+      color: #555;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card" id="output">
+    <h2>Service Request Generator</h2>
+    <p class="note">Append <code>?services=["moping","landscaping","cooking"]</code> to the URL to generate a request link.</p>
+  </div>
+
+  <div class="card" id="linkOutput" style="display: none;">
+    <h3>Generated Message</h3>
+    <pre id="generatedMessage"></pre>
+    <a id="generatedLink" class="button" href="#">Open Message Page</a>
+    <p class="note" id="encodedUrl"></p>
+  </div>
+
+  <script>
+    // Helper to parse query parameter safely
+    function getQueryArray(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      const raw = urlParams.get(param);
+      try {
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) ? parsed : [];
+      } catch {
+        return [];
+      }
+    }
+
+    // Get services from URL
+    const services = getQueryArray('services');
+
+    if (services.length > 0) {
+      const now = new Date();
+      const date = now.toLocaleDateString('en-US');
+      const time = now.toLocaleTimeString('en-US');
+
+      // Construct the message
+      const message = `
+SERVICE REQUEST:
+
+${date}
+
+${time}
+
+Selected Services:
+${services.map(s => `- ${s}`).join('\n')}
+
+Additional Instructions:
+`.trim();
+
+      const encoded = encodeURIComponent(message);
+      const relativeLink = `message.html?message=${encoded}`;
+
+      // Display in page
+      document.getElementById('output').style.display = 'none';
+      document.getElementById('linkOutput').style.display = 'block';
+      document.getElementById('generatedMessage').textContent = message;
+      document.getElementById('generatedLink').href = relativeLink;
+      document.getElementById('generatedLink').textContent = "Open Message Page";
+      document.getElementById('encodedUrl').textContent = relativeLink;
+    }
+  </script>
+
+</body>
+</html>

@@ -1,5 +1,5 @@
 /* ======================= */
-/* Basic Body & General */
+/* Basic Setup */
 /* ======================= */
 body {
   background-color: #001f3f;
@@ -16,10 +16,6 @@ h5 {
 /* ======================= */
 /* Controls Toolbar */
 /* ======================= */
-.controls {
-  margin-bottom: 1.5rem;
-}
-
 .controls .btn {
   min-width: 140px;
 }
@@ -37,11 +33,9 @@ h5 {
   padding: 1.5rem;
   margin: 1rem 0;
   background-color: rgba(0, 116, 217, 0.05);
-  font-size: 1.3rem;
   font-weight: bold;
   text-align: center;
   transition: background-color 0.3s, box-shadow 0.3s;
-  position: relative;
 }
 
 .area-card.selected {
@@ -50,17 +44,6 @@ h5 {
 
 .area-hover {
   box-shadow: 0 0 15px 5px #00ffcc;
-}
-
-.area-name {
-  display: inline-block;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-}
-
-.edit-name-btn {
-  margin-top: 0.5rem;
-  font-size: 0.8rem;
 }
 
 /* ======================= */
@@ -76,35 +59,37 @@ h5 {
 }
 
 label {
-  display: flex;
-  flex-direction: column;
+  display: block;
   padding: 0.75rem;
   margin-bottom: 0.75rem;
   border-radius: 8px;
-  transition: background-color 0.3s, color 0.3s;
+  background-color: #003366;
   position: relative;
-  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  cursor: grab;
 }
 
-.checked {
+label.checked {
   background-color: #2ecc40 !important;
   color: white !important;
 }
 
-.unchecked {
+label.unchecked {
   background-color: #ff4136 !important;
   color: white !important;
 }
 
-.checklist-item {
-  user-select: none;
-  font-size: 1rem;
-  margin-top: 0.5rem;
+.checklist .row {
+  align-items: center;
 }
 
-/* ======================= */
-/* Editable Fields Inside Checklist */
-/* ======================= */
+/* Bigger checkbox */
+.checklist input[type="checkbox"] {
+  transform: scale(1.5);
+  margin-top: 5px;
+}
+
+/* Editable fields */
 .editable {
   background: rgba(255, 255, 255, 0.1);
   padding: 2px 6px;
@@ -112,22 +97,8 @@ label {
   display: inline-block;
 }
 
-.quantity-edit,
-.awad-edit {
-  color: #00ffcc;
-  font-weight: bold;
-  cursor: pointer;
-  display: inline-block;
-  margin-top: 4px;
-}
-
-/* ======================= */
-/* Buttons and Delete Button */
-/* ======================= */
+/* Delete Button */
 .delete-btn {
-  position: absolute;
-  top: 0.25rem;
-  right: 0.25rem;
   background-color: #dc3545;
   border: none;
   border-radius: 50%;
@@ -141,14 +112,8 @@ label {
   cursor: pointer;
 }
 
-button:focus,
-input:focus {
-  outline: none !important;
-  box-shadow: 0 0 0 0.2rem rgba(0, 116, 217, 0.5);
-}
-
 /* ======================= */
-/* Toast Notifications */
+/* Toasts */
 /* ======================= */
 .toast {
   opacity: 0.95;

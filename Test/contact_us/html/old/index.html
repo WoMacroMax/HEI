@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Clickable Link Form with Plain Submission</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      padding: 2rem;
+      background-color: #f8f9fa;
+    }
+    .copy-label {
+      word-break: break-all;
+      background-color: #fff;
+      padding: 0.75rem;
+      border: 1px solid #ced4da;
+      border-radius: 0.5rem;
+      font-size: 0.85rem;
+      height: 100%;
+    }
+    .url-label {
+      font-weight: bold;
+      transition: color 0.5s;
+    }
+    .url-label.warning {
+      color: #b30000;
+    }
+    .preview-link {
+      font-size: 0.8rem;
+      display: block;
+      margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container-fluid">
+  <h2 class="mb-4">🧩 2-Column Table URL Generator with Clickable Previews</h2>
+
+  <form id="messageForm">
+    <!-- Input Table -->
+    <div class="row mb-4">
+      <div class="col-lg-8">
+        <label class="form-label">Enter up to 10 items:</label>
+        <div class="form-control p-0">
+          <table class="table table-bordered mb-0">
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody id="inputTable">
+              <!-- JS inserts 10 rows -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Format Choice -->
+    <div class="mb-3">
+      <label class="form-label">Choose format:</label>
+      <div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="format" id="bulletFormat" value="bullet" checked onchange="updateUrls()">
+          <label class="form-check-label" for="bulletFormat">Bulleted List</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="format" id="tableFormat" value="table" onchange="updateUrls()">
+          <label class="form-check-label" for="tableFormat">Grid Table</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- URL Output in 4-column layout -->
+    <div class="row g-3 align-items-stretch mb-3">
+      <div class="col-md-3">
+        <label id="urlLabel" class="form-label url-label">Generated URL:</label>
+      </div>
+      <div class="col-md-5">
+        <div class="copy-label" id="urlOutput"></div>
+      </div>
+      <div class="col-md-2 d-grid">
+        <button type="button" id="copyBtn" class="btn btn-outline-primary" onclick="copyToClipboard()">Copy URL</button>
+      </div>
+      <div class="col-md-2 d-grid">
+        <button type="button" id="sendBtn" class="btn btn-success" onclick="openURL()">Send</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script>
+  const baseUrl = 'https://inquiries.womacromax.com/contactForm.html?message=';
+  const inputTable = document.getElementById('inputTable');
+  const urlOutput = document.getElementById('urlOutput');
+  const urlLabel = document.getElementById('urlLabel');
+  const copyBtn = document.getElementById('copyBtn');
+  const sendBtn = document.getElementById('sendBtn');
+  const MAX_URL_LENGTH = 2000;
+  const WARN_THRESHOLD = 1800;
+
+  let fullUrl = '';
+
+  // Generate 10 input rows (Item + Value + Link Preview)
+  for (let i = 0; i < 10; i++) {
+    const row = document.createElement('tr');
+
+    const itemCell = document.createElement('td');
+    const itemInput = document.createElement('input');
+    itemInput.type = 'text';
+    itemInput.className = 'form-control item-input';
+    itemInput.placeholder = `Item ${i + 1}`;
+    itemInput.oninput = updateUrls;
+    itemCell.appendChild(itemInput);
+
+    const valueCell = document.createElement('td');
+    const valueInput = document.createElement('input');
+    valueInput.type = 'text';
+    valueInput.className = 'form-control value-input';
+    valueInput.placeholder = `Value`;
+    valueInput.oninput = () => {
+      updateUrls();
+      updateLinkPreview(valueInput);
+    };
+
+    const preview = document.createElement('a');
+    preview.className = 'preview-link text-primary text-decoration-underline';
+    preview.target = '_blank';
+    preview.style.display = 'none'; // hidden unless a link
+    valueCell.appendChild(valueInput);
+    valueCell.appendChild(preview);
+
+    row.appendChild(itemCell);
+    row.appendChild(valueCell);
+    inputTable.appendChild(row);
+  }
+
+  function getSelectedFormat() {
+    return document.querySelector('input[name="format"]:checked').value;
+  }
+
+  function updateUrls() {
+    const itemInputs = document.querySelectorAll('.item-input');
+    const valueInputs = document.querySelectorAll('.value-input');
+
+    const rows = [];
+    for (let i = 0; i < itemInputs.length; i++) {
+      const item = itemInputs[i].value.trim();
+      const value = valueInputs[i].value.trim();
+      if (item) rows.push({ item, value });
+    }
+
+    let messageText = '';
+    if (getSelectedFormat() === 'bullet') {
+      messageText = rows.map(r => `• ${r.item}: ${r.value}`).join('\n');
+    } else {
+      const header = '| Item       | Value     |';
+      const divider = '|------------|-----------|';
+      const tableRows = rows.map(r => {
+        const i = r.item.padEnd(10).slice(0, 10);
+        const v = r.value.padEnd(9).slice(0, 9);
+        return `| ${i} | ${v} |`;
+      });
+      messageText = [header, divider, ...tableRows].join('\n');
+    }
+
+    const encoded = encodeURIComponent(messageText);
+    fullUrl = baseUrl + encoded;
+    urlOutput.textContent = fullUrl;
+
+    const urlLen = fullUrl.length;
+    urlLabel.classList.toggle('warning', urlLen > WARN_THRESHOLD);
+    const valid = rows.length > 0 && urlLen <= MAX_URL_LENGTH;
+    copyBtn.disabled = !valid;
+    sendBtn.disabled = !valid;
+  }
+
+  function updateLinkPreview(input) {
+    const parentTd = input.parentElement;
+    const preview = parentTd.querySelector('.preview-link');
+    const value = input.value.trim();
+
+    if (value.startsWith('http://') || value.startsWith('https://')) {
+      preview.href = value;
+      preview.textContent = 'Open Link';
+      preview.style.display = 'block';
+    } else {
+      preview.style.display = 'none';
+    }
+  }
+
+  function copyToClipboard() {
+    navigator.clipboard.writeText(fullUrl).then(() => {
+      alert('✅ URL copied!');
+    });
+  }
+
+  function openURL() {
+    window.open(fullUrl, '_blank');
+  }
+
+  updateUrls();
+</script>
+
+</body>
+</html>

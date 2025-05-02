@@ -1,0 +1,219 @@
+/* ======================= */
+/* Basic Setup */
+/* ======================= */
+body {
+  background-color: #001f3f;
+  color: white;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+}
+
+h5 {
+  margin-bottom: 1rem;
+}
+
+/* ======================= */
+/* Navbar */
+/* ======================= */
+.navbar {
+  padding: 0.5rem 1rem;
+}
+
+.navbar input[type="text"] {
+  max-width: 400px;
+  text-align: center;
+}
+
+.navbar .container-fluid .row {
+  width: 100%;
+  align-items: center;
+}
+
+.navbar .container-fluid .col-2 {
+  text-align: left;
+}
+
+.navbar .container-fluid .col-7 {
+  text-align: center;
+}
+
+.navbar .container-fluid .col-3 {
+  text-align: right;
+}
+
+#totalPackages {
+  font-size: 0.9rem;
+  background-color: #0074D9;
+  border-radius: 12px;
+}
+
+/* ======================= */
+/* Offcanvas Menu */
+/* ======================= */
+.offcanvas-start.fade-in-left {
+  transform: translateX(-100%);
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  opacity: 0;
+}
+
+.offcanvas-start.fade-in-left.show {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* ======================= */
+/* Areas Grid */
+/* ======================= */
+#areas.areas-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  padding: 1rem;
+  margin: 1rem 0;
+  border: 2px dotted white; /* ✅ DOTTED WHITE BORDER RESTORED */
+  border-radius: 10px;
+  transition: box-shadow 0.3s ease;
+}
+
+#areas.areas-grid:hover {
+  box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.4);
+}
+
+/* ======================= */
+/* Area Cards */
+/* ======================= */
+.area-card {
+  background-color: #002b5c;
+  border: 2px solid #0074D9;
+  border-radius: 15px;
+  padding: 1rem;
+  transition: all 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: move;
+}
+
+.area-card.square {
+  width: 100%;
+}
+
+.area-card.horizontal {
+  width: 100%;
+  flex-direction: row;
+}
+
+.area-card.pivoting {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px 5px rgba(0, 255, 255, 0.7);
+}
+
+.area-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.area-grid button {
+  white-space: nowrap;
+}
+
+.awad-list {
+  margin-top: 10px;
+  padding: 10px;
+  max-height: 250px;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.awad-list a {
+  color: #00bfff;
+  text-decoration: none;
+  display: block;
+}
+
+.awad-list a:hover {
+  text-decoration: underline;
+}
+
+/* ======================= */
+/* Checklist Section */
+/* ======================= */
+.checklist-card {
+  background-color: #002b5c;
+  border-radius: 10px;
+  padding: 1rem;
+  max-height: 80vh;
+}
+
+.sticky-header {
+  position: sticky;
+  top: 0;
+  background-color: #002b5c;
+  color: white;
+  padding: 1rem;
+  font-size: 1.2rem;
+  text-align: center;
+  z-index: 1;
+}
+
+label {
+  background-color: #003366;
+  margin-bottom: 0.75rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  display: block;
+  cursor: grab;
+  transition: background-color 0.3s;
+}
+
+label.checked {
+  background-color: #2ecc40;
+  color: white;
+}
+
+label.unchecked {
+  background-color: #ff4136;
+  color: white;
+}
+
+/* ======================= */
+/* Toasts */
+/* ======================= */
+.toast {
+  opacity: 0.95;
+  border-radius: 8px;
+}
+
+/* ======================= */
+/* Responsive */
+/* ======================= */
+@media (max-width: 768px) {
+  #areas.areas-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .navbar input[type="text"] {
+    max-width: 100%;
+  }
+
+  .area-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .controls .btn {
+    min-width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  label {
+    padding: 0.5rem;
+  }
+
+  #totalPackages {
+    font-size: 0.8rem;
+  }
+}

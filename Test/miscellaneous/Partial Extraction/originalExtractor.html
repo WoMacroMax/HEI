@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Extract Navbar Example</title>
+</head>
+<body>
+  <h1>Welcome to My Website</h1>
+  <div id="navbar"></div>
+  <script>
+    // Fetch the full HTML file
+    fetch('fullpage.html')
+      .then(response => response.text())
+      .then(data => {
+        // Create a temporary DOM element to parse the fetched HTML
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = data;
+
+        // Extract the navbar section
+        const navbar = tempDiv.querySelector('nav');
+        if (navbar) {
+          document.getElementById('navbar').innerHTML = navbar.outerHTML;
+        } else {
+          console.error('Navbar not found in the full HTML file.');
+        }
+      })
+      .catch(error => console.error('Error loading full HTML file:', error));
+  </script>
+</body>
+</html>
