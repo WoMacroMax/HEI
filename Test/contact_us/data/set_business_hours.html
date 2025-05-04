@@ -255,7 +255,7 @@ async function saveHours() {
   try {
     await db.collection('businessHours').doc('current').set(hours);
 
-    document.getElementById('hoursIframe').src = 'view_busines_hours.html';
+    document.getElementById('hoursIframe').src = 'view_business_hours.html';
     const modal = new bootstrap.Modal(document.getElementById('hoursModal'));
     modal.show();
 
