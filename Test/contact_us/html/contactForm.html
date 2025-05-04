@@ -236,7 +236,8 @@
     });
   });
 
-  ['company', 'message', 'callbackTime', 'callbackDate'].forEach(id => {
+  // Allow special characters in callbackDate and callbackTime
+  ['company', 'message'].forEach(id => {
     const input = document.getElementById(id);
     if (input) {
       input.addEventListener('input', () => {
