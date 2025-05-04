@@ -88,7 +88,7 @@
               </div>
               <div class="col-md-6">
                 <label for="zipcode" class="form-label">Zip Code</label>
-                <input type="text" class="form-control" id="zipcode" name="zipcode" required readonly />
+                <input type="text" class="form-control" id="zipcode" name="zipcode" required />
               </div>
               <div class="col-md-6">
                 <label for="company" class="form-label">Company (optional)</label>
@@ -115,6 +115,8 @@
             <input type="text" name="_honey" style="display:none" />
             <input type="hidden" name="_template" value="table" />
             <input type="hidden" id="hiddenMessagePart1" value="Inquiry from Womacromax Template Flyer:\n\nRequested Services:\n" />
+
+            <!-- Hidden field to capture modal message -->
             <input type="hidden" name="additional_instructions" id="additionalInstructions" />
           </div>
         </div>
@@ -129,7 +131,7 @@
     <div class="modal-content bg-dark text-white rounded-3 position-relative p-3">
       <span class="position-absolute top-0 end-0 fs-4 p-2 text-white" role="button"
             onclick="bootstrap.Modal.getInstance(document.getElementById('phonePadModal')).hide()">×</span>
-      <iframe id="phonePadFrame"
+      <iframe src="https://inquiries.womacromax.com/phonepad.html"
               frameborder="0"
               style="display: block; width: 375px; height: 667px; border-radius: 0.5rem;"></iframe>
     </div>
@@ -157,21 +159,10 @@
     <div class="modal-content">
       <div class="modal-header bg-dark text-white">
         <h5 class="modal-title">Add Attachment</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body">
-        <form id="attachmentForm">
-          <div id="attachmentInputs" class="mb-3">
-            <input type="file" class="form-control mb-2" name="attachment[]" accept="image/*" capture="environment" />
-          </div>
-          <div class="row g-2">
-            <div class="col-6">
-              <button type="button" class="btn btn-secondary w-100 rounded-pill" onclick="addAttachmentInput()">Add Another Image</button>
-            </div>
-            <div class="col-6">
-              <button type="button" class="btn btn-success w-100 rounded-pill" onclick="submitAttachment()">Submit</button>
-            </div>
-          </div>
-        </form>
+        <input type="file" class="form-control" name="attachment" accept="image/*" capture="environment" />
       </div>
     </div>
   </div>
@@ -180,8 +171,6 @@
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-  let currentInputTarget = null;
-
   const inputFields = ['firstname', 'lastname', 'telephone', 'zipcode', 'company', 'email', 'callbackDate', 'callbackTime', 'message'];
   inputFields.forEach(id => {
     const el = document.getElementById(id);
@@ -191,26 +180,12 @@
     }
   });
 
-  ['telephone', 'zipcode'].forEach(fieldId => {
-    const input = document.getElementById(fieldId);
-    input.addEventListener('focus', () => {
-      currentInputTarget = input;
-      const modalDialog = document.querySelector('#phonePadModal .modal-dialog');
-      const iframe = document.getElementById('phonePadFrame');
-      iframe.src = `https://inquiries.womacromax.com/phonepad.html?value=${encodeURIComponent(input.value || '')}`;
-
-      if (window.innerWidth > 400) {
-        modalDialog.classList.add('modal-dialog-centered');
-      } else {
-        modalDialog.classList.remove('modal-dialog-centered');
-      }
-
-      const modal = new bootstrap.Modal(document.getElementById('phonePadModal'), {
-        backdrop: true,
-        keyboard: true
-      });
-      modal.show();
+  document.getElementById('telephone').addEventListener('focus', () => {
+    const modal = new bootstrap.Modal(document.getElementById('phonePadModal'), {
+      backdrop: true,
+      keyboard: true
     });
+    modal.show();
   });
 
   window.addEventListener('message', (event) => {
@@ -219,44 +194,17 @@
       const modalEl = document.getElementById('phonePadModal');
       const instance = bootstrap.Modal.getInstance(modalEl);
       if (instance) instance.hide();
-    } else if (typeof msg === 'string' && currentInputTarget) {
-      currentInputTarget.value = msg;
-      localStorage.setItem(currentInputTarget.id, msg);
+    } else if (typeof msg === 'string') {
+      document.getElementById('telephone').value = msg;
+      localStorage.setItem('telephone', msg);
     }
   });
 
+  // Append modal message into hidden input before form submission
   document.getElementById('contactForm').addEventListener('submit', function () {
     const msg = document.getElementById('message').value.trim();
     document.getElementById('additionalInstructions').value = msg ? "Additional Instructions:\n" + msg : "";
   });
-
-  function addAttachmentInput() {
-    const container = document.getElementById('attachmentInputs');
-    const newInput = document.createElement('input');
-    newInput.type = 'file';
-    newInput.name = 'attachment[]';
-    newInput.accept = 'image/*';
-    newInput.className = 'form-control mb-2';
-    container.appendChild(newInput);
-  }
-
-  function submitAttachment() {
-    const inputs = document.querySelectorAll('#attachmentInputs input[type="file"]');
-    let totalSize = 0;
-    for (const input of inputs) {
-      if (input.files.length) {
-        totalSize += input.files[0].size;
-      }
-    }
-    if (totalSize > 8 * 1024 * 1024) {
-      alert("Total attachment size must be 8MB or less.");
-      return;
-    }
-
-    const modalEl = document.getElementById('attachmentModal');
-    const modal = bootstrap.Modal.getInstance(modalEl);
-    if (modal) modal.hide();
-  }
 </script>
 </body>
 </html>
