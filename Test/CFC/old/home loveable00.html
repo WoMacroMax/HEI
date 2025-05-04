@@ -1,0 +1,957 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Community Family Clinic - Caring for your family's health</title>
+    <meta name="description" content="Community Family Clinic provides comprehensive healthcare services for the whole family. Schedule an appointment today!" />
+    <meta name="author" content="Community Family Clinic" />
+
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="Community Family Clinic" />
+    <meta property="og:description" content="Comprehensive healthcare services for the whole family." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@CommunityFamilyClinic" />
+    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap');
+
+      :root {
+        --primary: #9b87f5;
+        --primary-dark: #7E69AB;
+        --primary-light: #D6BCFA;
+        --secondary: #6E59A5;
+        --accent: #E5DEFF;
+        --text-dark: #2D3748;
+        --text-light: #718096;
+        --white: #FFFFFF;
+        --gray-100: #F7FAFC;
+        --gray-200: #EDF2F7;
+        --gray-300: #E2E8F0;
+        --success: #48BB78;
+        --warning: #ED8936;
+        --danger: #E53E3E;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Open Sans', sans-serif;
+        color: var(--text-dark);
+        line-height: 1.6;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+        margin-bottom: 1rem;
+      }
+
+      .text-primary {
+        color: var(--primary) !important;
+      }
+
+      .bg-primary {
+        background-color: var(--primary) !important;
+      }
+
+      .bg-accent {
+        background-color: var(--accent);
+      }
+
+      .bg-light-purple {
+        background-color: var(--primary-light);
+        opacity: 0.1;
+      }
+
+      .btn-primary {
+        background-color: var(--primary) !important;
+        border-color: var(--primary) !important;
+      }
+
+      .btn-primary:hover {
+        background-color: var(--primary-dark) !important;
+        border-color: var(--primary-dark) !important;
+      }
+
+      .btn-outline-primary {
+        color: var(--primary) !important;
+        border-color: var(--primary) !important;
+      }
+
+      .btn-outline-primary:hover {
+        background-color: var(--primary) !important;
+        color: var(--white) !important;
+      }
+
+      .hero {
+        background: linear-gradient(102.3deg, rgba(147,39,143,0.1) 5.9%, rgba(234,172,232,0.1) 64%, rgba(246,219,245,0.1) 89%);
+        padding: 6rem 0;
+      }
+
+      .service-card {
+        border-radius: 10px;
+        border: 1px solid var(--gray-200);
+        transition: all 0.3s ease;
+        height: 100%;
+      }
+
+      .service-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(155, 135, 245, 0.1);
+      }
+
+      .service-icon {
+        background: var(--accent);
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+      }
+
+      .service-icon i {
+        color: var(--primary);
+        font-size: 1.5rem;
+      }
+
+      .testimonial-card {
+        background-color: var(--white);
+        border-radius: 10px;
+        padding: 2rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        margin-bottom: 1.5rem;
+      }
+
+      .testimonial-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        overflow: hidden;
+      }
+
+      .doctor-card {
+        border-radius: 10px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        margin-bottom: 2rem;
+      }
+
+      .doctor-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(155, 135, 245, 0.2);
+      }
+
+      .doctor-card img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+      }
+
+      .doctor-info {
+        padding: 1.5rem;
+      }
+
+      .doctor-social {
+        list-style: none;
+        display: flex;
+        padding: 0;
+        margin: 0;
+      }
+
+      .doctor-social li {
+        margin-right: 1rem;
+      }
+
+      .doctor-social a {
+        color: var(--primary);
+      }
+
+      .contact-info i {
+        color: var(--primary);
+        font-size: 1.2rem;
+        width: 30px;
+      }
+
+      .appointment-form {
+        background-color: var(--white);
+        border-radius: 10px;
+        padding: 2rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      }
+
+      footer {
+        background-color: var(--primary-dark);
+        color: var(--white);
+        padding: 3rem 0;
+      }
+
+      .footer-links {
+        list-style: none;
+        padding: 0;
+      }
+
+      .footer-links li {
+        margin-bottom: 0.5rem;
+      }
+
+      .footer-links a {
+        color: var(--white);
+        text-decoration: none;
+      }
+
+      .footer-links a:hover {
+        text-decoration: underline;
+      }
+
+      .social-links {
+        list-style: none;
+        display: flex;
+        padding: 0;
+      }
+
+      .social-links li {
+        margin-right: 1rem;
+      }
+
+      .social-links a {
+        color: var(--white);
+        font-size: 1.2rem;
+      }
+
+      .stats-box {
+        text-align: center;
+        padding: 2rem 1rem;
+        border-radius: 10px;
+        background-color: var(--white);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        height: 100%;
+      }
+
+      .stats-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+      }
+
+      .feature-item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 1.5rem;
+      }
+
+      .feature-icon {
+        background-color: var(--accent);
+        color: var(--primary);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1rem;
+        flex-shrink: 0;
+      }
+
+      .cta-section {
+        background: linear-gradient(90deg, hsla(277, 75%, 84%, 1) 0%, hsla(297, 50%, 51%, 1) 100%);
+        padding: 4rem 0;
+      }
+
+      /* Animation */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .animate-fadeInUp {
+        animation: fadeInUp 0.6s ease-out forwards;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .hero {
+          padding: 3rem 0;
+        }
+        
+        .hero h1 {
+          font-size: 2rem;
+        }
+        
+        .section-padding {
+          padding: 3rem 0;
+        }
+      }
+
+      .nav-link.active {
+        color: var(--primary) !important;
+        font-weight: 500;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <span class="fw-bold text-primary">Community Family Clinic</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="#home">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#services">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#doctors">Our Doctors</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#testimonials">Testimonials</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">Contact</a>
+            </li>
+            <li class="nav-item ms-lg-3">
+              <a class="btn btn-primary rounded-pill px-4" href="#appointment">Book Appointment</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6 animate-fadeInUp">
+            <h1 class="display-4 fw-bold mb-4">Your Family's Health Is Our Priority</h1>
+            <p class="lead mb-4">Community Family Clinic provides comprehensive healthcare services for patients of all ages. Our team of experienced medical professionals is dedicated to delivering personalized care in a warm and welcoming environment.</p>
+            <div class="d-flex gap-3">
+              <a href="#appointment" class="btn btn-primary btn-lg rounded-pill">Book an Appointment</a>
+              <a href="#services" class="btn btn-outline-primary btn-lg rounded-pill">Our Services</a>
+            </div>
+          </div>
+          <div class="col-lg-6 mt-5 mt-lg-0 text-center animate-fadeInUp" style="animation-delay: 0.3s;">
+            <img src="https://images.unsplash.com/photo-1631217866206-203a8cc2a51b?auto=format&fit=crop&w=800&q=80" alt="Doctor with patient" class="img-fluid rounded-3 shadow-lg" style="max-width: 100%;">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-5 bg-white">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="feature-item">
+              <div class="feature-icon">
+                <i class="fas fa-clock"></i>
+              </div>
+              <div>
+                <h5 class="mb-1">Extended Hours</h5>
+                <p class="text-muted mb-0">Open weekdays until 7pm and Saturdays</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="feature-item">
+              <div class="feature-icon">
+                <i class="fas fa-user-md"></i>
+              </div>
+              <div>
+                <h5 class="mb-1">Expert Physicians</h5>
+                <p class="text-muted mb-0">Board-certified doctors with years of experience</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="feature-item">
+              <div class="feature-icon">
+                <i class="fas fa-comments"></i>
+              </div>
+              <div>
+                <h5 class="mb-1">24/7 Support</h5>
+                <p class="text-muted mb-0">Medical advice available anytime via phone</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-5 bg-light">
+      <div class="container py-4">
+        <div class="row text-center mb-5">
+          <div class="col-lg-6 mx-auto">
+            <h2 class="fw-bold">Our Services</h2>
+            <p class="text-muted">Comprehensive healthcare services for your entire family</p>
+          </div>
+        </div>
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-4">
+            <div class="service-card p-4 bg-white">
+              <div class="service-icon mx-auto">
+                <i class="fas fa-heartbeat"></i>
+              </div>
+              <h4 class="mt-4">Primary Care</h4>
+              <p class="text-muted">Comprehensive care for patients of all ages, from routine check-ups to managing chronic conditions.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="service-card p-4 bg-white">
+              <div class="service-icon mx-auto">
+                <i class="fas fa-baby"></i>
+              </div>
+              <h4 class="mt-4">Pediatric Care</h4>
+              <p class="text-muted">Specialized healthcare for infants, children, and adolescents, including immunizations and developmental assessments.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="service-card p-4 bg-white">
+              <div class="service-icon mx-auto">
+                <i class="fas fa-pills"></i>
+              </div>
+              <h4 class="mt-4">Preventive Medicine</h4>
+              <p class="text-muted">Proactive healthcare approaches focusing on disease prevention, health maintenance, and early diagnosis.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="service-card p-4 bg-white">
+              <div class="service-icon mx-auto">
+                <i class="fas fa-stethoscope"></i>
+              </div>
+              <h4 class="mt-4">Chronic Disease Management</h4>
+              <p class="text-muted">Ongoing care and management of chronic conditions such as diabetes, hypertension, and asthma.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="service-card p-4 bg-white">
+              <div class="service-icon mx-auto">
+                <i class="fas fa-procedures"></i>
+              </div>
+              <h4 class="mt-4">Women's Health</h4>
+              <p class="text-muted">Comprehensive healthcare services tailored to women, including reproductive health and preventive care.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="service-card p-4 bg-white">
+              <div class="service-icon mx-auto">
+                <i class="fas fa-syringe"></i>
+              </div>
+              <h4 class="mt-4">Immunizations & Vaccines</h4>
+              <p class="text-muted">Stay protected with our comprehensive immunization services for all age groups.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-5">
+      <div class="container py-4">
+        <div class="row align-items-center">
+          <div class="col-lg-6 mb-4 mb-lg-0">
+            <img src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=800&q=80" alt="Our Clinic" class="img-fluid rounded-3 shadow">
+          </div>
+          <div class="col-lg-6">
+            <h2 class="fw-bold mb-4">About Community Family Clinic</h2>
+            <p class="mb-4">Founded in 2005, Community Family Clinic has been serving our local community with compassionate, high-quality healthcare for the entire family. Our mission is to provide accessible, comprehensive medical care that addresses the unique needs of each patient.</p>
+            
+            <div class="mb-4">
+              <h5 class="fw-bold">Our Mission</h5>
+              <p>To improve the health and wellbeing of our community by providing exceptional, patient-centered healthcare services with compassion and respect.</p>
+            </div>
+            
+            <div class="mb-4">
+              <h5 class="fw-bold">Our Values</h5>
+              <ul>
+                <li>Excellence in healthcare delivery</li>
+                <li>Compassion and empathy for all patients</li>
+                <li>Integrity and ethical practice</li>
+                <li>Accessible and affordable care</li>
+                <li>Continuous improvement and innovation</li>
+              </ul>
+            </div>
+            
+            <a href="#contact" class="btn btn-primary rounded-pill px-4">Learn More About Us</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-5 bg-accent">
+      <div class="container py-4">
+        <div class="row g-4">
+          <div class="col-6 col-md-3">
+            <div class="stats-box">
+              <div class="stats-number">15+</div>
+              <p class="mb-0 fw-medium">Years of Service</p>
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="stats-box">
+              <div class="stats-number">12</div>
+              <p class="mb-0 fw-medium">Expert Doctors</p>
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="stats-box">
+              <div class="stats-number">15,000+</div>
+              <p class="mb-0 fw-medium">Happy Patients</p>
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="stats-box">
+              <div class="stats-number">24/7</div>
+              <p class="mb-0 fw-medium">Patient Support</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Doctors Section -->
+    <section id="doctors" class="py-5">
+      <div class="container py-4">
+        <div class="row text-center mb-5">
+          <div class="col-lg-6 mx-auto">
+            <h2 class="fw-bold">Meet Our Doctors</h2>
+            <p class="text-muted">Our team of experienced and dedicated healthcare professionals</p>
+          </div>
+        </div>
+        
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-3">
+            <div class="doctor-card">
+              <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=500&h=500&q=80" alt="Dr. Sarah Johnson">
+              <div class="doctor-info">
+                <h5 class="mb-1">Dr. Sarah Johnson</h5>
+                <p class="text-primary mb-2">Family Medicine</p>
+                <p class="small text-muted mb-3">Board-certified with 15+ years of experience in family medicine</p>
+                <ul class="doctor-social">
+                  <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                  <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-6 col-lg-3">
+            <div class="doctor-card">
+              <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=500&h=500&q=80" alt="Dr. Michael Chen">
+              <div class="doctor-info">
+                <h5 class="mb-1">Dr. Michael Chen</h5>
+                <p class="text-primary mb-2">Pediatrician</p>
+                <p class="small text-muted mb-3">Specializing in pediatric care with a focus on early childhood development</p>
+                <ul class="doctor-social">
+                  <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                  <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-6 col-lg-3">
+            <div class="doctor-card">
+              <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=500&h=500&q=80" alt="Dr. Lisa Rodriguez">
+              <div class="doctor-info">
+                <h5 class="mb-1">Dr. Lisa Rodriguez</h5>
+                <p class="text-primary mb-2">Internal Medicine</p>
+                <p class="small text-muted mb-3">Expert in managing complex and chronic medical conditions</p>
+                <ul class="doctor-social">
+                  <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                  <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-6 col-lg-3">
+            <div class="doctor-card">
+              <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=500&h=500&q=80" alt="Dr. James Wilson">
+              <div class="doctor-info">
+                <h5 class="mb-1">Dr. James Wilson</h5>
+                <p class="text-primary mb-2">General Practitioner</p>
+                <p class="small text-muted mb-3">Providing comprehensive care with a holistic approach to health</p>
+                <ul class="doctor-social">
+                  <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                  <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-5 bg-light">
+      <div class="container py-4">
+        <div class="row text-center mb-5">
+          <div class="col-lg-6 mx-auto">
+            <h2 class="fw-bold">What Our Patients Say</h2>
+            <p class="text-muted">Feedback from those who have experienced our care</p>
+          </div>
+        </div>
+        
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-4">
+            <div class="testimonial-card">
+              <div class="d-flex align-items-center mb-4">
+                <div class="testimonial-avatar me-3">
+                  <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&h=100&q=80" alt="Emily W." class="img-fluid">
+                </div>
+                <div>
+                  <h5 class="mb-0">Emily W.</h5>
+                  <p class="text-muted mb-0 small">Patient since 2018</p>
+                </div>
+              </div>
+              <div class="mb-3">
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+              </div>
+              <p class="mb-0">"Dr. Johnson has been our family doctor for years. She takes the time to listen to concerns and explains everything clearly. The clinic staff is always friendly and helpful."</p>
+            </div>
+          </div>
+          
+          <div class="col-md-6 col-lg-4">
+            <div class="testimonial-card">
+              <div class="d-flex align-items-center mb-4">
+                <div class="testimonial-avatar me-3">
+                  <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&h=100&q=80" alt="Robert T." class="img-fluid">
+                </div>
+                <div>
+                  <h5 class="mb-0">Robert T.</h5>
+                  <p class="text-muted mb-0 small">Patient since 2020</p>
+                </div>
+              </div>
+              <div class="mb-3">
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+              </div>
+              <p class="mb-0">"When I was diagnosed with diabetes, Dr. Wilson created a personalized care plan that has helped me manage my condition effectively. The support from the entire clinic has been outstanding."</p>
+            </div>
+          </div>
+          
+          <div class="col-md-6 col-lg-4">
+            <div class="testimonial-card">
+              <div class="d-flex align-items-center mb-4">
+                <div class="testimonial-avatar me-3">
+                  <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=100&h=100&q=80" alt="Sophia L." class="img-fluid">
+                </div>
+                <div>
+                  <h5 class="mb-0">Sophia L.</h5>
+                  <p class="text-muted mb-0 small">Patient since 2019</p>
+                </div>
+              </div>
+              <div class="mb-3">
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star-half-alt text-warning"></i>
+              </div>
+              <p class="mb-0">"As a new mom, I appreciate Dr. Chen's patience and expertise with my baby's checkups. He answers all my questions and makes me feel confident in caring for my child."</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Appointment & Contact Section -->
+    <section id="contact" class="py-5">
+      <div class="container py-4">
+        <div class="row">
+          <div class="col-lg-5 mb-5 mb-lg-0">
+            <h2 class="fw-bold mb-4">Contact Information</h2>
+            <p class="mb-4">Have questions or need to schedule an appointment? Reach out to us using the contact information below or fill out the appointment request form.</p>
+            
+            <div class="contact-info mb-4">
+              <div class="d-flex mb-3">
+                <i class="fas fa-map-marker-alt me-2"></i>
+                <div>
+                  <h5 class="mb-1">Address</h5>
+                  <p class="mb-0">123 Main Street, Cityville, State 12345</p>
+                </div>
+              </div>
+              
+              <div class="d-flex mb-3">
+                <i class="fas fa-phone-alt me-2"></i>
+                <div>
+                  <h5 class="mb-1">Phone</h5>
+                  <p class="mb-0">(555) 123-4567</p>
+                </div>
+              </div>
+              
+              <div class="d-flex mb-3">
+                <i class="fas fa-envelope me-2"></i>
+                <div>
+                  <h5 class="mb-1">Email</h5>
+                  <p class="mb-0">info@communityfamilyclinic.com</p>
+                </div>
+              </div>
+              
+              <div class="d-flex">
+                <i class="fas fa-clock me-2"></i>
+                <div>
+                  <h5 class="mb-1">Hours</h5>
+                  <p class="mb-0">Monday - Friday: 8:00 AM - 7:00 PM<br>Saturday: 9:00 AM - 2:00 PM<br>Sunday: Closed</p>
+                </div>
+              </div>
+            </div>
+            
+            <div>
+              <h5 class="mb-3">Follow Us</h5>
+              <div class="d-flex">
+                <a href="#" class="me-3 text-primary"><i class="fab fa-facebook-f fa-lg"></i></a>
+                <a href="#" class="me-3 text-primary"><i class="fab fa-twitter fa-lg"></i></a>
+                <a href="#" class="me-3 text-primary"><i class="fab fa-instagram fa-lg"></i></a>
+                <a href="#" class="text-primary"><i class="fab fa-linkedin-in fa-lg"></i></a>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-lg-7" id="appointment">
+            <div class="appointment-form">
+              <h3 class="fw-bold mb-4">Request an Appointment</h3>
+              <form>
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="firstName" class="form-label">First Name</label>
+                      <input type="text" class="form-control" id="firstName" required>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="lastName" class="form-label">Last Name</label>
+                      <input type="text" class="form-control" id="lastName" required>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="email" class="form-label">Email</label>
+                      <input type="email" class="form-control" id="email" required>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="phone" class="form-label">Phone Number</label>
+                      <input type="tel" class="form-control" id="phone" required>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="date" class="form-label">Preferred Date</label>
+                      <input type="date" class="form-control" id="date" required>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="time" class="form-label">Preferred Time</label>
+                      <select class="form-select" id="time" required>
+                        <option value="" selected disabled>Select Time</option>
+                        <option value="morning">Morning (8:00 AM - 12:00 PM)</option>
+                        <option value="afternoon">Afternoon (12:00 PM - 4:00 PM)</option>
+                        <option value="evening">Evening (4:00 PM - 7:00 PM)</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="mb-3">
+                      <label for="department" class="form-label">Department</label>
+                      <select class="form-select" id="department" required>
+                        <option value="" selected disabled>Select Department</option>
+                        <option value="family-medicine">Family Medicine</option>
+                        <option value="pediatrics">Pediatrics</option>
+                        <option value="internal-medicine">Internal Medicine</option>
+                        <option value="womens-health">Women's Health</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="mb-3">
+                      <label for="message" class="form-label">Reason for Visit</label>
+                      <textarea class="form-control" id="message" rows="3" required></textarea>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <button type="submit" class="btn btn-primary btn-lg rounded-pill w-100">Submit Request</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section text-white">
+      <div class="container text-center py-4">
+        <h2 class="fw-bold mb-4">Need Urgent Care?</h2>
+        <p class="lead mb-4">We offer same-day appointments for urgent medical needs.</p>
+        <a href="tel:5551234567" class="btn btn-light btn-lg rounded-pill px-5"><i class="fas fa-phone-alt me-2"></i>Call (555) 123-4567</a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 mb-4 mb-lg-0">
+            <h4 class="fw-bold mb-4">Community Family Clinic</h4>
+            <p>Providing comprehensive healthcare services for the whole family with compassion and excellence.</p>
+            <ul class="social-links">
+              <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+              <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+              <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+              <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+            </ul>
+          </div>
+          
+          <div class="col-md-4 col-lg-2 mb-4 mb-md-0">
+            <h5 class="mb-3">Quick Links</h5>
+            <ul class="footer-links">
+              <li><a href="#home">Home</a></li>
+              <li><a href="#services">Services</a></li>
+              <li><a href="#about">About Us</a></li>
+              <li><a href="#doctors">Our Doctors</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div>
+          
+          <div class="col-md-4 col-lg-2 mb-4 mb-md-0">
+            <h5 class="mb-3">Our Services</h5>
+            <ul class="footer-links">
+              <li><a href="#services">Primary Care</a></li>
+              <li><a href="#services">Pediatric Care</a></li>
+              <li><a href="#services">Preventive Medicine</a></li>
+              <li><a href="#services">Women's Health</a></li>
+              <li><a href="#services">Immunizations</a></li>
+            </ul>
+          </div>
+          
+          <div class="col-md-4 col-lg-4">
+            <h5 class="mb-3">Newsletter</h5>
+            <p class="mb-3">Subscribe to our newsletter for health tips and clinic updates.</p>
+            <form>
+              <div class="input-group mb-3">
+                <input type="email" class="form-control" placeholder="Your Email Address" aria-label="Email Address">
+                <button class="btn btn-light" type="button">Subscribe</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        
+        <hr class="my-4 bg-white opacity-25">
+        
+        <div class="text-center">
+          <p class="mb-0">&copy; 2025 Community Family Clinic. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript for animations and navigation -->
+    <script>
+      // Add scroll reveal animation
+      document.addEventListener('DOMContentLoaded', function() {
+        const animateElements = document.querySelectorAll('.service-card, .testimonial-card, .doctor-card, .stats-box');
+        
+        // Simple scroll reveal
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('animate-fadeInUp');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.1
+        });
+        
+        animateElements.forEach(el => {
+          observer.observe(el);
+        });
+        
+        // Add active class to nav links based on scroll position
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+        
+        function highlightNavLink() {
+          let scrollPosition = window.scrollY + 100;
+          
+          sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            const sectionId = section.getAttribute('id');
+            
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+              navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${sectionId}`) {
+                  link.classList.add('active');
+                }
+              });
+            }
+          });
+        }
+        
+        // Run on page load
+        highlightNavLink();
+        
+        // Run on scroll
+        window.addEventListener('scroll', highlightNavLink);
+      });
+    </script>
+    
+    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
+  </body>
+</html>

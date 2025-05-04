@@ -1,1 +1,167 @@
-<p>Meet our compassionate team dedicated to your care and well-being.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Meet Our Doctors</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f9f5ff;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      color: #1c1c1c;
+    }
+
+    .doctors-section {
+      padding: 5rem 1rem;
+    }
+
+    .doctors-section h2 {
+      font-weight: 700;
+      color: #1c1c1c;
+    }
+
+    .doctors-section p {
+      color: #6c757d;
+    }
+
+    .doctor-card {
+      background-color: #ffffff;
+      border: none;
+      border-radius: 1rem;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.04), 0 8px 16px rgba(0, 0, 0, 0.04);
+      overflow: hidden;
+      transition: transform 0.2s ease;
+      height: 100%;
+    }
+
+    .doctor-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .doctor-card img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+    }
+
+    .doctor-card-body {
+      padding: 1.5rem;
+    }
+
+    .doctor-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #1c1c1c;
+    }
+
+    .doctor-specialty {
+      font-size: 0.9rem;
+      color: #7e57c2;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .doctor-bio {
+      font-size: 0.9rem;
+      color: #5f6368;
+    }
+
+    .doctor-socials {
+      margin-top: 1rem;
+    }
+
+    .doctor-socials a {
+      color: #b88aff;
+      margin-right: 0.75rem;
+      font-size: 1.1rem;
+    }
+
+    @media (max-width: 767px) {
+      .doctor-card img {
+        height: 220px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Meet Our Doctors Section -->
+  <section class="doctors-section text-center">
+    <div class="container">
+      <h2 class="mb-2">Meet Our Doctors</h2>
+      <p class="mb-5">Our team of experienced and dedicated healthcare professionals</p>
+      <div class="row g-4">
+        
+        <!-- Doctor 1 -->
+        <div class="col-md-6 col-lg-3">
+          <div class="doctor-card h-100">
+            <img src="media/doctor-Samuel-Hernendez.jpeg" alt="Dr. Samuel Hernendez">
+            <div class="doctor-card-body text-start">
+              <div class="doctor-name">Dr. Samuel Hernendez</div>
+              <div class="doctor-specialty">Family Medicine</div>
+              <div class="doctor-bio">Board-certified with 15+ years of experience in family medicine</div>
+              <div class="doctor-socials">
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Doctor 2 -->
+        <div class="col-md-6 col-lg-3">
+          <div class="doctor-card h-100">
+            <img src="media/doctor-michael-chen.jpeg" alt="Dr. Michael Chen">
+            <div class="doctor-card-body text-start">
+              <div class="doctor-name">Dr. Michael Chen</div>
+              <div class="doctor-specialty">Pediatrician</div>
+              <div class="doctor-bio">Specializing in pediatric care with a focus on early childhood development</div>
+              <div class="doctor-socials">
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Doctor 3 -->
+        <div class="col-md-6 col-lg-3">
+          <div class="doctor-card h-100">
+            <img src="media/doctor-angela-brooks.jpeg" alt="Dr. Angela Brooks">
+            <div class="doctor-card-body text-start">
+              <div class="doctor-name">Dr. Angela Brooks</div>
+              <div class="doctor-specialty">Family Medicine</div>
+              <div class="doctor-bio">Committed to providing compassionate care to families in our community.</div>
+              <div class="doctor-socials">
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Doctor 4 -->
+        <div class="col-md-6 col-lg-3">
+          <div class="doctor-card h-100">
+            <img src="media/doctor-kwame-mensah.jpeg" alt="Dr. Kwame Mensah">
+            <div class="doctor-card-body text-start">
+              <div class="doctor-name">Dr. Kwame Mensah</div>
+              <div class="doctor-specialty">Internal Medicine</div>
+              <div class="doctor-bio">Dr. Mensah brings over 15 years of experience in internal medicine, focusing on patient-centered care and chronic disease management.</div>
+              <div class="doctor-socials">
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
