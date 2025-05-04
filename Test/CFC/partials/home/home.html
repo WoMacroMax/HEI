@@ -1,1 +1,156 @@
-<p>We provide compassionate, high-quality care for families and individuals in our community.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Clinic Hero & Features</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fff;
+    }
+
+    .hero-section {
+      background-color: #f9f2ff;
+      padding: 5rem 0;
+    }
+
+    .hero-section h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #1c1c1c;
+    }
+
+    .hero-section p {
+      font-size: 1.1rem;
+      color: #333;
+    }
+
+    .btn-lilac {
+      background: #b88aff;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      padding: 0.6rem 1.5rem;
+      font-weight: 500;
+      box-shadow: 0 4px 14px rgba(184, 138, 255, 0.3);
+    }
+
+    .btn-lilac-outline {
+      background: transparent;
+      color: #b88aff;
+      border: 2px solid #b88aff;
+      border-radius: 30px;
+      padding: 0.6rem 1.5rem;
+      font-weight: 500;
+    }
+
+    .btn-lilac-outline:hover {
+      background: #b88aff;
+      color: white;
+    }
+
+    .hero-img {
+      max-width: 100%;
+      border-radius: 1rem;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
+    }
+
+    .features-section {
+      background-color: #ffffff;
+      padding: 3rem 1rem;
+    }
+
+    .feature-box {
+      background-color: #fff;
+      padding: 2rem 1rem;
+      border-radius: 1rem;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    }
+
+    .feature-icon {
+      width: 60px;
+      height: 60px;
+      background-color: #f0e5ff;
+      color: #8c5ae5;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem auto;
+      font-size: 1.5rem;
+    }
+
+    .feature-box h3 {
+      font-weight: 600;
+      color: #1c1c1c;
+    }
+
+    .feature-box p {
+      color: #666;
+      font-size: 0.95rem;
+    }
+
+    @media (min-width: 992px) {
+      .hero-section h1 {
+        font-size: 3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero-section">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 mb-4 mb-lg-0">
+          <h1>Your Family's Health<br>Is Our Priority</h1>
+          <p>Community Family Clinic provides comprehensive healthcare services for patients of all ages. Our team of experienced medical professionals is dedicated to delivering personalized care in a warm and welcoming environment.</p>
+          <div class="d-flex gap-3 mt-4">
+            <a href="#appointment" class="btn btn-lilac">Book an Appointment</a>
+            <a href="#services" class="btn btn-lilac-outline">Our Services</a>
+          </div>
+        </div>
+        <div class="col-lg-6 text-center">
+          <img src="https://images.unsplash.com/photo-1631815588090-d4bfec5b1ccb?q=80&w=1200" alt="Doctor with patient" class="hero-img">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="feature-box">
+            <div class="feature-icon"><i class="fas fa-clock"></i></div>
+            <h3>Extended Hours</h3>
+            <p>Open weekdays until 7pm and Saturdays</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="feature-box">
+            <div class="feature-icon"><i class="fas fa-user-md"></i></div>
+            <h3>Expert Physicians</h3>
+            <p>Board-certified doctors with years of experience</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="feature-box">
+            <div class="feature-icon"><i class="fas fa-headset"></i></div>
+            <h3>24/7 Support</h3>
+            <p>Medical advice available anytime via phone</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

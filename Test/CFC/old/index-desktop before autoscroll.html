@@ -361,7 +361,7 @@
         text: "" // Will be loaded dynamically"
       },
       "Services": {
-        title: "<h2><span class='black-text'>Services</span></h2>",
+        title: "<h2>Our <span class='black-text'>Services</span></h2>",
         text: "" // Will be loaded dynamically"
       },
       "Team": {
@@ -376,13 +376,9 @@
         title: "<h2><span class='black-text'>Contact Us & News</span></h2>",
         text: "" // Will be loaded dynamically"
       },
-      "Team": {
-        title: "<h2><span class='black-text'></span></h2>",
-        text: "" // Will be loaded dynamically"
-      },
       "Blog": {
-        title: "<h2><span class='black-text'></span></h2>",
-        text: ""
+        title: "<h2><span class='black-text'>Blog & News</span></h2>",
+        text: "<p>Stay informed with health tips, updates, and community stories.</p>"
       },
       "FAQ": {
         title: "<h2><span class='black-text'>FAQs</span></h2>",
@@ -437,45 +433,6 @@ function updateContent(menuItem) {
       if (menuItem === "Home") {
 
         fetch("partials/home/home.html")
-          .then(response => response.text())
-          .then(data => {
-            textCard.innerHTML = data;
-            card.style.display = content.title.trim() ? "flex" : "none";
-            textCard.style.display = "block";
-            breadcrumb.innerHTML = generateBreadcrumbHTML();
-            breadcrumb.style.display = "block";
-          })
-          .catch(err => {
-            textCard.innerHTML = "<p>Unable to load promotions at this time.</p>";
-            card.style.display = content.title.trim() ? "flex" : "none";
-            textCard.style.display = "block";
-            breadcrumb.innerHTML = generateBreadcrumbHTML();
-            breadcrumb.style.display = "block";
-          });
-      }
-if (menuItem === "Team") {
-
-        fetch("partials/team/team.html")
-          .then(response => response.text())
-          .then(data => {
-            textCard.innerHTML = data;
-            card.style.display = content.title.trim() ? "flex" : "none";
-            textCard.style.display = "block";
-            breadcrumb.innerHTML = generateBreadcrumbHTML();
-            breadcrumb.style.display = "block";
-          })
-          .catch(err => {
-            textCard.innerHTML = "<p>Unable to load promotions at this time.</p>";
-            card.style.display = content.title.trim() ? "flex" : "none";
-            textCard.style.display = "block";
-            breadcrumb.innerHTML = generateBreadcrumbHTML();
-            breadcrumb.style.display = "block";
-          });
-      }
-
-if (menuItem === "Blog") {
-
-        fetch("partials/blog/blog.html")
           .then(response => response.text())
           .then(data => {
             textCard.innerHTML = data;
