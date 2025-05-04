@@ -26,7 +26,7 @@
   .menu-container {
     position: fixed;
     top: 0; left: 0; right: 0;
-    background-color: #white; /* updated to lilac */
+    background-color: #ffffff; /* updated to lilac */
     padding: 2px 10px;
     z-index: 20;
     display: flex;
@@ -59,10 +59,10 @@
     .menu {
       position: fixed;
       top: 0; left: 0;
-      height: 100%;
-      width: 250px;
+      height: 90%;
+      width: 230px;
       background: white;
-      padding: 20px;
+      padding: 0px;
       box-shadow: 2px 0 15px rgba(0, 0, 0, 0.1);
       z-index: 10;
       display: flex;
@@ -73,6 +73,8 @@
       transition: transform 0.5s ease-out, opacity 0.5s ease-out;
       overflow-y: auto;
       max-height: 100vh;
+      transform: scale(0.7) translateX(-100%);
+      transform-origin: top left;
     }
 
     .menu.open {
@@ -97,7 +99,7 @@
       transition: background-color 0.3s;
     }
 
-    .menu button:nth-child(n) { background-color: #white; }
+    .menu button:nth-child(n) { background-color: #ffffff; }
     .menu button:hover { filter: brightness(90%); }
 
     .menu-icon-image {
@@ -106,8 +108,8 @@
     }
 
     .circle-card {
-      width: 60px;
-      height: 60px;
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
       background-color: #ffffff;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -465,9 +467,29 @@
 
 function updateContent(menuItem) {
   const content = contentData[menuItem];
-  const card = document.getElementById("card");
   const textCard = document.getElementById("text-card");
   const breadcrumb = document.getElementById("breadcrumb");
+  const card = document.getElementById("card");
+
+  if (menuItem === "Mission") {
+    card.style.position = "fixed";
+    card.style.top = "100px";
+    card.style.left = "0";
+    card.style.right = "0";
+    card.style.width = "100%";
+    card.style.height = "45px";
+    card.style.background = "#ffffff";
+    card.style.zIndex = "15";
+  } else {
+    card.style.position = "";
+    card.style.top = "";
+    card.style.left = "";
+    card.style.right = "";
+    card.style.width = "";
+    card.style.height = "";
+    card.style.background = "linear-gradient(to bottom, #ffffff, #cccccc)";
+    card.style.zIndex = "";
+  }
 
   if (!content || (!content.title.trim() && !content.text.trim())) {
     card.style.display = "none";
