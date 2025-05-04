@@ -22,11 +22,7 @@
 
     .blue-text { color: #007bff; }
     .black-text { color: black; }
-    #zoom-wrapper {
-      transform: scale(0.8);
-      transform-origin: top left;
-      width: 125%; /* compensate for scale down */
-    }
+
   .menu-container {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -63,7 +59,7 @@
     .menu {
       position: fixed;
       top: 0; left: 0;
-      height: 80%;
+      height: 90%;
       width: 230px;
       background: white;
       padding: 0px;
@@ -71,7 +67,7 @@
       z-index: 10;
       display: flex;
       flex-direction: column;
-      transform: scale(0.7) translateX(-100%); translateX(-100%);
+      transform: translateX(-100%);
       opacity: 0;
       pointer-events: none;
       transition: transform 0.5s ease-out, opacity 0.5s ease-out;
@@ -168,7 +164,7 @@
       max-height: 90px;
       overflow-y: auto;
       padding: 15px;
-      background: linear-gradient(to bottom, #ffffff, #ffffff);
+      background: linear-gradient(to bottom, #ffffff, #cccccc);
       background-size: 100% 300%;
       background-position: top;
       animation: gradientFlow 10s ease-in-out infinite alternate;
