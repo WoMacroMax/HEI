@@ -1,0 +1,39 @@
+.menu {
+  display: none;
+  flex-direction: column;
+  background-color: #f8f9fa;
+  padding: 1rem;
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+.menu.open {
+  display: flex;
+}
+.card, .text-card {
+  display: none;
+  padding: 1rem;
+  overflow-y: auto;
+  background: white;
+  height: calc(100vh - 200px);
+}
+.card.show, .text-card.show {
+  display: block;
+}
+.homePage-content {
+  padding: 2rem;
+}
+.logo-box {
+  position: absolute;
+  right: 1rem;
+  top: 0.5rem;
+}
+.blue-text {
+  color: #007bff;
+}
+.breadcrumb {
+  padding: 0.5rem 1rem;
+  background-color: #e9ecef;
+  font-size: 0.85rem;
+}

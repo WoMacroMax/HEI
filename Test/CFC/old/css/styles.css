@@ -1,0 +1,183 @@
+/* ======================= */
+/* Basic Body & General */
+/* ======================= */
+body {
+  background-color: #001f3f;
+  color: white;
+  padding: 1rem;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+}
+
+h5 {
+  margin-bottom: 1rem;
+}
+
+/* ======================= */
+/* Controls Toolbar */
+/* ======================= */
+.controls {
+  margin-bottom: 1.5rem;
+}
+
+.controls .btn {
+  min-width: 140px;
+}
+
+.controls input {
+  margin-top: 0.5rem;
+}
+
+/* ======================= */
+/* Areas Section */
+/* ======================= */
+.area-card {
+  border: 2px solid #0074D9;
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  background-color: rgba(0, 116, 217, 0.05);
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-align: center;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  position: relative;
+}
+
+.area-card.selected {
+  background-color: rgba(0, 116, 217, 0.3);
+}
+
+.area-hover {
+  box-shadow: 0 0 15px 5px #00ffcc;
+}
+
+.area-name {
+  display: inline-block;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.edit-name-btn {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+}
+
+/* ======================= */
+/* Checklist Section */
+/* ======================= */
+.checklist {
+  background-color: #002b5c;
+  border-radius: 10px;
+  padding: 1rem;
+  margin-top: 1rem;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+  border-radius: 8px;
+  transition: background-color 0.3s, color 0.3s;
+  position: relative;
+  cursor: pointer;
+}
+
+.checked {
+  background-color: #2ecc40 !important;
+  color: white !important;
+}
+
+.unchecked {
+  background-color: #ff4136 !important;
+  color: white !important;
+}
+
+.checklist-item {
+  user-select: none;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+/* ======================= */
+/* Editable Fields Inside Checklist */
+/* ======================= */
+.editable {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.quantity-edit,
+.awad-edit {
+  color: #00ffcc;
+  font-weight: bold;
+  cursor: pointer;
+  display: inline-block;
+  margin-top: 4px;
+}
+
+/* ======================= */
+/* Buttons and Delete Button */
+/* ======================= */
+.delete-btn {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  background-color: #dc3545;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  font-size: 0.8rem;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+button:focus,
+input:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 0.2rem rgba(0, 116, 217, 0.5);
+}
+
+/* ======================= */
+/* Toast Notifications */
+/* ======================= */
+.toast {
+  opacity: 0.95;
+  border-radius: 8px;
+}
+
+/* ======================= */
+/* Responsive Adjustments */
+/* ======================= */
+@media (max-width: 768px) {
+  .controls .btn {
+    min-width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  .controls input {
+    width: 100%;
+  }
+
+  .area-card {
+    font-size: 1.1rem;
+    padding: 1rem;
+  }
+
+  .checklist {
+    max-height: 60vh;
+  }
+
+  label {
+    padding: 0.5rem;
+  }
+}
