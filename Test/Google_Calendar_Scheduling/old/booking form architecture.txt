@@ -1,0 +1,72 @@
+buttons are in 2 column grids [1 above the form - 1 below the form]
+[sign in - clear form]
+[check availability - book appointment]
+
+user is able to click an available slot and book an appointment once the link is clicked then a modal appears to enter additional details of the event;
+the form receives a message parameter that goes into the primary detail of the event message.
+
+Result:
+The user picks a time → sees available slot(s) → clicks one → fills in a short message → books the event.
+the modal to auto-fill the date/time of the clicked slot and auto-close on submit.
+
+Restrict the date picker to only allow dates from today up to 7 days ahead
+
+Display all available 30-minute slots throughout the selected day (8am–8pm)
+
+Each slot is clickable → opens modal to book with a message
+
+the slot length depend on the duration chosen in 30 min increments - place a increment-decrement control to the right of the select duration field;
+
+duration is also a input parameter with message;
+essentially the incoming parameter will be a key value pair [taskURL - taskDuration]
+
+Dynamic Slot Length:
+
+All available slots for the day will reflect the chosen duration (30, 60, 90 mins...)
+
+Increment/Decrement control:
+
+Appears to the right of the Duration dropdown
+
+Updates the dropdown value in 30-minute steps (min 30, max 480)
+
+Booking Parameters:
+
+Final calendar event includes:
+
+duration
+
+message
+
+Optional: taskURL (if passed into the form)
+
+Add a message label [on top] that shows the incoming message [html formatted]
+Add a Additional Details: input text area [html formatted] for the user to add additional details to the message
+
+the message will end up being the details included in the calendar event
+
+Great — I’ll keep all displayed times in 12-hour AM/PM format with:
+
+✅ Leading zeros on minutes (e.g., 9:00 AM, not 9:0 AM)
+
+✅ No leading zero on hour (e.g., 9:00 AM, not 09:00 AM)
+
+All internal logic will still use 24-hour format for accuracy.
+
+Next, I’ll update the Firebase-integrated logic that:
+
+Retrieves business hours
+
+Applies them per day to dynamically generate valid time slots
+
+Filters out any “CLOSED” days or times
+
+Would you like to highlight non-bookable days (e.g., grayed out or disabled in the date picker)?
+
+Great — I’ll now ensure that:
+
+✅ The date picker disables days marked as "CLOSED" in Firebase’s businessHours.current
+
+✅ Only open days (with valid start/end) can be selected
+
+This will be done using dynamic constraints after fetching business hours. Ready to receive the updated full script chunk with all constraints and calendar logic integrated?
