@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Set View Business Hours</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #fff0f0;
+    }
+    .title-bar {
+      background-color: #b30000;
+      color: white;
+      padding: 0.5rem;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    .form-overlay {
+      background: url('business_hours_cleaned_overlay.png') no-repeat center top;
+      background-size: contain;
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+      padding-top: 40px;
+      padding-bottom: 10px;
+      position: relative;
+    }
+    .form-overlay input {
+      background-color: transparent;
+      border: none;
+      border-bottom: 1px solid #333;
+      color: #000;
+      font-weight: bold;
+      text-align: center;
+    }
+    .input-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 5px 10px;
+    }
+    .input-row label {
+      width: 20%;
+      font-weight: bold;
+      font-size: 0.9rem;
+      text-align: left;
+      color: #000;
+    }
+    .input-row input {
+      width: 30%;
+    }
+    .input-row span.to-text {
+      width: 10%;
+      text-align: center;
+      font-weight: bold;
+    }
+    .input-row .toggle-closed {
+      font-size: 0.9rem;
+      color: #b30000;
+      text-decoration: underline;
+      cursor: pointer;
+      width: 10%;
+      text-align: right;
+    }
+    .btn-primary {
+      background-color: #b30000;
+      border: none;
+      width: 100%;
+      font-size: 1.2rem;
+      padding: 0.8rem;
+    }
+    .btn-primary:hover {
+      background-color: #990000;
+    }
+    .modal-dialog {
+      max-width: 95vw;
+    }
+    .modal-body iframe {
+      width: 100%;
+      height: 80vh;
+      border: none;
+    }
+    @media (max-width: 600px) {
+      .form-overlay {
+        zoom: 1.2;
+      }
+    }
+    #toastContainer {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 1055;
+    }
+  </style>
+</head>
+<body>
+
+<div class="title-bar">BUSINESS HOURS</div>
+
+<div class="form-overlay">
+  <form id="hoursForm">
+    <div class="input-row">
+      <label>Mon</label>
+      <input type="time" id="Monday-start">
+      <span class="to-text">to</span>
+      <input type="time" id="Monday-end">
+      <span class="toggle-closed" onclick="toggleClosed('Monday', this)">Closed</span>
+    </div>
+    <div class="input-row">
+      <label>Tue</label>
+      <input type="time" id="Tuesday-start">
+      <span class="to-text">to</span>
+      <input type="time" id="Tuesday-end">
+      <span class="toggle-closed" onclick="toggleClosed('Tuesday', this)">Closed</span>
+    </div>
+    <div class="input-row">
+      <label>Wed</label>
+      <input type="time" id="Wednesday-start">
+      <span class="to-text">to</span>
+      <input type="time" id="Wednesday-end">
+      <span class="toggle-closed" onclick="toggleClosed('Wednesday', this)">Closed</span>
+    </div>
+    <div class="input-row">
+      <label>Thu</label>
+      <input type="time" id="Thursday-start">
+      <span class="to-text">to</span>
+      <input type="time" id="Thursday-end">
+      <span class="toggle-closed" onclick="toggleClosed('Thursday', this)">Closed</span>
+    </div>
+    <div class="input-row">
+      <label>Fri</label>
+      <input type="time" id="Friday-start">
+      <span class="to-text">to</span>
+      <input type="time" id="Friday-end">
+      <span class="toggle-closed" onclick="toggleClosed('Friday', this)">Closed</span>
+    </div>
+    <div class="input-row">
+      <label>Sat</label>
+      <input type="time" id="Saturday-start">
+      <span class="to-text">to</span>
+      <input type="time" id="Saturday-end">
+      <span class="toggle-closed" onclick="toggleClosed('Saturday', this)">Closed</span>
+    </div>
+    <div class="input-row">
+      <label>Sun</label>
+      <input type="time" id="Sunday-start">
+      <span class="to-text">to</span>
+      <input type="time" id="Sunday-end">
+      <span class="toggle-closed" onclick="toggleClosed('Sunday', this)">Closed</span>
+    </div>
+    <div class="p-3">
+      <button class="btn btn-primary" type="button" onclick="saveHours()">Save & View</button>
+    </div>
+  </form>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="hoursModal" tabindex="-1" aria-labelledby="hoursModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="hoursModalLabel">Updated Business Hours</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <iframe id="hoursIframe" src=""></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Container -->
+<div id="toastContainer" aria-live="polite" aria-atomic="true">
+  <div id="saveToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body">
+        Business hours saved successfully!
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+async function loadHours() {
+  try {
+    const response = await fetch('hours.json');
+    if (!response.ok) throw new Error('No hours.json found');
+    const hours = await response.json();
+    for (const day in hours) {
+      if (hours[day].start === "CLOSED" || hours[day].end === "CLOSED") {
+        toggleClosed(day, document.querySelector(`[onclick*="${day}"]`), true);
+      } else {
+        document.getElementById(`${day}-start`).value = hours[day].start;
+        document.getElementById(`${day}-end`).value = hours[day].end;
+      }
+    }
+  } catch (e) {
+    console.log('Starting with all days closed.');
+    const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+    days.forEach(day => toggleClosed(day, document.querySelector(`[onclick*="${day}"]`), true));
+  }
+}
+
+function toggleClosed(day, el, forceClosed = false) {
+  const startInput = document.getElementById(`${day}-start`);
+  const endInput = document.getElementById(`${day}-end`);
+
+  if (el.innerText === "Closed" || forceClosed) {
+    startInput.type = "text";
+    endInput.type = "text";
+    startInput.value = "CLOSED";
+    endInput.value = "CLOSED";
+    startInput.disabled = true;
+    endInput.disabled = true;
+    el.innerText = "Open";
+  } else {
+    startInput.type = "time";
+    endInput.type = "time";
+    startInput.value = "09:00";
+    endInput.value = "17:00";
+    startInput.disabled = false;
+    endInput.disabled = false;
+    el.innerText = "Closed";
+  }
+}
+
+async function saveHours() {
+  const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+  const hours = {};
+
+  days.forEach(day => {
+    const startInput = document.getElementById(`${day}-start`);
+    const endInput = document.getElementById(`${day}-end`);
+    let start = startInput.value;
+    let end = endInput.value;
+
+    if (!start || !end || start.toUpperCase() === 'CLOSED' || end.toUpperCase() === 'CLOSED') {
+      start = "CLOSED";
+      end = "CLOSED";
+    }
+
+    hours[day] = { start, end };
+  });
+
+  try {
+    const response = await fetch('save_hours.php', { // <-- Your server endpoint
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(hours)
+    });
+
+    if (!response.ok) throw new Error('Failed to save hours');
+
+    // Proceed after successful save
+    document.getElementById('hoursIframe').src = 'view_busines_hours.html';
+    const modal = new bootstrap.Modal(document.getElementById('hoursModal'));
+    modal.show();
+
+    const toast = new bootstrap.Toast(document.getElementById('saveToast'));
+    toast.show();
+
+  } catch (error) {
+    console.error('Error posting business hours:', error);
+  }
+}
+
+loadHours();
+</script>
+
+</body>
+</html>
