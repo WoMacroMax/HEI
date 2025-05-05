@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>Contact Form</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
   <style>
     html, body {
       height: auto;
@@ -41,6 +40,8 @@
   </style>
 </head>
 <body class="bg-light">
+
+<!-- Sticky Toolbar with Clear Button -->
 <div class="sticky-toolbar">
   <div class="container-fluid">
     <div class="row gx-2">
@@ -51,7 +52,7 @@
         <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#attachmentModal">Add Attachment</button>
       </div>
       <div class="col-3">
-        <button class="btn btn-warning w-100" data-bs-toggle="modal" data-bs-target="#selectTimeModal">Choose Date & Time</button>
+        <button type="submit" form="contactForm" class="btn btn-success">Send Message</button>
       </div>
       <div class="col-3">
         <button type="button" class="btn btn-danger" onclick="clearForm()">Clear Form</button>
@@ -60,6 +61,7 @@
   </div>
 </div>
 <div class="sticky-placeholder"></div>
+
 <!-- Contact Form -->
 <div class="container py-3" style="min-height: 100vh;">
   <div class="row justify-content-center">
@@ -104,8 +106,6 @@
                 <input type="time" class="form-control" id="callbackTime" name="callbackTime" required />
               </div>
             </div>
-
-            <!-- Hidden Fields -->
             <input type="hidden" name="_next" value="https://inquiries.womacromax.com/thanks.html" />
             <input type="hidden" name="_subject" value="Service Request Form Submission" />
             <input type="hidden" name="_cc" value="rod.womack@womacromax-automation.network" />
@@ -120,6 +120,20 @@
     </div>
   </div>
 </div>
+
+<!-- PhonePad Modal -->
+<div class="modal fade" id="phonePadModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered w-auto m-0">
+    <div class="modal-content bg-dark text-white rounded-3 position-relative p-3">
+      <span class="position-absolute top-0 end-0 fs-4 p-2 text-white" role="button"
+            onclick="bootstrap.Modal.getInstance(document.getElementById('phonePadModal')).hide()">×</span>
+      <iframe id="phonePadFrame"
+              frameborder="0"
+              style="display: block; width: 375px; height: 667px; border-radius: 0.5rem;"></iframe>
+    </div>
+  </div>
+</div>
+
 <!-- Message Modal -->
 <div class="modal fade" id="messageModal" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
@@ -140,18 +154,19 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header bg-dark text-white">
-        <h5 class="modal-title">Add Attachments</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        <h5 class="modal-title">Add Attachment</h5>
       </div>
       <div class="modal-body">
-        <form id="attachmentForm" onsubmit="submitAttachment(); return false;">
-          <div id="attachmentInputs" class="mb-3"></div>
+        <form id="attachmentForm">
+          <div id="attachmentInputs" class="mb-3">
+            <input type="file" class="form-control mb-2" name="attachment[]" accept="image/*" capture="environment" />
+          </div>
           <div class="row g-2">
             <div class="col-6">
-              <button type="button" class="btn btn-secondary w-100 rounded-pill" onclick="addAttachmentInput()">Add Another</button>
+              <button type="button" class="btn btn-secondary w-100 rounded-pill" onclick="addAttachmentInput()">Add Another Image</button>
             </div>
             <div class="col-6">
-              <button type="submit" class="btn btn-success w-100 rounded-pill">Submit</button>
+              <button type="button" class="btn btn-success w-100 rounded-pill" onclick="submitAttachment()">Submit</button>
             </div>
           </div>
         </form>
@@ -160,87 +175,12 @@
   </div>
 </div>
 
-<!-- Date & Time Selection Modal -->
-<div class="modal fade" id="selectTimeModal" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content bg-dark text-white">
-      <div class="modal-header">
-        <h5 class="modal-title">Choose Date and Time</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <label for="availableDates" class="form-label">Select Date:</label>
-        <select id="availableDates" class="form-select mb-3"></select>
-
-        <label for="availableTimes" class="form-label">Select Time:</label>
-        <select id="availableTimes" class="form-select mb-3"></select>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-success" onclick="applyDateTimeSelection()">Apply</button>
-      </div>
-    </div>
-  </div>
-</div>
+<!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-  let attachmentCount = 0;
-
-  function addAttachmentInput() {
-    if (attachmentCount >= 5) return alert("Limit: 5 attachments");
-    const container = document.getElementById('attachmentInputs');
-
-    const wrapper = document.createElement('div');
-    wrapper.className = 'input-group mb-2';
-    wrapper.dataset.id = `file-${attachmentCount}`;
-
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.name = 'attachment[]';
-    input.accept = 'image/*,application/pdf';
-    input.className = 'form-control';
-
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'btn btn-outline-danger';
-    btn.innerHTML = '<i class="fas fa-times"></i>';
-    btn.onclick = () => {
-      wrapper.remove();
-      attachmentCount--;
-    };
-
-    const group = document.createElement('div');
-    group.className = 'input-group-append';
-    group.appendChild(btn);
-
-    wrapper.appendChild(input);
-    wrapper.appendChild(group);
-    container.appendChild(wrapper);
-    attachmentCount++;
-  }
-
-  function submitAttachment() {
-    const container = document.getElementById('attachmentInputs');
-    const files = container.querySelectorAll('input[type="file"]');
-    let totalSize = 0;
-    for (const fileInput of files) {
-      if (fileInput.files.length > 0) {
-        totalSize += fileInput.files[0].size;
-      }
-    }
-    if (totalSize > 8 * 1024 * 1024) {
-      alert("Total file size must be 8MB or less.");
-      return;
-    }
-    const modal = bootstrap.Modal.getInstance(document.getElementById('attachmentModal'));
-    if (modal) modal.hide();
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    addAttachmentInput();
-  });
-
+  let currentInputTarget = null;
   const inputFields = ['firstname', 'lastname', 'phone', 'zipcode', 'company', 'email', 'callbackDate', 'callbackTime', 'message'];
+
   inputFields.forEach(id => {
     const el = document.getElementById(id);
     if (el) {
@@ -249,88 +189,122 @@
     }
   });
 
+  ['phone', 'zipcode'].forEach(fieldId => {
+    const input = document.getElementById(fieldId);
+    input.addEventListener('focus', () => {
+      currentInputTarget = input;
+      const modalDialog = document.querySelector('#phonePadModal .modal-dialog');
+      const iframe = document.getElementById('phonePadFrame');
+      iframe.src = `https://inquiries.womacromax.com/phonepad.html?value=${encodeURIComponent(input.value || '')}`;
+
+      if (window.innerWidth > 400) {
+        modalDialog.classList.add('modal-dialog-centered');
+      } else {
+        modalDialog.classList.remove('modal-dialog-centered');
+      }
+
+      const modal = new bootstrap.Modal(document.getElementById('phonePadModal'), { backdrop: true, keyboard: true });
+      modal.show();
+    });
+  });
+
+  window.addEventListener('message', (event) => {
+    const msg = event.data;
+    if (msg === '__done__') {
+      const modalEl = document.getElementById('phonePadModal');
+      const instance = bootstrap.Modal.getInstance(modalEl);
+      if (instance) instance.hide();
+    } else if (typeof msg === 'string' && currentInputTarget) {
+      currentInputTarget.value = msg;
+      localStorage.setItem(currentInputTarget.id, msg);
+    }
+  });
+
+  function toTitleCase(str) {
+    return str.replace(/\w\S*/g, w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase());
+  }
+
+  function hasInvalidChars(value) {
+    return /[^a-zA-Z0-9\s\-]/.test(value);
+  }
+
+  ['firstname', 'lastname'].forEach(id => {
+    const input = document.getElementById(id);
+    input.addEventListener('input', () => {
+      let clean = input.value.replace(/[^a-zA-Z\s\-]/g, '');
+      input.value = toTitleCase(clean);
+    });
+  });
+
+  // Allow special characters in callbackDate and callbackTime
+  ['company', 'message'].forEach(id => {
+    const input = document.getElementById(id);
+    if (input) {
+      input.addEventListener('input', () => {
+        input.value = input.value.replace(/[^a-zA-Z0-9\s\-]/g, '');
+      });
+    }
+  });
+
+  document.getElementById('contactForm').addEventListener('submit', function (e) {
+    const email = document.getElementById('email').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const zip = document.getElementById('zipcode').value.trim();
+    const firstname = document.getElementById('firstname').value.trim();
+    const lastname = document.getElementById('lastname').value.trim();
+    const company = document.getElementById('company').value.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+      alert("Please enter a valid email address.");
+      e.preventDefault(); return;
+    }
+    if (!/^\d{10}$/.test(phone)) {
+      alert("phone number must be exactly 10 digits.");
+      e.preventDefault(); return;
+    }
+    if (!/^\d{5}$/.test(zip)) {
+      alert("Zip code must be exactly 5 digits.");
+      e.preventDefault(); return;
+    }
+    if ([firstname, lastname, company].some(hasInvalidChars)) {
+      alert("Names and company fields may only contain letters, numbers, spaces, and hyphens.");
+      e.preventDefault(); return;
+    }
+
+    const msg = document.getElementById('message').value.trim();
+    document.getElementById('additionalInstructions').value = msg ? "Additional Instructions:\n" + msg : "";
+  });
+
+  function addAttachmentInput() {
+    const container = document.getElementById('attachmentInputs');
+    const newInput = document.createElement('input');
+    newInput.type = 'file';
+    newInput.name = 'attachment[]';
+    newInput.accept = 'image/*';
+    newInput.className = 'form-control mb-2';
+    container.appendChild(newInput);
+  }
+
+  function submitAttachment() {
+    const inputs = document.querySelectorAll('#attachmentInputs input[type="file"]');
+    let totalSize = 0;
+    for (const input of inputs) {
+      if (input.files.length) totalSize += input.files[0].size;
+    }
+    if (totalSize > 8 * 1024 * 1024) {
+      alert("Total attachment size must be 8MB or less.");
+      return;
+    }
+    const modalEl = document.getElementById('attachmentModal');
+    const modal = bootstrap.Modal.getInstance(modalEl);
+    if (modal) modal.hide();
+  }
+
   function clearForm() {
     document.getElementById('contactForm').reset();
     inputFields.forEach(id => localStorage.removeItem(id));
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  document.getElementById('contactForm').addEventListener('submit', function (e) {
-    const msg = document.getElementById('message').value.trim();
-    document.getElementById('additionalInstructions').value = msg ? "Additional Instructions:\\n" + msg : "";
-  });
-
-  // Populate date and time from JSON
-  let availableSchedule = {};
-  fetch('./data/hours.json')
-    .then(res => res.json())
-    .then(data => {
-      availableSchedule = data;
-      populateDateDropdown();
-    })
-    .catch(err => console.error('Failed to load schedule:', err));
-
-  function populateDateDropdown() {
-    const select = document.getElementById('availableDates');
-    select.innerHTML = '';
-    const today = new Date();
-
-    for (let i = 0; i < 14; i++) {
-      const date = new Date(today);
-      date.setDate(date.getDate() + i);
-      const weekday = date.toLocaleDateString('en-US', { weekday: 'long' }); // e.g., "Monday"
-      const config = availableSchedule[weekday];
-
-      if (config && config.start !== "CLOSED" && config.end !== "CLOSED") {
-        const dateString = date.toISOString().split('T')[0];
-        const option = document.createElement('option');
-        option.value = dateString;
-        option.textContent = `${weekday} (${dateString})`;
-        select.appendChild(option);
-      }
-    }
-
-    updateTimeDropdown();
-    select.addEventListener('change', updateTimeDropdown);
-  }
-
-  function updateTimeDropdown() {
-    const timeSelect = document.getElementById('availableTimes');
-    timeSelect.innerHTML = '';
-    const dateVal = document.getElementById('availableDates').value;
-    if (!dateVal) return;
-
-    const weekday = new Date(dateVal).toLocaleDateString('en-US', { weekday: 'long' });
-    const config = availableSchedule[weekday];
-    if (!config || config.start === "CLOSED" || config.end === "CLOSED") return;
-
-    const [startH, startM] = config.start.split(':').map(Number);
-    const [endH, endM] = config.end.split(':').map(Number);
-    let minutes = startH * 60 + startM;
-    const endMinutes = endH * 60 + endM;
-
-    while (minutes + 30 <= endMinutes) {
-      const h = String(Math.floor(minutes / 60)).padStart(2, '0');
-      const m = String(minutes % 60).padStart(2, '0');
-      const opt = document.createElement('option');
-      opt.value = `${h}:${m}`;
-      opt.textContent = `${h}:${m}`;
-      timeSelect.appendChild(opt);
-      minutes += 30;
-    }
-  }
-
-  function applyDateTimeSelection() {
-    const dateField = document.getElementById('callbackDate');
-    const timeField = document.getElementById('callbackTime');
-    const selectedDate = document.getElementById('availableDates').value;
-    const selectedTime = document.getElementById('availableTimes').value;
-    if (selectedDate && selectedTime) {
-      dateField.value = selectedDate;
-      timeField.value = selectedTime;
-      const modal = bootstrap.Modal.getInstance(document.getElementById('selectTimeModal'));
-      if (modal) modal.hide();
-    }
   }
 </script>
 </body>

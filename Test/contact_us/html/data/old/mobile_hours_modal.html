@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Set & View Business Hours</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #fff0f0;
+      color: #b30000;
+      padding: 1rem;
+      font-family: Arial, sans-serif;
+    }
+    .btn-primary {
+      background-color: #b30000;
+      border: none;
+    }
+    .btn-primary:hover {
+      background-color: #990000;
+    }
+    .modal-dialog {
+      max-width: 95vw;
+    }
+    .modal-body img {
+      width: 100%;
+      height: auto;
+    }
+    .time-input {
+      background-color: #ffe6e6;
+      border: 1px solid #b30000;
+      border-radius: 8px;
+      padding: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2 class="text-center mb-4">Set Business Hours</h2>
+  <form id="hoursForm" class="row g-2">
+    <div class="col-6">
+      <label>Mon.</label>
+      <input type="time" class="form-control time-input" id="Monday-start" value="08:00">
+    </div>
+    <div class="col-6">
+      <label>&nbsp;</label>
+      <input type="time" class="form-control time-input" id="Monday-end" value="17:00">
+    </div>
+    <div class="col-6">
+      <label>Tues.</label>
+      <input type="time" class="form-control time-input" id="Tuesday-start" value="08:00">
+    </div>
+    <div class="col-6">
+      <label>&nbsp;</label>
+      <input type="time" class="form-control time-input" id="Tuesday-end" value="17:00">
+    </div>
+    <div class="col-6">
+      <label>Wed.</label>
+      <input type="time" class="form-control time-input" id="Wednesday-start" value="08:00">
+    </div>
+    <div class="col-6">
+      <label>&nbsp;</label>
+      <input type="time" class="form-control time-input" id="Wednesday-end" value="17:00">
+    </div>
+    <div class="col-6">
+      <label>Thur.</label>
+      <input type="time" class="form-control time-input" id="Thursday-start" value="08:00">
+    </div>
+    <div class="col-6">
+      <label>&nbsp;</label>
+      <input type="time" class="form-control time-input" id="Thursday-end" value="17:00">
+    </div>
+    <div class="col-6">
+      <label>Fri.</label>
+      <input type="time" class="form-control time-input" id="Friday-start" value="08:00">
+    </div>
+    <div class="col-6">
+      <label>&nbsp;</label>
+      <input type="time" class="form-control time-input" id="Friday-end" value="17:00">
+    </div>
+    <div class="col-6">
+      <label>Sat.</label>
+      <input type="time" class="form-control time-input" id="Saturday-start" value="10:00">
+    </div>
+    <div class="col-6">
+      <label>&nbsp;</label>
+      <input type="time" class="form-control time-input" id="Saturday-end" value="21:00">
+    </div>
+    <div class="col-6">
+      <label>Sun.</label>
+      <input type="text" class="form-control time-input" id="Sunday-start" value="CLOSED">
+    </div>
+    <div class="col-6">
+      <label>&nbsp;</label>
+      <input type="text" class="form-control time-input" id="Sunday-end" value="CLOSED">
+    </div>
+  </form>
+  <button class="btn btn-primary w-100 my-3" onclick="saveHours()">Save & View</button>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="hoursModal" tabindex="-1" aria-labelledby="hoursModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="hoursModalLabel">Updated Business Hours</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <img id="previewImage" src="" alt="Business Hours Image" class="img-fluid">
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+function saveHours() {
+  const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+  const hours = {};
+
+  days.forEach(day => {
+    const start = document.getElementById(`${day}-start`).value || "CLOSED";
+    const end = document.getElementById(`${day}-end`).value || "CLOSED";
+    hours[day] = { start, end };
+  });
+
+  // Save JSON file (simulated local save)
+  const blob = new Blob([JSON.stringify(hours, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'hours.json';
+  a.click();
+
+  // Preview overlay image in modal
+  document.getElementById('previewImage').src = 'business_hours_cleaned_overlay.png';
+  const modal = new bootstrap.Modal(document.getElementById('hoursModal'));
+  modal.show();
+}
+</script>
+
+</body>
+</html>
