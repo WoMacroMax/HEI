@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Contact Form</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    html, body {
+      height: auto;
+      min-height: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+      margin: 0;
+      padding: 0;
+      background-color: #1e1e1e;
+    }
+    .card-grey { background-color: #e9ecef; }
+    .bg-orange { background-color: #fd7e14; }
+    #contactForm { padding-top: 0px; }
+    .sticky-toolbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1035;
+      background-color: #f8f9fa;
+      padding: 0.75rem 1rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .sticky-toolbar .btn { width: 100%; }
+    .sticky-toolbar .row { margin: 0; }
+    .sticky-placeholder { height: 75px; }
+    @media (max-height: 600px) {
+      .sticky-toolbar {
+        position: static;
+        margin-bottom: 1rem;
+      }
+    }
+  </style>
+</head>
+<body class="bg-light">
+
+<!-- Sticky Toolbar with Clear Button -->
+<div class="sticky-toolbar">
+  <div class="container-fluid">
+    <div class="row gx-2">
+      <div class="col-3">
+        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#messageModal">Add Details</button>
+      </div>
+      <div class="col-3">
+        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#attachmentModal">Add Attachment</button>
+      </div>
+      <div class="col-3">
+        <button type="submit" form="contactForm" class="btn btn-success">Send Message</button>
+      </div>
+      <div class="col-3">
+        <button type="button" class="btn btn-danger" onclick="clearForm()">Clear Form</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="sticky-placeholder"></div>
+
+<!-- Contact Form -->
+<div class="container py-3" style="min-height: 100vh;">
+  <div class="row justify-content-center">
+    <div class="col-lg-10 col-md-11 col-sm-12">
+      <form id="contactForm" action="https://formsubmit.co/ayoblab@gmail.com" method="POST" enctype="multipart/form-data">
+        <div class="card card-grey shadow-sm mb-4">
+          <div class="card-header bg-orange text-white">
+            <h3 class="mb-0">Contact Information</h3>
+          </div>
+          <div class="card-body">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="firstname" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="firstname" name="firstname" required />
+              </div>
+              <div class="col-md-6">
+                <label for="lastname" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="lastname" name="lastname" required />
+              </div>
+              <div class="col-md-6">
+                <label for="phone" class="form-label">Phone</label>
+                <input type="tel" class="form-control" id="phone" name="phone" required readonly />
+              </div>
+              <div class="col-md-6">
+                <label for="zipcode" class="form-label">Zip Code</label>
+                <input type="text" class="form-control" id="zipcode" name="zipcode" required readonly />
+              </div>
+              <div class="col-md-6">
+                <label for="company" class="form-label">Company (optional)</label>
+                <input type="text" class="form-control" id="company" name="company" />
+              </div>
+              <div class="col-md-6">
+                <label for="email" class="form-label">Email Address</label>
+                <input type="email" class="form-control" id="email" name="email" required />
+              </div>
+              <div class="col-md-6">
+                <label for="callbackDate" class="form-label">Preferred Callback Date</label>
+                <input type="date" class="form-control" id="callbackDate" name="callbackDate" required />
+              </div>
+              <div class="col-md-6">
+                <label for="callbackTime" class="form-label">Preferred Callback Time</label>
+                <input type="time" class="form-control" id="callbackTime" name="callbackTime" required />
+              </div>
+            </div>
+            <input type="hidden" name="_next" value="https://inquiries.womacromax.com/thanks.html" />
+            <input type="hidden" name="_subject" value="Service Request Form Submission" />
+            <input type="hidden" name="_cc" value="rod.womack@womacromax-automation.network" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="text" name="_honey" style="display:none" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" id="hiddenMessagePart1" value="Inquiry from Womacromax Template Flyer:\n\nRequested Services:\n" />
+            <input type="hidden" name="additional_instructions" id="additionalInstructions" />
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- PhonePad Modal -->
+<div class="modal fade" id="phonePadModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered w-auto m-0">
+    <div class="modal-content bg-dark text-white rounded-3 position-relative p-3">
+      <span class="position-absolute top-0 end-0 fs-4 p-2 text-white" role="button"
+            onclick="bootstrap.Modal.getInstance(document.getElementById('phonePadModal')).hide()">×</span>
+      <iframe id="phonePadFrame"
+              frameborder="0"
+              style="display: block; width: 375px; height: 667px; border-radius: 0.5rem;"></iframe>
+    </div>
+  </div>
+</div>
+
+<!-- Message Modal -->
+<div class="modal fade" id="messageModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title">Your Message</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <textarea class="form-control" id="message" name="message" rows="6" placeholder="Type your message..."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Attachment Modal -->
+<div class="modal fade" id="attachmentModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-dark text-white">
+        <h5 class="modal-title">Add Attachment</h5>
+      </div>
+      <div class="modal-body">
+        <form id="attachmentForm">
+          <div id="attachmentInputs" class="mb-3">
+            <input type="file" class="form-control mb-2" name="attachment[]" accept="image/*" capture="environment" />
+          </div>
+          <div class="row g-2">
+            <div class="col-6">
+              <button type="button" class="btn btn-secondary w-100 rounded-pill" onclick="addAttachmentInput()">Add Another Image</button>
+            </div>
+            <div class="col-6">
+              <button type="button" class="btn btn-success w-100 rounded-pill" onclick="submitAttachment()">Submit</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  let currentInputTarget = null;
+  const inputFields = ['firstname', 'lastname', 'phone', 'zipcode', 'company', 'email', 'callbackDate', 'callbackTime', 'message'];
+
+  inputFields.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.value = localStorage.getItem(id) || '';
+      el.addEventListener('input', () => localStorage.setItem(id, el.value));
+    }
+  });
+
+  ['phone', 'zipcode'].forEach(fieldId => {
+    const input = document.getElementById(fieldId);
+    input.addEventListener('focus', () => {
+      currentInputTarget = input;
+      const modalDialog = document.querySelector('#phonePadModal .modal-dialog');
+      const iframe = document.getElementById('phonePadFrame');
+      iframe.src = `https://inquiries.womacromax.com/phonepad.html?value=${encodeURIComponent(input.value || '')}`;
+
+      if (window.innerWidth > 400) {
+        modalDialog.classList.add('modal-dialog-centered');
+      } else {
+        modalDialog.classList.remove('modal-dialog-centered');
+      }
+
+      const modal = new bootstrap.Modal(document.getElementById('phonePadModal'), { backdrop: true, keyboard: true });
+      modal.show();
+    });
+  });
+
+  window.addEventListener('message', (event) => {
+    const msg = event.data;
+    if (msg === '__done__') {
+      const modalEl = document.getElementById('phonePadModal');
+      const instance = bootstrap.Modal.getInstance(modalEl);
+      if (instance) instance.hide();
+    } else if (typeof msg === 'string' && currentInputTarget) {
+      currentInputTarget.value = msg;
+      localStorage.setItem(currentInputTarget.id, msg);
+    }
+  });
+
+  function toTitleCase(str) {
+    return str.replace(/\w\S*/g, w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase());
+  }
+
+  function hasInvalidChars(value) {
+    return /[^a-zA-Z0-9\s\-]/.test(value);
+  }
+
+  ['firstname', 'lastname'].forEach(id => {
+    const input = document.getElementById(id);
+    input.addEventListener('input', () => {
+      let clean = input.value.replace(/[^a-zA-Z\s\-]/g, '');
+      input.value = toTitleCase(clean);
+    });
+  });
+
+  // Allow special characters in callbackDate and callbackTime
+  ['company', 'message'].forEach(id => {
+    const input = document.getElementById(id);
+    if (input) {
+      input.addEventListener('input', () => {
+        input.value = input.value.replace(/[^a-zA-Z0-9\s\-]/g, '');
+      });
+    }
+  });
+
+  document.getElementById('contactForm').addEventListener('submit', function (e) {
+    const email = document.getElementById('email').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const zip = document.getElementById('zipcode').value.trim();
+    const firstname = document.getElementById('firstname').value.trim();
+    const lastname = document.getElementById('lastname').value.trim();
+    const company = document.getElementById('company').value.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+      alert("Please enter a valid email address.");
+      e.preventDefault(); return;
+    }
+    if (!/^\d{10}$/.test(phone)) {
+      alert("phone number must be exactly 10 digits.");
+      e.preventDefault(); return;
+    }
+    if (!/^\d{5}$/.test(zip)) {
+      alert("Zip code must be exactly 5 digits.");
+      e.preventDefault(); return;
+    }
+    if ([firstname, lastname, company].some(hasInvalidChars)) {
+      alert("Names and company fields may only contain letters, numbers, spaces, and hyphens.");
+      e.preventDefault(); return;
+    }
+
+    const msg = document.getElementById('message').value.trim();
+    document.getElementById('additionalInstructions').value = msg ? "Additional Instructions:\n" + msg : "";
+  });
+
+  function addAttachmentInput() {
+    const container = document.getElementById('attachmentInputs');
+    const newInput = document.createElement('input');
+    newInput.type = 'file';
+    newInput.name = 'attachment[]';
+    newInput.accept = 'image/*';
+    newInput.className = 'form-control mb-2';
+    container.appendChild(newInput);
+  }
+
+  function submitAttachment() {
+    const inputs = document.querySelectorAll('#attachmentInputs input[type="file"]');
+    let totalSize = 0;
+    for (const input of inputs) {
+      if (input.files.length) totalSize += input.files[0].size;
+    }
+    if (totalSize > 8 * 1024 * 1024) {
+      alert("Total attachment size must be 8MB or less.");
+      return;
+    }
+    const modalEl = document.getElementById('attachmentModal');
+    const modal = bootstrap.Modal.getInstance(modalEl);
+    if (modal) modal.hide();
+  }
+
+  function clearForm() {
+    document.getElementById('contactForm').reset();
+    inputFields.forEach(id => localStorage.removeItem(id));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
