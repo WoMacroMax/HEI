@@ -1,89 +1,58 @@
-// Client ID from Google Cloud Console
-const CLIENT_ID = '321777232839-i4dp9qk1m13docho5r3tllb9hauhhi5h.apps.googleusercontent.com';
-const API_KEY = 'AIzaSyAfamBWQ9-3134QIJjjwcm3T7LcrfC2GXs';
+// netlify/functions/createEvent.js
+const { google } = require('googleapis');
 
-const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest';
-const SCOPES = 'https://www.googleapis.com/auth/calendar';
-
-// buttons
-const authorizeButton = document.getElementById('authorize_button');
-const signoutButton = document.getElementById('signout_button');
-
-document.getElementById('authorize_button').addEventListener('click', () => {
-    gapi.auth2.getAuthInstance().signIn().then(() => {
-        console.log("Signed in");
-    }).catch(error => {
-        console.error("Sign-in error:", error);
-    });
-});
-
-
-function handleClientLoad() {
-  gapi.load('client', initClient);
-}
-
-async function initClient() {
-  await gapi.client.init({
-    apiKey: API_KEY,
-    clientId: CLIENT_ID,
-    discoveryDocs: [DISCOVERY_DOC],
-    scope: SCOPES
-  });
-
-  // Listen for sign-in state changes
-  gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
-  
-  // Handle initial sign-in state
-  updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-  
-  authorizeButton.onclick = handleAuthClick;
-  signoutButton.onclick = handleSignoutClick;
-}
-
-function updateSigninStatus(isSignedIn) {
-  if (isSignedIn) {
-    authorizeButton.classList.add('d-none');
-    signoutButton.classList.remove('d-none');
-    listUpcomingEvents();
-  } else {
-    authorizeButton.classList.remove('d-none');
-    signoutButton.classList.add('d-none');
+exports.handler = async (event) => {
+  if (event.httpMethod !== 'POST') {
+    return {
+      statusCode: 405,
+      body: JSON.stringify({ error: 'Method Not Allowed' }),
+    };
   }
-}
 
-function handleAuthClick(event) {
-  gapi.auth2.getAuthInstance().signIn();
-}
+  try {
+    const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_REFRESH_TOKEN, GOOGLE_CALENDAR_ID } = process.env;
+    const body = JSON.parse(event.body || '{}');
+    const { title, start, end } = body;
 
-function handleSignoutClick(event) {
-  gapi.auth2.getAuthInstance().signOut();
-}
-
-function listUpcomingEvents() {
-  gapi.client.calendar.events.list({
-    'calendarId': 'primary',
-    'timeMin': (new Date()).toISOString(),
-    'showDeleted': false,
-    'singleEvents': true,
-    'maxResults': 10,
-    'orderBy': 'startTime'
-  }).then(function(response) {
-    const events = response.result.items;
-    const eventsList = document.getElementById('eventsList');
-    eventsList.innerHTML = '';
-
-    if (events.length > 0) {
-      events.forEach(event => {
-        const li = document.createElement('li');
-        li.className = 'list-group-item';
-        li.textContent = `${event.summary} (${event.start.dateTime || event.start.date})`;
-        eventsList.appendChild(li);
-      });
-    } else {
-      eventsList.innerHTML = '<li class="list-group-item">No upcoming events found.</li>';
+    if (!title || !start || !end) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: 'Missing title, start, or end' }),
+      };
     }
-  });
-}
 
-// Load auth2 library
-window.onload = handleClientLoad;
+    const oAuth2Client = new google.auth.OAuth2(
+      GOOGLE_CLIENT_ID,
+      GOOGLE_CLIENT_SECRET
+    );
+
+    oAuth2Client.setCredentials({ refresh_token: GOOGLE_REFRESH_TOKEN });
+
+    const calendar = google.calendar({ version: 'v3', auth: oAuth2Client });
+
+    const newEvent = {
+      summary: title,
+      start: { dateTime: new Date(start).toISOString(), timeZone: 'America/New_York' },
+      end: { dateTime: new Date(end).toISOString(), timeZone: 'America/New_York' },
+    };
+
+    const response = await calendar.events.insert({
+      calendarId: GOOGLE_CALENDAR_ID,
+      resource: newEvent,
+    });
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify({
+        message: 'Event created!',
+        eventLink: response.data.htmlLink,
+      }),
+    };
+  } catch (err) {
+    console.error('Google API error:', err);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: 'Google API error' }),
+    };
+  }
+};

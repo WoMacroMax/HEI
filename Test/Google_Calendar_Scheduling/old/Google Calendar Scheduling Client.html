@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' https://cdn.jsdelivr.net; connect-src 'self'; img-src 'self' data:;">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Google Calendar Event Manager (No Auth)</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container py-5">
+  <h3 class="mb-4">Google Calendar Event Manager</h3>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <form id="eventForm">
+            <div class="mb-3">
+              <label class="form-label">Event Title</label>
+              <input type="text" class="form-control" id="title" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Start Time</label>
+              <input type="datetime-local" class="form-control" id="start" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">End Time</label>
+              <input type="datetime-local" class="form-control" id="end" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Create Event</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Event Status</h5>
+          <div id="resultMessage" class="alert alert-info d-none"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('eventForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const title = document.getElementById('title').value.trim();
+    const start = document.getElementById('start').value;
+    const end = document.getElementById('end').value;
+    const resultBox = document.getElementById('resultMessage');
+
+    if (!title || !start || !end) {
+      alert('Please fill out all fields.');
+      return;
+    }
+
+    resultBox.classList.add('d-none');
+
+    try {
+      const response = await fetch('/.netlify/functions/createEvent', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title, start, end })
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        resultBox.className = 'alert alert-success';
+        resultBox.innerHTML = `✅ Event
