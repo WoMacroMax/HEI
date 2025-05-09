@@ -61,7 +61,6 @@
     textarea.form-control {
       resize: vertical;
     }
-    /* Toast positioning */
     #toast-container {
       position: fixed;
       top: 1rem;
@@ -81,7 +80,6 @@
     <div class="card shadow-sm mt-4 responsive-card">
       <div class="card-body">
         <div id="incomingMessage" class="incoming-message d-none"></div>
-
         <!-- Top Button Row -->
         <div class="grid-2 mb-3">
           <button id="authorize-button" class="btn btn-success d-none">Sign In</button>
@@ -203,7 +201,6 @@
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
   <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()" onerror="showGapiError()"></script>
-  <script src="https://accounts.google.com/gsi/client" async defer onload="gisLoaded()" onerror="showGapiError()"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 
@@ -286,6 +283,7 @@
         }
       });
     }
+
     function maybeAutoSignIn() {
       if (gapiInited && tokenClient && !tokenGranted) {
         tokenClient.requestAccessToken({ prompt: "" });
@@ -387,7 +385,6 @@
 
     async function checkAvailability(e) {
       e.preventDefault();
-
       if (!gapiInited || !gapi.client.calendar) {
         alert("Google API not initialized. Please sign in.");
         return;
@@ -397,7 +394,6 @@
       const timeEl = document.getElementById("time");
       const startTime = timeEl.value;
       const duration = parseInt(document.getElementById("duration").value || "30");
-
       if (!date || !startTime || !duration) {
         alert("Missing input fields.");
         return;
@@ -486,5 +482,8 @@
       document.getElementById("dec-duration").onclick = () => adjustDuration(-1);
     });
   </script>
+
+  <!-- ✅ Moved to bottom after gisLoaded is defined -->
+  <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()" onerror="showGapiError()"></script>
 </body>
 </html>
