@@ -1,10 +1,8 @@
 node_modules/
-*.local
 service-account.json
-*.env
-*.log
-*.json
-*.zip
-*.tar
-*.tgz
-*.tar.xz
+package-lock.json
+.npm/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.firebase/
