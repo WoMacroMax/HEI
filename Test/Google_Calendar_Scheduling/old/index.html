@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Google Calendar Scheduler</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+  <style>
+    body {
+      background-color: #f8f9fa;
+      padding: 1rem;
+    }
+    .responsive-card {
+      margin: auto;
+      min-width: 328px;
+      max-width: 571px;
+      width: 100%;
+      border-radius: 1rem;
+    }
+    .btn {
+      font-size: 1rem;
+    }
+    .grid-2 {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .grid-2 > * {
+      flex: 1;
+    }
+    .duration-wrapper {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    .duration-buttons {
+      display: flex;
+      flex-direction: column;
+    }
+    .duration-buttons button {
+      padding: 0.3rem 0.5rem;
+      font-size: 1rem;
+      line-height: 1;
+    }
+    .incoming-message {
+      background-color: #fff3cd;
+      border: 1px solid #ffeeba;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border-radius: 0.375rem;
+      font-size: 0.95rem;
+    }
+    .gapi-error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+      padding: 0.75rem;
+      border-radius: 0.375rem;
+      margin-bottom: 1rem;
+      display: none;
+    }
+    textarea.form-control {
+      resize: vertical;
+    }
+    #toast-container {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 1060;
+    }
+  </style>
+</head>
+<body>
+  <div id="toast-container"></div>
+
+  <div class="container-fluid px-2">
+    <div id="gapi-error-banner" class="gapi-error">
+      Google API failed to load. Please check your connection or refresh the page.
+    </div>
+
+    <div class="card shadow-sm mt-4 responsive-card">
+      <div class="card-body">
+        <div id="incomingMessage" class="incoming-message d-none"></div>
+        <!-- Top Button Row -->
+        <div class="grid-2 mb-3">
+          <button id="authorize-button" class="btn btn-success d-none">Sign In</button>
+          <button id="clear-button" class="btn btn-secondary">Clear Form</button>
+        </div>
+
+        <!-- Scheduling Form -->
+        <form id="schedule-form">
+          <div class="form-group">
+            <label for="date">Select Date:</label>
+            <input type="date" id="date" class="form-control" required />
+            <button type="button" class="btn btn-link p-0" data-toggle="modal" data-target="#hoursModal">View Business Hours</button>
+          </div>
+          <div class="form-group">
+            <label for="time">Select Time:</label>
+            <input type="time" id="time" class="form-control" required disabled />
+          </div>
+
+          <div class="form-group">
+            <label for="duration">Select Duration:</label>
+            <div class="duration-wrapper">
+              <select id="duration" class="form-control" required>
+                <option value="30">30 minutes</option>
+                <option value="60">1 hour</option>
+                <option value="90">1.5 hours</option>
+                <option value="120">2 hours</option>
+                <option value="150">2.5 hours</option>
+                <option value="180">3 hours</option>
+                <option value="210">3.5 hours</option>
+                <option value="240">4 hours</option>
+                <option value="270">4.5 hours</option>
+                <option value="300">5 hours</option>
+                <option value="330">5.5 hours</option>
+                <option value="360">6 hours</option>
+                <option value="390">6.5 hours</option>
+                <option value="420">7 hours</option>
+                <option value="450">7.5 hours</option>
+                <option value="480">8 hours</option>
+                <option value="510">8.5 hours</option>
+                <option value="540">9 hours</option>
+                <option value="570">9.5 hours</option>
+                <option value="600">10 hours</option>
+                <option value="630">10.5 hours</option>
+                <option value="660">11 hours</option>
+                <option value="690">11.5 hours</option>
+                <option value="720">12 hours</option>
+              </select>
+              <div class="duration-buttons">
+                <button type="button" id="inc-duration" class="btn btn-outline-secondary">+</button>
+                <button type="button" id="dec-duration" class="btn btn-outline-secondary">&minus;</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="details">Additional Details:</label>
+            <textarea id="details" class="form-control" rows="3" placeholder="Add details for the event..."></textarea>
+          </div>
+
+          <!-- Bottom Button Row -->
+          <div class="grid-2 mt-3">
+            <button type="submit" class="btn btn-primary">Check Availability</button>
+            <button type="button" id="book-button" class="btn btn-info" disabled>Book Appointment</button>
+          </div>
+        </form>
+
+        <!-- Availability Card -->
+        <div id="availability-card" class="card mt-4 d-none">
+          <div class="card-body">
+            <h5 class="card-title">Available Slots</h5>
+            <ul id="availability-list" class="list-group"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Booking Modal -->
+  <div class="modal fade" id="bookingModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <form id="modalForm">
+          <div class="modal-header">
+            <h5 class="modal-title">Confirm Appointment</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span>&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p id="modal-time-label"></p>
+            <p id="modal-duration-label" class="small text-muted"></p>
+            <p><strong>Combined Message:</strong></p>
+            <div id="modal-message-preview" class="border p-2 bg-light" style="white-space: pre-wrap;"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Book</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Business Hours Modal -->
+  <div class="modal fade" id="hoursModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 70vw; max-height: 30vh;">
+      <div class="modal-content">
+        <div class="modal-body p-0">
+          <iframe src="https://inquiries.womacromax.com/data/view_business_hours.html"
+                  style="width:100%; height:400px; border:none; display:block; margin:auto;"></iframe>
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Back</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()" onerror="showGapiError()"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCKpH3zexEOTDhZZ_GZc__ZZ20uyvnjAXM",
+      authDomain: "womacromax-automation.firebaseapp.com",
+      projectId: "womacromax-automation",
+      storageBucket: "womacromax-automation.firebasestorage.app",
+      messagingSenderId: "50651858310",
+      appId: "1:50651858310:web:8df70400afc261d5b85807"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    const CLIENT_ID = "321777232839-i4dp9qk1m13docho5r3tllb9hauhhi5h.apps.googleusercontent.com";
+    const API_KEY = "AIzaSyAfamBWQ9-3134QIJjjwcm3T7LcrfC2GXs";
+    const SCOPES = "https://www.googleapis.com/auth/calendar.events";
+    const DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
+
+    let tokenClient, gapiInited = false, tokenGranted = false;
+    let businessHours = {}, validDates = [];
+    let selectedSlot = null;
+    let taskURL = "", baseMessage = "";
+
+    function showToast(message, color = "success") {
+      const toast = document.createElement("div");
+      toast.className = `toast align-items-center text-white bg-${color} border-0`;
+      toast.setAttribute("role", "alert");
+      toast.setAttribute("aria-live", "assertive");
+      toast.setAttribute("aria-atomic", "true");
+      toast.style.minWidth = "250px";
+      toast.style.marginBottom = "1rem";
+
+      toast.innerHTML = `
+        <div class="d-flex">
+          <div class="toast-body">${message}</div>
+          <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast">&times;</button>
+        </div>
+      `;
+
+      const container = document.getElementById("toast-container");
+      container.appendChild(toast);
+
+      $(toast).toast({ delay: 5000 });
+      $(toast).toast("show");
+
+      setTimeout(() => toast.remove(), 5500);
+    }
+
+    function showGapiError() {
+      document.getElementById("gapi-error-banner").style.display = "block";
+      showToast("Failed to connect to Google API", "danger");
+    }
+
+    function gapiLoaded() {
+      gapi.load("client", async () => {
+        try {
+          await gapi.client.init({ apiKey: API_KEY, discoveryDocs: DISCOVERY_DOCS });
+          gapiInited = true;
+          console.log("GAPI initialized.");
+          showToast("Connected to Google API", "success");
+          maybeAutoSignIn();
+        } catch (err) {
+          console.error("GAPI init failed", err);
+          showGapiError();
+        }
+      });
+    }
+
+    function gisLoaded() {
+      tokenClient = google.accounts.oauth2.initTokenClient({
+        client_id: CLIENT_ID,
+        scope: SCOPES,
+        callback: (resp) => {
+          if (resp.error) return console.error(resp);
+          gapi.client.setToken({ access_token: resp.access_token });
+          tokenGranted = true;
+          console.log("Token granted.");
+        }
+      });
+    }
+
+    function maybeAutoSignIn() {
+      if (gapiInited && tokenClient && !tokenGranted) {
+        tokenClient.requestAccessToken({ prompt: "" });
+      }
+    }
+
+    function convertTo12Hour(timeStr) {
+      if (timeStr.toUpperCase() === "CLOSED") return "CLOSED";
+      const [hour, minute] = timeStr.split(":").map(Number);
+      const ampm = hour >= 12 ? "PM" : "AM";
+      const hr = hour % 12 || 12;
+      return `${hr}:${minute.toString().padStart(2, "0")} ${ampm}`;
+    }
+
+    async function loadBusinessHoursAndSetDatePicker() {
+      const dateInput = document.getElementById("date");
+      const timeInput = document.getElementById("time");
+      if (timeInput) timeInput.disabled = true;
+
+      const today = new Date();
+      const maxDate = new Date(today);
+      maxDate.setDate(today.getDate() + 7);
+      dateInput.min = today.toISOString().split("T")[0];
+      dateInput.max = maxDate.toISOString().split("T")[0];
+
+      const doc = await db.collection("businessHours").doc("current").get();
+      if (doc.exists) {
+        businessHours = doc.data();
+        for (let i = 0; i <= 7; i++) {
+          const check = new Date();
+          check.setDate(today.getDate() + i);
+          const day = check.toLocaleDateString("en-US", { weekday: "long" });
+          const hours = businessHours[day];
+          if (hours && hours.start !== "CLOSED") {
+            validDates.push(check.toISOString().split("T")[0]);
+          }
+        }
+
+        dateInput.addEventListener("change", () => {
+          const selectedDate = dateInput.value;
+          if (!validDates.includes(selectedDate)) {
+            alert("Selected date is not available.");
+            dateInput.value = "";
+            document.getElementById("time").disabled = true;
+            return;
+          }
+
+          const day = new Date(selectedDate).toLocaleDateString("en-US", { weekday: "long" });
+          const { start, end } = businessHours[day];
+          if (start === "CLOSED") return;
+
+          const [sh, sm] = start.split(":").map(Number);
+          const [eh, em] = end.split(":").map(Number);
+          const options = [];
+
+          for (let h = sh; h <= eh; h++) {
+            for (let m = 0; m < 60; m += 30) {
+              if ((h > sh || m >= sm) && (h < eh || m <= em)) {
+                const tstr = `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
+                options.push(`<option value="${tstr}">${convertTo12Hour(tstr)}</option>`);
+              }
+            }
+          }
+
+          const newSelect = document.createElement("select");
+          newSelect.id = "time";
+          newSelect.className = "form-control";
+          newSelect.required = true;
+          newSelect.innerHTML = options.join("");
+
+          const oldInput = document.getElementById("time");
+          if (oldInput && oldInput.tagName === "INPUT") {
+            oldInput.parentNode.replaceChild(newSelect, oldInput);
+          } else if (oldInput && oldInput.tagName === "SELECT") {
+            oldInput.replaceChildren(...newSelect.children);
+            oldInput.disabled = false;
+          }
+        });
+      }
+    }
+
+    function parseQueryParams() {
+      const params = new URLSearchParams(window.location.search);
+      taskURL = params.get("taskURL") || "";
+      baseMessage = params.get("message") || "";
+      if (baseMessage) {
+        const label = document.getElementById("incomingMessage");
+        label.innerHTML = baseMessage;
+        label.classList.remove("d-none");
+      }
+    }
+
+    function adjustDuration(delta) {
+      const dropdown = document.getElementById("duration");
+      let val = parseInt(dropdown.value || 30);
+      val += delta * 30;
+      if (val >= 30 && val <= 720) dropdown.value = val;
+    }
+
+    async function checkAvailability(e) {
+      e.preventDefault();
+      if (!gapiInited || !gapi.client.calendar) {
+        alert("Google API not initialized. Please sign in.");
+        return;
+      }
+
+      const date = document.getElementById("date").value;
+      const timeEl = document.getElementById("time");
+      const startTime = timeEl.value;
+      const duration = parseInt(document.getElementById("duration").value || "30");
+      if (!date || !startTime || !duration) {
+        alert("Missing input fields.");
+        return;
+      }
+
+      const slotStart = new Date(`${date}T${startTime}`);
+      const slotEnd = new Date(slotStart.getTime() + duration * 60000);
+
+      const events = await gapi.client.calendar.events.list({
+        calendarId: "Communications",
+        timeMin: new Date(`${date}T00:00:00`).toISOString(),
+        timeMax: new Date(`${date}T23:59:59`).toISOString(),
+        showDeleted: false,
+        singleEvents: true,
+        orderBy: "startTime"
+      });
+
+      const busy = events.result.items.map(e => ({
+        start: new Date(e.start.dateTime),
+        end: new Date(e.end.dateTime)
+      }));
+
+      const available = !busy.some(b => slotStart < b.end && slotEnd > b.start);
+      const availabilityList = document.getElementById("availability-list");
+      availabilityList.innerHTML = "";
+
+      if (!available) {
+        availabilityList.innerHTML = '<li class="list-group-item text-danger">Selected slot is unavailable.</li>';
+      } else {
+        const li = document.createElement("li");
+        li.className = "list-group-item list-group-item-success";
+        li.textContent = `${convertTo12Hour(startTime)} - ${convertTo12Hour(slotEnd.toTimeString().slice(0, 5))}`;
+        li.onclick = () => {
+          selectedSlot = { start: slotStart, end: slotEnd };
+          const note = document.getElementById("details").value.trim();
+          const fullMessage = `${baseMessage}\n${taskURL ? "\n" + taskURL : ""}${note ? "\n\n" + note : ""}`;
+          document.getElementById("modal-time-label").innerText = li.textContent;
+          document.getElementById("modal-duration-label").innerText = `${duration} minute appointment`;
+          document.getElementById("modal-message-preview").innerText = fullMessage;
+          $("#bookingModal").modal("show");
+        };
+        availabilityList.appendChild(li);
+      }
+
+      document.getElementById("availability-card").classList.remove("d-none");
+      document.getElementById("book-button").disabled = false;
+    }
+
+    async function bookAppointment(e) {
+      e.preventDefault();
+      if (!selectedSlot) return alert("No slot selected.");
+      const note = document.getElementById("details").value.trim();
+      const message = `${baseMessage}\n${taskURL ? "\n" + taskURL : ""}${note ? "\n\n" + note : ""}`;
+      try {
+        await gapi.client.calendar.events.insert({
+          calendarId: "Communications",
+          resource: {
+            summary: "Scheduled Appointment",
+            description: message,
+            start: { dateTime: selectedSlot.start.toISOString() },
+            end: { dateTime: selectedSlot.end.toISOString() }
+          }
+        });
+        alert("Appointment booked.");
+        $("#bookingModal").modal("hide");
+      } catch (err) {
+        console.error("Booking error", err);
+        alert("Failed to book appointment.");
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      parseQueryParams();
+      loadBusinessHoursAndSetDatePicker();
+
+      document.getElementById("clear-button").onclick = () => {
+        document.getElementById("schedule-form").reset();
+        document.getElementById("availability-list").innerHTML = "";
+        document.getElementById("availability-card").classList.add("d-none");
+        document.getElementById("book-button").disabled = true;
+      };
+
+      document.getElementById("schedule-form").addEventListener("submit", checkAvailability);
+      document.getElementById("modalForm").addEventListener("submit", bookAppointment);
+      document.getElementById("inc-duration").onclick = () => adjustDuration(1);
+      document.getElementById("dec-duration").onclick = () => adjustDuration(-1);
+    });
+  </script>
+
+  <!-- ✅ Moved to bottom after gisLoaded is defined -->
+  <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()" onerror="showGapiError()"></script>
+</body>
+</html>
