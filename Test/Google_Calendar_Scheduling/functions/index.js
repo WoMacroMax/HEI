@@ -6,20 +6,37 @@ const bodyParser = require("body-parser");
 const path = require("path");
 
 const app = express();
-app.use(cors({ origin: true }));
+
+// ✅ Only allow requests from your Netlify domain
+app.use(cors({
+  origin: ["https://scheduling.womacromax.com"],
+  methods: ["POST"],
+  allowedHeaders: ["Content-Type"]
+}));
+
 app.use(bodyParser.json());
 
-// Load service account
+// ✅ Load your service account key securely
 const auth = new google.auth.GoogleAuth({
   keyFile: path.join(__dirname, "service-account.json"),
   scopes: ["https://www.googleapis.com/auth/calendar"]
 });
 
-const calendarId = "primary"; // Or use full address like "communications@yourdomain.com"
+// Replace with your calendar ID or use "primary"
+const calendarId = "primary";
 
+// ✅ Route: POST /book
 app.post("/book", async (req, res) => {
+  console.log("📥 Received booking request");
+  console.log("Payload:", req.body);
+
   try {
     const { summary, description, start, end } = req.body;
+
+    if (!summary || !start || !end) {
+      console.warn("⚠️ Missing required fields");
+      throw new Error("Missing required fields");
+    }
 
     const authClient = await auth.getClient();
     const calendar = google.calendar({ version: "v3", auth: authClient });
@@ -36,11 +53,14 @@ app.post("/book", async (req, res) => {
       resource: event
     });
 
+    console.log("✅ Event created:", response.data);
     res.json({ success: true, eventId: response.data.id });
+
   } catch (err) {
-    console.error("Booking error:", err);
+    console.error("❌ Booking error:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 });
 
+// ✅ Export the Express app as a Firebase Cloud Function
 exports.api = functions.https.onRequest(app);

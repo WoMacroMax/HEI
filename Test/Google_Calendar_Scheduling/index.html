@@ -354,16 +354,16 @@
     const message = `${baseMessage}\n${taskURL ? "\n" + taskURL : ""}${note ? "\n\n" + note : ""}`;
 
     try {
-      const res = await fetch("https://us-central1-womacromax-automation.cloudfunctions.net/api", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          summary: "Scheduled Appointment",
-          description: message,
-          start: selectedSlot.start.toISOString(),
-          end: selectedSlot.end.toISOString()
-        })
-      });
+      const res = await fetch("https://us-central1-womacromax-automation.cloudfunctions.net/api/book", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    summary: "Scheduled Appointment",
+    description: message,
+    start: selectedSlot.start.toISOString(),
+    end: selectedSlot.end.toISOString()
+  })
+});
 
       if (!res.ok) throw new Error("Server responded with error");
 
