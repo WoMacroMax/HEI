@@ -61,23 +61,13 @@
     textarea.form-control {
       resize: vertical;
     }
-    /* Toast positioning */
-    #toast-container {
-      position: fixed;
-      top: 1rem;
-      right: 1rem;
-      z-index: 1060;
-    }
   </style>
 </head>
 <body>
-  <div id="toast-container"></div>
-
   <div class="container-fluid px-2">
     <div id="gapi-error-banner" class="gapi-error">
       Google API failed to load. Please check your connection or refresh the page.
     </div>
-
     <div class="card shadow-sm mt-4 responsive-card">
       <div class="card-body">
         <div id="incomingMessage" class="incoming-message d-none"></div>
@@ -186,7 +176,7 @@
 
   <!-- Business Hours Modal -->
   <div class="modal fade" id="hoursModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" style="max-width: 30vw; max-height: 30vh;">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 50vw; max-height: 50vh;">
       <div class="modal-content">
         <div class="modal-body p-0">
           <iframe src="https://inquiries.womacromax.com/data/view_business_hours.html"
@@ -203,7 +193,7 @@
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
   <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()" onerror="showGapiError()"></script>
-  <script src="https://accounts.google.com/gsi/client" async defer onload="gisLoaded()" onerror="showGapiError()"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 
@@ -229,34 +219,8 @@
     let selectedSlot = null;
     let taskURL = "", baseMessage = "";
 
-    function showToast(message, color = "success") {
-      const toast = document.createElement("div");
-      toast.className = `toast align-items-center text-white bg-${color} border-0`;
-      toast.setAttribute("role", "alert");
-      toast.setAttribute("aria-live", "assertive");
-      toast.setAttribute("aria-atomic", "true");
-      toast.style.minWidth = "250px";
-      toast.style.marginBottom = "1rem";
-
-      toast.innerHTML = `
-        <div class="d-flex">
-          <div class="toast-body">${message}</div>
-          <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast">&times;</button>
-        </div>
-      `;
-
-      const container = document.getElementById("toast-container");
-      container.appendChild(toast);
-
-      $(toast).toast({ delay: 5000 });
-      $(toast).toast("show");
-
-      setTimeout(() => toast.remove(), 5500);
-    }
-
     function showGapiError() {
       document.getElementById("gapi-error-banner").style.display = "block";
-      showToast("Failed to connect to Google API", "danger");
     }
 
     function gapiLoaded() {
@@ -265,7 +229,6 @@
           await gapi.client.init({ apiKey: API_KEY, discoveryDocs: DISCOVERY_DOCS });
           gapiInited = true;
           console.log("GAPI initialized.");
-          showToast("Connected to Google API", "success");
           maybeAutoSignIn();
         } catch (err) {
           console.error("GAPI init failed", err);
@@ -286,6 +249,7 @@
         }
       });
     }
+
     function maybeAutoSignIn() {
       if (gapiInited && tokenClient && !tokenGranted) {
         tokenClient.requestAccessToken({ prompt: "" });
@@ -471,6 +435,7 @@
 
     document.addEventListener("DOMContentLoaded", () => {
       parseQueryParams();
+      gisLoaded();
       loadBusinessHoursAndSetDatePicker();
 
       document.getElementById("clear-button").onclick = () => {
