@@ -4,5 +4,4 @@ node_modules/
 *.log
 *.local
 *.lock
-functions/service-account.json
 functions/package-lock.json
