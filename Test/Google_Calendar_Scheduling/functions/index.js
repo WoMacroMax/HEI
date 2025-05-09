@@ -1,3 +1,4 @@
+console.log("✅ Cloud Function `api` is running and ready.");
 const functions = require("firebase-functions");
 const express = require("express");
 const cors = require("cors");
@@ -18,8 +19,12 @@ app.use(bodyParser.json());
 
 // ✅ Load your service account key securely
 const auth = new google.auth.GoogleAuth({
-  keyFile: path.join(__dirname, "service-account.json"),
-  scopes: ["https://www.googleapis.com/auth/calendar"]
+  credentials: {
+    client_email: process.env.GOOGLE_CLIENT_EMAIL,
+    private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+  },
+  projectId: process.env.GOOGLE_PROJECT_ID,
+  scopes: ["https://www.googleapis.com/auth/calendar"],
 });
 
 // Replace with your calendar ID or use "primary"
