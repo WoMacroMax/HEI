@@ -1,0 +1,10 @@
+node_modules/
+*.local
+service-account.json
+*.env
+*.log
+*.json
+*.zip
+*.tar
+*.tgz
+*.tar.xz
