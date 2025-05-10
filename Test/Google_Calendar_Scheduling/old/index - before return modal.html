@@ -112,7 +112,6 @@
   </style>
 </head>
 <body>
-
   <div class="container-fluid px-2">
     <div class="card responsive-card shadow p-3 mb-4 bg-white">
       <h4 class="text-center">Schedule an Appointment</h4>
@@ -162,43 +161,23 @@
         <p class="text-muted text-center w-100">Loading available time slots...</p>
       </div>
 
-      <!-- Hidden Fields for Selected Slot -->
       <input type="hidden" id="preferredTime" required />
-    </div>
-  </div>
 
-  <!-- 🔹 Confirmation Modal -->
-  <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <form id="appointmentForm" class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="confirmationLabel">Confirm Appointment</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+      <div class="form-group">
+        <label for="message">Message</label>
+        <input type="text" id="message" class="form-control" required />
+      </div>
+
+      <div class="form-group">
+        <label for="additionalDetails">Additional Details</label>
+        <textarea id="additionalDetails" class="form-control" rows="3"></textarea>
+      </div>
+
+      <div id="loadingSpinner" class="text-center my-2" style="display: none;">
+        <div class="spinner-border text-primary" role="status">
+          <span class="sr-only">Booking...</span>
         </div>
-        <div class="modal-body">
-          <p><strong>Date:</strong> <span id="confirmDate"></span></p>
-          <p><strong>Time:</strong> <span id="confirmTime"></span></p>
-          <div class="form-group">
-            <label for="message">Message</label>
-            <input type="text" id="message" class="form-control" required />
-          </div>
-          <div class="form-group">
-            <label for="additionalDetails">Additional Details</label>
-            <textarea id="additionalDetails" class="form-control" rows="3"></textarea>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <div id="loadingSpinner" class="mr-auto" style="display: none;">
-            <div class="spinner-border text-primary" role="status" style="width: 1.5rem; height: 1.5rem;">
-              <span class="sr-only">Booking...</span>
-            </div>
-          </div>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn btn-primary">Book Appointment</button>
-        </div>
-      </form>
+      </div>
     </div>
   </div>
 
@@ -278,6 +257,7 @@
     if (days.length === 0) {
       calendarPopup.innerHTML = '<div class="calendar-day disabled">No days</div>';
     } else {
+      // Auto-set first valid date on load
       if (!preferredDate.value) {
         preferredDate.value = days[0].value;
         updateSlots();
@@ -343,14 +323,13 @@
       btn.style.backgroundColor = gradientColor(slot.minutesFromStart);
       btn.onclick = () => {
         preferredTime.value = slot.value;
-        document.getElementById('confirmDate').textContent = preferredDate.value;
-        document.getElementById('confirmTime').textContent = slot.label;
-        $('#confirmationModal').modal('show');
+        document.getElementById('appointmentForm').requestSubmit();
       };
       slotContainer.appendChild(btn);
     });
   }
 
+  // Bootstrap
   document.addEventListener('DOMContentLoaded', async () => {
     await loadBusinessHours();
     const duration = parseInt(durationSelect.value);
@@ -417,7 +396,6 @@
         if (result.success) {
           alert('✅ Appointment booked successfully!');
           form.reset();
-          $('#confirmationModal').modal('hide');
           document.getElementById('slotContainer').innerHTML =
             `<p class="text-muted text-center w-100">Select a date to view available time slots.</p>`;
         } else {

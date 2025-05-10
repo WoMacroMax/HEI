@@ -1,71 +1,51 @@
-console.log("✅ Cloud Function `api` is running and ready.");
-const functions = require("firebase-functions");
-const express = require("express");
-const cors = require("cors");
-const { google } = require("googleapis");
-const bodyParser = require("body-parser");
-const path = require("path");
+const functions = require('firebase-functions');
+const { google } = require('googleapis');
+const admin = require('firebase-admin');
+admin.initializeApp();
 
-const app = express();
+const calendar = google.calendar('v3');
 
-// ✅ Only allow requests from your Netlify domain
-app.use(cors({
-  origin: ["https://scheduling.womacromax.com"],
-  methods: ["POST"],
-  allowedHeaders: ["Content-Type"]
-}));
-
-app.use(bodyParser.json());
-
-// ✅ Load your service account key securely
+// Service account credentials should be stored in Firebase functions config
 const auth = new google.auth.GoogleAuth({
+  scopes: ['https://www.googleapis.com/auth/calendar'],
   credentials: {
-    client_email: process.env.GOOGLE_CLIENT_EMAIL,
-    private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
-  },
-  projectId: process.env.GOOGLE_PROJECT_ID,
-  scopes: ["https://www.googleapis.com/auth/calendar"],
+    client_email: functions.config().google.client_email,
+    private_key: functions.config().google.private_key.replace(/\\n/g, '\n'),
+  }
 });
 
-// Replace with your calendar ID or use "primary"
-const calendarId = "primary";
-
-// ✅ Route: POST /book
-app.post("/book", async (req, res) => {
-  console.log("📥 Received booking request");
-  console.log("Payload:", req.body);
-
+exports.book = functions.https.onRequest(async (req, res) => {
   try {
-    const { summary, description, start, end } = req.body;
-
-    if (!summary || !start || !end) {
-      console.warn("⚠️ Missing required fields");
-      throw new Error("Missing required fields");
-    }
+    const { date, time, duration, summary, description } = req.body;
 
     const authClient = await auth.getClient();
-    const calendar = google.calendar({ version: "v3", auth: authClient });
+    const startDateTime = new Date(`${date}T${time}`);
+    const endDateTime = new Date(startDateTime.getTime() + duration * 60000);
 
     const event = {
       summary,
       description,
-      start: { dateTime: start },
-      end: { dateTime: end }
+      start: {
+        dateTime: startDateTime.toISOString(),
+        timeZone: 'America/New_York',
+      },
+      end: {
+        dateTime: endDateTime.toISOString(),
+        timeZone: 'America/New_York',
+      },
     };
 
-    const response = await calendar.events.insert({
+    const calendarId = 'communications@womacromax-automation.network'; // 👈 Target calendar
+
+    await calendar.events.insert({
+      auth: authClient,
       calendarId,
-      resource: event
+      resource: event,
     });
 
-    console.log("✅ Event created:", response.data);
-    res.json({ success: true, eventId: response.data.id });
-
-  } catch (err) {
-    console.error("❌ Booking error:", err);
-    res.status(500).json({ success: false, error: err.message });
+    res.status(200).json({ success: true });
+  } catch (error) {
+    console.error('Booking failed:', error);
+    res.status(500).json({ success: false, error: error.message });
   }
 });
-
-// ✅ Export the Express app as a Firebase Cloud Function
-exports.api = functions.https.onRequest(app);
