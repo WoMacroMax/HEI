@@ -1,7 +1,27 @@
+# 🔒 Node and environment
 node_modules/
 .firebase/
 .env
 *.log
 *.local
 *.lock
+
+# 🔧 Firebase Functions
+functions/node_modules/
 functions/package-lock.json
+functions/index.js
+
+# 🔥 Firestore-related files
+firestore.indexes.json
+firestore.rules
+firebase.json
+
+# 🔥 Optional Firestore folders
+firestore/
+functions/firestore/
+functions/**/*.firestore.*
+functions/src/firestore*
+
+# 🧪 Build outputs (for TypeScript or bundlers)
+functions/lib/
+functions/dist/
