@@ -1,26 +1,19 @@
 {
-  "name": "calendar-functions",
-  "description": "Firebase Cloud Functions for Calendar Booking",
-  "dependencies": {
-    "body-parser": "^1.20.2",
-    "cors": "^2.8.5",
-    "express": "^4.18.2",
-    "firebase-admin": "^13.3.0",
-    "firebase-functions": "^6.3.2",
-    "googleapis": "^118.0.0",
-    "luxon": "^3.6.1"
+  "name": "functions",
+  "description": "Firebase Functions for booking Google Calendar events",
+  "scripts": {
+    "start": "firebase emulators:start --only functions",
+    "deploy": "firebase deploy --only functions:book"
   },
   "engines": {
     "node": "18"
   },
   "main": "index.js",
-  "scripts": {
-    "start": "firebase emulators:start --only functions",
-    "deploy": "firebase deploy --only functions"
+  "dependencies": {
+    "cors": "^2.8.5",
+    "firebase-functions": "^4.4.1",
+    "googleapis": "^134.0.0",
+    "google-auth-library": "^9.0.0"
   },
-  "version": "1.0.0",
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs"
+  "private": true
 }
