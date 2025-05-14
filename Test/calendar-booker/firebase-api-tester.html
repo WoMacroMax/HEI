@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Firebase API Test</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: #f2f2f2;
+      padding: 1rem;
+    }
+    .card {
+      max-width: 500px;
+      margin: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="card shadow">
+    <div class="card-header text-white bg-primary text-center">
+      <h5 class="mb-0">📅 Book Appointment</h5>
+    </div>
+    <div class="card-body">
+      <form id="testForm">
+        <div class="mb-3">
+          <label for="summary" class="form-label">Title</label>
+          <input type="text" id="summary" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea id="description" class="form-control" rows="3"></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="start" class="form-label">Start Time</label>
+          <input type="datetime-local" id="start" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="end" class="form-label">End Time</label>
+          <input type="datetime-local" id="end" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-success w-100">Send to Firebase</button>
+      </form>
+      <div id="response" class="alert mt-3 d-none" role="alert"></div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("testForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const summary = document.getElementById("summary").value;
+      const description = document.getElementById("description").value;
+      const start = document.getElementById("start").value;
+      const end = document.getElementById("end").value;
+      const responseEl = document.getElementById("response");
+
+      try {
+        const res = await fetch("https://us-central1-womacromax-automation.cloudfunctions.net/book", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ summary, description, start, end })
+        });
+
+        const data = await res.json();
+        if (res.ok) {
+          responseEl.className = "alert alert-success mt-3";
+          responseEl.innerHTML = "✅ Booked successfully! <br><a href='" + data.eventLink + "' target='_blank'>View Event</a>";
+        } else {
+          throw new Error(data.error || "Unknown error");
+        }
+      } catch (error) {
+        responseEl.className = "alert alert-danger mt-3";
+        responseEl.textContent = "❌ Error: " + error.message;
+      }
+
+      responseEl.classList.remove("d-none");
+    });
+  </script>
+</body>
+</html>

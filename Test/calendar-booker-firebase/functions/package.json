@@ -1,0 +1,14 @@
+{
+  "name": "firebase-calendar-booking",
+  "version": "1.0.0",
+  "main": "index.js",
+  "engines": {
+    "node": "22"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "firebase-functions": "^4.0.0",
+    "googleapis": "^134.0.0",
+    "luxon": "^3.3.0"
+  }
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book Appointment</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+</head>
+<body class="p-3 bg-light">
+  <div class="container card p-4 shadow">
+    <h4 class="text-center mb-3">Book an Appointment</h4>
+    <form id="bookingForm">
+      <div class="form-group"><label>Date</label><input type="date" id="date" class="form-control" required></div>
+      <div class="form-group"><label>Time</label><input type="time" id="time" class="form-control" required></div>
+      <div class="form-group"><label>Duration (mins)</label><input type="number" id="duration" class="form-control" value="30" required></div>
+      <div class="form-group"><label>Summary</label><input type="text" id="summary" class="form-control" required></div>
+      <div class="form-group"><label>Description</label><textarea id="description" class="form-control" rows="3"></textarea></div>
+      <button type="submit" class="btn btn-primary btn-block">Book</button>
+    </form>
+    <div id="resultCard" class="alert alert-success mt-3" style="display:none">
+      <strong>Success!</strong> Event created. <a id="eventLink" href="#" target="_blank">View Event</a>
+    </div>
+  </div>
+  <script>
+    document.getElementById("bookingForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const payload = {
+        date: document.getElementById("date").value,
+        time: document.getElementById("time").value,
+        duration: parseInt(document.getElementById("duration").value),
+        summary: document.getElementById("summary").value,
+        description: document.getElementById("description").value
+      };
+      try {
+        const res = await fetch("https://us-central1-womacromax-automation.cloudfunctions.net/book", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (data.success) {
+          document.getElementById("eventLink").href = data.eventLink;
+          document.getElementById("resultCard").style.display = "block";
+        } else alert("Booking failed: " + data.error);
+      } catch (err) {
+        alert("Request failed");
+      }
+    });
+  </script>
+</body>
+</html>
