@@ -8,8 +8,11 @@ const path = require("path");
 const calendar = google.calendar("v3");
 const LOG_FILE = path.join("/tmp", "booking.log");
 
-exports.book = functions.https.onRequest((req, res) => {
-  cors(req, res, async () => {
+const { onRequest } = require("firebase-functions/v2/https");
+const logger = require("firebase-functions/logger");
+
+exports.book = onRequest({ cpu: 1 }, async (req, res) => {
+  logger.log("Booking request received");
     // Log incoming request
     console.log("📥 Incoming request:");
     console.log(JSON.stringify(req.body, null, 2));
