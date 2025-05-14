@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Phone Keypad</title>
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+ <style>
+  body {
+  position: relative;
+  min-height: 100vh; /* Ensure body is at least viewport height */
+  padding-bottom: 160px; /* Add padding for the fixed keypad */
+  box-sizing: border-box; /* Include padding in element's total width and height */
+  }
+
+  .headband {
+  background-color: black;
+  color: #00FF00; /* Green color */
+  padding: 10px;
+  text-align: center;
+  font-size: 1.5em;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* Ensure it stays on top */
+  }
+
+  .keypad-card {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  /* Original width: width: 50%; */
+  width: 3.375in; /* Applied standard credit card width (CR80: 3.375 inches).
+                     Note: This is a fixed physical unit. The original 50% provided responsive width.
+                     Consider if this fixed size is appropriate for all screen sizes and the keypad's usability. */
+  margin-bottom: 10px; /* Add some margin from the bottom */
+  margin-right: 10px; /* Add some margin from the right */
+  background-color: #fff; /* Added for better card visibility if it's not inheriting from Bootstrap's .card */
+  border: 1px solid #ddd; /* Added for better card visibility */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Added for better card visibility */
+  }
+
+  .card-body-content {
+  display: flex;
+  flex-direction: column;
+  }
+
+  .display-area {
+  text-align: right;
+  padding: 10px;
+  font-size: 1.5em;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 10px;
+  color: #00FF00; /* Green color */
+  background-color: #333; /* Added a darker background for the display for contrast */
+  border-radius: 3px 3px 0 0; /* Rounded top corners for display if card is rounded */
+  }
+
+  .keypad-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 10px; /* Added padding around keypad buttons */
+  }
+
+  .keypad-row {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 5px;
+  }
+
+  .keypad-button {
+  flex: 1;
+  padding: 10px;
+  margin: 0 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 1.2em;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+  transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+  }
+
+  .keypad-button:active {
+  background-color: #ddd;
+  transform: translateY(2px); /* Move down slightly */
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); /* Slightly smaller shadow */
+  }
+
+  .button-row {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+  padding: 0 10px 10px 10px; /* Added padding to button row */
+  }
+
+  .action-button {
+  flex: 1;
+  padding: 10px;
+  margin: 0 5px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+  }
+
+  .action-button:active {
+  transform: translateY(2px);
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+  }
+ </style>
+</head>
+<body>
+
+ <div class="headband">Phone Keypad</div>
+
+ <div class="keypad-card card"> <div class="card-body card-body-content"> <div class="display-area"></div>
+  <div class="keypad-container">
+   <div class="keypad-row">
+   <div class="keypad-button">1</div>
+   <div class="keypad-button">2</div>
+   <div class="keypad-button">3</div>
+   </div>
+   <div class="keypad-row">
+   <div class="keypad-button">4</div>
+   <div class="keypad-button">5</div>
+   <div class="keypad-button">6</div>
+   </div>
+   <div class="keypad-row">
+   <div class="keypad-button">7</div>
+   <div class="keypad-button">8</div>
+   <div class="keypad-button">9</div>
+   </div>
+   <div class="keypad-row">
+   <div class="keypad-button">*</div>
+   <div class="keypad-button">0</div>
+   <div class="keypad-button">#</div>
+   </div>
+  </div>
+  <div class="button-row">
+   <button class="btn btn-primary action-button" id="sendButton">Send</button>
+   <button class="btn btn-secondary action-button" id="backButton">Back</button>
+  </div>
+  </div>
+ </div>
+
+ <audio id="clickSound" src="click.mp3" preload="auto"></audio>
+
+ <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+ <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+ <script>
+  const keypadButtons = document.querySelectorAll('.keypad-button');
+  const displayArea = document.querySelector('.display-area');
+  const backButton = document.getElementById('backButton');
+  const sendButton = document.getElementById('sendButton');
+  const clickSound = document.getElementById('clickSound');
+
+  let typedNumber = ''; // Store the typed number
+  const maxDigits = 10;
+
+  function playClickSound() {
+  clickSound.currentTime = 0; // Rewind to the beginning
+  clickSound.play().catch(error => console.log("Error playing sound:", error)); // Added catch for potential errors
+  }
+
+  keypadButtons.forEach(button => {
+  button.addEventListener('click', function() {
+   playClickSound();
+   if (/\d/.test(this.textContent) && typedNumber.length < maxDigits) {
+    typedNumber += this.textContent;
+    displayArea.textContent = formatPhoneNumber(typedNumber);
+   } else if (this.textContent === '*' || this.textContent === '#') {
+    // Allow * and #, but don't include them in phone number formatting if it's strict
+    // For simplicity here, we'll just append them. You might want different handling.
+    if (typedNumber.length < maxDigits + 2) { // Allow a bit more length for * and #
+        typedNumber += this.textContent;
+        displayArea.textContent = typedNumber; // Display * and # directly or update formatted number
+    }
+   }
+  });
+  });
+
+  backButton.addEventListener('click', function() {
+  playClickSound();
+  typedNumber = typedNumber.slice(0, -1);
+  // Re-evaluate display based on whether the remaining is purely numeric or includes * / #
+  if (/[*#]/.test(typedNumber.charAt(typedNumber.length - 1))) {
+    displayArea.textContent = typedNumber;
+  } else {
+    displayArea.textContent = formatPhoneNumber(typedNumber);
+  }
+  if (typedNumber === "") {
+    displayArea.textContent = ""; // Clear display if empty
+  }
+  });
+
+  sendButton.addEventListener('click', function() {
+  playClickSound();
+  const numberToSend = typedNumber;
+  // Decide if you want to send the raw typedNumber or a cleaned/formatted version
+  alert(`Sending input: ${numberToSend}`);
+  // Optionally clear after sending
+  // typedNumber = '';
+  // displayArea.textContent = '';
+  });
+
+  function formatPhoneNumber(number) {
+  const cleaned = ('' + number).replace(/[^\d]/g, ''); // Remove any non-digits for formatting
+  const length = cleaned.length;
+
+  if (length === 0) {
+      return "";
+  } else if (length <= 3) {
+   return cleaned;
+  } else if (length <= 6) {
+   return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3)}`;
+  } else if (length <= 10) {
+   return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(6, 10)}`;
+  }
+  // If number is longer than 10 digits (e.g. international), just return the cleaned number or apply other rules
+  // For this example, we'll just format the first 10.
+  return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(6, 10)} ${cleaned.slice(10)}`;
+  }
+
+  // Set initial empty display
+  displayArea.textContent = '';
+ </script>
+</body>
+</html>
