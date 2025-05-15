@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Selected Services Display</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      padding-top: 2rem;
+      transform: scale(0.9);
+      transform-origin: top center;
+    }
+    .card {
+      margin-bottom: 1rem;
+    }
+    .timestamp {
+      float: right;
+      font-weight: bold;
+      color: #007bff;
+    }
+    textarea {
+      resize: vertical;
+    }
+    .clipboard-alert {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="row">
+
+    <!-- Input Card -->
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">Input</div>
+        <div class="card-body">
+          <p>This form reads a query string like:<br>
+            <code>?services=["moping","landscaping","cooking","cleaning"]</code></p>
+          <p><strong>Current URL:</strong><br><code id="urlDisplay"></code></p>
+        </div>
+      </div>
+
+      <!-- Additional Instructions Card -->
+      <div class="card shadow-sm">
+        <div class="card-header bg-warning">Additional Instructions</div>
+        <div class="card-body">
+          <label for="instructionInput" class="form-label">Instruction Details:</label>
+          <textarea id="instructionInput" rows="4" class="form-control mb-3" placeholder="Type multi-line instructions here..."></textarea>
+          <button class="btn btn-outline-success w-100" onclick="updateOutput()">Append to Output</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Output and Outgoing Card -->
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-header bg-success text-white">Message</div>
+        <div class="card-body" id="outputArea">
+          <!-- JS will inject formatted HTML here -->
+        </div>
+      </div>
+
+      <!-- Outgoing Message Query Card -->
+      <div class="card shadow-sm mt-3">
+        <div class="card-header bg-info text-white">Outgoing Message Query</div>
+        <div class="card-body">
+          <p><strong>Relative Link:</strong><br><code id="relativeLink"></code></p>
+          <p><strong>Full URL with Query:</strong><br><code id="fullLink"></code></p>
+          <div class="mt-3 d-flex flex-column flex-md-row gap-2">
+            <button class="btn btn-outline-dark" onclick="copyToClipboard()">Copy Full URL</button>
+            <button class="btn btn-primary" onclick="submitURL()">Submit</button>
+          </div>
+          <div class="alert alert-success mt-2 clipboard-alert" id="clipboardAlert">Copied to clipboard!</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  let storedServices = [];
+  let additionalText = "";
+  let fullURL = "";
+
+  document.getElementById('urlDisplay').textContent = window.location.href;
+
+  function getQueryParam(name) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(name);
+  }
+
+  function getTimestamp() {
+    const now = new Date();
+    return now.toLocaleString();
+  }
+
+  function generateMessageQuery() {
+    const messageObj = {
+      services: storedServices,
+      instructions: additionalText
+    };
+    const messageStr = JSON.stringify(messageObj, null, 0);
+    const encoded = encodeURIComponent(messageStr);
+    return `message=${encoded}`;
+  }
+
+  function renderServicesList() {
+    const query = generateMessageQuery();
+    const relative = `contact_us.html?${query}`;
+    fullURL = `${window.location.origin}/${relative}`;
+
+    let html = `<div class="timestamp">${getTimestamp()}</div>`;
+    html += '<b><p>Selected Services:</p></b><ul>';
+    storedServices.forEach(service => {
+      html += `<li>${service}</li>`;
+    });
+    html += '</ul>';
+    html += `<b><p>&nbsp;Additional Instructions:</b><br />${additionalText.replace(/\n/g, '<br />') || "<br /><br />"}</p><p>&nbsp;</p></p>`;
+
+    document.getElementById('outputArea').innerHTML = html;
+    document.getElementById('relativeLink').textContent = relative;
+    document.getElementById('fullLink').textContent = fullURL;
+  }
+
+  function updateOutput() {
+    const inputVal = document.getElementById('instructionInput').value.trim();
+    additionalText = inputVal;
+    renderServicesList();
+  }
+
+  function copyToClipboard() {
+    navigator.clipboard.writeText(fullURL).then(() => {
+      const alertBox = document.getElementById("clipboardAlert");
+      alertBox.style.display = 'block';
+      setTimeout(() => {
+        alertBox.style.display = 'none';
+      }, 2000);
+    });
+  }
+
+  function submitURL() {
+    if (fullURL) {
+      window.open(fullURL, '_blank');
+    }
+  }
+
+  const servicesParam = getQueryParam('services');
+  if (servicesParam) {
+    try {
+      const parsed = JSON.parse(decodeURIComponent(servicesParam));
+      if (Array.isArray(parsed)) {
+        storedServices = parsed;
+        renderServicesList();
+      } else {
+        throw new Error("Services param is not a valid JSON array");
+      }
+    } catch (err) {
+      document.getElementById('outputArea').innerHTML = 
+        `<div class="alert alert-danger">Error parsing services: ${err.message}</div>`;
+    }
+  } else {
+    document.getElementById('outputArea').innerHTML = 
+      '<div class="alert alert-warning">No services parameter found in the URL.</div>';
+  }
+</script>
+
+</body>
+</html>
