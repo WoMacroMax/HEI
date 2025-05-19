@@ -101,6 +101,7 @@
                 body: JSON.stringify({ to: email, subject: `New Submission from ${name}`, body: emailBody })
             });
 
+
             if (response.ok) {
                 alert("✅ Email sent successfully!");
             } else {
