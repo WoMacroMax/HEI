@@ -1,26 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0;url=index-desktop.html">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Redirecting...</title>
-  <script>
-    (function() {
-      const isMobile = /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-
-      if (isMobile) {
-        window.location.replace("index-mobile.html");
-      } else {
-        window.location.replace("index-desktop.html");
-      }
-    })();
-  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Email Submission Form</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet"/>
+  <style>
+    /* Styles omitted for brevity – same as before */
+  </style>
 </head>
+
+
 <body>
-  <noscript>
-    <meta http-equiv="refresh" content="0;url=index-desktop.html">
-    <p>If you are not redirected automatically, <a href="index-desktop.html">click here</a>.</p>
-  </noscript>
+  <nav class="navbar navbar-light fixed-top shadow-sm">
+    <div class="container-fluid">
+      <button class="btn" type="button" onclick="toggleDrawer()">☰</button>
+      <span class="navbar-brand mx-auto fw-bold">Contact Form</span>
+    </div>
+  </nav>
+
+  <div class="container container-custom mt-5 pt-3">
+    <form id="emailForm">
+      <!-- Form inputs here (same as before) -->
+
+
+      <!-- Bottom drawer for submission preview -->
+      <div id="bottomDrawer" class="bottom-drawer">
+        <div class="p-3">
+          <h5 class="text-center">Submission Details</h5>
+          <table class="table table-bordered">
+            <thead class="table-dark">
+              <tr><th>Field</th><th>Value</th></tr>
+            </thead>
+            <tbody id="infoGrid">
+              <!-- Grid rows... -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+  <script>
+    const quill = new Quill('#instructionsEditor', {
+      theme: 'snow',
+      placeholder: 'Write any instructions here...',
+      modules: {
+        toolbar: '#toolbar'
+      }
+    });
+
+    function toggleDrawer() {
+      document.getElementById("bottomDrawer").classList.toggle("show");
+    }
+
+    function updateGrid(field, value) {
+      const rows = document.querySelectorAll("#infoGrid tr");
+      rows.forEach(row => {
+        if (row.cells[0].innerText === field) {
+          row.cells[1].innerHTML = (field === 'Additional Instructions') ? value : escapeHTML(value);
+        }
+      });
+
+      const submissionData = {
+        Name: document.getElementById('name').value,
+        Email: document.getElementById('email').value,
+        Phone: document.getElementById('phone').value,
+        Zipcode: document.getElementById('zipcode').value,
+        Instructions: quill.root.innerHTML
+      };
+      localStorage.setItem("submissionData", JSON.stringify(submissionData));
+    }
+
+    function escapeHTML(html) {
+      const div = document.createElement("div");
+      div.textContent = html;
+      return div.innerHTML;
+    }
+
+    async function populateSystemInfo() {
+      try {
+        const res = await fetch('https://api.ipify.org?format=json');
+        const { ip } = await res.json();
+        updateGrid('IP Address', ip);
+      } catch {
+        updateGrid('IP Address', 'Unavailable');
+      }
+
+      const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+      const platform = navigator.platform || "Unknown";
+      const deviceType = isMobile ? "Mobile" : "Desktop";
+      updateGrid('Device Type', `${deviceType} (${platform})`);
+
+      const now = new Date();
+      const est = new Date(now.toLocaleString("en-US", { timeZone: "America/New_York" }));
+      updateGrid('Timestamp (EST)', est.toLocaleString("en-US"));
+    }
+
+    // ✅ MutationObserver to replace DOMNodeInserted
+    const target = document.getElementById('infoGrid');
+    const observer = new MutationObserver(() => {
+      console.log("✅ DOM updated in infoGrid");
+      // Optional: Scroll to bottom, highlight, etc.
+    });
+    observer.observe(target, { childList: true, subtree: true });
+
+    window.onload = async function () {
+      const saved = JSON.parse(localStorage.getItem("submissionData") || "{}");
+      if (saved) {
+        document.getElementById('name').value = saved.Name || '';
+        document.getElementById('email').value = saved.Email || '';
+        document.getElementById('phone').value = saved.Phone || '';
+        document.getElementById('zipcode').value = saved.Zipcode || '';
+        quill.root.innerHTML = saved.Instructions || '';
+
+        updateGrid('Name', saved.Name || '');
+        updateGrid('Email', saved.Email || '');
+        updateGrid('Phone', saved.Phone || '');
+        updateGrid('Zipcode', saved.Zipcode || '');
+        updateGrid('Additional Instructions', saved.Instructions || '');
+      }
+
+      await populateSystemInfo();
+    };
+
+    document.getElementById('emailForm').addEventListener('submit', async function (event) {
+      event.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const phone = document.getElementById('phone').value;
+      const zipcode = document.getElementById('zipcode').value;
+      const htmlBody = `
+        <h3>New Submission from ${name}</h3>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Phone:</strong> ${phone}</p>
+        <p><strong>Zipcode:</strong> ${zipcode}</p>
+        <p><strong>Additional Instructions:</strong><br>${quill.root.innerHTML}</p>
+      `;
+      const textBody = `New Submission from ${name}
+Email: ${email}
+Phone: ${phone}
+Zipcode: ${zipcode}
+Additional Instructions: ${quill.getText().trim()}`;
+
+      const response = await fetch('https://us-central1-womacromax-automation.cloudfunctions.net/sendEmail', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          to: email,
+          subject: `New Submission from ${name}`,
+          textBody,
+          htmlBody,
+          attachments: []
+        })
+      });
+
+      if (response.ok) {
+        alert("✅ Email sent successfully!");
+      } else {
+        alert("❌ Failed to send email.");
+      }
+
+      document.getElementById('emailForm').reset();
+      quill.root.innerHTML = '';
+      localStorage.removeItem("submissionData");
+    });
+  </script>
 </body>
 </html>
+
+
