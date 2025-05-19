@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Email</title>
+</head>
+<body>
+    <h2>Send an Email via Firebase</h2>
+    <form id="emailForm">
+        <label for="to">Recipient Email:</label>
+        <input type="email" id="to" name="to" required><br><br>
+
+        <label for="subject">Subject:</label>
+        <input type="text" id="subject" name="subject" required><br><br>
+
+        <label for="body">Message:</label><br>
+        <textarea id="body" name="body" rows="6" required></textarea><br><br>
+
+        <button type="submit">Send Email</button>
+    </form>
+
+    <p id="status"></p>
+
+    <script>
+        document.getElementById('emailForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const to = document.getElementById('to').value;
+            const subject = document.getElementById('subject').value;
+            const body = document.getElementById('body').value;
+
+            const response = await fetch('https://sendemail-xs7dapambq-uc.a.run.app', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ to, subject, body })
+            });
+
+            const statusMessage = document.getElementById('status');
+            if (response.ok) {
+                statusMessage.textContent = "✅ Email sent successfully!";
+            } else {
+                statusMessage.textContent = "❌ Failed to send email.";
+            }
+        });
+    </script>
+</body>
+</html>

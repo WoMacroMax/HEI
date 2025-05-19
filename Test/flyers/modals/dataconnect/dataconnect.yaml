@@ -1,0 +1,12 @@
+specVersion: "v1"
+serviceId: "womacromax-automation-4deac"
+location: "asia-east1"
+schema:
+  source: "./schema"
+  datasource:
+    postgresql:
+      database: "womacromax-automation-4deac"
+      cloudSql:
+        instanceId: "womacromax-automation-4deac"
+      # schemaValidation: "COMPATIBLE"
+connectorDirs: ["./connector"]

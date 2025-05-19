@@ -2,7 +2,10 @@
 	"folders":
 	[
 		{
-			"path": "."
-		}
-	]
+			"path": ".",
+		},
+		{
+			"path": "C:\\Users\\blab9\\OneDrive\\Documents\\GitHub\\HEI\\Test\\flyers\\modals"
+		},
+	],
 }
