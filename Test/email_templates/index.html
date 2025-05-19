@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Submission Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container-custom {
+            max-width: 300px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        .grid-container {
+            max-height: 300px;
+            overflow-y: auto;
+            position: absolute;
+            right: 10px;
+            width: 250px;
+        }
+        .grid-table {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="d-flex justify-content-center align-items-start mt-5">
+        <div class="container container-custom">
+            <h2 class="text-center">Contact Form</h2>
+            <form id="emailForm">
+                <div class="mb-2">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="name" required oninput="updateGrid('Name', this.value)">
+                </div>
+                <div class="mb-2">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" required oninput="updateGrid('Email', this.value)">
+                </div>
+                <div class="mb-2">
+                    <label for="phone" class="form-label">Phone</label>
+                    <input type="tel" class="form-control" id="phone" required oninput="updateGrid('Phone', this.value)">
+                </div>
+                <div class="mb-2">
+                    <label for="zipcode" class="form-label">Zipcode</label>
+                    <input type="text" class="form-control" id="zipcode" required oninput="updateGrid('Zipcode', this.value)">
+                </div>
+                <div class="mb-2">
+                    <label for="instructions" class="form-label">Additional Instructions</label>
+                    <textarea class="form-control" id="instructions" rows="3" required oninput="updateGrid('Additional Instructions', this.value)"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Send Email</button>
+            </form>
+        </div>
+
+        <!-- Scrollable Grid Container -->
+        <div class="grid-container">
+            <table class="table table-bordered grid-table">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Field</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody id="infoGrid">
+                    <tr><td>Name</td><td></td></tr>
+                    <tr><td>Email</td><td></td></tr>
+                    <tr><td>Phone</td><td></td></tr>
+                    <tr><td>Zipcode</td><td></td></tr>
+                    <tr><td>Additional Instructions</td><td></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function updateGrid(field, value) {
+            const rows = document.querySelectorAll("#infoGrid tr");
+            rows.forEach(row => {
+                if (row.cells[0].innerText === field) {
+                    row.cells[1].innerText = value;
+                }
+            });
+        }
+
+        document.getElementById('emailForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const zipcode = document.getElementById('zipcode').value;
+            const instructions = document.getElementById('instructions').value;
+
+            const emailBody = `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nZipcode: ${zipcode}\nAdditional Instructions: ${instructions}`;
+
+            // Send email via Firebase function
+            const response = await fetch('https://sendemail-xs7dapambq-uc.a.run.app', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ to: email, subject: `New Submission from ${name}`, body: emailBody })
+            });
+
+            if (response.ok) {
+                alert("✅ Email sent successfully!");
+            } else {
+                alert("❌ Failed to send email.");
+            }
+
+            document.getElementById('emailForm').reset();
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
