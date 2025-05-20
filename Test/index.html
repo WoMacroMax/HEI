@@ -7,9 +7,31 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet"/>
   <style>
-    body {
-      padding-top: 56px;
-      background-color: #f2f2fc;
+    html, body {
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .container-custom {
+      max-width: 400px;
+      margin: auto;
+      height: calc(100vh - 0.5in);
+      padding-top: 0.25in;
+      padding-bottom: 0.25in;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transform: scale(0.94);
+      transform-origin: top center;
+      border: 4px solid #a45de2;
+      box-shadow:
+        inset 2px 2px 6px rgba(255,255,255,0.6),
+        inset -2px -2px 6px rgba(0,0,0,0.1),
+        4px 4px 20px rgba(164, 93, 226, 0.3);
+      border-radius: 16px;
+      background: linear-gradient(145deg, #fefbff, #e2d4f5);
     }
 
     .bottom-drawer {
@@ -17,29 +39,17 @@
       bottom: 0;
       left: 0;
       right: 0;
-      max-height: 60vh;
+      max-height: 100vh;
       background: #f8f9fa;
       border-top: 2px solid #ccc;
       overflow-y: auto;
       transform: translateY(100%);
-      transition: transform 0.4s ease-in-out;
+      transition: transform 0.25s ease-in-out;
       z-index: 1050;
     }
 
     .bottom-drawer.show {
       transform: translateY(0%);
-    }
-
-    .container-custom {
-      max-width: 400px;
-      margin: auto;
-      display: flex;
-      flex-direction: column;
-      background: #faf5ff;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(144, 85, 197, 0.3);
-      border: 2px solid #a45de2;
     }
 
     .form-label {
@@ -89,50 +99,107 @@
   </style>
 </head>
 
-<body>
-  <nav class="navbar navbar-light fixed-top shadow-sm">
-    <div class="container-fluid">
-      <button class="btn" type="button" onclick="toggleDrawer()">☰</button>
-      <span class="navbar-brand mx-auto fw-bold">Contact Form</span>
-    </div>
-  </nav>
 
-  <div class="container container-custom mt-5 pt-3">
-    <form id="emailForm">
-      <div class="mb-2">
-        <label for="name" class="form-label">Name</label>
-        <input type="text" class="form-control" id="name" required oninput="updateGrid('Name', this.value)">
-      </div>
-      <div class="mb-2">
-        <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email" required oninput="updateGrid('Email', this.value)">
-      </div>
-      <div class="mb-2">
-        <label for="phone" class="form-label">Phone</label>
-        <input type="tel" class="form-control" id="phone" required oninput="updateGrid('Phone', this.value)">
-      </div>
-      <div class="mb-2">
-        <label for="zipcode" class="form-label">Zipcode</label>
-        <input type="text" class="form-control" id="zipcode" required oninput="updateGrid('Zipcode', this.value)">
-      </div>
-      <div class="mb-2">
-        <label class="form-label">Additional Instructions</label>
-        <div id="toolbar">
-          <span class="ql-formats">
-            <select class="ql-header"><option value="1"></option><option value="2"></option><option selected></option></select>
-            <button class="ql-bold"></button>
-            <button class="ql-italic"></button>
-            <button class="ql-underline"></button>
-            <button class="ql-link"></button>
-            <button class="ql-clean"></button>
-          </span>
-        </div>
-        <div id="instructionsEditor"></div>
-      </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Email Submission Form</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet"/>
+  <style>
+    html, body {
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
 
-      <button type="submit" class="btn btn-primary w-100">Send Email</button>
-    </form>
-  </div>
+    .container-custom {
+      max-width: 400px;
+      margin: auto;
+      height: calc(100vh - 0.5in);
+      padding-top: 0.25in;
+      padding-bottom: 0.25in;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transform: scale(0.94);
+      transform-origin: top center;
+      border: 4px solid #a45de2;
+      box-shadow:
+        inset 2px 2px 6px rgba(255,255,255,0.6),
+        inset -2px -2px 6px rgba(0,0,0,0.1),
+        4px 4px 20px rgba(164, 93, 226, 0.3);
+      border-radius: 16px;
+      background: linear-gradient(145deg, #fefbff, #e2d4f5);
+    }
+
+    .bottom-drawer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      max-height: 100vh;
+      background: #f8f9fa;
+      border-top: 2px solid #ccc;
+      overflow-y: auto;
+      transform: translateY(100%);
+      transition: transform 0.25s ease-in-out;
+      z-index: 1050;
+    }
+
+    .bottom-drawer.show {
+      transform: translateY(0%);
+    }
+
+    .form-label {
+      color: #6a1b9a;
+      font-weight: 600;
+    }
+
+    .form-control:focus {
+      border-color: #9c27b0;
+      box-shadow: 0 0 0 0.2rem rgba(156, 39, 176, 0.25);
+    }
+
+    .btn-primary {
+      background-color: #8e24aa;
+      border-color: #8e24aa;
+    }
+
+    .btn-primary:hover {
+      background-color: #6a1b9a;
+      border-color: #6a1b9a;
+    }
+
+    .navbar {
+      background-color: #9c27b0 !important;
+    }
+
+    .navbar .navbar-brand,
+    .navbar .btn {
+      color: white;
+    }
+
+    .navbar .btn:hover {
+      background-color: #7b1fa2;
+      color: white;
+    }
+
+    #instructionsEditor {
+      height: 150px;
+      background-color: white;
+    }
+
+    #toolbar {
+      border: 1px solid #ccc;
+      border-bottom: none;
+      border-radius: 4px 4px 0 0;
+    }
+  </style>
+</head>
 
   <div id="bottomDrawer" class="bottom-drawer">
     <div class="p-3">
@@ -149,138 +216,169 @@
           <tr><td>IP Address</td><td></td></tr>
           <tr><td>Device Type</td><td></td></tr>
           <tr><td>Timestamp (EST)</td><td></td></tr>
+          <tr><td>User Agent</td><td></td></tr>
+          <tr><td>Platform</td><td></td></tr>
+          <tr><td>Language</td><td></td></tr>
+          <tr><td>Screen Size</td><td></td></tr>
+          <tr><td>Window Size</td><td></td></tr>
+          <tr><td>Timezone</td><td></td></tr>
+          <tr><td>GPS Coordinates</td><td></td></tr>
+          <tr><td>Distance from 20019</td><td></td></tr>
           <tr><td>Additional Instructions</td><td></td></tr>
         </tbody>
       </table>
+
+      <div class="mt-3 text-center">
+        <h6>Location Preview</h6>
+        <iframe id="mapCard" width="100%" height="250" frameborder="0"
+          style="border:0; border-radius: 12px;" allowfullscreen
+          loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+        <div id="distanceCard" class="mt-3 p-3 bg-light border rounded shadow-sm" style="display:none;">
+          <strong>Distance from ZIP 20019:</strong>
+          <div id="distanceDisplay" class="fw-bold text-primary mt-1"></div>
+        </div>
+
+        <div id="coordsCard" class="mt-3 p-3 bg-white border rounded shadow-sm" style="display:none;">
+          <strong>Coordinates:</strong>
+          <div id="coordsDisplay" class="text-muted mt-1"></div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
-  <script>
-    const quill = new Quill('#instructionsEditor', {
-      theme: 'snow',
-      placeholder: 'Write any instructions here...',
-      modules: {
-        toolbar: '#toolbar'
-      }
-    });
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+<script>
+const quill = new Quill('#instructionsEditor', {
+  theme: 'snow',
+  placeholder: 'Write any instructions here...',
+  modules: { toolbar: '#toolbar' }
+});
 
-    function toggleDrawer() {
-      document.getElementById("bottomDrawer").classList.toggle("show");
+function toggleDrawer() {
+  document.getElementById("bottomDrawer").classList.toggle("show");
+}
+
+function updateGrid(field, value) {
+  const rows = document.querySelectorAll("#infoGrid tr");
+  rows.forEach(row => {
+    if (row.cells[0].innerText === field) {
+      row.cells[1].innerHTML = (field === 'Additional Instructions') ? value : escapeHTML(value);
     }
+  });
+}
 
-    function updateGrid(field, value) {
-      const rows = document.querySelectorAll("#infoGrid tr");
-      rows.forEach(row => {
-        if (row.cells[0].innerText === field) {
-          row.cells[1].innerHTML = (field === 'Additional Instructions') ? value : escapeHTML(value);
-        }
-      });
+function escapeHTML(html) {
+  const div = document.createElement("div");
+  div.textContent = html;
+  return div.innerHTML;
+}
 
-      const submissionData = {
-        Name: document.getElementById('name').value,
-        Email: document.getElementById('email').value,
-        Phone: document.getElementById('phone').value,
-        Zipcode: document.getElementById('zipcode').value,
-        Instructions: quill.root.innerHTML
-      };
-      localStorage.setItem("submissionData", JSON.stringify(submissionData));
-    }
+async function populateSystemInfo() {
+  try {
+    const res = await fetch('https://api.ipify.org?format=json');
+    const { ip } = await res.json();
+    updateGrid('IP Address', ip);
+  } catch {
+    updateGrid('IP Address', 'Unavailable');
+  }
 
-    function escapeHTML(html) {
-      const div = document.createElement("div");
-      div.textContent = html;
-      return div.innerHTML;
-    }
+  const ua = navigator.userAgent;
+  const platform = navigator.platform || "Unknown";
+  const lang = navigator.language || "Unknown";
+  const scrSize = `${screen.width} x ${screen.height}`;
+  const winSize = `${window.innerWidth} x ${window.innerHeight}`;
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || "Unknown";
 
-    async function populateSystemInfo() {
+  updateGrid('User Agent', ua);
+  updateGrid('Platform', platform);
+  updateGrid('Language', lang);
+  updateGrid('Screen Size', scrSize);
+  updateGrid('Window Size', winSize);
+  updateGrid('Timezone', timezone);
+
+  const isMobile = /Mobi|Android/i.test(ua);
+  updateGrid('Device Type', `${isMobile ? "Mobile" : "Desktop"} (${platform})`);
+
+  const now = new Date();
+  const est = new Date(now.toLocaleString("en-US", { timeZone: "America/New_York" }));
+  updateGrid('Timestamp (EST)', est.toLocaleString("en-US"));
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(async pos => {
+      const lat = pos.coords.latitude.toFixed(6);
+      const lon = pos.coords.longitude.toFixed(6);
+      updateGrid('GPS Coordinates', `${lat}, ${lon}`);
+
+      document.getElementById("mapCard").src =
+        `https://www.google.com/maps/embed/v1/view?key=AIzaSyDORI7e1VJJc2GebpTNg2JrEkhM_a_BkZ0&center=${lat},${lon}&zoom=14`;
+
+      document.getElementById('coordsDisplay').textContent = `${lat}, ${lon}`;
+      document.getElementById('coordsCard').style.display = 'block';
+
       try {
-        const res = await fetch('https://api.ipify.org?format=json');
-        const { ip } = await res.json();
-        updateGrid('IP Address', ip);
+        const res = await fetch(`https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=20019&destinations=${lat},${lon}&key=AIzaSyDORI7e1VJJc2GebpTNg2JrEkhM_a_BkZ0`);
+        const data = await res.json();
+        const distance = data.rows?.[0]?.elements?.[0]?.distance?.text || "Unknown";
+        const duration = data.rows?.[0]?.elements?.[0]?.duration?.text || "Unknown time";
+        const combined = `${distance} (${duration})`;
+
+        updateGrid('Distance from 20019', combined);
+        document.getElementById('distanceDisplay').textContent = combined;
+        document.getElementById('distanceCard').style.display = 'block';
       } catch {
-        updateGrid('IP Address', 'Unavailable');
+        updateGrid('Distance from 20019', 'Error');
       }
-
-      const isMobile = /Mobi|Android/i.test(navigator.userAgent);
-      const platform = navigator.platform || "Unknown";
-      const deviceType = isMobile ? "Mobile" : "Desktop";
-      updateGrid('Device Type', `${deviceType} (${platform})`);
-
-      const now = new Date();
-      const est = new Date(now.toLocaleString("en-US", { timeZone: "America/New_York" }));
-      updateGrid('Timestamp (EST)', est.toLocaleString("en-US"));
-    }
-
-    // ✅ Modern replacement for deprecated DOMNodeInserted
-    const grid = document.getElementById('infoGrid');
-    const observer = new MutationObserver(() => {
-      console.log("✅ infoGrid updated");
+    }, () => {
+      updateGrid('GPS Coordinates', 'Permission Denied');
+      updateGrid('Distance from 20019', 'Unavailable');
     });
-    observer.observe(grid, { childList: true, subtree: true });
+  }
+}
 
-    window.onload = async function () {
-      const saved = JSON.parse(localStorage.getItem("submissionData") || "{}");
-      if (saved) {
-        if (saved.Name) document.getElementById('name').value = saved.Name;
-        if (saved.Email) document.getElementById('email').value = saved.Email;
-        if (saved.Phone) document.getElementById('phone').value = saved.Phone;
-        if (saved.Zipcode) document.getElementById('zipcode').value = saved.Zipcode;
-        if (saved.Instructions) quill.root.innerHTML = saved.Instructions;
+window.addEventListener('load', () => {
+  populateSystemInfo();
+  const saved = JSON.parse(localStorage.getItem("submissionData") || "{}");
+  if (saved.Name) {
+    document.getElementById('name').value = saved.Name;
+    document.getElementById('email').value = saved.Email;
+    document.getElementById('phone').value = saved.Phone;
+    document.getElementById('zipcode').value = saved.Zipcode;
+    quill.root.innerHTML = saved.Instructions;
+    updateGrid('Name', saved.Name);
+    updateGrid('Email', saved.Email);
+    updateGrid('Phone', saved.Phone);
+    updateGrid('Zipcode', saved.Zipcode);
+    updateGrid('Additional Instructions', saved.Instructions);
+  }
+});
 
-        updateGrid('Name', saved.Name || '');
-        updateGrid('Email', saved.Email || '');
-        updateGrid('Phone', saved.Phone || '');
-        updateGrid('Zipcode', saved.Zipcode || '');
-        updateGrid('Additional Instructions', saved.Instructions || '');
-      }
+document.getElementById('emailForm').addEventListener('submit', async function (event) {
+  event.preventDefault();
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const phone = document.getElementById('phone').value;
+  const zipcode = document.getElementById('zipcode').value;
+  const htmlBody = `
+    <h3>New Submission from ${name}</h3>
+    <p><strong>Email:</strong> ${email}</p>
+    <p><strong>Phone:</strong> ${phone}</p>
+    <p><strong>Zipcode:</strong> ${zipcode}</p>
+    <p><strong>Additional Instructions:</strong><br>${quill.root.innerHTML}</p>
+  `;
+  const textBody = `New Submission from ${name}\nEmail: ${email}\nPhone: ${phone}\nZipcode: ${zipcode}\nAdditional Instructions: ${quill.getText().trim()}`;
+  const response = await fetch('https://us-central1-womacromax-automation.cloudfunctions.net/sendEmail', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ to: email, subject: `New Submission from ${name}`, textBody, htmlBody })
+  });
 
-      await populateSystemInfo();
-    };
-
-    document.getElementById('emailForm').addEventListener('submit', async function (event) {
-      event.preventDefault();
-
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-      const phone = document.getElementById('phone').value;
-      const zipcode = document.getElementById('zipcode').value;
-      const htmlBody = `
-        <h3>New Submission from ${name}</h3>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Phone:</strong> ${phone}</p>
-        <p><strong>Zipcode:</strong> ${zipcode}</p>
-        <p><strong>Additional Instructions:</strong><br>${quill.root.innerHTML}</p>
-      `;
-      const textBody = `New Submission from ${name}
-Email: ${email}
-Phone: ${phone}
-Zipcode: ${zipcode}
-Additional Instructions: ${quill.getText().trim()}`;
-
-      const response = await fetch('https://us-central1-womacromax-automation.cloudfunctions.net/sendEmail', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          to: email,
-          subject: `New Submission from ${name}`,
-          textBody,
-          htmlBody,
-          attachments: []
-        })
-      });
-
-      if (response.ok) {
-        alert("✅ Email sent successfully!");
-      } else {
-        alert("❌ Failed to send email.");
-      }
-
-      document.getElementById('emailForm').reset();
-      quill.root.innerHTML = '';
-      localStorage.removeItem("submissionData");
-    });
-  </script>
+  alert(response.ok ? "✅ Email sent successfully!" : "❌ Failed to send email.");
+  document.getElementById('emailForm').reset();
+  quill.root.innerHTML = '';
+  localStorage.removeItem("submissionData");
+});
+</script>
 </body>
 </html>
