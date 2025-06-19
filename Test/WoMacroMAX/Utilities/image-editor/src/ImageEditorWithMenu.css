@@ -1,0 +1,47 @@
+.editor-container {
+  display: flex;
+  height: 100vh;
+  position: relative;
+}
+
+.burger {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 20;
+  font-size: 24px;
+  background: #ffd600;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.sidebar {
+  width: 250px;
+  background: #fff;
+  border-right: 1px solid #ccc;
+  padding: 15px;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  transform: translateX(-260px);
+  transition: transform 0.3s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+.crop-wrapper {
+  flex-grow: 1;
+  position: relative;
+  background: #f3f3f3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
