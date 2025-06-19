@@ -89,8 +89,9 @@
 
 <!-- JavaScript -->
 <script>
-  document.getElementById('imageForm').addEventListener('submit', function (e) {
+  document.getElementById('imageForm').addEventListener('submit', async function (e) {
     e.preventDefault();
+    
     const fileInput = document.getElementById('imageInput');
     const file = fileInput.files[0];
     if (!file) return;
@@ -98,33 +99,31 @@
     const status = document.getElementById('status');
     const preview = document.getElementById('previewCard');
 
-    status.innerText = "Uploading and compressing...";
+    status.innerText = "Uploading...";
 
-    const reader = new FileReader();
-    reader.onload = function () {
-      const base64 = reader.result;
+    const formData = new FormData();
+    formData.append('file', file);
+    try {
+      const response = await fetch('/media/upload', {
+        method: 'POST',
+        body: formData
+      });
 
-      // Simulated native bridge
-      if (window.NativeScriptBridge) {
-        window.NativeScriptBridge.compressAndUpload(base64, file.name, function (url) {
-          showResult(url);
-        });
-      } else {
-        const finalName = file.name.replace(/\.\w+$/, ".webp");
-        const url = `https://womacromax.com/media/${finalName}`;
-        showResult(url);
-      }
-    };
-    reader.readAsDataURL(file);
+      if (!response.ok) throw new Error('Upload failed');
+
+      const result = await response.json(); // Expecting { "url": "..." }
+      const url = result.url;
+
+      status.innerHTML = `✅ Uploaded: <br><a href="${url}" target="_blank">${url}</a>`;
+      preview.innerHTML = `
+        <h5 class="card-title mb-3">Preview</h5>
+        <img src="${url}" alt="Uploaded Image" />
+        <p><span>${file.name} (${(file.size / 1024).toFixed(1)} KB)</span></p>
+      `;
+    } catch (err) {
+      status.innerHTML = `❌ Error: ${err.message}`;
+    }
   });
-
-  function showResult(url) {
-    document.getElementById('status').innerHTML = `✅ Uploaded: <br><a href="${url}" target="_blank">${url}</a>`;
-    document.getElementById('previewCard').innerHTML = `
-      <h5 class="card-title mb-3">Preview</h5>
-      <img src="${url}" alt="Uploaded Image" />
-    `;
-  }
 </script>
 
 </body>
