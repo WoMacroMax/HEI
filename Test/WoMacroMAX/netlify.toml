@@ -1,5 +1,5 @@
 [build]
-  base    = "Utilities/image-editor"
+  base = "Utilities/image-editor"
   command = "npm run build"
   publish = "Utilities/image-editor/build"
 
