@@ -15,13 +15,28 @@
 
     header {
       background: linear-gradient(to right, #fdd835, #fbc02d);
-      padding: 20px 10px;
+      padding: 60px 10px 20px;
       text-align: center;
       border-bottom: 1px solid #e0e0e0;
+      position: relative;
+      height: 120px;
     }
 
-    header img {
+    .logo-bubble {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      border-radius: 50%;
+      padding: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      z-index: 10;
+    }
+
+    .logo-bubble img {
       max-height: 60px;
+      border-radius: 50%;
     }
 
     .card {
@@ -34,10 +49,14 @@
       word-break: break-word;
     }
 
-    .preview img {
+    canvas {
       max-width: 100%;
-      max-height: 300px;
       border-radius: 6px;
+      margin-bottom: 1rem;
+    }
+
+    .controls button {
+      margin: 0.25rem;
     }
 
     .preview span {
@@ -50,7 +69,9 @@
 
 <!-- Title Bar -->
 <header>
-  <img src="https://womacromax.com/media/WoMacroMAXAutomation-logo-00.png" alt="WoMacroMAX Branding" class="img-fluid" />
+  <div class="logo-bubble">
+    <img src="https://womacromax.com/media/WoMacroMAXAutomation-logo-00.png" alt="WoMacroMAX Branding" class="img-fluid" />
+  </div>
 </header>
 
 <!-- Main Section -->
@@ -76,11 +97,17 @@
       </div>
     </div>
 
-    <!-- Preview -->
+    <!-- Preview and Controls -->
     <div class="col-md-4">
       <div class="card p-4 text-center preview" id="previewCard">
         <h5 class="card-title mb-3">Preview</h5>
-        <span>No image yet</span>
+        <canvas id="canvasPreview"></canvas>
+        <div class="controls">
+          <button class="btn btn-sm btn-secondary" onclick="rotateImage()">Rotate</button>
+          <button class="btn btn-sm btn-secondary" onclick="flipImage()">Flip</button>
+          <button class="btn btn-sm btn-success" onclick="saveImage()">Save</button>
+        </div>
+        <span id="fileInfo">No image yet</span>
       </div>
     </div>
 
@@ -89,41 +116,94 @@
 
 <!-- JavaScript -->
 <script>
+  let originalImage = null;
+  let canvas = document.getElementById('canvasPreview');
+  let ctx = canvas.getContext('2d');
+  let flipped = false;
+  let rotation = 0;
+
   document.getElementById('imageForm').addEventListener('submit', async function (e) {
     e.preventDefault();
-    
-    const fileInput = document.getElementById('imageInput');
-    const file = fileInput.files[0];
+    const file = document.getElementById('imageInput').files[0];
     if (!file) return;
 
     const status = document.getElementById('status');
-    const preview = document.getElementById('previewCard');
-
+    const fileInfo = document.getElementById('fileInfo');
     status.innerText = "Uploading...";
 
-    const formData = new FormData();
-    formData.append('file', file);
-    try {
-      const response = await fetch('/media/', {
-        method: 'POST',
-        body: formData
-      });
-
-      if (!response.ok) throw new Error('Upload failed');
-
-      const result = await response.json(); // Expecting { "url": "..." }
-      const url = result.url;
-
-      status.innerHTML = `✅ Uploaded: <br><a href="${url}" target="_blank">${url}</a>`;
-      preview.innerHTML = `
-        <h5 class="card-title mb-3">Preview</h5>
-        <img src="${url}" alt="Uploaded Image" />
-        <p><span>${file.name} (${(file.size / 1024).toFixed(1)} KB)</span></p>
-      `;
-    } catch (err) {
-      status.innerHTML = `❌ Error: ${err.message}`;
-    }
+    const reader = new FileReader();
+    reader.onload = function (event) {
+      const img = new Image();
+      img.onload = function () {
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+        originalImage = img;
+        status.innerText = "✅ Loaded locally.";
+        fileInfo.innerText = `${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+      };
+      img.src = event.target.result;
+    };
+    reader.readAsDataURL(file);
   });
+
+  function rotateImage() {
+    if (!originalImage) return;
+    rotation = (rotation + 90) % 360;
+    drawImage();
+  }
+
+  function flipImage() {
+    if (!originalImage) return;
+    flipped = !flipped;
+    drawImage();
+  }
+
+  function drawImage() {
+    const tempCanvas = document.createElement('canvas');
+    const tempCtx = tempCanvas.getContext('2d');
+    const w = originalImage.width;
+    const h = originalImage.height;
+
+    if (rotation % 180 === 0) {
+      tempCanvas.width = w;
+      tempCanvas.height = h;
+    } else {
+      tempCanvas.width = h;
+      tempCanvas.height = w;
+    }
+
+    tempCtx.translate(tempCanvas.width / 2, tempCanvas.height / 2);
+    tempCtx.rotate(rotation * Math.PI / 180);
+    tempCtx.scale(flipped ? -1 : 1, 1);
+    tempCtx.drawImage(originalImage, -w / 2, -h / 2);
+
+    canvas.width = tempCanvas.width;
+    canvas.height = tempCanvas.height;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(tempCanvas, 0, 0);
+  }
+
+  async function saveImage() {
+    const status = document.getElementById('status');
+    canvas.toBlob(async function(blob) {
+      const formData = new FormData();
+      formData.append('file', blob, 'edited-image.png');
+
+      try {
+        const response = await fetch('/media/', {
+          method: 'POST',
+          body: formData
+        });
+
+        if (!response.ok) throw new Error('Save failed');
+        const result = await response.json();
+        status.innerHTML = `✅ Saved: <br><a href="${result.url}" target="_blank">${result.url}</a>`;
+      } catch (err) {
+        status.innerText = `❌ Error: ${err.message}`;
+      }
+    }, 'image/png');
+  }
 </script>
 
 </body>
