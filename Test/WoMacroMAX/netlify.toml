@@ -3,6 +3,7 @@
   command = "npm run build"
   publish = "Utilities/image-editor/build"
 
+
 [[redirects]]
   from = "/utilities/import-editor/*"
   to = "/utilities/import-editor/index.html"
