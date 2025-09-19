@@ -224,21 +224,24 @@
 
     /* PORTFOLIO CARD GRID */
 .card-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;     /* Center horizontally */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   padding: 10px;
+  justify-items: stretch;
+  align-items: stretch;
 }
 
 .card {
-  width: 280px;                /* Fixed width for uniformity */
-  height: 340px;               /* Fixed height */
+  width: 100%;
+  height: 340px;               /* keep consistent height */
   border-radius: 15px;
   overflow: hidden;
   transition: transform 0.4s ease;
   display: flex;
   flex-direction: column;
+  border: 2px solid #ffc107;
+  background-color: #fffbe6;
 }
 
     /* BOUNCE effect on card hover */
@@ -324,23 +327,18 @@
 .marketing-section div { position: relative; z-index: 1; }
 
 
-.marketing-section::before {
-  content: "";
-  position: absolute;
-  top: 3in;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 300px;              /* increased by 50% from 200px */
-  height: 300px;
-  background: url('https://womacromax.com/media/WoMacroMAXAutomation-logo-00.png') no-repeat center;
-  background-size: contain;
-  opacity: 0.2;
-  z-index: 0;
-}
+
 
 
 /* Unified portfolio color scheme */
 .card {
+  width: 100%;
+  height: 340px;               /* keep consistent height */
+  border-radius: 15px;
+  overflow: hidden;
+  transition: transform 0.4s ease;
+  display: flex;
+  flex-direction: column;
   border: 2px solid #ffc107;
   background-color: #fffbe6;
 }
@@ -351,6 +349,33 @@
 
 /* Clickable portfolio cards (open in iframe) */
 .portfolio-link { cursor: pointer; }
+
+@media (max-width: 1200px) {
+  .card-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 900px) {
+  .card-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .card-grid { grid-template-columns: 1fr; }
+}
+
+.marketing-section { position: relative; overflow: hidden; }
+.marketing-section::before {
+  content: "";
+  position: absolute;
+  top: 3in;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400px;              /* enlarged size */
+  height: 400px;
+  background: url('https://womacromax.com/media/WoMacroMAXAutomation-logo-00.png') no-repeat center;
+  background-size: contain;
+  opacity: 0.2;
+  z-index: 0;
+}
+.marketing-section h2,
+.marketing-section div { position: relative; z-index: 1; }
 </style>
 </head>
 <body>
