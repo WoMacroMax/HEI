@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/utilities/import-editor/static/css/main.878d454c.css",
+    "main.js": "/utilities/import-editor/static/js/main.c2229dee.js",
+    "static/js/453.ec8baff2.chunk.js": "/utilities/import-editor/static/js/453.ec8baff2.chunk.js",
+    "index.html": "/utilities/import-editor/index.html",
+    "main.878d454c.css.map": "/utilities/import-editor/static/css/main.878d454c.css.map",
+    "main.c2229dee.js.map": "/utilities/import-editor/static/js/main.c2229dee.js.map",
+    "453.ec8baff2.chunk.js.map": "/utilities/import-editor/static/js/453.ec8baff2.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.878d454c.css",
+    "static/js/main.c2229dee.js"
+  ]
+}
