@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Campaign Menu · Static</title>
+
+  <!-- Bootstrap (optional, used for quick layout) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <style>
+    :root {
+      --brand: #ffc107;           /* yellow */
+      --card-bg: #fffbe6;         /* pale yellow */
+      --text: #333;
+    }
+
+    html, body {
+      margin: 0; padding: 0; background: #f8f9fa; color: var(--text); font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    /* Title / header */
+    .title-bar {
+      position: sticky; top: 0; z-index: 1000;
+      background: linear-gradient(to bottom, var(--brand) 30%, #ffffff 100%);
+      border-radius: 0 0 40px 40px;
+      padding: 18px 16px 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.08);
+      text-align: center;
+    }
+    .title-bar h1 { margin: 0; font-size: clamp(18px, 3.5vw, 28px); font-weight: 800; }
+    .title-sub { font-size: 14px; opacity: .8; }
+    .badge-campaign { background: #111; color: #fff; border-radius: 999px; padding: 2px 10px; font-size: 12px; margin-left: 8px; }
+
+    /* Grid of service/cards */
+    .wrap { max-width: 1200px; margin: 22px auto; padding: 0 16px; }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    @media (max-width: 1200px) { .card-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 900px)  { .card-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px)  { .card-grid { grid-template-columns: 1fr; } }
+
+    .cardy {
+      width: 100%;
+      min-height: 260px;
+      background: var(--card-bg);
+      border: 2px solid var(--brand);
+      border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(0,0,0,.06);
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      cursor: pointer;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .cardy:hover { transform: translateY(-2px); box-shadow: 0 8px 16px rgba(0,0,0,.08); }
+
+    .cardy img {
+      width: auto; max-width: 100%; height: 120px;
+      object-fit: contain; display: block; margin: 12px auto 0;
+    }
+    .cardy .body {
+      padding: 12px 14px 16px;
+    }
+    .cardy h5 { margin: 6px 0 6px; font-size: 16px; font-weight: 800; }
+    .cardy p { margin: 0; font-size: 13px; opacity: .85; }
+
+    /* Panels (iframe viewer, etc.) */
+    .panel {
+      position: fixed; inset: 0;
+      background: #fff;
+      display: none; flex-direction: column;
+      z-index: 1200;
+      animation: fadeInDown .6s ease forwards;
+    }
+    .panel.show { display: flex; }
+    @keyframes fadeInDown { from { opacity: 0; transform: translateY(-18px); } to { opacity: 1; transform: translateY(0); } }
+
+    .panel-header {
+      position: sticky; top: 0
