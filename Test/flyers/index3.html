@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Fall Business Development Services</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #f6d365 0%, #fda085 25%, #f0edff 100%);
+    background-attachment: fixed;
+  }
+
+  .page-wrap {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 30px;
+  }
+
+  /* 3D CARD EFFECT */
+  .card-3d {
+    position: relative;
+    border-radius: 12px;
+    background: #fff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  }
+  .card-3d:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+  }
+
+  /* HERO CARD */
+  .hero-card {
+    position: relative;
+    height: 260px;
+    margin-bottom: 30px;
+    overflow: hidden;
+    color: #1a1a1a;
+    text-align: center;
+  }
+  .hero-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("77ebacdb-823d-4284-b4d2-a5d18705c37a.png") center/cover no-repeat;
+    opacity: 0.5;
+    z-index: 0;
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 176, 73, 0.6), rgba(255, 221, 155, 0.6));
+    z-index: 1;
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    padding: 60px 20px;
+  }
+  .hero-title {
+    font-size: 34px;
+    font-weight: 500;
+    margin: 0 0 10px;
+  }
+  .hero-sub {
+    font-size: 18px;
+    color: #444;
+    margin-bottom: 10px;
+  }
+  .hero-desc {
+    font-size: 16px;
+    color: #333;
+    max-width: 85%;
+    margin: 0 auto;
+  }
+
+  /* SERVICE CARD */
+  .service-card {
+    margin: 20px 0;
+  }
+  .section-head {
+    background: #f9fafb;
+    border-bottom: 1px solid #eee;
+    padding: 16px 20px;
+  }
+  .section-head h2 {
+    margin: 0;
+    font-size: 1.3em;
+    font-weight: 700;
+  }
+  .badge {
+    background: #3b82f6;
+    color: #fff;
+    border-radius: 15px;
+    padding: 4px 10px;
+    font-size: 0.8em;
+  }
+
+  .video-frame {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    background: #000;
+    overflow: hidden;
+  }
+  .video-thumb {
+    position: absolute;
+    inset: 0;
+    background: url("https://img.youtube.com/vi/3wFdPVqZ3nw/hqdefault.jpg") center/cover no-repeat;
+    transition: opacity 0.4s ease;
+  }
+  .video-frame iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+  }
+  .service-card:hover .video-frame iframe {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .service-card:hover .video-thumb {
+    opacity: 0;
+  }
+
+  .btn {
+    display: inline-block;
+    border: none;
+    border-radius: 9999px;
+    padding: 12px 22px;
+    background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+    color: #fff;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.25s ease, background 0.25s ease;
+  }
+  .btn:hover {
+    transform: scale(1.05);
+    background: linear-gradient(135deg, #1d4ed8 0%, #6d28d9 100%);
+  }
+
+  /* FLOATING QR BUTTON */
+  .fab {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 50;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .fab:hover {
+    transform: scale(1.08);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
+  }
+
+  /* FRAMELESS MODAL */
+  .modal {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: none;
+    background: rgba(17, 24, 39, 0.4);
+    backdrop-filter: blur(3px);
+    align-items: center;
+    justify-content: center;
+  }
+  .modal[open] {
+    display: flex;
+  }
+  .modal-card {
+    width: min(95vw, 820px);
+    height: min(92vh, 760px);
+    background: #fff;
+    border: none;
+    border-radius: 0;
+    overflow: hidden;
+    position: relative;
+    animation: slideUp 0.3s ease forwards;
+    display: flex;
+    flex-direction: column;
+  }
+  .modal-body {
+    overflow-y: auto;
+    padding: 20px;
+  }
+  .modal-x {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 2;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.05);
+    color: #111;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .modal-x:hover {
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  .qr-row {
+    display: grid;
+    grid-template-columns: 1fr 180px;
+    gap: 14px;
+    align-items: center;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    background: #fff;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 9999px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .qr-box img {
+    width: 160px;
+    height: 160px;
+    display: block;
+  }
+  @keyframes slideUp {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+  <div class="card-3d hero-card">
+    <div class="hero-overlay"></div>
+    <div class="hero-inner">
+      <h1 class="hero-title">Fall Business Development Services</h1>
+      <p class="hero-sub">Professional Digital Marketing Solutions</p>
+      <p class="hero-desc">Transform your transportation business this fall with our comprehensive development services designed specifically for taxi and ride-sharing companies.</p>
+    </div>
+  </div>
+
+  <div class="card-3d service-card">
+    <div class="section-head">
+      <h2>Investment Tracking</h2><span class="badge">SRV-FN-001</span>
+    </div>
+    <div class="video-frame">
+      <div class="video-thumb"></div>
+      <iframe src="https://www.youtube.com/embed/3wFdPVqZ3nw?enablejsapi=1&autoplay=1&mute=1&loop=1&controls=0&playlist=3wFdPVqZ3nw" title="Investment Tracking" allow="autoplay; fullscreen; encrypted-media"></iframe>
+    </div>
+    <div style="padding:20px;">
+      <p style="color:#4b5563;margin-bottom:12px;">Portfolio management and analysis for informed decision-making and performance insights.</p>
+      <div style="text-align:center;">
+        <a href="#" class="btn">Learn More</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-3d service-card">
+    <div class="section-head">
+      <h2>Client Portal</h2><span class="badge">SRV-LG-003</span>
+    </div>
+    <div style="padding:0;">
+      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=400&fit=crop" alt="Client Portal" style="width:100%;height:220px;object-fit:cover;">
+    </div>
+    <div style="padding:20px;">
+      <p style="color:#4b5563;margin-bottom:12px;">Secure client communication and document-sharing platform for streamlined collaboration.</p>
+      <div style="text-align:center;">
+        <a href="#" class="btn">Learn More</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Floating QR Button -->
+<button class="fab" id="openModalFab">QR</button>
+
+<!-- Frameless Modal -->
+<dialog class="modal" id="qrModal">
+  <div class="modal-card">
+    <button class="modal-x" id="closeModalX">×</button>
+    <div class="modal-body" id="qrList"></div>
+  </div>
+</dialog>
+
+<script>
+  const qrModal = document.getElementById("qrModal");
+  document.getElementById("openModalFab").addEventListener("click", () => qrModal.showModal());
+  document.getElementById("closeModalX").addEventListener("click", () => qrModal.close());
+  qrModal.addEventListener("click", (e) => { if (e.target === qrModal) qrModal.close(); });
+
+  const qrList = document.getElementById("qrList");
+  const links = [
+    { label: "Facebook", color: "#1877F2", url: "https://facebook.com", qr: "https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://facebook.com" },
+    { label: "Instagram", color: "linear-gradient(45deg,#fdf497,#fd5949,#d6249f,#285AEB)", url: "https://instagram.com", qr: "https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://instagram.com" },
+    { label: "LinkedIn", color: "#0A66C2", url: "https://linkedin.com", qr: "https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://linkedin.com" }
+  ];
+
+  links.forEach(link => {
+    const row = document.createElement("div");
+    row.className = "qr-row";
+    row.innerHTML = `
+      <div class="left">
+        <a class="brand" href="${link.url}" target="_blank" style="background:${link.color}">${link.label}</a>
+      </div>
+      <div class="qr-box"><img src="${link.qr}" alt="QR for ${link.label}"></div>`;
+    qrList.appendChild(row);
+  });
+</script>
+</body>
+</html>
