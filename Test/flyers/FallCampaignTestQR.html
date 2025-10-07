@@ -2,13 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Fall Business Development Services | SBA DEI Community Partnership</title>
 <meta name="description" content="Professional digital marketing and product services for transportation companies. Explore our SBA-aligned DEI community partnership summary: inclusive outreach, supplier diversity enablement, and equitable access to growth resources.">
-
 <link rel="canonical" href="https://example.com/fall-business-development" />
 <link rel="image_src" href="/assets/SBA%20Business%20Services.avif" />
-
-<!-- Google Font -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
 <style>
@@ -16,24 +14,27 @@
   --bg:linear-gradient(135deg,#f6d365 0%, #fda085 25%, #f0edff 100%);
   --btn:linear-gradient(135deg,#2563eb 0%, #7c3aed 100%);
   --btnH:linear-gradient(135deg,#1d4ed8 0%, #6d28d9 100%);
-  --menu-pill:#111827;
 }
-*{box-sizing:border-box}
+*{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{
-  margin:0;background:var(--bg);background-attachment:fixed;
-  color:#111827;font-family:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  margin:0;background:var(--bg);background-attachment:fixed;color:#111827;
+  font-family:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  overflow-x:hidden;
 }
-.page{max-width:600px;margin:0 auto;padding:30px}
 
-/* Card */
-.card{position:relative;background:#fff;border-radius:12px;overflow:hidden;
+/* Page & cards */
+.page{width:100%;margin:0 auto;padding:20px 0;display:flex;flex-direction:column;align-items:center;gap:24px}
+.card{
+  position:relative;width:100%;background:#fff;border-radius:12px;overflow:hidden;
   box-shadow:0 6px 18px rgba(0,0,0,.12),0 16px 36px rgba(17,24,39,.12);
-  transition:.35s cubic-bezier(.2,.8,.2,1)}
+  transition:.35s cubic-bezier(.2,.8,.2,1)
+}
 .card:hover{transform:translateY(-6px)}
+@media(min-width:768px){.card{max-width:960px}}
 
-/* HERO with cross-fade & leaves */
-.hero{height:280px;margin-bottom:28px;isolation:isolate;position:relative;overflow:hidden}
+/* HERO */
+.hero{height:280px;position:relative;isolation:isolate;overflow:hidden}
 .hero-bg{position:absolute;inset:0;overflow:hidden}
 .hero-bg .slide{position:absolute;inset:-2%;background:center/cover no-repeat;filter:brightness(.95) contrast(1.05);animation:panZoom 22s ease-in-out infinite}
 .hero-bg .s1{background-image:url("77ebacdb-823d-4284-b4d2-a5d18705c37a.png");animation-name:panZoom,fade1;animation-duration:22s,14s;animation-iteration-count:infinite,infinite}
@@ -42,9 +43,9 @@ body{
 @keyframes fade1{0%,40%{opacity:1}50%,90%{opacity:0}100%{opacity:1}}
 @keyframes fade2{0%,40%{opacity:0}50%,90%{opacity:1}100%{opacity:0}}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom right,rgba(255,155,80,.72),rgba(255,255,255,.78));mix-blend-mode:multiply}
-.hero-inner{text-align:center;position:relative;z-index:2;padding:48px 28px}
-.hero-title{margin:0 0 8px;font-weight:600;font-size:clamp(22px,5.5vw,36px);line-height:1.15}
-.hero-sub{margin:0 0 10px;font-size:clamp(14px,3.6vw,18px);font-weight:500}
+.hero-inner{text-align:center;position:relative;z-index:2;padding:48px 20px}
+.hero-title{margin-bottom:8px;font-weight:600;font-size:clamp(22px,5.5vw,36px);line-height:1.15}
+.hero-sub{margin-bottom:10px;font-size:clamp(14px,3.6vw,18px);font-weight:500}
 .hero-desc{margin:0 auto;max-width:88%;background:rgba(255,255,255,.55);padding:8px 12px;border-radius:6px}
 
 /* Leaves */
@@ -64,18 +65,18 @@ body{
 
 /* DEI */
 .dei .body{padding:20px}
-.dei h2{margin:0 0 8px;font-weight:600;font-size:clamp(22px,4.6vw,30px);line-height:1.2;color:#1a1a1a}
+.dei h2{margin-bottom:8px;font-weight:600;font-size:clamp(22px,4.6vw,30px);line-height:1.2;color:#1a1a1a}
 .dei p,.dei li{font-size:clamp(14px,3.6vw,16px);line-height:1.6;color:#374151}
 .collapse-wrap{position:relative}
 .collapse-inner{max-height:0;overflow:hidden;transition:max-height .4s ease}
 .collapse-wrap[aria-expanded="true"] .collapse-inner{max-height:600px}
 .toggle-btn{background:#111827;color:#fff;border:none;border-radius:9999px;font-weight:700;padding:10px 16px;cursor:pointer}
 
-/* Service cards */
-.service{margin:20px 0}
+/* Services */
+.service{margin:20px 0;width:100%}
 .head{background:linear-gradient(135deg,#f9fafb 0%,#f3f4f6 100%);padding:16px 20px;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;justify-content:space-between;gap:10px}
 .head h2{margin:0;font-size:clamp(18px,4.2vw,22px);font-weight:700;color:#1f2937}
-.badge{display:inline-block;background:#3b82f6;color:#fff;padding:4px 10px;border-radius:15px;font-size:.78em;font-weight:700}
+.badge{background:#3b82f6;color:#fff;padding:4px 10px;border-radius:15px;font-size:.78em;font-weight:700}
 .media{width:100%;height:220px;overflow:hidden;background:#000}
 .media img{width:100%;height:100%;object-fit:cover;display:block}
 .body{padding:20px}
@@ -90,7 +91,7 @@ body{
 .service:hover .video-frame iframe{opacity:1;pointer-events:auto}
 .service:hover .video-thumb{opacity:0}
 
-/* Hamburger */
+/* Hamburger + menu */
 .hamburger{
   position:fixed;right:22px;bottom:22px;z-index:200;width:60px;height:60px;
   border:none;border-radius:50%;background:var(--btn);color:#fff;font-size:28px;
@@ -101,10 +102,15 @@ body{
 .menu-panel.open{display:flex}
 .menu-item{background:#111827;color:#fff;padding:12px 14px;border:none;border-radius:14px;cursor:pointer;font-weight:700}
 
-/* Modal (frameless) */
+/* QR Modal */
 dialog{border:none;padding:0;margin:0;background:transparent}
 dialog::backdrop{background:rgba(0,0,0,.4)}
-.sheet{background:#fff;border-radius:14px;padding:16px;box-shadow:0 20px 60px rgba(0,0,0,.28)}
+.sheet{background:#fff;border-radius:14px;padding:16px;box-shadow:0 20px 60px rgba(0,0,0,.28);max-width:min(96vw,980px)}
+.qr-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px}
+.qr-card{border:1px solid #e5e7eb;border-radius:12px;padding:12px;display:flex;flex-direction:column;align-items:center;gap:10px}
+.qr-card img{width:120px;height:120px;object-fit:contain}
+.qr-label{font-weight:800}
+.qr-open{display:inline-block;font-weight:700;text-decoration:none;background:#111827;color:#fff;padding:8px 12px;border-radius:999px}
 </style>
 </head>
 
@@ -129,9 +135,8 @@ dialog::backdrop{background:rgba(0,0,0,.4)}
   <!-- DEI -->
   <section id="sba-dei" class="card dei" aria-labelledby="deiTitle">
     <div class="body">
-      <span id="objective" aria-hidden="true"></span>
       <h2 id="deiTitle">SBA DEI Community Partnership — Summary</h2>
-      <p>We support SBA-aligned Diversity, Equity, and Inclusion (DEI) community partnerships to expand equitable access to capital, digital tools, and market opportunities for underrepresented founders. Our approach centers on collaboration with local chambers, CDFIs, and community-based organizations to lower adoption barriers and accelerate growth.</p>
+      <p>We support SBA-aligned Diversity, Equity, and Inclusion (DEI) community partnerships to expand equitable access to capital, digital tools, and market opportunities for underrepresented founders.</p>
       <button id="deiToggle" class="toggle-btn" aria-expanded="false" aria-controls="deiMore">View more ▾</button>
       <div id="deiMore" class="collapse-wrap" aria-expanded="false">
         <div class="collapse-inner">
@@ -142,7 +147,6 @@ dialog::backdrop{background:rgba(0,0,0,.4)}
             <li><strong>Access to Resources:</strong> Guidance on SBA programs and partner pathways with templates and checklists.</li>
             <li><strong>Impact Reporting:</strong> Transparent metrics to drive continuous improvement.</li>
           </ul>
-          <p><em>Note:</em> Aligned to SBA DEI priorities; no official endorsement implied.</p>
         </div>
       </div>
     </div>
@@ -150,12 +154,8 @@ dialog::backdrop{background:rgba(0,0,0,.4)}
 
   <!-- SERVICES -->
   <div class="card service" id="services">
-    <div class="head">
-      <h2>Investment Tracking</h2>
-      <span class="badge">SRV-FN-001</span>
-    </div>
-    <div class="video-frame" aria-label="Investment Tracking overview video">
-      <div class="video-thumb" aria-hidden="true"></div>
+    <div class="head"><h2>Investment Tracking</h2><span class="badge">SRV-FN-001</span></div>
+    <div class="video-frame"><div class="video-thumb"></div>
       <iframe src="https://www.youtube.com/embed/3wFdPVqZ3nw?enablejsapi=1&autoplay=1&mute=1&loop=1&controls=0&playlist=3wFdPVqZ3nw"
               title="Investment Tracking" allow="autoplay; fullscreen; encrypted-media" loading="lazy"></iframe>
     </div>
@@ -169,13 +169,9 @@ dialog::backdrop{background:rgba(0,0,0,.4)}
   </div>
 
   <div class="card service">
-    <div class="head">
-      <h2>Client Portal</h2>
-      <span class="badge">SRV-LG-003</span>
-    </div>
+    <div class="head"><h2>Client Portal</h2><span class="badge">SRV-LG-003</span></div>
     <div class="media">
-      <img loading="lazy" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&h=800&fit=crop&auto=format&q=80"
-           alt="Client portal interface with secure login" width="1200" height="800">
+      <img loading="lazy" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&h=800&fit=crop&auto=format&q=80" alt="Client portal interface">
     </div>
     <div class="body">
       <p>Secure client communication and document-sharing platform for streamlined collaboration.</p>
@@ -187,19 +183,24 @@ dialog::backdrop{background:rgba(0,0,0,.4)}
   </div>
 </div>
 
-<!-- HAMBURGER MENU -->
-<button class="hamburger" id="openMenu" aria-haspopup="true" aria-expanded="false">☰</button>
-<div class="menu-panel" id="menuPanel">
-  <button class="menu-item" data-action="objective">🎯 Mission</button>
-  <button class="menu-item" data-action="services">🧭 Services</button>
-  <button class="menu-item" data-action="qr">🔗 QR Links</button>
+<!-- HAMBURGER -->
+<button class="hamburger" id="openMenu" aria-haspopup="true" aria-expanded="false" aria-controls="menuPanel">☰</button>
+<div class="menu-panel" id="menuPanel" role="menu" aria-label="Quick navigation">
+  <button class="menu-item" data-action="objective" role="menuitem">🎯 Mission</button>
+  <button class="menu-item" data-action="services" role="menuitem">🧭 Services</button>
+  <button class="menu-item" data-action="qr" role="menuitem">🔗 QR Links</button>
 </div>
 
-<!-- Modal -->
-<dialog id="qrModal"><div class="sheet"><p>QR Links Coming Soon</p></div></dialog>
+<!-- QR MODAL -->
+<dialog id="qrModal" aria-modal="true" aria-labelledby="qrTitle">
+  <div class="sheet" role="document">
+    <h3 id="qrTitle" style="text-align:center;margin-bottom:12px;">Campaign QR Codes</h3>
+    <div class="qr-grid" id="qrGrid"></div>
+  </div>
+</dialog>
 
 <script>
-/* Hamburger toggle */
+/* Hamburger menu */
 const hamBtn=document.getElementById('openMenu');
 const menu=document.getElementById('menuPanel');
 hamBtn.addEventListener('click',()=>{
@@ -213,17 +214,7 @@ document.addEventListener('pointerdown',(e)=>{
 });
 document.addEventListener('keydown',(e)=>{if(e.key==='Escape'){menu.classList.remove('open');hamBtn.setAttribute('aria-expanded','false');}});
 
-/* Menu actions */
-menu.addEventListener('click',(e)=>{
-  const item=e.target.closest('.menu-item');if(!item)return;
-  const act=item.dataset.action;
-  if(act==='objective'){document.getElementById('objective')?.scrollIntoView({behavior:'smooth',block:'start'});}
-  if(act==='services'){document.getElementById('services')?.scrollIntoView({behavior:'smooth',block:'start'});}
-  if(act==='qr'){document.getElementById('qrModal').showModal();}
-  menu.classList.remove('open');hamBtn.setAttribute('aria-expanded','false');
-});
-
-/* View more toggle */
+/* Collapsible */
 const deiToggle=document.getElementById('deiToggle');
 const deiMore=document.getElementById('deiMore');
 deiToggle.addEventListener('click',()=>{
@@ -232,6 +223,54 @@ deiToggle.addEventListener('click',()=>{
   deiMore.setAttribute('aria-expanded',!expanded);
   deiToggle.textContent=expanded?'View more ▾':'View less ▴';
 });
+
+/* QR Modal + generator */
+const qrModal=document.getElementById('qrModal');
+const qrGrid=document.getElementById('qrGrid');
+
+const qrItems=[
+  {label:'Campaign',   brand:'#111827', color:'#fff', url:'https://2eb3a058-4055-4fe5-b7a1-5f561e75a916-00-xa6qd3rclk8l.picard.replit.dev/all-services'},
+  {label:'WhatsApp',   brand:'#25D366', color:'#fff', url:'https://wa.me/?text=Join%20our%20Fall%20Business%20Development%20Campaign%21%20https%3A%2F%2F2eb3a058-4055-4fe5-b7a1-5f561e75a916-00-xa6qd3rclk8l.picard.replit.dev%2Fall-services'},
+  {label:'Facebook',   brand:'#1877F2', color:'#fff', url:'https://www.facebook.com'},
+  {label:'Instagram',  brand:'linear-gradient(45deg,#fdf497,#fd5949,#d6249f,#285AEB)', color:'#fff', url:'https://www.instagram.com'},
+  {label:'LinkedIn',   brand:'#0A66C2', color:'#fff', url:'https://www.linkedin.com'},
+  {label:'X / Twitter',brand:'#000000', color:'#fff', url:'https://x.com'}
+];
+
+function mkQR(u){ return `https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=${encodeURIComponent(u)}`; }
+
+function renderQRs(){
+  qrGrid.innerHTML='';
+  qrItems.forEach(({label,brand,color,url})=>{
+    const card=document.createElement('div'); card.className='qr-card';
+    const img=new Image(); img.src=mkQR(url); img.alt=`QR for ${label}`;
+    const p=document.createElement('p'); p.className='qr-label'; p.textContent=label;
+    const a=document.createElement('a'); a.href=url; a.target='_blank'; a.rel='noopener'; a.textContent='Open'; a.className='qr-open';
+    // brand chip
+    const chip=document.createElement('span');
+    chip.textContent=label; chip.style.padding='6px 10px'; chip.style.borderRadius='999px';
+    chip.style.color=color; chip.style.background=brand; chip.style.fontWeight='800'; chip.style.fontSize='.8em';
+    chip.style.display='inline-block'; chip.style.marginBottom='4px';
+    card.appendChild(chip);
+    card.appendChild(img);
+    card.appendChild(a);
+    qrGrid.appendChild(card);
+  });
+}
+
+/* Menu actions */
+menu.addEventListener('click',(e)=>{
+  const item=e.target.closest('.menu-item'); if(!item) return;
+  const act=item.dataset.action;
+  if(act==='objective'){document.getElementById('sba-dei')?.scrollIntoView({behavior:'smooth',block:'start'});}
+  if(act==='services'){document.getElementById('services')?.scrollIntoView({behavior:'smooth',block:'start'});}
+  if(act==='qr'){ renderQRs(); qrModal.showModal(); }
+  menu.classList.remove('open'); hamBtn.setAttribute('aria-expanded','false');
+});
+
+/* Close QR modal on backdrop click or Esc */
+qrModal.addEventListener('click', (e)=>{ if(e.target===qrModal) qrModal.close(); });
+document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && qrModal.open) qrModal.close(); });
 </script>
 </body>
 </html>
