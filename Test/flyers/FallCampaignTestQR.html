@@ -5,26 +5,32 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Fall Business Development Services | SBA DEI Community Partnership</title>
 <meta name="description" content="Professional digital marketing and product services for transportation companies. Explore our SBA-aligned DEI community partnership summary: inclusive outreach, supplier diversity enablement, and equitable access to growth resources.">
-<link rel="canonical" href="https://example.com/fall-business-development" />
+<link rel="canonical" href="https://YOUR-DOMAIN.TLD/fall-business-development" />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 
-<!-- Social / metadata image -->
-<link rel="image_src" href="/assets/appropriate%20Fall%20Set.png" />
+<!-- Social / metadata image (use RELATIVE path because assets sits under the page folder) -->
+<link rel="image_src" href="assets/appropriate%20Fall%20Set.png" />
+
+<!-- Open Graph -->
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://example.com/fall-business-development" />
+<meta property="og:url" content="https://YOUR-DOMAIN.TLD/fall-business-development" />
 <meta property="og:title" content="Fall Business Development Services | SBA DEI Community Partnership" />
 <meta property="og:description" content="Professional digital marketing and product services for transportation companies. Explore our SBA-aligned DEI community partnership summary: inclusive outreach, supplier diversity enablement, and equitable access to growth resources." />
-<meta property="og:image" content="https://example.com/assets/appropriate%20Fall%20Set.png" />
-<meta property="og:image:secure_url" content="https://example.com/assets/appropriate%20Fall%20Set.png" />
+<meta property="og:image" content="assets/appropriate%20Fall%20Set.png" />
 <meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
 <meta property="og:image:alt" content="Autumn-themed business development banner in warm fall colors" />
+
+<!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Fall Business Development Services | SBA DEI Community Partnership" />
 <meta name="twitter:description" content="Professional digital marketing and product services for transportation companies. Explore our SBA-aligned DEI community partnership summary: inclusive outreach, supplier diversity enablement, and equitable access to growth resources." />
-<meta name="twitter:image" content="https://example.com/assets/appropriate%20Fall%20Set.png" />
+<meta name="twitter:image" content="assets/appropriate%20Fall%20Set.png" />
 <meta name="twitter:image:alt" content="Autumn-themed business development banner in warm fall colors" />
 
 <style>
+
   :root {
     /* Professional Color Palette */
     --navy-deep: #0f172a;
@@ -580,13 +586,13 @@
     outline-offset: 2px;
   }
 
-  /* QR Modal */
+  /* Dialogs (shared) */
   dialog {
     border: none;
     padding: 0;
     margin: auto;
     background: transparent;
-    max-width: min(95vw, 500px);
+    max-width: min(95vw, 1000px);
     border-radius: 16px;
   }
 
@@ -602,6 +608,7 @@
     padding: 2rem;
     box-shadow: var(--shadow-xl);
     border: 1px solid var(--border-color);
+    position: relative;
   }
 
   .sheet h3 {
@@ -612,6 +619,7 @@
     color: var(--navy-deep);
   }
 
+  /* QR modal specifics */
   .qr-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -621,19 +629,9 @@
     padding-right: 0.5rem;
   }
 
-  .qr-grid::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  .qr-grid::-webkit-scrollbar-track {
-    background: var(--gray-100);
-    border-radius: 3px;
-  }
-
-  .qr-grid::-webkit-scrollbar-thumb {
-    background: var(--slate-light);
-    border-radius: 3px;
-  }
+  .qr-grid::-webkit-scrollbar { width: 6px; }
+  .qr-grid::-webkit-scrollbar-track { background: var(--gray-100); border-radius: 3px; }
+  .qr-grid::-webkit-scrollbar-thumb { background: var(--slate-light); border-radius: 3px; }
 
   .qr-card {
     background: var(--gray-50);
@@ -647,11 +645,7 @@
     box-shadow: var(--shadow-sm);
     transition: all var(--transition-fast);
   }
-
-  .qr-card:hover {
-    box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
-  }
+  .qr-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
 
   .qr-card img {
     width: 180px;
@@ -673,12 +667,7 @@
     transition: all var(--transition-fast);
     font-size: 0.9rem;
   }
-
-  .qr-open:hover {
-    background: var(--navy-primary);
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-sm);
-  }
+  .qr-open:hover { background: var(--navy-primary); transform: translateY(-1px); box-shadow: var(--shadow-sm); }
 
   .close-modal {
     position: absolute;
@@ -697,11 +686,15 @@
     font-size: 1.25rem;
     transition: all var(--transition-fast);
   }
+  .close-modal:hover { background: var(--gray-200); transform: rotate(90deg); }
 
-  .close-modal:hover {
-    background: var(--gray-200);
-    transform: rotate(90deg);
-  }
+  /* Provider modal (logo + iframe) */
+  .provider-logo { width: min(260px, 80%); height: auto; display: block; margin: 0 auto 1rem; filter: drop-shadow(0 4px 10px rgba(15,23,42,.15)); }
+  .iframe-wrap { position: relative; width: min(95vw, 1000px); height: 70vh; border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow-sm); }
+  .iframe-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: #fff; }
+  .iframe-loader { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-weight: 600; color: var(--text-secondary); background: linear-gradient(90deg, #f8fafc 25%, #eef2f7 50%, #f8fafc 75%); background-size: 200% 100%; animation: shimmer 1.2s linear infinite; }
+  @keyframes shimmer { 0% { background-position: -200% 0 } 100% { background-position: 200% 0 } }
+  .iframe-fallback { margin-top: .75rem; text-align: center; color: var(--text-secondary); }
 
   /* Footer */
   .site-footer {
@@ -733,68 +726,32 @@
       padding: 1rem 0.75rem;
     }
 
-    .hero {
-      height: 320px;
-    }
-
-    .hero-inner {
-      padding: 2rem 1.5rem;
-    }
+    .hero { height: 320px; }
+    .hero-inner { padding: 2rem 1.5rem; }
 
     .dei .body,
-    .body {
-      padding: 1.5rem;
-    }
+    .body { padding: 1.5rem; }
 
-    .head {
-      padding: 1.25rem 1.5rem;
-    }
+    .head { padding: 1.25rem 1.5rem; }
 
-    .hamburger {
-      width: 56px;
-      height: 56px;
-      right: 1rem;
-      bottom: 1rem;
-    }
+    .hamburger { width: 56px; height: 56px; right: 1rem; bottom: 1rem; }
 
-    .menu-panel {
-      right: 1rem;
-      bottom: 5.5rem;
-    }
+    .menu-panel { right: 1rem; bottom: 5.5rem; }
 
-    .menu-item {
-      padding: 0.875rem 1.25rem;
-      font-size: 0.9rem;
-    }
+    .menu-item { padding: 0.875rem 1.25rem; font-size: 0.9rem; }
 
     .video-frame,
-    .media {
-      height: 220px;
-    }
+    .media { height: 220px; }
   }
 
   @media (max-width: 480px) {
-    .card {
-      border-radius: 12px;
-    }
+    .card { border-radius: 12px; }
 
-    .hero-title {
-      font-size: 1.75rem;
-    }
+    .hero-title { font-size: 1.75rem; }
+    .hero-sub { font-size: 1rem; }
+    .hero-desc { font-size: 0.9rem; padding: 0.875rem 1rem; }
 
-    .hero-sub {
-      font-size: 1rem;
-    }
-
-    .hero-desc {
-      font-size: 0.9rem;
-      padding: 0.875rem 1rem;
-    }
-
-    .btn {
-      padding: 0.875rem 1.5rem;
-      font-size: 0.95rem;
-    }
+    .btn { padding: 0.875rem 1.5rem; font-size: 0.95rem; }
   }
 </style>
 </head>
@@ -914,6 +871,11 @@
 
 <!-- MENU PANEL -->
 <nav class="menu-panel" id="menuPanel" role="menu" aria-label="Quick navigation">
+  <!-- Scroll Top (first order) -->
+  <button class="menu-item" data-action="top" role="menuitem">
+    ⬆️ Scroll Top
+  </button>
+
   <button class="menu-item" data-action="objective" role="menuitem">
     🎯 Mission
   </button>
@@ -923,6 +885,11 @@
   <button class="menu-item" data-action="qr" role="menuitem">
     🔗 QR Links
   </button>
+
+  <!-- Campaign Provider (last order) -->
+  <button class="menu-item" data-action="provider" role="menuitem">
+    🏷️ Campaign Provider
+  </button>
 </nav>
 
 <!-- QR MODAL -->
@@ -931,6 +898,20 @@
     <button class="close-modal" aria-label="Close modal" id="closeModal">✕</button>
     <h3 id="qrTitle">Campaign QR Codes</h3>
     <div class="qr-grid" id="qrGrid"></div>
+  </div>
+</dialog>
+
+<!-- Campaign Provider MODAL (logo + iframe to portfolio) -->
+<dialog id="providerModal" aria-modal="true" aria-labelledby="providerTitle">
+  <div class="sheet" role="document">
+    <button class="close-modal" aria-label="Close modal" id="closeProvider">✕</button>
+    <div class="iframe-wrap">
+      <div class="iframe-loader" id="providerLoader">Loading portfolio…</div>
+      <iframe id="providerFrame" title="WoMacroMAX Portfolio" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+    </div>
+    <div class="iframe-fallback" id="providerFallback" hidden>
+      We couldn’t embed the site here. <a href="https://womacromax.com/#portfolio" target="_blank" rel="noopener">Open the portfolio in a new tab</a>.
+    </div>
   </div>
 </dialog>
 
@@ -1049,6 +1030,13 @@ function renderQRCodes() {
   });
 }
 
+// Provider modal refs
+const providerModal    = document.getElementById('providerModal');
+const providerFrame    = document.getElementById('providerFrame');
+const providerLoader   = document.getElementById('providerLoader');
+const providerFallback = document.getElementById('providerFallback');
+const closeProviderBtn = document.getElementById('closeProvider');
+
 // Menu item actions (menu stays open)
 menu.addEventListener('click', (e) => {
   const item = e.target.closest('.menu-item');
@@ -1056,41 +1044,57 @@ menu.addEventListener('click', (e) => {
   
   const action = item.dataset.action;
   
+  if (action === 'top') {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  
   if (action === 'objective') {
     const section = document.getElementById('sba-dei');
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
   
   if (action === 'services') {
     const section = document.getElementById('services');
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
   
   if (action === 'qr') {
     renderQRCodes();
     qrModal.showModal();
   }
-});
 
-// Close modal handlers
-closeModalBtn.addEventListener('click', () => {
-  qrModal.close();
-});
-
-qrModal.addEventListener('click', (e) => {
-  if (e.target === qrModal) {
-    qrModal.close();
+  if (action === 'provider') {
+    providerLoader.style.display = 'flex';
+    providerFallback.hidden = true;
+    providerFrame.src = 'https://womacromax.com/#portfolio';
+    providerModal.showModal();
+    // If embedding gets blocked, show the fallback link after a few seconds.
+    setTimeout(() => {
+      providerLoader.style.display = 'none';
+      // If the frame couldn't load (common when X-Frame-Options blocks), show fallback link.
+      providerFallback.hidden = false;
+    }, 5000);
   }
 });
 
-// Keyboard accessibility for modal
-qrModal.addEventListener('keydown', (e) => {
+// Close modal handlers
+closeModalBtn.addEventListener('click', () => { qrModal.close(); });
+qrModal.addEventListener('click', (e) => { if (e.target === qrModal) qrModal.close(); });
+
+closeProviderBtn.addEventListener('click', () => { providerModal.close(); });
+providerModal.addEventListener('click', (e) => { if (e.target === providerModal) providerModal.close(); });
+
+// When iframe finishes loading, remove loader and keep fallback hidden
+providerFrame.addEventListener('load', () => {
+  providerLoader.style.display = 'none';
+  providerFallback.hidden = true;
+});
+
+// Keyboard accessibility for modals
+document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
-    qrModal.close();
+    if (qrModal.open) qrModal.close();
+    if (providerModal.open) providerModal.close();
   }
 });
 
