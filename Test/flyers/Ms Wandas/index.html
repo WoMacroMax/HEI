@@ -7,21 +7,21 @@
   <!-- SEO + Social -->
   <title itemprop="name">Ms. Wanda’s | Exquisite Southern Cuisine in Bayonne, NJ</title>
   <meta name="title" content="Ms. Wanda’s | Exquisite Southern Cuisine in Bayonne, NJ" />
-  <meta name="description" content="Experience authentic Southern flavors at Ms. Wanda’s in Bayonne, NJ. More than a meal — a celebration of tradition, community, and soulful cooking passed down through generations." />
+  <meta name="description" content="Experience authentic Southern flavors at Ms. Wanda’s in Bayonne, NJ. Boutique catering, private events, and community-focused gatherings including town halls and cultural celebrations." />
   <link rel="canonical" href="https://flyers.womacromax.com/ms%20wandas/" />
   <link rel="image_src" href="https://flyers.womacromax.com/ms%20wandas/assets/GoodSoulFoodBoutique.png" />
 
   <meta property="og:type" content="restaurant" />
   <meta property="og:url" content="https://flyers.womacromax.com/ms%20wandas/" />
   <meta property="og:title" content="Ms. Wanda’s | Exquisite Southern Cuisine in Bayonne, NJ" />
-  <meta property="og:description" content="Step into Ms. Wanda’s for exquisite Southern cuisine — soulful recipes, golden fried chicken, and blues-era charm in every bite." />
+  <meta property="og:description" content="Boutique service, soulful cuisine, and a hub for community & cultural events in Bayonne, NJ." />
   <meta property="og:image" content="https://flyers.womacromax.com/ms%20wandas/assets/GoodSoulFoodBoutique.png" />
   <meta property="og:locale" content="en_US" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:url" content="https://flyers.womacromax.com/ms%20wandas/" />
   <meta name="twitter:title" content="Ms. Wanda’s | Exquisite Southern Cuisine in Bayonne, NJ" />
-  <meta name="twitter:description" content="Authentic Southern cooking, comfort, and culture. Ms. Wanda’s is where every dish tells a story." />
+  <meta name="twitter:description" content="Boutique catering, private events, and community gatherings—served with authentic Southern flavor." />
   <meta name="twitter:image" content="https://flyers.womacromax.com/ms%20wandas/assets/GoodSoulFoodBoutique.png" />
 
   <!-- JSON-LD (Restaurant) -->
@@ -31,7 +31,7 @@
     "@type": "Restaurant",
     "name": "Ms. Wanda’s",
     "image": "https://flyers.womacromax.com/ms%20wandas/assets/GoodSoulFoodBoutique.png",
-    "description": "Authentic Southern flavors and soulful recipes, celebrating community and culinary tradition in Bayonne, NJ.",
+    "description": "Authentic Southern flavors and soulful recipes, boutique catering, and community-centered events.",
     "servesCuisine": ["Southern","Soul Food"],
     "priceRange": "$$",
     "address": {
@@ -75,30 +75,58 @@
     .carousel-img.active{opacity:.7}
 
     /* Menu Slide */
-    .menu-slide{background:linear-gradient(135deg,#1a1a1a 0%,#2d2d2d 100%);overflow:hidden}
+    .menu-slide{background:linear-gradient(135deg,#1a1a1a 0%,#2d2d2d 100%);overflow:hidden;touch-action:pan-y}
     .menu-title{position:absolute;top:3%;left:50%;transform:translateX(-50%);font-size:3.5rem;color:#fff;text-align:center;z-index:10;text-shadow:2px 2px 4px rgba(0,0,0,0.5)}
-    .menu-scroll-container{position:absolute;top:22%;left:0;width:100%;height:78%;overflow:hidden}
+    /* Manual vertical scrolling */
+    .menu-scroll-container{
+      position:absolute;top:22%;left:0;width:100%;height:78%;
+      overflow-y:auto; overflow-x:hidden; -webkit-overflow-scrolling:touch; scroll-behavior:smooth;
+    }
     .menu-cards{display:flex;flex-direction:column;gap:2rem;padding:2rem;animation:slowScroll 60s linear infinite;transition:transform .3s ease-out}
     .menu-cards.paused{animation-play-state:paused}
     @keyframes slowScroll{0%{transform:translateY(0)}100%{transform:translateY(-50%)}}
-    .menu-card{background:#fff;border-radius:15px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.3);min-height:350px;flex-shrink:0;cursor:pointer;transition:transform .2s}
+    .menu-card{position:relative;background:#fff;border-radius:15px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.3);min-height:350px;flex-shrink:0;cursor:pointer;transition:transform .2s}
     .menu-card:hover{transform:scale(1.02)}
-    .menu-card img{width:100%;height:250px;object-fit:cover}
-    .menu-card h3{color:#2d2d2d;font-size:2rem;padding:1.5rem 1.5rem .5rem;margin:0}
+    .menu-card img{width:100%;height:250px;object-fit:cover;display:block}
+    .menu-card h3{color:#2d2d2d;font-size:2rem;padding:1.5rem 1.5rem .25rem;margin:0}
     .menu-card p{color:#666;font-size:1.3rem;font-weight:400;padding:0 1.5rem 1.5rem;margin:0}
+    .price-badge{position:absolute;top:12px;left:12px;background:rgba(0,0,0,.75);color:#fff;padding:.4rem .7rem;border-radius:8px;font-size:1.3rem}
 
     /* Cart Modal + FABs */
     .cart-modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:10000;display:none;align-items:center;justify-content:center}
     .cart-modal.active{display:flex}
-    .cart-content{background:#fff;border-radius:15px;padding:2rem;max-width:500px;width:90%;max-height:80vh;overflow-y:auto;position:relative}
-    .cart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem;border-bottom:2px solid #333;padding-bottom:1rem}
-    .cart-header h2{color:#333;font-size:2.5rem;margin:0}
+    .cart-content{background:#fff;border-radius:15px;padding:2rem;max-width:560px;width:92%;max-height:86vh;overflow-y:auto;position:relative}
+    .cart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;border-bottom:2px solid #333;padding-bottom:1rem}
+    .cart-header h2{color:#333;font-size:2.2rem;margin:0}
     .close-cart{background:#ff0000;color:#fff;border:none;width:40px;height:40px;border-radius:50%;font-size:2rem;cursor:pointer;line-height:1;padding:0}
+
+    .tack-bar{display:flex;gap:.5rem;flex-wrap:wrap;margin:.75rem 0 1rem}
+    .tack{position:relative;width:36px;height:36px;border-radius:50%;overflow:hidden;border:2px solid #ddd;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+    .tack img{width:100%;height:100%;object-fit:cover;display:block}
+    .tack::before{content:"📌";position:absolute;top:-7px;left:-5px;font-size:16px;transform:rotate(-20deg)}
+    .tack-badge{position:absolute;right:-6px;bottom:-6px;background:#ff0000;color:#fff;border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:1rem;border:2px solid #fff}
+
+    .cart-summary{display:flex;gap:1rem;align-items:center;justify-content:flex-start;color:#333;font-size:1.4rem;margin:.25rem 0 1rem}
+    .cart-summary strong{font-size:1.6rem}
+
     .cart-items{list-style:none;padding:0;margin:0}
-    .cart-item{padding:1rem;margin-bottom:1rem;background:#f5f5f5;border-radius:8px;display:flex;justify-content:space-between;align-items:center;color:#333;font-size:1.4rem}
-    .cart-item::before{content:"🍽️";margin-right:1rem}
-    .remove-item{background:#ff4444;color:#fff;border:none;padding:.5rem 1rem;border-radius:5px;cursor:pointer;font-size:1.2rem;font-weight:700}
+    .cart-item{padding:1rem;margin-bottom:1rem;background:#f5f5f5;border-radius:8px;display:grid;grid-template-columns:48px 1fr auto;grid-template-rows:auto auto;gap:.5rem 1rem;align-items:center;color:#333;font-size:1.4rem}
+    .cart-thumb{grid-row:1/span 2;width:48px;height:48px;border-radius:8px;overflow:hidden;background:#fff;border:1px solid #ddd}
+    .cart-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+    .item-name{font-weight:700}
+    .item-line{font-size:1.2rem;color:#666}
+    .qty-controls{display:flex;gap:.5rem;align-items:center}
+    .btn{border:none;padding:.4rem .8rem;border-radius:8px;cursor:pointer;font-weight:700}
+    .btn.inc{background:#22aa55;color:#fff}
+    .btn.dec{background:#ff4444;color:#fff}
+    .btn.remove{background:#333;color:#fff}
+
+    .totals{display:flex;justify-content:space-between;align-items:center;margin-top:1rem;padding-top:1rem;border-top:2px solid #333;color:#333}
+    .totals .label{font-size:1.4rem}
+    .totals .value{font-size:1.8rem;font-weight:800}
+
     .empty-cart{text-align:center;color:#999;font-size:1.6rem;padding:3rem;font-weight:400}
+
     .cart-button,.share-button{position:fixed;bottom:2rem;border:none;width:60px;height:60px;border-radius:50%;font-size:2.2rem;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,0.3);z-index:9998;display:flex;align-items:center;justify-content:center}
     .cart-button{right:2rem;background:#ff0000;color:#fff}
     .share-button{right:8.6rem;background:#222;color:#fff}
@@ -116,11 +144,10 @@
     .map-container{width:100%;height:300px;border-radius:10px;overflow:hidden;margin-bottom:1.5rem}
     .directions-btn{width:100%;background:#4285f4;color:#fff;border:none;padding:1.2rem;border-radius:10px;font-size:1.4rem;font-weight:700;cursor:pointer;transition:background .3s}
     .directions-btn:hover{background:#3367d6}
-    .delivery-form{display:flex;flex-direction:column;gap:1.2rem}
-    .delivery-form input,.delivery-form textarea{padding:1.2rem;border:2px solid #ddd;border-radius:8px;font-size:1.3rem;font-family:'Montserrat',sans-serif;font-weight:400;transition:border-color .3s}
-    .delivery-form input:focus,.delivery-form textarea:focus{outline:none;border-color:#ff0000}
-    .submit-btn{background:#ff0000;color:#fff;border:none;padding:1.4rem;border-radius:10px;font-size:1.5rem;font-weight:700;cursor:pointer;transition:background .3s}
-    .submit-btn:hover{background:#cc0000}
+
+    /* Replace form with iFrame — no padding, no horizontal scrolling */
+    .delivery-section.delivery-embed{padding:0;overflow-x:hidden}
+    .contact-iframe{width:100%;height:80vh;border:0;display:block}
 
     /* Slide 1 “Blog” expand-on-tap */
     .content blockquote{position:absolute;bottom:5%;left:4%;z-index:2;max-width:92%;background:rgba(0,0,0,0.75);padding:2rem;border-radius:10px;max-height:46vh;overflow-y:auto;overflow-x:hidden;cursor:pointer}
@@ -165,7 +192,7 @@
     .prev:hover,.next:hover{box-shadow:0 0 0 1rem rgba(0,0,0,0.15)}
     nav>div>span{position:absolute;top:50%;left:50%;width:0;height:0;border-radius:100%;z-index:5;pointer-events:none;will-change:width,height;transform:translate(-50%,-50%);transition:width .6s,height .6s}
 
-    /* Share modal (separate from cart modal) */
+    /* Share modal */
     .share-modal{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:10000;display:none;align-items:center;justify-content:center}
     .share-modal.active{display:flex}
     .share-content{background:#fff;border-radius:15px;padding:2rem;max-width:920px;width:94%;max-height:82vh;overflow-y:auto;position:relative}
@@ -177,14 +204,11 @@
     .qr-label{color:#333;font-weight:700;margin:.35rem 0}
     .qr-img{width:170px;height:170px;border-radius:12px;background:#fff;padding:6px;box-shadow:0 6px 18px rgba(0,0,0,.25);object-fit:contain}
 
-    /* BRAND MODAL: WoMacroMAX.com in a modal — no padding, vertical scroll only */
+    /* BRAND MODAL */
     .brand-modal{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:11000;display:none}
     .brand-modal.active{display:block}
     .brand-content{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;padding:0}
-    .brand-close{
-      position:fixed;top:12px;right:12px;width:40px;height:40px;border-radius:50%;
-      background:#ff0000;color:#fff;border:none;font-size:2rem;cursor:pointer;line-height:1;z-index:11001
-    }
+    .brand-close{position:fixed;top:12px;right:12px;width:40px;height:40px;border-radius:50%;background:#ff0000;color:#fff;border:none;font-size:2rem;cursor:pointer;line-height:1;z-index:11001}
     .brand-iframe{width:100%;height:100%;border:0;display:block}
   </style>
 </head>
@@ -198,117 +222,40 @@
   <div class="brand-modal" id="brandModal" aria-hidden="true">
     <button class="brand-close" id="brandClose" aria-label="Close">×</button>
     <div class="brand-content" role="dialog" aria-modal="true" aria-label="WoMacroMAX site">
-      <iframe
-        id="brandFrame"
-        class="brand-iframe"
-        src="https://womacromax.com"
-        title="WoMacroMAX.com">
-      </iframe>
+      <iframe id="brandFrame" class="brand-iframe" src="https://womacromax.com" title="WoMacroMAX.com"></iframe>
     </div>
   </div>
 
   <!-- Share Button (beside cart) -->
   <button class="share-button" id="shareBtn" aria-label="Share">🔗</button>
 
-  <!-- Share / Social QR Modal (Major Social Sites + useful links) -->
+  <!-- Share / Social QR Modal -->
   <div class="share-modal" id="shareModal" aria-hidden="true">
     <div class="share-content" role="dialog" aria-modal="true" aria-label="Share via QR">
       <div class="share-header">
         <h2>Share & Follow</h2>
         <button class="share-close" id="closeShare">×</button>
       </div>
-
-      <p style="color:#333;font-weight:400;margin-top:0">
-        Scan to open or share Ms. Wanda’s on your favorite platform.
-      </p>
-
+      <p style="color:#333;font-weight:400;margin-top:0">Scan to open or share Ms. Wanda’s on your favorite platform.</p>
       <!-- Canonical URL encoded for QR: https://flyers.womacromax.com/ms%20wandas/ -->
       <ul class="qr-grid">
-        <li>
-          <div class="qr-label">Website</div>
-          <img class="qr-img" alt="Website QR"
-               src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fflyers.womacromax.com%2Fms%2520wandas%2F">
-        </li>
-        <li>
-          <div class="qr-label">Menu</div>
-          <img class="qr-img" alt="Menu QR"
-               src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fflyers.womacromax.com%2Fms%2520wandas%2F%23menu">
-        </li>
-        <li>
-          <div class="qr-label">Facebook</div>
-          <img class="qr-img" alt="Facebook Share QR"
-               src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fwww.facebook.com%2Fsharer%2Fsharer.php%3Fu%3Dhttps%253A%252F%252Fflyers.womacromax.com%252Fms%252520wandas%252F">
-        </li>
-        <li>
-          <div class="qr-label">Instagram</div>
-          <img class="qr-img" alt="Instagram QR"
-               src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Finstagram.com%2F">
-        </li>
-        <li>
-          <div class="qr-label">X (Twitter)</div>
-          <img class="qr-img" alt="X Share QR"
-               src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Ftwitter.com%2Fintent%2Ftweet%3Furl%3Dhttps%253A%252F%252Fflyers.womacromax.com%252Fms%252520wandas%252F%26text%3DMs%2520Wanda%E2%80%99s%2520%E2%80%94%2520Exquisite%2520Southern%2520Cuisine">
-        </li>
-        <li>
-          <div class="qr-label">TikTok</div>
-          <img class="qr-img" alt="TikTok QR"
-               src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fwww.tiktok.com%2F">
-        </li>
-        <li>
-          <div class="qr-label">YouTube</div>
-          <img class="qr-img" alt="YouTube QR"
-               src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fwww.youtube.com%2F">
-        </li>
-        <li>
-          <div class="qr-label">LinkedIn</div>
-          <img class="qr-img" alt="LinkedIn Share QR"
-               src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fwww.linkedin.com%2Fsharing%2Fshare-offsite%2F%3Furl%3Dhttps%253A%252F%252Fflyers.womacromax.com%252Fms%252520wandas%252F">
-        </li>
-        <li>
-          <div class="qr-label">WhatsApp</div>
-          <img class="qr-img" alt="WhatsApp Share QR"
-               src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fwa.me%2F%3Ftext%3DMs%2520Wanda%E2%80%99s%2520%E2%80%94%2520Exquisite%2520Southern%2520Cuisine%2520https%253A%252F%252Fflyers.womacromax.com%252Fms%252520wandas%252F">
-        </li>
-        <li>
-          <div class="qr-label">Snapchat</div>
-          <img class="qr-img" alt="Snapchat QR"
-               src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fwww.snapchat.com%2Fscan%3FattachmentUrl%3Dhttps%253A%252F%252Fflyers.womacromax.com%252Fms%252520wandas%252F">
-        </li>
-        <li>
-          <div class="qr-label">Pinterest</div>
-          <img class="qr-img" alt="Pinterest Share QR"
-               src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fpinterest.com%2Fpin%2Fcreate%2Fbutton%2F%3Furl%3Dhttps%253A%252F%252Fflyers.womacromax.com%252Fms%252520wandas%252F%26description%3DExquisite%2520Southern%2520Cuisine">
-        </li>
-        <li>
-          <div class="qr-label">Reddit</div>
-          <img class="qr-img" alt="Reddit Share QR"
-               src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fwww.reddit.com%2Fsubmit%3Furl%3Dhttps%253A%252F%252Fflyers.womacromax.com%252Fms%252520wandas%252F%26title%3DMs%2520Wanda%E2%80%99s%2520-%2520Exquisite%2520Southern%2520Cuisine">
-        </li>
-        <li>
-          <div class="qr-label">Threads</div>
-          <img class="qr-img" alt="Threads QR"
-               src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fwww.threads.net%2F">
-        </li>
-        <li>
-          <div class="qr-label">Telegram</div>
-          <img class="qr-img" alt="Telegram Share QR"
-               src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Ft.me%2Fshare%2Furl%3Furl%3Dhttps%253A%252F%252Fflyers.womacromax.com%252Fms%252520wandas%252F%26text%3DMs%2520Wanda%E2%80%99s%2520Exquisite%2520Southern%2520Cuisine">
-        </li>
-        <li>
-          <div class="qr-label">Yelp</div>
-          <img class="qr-img" alt="Yelp QR"
-               src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fyelp.com%2F">
-        </li>
-        <li>
-          <div class="qr-label">Google Maps</div>
-          <img class="qr-img" alt="Google Maps QR"
-               src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fwww.google.com%2Fmaps%2Fsearch%2F%3Fapi%3D1%26query%3D906-908%2BBroadway%2BBayonne%2BNJ%2B07002">
-        </li>
-        <li>
-          <div class="qr-label">TripAdvisor</div>
-          <img class="qr-img" alt="TripAdvisor QR"
-               src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fwww.tripadvisor.com%2F">
-        </li>
+        <li><div class="qr-label">Website</div><img class="qr-img" alt="Website QR" src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fflyers.womacromax.com%2Fms%2520wandas%2F"></li>
+        <li><div class="qr-label">Menu</div><img class="qr-img" alt="Menu QR" src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fflyers.womacromax.com%2Fms%2520wandas%2F%23menu"></li>
+        <li><div class="qr-label">Facebook</div><img class="qr-img" alt="Facebook Share QR" src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fwww.facebook.com%2Fsharer%2Fsharer.php%3Fu%3Dhttps%253A%252F%252Fflyers.womacromax.com%252Fms%252520wandas%252F"></li>
+        <li><div class="qr-label">Instagram</div><img class="qr-img" alt="Instagram QR" src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Finstagram.com%2F"></li>
+        <li><div class="qr-label">X (Twitter)</div><img class="qr-img" alt="X Share QR" src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Ftwitter.com%2Fintent%2Ftweet%3Furl%3Dhttps%253A%252F%252Fflyers.womacromax.com%252Fms%252520wandas%252F%26text%3DMs%2520Wanda%E2%80%99s%2520%E2%80%94%2520Exquisite%2520Southern%2520Cuisine"></li>
+        <li><div class="qr-label">TikTok</div><img class="qr-img" alt="TikTok QR" src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fwww.tiktok.com%2F"></li>
+        <li><div class="qr-label">YouTube</div><img class="qr-img" alt="YouTube QR" src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fwww.youtube.com%2F"></li>
+        <li><div class="qr-label">LinkedIn</div><img class="qr-img" alt="LinkedIn Share QR" src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fwww.linkedin.com%2Fsharing%2Fshare-offsite%2F%3Furl%3Dhttps%253A%252F%252Fflyers.womacromax.com%252Fms%252520wandas%252F"></li>
+        <li><div class="qr-label">WhatsApp</div><img class="qr-img" alt="WhatsApp Share QR" src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fwa.me%2F%3Ftext%3DMs%2520Wanda%E2%80%99s%2520%E2%80%94%2520Exquisite%2520Southern%2520Cuisine%2520https%253A%252F%252Fflyers.womacromax.com%252Fms%252520wandas%252F"></li>
+        <li><div class="qr-label">Snapchat</div><img class="qr-img" alt="Snapchat QR" src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fwww.snapchat.com%2Fscan%3FattachmentUrl%3Dhttps%253A%252F%252Fflyers.womacromax.com%252Fms%252520wandas%252F"></li>
+        <li><div class="qr-label">Pinterest</div><img class="qr-img" alt="Pinterest Share QR" src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fpinterest.com%2Fpin%2Fcreate%2Fbutton%2F%3Furl%3Dhttps%253A%252F%252Fflyers.womacromax.com%252Fms%252520wandas%252F%26description%3DExquisite%2520Southern%2520Cuisine"></li>
+        <li><div class="qr-label">Reddit</div><img class="qr-img" alt="Reddit Share QR" src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fwww.reddit.com%2Fsubmit%3Furl%3Dhttps%253A%252F%252Fflyers.womacromax.com%252Fms%252520wandas%252F%26title%3DMs%2520Wanda%E2%80%99s%2520-%2520Exquisite%2520Southern%2520Cuisine"></li>
+        <li><div class="qr-label">Threads</div><img class="qr-img" alt="Threads QR" src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fwww.threads.net%2F"></li>
+        <li><div class="qr-label">Telegram</div><img class="qr-img" alt="Telegram Share QR" src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Ft.me%2Fshare%2Furl%3Furl%3Dhttps%253A%252F%252Fflyers.womacromax.com%252Fms%252520wandas%252F%26text%3DMs%2520Wanda%E2%80%99s%2520Exquisite%2520Southern%2520Cuisine"></li>
+        <li><div class="qr-label">Yelp</div><img class="qr-img" alt="Yelp QR" src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fyelp.com%2F"></li>
+        <li><div class="qr-label">Google Maps</div><img class="qr-img" alt="Google Maps QR" src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fwww.google.com%2Fmaps%2Fsearch%2F%3Fapi%3D1%26query%3D906-908%2BBroadway%2BBayonne%2BNJ%2B07002"></li>
+        <li><div class="qr-label">TripAdvisor</div><img class="qr-img" alt="TripAdvisor QR" src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fwww.tripadvisor.com%2F"></li>
       </ul>
     </div>
   </div>
@@ -323,9 +270,25 @@
         <h2>Your Order</h2>
         <button class="close-cart" id="closeCart">×</button>
       </div>
+
+      <!-- Small thumbtacks preview of selected items -->
+      <div class="tack-bar" id="tackBar"></div>
+
+      <!-- Summary numbers -->
+      <div class="cart-summary">
+        <span id="summaryDistinct">0 items</span> •
+        <span id="summaryQty">0 qty</span> •
+        <strong id="summaryTotal">$0.00</strong>
+      </div>
+
       <ul class="cart-items" id="cartItems">
         <li class="empty-cart">Your cart is empty</li>
       </ul>
+
+      <div class="totals">
+        <div class="label">Subtotal</div>
+        <div class="value" id="subtotalValue">$0.00</div>
+      </div>
     </div>
   </div>
 
@@ -347,6 +310,7 @@
             <small class="toggle-hint">Tap to expand / collapse</small>
             <div class="description" itemprop="description">
               <p>Experience authentic Southern flavors at <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress"><span itemprop="streetAddress">906-908 Broadway</span>, <span itemprop="addressLocality">Bayonne</span>, <span itemprop="addressRegion">NJ</span> <span itemprop="postalCode">07002</span></span>. Ms. Wanda's offers more than just a meal—it's a celebration of tradition, community, and culinary excellence. Step into a warm, blues-era inspired atmosphere where every dish tells a story.</p>
+
               <p><strong>Menu Highlights:</strong></p>
               <ul itemprop="hasMenuSection" itemscope itemtype="https://schema.org/MenuSection">
                 <li itemprop="name">Crispy Fried Seafood with collard greens &amp; cornbread</li>
@@ -354,7 +318,27 @@
                 <li itemprop="name">Shrimp Scampi Pie with garlic knots</li>
                 <li itemprop="name">Buffalo Wings, Eggplant Rollitini &amp; More</li>
               </ul>
-              <p>Each recipe crafted with love, passed down through generations. Join us in celebrating Southern culture and community spirit.</p>
+
+              <p><strong>Ms. Wanda’s Boutique Service</strong></p>
+              <p>From intimate tastings to milestone celebrations, our boutique team curates <em>end-to-end</em> hospitality with grace and precision. Expect menu design tailored to your guests, white-glove presentation, and a service cadence that never rushes a moment. We handle rentals and styling, coordinate timelines with your photographer or planner, and can accommodate dietary preferences (halal, vegetarian, vegan, gluten-free) without compromising flavor.</p>
+              <ul>
+                <li>Private dining & chef’s table experiences</li>
+                <li>Corporate luncheons, offsites, and VIP green room catering</li>
+                <li>Custom canapé & dessert bars, mocktail pairings</li>
+                <li>On-site carving & live action stations</li>
+                <li>Full event staffing, linen & tableware coordination</li>
+              </ul>
+
+              <p><strong>Political & Community Events</strong></p>
+              <p>We proudly host nonpartisan community gatherings and civic programming—creating a warm, respectful space for neighbors to connect. Whether it’s a town hall, candidate meet-and-greet, cultural celebration, or fundraiser, our team manages hospitality so organizers can focus on the conversation.</p>
+              <ul>
+                <li>Town halls & issue forums (podium, PA, mic setup)</li>
+                <li>Meet-and-greets, listening sessions, and press briefings</li>
+                <li>Voter-registration & resource drives (in partnership with local orgs)</li>
+                <li>School, church, and youth-program fundraisers</li>
+                <li>Local artist showcases & heritage month celebrations</li>
+              </ul>
+              <p><em>Event support options:</em> staging & backdrops, press step-and-repeat, run-of-show planning, security liaison, ADA-conscious seating, and media check-in. To inquire, call <a href="tel:+17035962482" style="color:#ffd7d7">+1 (703) 596-2482</a> or email <a href="mailto:events@mswandas.example" style="color:#ffd7d7">events@mswandas.example</a>.</p>
             </div>
           </blockquote>
         </div>
@@ -377,47 +361,78 @@
             </div>
           </div>
 
-          <div class="menu-scroll-container">
-            <div class="menu-cards">
-              <div class="menu-card" itemprop="hasMenuItem" itemscope itemtype="https://schema.org/MenuItem">
+          <div class="menu-scroll-container" id="menuScroll">
+            <div class="menu-cards" id="menuCards">
+              <!-- Each card now has data-price and a visible price badge -->
+              <div class="menu-card" data-name="Fried Chicken" data-price="14.00" itemprop="hasMenuItem" itemscope itemtype="https://schema.org/MenuItem">
                 <img src="https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=400&q=80" alt="Fried Chicken">
+                <div class="price-badge">$14.00</div>
                 <h3 itemprop="name">Fried Chicken</h3>
                 <p itemprop="description">Crispy, golden perfection with signature seasoning</p>
               </div>
-              <div class="menu-card" itemprop="hasMenuItem" itemscope itemtype="https://schema.org/MenuItem">
+
+              <div class="menu-card" data-name="Collard Greens" data-price="6.00" itemprop="hasMenuItem" itemscope itemtype="https://schema.org/MenuItem">
                 <img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80" alt="Collard Greens">
+                <div class="price-badge">$6.00</div>
                 <h3 itemprop="name">Collard Greens</h3>
                 <p itemprop="description">Slow-cooked with smoked turkey</p>
               </div>
-              <div class="menu-card" itemprop="hasMenuItem" itemscope itemtype="https://schema.org/MenuItem">
-                <img src="https://images.unsplash.com/photo-1619895092538-128341789043?w=400&q=80" alt="Mac & Cheese">
+
+              <div class="menu-card" data-name="Mac & Cheese" data-price="7.50" itemprop="hasMenuItem" itemscope itemtype="https://schema.org/MenuItem">
+                <img src="https://images.unsplash.com/photo-1619895092538-128341789043?w=400&q=80" alt="Mac and Cheese">
+                <div class="price-badge">$7.50</div>
                 <h3 itemprop="name">Mac &amp; Cheese</h3>
                 <p itemprop="description">Creamy, cheesy comfort in every bite</p>
               </div>
-              <div class="menu-card" itemprop="hasMenuItem" itemscope itemtype="https://schema.org/MenuItem">
+
+              <div class="menu-card" data-name="Homemade Cornbread" data-price="4.50" itemprop="hasMenuItem" itemscope itemtype="https://schema.org/MenuItem">
                 <img src="https://images.unsplash.com/photo-1633504581786-316c8002b1b9?w=400&q=80" alt="Cornbread">
+                <div class="price-badge">$4.50</div>
                 <h3 itemprop="name">Homemade Cornbread</h3>
                 <p itemprop="description">Sweet, buttery, and warm</p>
               </div>
-              <div class="menu-card" itemprop="hasMenuItem" itemscope itemtype="https://schema.org/MenuItem">
-                <img src="https://images.unsplash.com/photo-1603073203512-73b47e5ae9fb?w=400&q=80" alt="Fried Fish">
+
+              <div class="menu-card" data-name="Fried Whiting" data-price="13.50" itemprop="hasMenuItem" itemscope itemtype="https://schema.org/MenuItem">
+                <img src="https://images.unsplash.com/photo-1603073203512-73b47e5ae9fb?w=400&q=80" alt="Fried Whiting">
+                <div class="price-badge">$13.50</div>
                 <h3 itemprop="name">Fried Whiting</h3>
                 <p itemprop="description">Fresh, flaky, perfectly seasoned</p>
               </div>
-              <div class="menu-card" itemprop="hasMenuItem" itemscope itemtype="https://schema.org/MenuItem">
-                <img src="https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62?w=400&q=80" alt="Red Snapper">
+
+              <div class="menu-card" data-name="Stuffed Red Snapper" data-price="24.00" itemprop="hasMenuItem" itemscope itemtype="https://schema.org/MenuItem">
+                <img src="https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62?w=400&q=80" alt="Stuffed Red Snapper">
+                <div class="price-badge">$24.00</div>
                 <h3 itemprop="name">Stuffed Red Snapper</h3>
                 <p itemprop="description">Elegantly prepared with seafood stuffing</p>
               </div>
-              <div class="menu-card" itemprop="hasMenuItem" itemscope itemtype="https://schema.org/MenuItem">
+
+              <div class="menu-card" data-name="Candied Yams" data-price="6.50" itemprop="hasMenuItem" itemscope itemtype="https://schema.org/MenuItem">
                 <img src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?w=400&q=80" alt="Candied Yams">
+                <div class="price-badge">$6.50</div>
                 <h3 itemprop="name">Candied Yams</h3>
                 <p itemprop="description">Sweet, tender, with brown sugar glaze</p>
               </div>
-              <div class="menu-card" itemprop="hasMenuItem" itemscope itemtype="https://schema.org/MenuItem">
-                <img src="https://images.unsplash.com/photo-1562158147-f69568e4e43c?w=400&q=80" alt="Shrimp">
+
+              <div class="menu-card" data-name="Shrimp Scampi Pie" data-price="18.00" itemprop="hasMenuItem" itemscope itemtype="https://schema.org/MenuItem">
+                <img src="https://images.unsplash.com/photo-1562158147-f69568e4e43c?w=400&q=80" alt="Shrimp Scampi Pie">
+                <div class="price-badge">$18.00</div>
                 <h3 itemprop="name">Shrimp Scampi Pie</h3>
                 <p itemprop="description">Succulent shrimp with garlic knots</p>
+              </div>
+
+              <!-- Extra items -->
+              <div class="menu-card" data-name="Grandma’s Cornbread Dressing" data-price="9.50">
+                <img src="https://images.unsplash.com/photo-1546549039-49ec6f8b1361?w=400&q=80" alt="Cornbread Dressing">
+                <div class="price-badge">$9.50</div>
+                <h3>Grandma’s Cornbread Dressing</h3>
+                <p>Holiday classic with sage & chicken stock</p>
+              </div>
+
+              <div class="menu-card" data-name="Peach Cobbler" data-price="6.00">
+                <img src="https://images.unsplash.com/photo-1601050690597-9b1b6a9f6c14?w=400&q=80" alt="Peach Cobbler">
+                <div class="price-badge">$6.00</div>
+                <h3>Peach Cobbler</h3>
+                <p>Buttery crust, warm spiced peaches</p>
               </div>
             </div>
           </div>
@@ -453,17 +468,14 @@
               </button>
             </div>
 
-            <div class="delivery-section">
-              <h3>🚚 Request Delivery</h3>
-              <form class="delivery-form" id="deliveryForm" itemprop="potentialAction" itemscope itemtype="https://schema.org/OrderAction">
-                <meta itemprop="target" content="tel:+17035962482" />
-                <input type="text" placeholder="Your Name" required>
-                <input type="tel" placeholder="Phone Number" required>
-                <input type="email" placeholder="Email Address" required>
-                <textarea placeholder="Delivery Address" rows="2" required></textarea>
-                <textarea placeholder="Special Instructions (optional)" rows="2"></textarea>
-                <button type="submit" class="submit-btn" itemprop="name">Submit Delivery Request</button>
-              </form>
+            <!-- REPLACED FORM WITH IFRAME (no padding, no horizontal scroll) -->
+            <div class="delivery-section delivery-embed">
+              <h3>🚚 Request Delivery / Contact</h3>
+              <iframe
+                class="contact-iframe"
+                title="Contact / Delivery Form"
+                src="https://gtc-010-23-menu-fix-womacromax.replit.app/contact">
+              </iframe>
             </div>
           </div>
         </div>
@@ -591,66 +603,68 @@
         }, 4000);
       }
 
-      // Duplicate menu cards for infinite scroll
-      var menuCards = document.querySelector('.menu-cards');
+      // Duplicate menu cards for infinite auto scroll demo
+      var menuCards = document.getElementById('menuCards');
       if (menuCards) {
         var cards = menuCards.innerHTML;
         menuCards.innerHTML = cards + cards;
       }
 
-      // Manual scroll control for menu
-      var menuScrollContainer = document.querySelector('.menu-scroll-container');
-      var scrollTimeout, isScrolling = false, startY = 0, currentY = 0;
+      // Manual vertical scroll on Menu page, pause auto-scroll while interacting
+      var menuScrollContainer = document.getElementById('menuScroll');
+      var scrollTimeout, isDragging = false, startY = 0;
 
-      if (menuCards && menuScrollContainer) {
-        menuScrollContainer.addEventListener('touchstart', function (e) {
-          isScrolling = true; startY = e.touches[0].clientY;
-          menuCards.classList.add('paused'); clearTimeout(scrollTimeout);
-        });
-        menuScrollContainer.addEventListener('touchmove', function (e) {
-          if (!isScrolling) return;
-          currentY = e.touches[0].clientY;
-          var deltaY = startY - currentY; startY = currentY;
-          var computedStyle = window.getComputedStyle(menuCards);
-          var matrix = new WebKitCSSMatrix(computedStyle.transform);
-          var currentTransform = matrix.m42;
-          menuCards.style.transform = 'translateY(' + (currentTransform - deltaY) + 'px)';
-        });
-        menuScrollContainer.addEventListener('touchend', function () {
-          isScrolling = false;
-          scrollTimeout = setTimeout(function () {
-            menuCards.classList.remove('paused');
-          }, 3000);
-        });
-
-        menuScrollContainer.addEventListener('mousedown', function (e) {
-          isScrolling = true; startY = e.clientY;
-          menuCards.classList.add('paused'); clearTimeout(scrollTimeout); e.preventDefault();
-        });
-        document.addEventListener('mousemove', function (e) {
-          if (!isScrolling) return;
-          currentY = e.clientY; var deltaY = startY - currentY; startY = currentY;
-          var computedStyle = window.getComputedStyle(menuCards);
-          var matrix = new WebKitCSSMatrix(computedStyle.transform);
-          var currentTransform = matrix.m42;
-          menuCards.style.transform = 'translateY(' + (currentTransform - deltaY) + 'px)';
-        });
-        document.addEventListener('mouseup', function () {
-          if (!isScrolling) return; isScrolling = false;
-          scrollTimeout = setTimeout(function () {
-            menuCards.classList.remove('paused'); menuCards.style.transform = '';
-          }, 3000);
-        });
+      function pauseAutoScrollTemporarily() {
+        if (!menuCards) return;
+        menuCards.classList.add('paused');
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(function(){
+          menuCards.classList.remove('paused');
+        }, 3000);
       }
 
-      // Cart
-      var cart = [];
+      if (menuScrollContainer && menuCards) {
+        menuScrollContainer.addEventListener('scroll', pauseAutoScrollTemporarily, {passive:true});
+        menuScrollContainer.addEventListener('wheel', pauseAutoScrollTemporarily, {passive:true});
+
+        menuScrollContainer.addEventListener('touchstart', function(e){
+          isDragging = true; startY = e.touches[0].clientY; pauseAutoScrollTemporarily();
+        }, {passive:true});
+        menuScrollContainer.addEventListener('touchmove', function(e){
+          if (!isDragging) return;
+          var currentY = e.touches[0].clientY;
+          var deltaY = startY - currentY; startY = currentY;
+          menuScrollContainer.scrollTop += deltaY;
+        }, {passive:true});
+        menuScrollContainer.addEventListener('touchend', function(){ isDragging = false; });
+
+        menuScrollContainer.addEventListener('mousedown', function(e){
+          isDragging = true; startY = e.clientY; pauseAutoScrollTemporarily(); e.preventDefault();
+        });
+        document.addEventListener('mousemove', function(e){
+          if (!isDragging) return;
+          var deltaY = startY - e.clientY; startY = e.clientY;
+          menuScrollContainer.scrollTop += deltaY;
+        });
+        document.addEventListener('mouseup', function(){ isDragging = false; });
+      }
+
+      // ===== CART WITH THUMBNAILS, SUMMARY, PRICES =====
+      var cart = {}; // name -> { qty, price, thumb }
       var cartModal = document.getElementById('cartModal');
-      var cartBtn = document.getElementById('cartBtn');
+      var cartBtn   = document.getElementById('cartBtn');
       var closeCart = document.getElementById('closeCart');
       var cartItems = document.getElementById('cartItems');
       var cartCount = document.getElementById('cartCount');
+      var tackBar   = document.getElementById('tackBar');
+      var summaryDistinct = document.getElementById('summaryDistinct');
+      var summaryQty      = document.getElementById('summaryQty');
+      var summaryTotal    = document.getElementById('summaryTotal');
+      var subtotalValue   = document.getElementById('subtotalValue');
 
+      function money(n){ return n.toLocaleString('en-US',{style:'currency',currency:'USD'}); }
+
+      // Open/Close cart
       cartBtn.addEventListener('click', function () {
         cartModal.classList.add('active');
       });
@@ -661,47 +675,122 @@
         if (e.target === cartModal) cartModal.classList.remove('active');
       });
 
-      document.addEventListener('click', function (e) {
-        if (e.target.closest('.menu-card')) {
-          var card = e.target.closest('.menu-card');
-          var itemName = card.querySelector('h3').textContent;
-          cart.push(itemName); updateCart();
-          card.style.transform = 'scale(0.95)';
-          setTimeout(function () { card.style.transform = 'scale(1)'; }, 200);
-        }
+      // Add to cart when clicking a menu-card
+      document.addEventListener('click', function(e){
+        var card = e.target.closest('.menu-card');
+        if (!card) return;
+        var name  = card.dataset.name || (card.querySelector('h3') ? card.querySelector('h3').textContent.trim() : 'Menu Item');
+        var price = parseFloat(card.dataset.price || '0') || 0;
+        var thumb = (card.querySelector('img') && card.querySelector('img').src) ? card.querySelector('img').src : '';
+        addToCart(name, price, thumb);
+
+        // visual feedback
+        card.style.transform = 'scale(0.95)';
+        setTimeout(function(){ card.style.transform = 'scale(1)'; }, 180);
       });
 
-      function updateCart() {
-        cartCount.textContent = cart.length;
-        if (cart.length === 0) {
-          cartItems.innerHTML = '<li class="empty-cart">Your cart is empty</li>';
-        } else {
-          cartItems.innerHTML = '';
-          cart.forEach(function (item, index) {
-            var li = document.createElement('li');
-            li.className = 'cart-item';
-            li.innerHTML = item + '<button class="remove-item" data-index="' + index + '">Remove</button>';
-            cartItems.appendChild(li);
-          });
-        }
+      function addToCart(name, price, thumb){
+        if (!cart[name]) cart[name] = { qty:0, price: price, thumb: thumb };
+        cart[name].qty += 1;
+        updateCart();
       }
 
-      cartItems.addEventListener('click', function (e) {
-        if (e.target.classList.contains('remove-item')) {
-          var index = e.target.getAttribute('data-index');
-          cart.splice(index, 1); updateCart();
-        }
-      });
+      function removeOne(name){
+        if (!cart[name]) return;
+        cart[name].qty -= 1;
+        if (cart[name].qty <= 0) delete cart[name];
+        updateCart();
+      }
 
-      // Delivery form
-      var deliveryForm = document.getElementById('deliveryForm');
-      if (deliveryForm) {
-        deliveryForm.addEventListener('submit', function (e) {
-          e.preventDefault();
-          alert('Thank you! Your delivery request has been submitted. We will contact you shortly to confirm your order.');
-          deliveryForm.reset();
+      function addOne(name){
+        if (!cart[name]) return;
+        cart[name].qty += 1;
+        updateCart();
+      }
+
+      function removeAll(name){
+        if (!cart[name]) return;
+        delete cart[name];
+        updateCart();
+      }
+
+      function updateCart(){
+        // totals
+        var names = Object.keys(cart);
+        var distinct = names.length;
+        var qty = 0, total = 0;
+        names.forEach(function(n){
+          qty += cart[n].qty;
+          total += cart[n].qty * cart[n].price;
+        });
+
+        // bubble count = total quantity
+        cartCount.textContent = qty;
+
+        // render tack bar (unique items with qty badge)
+        tackBar.innerHTML = '';
+        names.forEach(function(n){
+          var t = document.createElement('div');
+          t.className = 'tack';
+          t.title = n + ' × ' + cart[n].qty;
+          var img = document.createElement('img');
+          img.src = cart[n].thumb || '';
+          img.alt = n;
+          var badge = document.createElement('span');
+          badge.className = 'tack-badge';
+          badge.textContent = cart[n].qty;
+          t.appendChild(img); t.appendChild(badge);
+          tackBar.appendChild(t);
+        });
+
+        // summary
+        summaryDistinct.textContent = distinct + (distinct === 1 ? ' item' : ' items');
+        summaryQty.textContent      = qty + ' qty';
+        summaryTotal.textContent    = money(total);
+        subtotalValue.textContent   = money(total);
+
+        // render list
+        if (qty === 0) {
+          cartItems.innerHTML = '<li class="empty-cart">Your cart is empty</li>';
+          return;
+        }
+        cartItems.innerHTML = '';
+        names.forEach(function(n){
+          var lineTotal = cart[n].qty * cart[n].price;
+          var li = document.createElement('li');
+          li.className = 'cart-item';
+          li.innerHTML =
+            '<div class="cart-thumb"><img src="'+(cart[n].thumb||'')+'" alt="'+n+'"></div>'+
+            '<div class="item-name">'+n+'</div>'+
+            '<div class="qty-controls">'+
+              '<button class="btn dec" data-name="'+n+'">−</button>'+
+              '<span>'+cart[n].qty+'</span>'+
+              '<button class="btn inc" data-name="'+n+'">＋</button>'+
+            '</div>'+
+            '<div class="item-line">'+money(cart[n].price)+' each</div>'+
+            '<button class="btn remove" data-remove="'+n+'">Remove</button>';
+          cartItems.appendChild(li);
+
+          // append line total row
+          var lt = document.createElement('div');
+          lt.className = 'item-line';
+          lt.style.gridColumn = '1 / -1';
+          lt.style.textAlign = 'right';
+          lt.textContent = 'Line total: ' + money(lineTotal);
+          cartItems.appendChild(lt);
         });
       }
+
+      // quantity controls
+      cartItems.addEventListener('click', function(e){
+        if (e.target.classList.contains('dec')) {
+          removeOne(e.target.dataset.name);
+        } else if (e.target.classList.contains('inc')) {
+          addOne(e.target.dataset.name);
+        } else if (e.target.dataset.remove) {
+          removeAll(e.target.dataset.remove);
+        }
+      });
 
       // Blog expand/collapse
       var blogBox = document.getElementById('blogBox');
@@ -732,7 +821,7 @@
         });
       }
 
-      // BRAND MODAL (WoMacroMAX.com) open/close; no padding; vertical scroll only
+      // BRAND MODAL (WoMacroMAX.com)
       var brandLink = document.getElementById('brandLink');
       var brandModal = document.getElementById('brandModal');
       var brandClose = document.getElementById('brandClose');
@@ -740,14 +829,12 @@
       function openBrandModal(){
         brandModal.classList.add('active');
         brandModal.setAttribute('aria-hidden','false');
-        // lock background scroll
         document.documentElement.style.overflow = 'hidden';
         document.body.style.overflow = 'hidden';
       }
       function closeBrandModal(){
         brandModal.classList.remove('active');
         brandModal.setAttribute('aria-hidden','true');
-        // restore scroll
         document.documentElement.style.overflow = '';
         document.body.style.overflow = '';
       }
@@ -759,7 +846,6 @@
         });
         brandClose.addEventListener('click', closeBrandModal);
         brandModal.addEventListener('click', function(e){
-          // click outside iframe (background) closes
           if(e.target === brandModal) closeBrandModal();
         });
         window.addEventListener('keydown', function(e){
