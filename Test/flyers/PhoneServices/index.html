@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Single Art — Bootstrap One-Pager</title>
+
+  <!-- Bootstrap 5.3.3 -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+    crossorigin="anonymous"
+  />
+
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
+      height: 100dvh;
+      width: 100dvw;
+      background: linear-gradient(0deg, #093d4e 0%, #484e79 100%);
+    }
+
+    .single {
+      position: absolute;
+      bottom: 1em;
+      height: 30em;
+      width: 20em;
+      box-sizing: border-box;
+      background: radial-gradient(circle, #000000 0em, #000000 3em, #00000000 3em),
+        radial-gradient(ellipse, #1a1a1a 0em, #1a1a1a 4em, #1a1a1a00 4em),
+        radial-gradient(ellipse, #1a1a1a 0em, #1a1a1a 4em, #1a1a1a00 4em),
+        conic-gradient(
+          transparent 0deg,
+          transparent 150deg,
+          #1a1a1a 150deg,
+          #1a1a1a 180deg,
+          transparent 180deg,
+          transparent 360deg
+        ),
+        conic-gradient(
+          transparent 0deg,
+          transparent 210deg,
+          #1a1a1a 210deg,
+          #1a1a1a 240deg,
+          transparent 240deg,
+          transparent 360deg
+        );
+      background-repeat: no-repeat;
+      background-position-y: 3em, 1em, 11em, 2em, 1.5em;
+      background-position-x: 9.5em, 9.5em, 9.5em, 10em, 6em;
+      background-size: 8em 8em, 8em 11em, 8em 30em, 10em 20em, 14em 20em;
+    }
+
+    .single:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 6em;
+      border-radius: 100% 0 0 0 / 2em 0 0 0;
+      background: linear-gradient(180deg, #f2f2f2 0em, #666666 2em, transparent 2em),
+        linear-gradient(270deg, #754224 0em, #c69c6d 1em, transparent 1em);
+    }
+
+    .single:after {
+      content: ". .";
+      position: absolute;
+      height: 5em;
+      width: 10em;
+      color: red;
+      font-size: 3em;
+      left: 3.9em;
+      top: 1.2em;
+      letter-spacing: 0.2em;
+      opacity: 0.3;
+      animation: glow 2s infinite linear alternate;
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: none;
+        opacity: 0.3;
+      }
+      to {
+        opacity: 1;
+        text-shadow: 0 0 5px red, 0 0 10px red, 0 0 15px red, 0 0 20px red,
+          0 0 25px red, 0 0 30px red, 0 0 40px red, 0 0 50px red;
+      }
+    }
+
+    body:before {
+      content: "";
+      height: 10em;
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      background: linear-gradient(0deg, #1a1a1a 0%, transparent 100%);
+    }
+
+    body:after {
+      content: "";
+      position: absolute;
+      bottom: 0em;
+      left: 0;
+      height: 10em;
+      width: 100%;
+      background: radial-gradient(
+          ellipse,
+          #c0c0c0 0em,
+          #c0c0c0 4em,
+          #c0c0c000 4em,
+          #c0c0c000 6em
+        ),
+        linear-gradient(
+          90deg,
+          #c0c0c0 0em,
+          #c0c0c0 8em,
+          #c0c0c000 8em,
+          #c0c0c000 10em
+        );
+      background-size: 24em 20em;
+      background-position-y: -6em, 4em;
+      background-position-x: -8em, 0em;
+      background-repeat: repeat-x;
+      z-index: -1;
+    }
+  </style>
+</head>
+<body>
+  <!-- Optional: accessible title (visually hidden) -->
+  <h1 class="visually-hidden">Single Art Composition</h1>
+
+  <!-- Your element -->
+  <div class="single"></div>
+
+  <!-- Bootstrap JS (optional) -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"
+  ></script>
+</body>
+</html>

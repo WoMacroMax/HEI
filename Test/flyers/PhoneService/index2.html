@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contractor Partner Agreement</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.6/dist/signature_pad.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <style>
+    body {
+      background-color: #f5f5f5;
+      padding: 2rem;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .contract-wrapper {
+      background: #fff;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: auto;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    .signature-pad {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      height: 150px;
+      width: 100%;
+    }
+    .modal-body {
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .text-start ul li {
+      font-size: 1.15rem;
+      line-height: 1.6;
+      color: #003366;
+    }
+  </style>
+</head>
+<body>
+
+<div class="contract-wrapper" id="contractForm">
+  <h2 class="text-center text-primary mb-4">Contractor Partner Phone Service Agreement</h2>
+
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <div class="text-start">
+        <ul class="list-unstyled">
+          <li>📱 Do you have phone issues?</li>
+          <li>Tired of expensive, unreliable service?</li>
+          <li>Frustrated by inconsistent billing?</li>
+          <li>Need on-demand international support?</li>
+          <li><strong>Want free phone service?</strong></li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Why Choose Us?</h5>
+          <p class="card-text">Our service includes free domestic coverage, flexible support, and referral bonuses. You'll also receive access to expert assistance including language support and technical scheduling.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title border-bottom pb-2 mb-3 fw-bold text-primary">Partner Information</div>
+  <div class="row g-3">
+    <div class="col-md-6">
+      <label class="form-label">First Name</label>
+      <input type="text" class="form-control" placeholder="Your Name" required>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Last Name</label>
+      <input type="text" class="form-control" required>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Phone Number</label>
+      <input type="tel" class="form-control" required>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Email</label>
+      <input type="email" class="form-control" required>
+    </div>
+    <div class="col-md-12">
+      <label class="form-label">Address Line 1</label>
+      <input type="text" class="form-control" required>
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">City</label>
+      <input type="text" class="form-control" required>
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">State</label>
+      <input type="text" class="form-control" required>
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">Zip Code</label>
+      <input type="text" class="form-control" required>
+    </div>
+  </div>
+
+  <div class="text-end mt-4">
+    <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#viewContractModal">
+      <i class="fas fa-file-contract me-1"></i> View Contract Terms
+    </button>
+  </div>
+
+  <div class="mt-4">
+    <label class="form-label">Signature</label>
+    <canvas id="signature" class="signature-pad"></canvas>
+    <button class="btn btn-sm btn-outline-secondary mt-2" onclick="clearSignature()">Clear Signature</button>
+  </div>
+
+  <div class="text-center mt-4">
+    <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#submitModal">
+      Submit &raquo;
+    </button>
+  </div>
+</div>
+
+<!-- View Contract Modal -->
+<div class="modal fade" id="viewContractModal" tabindex="-1" aria-labelledby="viewContractModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="viewContractModalLabel">Contract Terms</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>This Agreement</strong> is made between Community Connect Services, LLC (“Provider”) and the undersigned Contractor Partner (“Contractor”).</p>
+        <p><strong>Maintenance includes:</strong></p>
+        <ul>
+          <li>Language translation</li>
+          <li>SIM swap services</li>
+          <li>Device counseling</li>
+          <li>Facilitating Tech Support calls including:</li>
+          <ul>
+            <li>Language translation during calls</li>
+            <li>Scheduling tech support appointments</li>
+            <li>Follow-up calls with tech support on the contractor's behalf</li>
+          </ul>
+        </ul>
+        <p>The phone service is free, but a $40 monthly service charge applies for maintenance coverage. Under the business partnership program, this fee is waived for the month if the Contractor refers another verified partner.</p>
+        <p>International calls are restricted to on-demand activation and are subject to verification and possible additional charges. Abuse of this service may result in account suspension.</p>
+        <p>This Agreement may be terminated by either party with 10 days' notice. The Provider is not liable for service outages or related losses. This Agreement shall be governed by the laws of the Provider’s operating state and represents the entire understanding between both parties.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  const signaturePad = new SignaturePad(document.getElementById("signature"));
+  function clearSignature() {
+    signaturePad.clear();
+  }
+</script>
+
+</body>
+</html>
