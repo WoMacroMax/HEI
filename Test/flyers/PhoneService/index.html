@@ -1,213 +1,226 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Phone Service Ad</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    /* HERO SECTION (small) */
-    .hero-section {
-      position: relative;
-      height: 24vh;
-      background: linear-gradient(0deg, #093d4e 0%, #484e79 100%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      text-align: center;
-      overflow: hidden;
-      border-bottom: 4px solid #005fa3;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Phone Service Ad | Rounded Hero (Seamless)</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  :root {
+    --heroTop:#33436e;
+    --heroBottom:#0d3b4d;
+    --accent:#005fa3;
+    --eye:red;
+  }
 
-    .hero-section h1 {
-      font-weight: 700;
-      font-size: 1.5rem;
-      margin-bottom: 0.6rem;
-    }
+  /* Page base */
+  body {
+    background:#f4f6f8;            /* page edge color (outside stage) */
+    font-family:'Segoe UI',system-ui,Arial,sans-serif;
+    overflow-x:hidden;
+    margin:0;
+  }
 
-    .single {
-      position: relative;
-      height: 8em;
-      width: 6em;
-      box-sizing: border-box;
-      background: radial-gradient(circle, #000000 0em, #000000 3em, #00000000 3em),
-        radial-gradient(ellipse, #1a1a1a 0em, #1a1a1a 4em, #1a1a1a00 4em),
-        radial-gradient(ellipse, #1a1a1a 0em, #1a1a1a 4em, #1a1a1a00 4em),
-        conic-gradient(
-          transparent 0deg,
-          transparent 150deg,
-          #1a1a1a 150deg,
-          #1a1a1a 180deg,
-          transparent 180deg,
-          transparent 360deg
-        ),
-        conic-gradient(
-          transparent 0deg,
-          transparent 210deg,
-          #1a1a1a 210deg,
-          #1a1a1a 240deg,
-          transparent 240deg,
-          transparent 360deg
-        );
-      background-repeat: no-repeat;
-      background-position-y: 1em, 0.5em, 4em, 0.8em, 0.6em;
-      background-position-x: 3em, 3em, 3em, 3.2em, 2em;
-      background-size: 3em 3em, 3em 4em, 3em 8em, 4em 6em, 5em 6em;
-    }
+  /* ===== Stage (spider-web bg behind hero + cards) ===== */
+  .stage{
+    position:relative;
+    width:100%;
+    background:
+      radial-gradient(circle at 10% 20%, rgba(255,255,255,.07) 0 2px, transparent 3px) 0 0/140px 140px,
+      radial-gradient(circle at 70% 60%, rgba(255,255,255,.06) 0 2px, transparent 3px) 0 0/180px 180px,
+      conic-gradient(from 0deg at 50% 50%, rgba(255,255,255,.05) 0 12deg, transparent 12deg 24deg, rgba(255,255,255,.05) 24deg 36deg, transparent 36deg 48deg, rgba(255,255,255,.05) 48deg 60deg, transparent 60deg 72deg, rgba(255,255,255,.05) 72deg 84deg, transparent 84deg 96deg, rgba(255,255,255,.05) 96deg 108deg, transparent 108deg 120deg, rgba(255,255,255,.05) 120deg 132deg, transparent 132deg 144deg, rgba(255,255,255,.05) 144deg 156deg, transparent 156deg 168deg, rgba(255,255,255,.05) 168deg 180deg) 0 0/280px 280px;
+    background-color:#0f2f3a;
+  }
 
-    .single:before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 2em;
-      border-radius: 100% 0 0 0 / 2em 0 0 0;
-      background: linear-gradient(180deg, #f2f2f2 0em, #666666 0.6em, transparent 0.6em),
-        linear-gradient(270deg, #754224 0em, #c69c6d 0.3em, transparent 0.3em);
-    }
+  /* ===== HERO SECTION (Rounded + Padding) ===== */
+  .hero-section {
+    position: relative;
+    height: 28vh;
+    background: linear-gradient(180deg, var(--heroTop) 0%, var(--heroBottom) 100%);
+    color: #fff;
+    border-bottom: 4px solid var(--accent);
+    border-radius: 0 0 60px 60px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    text-align: center;
+    padding-top: 3rem; /* top padding so nothing gets cut off */
+    overflow: hidden;
+  }
 
-    .single:after {
-      content: ". .";
-      position: absolute;
-      height: 1.5em;
-      width: 4em;
-      color: red;
-      font-size: 1em;
-      left: 1.4em;
-      top: 0.3em;
-      letter-spacing: 0.2em;
-      opacity: 0.3;
-      animation: glow 2s infinite linear alternate;
-    }
+  .hero-section h1 {
+    z-index: 1;
+    font-weight: 800;
+    letter-spacing: .02em;
+    font-size: 1.8rem;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, .35);
+    margin: 0 1rem;
+  }
 
-    @keyframes glow {
-      from { text-shadow: none; opacity: 0.3; }
-      to {
-        opacity: 1;
-        text-shadow: 0 0 5px red, 0 0 10px red, 0 0 15px red,
-        0 0 20px red, 0 0 25px red, 0 0 30px red, 0 0 40px red, 0 0 50px red;
-      }
-    }
+  .hero-highlight {
+    color: #ffb703;
+    text-shadow: 0 0 10px rgba(255, 183, 3, .35);
+  }
 
-    /* BODY */
-    body {
-      background-color: #f4f6f8;
-      font-family: 'Segoe UI', sans-serif;
-    }
+  /* Reaper slides from left -> right */
+  .reaper {
+    position: absolute;
+    bottom: 0;
+    left: -120px;
+    width: 60px;
+    height: 120px;
+    background: #1a1a1a;
+    border-radius: 0 0 10px 10px;
+    filter: drop-shadow(0 6px 8px rgba(0, 0, 0, .45));
+    animation: reaperWalk 2.4s ease-out .35s forwards, bob 3s ease-in-out .35s infinite;
+  }
+  @keyframes reaperWalk {
+    0% { left: -120px; transform: scale(.98); }
+    65% { left: calc(100% - 160px); }
+    100% { left: calc(100% - 100px); transform: scale(1); }
+  }
+  @keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-3px)} }
 
-    .card-section {
-      padding: 60px 20px;
-    }
+  .reaper-head {
+    position: absolute;
+    top: -50px;
+    left: 5px;
+    width: 50px;
+    height: 50px;
+    background: #000;
+    border-radius: 12px;
+  }
+  .eye {
+    position: absolute;
+    top: 10px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--eye);
+    box-shadow: 0 0 6px 2px var(--eye), 0 0 14px 6px rgba(255, 0, 0, .18);
+    animation: blink 3s infinite;
+  }
+  .eye.left { left: 15px; }
+  .eye.right { right: 15px; animation-delay: .3s; }
+  @keyframes blink { 0%,88%,100%{opacity:1} 92%{opacity:.12} }
 
-    .info-card {
-      background: linear-gradient(135deg, #e6f1ff, #ffffff);
-      border-radius: 20px;
-      padding: 40px;
-      box-shadow: 0 4px 20px rgba(0, 123, 255, 0.1);
-    }
+  .scythe {
+    position: absolute;
+    left: -15px;
+    top: -60px;
+    width: 8px;
+    height: 120px;
+    background: #b68a60;
+    border-radius: 4px;
+    animation: sway 2.2s ease-in-out .35s infinite;
+    transform-origin: bottom center;
+  }
+  @keyframes sway { 0%,100%{transform:rotate(0)} 50%{transform:rotate(-3deg)} }
+  .blade {
+    position: absolute;
+    top: -5px;
+    left: -20px;
+    width: 50px;
+    height: 12px;
+    background: linear-gradient(90deg, #d9d9d9, #888);
+    border-radius: 8px 8px 0 0;
+    transform: rotate(10deg);
+  }
 
-    .info-card h2 {
-      color: #003366;
-      font-weight: 700;
-    }
+  /* ===== CARD SECTION (transparent to reveal stage bg) ===== */
+  .card-wrap {
+    position: relative;
+    padding: 60px 20px;
+    background: transparent;  /* <- key: let the stage bg show through */
+  }
 
-    .info-card p {
-      font-size: 1.25rem;
-      color: #333;
-      margin-bottom: 12px;
-    }
+  .equal-col { display: flex; }
+  .equal-card {
+    background: linear-gradient(135deg, #e6f1ff, #ffffff);
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0,123,255,.1);
+    padding: 40px;
+    width: 100%;
+    min-height: 420px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .equal-card h2 { color: #003366; font-weight: 700; }
+  .equal-card p { font-size: 1.2rem; color: #333; margin-bottom: 12px; }
+  .image-card img { border-radius: 14px; width: 100%; height: 100%; object-fit: cover; }
 
-    .btn-primary {
-      background-color: #0077c5;
-      border-radius: 50px;
-      padding: 12px 28px;
-      border: none;
-    }
+  .reveal-on-scroll { opacity: 0; transform: translateY(16px); }
+  .reveal-on-scroll.in { opacity: 1; transform: none; transition: opacity .6s ease, transform .6s ease; }
 
-    .btn-primary:hover {
-      background-color: #005fa3;
-    }
+  .btn-primary {
+    background-color: #0077c5;
+    border-radius: 50px;
+    padding: 12px 28px;
+    border: none;
+  }
+  .btn-primary:hover { background-color: #005fa3; }
+  .btn-secondary { border-radius: 50px; padding: 12px 28px; border: none; }
 
-    .btn-secondary {
-      border-radius: 50px;
-      padding: 12px 28px;
-      border: none;
-    }
+  /* ===== Modal iframe ===== */
+  .modal-content, .modal-body { padding:0 !important; margin:0 !important; border:none !important; overflow-x:hidden !important; }
+  iframe { width:100%; height:85vh; border:none; display:block; overflow-x:hidden !important; }
 
-    .image-card img {
-      border-radius: 20px;
-      width: 100%;
-      height: auto;
-      object-fit: cover;
-    }
-
-    /* Modal iframe: no padding, no horizontal scroll */
-    .modal-content,
-    .modal-body {
-      padding: 0 !important;
-      margin: 0 !important;
-      border: none !important;
-      overflow-x: hidden !important;
-    }
-
-    iframe {
-      width: 100%;
-      height: 85vh;
-      border: none;
-      margin: 0;
-      padding: 0;
-      display: block;
-      overflow-x: hidden !important;
-    }
-
-    @media (max-width: 768px) {
-      .info-card, .image-card {
-        margin-bottom: 30px;
-      }
-      .hero-section { height: 18vh; }
-      iframe { height: 80vh; }
-    }
-  </style>
+  @media (max-width: 992px) { .equal-card { min-height: 360px; } }
+  @media (max-width: 768px) {
+    .hero-section { height: 22vh; border-radius: 0 0 40px 40px; padding-top: 2.5rem; }
+    .equal-card { min-height: 340px; }
+    iframe { height: 80vh; }
+  }
+</style>
 </head>
+
 <body>
 
-  <!-- HERO SECTION -->
-  <section class="hero-section">
-    <h1>Has the THRILL of Your Phone Died</h1>
-    <div class="single"></div>
-  </section>
+  <div class="stage"><!-- background holder for hero + cards -->
 
-  <!-- CARD SECTION -->
-  <div class="container card-section">
-    <div class="row align-items-center">
-      <!-- Left: Info Card -->
-      <div class="col-lg-6">
-        <div class="info-card text-center">
-          <h2 class="mb-4">📱 Do you have phone issues?</h2>
-          <p>Are you <strong>tired of paying too much</strong> for phone service?</p>
-          <p>Is your budget disrupted by <strong>fluctuating bills</strong>?</p>
-          <p>Do you want a <strong>better, more reliable service</strong>?</p>
-          <p><strong>Would you like a free phone service?</strong></p>
-          <div class="d-flex justify-content-center flex-wrap gap-3 mt-4">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#narrativeModal">Learn More</button>
-            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#contactModal">Contact Us</button>
+    <!-- ===== HERO ===== -->
+    <section class="hero-section">
+      <h1>Has the <span class="hero-highlight">THRILL</span> of Your Phone Died</h1>
+      <div class="reaper">
+        <div class="scythe"><div class="blade"></div></div>
+        <div class="reaper-head">
+          <div class="eye left"></div>
+          <div class="eye right"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CARDS ===== -->
+    <div class="card-wrap">
+      <div class="container">
+        <div class="row g-4 align-items-stretch">
+          <div class="col-lg-6 equal-col">
+            <div class="equal-card info-card text-center reveal-on-scroll" id="infoCard">
+              <h2 class="mb-3">📱 Do you have phone issues?</h2>
+              <p>Are you <strong>tired of paying too much</strong> for phone service?</p>
+              <p>Is your budget disrupted by <strong>fluctuating bills</strong>?</p>
+              <p>Do you want a <strong>better, more reliable service</strong>?</p>
+              <p><strong>Would you like a free phone service?</strong></p>
+              <div class="d-flex justify-content-center flex-wrap gap-3 mt-4">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#narrativeModal">Learn More</button>
+                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#contactModal">Contact Us</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 equal-col">
+            <div class="equal-card p-3 reveal-on-scroll image-card">
+              <img src="https://flyers.womacromax.com/phoneservice/media/frustrated%20phone%20user%20wishing%20for%20better%20service.png" alt="Frustrated phone user">
+            </div>
           </div>
         </div>
       </div>
-
-      <!-- Right: Image Card -->
-      <div class="col-lg-6">
-        <div class="image-card">
-          <img src="media/00.png" alt="Frustrated phone user" />
-        </div>
-      </div>
     </div>
-  </div>
 
-  <!-- Narrative Modal -->
+  </div><!-- /stage -->
+
+  <!-- ===== Narrative Modal ===== -->
   <div class="modal fade" id="narrativeModal" tabindex="-1" aria-labelledby="narrativeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content rounded-4">
@@ -229,22 +242,30 @@
     </div>
   </div>
 
-  <!-- CONTACT MODAL (iframe - zero padding, no horizontal scroll) -->
+  <!-- ===== Contact Modal ===== -->
   <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered modal-lg">
       <div class="modal-content rounded-0">
         <div class="modal-body">
-          <iframe 
-            src="https://gtc-010-23-menu-fix-womacromax.replit.app/contact"
-            title="Contact Form" 
-            allowfullscreen 
-            loading="lazy">
-          </iframe>
+          <iframe src="https://gtc-010-23-menu-fix-womacromax.replit.app/contact" title="Contact Form" allowfullscreen loading="lazy"></iframe>
         </div>
       </div>
     </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Reveal cards on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.25 });
+
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+  </script>
 </body>
 </html>
