@@ -1,16 +1,17 @@
 <!DOCTYPE html>
-<html lang="en" itemscope itemtype="https://schema.org/Restaurant">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- SEO + Social -->
-  <title itemprop="name">Ms. Wanda’s | Exquisite Southern Cuisine in Bayonne, NJ</title>
+  <!-- Primary Meta Tags -->
+  <title>Ms. Wanda’s | Exquisite Southern Cuisine in Bayonne, NJ</title>
   <meta name="title" content="Ms. Wanda’s | Exquisite Southern Cuisine in Bayonne, NJ" />
   <meta name="description" content="Experience authentic Southern flavors at Ms. Wanda’s in Bayonne, NJ. More than a meal — a celebration of tradition, community, and soulful cooking passed down through generations." />
   <link rel="canonical" href="https://flyers.womacromax.com/ms%20wandas/" />
   <link rel="image_src" href="https://flyers.womacromax.com/ms%20wandas/assets/GoodSoulFoodBoutique.png" />
 
+  <!-- Open Graph / Facebook -->
   <meta property="og:type" content="restaurant" />
   <meta property="og:url" content="https://flyers.womacromax.com/ms%20wandas/" />
   <meta property="og:title" content="Ms. Wanda’s | Exquisite Southern Cuisine in Bayonne, NJ" />
@@ -18,13 +19,14 @@
   <meta property="og:image" content="https://flyers.womacromax.com/ms%20wandas/assets/GoodSoulFoodBoutique.png" />
   <meta property="og:locale" content="en_US" />
 
+  <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:url" content="https://flyers.womacromax.com/ms%20wandas/" />
   <meta name="twitter:title" content="Ms. Wanda’s | Exquisite Southern Cuisine in Bayonne, NJ" />
   <meta name="twitter:description" content="Authentic Southern cooking, comfort, and culture. Ms. Wanda’s is where every dish tells a story." />
   <meta name="twitter:image" content="https://flyers.womacromax.com/ms%20wandas/assets/GoodSoulFoodBoutique.png" />
 
-  <!-- JSON-LD (Restaurant) -->
+  <!-- JSON-LD Structured Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -51,8 +53,6 @@
   <style>
     @import url(https://fonts.googleapis.com/css?family=Montserrat:700);
 
-    /* Global */
-    html, body { overflow-x: hidden; }
     .info{position:absolute;top:0;right:0;z-index:9999999;margin:1.5rem}
     *,*::before,*::after{box-sizing:border-box;padding:0;margin:0;border:0}
     html{font-size:10px;font-size:calc(5px + 0.4vw)}
@@ -65,6 +65,7 @@
     .cd-slider ul{list-style:none}
     .cd-slider ul li{position:absolute;top:0;left:0;width:100%;height:100%;visibility:hidden;transition:visibility 0s .6s}
     .cd-slider ul li::before{content:'';position:absolute;top:50%;left:50%;border-radius:100%;width:135vh;height:135vh;border:solid rgba(0,0,0,0.2);border-width:0;transform:translate(-50%,-50%);pointer-events:none;transition:border-width .4s .6s}
+
     .content{position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;transform:scale(1.2);transition:opacity .4s .6s,transform .4s .6s}
 
     .food-carousel{position:absolute;top:0;left:0;width:100%;height:100%}
@@ -74,7 +75,7 @@
     /* Menu Slide */
     .menu-slide{background:linear-gradient(135deg,#1a1a1a 0%,#2d2d2d 100%);overflow:hidden}
     .menu-title{position:absolute;top:3%;left:50%;transform:translateX(-50%);font-size:3.5rem;color:#fff;text-align:center;z-index:10;text-shadow:2px 2px 4px rgba(0,0,0,0.5)}
-    .menu-scroll-container{position:absolute;top:22%;left:0;width:100%;height:78%;overflow:hidden}
+    .menu-scroll-container{position:absolute;top:15%;left:0;width:100%;height:85%;overflow:hidden}
     .menu-cards{display:flex;flex-direction:column;gap:2rem;padding:2rem;animation:slowScroll 60s linear infinite;transition:transform .3s ease-out}
     .menu-cards.paused{animation-play-state:paused}
     @keyframes slowScroll{0%{transform:translateY(0)}100%{transform:translateY(-50%)}}
@@ -84,7 +85,7 @@
     .menu-card h3{color:#2d2d2d;font-size:2rem;padding:1.5rem 1.5rem .5rem;margin:0}
     .menu-card p{color:#666;font-size:1.3rem;font-weight:400;padding:0 1.5rem 1.5rem;margin:0}
 
-    /* Cart Modal + FABs */
+    /* Cart Modal */
     .cart-modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:10000;display:none;align-items:center;justify-content:center}
     .cart-modal.active{display:flex}
     .cart-content{background:#fff;border-radius:15px;padding:2rem;max-width:500px;width:90%;max-height:80vh;overflow-y:auto;position:relative}
@@ -96,9 +97,7 @@
     .cart-item::before{content:"🍽️";margin-right:1rem}
     .remove-item{background:#ff4444;color:#fff;border:none;padding:.5rem 1rem;border-radius:5px;cursor:pointer;font-size:1.2rem;font-weight:700}
     .empty-cart{text-align:center;color:#999;font-size:1.6rem;padding:3rem;font-weight:400}
-    .cart-button,.share-button{position:fixed;bottom:2rem;border:none;width:60px;height:60px;border-radius:50%;font-size:2.2rem;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,0.3);z-index:9998;display:flex;align-items:center;justify-content:center}
-    .cart-button{right:2rem;background:#ff0000;color:#fff}
-    .share-button{right:8.6rem;background:#222;color:#fff}
+    .cart-button{position:fixed;bottom:2rem;right:2rem;background:#ff0000;color:#fff;border:none;width:60px;height:60px;border-radius:50%;font-size:2.5rem;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,0.3);z-index:9998;display:flex;align-items:center;justify-content:center}
     .cart-count{position:absolute;top:-5px;right:-5px;background:#fff;color:#ff0000;border-radius:50%;width:25px;height:25px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;border:2px solid #ff0000}
 
     /* Location Slide */
@@ -119,11 +118,7 @@
     .submit-btn{background:#ff0000;color:#fff;border:none;padding:1.4rem;border-radius:10px;font-size:1.5rem;font-weight:700;cursor:pointer;transition:background .3s}
     .submit-btn:hover{background:#cc0000}
 
-    /* Slide 1 “Blog” expand-on-tap (no horizontal scroll) */
-    .content blockquote{position:absolute;bottom:5%;left:4%;z-index:2;max-width:92%;background:rgba(0,0,0,0.75);padding:2rem;border-radius:10px;max-height:46vh;overflow-y:auto;overflow-x:hidden;cursor:pointer}
-    .content blockquote.expanded{max-height:85vh}
-    .toggle-hint{display:block;font-size:1.1rem;opacity:.8;margin-top:.5rem}
-
+    .content blockquote{position:absolute;bottom:5%;left:4%;z-index:2;max-width:92%;background:rgba(0,0,0,0.75);padding:2rem;border-radius:10px;max-height:85vh;overflow-y:auto}
     .description{margin-top:1.5rem;font-size:1.2rem;font-weight:400;line-height:1.6}
     .description p{font-size:1.2rem;margin-bottom:1rem}
     .description ul{list-style:none;padding-left:0;margin:1rem 0}
@@ -161,136 +156,17 @@
     .next::after{transform:rotate(45deg);bottom:24%}
     .prev:hover,.next:hover{box-shadow:0 0 0 1rem rgba(0,0,0,0.15)}
     nav>div>span{position:absolute;top:50%;left:50%;width:0;height:0;border-radius:100%;z-index:5;pointer-events:none;will-change:width,height;transform:translate(-50%,-50%);transition:width .6s,height .6s}
-
-    /* Share modal (separate from cart modal) */
-    .share-modal{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:10000;display:none;align-items:center;justify-content:center}
-    .share-modal.active{display:flex}
-    .share-content{background:#fff;border-radius:15px;padding:2rem;max-width:920px;width:94%;max-height:82vh;overflow-y:auto;position:relative}
-    .share-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;border-bottom:2px solid #333;padding-bottom:.75rem}
-    .share-header h2{color:#333;font-size:2rem;margin:0}
-    .share-close{background:#ff0000;color:#fff;border:none;width:40px;height:40px;border-radius:50%;font-size:2rem;cursor:pointer;line-height:1;padding:0}
-    .qr-grid{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1.2rem}
-    .qr-grid li{text-align:center}
-    .qr-label{color:#333;font-weight:700;margin:.35rem 0}
-    .qr-img{width:170px;height:170px;border-radius:12px;background:#fff;padding:6px;box-shadow:0 6px 18px rgba(0,0,0,.25);object-fit:contain}
   </style>
 </head>
-<body itemprop="servesCuisine" content="Southern, Soul Food">
+<body>
   <div class="info">Wo<span style="color:black;">Macro</span><span style="color:red;">MAX</span>.com</div>
 
-  <!-- Share Button (beside cart) -->
-  <button class="share-button" id="shareBtn" aria-label="Share">🔗</button>
-
-  <!-- Share / Social QR Modal (Major Social Sites + useful links) -->
-  <div class="share-modal" id="shareModal" aria-hidden="true">
-    <div class="share-content" role="dialog" aria-modal="true" aria-label="Share via QR">
-      <div class="share-header">
-        <h2>Share & Follow</h2>
-        <button class="share-close" id="closeShare">×</button>
-      </div>
-
-      <p style="color:#333;font-weight:400;margin-top:0">
-        Scan to open or share Ms. Wanda’s on your favorite platform.
-      </p>
-
-      <!-- NOTE: URLs are encoded once for the QR generator.
-           Canonical URL being shared: https://flyers.womacromax.com/ms%20wandas/ -->
-      <ul class="qr-grid">
-        <li>
-          <div class="qr-label">Website</div>
-          <img class="qr-img" alt="Website QR"
-               src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fflyers.womacromax.com%2Fms%2520wandas%2F">
-        </li>
-        <li>
-          <div class="qr-label">Menu</div>
-          <img class="qr-img" alt="Menu QR"
-               src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fflyers.womacromax.com%2Fms%2520wandas%2F%23menu">
-        </li>
-        <li>
-          <div class="qr-label">Facebook</div>
-          <img class="qr-img" alt="Facebook Share QR"
-               src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fwww.facebook.com%2Fsharer%2Fsharer.php%3Fu%3Dhttps%253A%252F%252Fflyers.womacromax.com%252Fms%252520wandas%252F">
-        </li>
-        <li>
-          <div class="qr-label">Instagram</div>
-          <img class="qr-img" alt="Instagram QR"
-               src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Finstagram.com%2F">
-        </li>
-        <li>
-          <div class="qr-label">X (Twitter)</div>
-          <img class="qr-img" alt="X Share QR"
-               src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Ftwitter.com%2Fintent%2Ftweet%3Furl%3Dhttps%253A%252F%252Fflyers.womacromax.com%252Fms%252520wandas%252F%26text%3DMs%2520Wanda%E2%80%99s%2520%E2%80%94%2520Exquisite%2520Southern%2520Cuisine">
-        </li>
-        <li>
-          <div class="qr-label">TikTok</div>
-          <img class="qr-img" alt="TikTok QR"
-               src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fwww.tiktok.com%2F">
-        </li>
-        <li>
-          <div class="qr-label">YouTube</div>
-          <img class="qr-img" alt="YouTube QR"
-               src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fwww.youtube.com%2F">
-        </li>
-        <li>
-          <div class="qr-label">LinkedIn</div>
-          <img class="qr-img" alt="LinkedIn Share QR"
-               src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fwww.linkedin.com%2Fsharing%2Fshare-offsite%2F%3Furl%3Dhttps%253A%252F%252Fflyers.womacromax.com%252Fms%252520wandas%252F">
-        </li>
-        <li>
-          <div class="qr-label">WhatsApp</div>
-          <img class="qr-img" alt="WhatsApp Share QR"
-               src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fwa.me%2F%3Ftext%3DMs%2520Wanda%E2%80%99s%2520%E2%80%94%2520Exquisite%2520Southern%2520Cuisine%2520https%253A%252F%252Fflyers.womacromax.com%252Fms%252520wandas%252F">
-        </li>
-        <li>
-          <div class="qr-label">Snapchat</div>
-          <img class="qr-img" alt="Snapchat QR"
-               src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fwww.snapchat.com%2Fscan%3FattachmentUrl%3Dhttps%253A%252F%252Fflyers.womacromax.com%252Fms%252520wandas%252F">
-        </li>
-        <li>
-          <div class="qr-label">Pinterest</div>
-          <img class="qr-img" alt="Pinterest Share QR"
-               src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fpinterest.com%2Fpin%2Fcreate%2Fbutton%2F%3Furl%3Dhttps%253A%252F%252Fflyers.womacromax.com%252Fms%252520wandas%252F%26description%3DExquisite%2520Southern%2520Cuisine">
-        </li>
-        <li>
-          <div class="qr-label">Reddit</div>
-          <img class="qr-img" alt="Reddit Share QR"
-               src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fwww.reddit.com%2Fsubmit%3Furl%3Dhttps%253A%252F%252Fflyers.womacromax.com%252Fms%252520wandas%252F%26title%3DMs%2520Wanda%E2%80%99s%2520-%2520Exquisite%2520Southern%2520Cuisine">
-        </li>
-        <li>
-          <div class="qr-label">Threads</div>
-          <img class="qr-img" alt="Threads QR"
-               src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fwww.threads.net%2F">
-        </li>
-        <li>
-          <div class="qr-label">Telegram</div>
-          <img class="qr-img" alt="Telegram Share QR"
-               src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Ft.me%2Fshare%2Furl%3Furl%3Dhttps%253A%252F%252Fflyers.womacromax.com%252Fms%252520wandas%252F%26text%3DMs%2520Wanda%E2%80%99s%2520Exquisite%2520Southern%2520Cuisine">
-        </li>
-        <li>
-          <div class="qr-label">Yelp</div>
-          <img class="qr-img" alt="Yelp QR"
-               src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fyelp.com%2F">
-        </li>
-        <li>
-          <div class="qr-label">Google Maps</div>
-          <img class="qr-img" alt="Google Maps QR"
-               src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fwww.google.com%2Fmaps%2Fsearch%2F%3Fapi%3D1%26query%3D906-908%2BBroadway%2BBayonne%2BNJ%2B07002">
-        </li>
-        <li>
-          <div class="qr-label">TripAdvisor</div>
-          <img class="qr-img" alt="TripAdvisor QR"
-               src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fwww.tripadvisor.com%2F">
-        </li>
-      </ul>
-    </div>
-  </div>
-
   <!-- Cart Button -->
-  <button class="cart-button" id="cartBtn" aria-label="Cart">🛒 <span class="cart-count" id="cartCount">0</span></button>
+  <button class="cart-button" id="cartBtn">🛒 <span class="cart-count" id="cartCount">0</span></button>
 
   <!-- Cart Modal -->
   <div class="cart-modal" id="cartModal">
-    <div class="cart-content" role="dialog" aria-modal="true" aria-label="Your Order">
+    <div class="cart-content">
       <div class="cart-header">
         <h2>Your Order</h2>
         <button class="close-cart" id="closeCart">×</button>
@@ -301,10 +177,8 @@
     </div>
   </div>
 
-  <section class="cd-slider" itemprop="hasMenu" itemscope itemtype="https://schema.org/Menu">
-    <meta itemprop="image" content="https://flyers.womacromax.com/ms%20wandas/assets/GoodSoulFoodBoutique.png" />
+  <section class="cd-slider">
     <ul>
-      <!-- Slide 1: Blog (expand on tap) -->
       <li data-color="#f8e5d0">
         <div class="content">
           <div class="food-carousel">
@@ -313,18 +187,17 @@
             <img src="https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=800&q=80" alt="Comfort Food" class="carousel-img">
             <img src="https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?w=800&q=80" alt="Southern Cuisine" class="carousel-img">
           </div>
-          <blockquote id="blogBox">
-            <p itemprop="name">Ms. Wanda's</p>
+          <blockquote>
+            <p>Ms. Wanda's</p>
             <span>Exquisite Southern Cuisine</span>
-            <small class="toggle-hint">Tap to expand / collapse</small>
-            <div class="description" itemprop="description">
-              <p>Experience authentic Southern flavors at <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress"><span itemprop="streetAddress">906-908 Broadway</span>, <span itemprop="addressLocality">Bayonne</span>, <span itemprop="addressRegion">NJ</span> <span itemprop="postalCode">07002</span></span>. Ms. Wanda's offers more than just a meal—it's a celebration of tradition, community, and culinary excellence. Step into a warm, blues-era inspired atmosphere where every dish tells a story.</p>
+            <div class="description">
+              <p>Experience authentic Southern flavors at 906-908 Broadway, Bayonne, NJ. Ms. Wanda's offers more than just a meal—it's a celebration of tradition, community, and culinary excellence. Step into a warm, blues-era inspired atmosphere where every dish tells a story.</p>
               <p><strong>Menu Highlights:</strong></p>
-              <ul itemprop="hasMenuSection" itemscope itemtype="https://schema.org/MenuSection">
-                <li itemprop="name">Crispy Fried Seafood with collard greens &amp; cornbread</li>
-                <li itemprop="name">Stuffed Red Snapper with yams &amp; potato salad</li>
-                <li itemprop="name">Shrimp Scampi Pie with garlic knots</li>
-                <li itemprop="name">Buffalo Wings, Eggplant Rollitini &amp; More</li>
+              <ul>
+                <li>Crispy Fried Seafood with collard greens & cornbread</li>
+                <li>Stuffed Red Snapper with yams & potato salad</li>
+                <li>Shrimp Scampi Pie with garlic knots</li>
+                <li>Buffalo Wings, Eggplant Rollitini & More</li>
               </ul>
               <p>Each recipe crafted with love, passed down through generations. Join us in celebrating Southern culture and community spirit.</p>
             </div>
@@ -332,91 +205,72 @@
         </div>
       </li>
 
-      <!-- Slide 2: Menu (includes QR hero thumb to Menu) -->
-      <li data-color="#cccccc" id="menu">
+      <li data-color="#cccccc">
         <div class="content menu-slide">
           <h2 class="menu-title">Our Menu</h2>
-
-          <!-- QR Hero Thumbnail Direct to Menu -->
-          <div style="position:absolute;top:12%;left:50%;transform:translateX(-50%);display:flex;gap:1rem;align-items:center;z-index:11">
-            <a href="#menu" aria-label="Open Menu">
-              <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https%3A%2F%2Fflyers.womacromax.com%2Fms%2520wandas%2F%23menu"
-                   alt="QR to Menu" width="120" height="120"
-                   style="border-radius:12px;background:#fff;padding:6px;box-shadow:0 6px 18px rgba(0,0,0,.35)">
-            </a>
-            <div style="color:#fff;max-width:40ch;line-height:1.35">
-              Scan to jump straight to the menu or scroll to browse dishes.
-            </div>
-          </div>
-
           <div class="menu-scroll-container">
             <div class="menu-cards">
-              <div class="menu-card" itemprop="hasMenuItem" itemscope itemtype="https://schema.org/MenuItem">
+              <div class="menu-card">
                 <img src="https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=400&q=80" alt="Fried Chicken">
-                <h3 itemprop="name">Fried Chicken</h3>
-                <p itemprop="description">Crispy, golden perfection with signature seasoning</p>
+                <h3>Fried Chicken</h3>
+                <p>Crispy, golden perfection with signature seasoning</p>
               </div>
-              <div class="menu-card" itemprop="hasMenuItem" itemscope itemtype="https://schema.org/MenuItem">
+              <div class="menu-card">
                 <img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80" alt="Collard Greens">
-                <h3 itemprop="name">Collard Greens</h3>
-                <p itemprop="description">Slow-cooked with smoked turkey</p>
+                <h3>Collard Greens</h3>
+                <p>Slow-cooked with smoked turkey</p>
               </div>
-              <div class="menu-card" itemprop="hasMenuItem" itemscope itemtype="https://schema.org/MenuItem">
+              <div class="menu-card">
                 <img src="https://images.unsplash.com/photo-1619895092538-128341789043?w=400&q=80" alt="Mac & Cheese">
-                <h3 itemprop="name">Mac &amp; Cheese</h3>
-                <p itemprop="description">Creamy, cheesy comfort in every bite</p>
+                <h3>Mac & Cheese</h3>
+                <p>Creamy, cheesy comfort in every bite</p>
               </div>
-              <div class="menu-card" itemprop="hasMenuItem" itemscope itemtype="https://schema.org/MenuItem">
+              <div class="menu-card">
                 <img src="https://images.unsplash.com/photo-1633504581786-316c8002b1b9?w=400&q=80" alt="Cornbread">
-                <h3 itemprop="name">Homemade Cornbread</h3>
-                <p itemprop="description">Sweet, buttery, and warm</p>
+                <h3>Homemade Cornbread</h3>
+                <p>Sweet, buttery, and warm</p>
               </div>
-              <div class="menu-card" itemprop="hasMenuItem" itemscope itemtype="https://schema.org/MenuItem">
+              <div class="menu-card">
                 <img src="https://images.unsplash.com/photo-1603073203512-73b47e5ae9fb?w=400&q=80" alt="Fried Fish">
-                <h3 itemprop="name">Fried Whiting</h3>
-                <p itemprop="description">Fresh, flaky, perfectly seasoned</p>
+                <h3>Fried Whiting</h3>
+                <p>Fresh, flaky, perfectly seasoned</p>
               </div>
-              <div class="menu-card" itemprop="hasMenuItem" itemscope itemtype="https://schema.org/MenuItem">
+              <div class="menu-card">
                 <img src="https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62?w=400&q=80" alt="Red Snapper">
-                <h3 itemprop="name">Stuffed Red Snapper</h3>
-                <p itemprop="description">Elegantly prepared with seafood stuffing</p>
+                <h3>Stuffed Red Snapper</h3>
+                <p>Elegantly prepared with seafood stuffing</p>
               </div>
-              <div class="menu-card" itemprop="hasMenuItem" itemscope itemtype="https://schema.org/MenuItem">
+              <div class="menu-card">
                 <img src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?w=400&q=80" alt="Candied Yams">
-                <h3 itemprop="name">Candied Yams</h3>
-                <p itemprop="description">Sweet, tender, with brown sugar glaze</p>
+                <h3>Candied Yams</h3>
+                <p>Sweet, tender, with brown sugar glaze</p>
               </div>
-              <div class="menu-card" itemprop="hasMenuItem" itemscope itemtype="https://schema.org/MenuItem">
+              <div class="menu-card">
                 <img src="https://images.unsplash.com/photo-1562158147-f69568e4e43c?w=400&q=80" alt="Shrimp">
-                <h3 itemprop="name">Shrimp Scampi Pie</h3>
-                <p itemprop="description">Succulent shrimp with garlic knots</p>
+                <h3>Shrimp Scampi Pie</h3>
+                <p>Succulent shrimp with garlic knots</p>
               </div>
             </div>
           </div>
         </div>
       </li>
 
-      <!-- Slide 3: Visit / Delivery -->
-      <li data-color="#cccccc" itemprop="isLocatedIn" itemscope itemtype="https://schema.org/LocalBusiness">
+      <li data-color="#cccccc">
         <div class="content location-slide">
           <div class="location-container">
             <h2 class="location-title">Visit or Delivery</h2>
 
+            <!-- Map Section -->
             <div class="map-section">
               <h3>📍 Pickup Location</h3>
               <div class="address-info">
-                <p><strong itemprop="name">Ms. Wanda's Exquisite Southern Cuisine</strong></p>
-                <p itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
-                  <span itemprop="streetAddress">906-908 Broadway</span><br>
-                  <span itemprop="addressLocality">Bayonne</span>,
-                  <span itemprop="addressRegion">NJ</span>
-                  <span itemprop="postalCode">07002</span>
-                </p>
-                <meta itemprop="telephone" content="+1-703-596-2482" />
+                <p><strong>Ms. Wanda's Exquisite Southern Cuisine</strong></p>
+                <p>906-908 Broadway</p>
+                <p>Bayonne, NJ 07002</p>
               </div>
               <div class="map-container">
-                <iframe 
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3028.8!2d-74.11!3d40.66!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDM5JzM2LjAiTiA3NMKwMDYnMzYuMCJX!5e0!3m2!1sen!2sus!4v1234567890" 
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3028.8!2d-74.11!3d40.66!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDM5JzM2LjAiTiA3NMKwMDYnMzYuMCJX!5e0!3m2!1sen!2sus!4v1234567890"
                   width="100%" height="100%" style="border:0;" allowfullscreen loading="lazy">
                 </iframe>
               </div>
@@ -425,16 +279,16 @@
               </button>
             </div>
 
+            <!-- Delivery Form Section -->
             <div class="delivery-section">
               <h3>🚚 Request Delivery</h3>
-              <form class="delivery-form" id="deliveryForm" itemprop="potentialAction" itemscope itemtype="https://schema.org/OrderAction">
-                <meta itemprop="target" content="tel:+17035962482" />
-                <input type="text" placeholder="Your Name" required>
-                <input type="tel" placeholder="Phone Number" required>
-                <input type="email" placeholder="Email Address" required>
+              <form class="delivery-form" id="deliveryForm">
+                <input type="text" placeholder="Your Name" required />
+                <input type="tel" placeholder="Phone Number" required />
+                <input type="email" placeholder="Email Address" required />
                 <textarea placeholder="Delivery Address" rows="2" required></textarea>
                 <textarea placeholder="Special Instructions (optional)" rows="2"></textarea>
-                <button type="submit" class="submit-btn" itemprop="name">Submit Delivery Request</button>
+                <button type="submit" class="submit-btn">Submit Delivery Request</button>
               </form>
             </div>
           </div>
@@ -552,7 +406,7 @@
         return false;
       });
 
-      // Slide-1 image carousel
+      // Image carousel (slide 1)
       var carouselImages = document.querySelectorAll('.carousel-img');
       if (carouselImages.length > 0) {
         var currentImg = 0;
@@ -665,42 +519,12 @@
         }
       });
 
-      // Delivery form
       var deliveryForm = document.getElementById('deliveryForm');
       if (deliveryForm) {
         deliveryForm.addEventListener('submit', function (e) {
           e.preventDefault();
           alert('Thank you! Your delivery request has been submitted. We will contact you shortly to confirm your order.');
           deliveryForm.reset();
-        });
-      }
-
-      // Blog expand/collapse
-      var blogBox = document.getElementById('blogBox');
-      if (blogBox) {
-        blogBox.addEventListener('click', function(){
-          blogBox.classList.toggle('expanded');
-        });
-      }
-
-      // Share modal
-      var shareBtn = document.getElementById('shareBtn');
-      var shareModal = document.getElementById('shareModal');
-      var closeShare = document.getElementById('closeShare');
-      if (shareBtn && shareModal && closeShare){
-        shareBtn.addEventListener('click', function(){
-          shareModal.classList.add('active');
-          shareModal.setAttribute('aria-hidden','false');
-        });
-        closeShare.addEventListener('click', function(){
-          shareModal.classList.remove('active');
-          shareModal.setAttribute('aria-hidden','true');
-        });
-        shareModal.addEventListener('click', function(e){
-          if(e.target === shareModal){
-            shareModal.classList.remove('active');
-            shareModal.setAttribute('aria-hidden','true');
-          }
         });
       }
     })();
