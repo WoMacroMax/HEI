@@ -77,9 +77,18 @@
     /* Menu Slide */
     .menu-slide{background:linear-gradient(135deg,#1a1a1a 0%,#2d2d2d 100%);overflow:hidden;touch-action:pan-y}
     .menu-title{position:absolute;top:3%;left:50%;transform:translateX(-50%);font-size:3.5rem;color:#fff;text-align:center;z-index:10;text-shadow:2px 2px 4px rgba(0,0,0,0.5)}
-    /* Manual vertical scrolling */
+
+    /* QR hero centered under title */
+    .qr-hero{
+      position:absolute;top:12.5%;left:50%;transform:translateX(-50%);
+      display:flex;flex-direction:column;align-items:center;gap:.5rem;z-index:11
+    }
+    .qr-hero img{border-radius:12px;background:#fff;padding:6px;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+    .qr-hero .qr-caption{color:#fff;font-size:1.6rem;letter-spacing:.04em}
+
+    /* Manual vertical scrolling (moved down to make room for QR) */
     .menu-scroll-container{
-      position:absolute;top:22%;left:0;width:100%;height:78%;
+      position:absolute;top:32%;left:0;width:100%;height:68%;
       overflow-y:auto; overflow-x:hidden; -webkit-overflow-scrolling:touch; scroll-behavior:smooth;
     }
     .menu-cards{display:flex;flex-direction:column;gap:2rem;padding:2rem;animation:slowScroll 60s linear infinite;transition:transform .3s ease-out}
@@ -125,6 +134,29 @@
     .totals .label{font-size:1.4rem}
     .totals .value{font-size:1.8rem;font-weight:800}
 
+    /* Submit button (bottom-center inside cart modal) */
+    .cart-footer{
+      position: sticky;
+      bottom: 0;
+      background:#fff;
+      padding: 1rem 0 0.5rem;
+      margin-top: 0.75rem;
+      border-top: 2px solid #eee;
+      display:flex;justify-content:center;align-items:center;
+    }
+    .submit-order-btn{
+      display:inline-block;
+      padding: 1rem 2rem;
+      border-radius:9999px;
+      background:#22aa55;
+      color:#fff;
+      font-size:1.6rem;
+      font-weight:800;
+      text-align:center;
+      box-shadow:0 6px 18px rgba(0,0,0,.2);
+    }
+    .submit-order-btn.disabled{opacity:.5; pointer-events:none; filter:grayscale(1);}
+
     .empty-cart{text-align:center;color:#999;font-size:1.6rem;padding:3rem;font-weight:400}
 
     .cart-button,.share-button{position:fixed;bottom:2rem;border:none;width:60px;height:60px;border-radius:50%;font-size:2.2rem;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,0.3);z-index:9998;display:flex;align-items:center;justify-content:center}
@@ -145,7 +177,7 @@
     .directions-btn{width:100%;background:#4285f4;color:#fff;border:none;padding:1.2rem;border-radius:10px;font-size:1.4rem;font-weight:700;cursor:pointer;transition:background .3s}
     .directions-btn:hover{background:#3367d6}
 
-    /* Replace form with iFrame — no padding, no horizontal scrolling */
+    /* Replace form with iFrame — no padding, no horizontal scroll */
     .delivery-section.delivery-embed{padding:0;overflow-x:hidden}
     .contact-iframe{width:100%;height:80vh;border:0;display:block}
 
@@ -210,6 +242,28 @@
     .brand-content{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;padding:0}
     .brand-close{position:fixed;top:12px;right:12px;width:40px;height:40px;border-radius:50%;background:#ff0000;color:#fff;border:none;font-size:2rem;cursor:pointer;line-height:1;z-index:11001}
     .brand-iframe{width:100%;height:100%;border:0;display:block}
+
+    /* Promotions & Events slide */
+    .promo-slide{background:linear-gradient(135deg,#fff3df 0%, #ffe3c0 100%);overflow:hidden}
+    .promo-wrap{
+      position:absolute;top:8%;left:50%;transform:translateX(-50%);
+      width:92%;max-width:1100px;color:#2b2b2b
+    }
+    .promo-title{font-size:3.2rem;text-align:center;margin-bottom:1rem;color:#2b2b2b;text-shadow:0 1px 0 rgba(255,255,255,.6)}
+    .promo-grid{display:grid;grid-template-columns:1fr;gap:1.2rem}
+    .promo-card{background:#fff;border-radius:16px;box-shadow:0 10px 24px rgba(0,0,0,.15);padding:1.4rem}
+    .promo-card h3{color:#111;margin-bottom:.6rem;font-size:1.8rem}
+    .promo-card p,.promo-card li{font-weight:500;color:#444;line-height:1.55}
+    .promo-card ul{padding-left:1.2rem}
+    .promo-cta{
+      position:absolute;left:50%;transform:translateX(-50%);
+      bottom:2.2rem;background:#22aa55;color:#fff;border:none;
+      padding:1.1rem 1.8rem;border-radius:9999px;font-size:1.6rem;font-weight:800;
+      box-shadow:0 8px 22px rgba(0,0,0,.25);cursor:pointer
+    }
+    @media(min-width:880px){
+      .promo-grid{grid-template-columns:1fr 1fr}
+    }
   </style>
 </head>
 <body itemprop="servesCuisine" content="Southern, Soul Food">
@@ -237,7 +291,6 @@
         <button class="share-close" id="closeShare">×</button>
       </div>
       <p style="color:#333;font-weight:400;margin-top:0">Scan to open or share Ms. Wanda’s on your favorite platform.</p>
-      <!-- Canonical URL encoded for QR: https://flyers.womacromax.com/ms%20wandas/ -->
       <ul class="qr-grid">
         <li><div class="qr-label">Website</div><img class="qr-img" alt="Website QR" src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fflyers.womacromax.com%2Fms%2520wandas%2F"></li>
         <li><div class="qr-label">Menu</div><img class="qr-img" alt="Menu QR" src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fflyers.womacromax.com%2Fms%2520wandas%2F%23menu"></li>
@@ -288,6 +341,18 @@
       <div class="totals">
         <div class="label">Subtotal</div>
         <div class="value" id="subtotalValue">$0.00</div>
+      </div>
+
+      <!-- Submit button at bottom-center -->
+      <div class="cart-footer">
+        <a
+          id="submitOrderBtn"
+          class="submit-order-btn disabled"
+          href="https://gtc-010-23-menu-fix-womacromax.replit.app/contact"
+          target="_blank"
+          rel="noopener"
+          aria-disabled="true"
+        >Submit Order</a>
       </div>
     </div>
   </div>
@@ -344,21 +409,18 @@
         </div>
       </li>
 
-      <!-- Slide 2: Menu (includes QR hero thumb to Menu) -->
+      <!-- Slide 2: Menu (centered QR under title with caption "Share") -->
       <li data-color="#cccccc" id="menu">
         <div class="content menu-slide">
           <h2 class="menu-title">Our Menu</h2>
 
-          <!-- QR Hero Thumbnail Direct to Menu -->
-          <div style="position:absolute;top:12%;left:50%;transform:translateX(-50%);display:flex;gap:1rem;align-items:center;z-index:11">
+          <!-- Centered QR under title -->
+          <div class="qr-hero">
             <a href="#menu" aria-label="Open Menu">
-              <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https%3A%2F%2Fflyers.womacromax.com%2Fms%2520wandas%2F%23menu"
-                   alt="QR to Menu" width="120" height="120"
-                   style="border-radius:12px;background:#fff;padding:6px;box-shadow:0 6px 18px rgba(0,0,0,.35)">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https%3A%2F%2Fflyers.womacromax.com%2Fms%2520wandas%2F%23menu"
+                   alt="QR to Menu" width="140" height="140">
             </a>
-            <div style="color:#fff;max-width:40ch;line-height:1.35">
-              Scan to jump straight to the menu or scroll to browse dishes.
-            </div>
+            <div class="qr-caption">Share</div>
           </div>
 
           <div class="menu-scroll-container" id="menuScroll">
@@ -478,6 +540,49 @@
               </iframe>
             </div>
           </div>
+        </div>
+      </li>
+
+      <!-- Slide 4: Promotions & Events -->
+      <li data-color="#ffe3c0">
+        <div class="content promo-slide">
+          <div class="promo-wrap">
+            <h2 class="promo-title">Promotions &amp; Events</h2>
+            <div class="promo-grid">
+              <div class="promo-card">
+                <h3>Bayonne-Powered. Community-First.</h3>
+                <p>Neighbors know us by name—and by plate. We support school fundraisers, youth programs, and local churches with flavorful menus that bring people together. From block parties to heritage month spotlights, our kitchen fuels the moments Bayonne loves.</p>
+                <ul>
+                  <li>Seasonal neighborhood specials and family bundles</li>
+                  <li>Fundraiser packages with tiered pricing</li>
+                  <li>Cultural celebration menus (Juneteenth, Hispanic Heritage, more)</li>
+                </ul>
+              </div>
+              <div class="promo-card">
+                <h3>Politically Connected—Always Welcoming</h3>
+                <p>Well-connected with local leaders and organizations across Bayonne, we host <em>nonpartisan</em> town halls, listening sessions, and meet-and-greets. Expect professional staging, a respectful atmosphere, and hospitality that keeps the focus on community voices.</p>
+                <ul>
+                  <li>Podium, mic &amp; PA coordination</li>
+                  <li>Press step-and-repeat &amp; media check-in</li>
+                  <li>ADA-conscious seating and security liaison</li>
+                </ul>
+              </div>
+              <div class="promo-card">
+                <h3>Host Your Event With Us</h3>
+                <p>Choose from chef’s-table tastings, carving stations, dessert bars, and mocktail pairings. Our boutique team handles rentals, staffing, and run-of-show so you can enjoy your guests.</p>
+                <ul>
+                  <li>Custom menus: halal, vegetarian, vegan, gluten-free</li>
+                  <li>Private dining, corporate offsites, VIP green rooms</li>
+                  <li>Setup, breakdown, and on-site service team</li>
+                </ul>
+              </div>
+              <div class="promo-card">
+                <h3>Everyone Loves Ms. Wanda’s</h3>
+                <p>Our guests rave about soulful plates, warm service, and the sense of home we bring to every gathering. From first bites to final goodbyes, we aim for “that was perfect.”</p>
+              </div>
+            </div>
+          </div>
+          <button class="promo-cta" onclick="window.open('https://gtc-010-23-menu-fix-womacromax.replit.app/contact','_blank')">Call / Book Now</button>
         </div>
       </li>
     </ul>
@@ -661,6 +766,7 @@
       var summaryQty      = document.getElementById('summaryQty');
       var summaryTotal    = document.getElementById('summaryTotal');
       var subtotalValue   = document.getElementById('subtotalValue');
+      var submitOrderBtn  = document.getElementById('submitOrderBtn');
 
       function money(n){ return n.toLocaleString('en-US',{style:'currency',currency:'USD'}); }
 
@@ -714,6 +820,19 @@
         updateCart();
       }
 
+      function setSubmitEnabled(enabled){
+        if (!submitOrderBtn) return;
+        if (enabled){
+          submitOrderBtn.classList.remove('disabled');
+          submitOrderBtn.setAttribute('aria-disabled','false');
+          submitOrderBtn.removeAttribute('tabindex');
+        } else {
+          submitOrderBtn.classList.add('disabled');
+          submitOrderBtn.setAttribute('aria-disabled','true');
+          submitOrderBtn.setAttribute('tabindex','-1');
+        }
+      }
+
       function updateCart(){
         // totals
         var names = Object.keys(cart);
@@ -748,6 +867,9 @@
         summaryQty.textContent      = qty + ' qty';
         summaryTotal.textContent    = money(total);
         subtotalValue.textContent   = money(total);
+
+        // enable/disable submit
+        setSubmitEnabled(qty > 0);
 
         // render list
         if (qty === 0) {
