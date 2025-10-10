@@ -78,13 +78,14 @@
     .menu-slide{background:linear-gradient(135deg,#1a1a1a 0%,#2d2d2d 100%);overflow:hidden;touch-action:pan-y}
     .menu-title{position:absolute;top:3%;left:50%;transform:translateX(-50%);font-size:3.5rem;color:#fff;text-align:center;z-index:10;text-shadow:2px 2px 4px rgba(0,0,0,0.5)}
 
-    /* QR hero centered under title */
+    /* QR hero centered under title (kept but we’ll hide it; right-side QR replaces it on Slide 2) */
     .qr-hero{
       position:absolute;top:12.5%;left:50%;transform:translateX(-50%);
       display:flex;flex-direction:column;align-items:center;gap:.5rem;z-index:11
     }
     .qr-hero img{border-radius:12px;background:#fff;padding:6px;box-shadow:0 6px 18px rgba(0,0,0,.35)}
     .qr-hero .qr-caption{color:#fff;font-size:1.6rem;letter-spacing:.04em}
+    .qr-hero{ display:none; } /* replaced by right-side QR on slide 2 */
 
     /* Manual vertical scrolling (moved down to make room for QR) */
     .menu-scroll-container{
@@ -264,12 +265,53 @@
     @media(min-width:880px){
       .promo-grid{grid-template-columns:1fr 1fr}
     }
+
+    /* QR beneath the WoMacroMAX.com link (hidden by default; shown only on Slide 2) */
+    .brand-qr-under{
+      position:absolute; right:0; top:72px;
+      margin:1.5rem; z-index:9999998; background:#fff; padding:6px; border-radius:12px;
+      box-shadow:0 6px 18px rgba(0,0,0,.25);
+      display:none;
+    }
+    .brand-qr-under img{ display:block; width:140px; height:140px; border-radius:8px; }
+    @media (max-width:576px){
+      .brand-qr-under{ top:64px; }
+      .brand-qr-under img{ width:120px; height:120px; }
+    }
+
+    /* Slide 2 category tabs */
+    .menu-tabs{position:absolute; top:26%; left:50%; transform:translateX(-50%); z-index:12;}
+    .menu-tabs .nav{display:flex; gap:.6rem; flex-wrap:wrap; justify-content:center}
+    .menu-tabs .nav .nav-link{
+      background:rgba(0,0,0,.4); color:#fff; padding:.5rem 1rem; border-radius:9999px;
+      border:1px solid rgba(255,255,255,.15); cursor:pointer; font:inherit;
+    }
+    .menu-tabs .nav .nav-link.active{ background:#ffd166; color:#222; }
+    @media (max-width: 540px){ .menu-tabs{ top:27%; } }
+
+    /* Events grid + modal (no padding) */
+    .evt-row{display:grid;grid-template-columns:1fr;gap:1.2rem;margin-top:1.2rem}
+    @media(min-width:760px){ .evt-row{grid-template-columns:repeat(2,1fr);} }
+    @media(min-width:1024px){ .evt-row{grid-template-columns:repeat(3,1fr);} }
+    .evt-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 8px 20px rgba(0,0,0,.15);border:1px solid rgba(0,0,0,.06)}
+    .evt-thumb{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+    .evt-modal-viewport{width:100%;height:min(78vh,720px);border:0;display:block}
+    .evt-modal-img{width:100%;height:min(78vh,720px);object-fit:contain;background:#000;display:block}
+    .evt-close{position:absolute;top:10px;right:10px;z-index:10;background:rgba(0,0,0,.55);
+               border:1px solid rgba(255,255,255,.25);color:#fff;border-radius:999px;width:38px;height:38px}
   </style>
 </head>
 <body itemprop="servesCuisine" content="Southern, Soul Food">
   <!-- Clickable brand: opens WoMacroMAX.com in a modal -->
   <div class="info" id="brandLink" role="button" aria-label="Open WoMacroMAX.com" tabindex="0">
     Wo<span style="color:black;">Macro</span><span style="color:red;">MAX</span>.com
+  </div>
+
+  <!-- QR beneath brand (shown only on Slide 2 via JS) -->
+  <div class="brand-qr-under" aria-hidden="false">
+    <img
+      src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=https%3A%2F%2Fflyers.womacromax.com%2Fms%2520wandas%2F%23menu"
+      alt="Menu QR" width="140" height="140" loading="lazy">
   </div>
 
   <!-- BRAND MODAL (WoMacroMAX.com) -->
@@ -360,7 +402,7 @@
   <section class="cd-slider" itemprop="hasMenu" itemscope itemtype="https://schema.org/Menu">
     <meta itemprop="image" content="https://flyers.womacromax.com/ms%20wandas/assets/GoodSoulFoodBoutique.png" />
     <ul>
-      <!-- Slide 1: Blog (expand on tap) -->
+      <!-- Slide 1: Blog -->
       <li data-color="#f8e5d0">
         <div class="content">
           <div class="food-carousel">
@@ -409,12 +451,12 @@
         </div>
       </li>
 
-      <!-- Slide 2: Menu (centered QR under title with caption "Share") -->
+      <!-- Slide 2: Menu (centered QR hidden; right-side QR shows only on this slide) -->
       <li data-color="#cccccc" id="menu">
         <div class="content menu-slide">
           <h2 class="menu-title">Our Menu</h2>
 
-          <!-- Centered QR under title -->
+          <!-- Centered QR kept for structure but hidden via CSS -->
           <div class="qr-hero">
             <a href="#menu" aria-label="Open Menu">
               <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https%3A%2F%2Fflyers.womacromax.com%2Fms%2520wandas%2F%23menu"
@@ -423,59 +465,69 @@
             <div class="qr-caption">Share</div>
           </div>
 
+          <!-- Tabs (category filter) -->
+          <div class="menu-tabs" aria-label="Menu categories">
+            <ul class="nav" id="menuTabs">
+              <li class="nav-item"><button class="nav-link active" data-filter="all" type="button">All</button></li>
+              <li class="nav-item"><button class="nav-link" data-filter="food" type="button">Food</button></li>
+              <li class="nav-item"><button class="nav-link" data-filter="drinks" type="button">Drinks</button></li>
+              <li class="nav-item"><button class="nav-link" data-filter="desserts" type="button">Desserts</button></li>
+            </ul>
+          </div>
+
           <div class="menu-scroll-container" id="menuScroll">
             <div class="menu-cards" id="menuCards">
-              <!-- Each card now has data-price and a visible price badge -->
-              <div class="menu-card" data-name="Fried Chicken" data-price="14.00" itemprop="hasMenuItem" itemscope itemtype="https://schema.org/MenuItem">
+              <!-- Existing cards (now with explicit categories) -->
+              <div class="menu-card" data-category="food" data-name="Fried Chicken" data-price="14.00" itemprop="hasMenuItem" itemscope itemtype="https://schema.org/MenuItem">
                 <img src="https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=400&q=80" alt="Fried Chicken">
                 <div class="price-badge">$14.00</div>
                 <h3 itemprop="name">Fried Chicken</h3>
                 <p itemprop="description">Crispy, golden perfection with signature seasoning</p>
               </div>
 
-              <div class="menu-card" data-name="Collard Greens" data-price="6.00" itemprop="hasMenuItem" itemscope itemtype="https://schema.org/MenuItem">
+              <div class="menu-card" data-category="food" data-name="Collard Greens" data-price="6.00" itemprop="hasMenuItem" itemscope itemtype="https://schema.org/MenuItem">
                 <img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80" alt="Collard Greens">
                 <div class="price-badge">$6.00</div>
                 <h3 itemprop="name">Collard Greens</h3>
                 <p itemprop="description">Slow-cooked with smoked turkey</p>
               </div>
 
-              <div class="menu-card" data-name="Mac & Cheese" data-price="7.50" itemprop="hasMenuItem" itemscope itemtype="https://schema.org/MenuItem">
+              <div class="menu-card" data-category="food" data-name="Mac & Cheese" data-price="7.50" itemprop="hasMenuItem" itemscope itemtype="https://schema.org/MenuItem">
                 <img src="https://images.unsplash.com/photo-1619895092538-128341789043?w=400&q=80" alt="Mac and Cheese">
                 <div class="price-badge">$7.50</div>
                 <h3 itemprop="name">Mac &amp; Cheese</h3>
                 <p itemprop="description">Creamy, cheesy comfort in every bite</p>
               </div>
 
-              <div class="menu-card" data-name="Homemade Cornbread" data-price="4.50" itemprop="hasMenuItem" itemscope itemtype="https://schema.org/MenuItem">
+              <div class="menu-card" data-category="food" data-name="Homemade Cornbread" data-price="4.50" itemprop="hasMenuItem" itemscope itemtype="https://schema.org/MenuItem">
                 <img src="https://images.unsplash.com/photo-1633504581786-316c8002b1b9?w=400&q=80" alt="Cornbread">
                 <div class="price-badge">$4.50</div>
                 <h3 itemprop="name">Homemade Cornbread</h3>
                 <p itemprop="description">Sweet, buttery, and warm</p>
               </div>
 
-              <div class="menu-card" data-name="Fried Whiting" data-price="13.50" itemprop="hasMenuItem" itemscope itemtype="https://schema.org/MenuItem">
+              <div class="menu-card" data-category="food" data-name="Fried Whiting" data-price="13.50" itemprop="hasMenuItem" itemscope itemtype="https://schema.org/MenuItem">
                 <img src="https://images.unsplash.com/photo-1603073203512-73b47e5ae9fb?w=400&q=80" alt="Fried Whiting">
                 <div class="price-badge">$13.50</div>
                 <h3 itemprop="name">Fried Whiting</h3>
                 <p itemprop="description">Fresh, flaky, perfectly seasoned</p>
               </div>
 
-              <div class="menu-card" data-name="Stuffed Red Snapper" data-price="24.00" itemprop="hasMenuItem" itemscope itemtype="https://schema.org/MenuItem">
+              <div class="menu-card" data-category="food" data-name="Stuffed Red Snapper" data-price="24.00" itemprop="hasMenuItem" itemscope itemtype="https://schema.org/MenuItem">
                 <img src="https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62?w=400&q=80" alt="Stuffed Red Snapper">
                 <div class="price-badge">$24.00</div>
                 <h3 itemprop="name">Stuffed Red Snapper</h3>
                 <p itemprop="description">Elegantly prepared with seafood stuffing</p>
               </div>
 
-              <div class="menu-card" data-name="Candied Yams" data-price="6.50" itemprop="hasMenuItem" itemscope itemtype="https://schema.org/MenuItem">
+              <div class="menu-card" data-category="food" data-name="Candied Yams" data-price="6.50" itemprop="hasMenuItem" itemscope itemtype="https://schema.org/MenuItem">
                 <img src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?w=400&q=80" alt="Candied Yams">
                 <div class="price-badge">$6.50</div>
                 <h3 itemprop="name">Candied Yams</h3>
                 <p itemprop="description">Sweet, tender, with brown sugar glaze</p>
               </div>
 
-              <div class="menu-card" data-name="Shrimp Scampi Pie" data-price="18.00" itemprop="hasMenuItem" itemscope itemtype="https://schema.org/MenuItem">
+              <div class="menu-card" data-category="food" data-name="Shrimp Scampi Pie" data-price="18.00" itemprop="hasMenuItem" itemscope itemtype="https://schema.org/MenuItem">
                 <img src="https://images.unsplash.com/photo-1562158147-f69568e4e43c?w=400&q=80" alt="Shrimp Scampi Pie">
                 <div class="price-badge">$18.00</div>
                 <h3 itemprop="name">Shrimp Scampi Pie</h3>
@@ -483,19 +535,35 @@
               </div>
 
               <!-- Extra items -->
-              <div class="menu-card" data-name="Grandma’s Cornbread Dressing" data-price="9.50">
+              <div class="menu-card" data-category="food" data-name="Grandma’s Cornbread Dressing" data-price="9.50">
                 <img src="https://images.unsplash.com/photo-1546549039-49ec6f8b1361?w=400&q=80" alt="Cornbread Dressing">
                 <div class="price-badge">$9.50</div>
                 <h3>Grandma’s Cornbread Dressing</h3>
                 <p>Holiday classic with sage & chicken stock</p>
               </div>
 
-              <div class="menu-card" data-name="Peach Cobbler" data-price="6.00">
+              <div class="menu-card" data-category="desserts" data-name="Peach Cobbler" data-price="6.00">
                 <img src="https://images.unsplash.com/photo-1601050690597-9b1b6a9f6c14?w=400&q=80" alt="Peach Cobbler">
                 <div class="price-badge">$6.00</div>
                 <h3>Peach Cobbler</h3>
                 <p>Buttery crust, warm spiced peaches</p>
               </div>
+
+              <!-- Optional: sample drinks/desserts (safe to keep/remove) -->
+              <div class="menu-card" data-category="drinks" data-name="Sweet Tea" data-price="4.00">
+                <img src="https://images.unsplash.com/photo-1527169402691-feff5539e52c?q=80&w=1200&auto=format&fit=crop" alt="Sweet Tea">
+                <div class="price-badge">$4.00</div>
+                <h3>Sweet Tea</h3>
+                <p>Brewed daily with cane sugar</p>
+              </div>
+
+              <div class="menu-card" data-category="desserts" data-name="Banana Pudding" data-price="6.50">
+                <img src="https://images.unsplash.com/photo-1562004760-aceed9e3a433?q=80&w=1200&auto=format&fit=crop" alt="Banana Pudding">
+                <div class="price-badge">$6.50</div>
+                <h3>Banana Pudding</h3>
+                <p>Vanilla wafers, fresh banana, whipped cream</p>
+              </div>
+
             </div>
           </div>
         </div>
@@ -581,6 +649,48 @@
                 <p>Our guests rave about soulful plates, warm service, and the sense of home we bring to every gathering. From first bites to final goodbyes, we aim for “that was perfect.”</p>
               </div>
             </div>
+
+            <!-- Stylish event cards -->
+            <div class="evt-row" id="eventsRow">
+              <!-- Video (YouTube Short 1) -->
+              <article class="evt-card">
+                <img class="evt-thumb" src="https://img.youtube.com/vi/CWVnkmMbYCw/hqdefault.jpg" alt="Shorts 1">
+                <div style="padding:1.1rem">
+                  <h3 style="color:#111;margin:0 0 .4rem;font-size:1.6rem">Kitchen Moments — Shorts</h3>
+                  <div style="color:#555;font-weight:500;margin-bottom:.6rem">Behind the scenes with Ms. Wanda.</div>
+                  <button class="btn" style="background:#ffb703;color:#222;font-weight:800;border-radius:10px;padding:.5rem .9rem"
+                          data-event-type="video"
+                          data-event-src="https://www.youtube.com/shorts/CWVnkmMbYCw"
+                          data-open-event>Watch</button>
+                </div>
+              </article>
+
+              <!-- Video (YouTube Short 2) -->
+              <article class="evt-card">
+                <img class="evt-thumb" src="https://img.youtube.com/vi/4NqePITNHkI/hqdefault.jpg" alt="Shorts 2">
+                <div style="padding:1.1rem">
+                  <h3 style="color:#111;margin:0 0 .4rem;font-size:1.6rem">Sizzle Reel — Shorts</h3>
+                  <div style="color:#555;font-weight:500;margin-bottom:.6rem">Quick bites of flavor.</div>
+                  <button class="btn" style="background:#ffb703;color:#222;font-weight:800;border-radius:10px;padding:.5rem .9rem"
+                          data-event-type="video"
+                          data-event-src="https://www.youtube.com/shorts/4NqePITNHkI"
+                          data-open-event>Watch</button>
+                </div>
+              </article>
+
+              <!-- Image Event -->
+              <article class="evt-card">
+                <img class="evt-thumb" src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200&auto=format&fit=crop" alt="Community Night">
+                <div style="padding:1.1rem">
+                  <h3 style="color:#111;margin:0 0 .4rem;font-size:1.6rem">Community Night</h3>
+                  <div style="color:#555;font-weight:500;margin-bottom:.6rem">Live music & tasting menu.</div>
+                  <button class="btn" style="background:#ffb703;color:#222;font-weight:800;border-radius:10px;padding:.5rem .9rem"
+                          data-event-type="image"
+                          data-event-src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1600&auto=format&fit=crop"
+                          data-open-event>View</button>
+                </div>
+              </article>
+            </div>
           </div>
           <button class="promo-cta" onclick="window.open('https://gtc-010-23-menu-fix-womacromax.replit.app/contact','_blank')">Call / Book Now</button>
         </div>
@@ -592,6 +702,13 @@
       <div><a class="next" href="#"></a></div>
     </nav>
   </section>
+  <!-- Padding-free media modal -->
+  <div class="brand-modal" id="evtModal" aria-hidden="true" style="display:none;background:rgba(0,0,0,.9);z-index:12000;">
+    <button class="evt-close" id="evtClose" aria-label="Close">×</button>
+    <div class="brand-content" id="evtContent" role="dialog" aria-modal="true" aria-label="Event media" style="padding:0;">
+      <!-- media injected dynamically -->
+    </div>
+  </div>
 
   <script>
     (function () {
@@ -600,6 +717,15 @@
           nav = cdSlider.querySelector('nav');
 
       item[0].className = 'current_slide';
+
+      /* Show right-side QR only on Slide 2 */
+      function toggleBrandQR(){
+        var qr = document.querySelector('.brand-qr-under');
+        if (!qr) return;
+        var onMenu = !!document.querySelector('li.current_slide#menu');
+        qr.style.display = onMenu ? 'block' : 'none';
+      }
+      toggleBrandQR();
 
       for (var i = 0, len = item.length; i < len; i++) {
         var color = item[i].getAttribute('data-color');
@@ -616,56 +742,67 @@
 
       if (item.length <= 1) nav.style.display = 'none';
 
+      /* Hide prev arrow on first slide only */
+      function updatePrevVisibility(){
+        var current = cdSlider.querySelector('li.current_slide');
+        nav.children[0].style.display = (current === item[0]) ? 'none' : '';
+      }
+
+      /* Prev: wrap to last & clean ripple (fix blank) */
       function prevSlide() {
         var currentSlide = cdSlider.querySelector('li.current_slide'),
-            prevElement = currentSlide.previousElementSibling,
-            prevSlide = (prevElement !== null) ? prevElement : item[item.length - 1],
-            prevColor = prevSlide.getAttribute('data-color'),
-            el = document.createElement('span');
+            prevElement  = currentSlide.previousElementSibling,
+            target       = (prevElement !== null) ? prevElement : item[item.length - 1],
+            prevColor    = target.getAttribute('data-color'),
+            el           = document.createElement('span');
 
         currentSlide.className = '';
-        prevSlide.className = 'current_slide';
+        target.className = 'current_slide';
         nav.children[0].appendChild(el);
 
-        var size = (cdSlider.clientWidth >= cdSlider.clientHeight) ? cdSlider.clientWidth * 2 : cdSlider.clientHeight * 2,
+        var size   = (cdSlider.clientWidth >= cdSlider.clientHeight) ? cdSlider.clientWidth * 2 : cdSlider.clientHeight * 2,
             ripple = nav.children[0].querySelector('span');
 
         ripple.style.height = size + 'px';
-        ripple.style.width = size + 'px';
+        ripple.style.width  = size + 'px';
         ripple.style.backgroundColor = prevColor;
 
-        ripple.addEventListener('transitionend', function () {
-          if (this.parentNode) this.parentNode.removeChild(this);
-        });
-        ripple.addEventListener('webkitTransitionEnd', function () {
-          if (this.parentNode) this.parentNode.removeChild(this);
-        });
+        function cleanup(){ if (ripple && ripple.parentNode) ripple.parentNode.removeChild(ripple); }
+        ripple.addEventListener('transitionend', cleanup);
+        ripple.addEventListener('webkitTransitionEnd', cleanup);
+        setTimeout(cleanup, 700);
+
+        updateNavColor();
+        toggleBrandQR();
+        updatePrevVisibility(); /* NEW */
       }
 
       function nextSlide() {
         var currentSlide = cdSlider.querySelector('li.current_slide'),
-            nextElement = currentSlide.nextElementSibling,
-            nextSlide = (nextElement !== null) ? nextElement : item[0],
-            nextColor = nextSlide.getAttribute('data-color'),
-            el = document.createElement('span');
+            nextElement  = currentSlide.nextElementSibling,
+            target       = (nextElement !== null) ? nextElement : item[0],
+            nextColor    = target.getAttribute('data-color'),
+            el           = document.createElement('span');
 
         currentSlide.className = '';
-        nextSlide.className = 'current_slide';
+        target.className = 'current_slide';
         nav.children[1].appendChild(el);
 
-        var size = (cdSlider.clientWidth >= cdSlider.clientHeight) ? cdSlider.clientWidth * 2 : cdSlider.clientHeight * 2,
+        var size   = (cdSlider.clientWidth >= cdSlider.clientHeight) ? cdSlider.clientWidth * 2 : cdSlider.clientHeight * 2,
             ripple = nav.children[1].querySelector('span');
 
         ripple.style.height = size + 'px';
-        ripple.style.width = size + 'px';
+        ripple.style.width  = size + 'px';
         ripple.style.backgroundColor = nextColor;
 
-        ripple.addEventListener('transitionend', function () {
-          if (this.parentNode) this.parentNode.removeChild(this);
-        });
-        ripple.addEventListener('webkitTransitionEnd', function () {
-          if (this.parentNode) this.parentNode.removeChild(this);
-        });
+        function cleanup(){ if (ripple && ripple.parentNode) ripple.parentNode.removeChild(ripple); }
+        ripple.addEventListener('transitionend', cleanup);
+        ripple.addEventListener('webkitTransitionEnd', cleanup);
+        setTimeout(cleanup, 700);
+
+        updateNavColor();
+        toggleBrandQR();
+        updatePrevVisibility(); /* NEW */
       }
 
       function updateNavColor() {
@@ -684,6 +821,7 @@
       }
 
       updateNavColor();
+      updatePrevVisibility(); /* NEW on init */
 
       nav.querySelector('.next').addEventListener('click', function (e) {
         e.preventDefault(); e.stopPropagation();
@@ -754,7 +892,7 @@
         document.addEventListener('mouseup', function(){ isDragging = false; });
       }
 
-      // ===== CART WITH THUMBNAILS, SUMMARY, PRICES =====
+      /* CART (unchanged) */
       var cart = {}; // name -> { qty, price, thumb }
       var cartModal = document.getElementById('cartModal');
       var cartBtn   = document.getElementById('cartBtn');
@@ -770,18 +908,10 @@
 
       function money(n){ return n.toLocaleString('en-US',{style:'currency',currency:'USD'}); }
 
-      // Open/Close cart
-      cartBtn.addEventListener('click', function () {
-        cartModal.classList.add('active');
-      });
-      closeCart.addEventListener('click', function () {
-        cartModal.classList.remove('active');
-      });
-      cartModal.addEventListener('click', function (e) {
-        if (e.target === cartModal) cartModal.classList.remove('active');
-      });
+      cartBtn.addEventListener('click', function () { cartModal.classList.add('active'); });
+      closeCart.addEventListener('click', function () { cartModal.classList.remove('active'); });
+      cartModal.addEventListener('click', function (e) { if (e.target === cartModal) cartModal.classList.remove('active'); });
 
-      // Add to cart when clicking a menu-card
       document.addEventListener('click', function(e){
         var card = e.target.closest('.menu-card');
         if (!card) return;
@@ -789,8 +919,6 @@
         var price = parseFloat(card.dataset.price || '0') || 0;
         var thumb = (card.querySelector('img') && card.querySelector('img').src) ? card.querySelector('img').src : '';
         addToCart(name, price, thumb);
-
-        // visual feedback
         card.style.transform = 'scale(0.95)';
         setTimeout(function(){ card.style.transform = 'scale(1)'; }, 180);
       });
@@ -800,25 +928,9 @@
         cart[name].qty += 1;
         updateCart();
       }
-
-      function removeOne(name){
-        if (!cart[name]) return;
-        cart[name].qty -= 1;
-        if (cart[name].qty <= 0) delete cart[name];
-        updateCart();
-      }
-
-      function addOne(name){
-        if (!cart[name]) return;
-        cart[name].qty += 1;
-        updateCart();
-      }
-
-      function removeAll(name){
-        if (!cart[name]) return;
-        delete cart[name];
-        updateCart();
-      }
+      function removeOne(name){ if (!cart[name]) return; cart[name].qty -= 1; if (cart[name].qty <= 0) delete cart[name]; updateCart(); }
+      function addOne(name){ if (!cart[name]) return; cart[name].qty += 1; updateCart(); }
+      function removeAll(name){ if (!cart[name]) return; delete cart[name]; updateCart(); }
 
       function setSubmitEnabled(enabled){
         if (!submitOrderBtn) return;
@@ -834,51 +946,29 @@
       }
 
       function updateCart(){
-        // totals
         var names = Object.keys(cart);
         var distinct = names.length;
         var qty = 0, total = 0;
-        names.forEach(function(n){
-          qty += cart[n].qty;
-          total += cart[n].qty * cart[n].price;
-        });
-
-        // bubble count = total quantity
+        names.forEach(function(n){ qty += cart[n].qty; total += cart[n].qty * cart[n].price; });
         cartCount.textContent = qty;
 
-        // render tack bar (unique items with qty badge)
         tackBar.innerHTML = '';
         names.forEach(function(n){
-          var t = document.createElement('div');
-          t.className = 'tack';
-          t.title = n + ' × ' + cart[n].qty;
-          var img = document.createElement('img');
-          img.src = cart[n].thumb || '';
-          img.alt = n;
-          var badge = document.createElement('span');
-          badge.className = 'tack-badge';
-          badge.textContent = cart[n].qty;
-          t.appendChild(img); t.appendChild(badge);
-          tackBar.appendChild(t);
+          var t = document.createElement('div'); t.className = 'tack'; t.title = n + ' × ' + cart[n].qty;
+          var img = document.createElement('img'); img.src = cart[n].thumb || ''; img.alt = n;
+          var badge = document.createElement('span'); badge.className = 'tack-badge'; badge.textContent = cart[n].qty;
+          t.appendChild(img); t.appendChild(badge); tackBar.appendChild(t);
         });
 
-        // summary
         summaryDistinct.textContent = distinct + (distinct === 1 ? ' item' : ' items');
         summaryQty.textContent      = qty + ' qty';
         summaryTotal.textContent    = money(total);
         subtotalValue.textContent   = money(total);
-
-        // enable/disable submit
         setSubmitEnabled(qty > 0);
 
-        // render list
-        if (qty === 0) {
-          cartItems.innerHTML = '<li class="empty-cart">Your cart is empty</li>';
-          return;
-        }
+        if (qty === 0) { cartItems.innerHTML = '<li class="empty-cart">Your cart is empty</li>'; return; }
         cartItems.innerHTML = '';
         names.forEach(function(n){
-          var lineTotal = cart[n].qty * cart[n].price;
           var li = document.createElement('li');
           li.className = 'cart-item';
           li.innerHTML =
@@ -893,34 +983,24 @@
             '<button class="btn remove" data-remove="'+n+'">Remove</button>';
           cartItems.appendChild(li);
 
-          // append line total row
           var lt = document.createElement('div');
           lt.className = 'item-line';
           lt.style.gridColumn = '1 / -1';
           lt.style.textAlign = 'right';
-          lt.textContent = 'Line total: ' + money(lineTotal);
+          lt.textContent = 'Line total: ' + money(cart[n].qty * cart[n].price);
           cartItems.appendChild(lt);
         });
       }
 
-      // quantity controls
       cartItems.addEventListener('click', function(e){
-        if (e.target.classList.contains('dec')) {
-          removeOne(e.target.dataset.name);
-        } else if (e.target.classList.contains('inc')) {
-          addOne(e.target.dataset.name);
-        } else if (e.target.dataset.remove) {
-          removeAll(e.target.dataset.remove);
-        }
+        if (e.target.classList.contains('dec')) { removeOne(e.target.dataset.name); }
+        else if (e.target.classList.contains('inc')) { addOne(e.target.dataset.name); }
+        else if (e.target.dataset.remove) { removeAll(e.target.dataset.remove); }
       });
 
       // Blog expand/collapse
       var blogBox = document.getElementById('blogBox');
-      if (blogBox) {
-        blogBox.addEventListener('click', function(){
-          blogBox.classList.toggle('expanded');
-        });
-      }
+      if (blogBox) blogBox.addEventListener('click', function(){ blogBox.classList.toggle('expanded'); });
 
       // Share modal
       var shareBtn = document.getElementById('shareBtn');
@@ -928,17 +1008,14 @@
       var closeShare = document.getElementById('closeShare');
       if (shareBtn && shareModal && closeShare){
         shareBtn.addEventListener('click', function(){
-          shareModal.classList.add('active');
-          shareModal.setAttribute('aria-hidden','false');
+          shareModal.classList.add('active'); shareModal.setAttribute('aria-hidden','false');
         });
         closeShare.addEventListener('click', function(){
-          shareModal.classList.remove('active');
-          shareModal.setAttribute('aria-hidden','true');
+          shareModal.classList.remove('active'); shareModal.setAttribute('aria-hidden','true');
         });
         shareModal.addEventListener('click', function(e){
           if(e.target === shareModal){
-            shareModal.classList.remove('active');
-            shareModal.setAttribute('aria-hidden','true');
+            shareModal.classList.remove('active'); shareModal.setAttribute('aria-hidden','true');
           }
         });
       }
@@ -974,6 +1051,88 @@
           if(e.key === 'Escape' && brandModal.classList.contains('active')) closeBrandModal();
         });
       }
+
+      /* Slide 2: category tabs -> filter by data-category */
+      (function(){
+        var bar = document.getElementById('menuTabs');
+        if (!bar) return;
+
+        var items = Array.from(document.querySelectorAll('#menuCards .menu-card'));
+
+        function applyFilter(cat){
+          items.forEach(function(el){
+            var c = (el.getAttribute('data-category') || 'food').toLowerCase();
+            el.style.display = (cat === 'all' || c === cat) ? '' : 'none';
+          });
+        }
+
+        bar.addEventListener('click', function(e){
+          var btn = e.target.closest('button[data-filter]');
+          if (!btn) return;
+          bar.querySelectorAll('.nav-link').forEach(function(b){ b.classList.remove('active'); });
+          btn.classList.add('active');
+          applyFilter(btn.getAttribute('data-filter'));
+        });
+
+        applyFilter('all');
+      })();
+
+      /* Events modal (no padding) */
+      (function(){
+        var evtModal = document.getElementById('evtModal');
+        var evtContent = document.getElementById('evtContent');
+        var evtClose = document.getElementById('evtClose');
+
+        function toEmbed(url){
+          try{
+            var u = new URL(url);
+            if (u.hostname.includes('youtube.com') && u.pathname.startsWith('/shorts/')) {
+              var id = u.pathname.split('/')[2]; return 'https://www.youtube.com/embed/'+id+'?autoplay=1&rel=0';
+            }
+            if (u.hostname === 'youtu.be') return 'https://www.youtube.com/embed/'+u.pathname.slice(1)+'?autoplay=1&rel=0';
+            if (u.searchParams.get('v')) return 'https://www.youtube.com/embed/'+u.searchParams.get('v')+'?autoplay=1&rel=0';
+          }catch(e){}
+          return url;
+        }
+
+        function openEvt(type, src){
+          if (!evtModal || !evtContent) return;
+          evtContent.innerHTML = '';
+          if (type === 'video') {
+            var iframe = document.createElement('iframe');
+            iframe.className='evt-modal-viewport';
+            iframe.src = toEmbed(src);
+            iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+            iframe.allowFullscreen = true;
+            evtContent.appendChild(iframe);
+          } else if (type === 'image') {
+            var img = document.createElement('img');
+            img.className='evt-modal-img'; img.src=src; img.alt='Event media';
+            evtContent.appendChild(img);
+          }
+          evtModal.style.display='block';
+          evtModal.setAttribute('aria-hidden','false');
+          document.documentElement.style.overflow='hidden'; document.body.style.overflow='hidden';
+        }
+        function closeEvt(){
+          if (!evtModal) return;
+          evtContent.innerHTML='';
+          evtModal.style.display='none';
+          evtModal.setAttribute('aria-hidden','true');
+          document.documentElement.style.overflow=''; document.body.style.overflow='';
+        }
+
+        document.addEventListener('click', function(e){
+          var btn = e.target.closest('[data-open-event]');
+          if (!btn) return;
+          var type = btn.getAttribute('data-event-type');
+          var src  = btn.getAttribute('data-event-src');
+          openEvt(type, src);
+        });
+        if (evtClose) evtClose.addEventListener('click', closeEvt);
+        if (evtModal) evtModal.addEventListener('click', function(e){ if (e.target === evtModal) closeEvt(); });
+        window.addEventListener('keydown', function(e){ if(e.key==='Escape' && evtModal && evtModal.style.display==='block') closeEvt(); });
+      })();
     })();
   </script>
 </body>
