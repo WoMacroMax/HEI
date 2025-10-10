@@ -6,31 +6,61 @@
   <title>Phone Service Ad</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    /* HERO SECTION (small) */
+    /* === HERO SECTION === */
     .hero-section {
       position: relative;
-      height: 24vh;
-      background: linear-gradient(0deg, #093d4e 0%, #484e79 100%);
+      height: 90vh;
       display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
-      color: #fff;
-      text-align: center;
+      align-items: center;
       overflow: hidden;
-      border-bottom: 4px solid #005fa3;
+      background: linear-gradient(0deg, #093d4e 0%, #484e79 100%);
+      color: #fff;
     }
 
-    .hero-section h1 {
-      font-weight: 700;
-      font-size: 1.5rem;
-      margin-bottom: 0.6rem;
+    .hero-section::before {
+      content: "";
+      height: 10em;
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      background: linear-gradient(0deg, #1a1a1a 0%, transparent 100%);
+    }
+
+    .hero-section::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 10em;
+      width: 100%;
+      background: radial-gradient(
+          ellipse,
+          #c0c0c0 0em,
+          #c0c0c0 4em,
+          #c0c0c000 4em,
+          #c0c0c000 6em
+        ),
+        linear-gradient(
+          90deg,
+          #c0c0c0 0em,
+          #c0c0c0 8em,
+          #c0c0c000 8em,
+          #c0c0c000 10em
+        );
+      background-size: 24em 20em;
+      background-position-y: -6em, 4em;
+      background-position-x: -8em, 0em;
+      background-repeat: repeat-x;
+      z-index: -1;
     }
 
     .single {
       position: relative;
-      height: 8em;
-      width: 6em;
+      bottom: 0;
+      height: 30em;
+      width: 20em;
       box-sizing: border-box;
       background: radial-gradient(circle, #000000 0em, #000000 3em, #00000000 3em),
         radial-gradient(ellipse, #1a1a1a 0em, #1a1a1a 4em, #1a1a1a00 4em),
@@ -52,9 +82,9 @@
           transparent 360deg
         );
       background-repeat: no-repeat;
-      background-position-y: 1em, 0.5em, 4em, 0.8em, 0.6em;
-      background-position-x: 3em, 3em, 3em, 3.2em, 2em;
-      background-size: 3em 3em, 3em 4em, 3em 8em, 4em 6em, 5em 6em;
+      background-position-y: 3em, 1em, 11em, 2em, 1.5em;
+      background-position-x: 9.5em, 9.5em, 9.5em, 10em, 6em;
+      background-size: 8em 8em, 8em 11em, 8em 30em, 10em 20em, 14em 20em;
     }
 
     .single:before {
@@ -63,21 +93,21 @@
       top: 0;
       left: 0;
       height: 100%;
-      width: 2em;
+      width: 6em;
       border-radius: 100% 0 0 0 / 2em 0 0 0;
-      background: linear-gradient(180deg, #f2f2f2 0em, #666666 0.6em, transparent 0.6em),
-        linear-gradient(270deg, #754224 0em, #c69c6d 0.3em, transparent 0.3em);
+      background: linear-gradient(180deg, #f2f2f2 0em, #666666 2em, transparent 2em),
+        linear-gradient(270deg, #754224 0em, #c69c6d 1em, transparent 1em);
     }
 
     .single:after {
       content: ". .";
       position: absolute;
-      height: 1.5em;
-      width: 4em;
+      height: 5em;
+      width: 10em;
       color: red;
-      font-size: 1em;
-      left: 1.4em;
-      top: 0.3em;
+      font-size: 3em;
+      left: 3.9em;
+      top: 1.2em;
       letter-spacing: 0.2em;
       opacity: 0.3;
       animation: glow 2s infinite linear alternate;
@@ -87,15 +117,17 @@
       from { text-shadow: none; opacity: 0.3; }
       to {
         opacity: 1;
-        text-shadow: 0 0 5px red, 0 0 10px red, 0 0 15px red,
-        0 0 20px red, 0 0 25px red, 0 0 30px red, 0 0 40px red, 0 0 50px red;
+        text-shadow: 0 0 5px red, 0 0 10px red, 0 0 15px red, 0 0 20px red,
+        0 0 25px red, 0 0 30px red, 0 0 40px red, 0 0 50px red;
       }
     }
 
-    /* BODY */
+    /* === BODY SECTION === */
     body {
       background-color: #f4f6f8;
       font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
     }
 
     .card-section {
@@ -144,43 +176,27 @@
       object-fit: cover;
     }
 
-    /* Modal iframe: no padding, no horizontal scroll */
-    .modal-content,
-    .modal-body {
-      padding: 0 !important;
-      margin: 0 !important;
-      border: none !important;
-      overflow-x: hidden !important;
-    }
-
-    iframe {
-      width: 100%;
-      height: 85vh;
-      border: none;
-      margin: 0;
-      padding: 0;
-      display: block;
-      overflow-x: hidden !important;
-    }
-
     @media (max-width: 768px) {
       .info-card, .image-card {
         margin-bottom: 30px;
       }
-      .hero-section { height: 18vh; }
-      iframe { height: 80vh; }
+      .hero-section { height: 60vh; }
     }
   </style>
 </head>
 <body>
 
-  <!-- HERO SECTION -->
+  <!-- HERO CARD SECTION -->
   <section class="hero-section">
-    <h1>Has the THRILL of Your Phone Died</h1>
-    <div class="single"></div>
+    <div class="text-center">
+      <h1 class="fw-bold mb-4">Experience the Glow of Connectivity</h1>
+      <div class="d-flex justify-content-center">
+        <div class="single"></div>
+      </div>
+    </div>
   </section>
 
-  <!-- CARD SECTION -->
+  <!-- PHONE SERVICE CARDS -->
   <div class="container card-section">
     <div class="row align-items-center">
       <!-- Left: Info Card -->
@@ -201,7 +217,7 @@
       <!-- Right: Image Card -->
       <div class="col-lg-6">
         <div class="image-card">
-          <img src="media/frustrated%20phone%20user%20wishing%20for%20better%20service.png" alt="Frustrated phone user" />
+          <img src="media/frustrated phone user wishing for better service.png" alt="Frustrated phone user" />
         </div>
       </div>
     </div>
@@ -215,7 +231,7 @@
           <h5 class="modal-title" id="narrativeModalLabel">Why Choose Us?</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body px-4 py-3">
+        <div class="modal-body">
           <p><strong>"Are you stuck in a love-hate relationship with your phone service?"</strong></p>
           <p>You’ve been there: fighting to make sense of another inflated bill. Wondering why “reliable service” feels mythical.</p>
           <p>Imagine: no surprises, no stress. Just clarity, consistency, and maybe… even <em>free service</em>.</p>
@@ -229,17 +245,33 @@
     </div>
   </div>
 
-  <!-- CONTACT MODAL (iframe - zero padding, no horizontal scroll) -->
+  <!-- Contact Modal -->
   <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered modal-lg">
-      <div class="modal-content rounded-0">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded-4">
+        <div class="modal-header">
+          <h5 class="modal-title" id="contactModalLabel">Contact Us</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
         <div class="modal-body">
-          <iframe 
-            src="https://gtc-010-23-menu-fix-womacromax.replit.app/contact"
-            title="Contact Form" 
-            allowfullscreen 
-            loading="lazy">
-          </iframe>
+          <form>
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input type="text" class="form-control rounded-pill" id="name" placeholder="Your Name" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control rounded-pill" id="email" placeholder="Your Email" required>
+            </div>
+            <div class="mb-3">
+              <label for="message" class="form-label">Message</label>
+              <textarea class="form-control rounded-4" id="message" rows="3" placeholder="Your Message" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Send</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
