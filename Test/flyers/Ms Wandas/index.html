@@ -53,7 +53,10 @@
 
     /* Global */
     html, body { overflow-x: hidden; }
-    .info{position:absolute;top:0;right:0;z-index:9999999;margin:1.5rem}
+    .info{
+      position:absolute;top:0;right:0;z-index:9999999;margin:1.5rem;
+      cursor:pointer; user-select:none
+    }
     *,*::before,*::after{box-sizing:border-box;padding:0;margin:0;border:0}
     html{font-size:10px;font-size:calc(5px + 0.4vw)}
     body{font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;color:#fff}
@@ -119,7 +122,7 @@
     .submit-btn{background:#ff0000;color:#fff;border:none;padding:1.4rem;border-radius:10px;font-size:1.5rem;font-weight:700;cursor:pointer;transition:background .3s}
     .submit-btn:hover{background:#cc0000}
 
-    /* Slide 1 “Blog” expand-on-tap (no horizontal scroll) */
+    /* Slide 1 “Blog” expand-on-tap */
     .content blockquote{position:absolute;bottom:5%;left:4%;z-index:2;max-width:92%;background:rgba(0,0,0,0.75);padding:2rem;border-radius:10px;max-height:46vh;overflow-y:auto;overflow-x:hidden;cursor:pointer}
     .content blockquote.expanded{max-height:85vh}
     .toggle-hint{display:block;font-size:1.1rem;opacity:.8;margin-top:.5rem}
@@ -173,10 +176,36 @@
     .qr-grid li{text-align:center}
     .qr-label{color:#333;font-weight:700;margin:.35rem 0}
     .qr-img{width:170px;height:170px;border-radius:12px;background:#fff;padding:6px;box-shadow:0 6px 18px rgba(0,0,0,.25);object-fit:contain}
+
+    /* BRAND MODAL: WoMacroMAX.com in a modal — no padding, vertical scroll only */
+    .brand-modal{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:11000;display:none}
+    .brand-modal.active{display:block}
+    .brand-content{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;padding:0}
+    .brand-close{
+      position:fixed;top:12px;right:12px;width:40px;height:40px;border-radius:50%;
+      background:#ff0000;color:#fff;border:none;font-size:2rem;cursor:pointer;line-height:1;z-index:11001
+    }
+    .brand-iframe{width:100%;height:100%;border:0;display:block}
   </style>
 </head>
 <body itemprop="servesCuisine" content="Southern, Soul Food">
-  <div class="info">Wo<span style="color:black;">Macro</span><span style="color:red;">MAX</span>.com</div>
+  <!-- Clickable brand: opens WoMacroMAX.com in a modal -->
+  <div class="info" id="brandLink" role="button" aria-label="Open WoMacroMAX.com" tabindex="0">
+    Wo<span style="color:black;">Macro</span><span style="color:red;">MAX</span>.com
+  </div>
+
+  <!-- BRAND MODAL (WoMacroMAX.com) -->
+  <div class="brand-modal" id="brandModal" aria-hidden="true">
+    <button class="brand-close" id="brandClose" aria-label="Close">×</button>
+    <div class="brand-content" role="dialog" aria-modal="true" aria-label="WoMacroMAX site">
+      <iframe
+        id="brandFrame"
+        class="brand-iframe"
+        src="https://womacromax.com"
+        title="WoMacroMAX.com">
+      </iframe>
+    </div>
+  </div>
 
   <!-- Share Button (beside cart) -->
   <button class="share-button" id="shareBtn" aria-label="Share">🔗</button>
@@ -193,8 +222,7 @@
         Scan to open or share Ms. Wanda’s on your favorite platform.
       </p>
 
-      <!-- NOTE: URLs are encoded once for the QR generator.
-           Canonical URL being shared: https://flyers.womacromax.com/ms%20wandas/ -->
+      <!-- Canonical URL encoded for QR: https://flyers.womacromax.com/ms%20wandas/ -->
       <ul class="qr-grid">
         <li>
           <div class="qr-label">Website</div>
@@ -701,6 +729,41 @@
             shareModal.classList.remove('active');
             shareModal.setAttribute('aria-hidden','true');
           }
+        });
+      }
+
+      // BRAND MODAL (WoMacroMAX.com) open/close; no padding; vertical scroll only
+      var brandLink = document.getElementById('brandLink');
+      var brandModal = document.getElementById('brandModal');
+      var brandClose = document.getElementById('brandClose');
+
+      function openBrandModal(){
+        brandModal.classList.add('active');
+        brandModal.setAttribute('aria-hidden','false');
+        // lock background scroll
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+      }
+      function closeBrandModal(){
+        brandModal.classList.remove('active');
+        brandModal.setAttribute('aria-hidden','true');
+        // restore scroll
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = '';
+      }
+
+      if (brandLink && brandModal && brandClose){
+        brandLink.addEventListener('click', function(e){ e.preventDefault(); openBrandModal(); });
+        brandLink.addEventListener('keydown', function(e){
+          if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openBrandModal(); }
+        });
+        brandClose.addEventListener('click', closeBrandModal);
+        brandModal.addEventListener('click', function(e){
+          // click outside iframe (background) closes
+          if(e.target === brandModal) closeBrandModal();
+        });
+        window.addEventListener('keydown', function(e){
+          if(e.key === 'Escape' && brandModal.classList.contains('active')) closeBrandModal();
         });
       }
     })();
