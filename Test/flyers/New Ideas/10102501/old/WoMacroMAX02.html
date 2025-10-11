@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<!-- SEO Metadata -->
+<title>Rod WoMAX Automation Suite | Make Life Complete</title>
+<meta name="description" content="Rod WoMAX's Automation Suite customizes solutions to eliminate tedious manual work. Years of expertise in media, marketing, business, and coding make life easier and complete."/>
+<meta name="keywords" content="automation, Rod WoMAX, business automation, media solutions, marketing automation, coding automation, streamline processes, complete life, productivity tools"/>
+<meta name="author" content="Rod WoMAX Automation Suite"/>
+
+<!-- Use the card image for SEO metadata (Phoneservice) -->
+<link rel="image_src" href="https://flyers.womacromax.com/phoneservice/media/frustrated%20phone%20user%20wishing%20for%20better%20service.png"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Rod WoMAX Automation Suite - Complete Your Life with Automation"/>
+<meta property="og:description" content="Eliminate tedious manual processes. Automate your business and life with customized solutions by Rod WoMAX."/>
+<meta property="og:url" content="https://www.yourwebsite.com"/>
+<meta property="og:image" content="https://flyers.womacromax.com/phoneservice/media/frustrated%20phone%20user%20wishing%20for%20better%20service.png"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Rod WoMAX Automation Suite - Complete Your Life with Automation"/>
+<meta name="twitter:description" content="Eliminate tedious manual processes. Automate your business and life with customized solutions by Rod WoMAX."/>
+<meta name="twitter:image" content="https://flyers.womacromax.com/phoneservice/media/frustrated%20phone%20user%20wishing%20for%20better%20service.png"/>
+
+<link rel="icon" type="image/png" href="media/WoMacroMAXAutomation-logo-00.png"/>
+
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<!-- Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+
+<style>
+  /* GENERAL RESET */
+  html, body { margin:0; padding:0; width:100%; height:100%; overflow-x:hidden; font-family: Arial, sans-serif; background:#f8f9fa; }
+
+  /* TITLE BAR */
+  .title-bar{ position:fixed; inset:0 auto auto 0; right:0; background:linear-gradient(to bottom,#ffc107 30%,#fff 100%); border-radius:0 0 50px 50px; padding:20px 15px 10px; display:flex; flex-direction:column; align-items:center; box-shadow:0 4px 12px rgba(0,0,0,.1); z-index:3000;}
+  .title-bar h1{ margin:0; font-weight:bold; font-size:clamp(1.5rem,5vw,2rem); color:#000; white-space:nowrap; text-align:center;}
+  .title-bar h1 .red{ color:red;}
+  .social-icons{ margin-top:8px; font-size:1.5rem;}
+  .social-icons a{ margin:0 8px; transition:transform .3s ease;}
+  .social-icons a:hover{ transform:scale(1.2);}
+  .fa-facebook{color:#3b5998}.fa-twitter{color:#1da1f2}.fa-linkedin{color:#0077b5}.fa-whatsapp{color:#25d366}.fa-envelope{color:#ff0000}
+
+  /* PORTFOLIO BUTTON */
+  .portfolio-button{ position:fixed; top:calc(50% + 40px); left:20px; transform:translateY(-50%); width:70px; height:70px; background:#fdd663; color:#444; font-size:.75rem; font-weight:bold; border:0; border-radius:50%; cursor:pointer; box-shadow:0 4px 8px rgba(0,0,0,.2); opacity:.8; z-index:3100; transition:transform .2s ease, opacity .3s ease; display:flex; align-items:center; justify-content:center; text-align:center; line-height:1.1; padding:8px;}
+  .portfolio-button:hover{ opacity:1; transform:translateY(-50%) scale(1.05);}
+  @media (max-width:500px){ .portfolio-button{ left:50%; transform:translate(-50%, -50%);} }
+
+  /* LOGO */
+  .logo-container img{ width:100%; max-width:950px; opacity:.75; display:block; margin:0 auto; height:auto; object-fit:cover; }
+  @media (max-width:300px){ .logo-container{ padding-top:96px;} }
+
+  /* PANELS (Portfolio & Email) */
+  #overlay{ position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:3500; display:none; opacity:0; transition:opacity .5s ease; }
+  #overlay.show{ display:block; opacity:1; }
+  .panel{ position:fixed; inset:0; background:#fff; z-index:4000; display:none; flex-direction:column; overflow-y:auto; }
+  .panel.show{ display:flex; animation:fadeInDown .7s ease forwards; }
+  @keyframes fadeInDown{ 0%{opacity:0; transform:translateY(-50px)} 100%{opacity:1; transform:translateY(0)} }
+  .panel-header{ position:sticky; top:0; background:#fff; padding:15px; text-align:center; font-weight:bold; font-size:2rem; z-index:10; border-bottom:1px solid #ddd; }
+  .panel-content{ padding:20px; animation:fallDown .8s ease both; }
+  @keyframes fallDown{ from{opacity:0; transform:translateY(-20px)} to{opacity:1; transform:translateY(0)} }
+  .close-btn{ position:sticky; top:10px; right:10px; margin-left:auto; background:none; border:none; font-size:2rem; font-weight:bold; color:#000; cursor:pointer; z-index:11; }
+
+  /* PORTFOLIO GRID */
+  .card-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:20px; padding:10px; }
+  .card{ width:100%; height:340px; border-radius:15px; overflow:hidden; transition:transform .4s ease; display:flex; flex-direction:column; border:2px solid #ffc107; background:#fffbe6; cursor:pointer;}
+  .card:hover{ transform:scale(1.05) translateY(-5px); }
+  .card img{ width:auto; max-width:100%; height:120px; object-fit:contain; margin:10px auto; display:block; }
+  .card-body{ background:#fff; padding:10px; }
+  .seo-blurb{ font-size:.8rem; color:#6c757d; margin-top:5px;}
+  .card h5, .card p{ color:#333 !important; }
+  @media (max-width:1200px){ .card-grid{ grid-template-columns:repeat(3,1fr);} }
+  @media (max-width:900px){ .card-grid{ grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:600px){ .card-grid{ grid-template-columns:1fr;} }
+
+  /* MARKETING */
+  .marketing-section{ padding:40px 20px; max-width:800px; margin:0 auto; text-align:center; position:relative; overflow:hidden;}
+  .marketing-section h2{ font-size:2rem; margin-bottom:20px; color:#333;}
+  .marketing-section p{ font-size:1.1rem; line-height:1.7; color:#555;}
+  .marketing-section::before{ content:""; position:absolute; top:3in; left:50%; transform:translateX(-50%); width:400px; height:400px; background:url('https://womacromax.com/media/WoMacroMAXAutomation-logo-00.png') no-repeat center / contain; opacity:.2; z-index:0; }
+  .marketing-section h2, .marketing-section div{ position:relative; z-index:1; }
+
+  /* ===== 3D CAROUSEL (front page) ===== */
+  .c3d-wrap{ padding-top:120px; } /* room for title bar */
+  .c3d-header{ text-align:center; margin:40px 0 24px; }
+  .c3d-subtitle{ color:#ff6b35; font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:2px; margin-bottom:12px; }
+  .c3d-title{ font-size:clamp(36px,5vw,56px); font-weight:900; color:#0a0a0a; line-height:1.1; margin:0; }
+
+  .c3d-container{ perspective:1500px; perspective-origin:50% 50%; cursor:grab; width:100%; max-width:1400px; overflow:hidden; margin-inline:auto; }
+  .c3d-container.dragging{ cursor:grabbing; }
+  .c3d-track{ display:flex; align-items:center; justify-content:center; gap:8px; transform-style:preserve-3d; }
+
+  .c3d-card{ flex-shrink:0; width:240px; background:#fff; overflow:hidden; transform-style:preserve-3d; position:relative; cursor:pointer; }
+  .c3d-card::before{ content:""; position:absolute; inset:0; background:linear-gradient(to right, rgba(0,0,0,.15), transparent 30%, transparent 70%, rgba(0,0,0,.15)); transform:translateZ(-8px); pointer-events:none; }
+  .c3d-card::after{ content:""; position:absolute; inset:0; background:#e0e0e0; transform:translateZ(-16px); box-shadow:0 0 40px rgba(0,0,0,.3); pointer-events:none; }
+  .c3d-card img{ width:100%; height:100%; object-fit:cover; display:block; position:relative; z-index:1; pointer-events:none;}
+  .c3d-card .hover-overlay{ position:absolute; inset:0; background:rgba(0,0,0,.7); display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity .3s ease; z-index:2; }
+  .c3d-card:hover .hover-overlay{ opacity:1; }
+  .c3d-card .hover-overlay span{ color:#fff; font-size:16px; font-weight:600; text-transform:uppercase; letter-spacing:1px; }
+
+  /* ===== Site iFrame Modal =====
+     Fullscreen, NO side padding, NO horizontal scroll from container,
+     and top spacer so it never sits under the HERO.
+     (Reduced from 3in to 1in as requested.)
+  */
+  .site-modal.modal-content{
+    background:#000;
+    border:0;
+    border-radius:0;
+    padding:0;
+    padding-top:1in;            /* 1 inch spacer */
+    overflow:hidden;
+  }
+  .site-modal iframe{
+    display:block;
+    width:100%;
+    height:calc(100vh - 1in);   /* fill viewport minus spacer */
+    border:0;
+    overflow-x:hidden;
+  }
+  .site-modal-close{
+    position:absolute; top:16px; right:16px; z-index:10;
+    width:44px; height:44px; border-radius:50%;
+    background:rgba(255,255,255,.9); box-shadow:0 6px 20px rgba(0,0,0,.25);
+    display:grid; place-items:center;
+  }
+  .site-modal-close:hover{ background:#fff; }
+</style>
+</head>
+
+<body>
+<!-- TITLE BAR -->
+<section class="title-bar">
+  <h1>WoMacro<span class="red">MAX</span> Automation</h1>
+  <div class="social-icons">
+    <a href="#"><i class="fab fa-facebook"></i></a>
+    <a href="#"><i class="fab fa-twitter"></i></a>
+    <a href="#"><i class="fab fa-linkedin"></i></a>
+    <a href="#"><i class="fab fa-whatsapp"></i></a>
+    <a href="#" id="emailIcon"><i class="fas fa-envelope"></i></a>
+  </div>
+  <button class="portfolio-button" id="openPortfolioBtn">Portfolio</button>
+</section>
+
+<!-- LOGO -->
+<section class="logo-container" style="padding-top:130px;">
+  <img alt="WoMacroMAX Automation Logo" src="media/WoMacroMAXAutomation-logo-00.png"/>
+</section>
+
+<!-- ===== FRONT-PAGE 3D CAROUSEL (projects) ===== -->
+<section class="c3d-wrap container">
+  <div class="c3d-header">
+    <p class="c3d-subtitle">Behind creativity</p>
+    <h2 class="c3d-title">Curious what else we've created?</h2>
+  </div>
+
+  <div class="c3d-container" id="c3dContainer" aria-roledescription="carousel">
+    <div class="c3d-track" id="c3dTrack">
+      <!-- Example cards -->
+      <div class="c3d-card" tabindex="0" role="link" aria-label="Open Health Equity Impact" data-title="Health Equity Impact" data-link="https://www.healthequityimpact.com">
+        <img src="https://womacromax.github.io/HEI/media/Health%20Equity%20Impact%20LOGO.png" alt="Health Equity Impact">
+        <div class="hover-overlay"><span>Click to open</span></div>
+      </div>
+      <div class="c3d-card" tabindex="0" role="link" aria-label="Open Community Family Clinic" data-title="Community Family Clinic" data-link="https://www.communityfamilyclinic.com">
+        <img src="https://communityfamilyclinic.com/media/CFC-Icon-House-People-2.png" alt="Community Family Clinic">
+        <div class="hover-overlay"><span>Click to open</span></div>
+      </div>
+      <!-- Added cards -->
+      <div class="c3d-card" tabindex="0" role="link" aria-label="Open Netlify App" data-title="Regal Squirrel App" data-link="https://6806a12b2fda470b9f0f2eed--regal-squirrel-cc6a11.netlify.app/">
+        <img src="https://images.unsplash.com/photo-1605901309584-818e25960a8b?w=1200&q=80&auto=format&fit=crop" alt="Regal Squirrel App">
+        <div class="hover-overlay"><span>Click to open</span></div>
+      </div>
+      <div class="c3d-card" tabindex="0" role="link" aria-label="Open Phone Service" data-title="Affordable & Free Phone Service" data-link="https://flyers.womacromax.com/phoneservice/">
+        <img src="https://flyers.womacromax.com/phoneservice/media/frustrated%20phone%20user%20wishing%20for%20better%20service.png" alt="Phoneservice Campaign">
+        <div class="hover-overlay"><span>Click to open</span></div>
+      </div>
+      <div class="c3d-card" tabindex="0" role="link" aria-label="Open Ms. Wanda's" data-title="Ms. Wanda's" data-link="https://flyers.womacromax.com/ms%20wandas/">
+        <img src="https://images.unsplash.com/photo-1511296265584-5ff489f4ce31?w=1200&q=80&auto=format&fit=crop" alt="Ms. Wanda's">
+        <div class="hover-overlay"><span>Click to open</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ===== /FRONT-PAGE 3D CAROUSEL ===== -->
+
+<!-- OVERLAY (shared for non-modal panels) -->
+<div id="overlay"></div>
+
+<!-- PORTFOLIO PANEL -->
+<section class="panel" id="portfolioPanel">
+  <button class="close-btn" id="closePortfolioBtn">×</button>
+  <div class="panel-header">Portfolio</div>
+  <div class="panel-content">
+    <div class="card-grid">
+      <div class="card" tabindex="0" role="link" data-link="https://www.healthequityimpact.com">
+        <img alt="Health Equity Impact" src="https://womacromax.github.io/HEI/media/Health%20Equity%20Impact%20LOGO.png"/>
+        <div class="card-body">
+          <h5 class="card-title">Health Equity Impact</h5>
+          <p class="seo-blurb">Advancing community wellness through research, advocacy, and innovative solutions.</p>
+        </div>
+      </div>
+      <div class="card" tabindex="0" role="link" data-link="https://www.communityfamilyclinic.com">
+        <img alt="Community Family Clinic" src="https://communityfamilyclinic.com/media/CFC-Icon-House-People-2.png"/>
+        <div class="card-body">
+          <h5 class="card-title">Community Family Clinic</h5>
+          <p class="seo-blurb">Affordable family healthcare with a focus on primary care and prevention.</p>
+        </div>
+      </div>
+      <div class="card" tabindex="0" role="link" data-link="https://6806a12b2fda470b9f0f2eed--regal-squirrel-cc6a11.netlify.app/">
+        <img alt="Regal Squirrel App" src="https://images.unsplash.com/photo-1605901309584-818e25960a8b?w=1200&q=80&auto=format&fit=crop"/>
+        <div class="card-body">
+          <h5 class="card-title">Regal Squirrel App</h5>
+          <p class="seo-blurb">A modern web experience deployed on Netlify.</p>
+        </div>
+      </div>
+      <div class="card" tabindex="0" role="link" data-link="https://flyers.womacromax.com/phoneservice/">
+        <img alt="Phoneservice Campaign" src="https://flyers.womacromax.com/phoneservice/media/frustrated%20phone%20user%20wishing%20for%20better%20service.png"/>
+        <div class="card-body">
+          <h5 class="card-title">Phoneservice Campaign</h5>
+          <p class="seo-blurb">Affordable and free phone service campaign landing page.</p>
+        </div>
+      </div>
+      <div class="card" tabindex="0" role="link" data-link="https://flyers.womacromax.com/ms%20wandas/">
+        <img alt="Ms. Wanda's" src="https://images.unsplash.com/photo-1511296265584-5ff489f4ce31?w=1200&q=80&auto=format&fit=crop"/>
+        <div class="card-body">
+          <h5 class="card-title">Ms. Wanda's</h5>
+          <p class="seo-blurb">A stylish promotional site experience.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EMAIL PANEL -->
+<section class="panel" id="emailPanel">
+  <button class="close-btn" id="closeEmailBtn">×</button>
+  <div class="panel-header">Send an Email</div>
+  <div class="panel-content">
+    <div class="email-form">
+      <form>
+        <input class="form-control" placeholder="Your Name" required type="text"/>
+        <input class="form-control" placeholder="Your Email" required type="email"/>
+        <input class="form-control" placeholder="Subject" required type="text"/>
+        <textarea class="form-control" placeholder="Your Message" required rows="5"></textarea>
+        <button class="btn btn-warning w-100 mt-3" type="submit">Send Email</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Site iFrame Modal (fullscreen with 1in top spacer) ===== -->
+<div class="modal fade" id="siteModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content site-modal">
+      <button type="button" class="btn-close site-modal-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <iframe id="siteFrame" title="Site Preview" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
+</div>
+
+<!-- MARKETING WRITE-UP -->
+<section class="marketing-section" id="marketingSection" style="padding-top: 2in;">
+  <h2>Rod WoMAX’s Automation Suite: Tailored Solutions for a Complete Life</h2>
+  <div style="text-align: justify; text-align-last: left; line-height: 1.5; margin-top: -10px;">
+    <p>Rod WoMAX’s Automation Suite is uniquely crafted to suit your business and personal needs. With years of hands-on experience in media, marketing, business operations, and coding, Rod brings a deep understanding of how technology should work for you, not against you.</p>
+    <p>Our solutions eliminate tedious manual processes, streamline procedures, and create seamless workflows that allow you to focus on what truly matters.</p>
+    <p>Imagine reclaiming your time and energy — automation transforms busy work into joyful productivity!</p>
+    <p>Whether you're a growing business, a startup, or just someone who values efficiency, the WoMAX Automation Suite is designed to be your personal toolkit for a smarter, easier, and COMPLETE digital life.</p>
+    <p>From powerful media integration to customized marketing automations, business management, and coding optimizations — Rod WoMAX makes automation approachable, effective, and exciting.</p>
+    <p><strong>Experience the JOY of automation. Make life easier. Get COMPLETE with WoMAX.</strong></p>
+  </div>
+</section>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+<script>
+  /* ===== Panels & Overlay (portfolio/email) ===== */
+  const openPortfolioBtn = document.getElementById('openPortfolioBtn');
+  const portfolioPanel  = document.getElementById('portfolioPanel');
+  const emailPanel      = document.getElementById('emailPanel');
+  const closePortfolioBtn = document.getElementById('closePortfolioBtn');
+  const closeEmailBtn     = document.getElementById('closeEmailBtn');
+  const overlay        = document.getElementById('overlay');
+  const emailIcon      = document.getElementById('emailIcon');
+
+  emailIcon.addEventListener('click', (e) => {
+    e.preventDefault();
+    portfolioPanel.classList.remove('show');
+    emailPanel.classList.add('show');
+    overlay.classList.add('show');
+  });
+  openPortfolioBtn.addEventListener('click', () => {
+    emailPanel.classList.remove('show');
+    portfolioPanel.classList.toggle('show');
+    overlay.classList.toggle('show', portfolioPanel.classList.contains('show'));
+  });
+  closePortfolioBtn.addEventListener('click', () => {
+    portfolioPanel.classList.remove('show');
+    overlay.classList.remove('show');
+  });
+  closeEmailBtn.addEventListener('click', () => {
+    emailPanel.classList.remove('show');
+    overlay.classList.remove('show');
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === "Escape") {
+      portfolioPanel.classList.remove('show');
+      emailPanel.classList.remove('show');
+      overlay.classList.remove('show');
+    }
+  });
+
+  /* ===== Bootstrap modal handle for iframe ===== */
+  const siteModal  = new bootstrap.Modal(document.getElementById('siteModal'), { keyboard: true });
+  const siteFrame  = document.getElementById('siteFrame');
+
+  function openInModal(url) {
+    siteFrame.src = "";
+    siteModal.show();
+    setTimeout(() => { siteFrame.src = url; }, 50);
+  }
+
+  /* ===== Portfolio grid: click -> iframe modal ===== */
+  document.querySelectorAll('#portfolioPanel .card[data-link]').forEach(card => {
+    const go = () => openInModal(card.getAttribute('data-link'));
+    card.addEventListener('click', go);
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); }
+    });
+  });
+
+  /* ===== 3D Carousel logic (click -> iframe modal) ===== */
+  const positions = [
+    { height: 620, z: 220, rotateY: 48,  y: 0, clip: "polygon(0px 0px, 100% 10%, 100% 90%, 0px 100%)" },
+    { height: 580, z: 165, rotateY: 35,  y: 0, clip: "polygon(0px 0px, 100% 8%, 100% 92%, 0px 100%)" },
+    { height: 495, z: 110, rotateY: 15,  y: 0, clip: "polygon(0px 0px, 100% 7%, 100% 93%, 0px 100%)" },
+    { height: 420, z: 66,  rotateY: 15,  y: 0, clip: "polygon(0px 0px, 100% 7%, 100% 93%, 0px 100%)" },
+    { height: 353, z: 46,  rotateY: 6,   y: 0, clip: "polygon(0px 0px, 100% 7%, 100% 93%, 0px 100%)" },
+    { height: 310, z: 0,   rotateY: 0,   y: 0, clip: "polygon(0 0, 100% 0, 100% 100%, 0 100%)" },
+    { height: 353, z: 54,  rotateY: 348, y: 0, clip: "polygon(0px 7%, 100% 0px, 100% 100%, 0px 93%)" },
+    { height: 420, z: 89,  rotateY: -15, y: 0, clip: "polygon(0px 7%, 100% 0px, 100% 100%, 0px 93%)" },
+    { height: 495, z: 135, rotateY: -15, y: 1, clip: "polygon(0px 7%, 100% 0px, 100% 100%, 0px 93%)" },
+    { height: 580, z: 195, rotateY: 325, y: 0, clip: "polygon(0px 8%, 100% 0px, 100% 100%, 0px 92%)" },
+    { height: 620, z: 240, rotateY: 312, y: 0, clip: "polygon(0px 10%, 100% 0px, 100% 100%, 0px 90%)" }
+  ];
+
+  class Carousel3D {
+    constructor() {
+      this.container = document.getElementById("c3dContainer");
+      this.track     = document.getElementById("c3dTrack");
+      this.cards     = Array.from(document.querySelectorAll(".c3d-card"));
+      this.totalCards= this.cards.length;
+      this.isDragging= false;
+      this.startX    = 0;
+      this.dragDistance=0;
+      this.threshold = 60;
+      this.processedSteps=0;
+      this.init();
+    }
+    init(){ this.applyPositions(); this.attachEvents(); }
+    applyPositions(){
+      this.cards.forEach((card, index) => {
+        const pos = positions[index % positions.length];
+        gsap.set(card, {
+          height: pos.height,
+          clipPath: pos.clip,
+          transform: `translateZ(${pos.z}px) rotateY(${pos.rotateY}deg) translateY(${pos.y}px)`
+        });
+      });
+    }
+    rotate(direction){
+      this.cards.forEach((card, index) => {
+        const newIndex = (direction === "next")
+          ? (index - 1 + this.totalCards) % this.totalCards
+          : (index + 1) % this.totalCards;
+        const pos = positions[newIndex % positions.length];
+        gsap.set(card, { clipPath: pos.clip });
+        gsap.to(card, { height: pos.height, duration:.5, ease:"power2.out" });
+        gsap.to(card, { transform:`translateZ(${pos.z}px) rotateY(${pos.rotateY}deg) translateY(${pos.y}px)`, duration:.5, ease:"power2.out" });
+      });
+      if (direction === "next"){
+        const first = this.cards.shift(); this.cards.push(first); this.track.appendChild(first);
+      } else {
+        const last = this.cards.pop(); this.cards.unshift(last); this.track.prepend(last);
+      }
+    }
+    attachEvents(){
+      // Click/keyboard -> iframe modal
+      this.cards.forEach(card => {
+        const go = () => {
+          const link = card.getAttribute('data-link');
+          if (link) openInModal(link);
+        };
+        card.addEventListener("click", go);
+        card.addEventListener("keydown", (e) => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); }
+        });
+      });
+
+      // Drag/Swipe
+      this.container.addEventListener("mousedown", (e)=>this.handleDragStart(e));
+      this.container.addEventListener("touchstart", (e)=>this.handleDragStart(e), {passive:false});
+      document.addEventListener("mousemove", (e)=>this.handleDragMove(e));
+      document.addEventListener("touchmove", (e)=>this.handleDragMove(e), {passive:false});
+      document.addEventListener("mouseup", ()=>this.handleDragEnd());
+      document.addEventListener("touchend", ()=>this.handleDragEnd());
+
+      // Keyboard arrows
+      document.addEventListener("keydown", (e)=>{
+        if (e.key === "ArrowLeft") this.rotate("prev");
+        else if (e.key === "ArrowRight") this.rotate("next");
+      });
+    }
+    handleDragStart(e){
+      this.isDragging = true;
+      this.container.classList.add("dragging");
+      this.startX = e.type.includes("mouse") ? e.clientX : e.touches[0].clientX;
+      this.dragDistance = 0; this.processedSteps = 0;
+    }
+    handleDragMove(e){
+      if (!this.isDragging) return;
+      e.preventDefault();
+      const currentX = e.type.includes("mouse") ? e.clientX : e.touches[0].clientX;
+      this.dragDistance = currentX - this.startX;
+      const steps = Math.floor(Math.abs(this.dragDistance) / this.threshold);
+      if (steps > this.processedSteps){
+        const dir = this.dragDistance > 0 ? "prev" : "next";
+        this.rotate(dir);
+        this.processedSteps = steps;
+      }
+    }
+    handleDragEnd(){
+      if (!this.isDragging) return;
+      this.isDragging = false;
+      this.container.classList.remove("dragging");
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => { new Carousel3D(); });
+
+  // Free resources when modal closes
+  document.getElementById('siteModal').addEventListener('hidden.bs.modal', () => {
+    siteFrame.src = "";
+  });
+</script>
+</body>
+</html>
