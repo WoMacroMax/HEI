@@ -1,0 +1,341 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Phone Service Ad | Rounded Hero (Seamless)</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  :root {
+    --heroTop:#33436e;
+    --heroBottom:#0d3b4d;
+    --accent:#005fa3;
+    --eye:red;
+  }
+
+  /* Page base */
+  body {
+    background:#f4f6f8;            /* page edge color (outside stage) */
+    font-family:'Segoe UI',system-ui,Arial,sans-serif;
+    overflow-x:hidden;
+    margin:0;
+  }
+
+  /* ===== Stage (spider-web bg behind hero + cards) ===== */
+  .stage{
+    position:relative;
+    width:100%;
+    background:
+      radial-gradient(circle at 10% 20%, rgba(255,255,255,.07) 0 2px, transparent 3px) 0 0/140px 140px,
+      radial-gradient(circle at 70% 60%, rgba(255,255,255,.06) 0 2px, transparent 3px) 0 0/180px 180px,
+      conic-gradient(from 0deg at 50% 50%, rgba(255,255,255,.05) 0 12deg, transparent 12deg 24deg, rgba(255,255,255,.05) 24deg 36deg, transparent 36deg 48deg, rgba(255,255,255,.05) 48deg 60deg, transparent 60deg 72deg, rgba(255,255,255,.05) 72deg 84deg, transparent 84deg 96deg, rgba(255,255,255,.05) 96deg 108deg, transparent 108deg 120deg, rgba(255,255,255,.05) 120deg 132deg, transparent 132deg 144deg, rgba(255,255,255,.05) 144deg 156deg, transparent 156deg 168deg, rgba(255,255,255,.05) 168deg 180deg) 0 0/280px 280px;
+    background-color:#0f2f3a;
+  }
+
+  /* ===== HERO SECTION (Rounded + Padding) ===== */
+  .hero-section {
+    position: relative;
+    height: 28vh;
+    background: linear-gradient(180deg, var(--heroTop) 0%, var(--heroBottom) 100%);
+    color: #fff;
+    border-bottom: 4px solid var(--accent);
+    border-radius: 0 0 60px 60px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    text-align: center;
+    padding-top: 3rem; /* top padding so nothing gets cut off */
+    overflow: hidden;
+  }
+
+  .hero-section h1 {
+    z-index: 1;
+    font-weight: 800;
+    letter-spacing: .02em;
+    font-size: 1.8rem;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, .35);
+    margin: 0 1rem;
+  }
+
+  .hero-highlight {
+    color: #ffb703;
+    text-shadow: 0 0 10px rgba(255, 183, 3, .35);
+  }
+
+  /* Reaper slides from left -> right */
+  .reaper {
+    position: absolute;
+    bottom: 0;
+    left: -120px;
+    width: 60px;
+    height: 120px;
+    background: #1a1a1a;
+    border-radius: 0 0 10px 10px;
+    filter: drop-shadow(0 6px 8px rgba(0, 0, 0, .45));
+    animation: reaperWalk 2.4s ease-out .35s forwards, bob 3s ease-in-out .35s infinite;
+  }
+  @keyframes reaperWalk {
+    0% { left: -120px; transform: scale(.98); }
+    65% { left: calc(100% - 160px); }
+    100% { left: calc(100% - 100px); transform: scale(1); }
+  }
+  @keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-3px)} }
+
+  .reaper-head {
+    position: absolute;
+    top: -50px;
+    left: 5px;
+    width: 50px;
+    height: 50px;
+    background: #000;
+    border-radius: 12px;
+  }
+  .eye {
+    position: absolute;
+    top: 10px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--eye);
+    box-shadow: 0 0 6px 2px var(--eye), 0 0 14px 6px rgba(255, 0, 0, .18);
+    animation: blink 3s infinite;
+  }
+  .eye.left { left: 15px; }
+  .eye.right { right: 15px; animation-delay: .3s; }
+  @keyframes blink { 0%,88%,100%{opacity:1} 92%{opacity:.12} }
+
+  .scythe {
+    position: absolute;
+    left: -15px;
+    top: -60px;
+    width: 8px;
+    height: 120px;
+    background: #b68a60;
+    border-radius: 4px;
+    animation: sway 2.2s ease-in-out .35s infinite;
+    transform-origin: bottom center;
+  }
+  @keyframes sway { 0%,100%{transform:rotate(0)} 50%{transform:rotate(-3deg)} }
+  .blade {
+    position: absolute;
+    top: -5px;
+    left: -20px;
+    width: 50px;
+    height: 12px;
+    background: linear-gradient(90deg, #d9d9d9, #888);
+    border-radius: 8px 8px 0 0;
+    transform: rotate(10deg);
+  }
+
+  /* ===== CARD SECTION (transparent to reveal stage bg) ===== */
+  .card-wrap {
+    position: relative;
+    padding: 60px 20px;
+    background: transparent;  /* <- key: let the stage bg show through */
+  }
+
+  .equal-col { display: flex; }
+  .equal-card {
+    background: linear-gradient(135deg, #e6f1ff, #ffffff);
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0,123,255,.1);
+    padding: 40px;
+    width: 100%;
+    min-height: 420px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .equal-card h2 { color: #003366; font-weight: 700; }
+  .equal-card p { font-size: 1.2rem; color: #333; margin-bottom: 12px; }
+  .image-card img { border-radius: 14px; width: 100%; height: 100%; object-fit: cover; }
+
+  .reveal-on-scroll { opacity: 0; transform: translateY(16px); }
+  .reveal-on-scroll.in { opacity: 1; transform: none; transition: opacity .6s ease, transform .6s ease; }
+
+  .btn-primary {
+    background-color: #0077c5;
+    border-radius: 50px;
+    padding: 12px 28px;
+    border: none;
+  }
+  .btn-primary:hover { background-color: #005fa3; }
+  .btn-secondary { border-radius: 50px; padding: 12px 28px; border: none; }
+
+  /* ===== Modal iframe ===== */
+  .modal-content, .modal-body { padding:0 !important; margin:0 !important; border:none !important; overflow-x:hidden !important; }
+  iframe { width:100%; height:85vh; border:none; display:block; overflow-x:hidden !important; }
+
+  @media (max-width: 992px) { .equal-card { min-height: 360px; } }
+  @media (max-width: 768px) {
+    .hero-section { height: 22vh; border-radius: 0 0 40px 40px; padding-top: 2.5rem; }
+    .equal-card { min-height: 340px; }
+    iframe { height: 80vh; }
+  }
+</style>
+</head>
+
+<body>
+
+  <div class="stage"><!-- background holder for hero + cards -->
+
+    <!-- ===== HERO ===== -->
+    <section class="hero-section">
+      <h1>Has the <span class="hero-highlight">THRILL</span> of Your Phone Died</h1>
+      <div class="reaper">
+        <div class="scythe"><div class="blade"></div></div>
+        <div class="reaper-head">
+          <div class="eye left"></div>
+          <div class="eye right"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CARDS ===== -->
+    <div class="card-wrap">
+      <div class="container">
+        <div class="row g-4 align-items-stretch">
+          <div class="col-lg-6 equal-col">
+            <div class="equal-card info-card text-center reveal-on-scroll" id="infoCard">
+              <h2 class="mb-3">📱 Do you have phone issues?</h2>
+              <p>Are you <strong>tired of paying too much</strong> for phone service?</p>
+              <p>Is your budget disrupted by <strong>fluctuating bills</strong>?</p>
+              <p>Do you want a <strong>better, more reliable service</strong>?</p>
+              <p><strong>Would you like a free phone service?</strong></p>
+              <div class="d-flex justify-content-center flex-wrap gap-3 mt-4">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#narrativeModal">Learn More</button>
+                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#contactModal">Contact Us</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 equal-col">
+            <div class="equal-card p-3 reveal-on-scroll image-card">
+              <img src="https://flyers.womacromax.com/phoneservice/media/frustrated%20phone%20user%20wishing%20for%20better%20service.png" alt="Frustrated phone user">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /stage -->
+
+  <!-- ===== Narrative Modal ===== -->
+  <div class="modal fade" id="narrativeModal" tabindex="-1" aria-labelledby="narrativeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded-4">
+        <div class="modal-header">
+          <h5 class="modal-title" id="narrativeModalLabel">Why Choose Us?</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body px-4 py-3">
+          <p><strong>"Are you stuck in a love-hate relationship with your phone service?"</strong></p>
+          <p>You’ve been there: fighting to make sense of another inflated bill. Wondering why “reliable service” feels mythical.</p>
+          <p>Imagine: no surprises, no stress. Just clarity, consistency, and maybe… even <em>free service</em>.</p>
+          <p>We believe phone service should empower you—not drain your wallet or patience.</p>
+          <p>Take the leap. The best part? You’ll wonder why you didn’t switch sooner.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Contact Modal ===== -->
+  <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered modal-lg">
+      <div class="modal-content rounded-0">
+        <div class="modal-body">
+          <iframe src="https://gtc-010-23-menu-fix-womacromax.replit.app/contact" title="Contact Form" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Reveal cards on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.25 });
+
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+  </script>
+<!-- WebSocket Live Reload Script -->
+<script>
+    // <![CDATA[  <-- For SVG support
+    if ('WebSocket' in window) {
+        (function() {
+            const protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+            const address = protocol + window.location.host + '/ws';
+            let socket;
+            let reconnectAttempts = 0;
+            const maxReconnectAttempts = 5;
+            const reconnectDelay = 1000;
+
+            function refreshCSS() {
+                const sheets = [].slice.call(document.getElementsByTagName("link"));
+                const head = document.getElementsByTagName("head")[0];
+                sheets.forEach(function(elem) {
+                    const parent = elem.parentElement || head;
+                    const rel = elem.rel;
+                    if (elem.href && (typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet")) {
+                        const url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+                        elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+                    }
+                });
+            }
+
+            function connect() {
+                if (socket) {
+                    socket.close();
+                }
+
+                socket = new WebSocket(address);
+                
+                socket.onmessage = function(msg) {
+                    if (msg.data === 'reload') {
+                        console.log('Full page reload');
+                        window.location.reload();
+                    } else if (msg.data === 'refreshcss') {
+                        console.log('CSS refresh');
+                        refreshCSS();
+                    }
+                };
+
+                socket.onopen = function() {
+                    console.log('Live reload enabled.');
+                    reconnectAttempts = 0;
+                };
+
+                socket.onclose = function(e) {
+                    console.log('Live reload disabled.');
+                    if (reconnectAttempts < maxReconnectAttempts) {
+                        reconnectAttempts++;
+                        console.log(`Reconnecting... Attempt ${reconnectAttempts}`);
+                        setTimeout(connect, reconnectDelay);
+                    }
+                };
+
+                socket.onerror = function(err) {
+                    console.error('WebSocket error:', err);
+                    socket.close();
+                };
+            }
+
+            connect();
+        })();
+    } else {
+        console.error('Your browser does not support WebSocket for Live-Reloading.');
+    }
+    // ]]>
+</script>
+</body>
+</html>
