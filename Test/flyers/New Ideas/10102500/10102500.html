@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Misty Mountains — Travel SPA</title>
+  <meta name="description" content="A Bootstrap single-page app showcasing a moody, misty mountain slider with smooth navigation, keyboard/touch controls, and hash-based routing." />
+  <link rel="canonical" href="https://example.com/misty-mountains" />
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+
+  <style>
+    :root{
+      --card-shadow: 0 30px 50px rgba(0,0,0,.35);
+      --panel-shadow: 0 30px 50px #dbdbdb;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      background: #b9bbb9;
+      overflow-x: hidden;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    /* ====== App shell ====== */
+    .app-section { display: none; }
+    .app-section.active { display: block; }
+
+    /* ====== Slider container ====== */
+    .stage-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 1100px;
+      margin: 2.5rem auto;
+      padding: 0 1rem;
+    }
+
+    .container-stage {
+      position: relative;
+      margin: 0 auto;
+      width: 100%;
+      height: clamp(380px, 55vh, 540px);
+      background: #f5f5f5;
+      box-shadow: var(--panel-shadow);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .container-stage .slide { border-radius: 20px; height: 100%; }
+
+    /* ====== Slide items ====== */
+    .slide .item {
+      width: 220px;
+      height: 270px;
+      position: absolute;
+      top: 50%;
+      transform: translate(0, -50%);
+      border-radius: 20px;
+      box-shadow: var(--card-shadow);
+      background-position: 50% 50%;
+      background-size: cover;
+      display: inline-block;
+      transition: all 0.5s ease;
+    }
+
+    /* The first two items fill the frame (current & outgoing) */
+    .slide .item:nth-child(1),
+    .slide .item:nth-child(2) {
+      top: 0;
+      left: 0;
+      transform: translate(0,0);
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+      transition: all 0.5s ease;
+    }
+
+    /* Stacked previews to the right */
+    .slide .item:nth-child(3) { left: 55%; }
+    .slide .item:nth-child(4) { left: calc(55% + 240px); }
+    .slide .item:nth-child(5) { left: calc(55% + 480px); }
+    .slide .item:nth-child(n + 6) { left: calc(55% + 720px); opacity: 0; }
+
+    /* Content overlay (only visible on 2nd child = current) */
+    .item .content {
+      position: absolute;
+      top: 50%;
+      left: min(7vw, 120px);
+      width: min(42ch, 60%);
+      text-align: left;
+      color: #f1f1f1;
+      transform: translate(0, -50%);
+      display: none;
+      text-shadow: 0 2px 18px rgba(0,0,0,.35);
+    }
+    .slide .item:nth-child(2) .content { display: block; }
+
+    .content .name {
+      font-size: clamp(28px, 4.5vw, 44px);
+      text-transform: uppercase;
+      font-weight: 800;
+      letter-spacing: .04em;
+      opacity: 0;
+      animation: popin 1s ease 0s forwards;
+    }
+    .content .des {
+      margin-top: .6rem;
+      margin-bottom: 1rem;
+      font-size: clamp(14px, 1.7vw, 18px);
+      opacity: 0;
+      animation: popin 1s ease .25s forwards;
+    }
+    .content .seeMore button {
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      opacity: 0;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.75);
+      color: #222;
+      font-weight: 600;
+      animation: popin 1s ease .5s forwards;
+      transition: transform .25s ease, background-color .25s ease;
+    }
+    .content .seeMore button:hover { transform: translateY(-1px); background: #fff; }
+    @keyframes popin {
+      from { opacity: 0; transform: translate(0, 24px); filter: blur(16px); }
+      to   { opacity: 1; transform: translate(0, 0);   filter: blur(0); }
+    }
+
+    /* Controls */
+    .controls {
+      position: absolute;
+      inset-inline: 0;
+      bottom: 14px;
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      pointer-events: none;
+    }
+    .controls .btn {
+      pointer-events: auto;
+      width: 42px; height: 36px;
+      border-radius: 10px;
+      border: 2px solid rgba(0,0,0,.55) !important;
+      background: rgba(255,255,255,.65);
+      backdrop-filter: blur(4px);
+      line-height: 1;
+      font-weight: 700;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+    .controls .btn:hover   { transform: scale(1.06); border-color: #fff !important; background: #fff; }
+    .controls .btn:active  { transform: scale(1.02); }
+
+    /* Footer badge */
+    .MDJAminDiv {
+      z-index: 4444;
+      position: fixed;
+      bottom: 5%;
+      left: 2%;
+    }
+    .MDJAmin {
+      text-decoration: none;
+      border-bottom: 1px dashed rgb(44, 44, 44);
+      border-top: 1px dashed rgb(44, 44, 44);
+      padding: 4px 0;
+      color: rgba(44,44,44,.6);
+      font-family: monospace;
+      font-style: italic;
+      font-size: 1.05rem;
+      transition: color .2s ease;
+    }
+    .MDJAmin:hover { color:#000; }
+
+    /* Responsive tweaks */
+    @media (max-width: 992px) {
+      .slide .item:nth-child(3) { left: 60%; }
+      .slide .item:nth-child(4) { left: calc(60% + 240px); }
+      .slide .item:nth-child(5) { left: calc(60% + 480px); }
+      .slide .item:nth-child(n + 6) { left: calc(60% + 720px); }
+    }
+    @media (max-width: 768px) {
+      .slide .item { width: 180px; height: 230px; }
+      .slide .item:nth-child(3) { left: 62%; }
+      .slide .item:nth-child(4) { left: calc(62% + 200px); }
+      .slide .item:nth-child(5) { left: calc(62% + 400px); }
+      .slide .item:nth-child(n + 6) { left: calc(62% + 600px); }
+      .content .seeMore button { padding: 8px 16px; }
+    }
+    @media (max-width: 576px) {
+      .content { left: 6vw; width: 80%; }
+      .content .name { letter-spacing: .03em; }
+    }
+
+    /* Simple fade between routes */
+    .fade-route { animation: routeIn .25s ease both; }
+    @keyframes routeIn { from { opacity: 0 } to { opacity: 1 } }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR (SPA tabs) -->
+  <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#home">Misty Mountains</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain" aria-controls="navMain" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div id="navMain" class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#credits">Credits</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ROUTE: HOME (Slider) -->
+  <main id="home" class="app-section active fade-route" tabindex="-1" aria-label="Home: slider">
+    <div class="stage-wrap container">
+      <div class="container-stage">
+        <div class="slide" aria-live="polite">
+          <!-- Scotland -->
+          <div class="item" style="background-image:url('https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0');">
+            <div class="content">
+              <div class="name">Scotland</div>
+              <div class="des">Experience the mystical Highlands under twilight skies and misty lochs.</div>
+              <a class="seeMore" target="_blank" href="https://github.com/MDJAmin" rel="noopener">
+                <button type="button" class="btn">See More</button>
+              </a>
+            </div>
+          </div>
+
+          <!-- Norway -->
+          <div class="item" style="background-image:url('https://images.unsplash.com/photo-1439792675105-701e6a4ab6f0?q=80&w=1173&auto=format&fit=crop&ixlib=rb-4.1.0');">
+            <div class="content">
+              <div class="name">Norway</div>
+              <div class="des">Chase the Northern Lights under star-lit skies along scenic fjord roads.</div>
+              <a class="seeMore" target="_blank" href="https://github.com/MDJAmin" rel="noopener">
+                <button type="button" class="btn">See More</button>
+              </a>
+            </div>
+          </div>
+
+          <!-- New Zealand -->
+          <div class="item" style="background-image:url('https://images.unsplash.com/photo-1483982258113-b72862e6cff6?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0');">
+            <div class="content">
+              <div class="name">New Zealand</div>
+              <div class="des">Wander dramatic, mist-laden mountain paths that feel straight out of a dream.</div>
+              <a class="seeMore" target="_blank" href="https://github.com/MDJAmin" rel="noopener">
+                <button type="button" class="btn">See More</button>
+              </a>
+            </div>
+          </div>
+
+          <!-- Japan -->
+          <div class="item" style="background-image:url('https://images.unsplash.com/photo-1477346611705-65d1883cee1e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0');">
+            <div class="content">
+              <div class="name">Japan</div>
+              <div class="des">Discover serene mountain temples shrouded in dusk and ancient forest trails.</div>
+              <a class="seeMore" target="_blank" href="https://github.com/MDJAmin" rel="noopener">
+                <button type="button" class="btn">See More</button>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+          <button class="btn btn-outline-dark prev" aria-label="Previous slide">◁</button>
+          <button class="btn btn-outline-dark next" aria-label="Next slide">▷</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ROUTE: ABOUT -->
+  <section id="about" class="app-section container fade-route" tabindex="-1" aria-label="About">
+    <div class="row justify-content-center my-5">
+      <div class="col-lg-8">
+        <div class="card shadow-sm">
+          <div class="card-body p-4">
+            <h2 class="h4">About This SPA</h2>
+            <p class="mb-0">
+              This single-page app is powered by Bootstrap 5 and a tiny hash router.
+              The hero slider uses a simple DOM re-order trick for buttery transitions, with
+              keyboard (<kbd>←</kbd>/<kbd>→</kbd>) and touch swipe support baked in.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROUTE: CREDITS -->
+  <section id="credits" class="app-section container fade-route" tabindex="-1" aria-label="Credits">
+    <div class="row justify-content-center my-5">
+      <div class="col-lg-8">
+        <div class="card shadow-sm">
+          <div class="card-body p-4">
+            <h2 class="h4">Credits</h2>
+            <ul class="mb-0">
+              <li>Images: Unsplash (linked in CSS background URLs).</li>
+              <li>Original slider idea &amp; link badge: <a href="https://github.com/MDJAmin" target="_blank" rel="noopener">MDJAmin</a>.</li>
+              <li>Framework: Bootstrap 5.3.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer badge (preserved) -->
+  <div class="MDJAminDiv">
+    <a class="MDJAmin" href="https://github.com/MDJAmin" target="_blank" rel="noopener">MDJAmin</a>
+  </div>
+
+  <!-- Bootstrap JS (for navbar toggler only) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    "use strict";
+
+    /* ===============================
+       Simple hash router (SPA)
+    =============================== */
+    const routes = ["home","about","credits"];
+    function showRoute(hash) {
+      const route = (hash || "home").replace("#","");
+      document.querySelectorAll(".app-section").forEach(s => s.classList.remove("active"));
+      const el = document.getElementById(route) || document.getElementById("home");
+      el.classList.add("active");
+      // focus for a11y
+      el.focus({ preventScroll: true });
+      // set active nav link
+      document.querySelectorAll(".navbar .nav-link").forEach(a=>{
+        a.classList.toggle("active", a.getAttribute("href") === "#" + route);
+      });
+    }
+    window.addEventListener("hashchange", ()=>showRoute(location.hash));
+    window.addEventListener("DOMContentLoaded", ()=>showRoute(location.hash || "#home"));
+
+    /* ===============================
+       Slider controls
+    =============================== */
+    const nextBtn = document.querySelector(".next");
+    const prevBtn = document.querySelector(".prev");
+    const slideEl = document.querySelector(".slide");
+
+    function slideNext() {
+      const items = slideEl.querySelectorAll(".item");
+      slideEl.appendChild(items[0]);
+    }
+    function slidePrev() {
+      const items = slideEl.querySelectorAll(".item");
+      slideEl.prepend(items[items.length - 1]);
+    }
+
+    nextBtn.addEventListener("click", slideNext);
+    prevBtn.addEventListener("click", slidePrev);
+
+    // Keyboard arrows
+    document.addEventListener("keydown", (e)=>{
+      if (!document.getElementById("home").classList.contains("active")) return;
+      if (e.key === "ArrowRight") slideNext();
+      if (e.key === "ArrowLeft")  slidePrev();
+    });
+
+    // Touch swipe
+    (function addSwipe(el) {
+      let startX = 0, startY = 0, isTouch = false;
+      el.addEventListener("touchstart", (e)=>{
+        const t = e.touches[0];
+        startX = t.clientX; startY = t.clientY; isTouch = true;
+      }, {passive:true});
+      el.addEventListener("touchmove", (e)=>{
+        // no-op (we only need end for simple swipe)
+      }, {passive:true});
+      el.addEventListener("touchend", (e)=>{
+        if (!isTouch) return;
+        const t = e.changedTouches[0];
+        const dx = t.clientX - startX;
+        const dy = t.clientY - startY;
+        if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+          (dx < 0) ? slideNext() : slidePrev();
+        }
+        isTouch = false;
+      });
+    })(slideEl);
+
+    // Make controls reachable by keyboard focus visually
+    [nextBtn, prevBtn].forEach(b=>b.setAttribute("tabindex","0"));
+  </script>
+</body>
+</html>
