@@ -12,12 +12,15 @@
   <meta name="author" content="WoMacroMAX Automation Network" />
   <link rel="canonical" href="https://flyers.womacromax.com/phoneservice/" />
 
-  <!-- Robots (indexable) -->
+  <!-- Robots -->
   <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
 
   <!-- Favicons -->
   <link rel="icon" href="https://womacromax.com/media/WoMacroMAXAutomation-logo-00.png" type="image/png" />
   <link rel="apple-touch-icon" href="https://womacromax.com/media/WoMacroMAXAutomation-logo-00.png" />
+
+  <!-- Social / metadata image (matches inline picture) -->
+  <link rel="image_src" href="https://flyers.womacromax.com/phoneservice/media/frustrated%20phone%20user%20wishing%20for%20better%20service.png" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
@@ -25,15 +28,20 @@
   <meta property="og:url" content="https://flyers.womacromax.com/phoneservice/" />
   <meta property="og:title" content="Affordable Phone Service — Reliable Plans, No Bill Surprises" />
   <meta property="og:description" content="Stop overpaying for phone service. Explore reliable plans that keep your budget stable — with potential $0 cost for qualified users." />
-  <meta property="og:image" content="https://flyers.womacromax.com/phoneservice/media/phoneservice-social-card.jpg" />
+  <meta property="og:image" content="https://flyers.womacromax.com/phoneservice/media/frustrated%20phone%20user%20wishing%20for%20better%20service.png" />
+  <meta property="og:image:secure_url" content="https://flyers.womacromax.com/phoneservice/media/frustrated%20phone%20user%20wishing%20for%20better%20service.png" />
+  <meta property="og:image:alt" content="Person frustrated with unreliable phone service and high bills" />
+  <!-- Optional if you know exact dimensions
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
+  -->
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Affordable Phone Service — Reliable Plans, No Bill Surprises" />
   <meta name="twitter:description" content="Lower your phone bill and boost reliability. See plans that can reduce your cost — even to $0 if eligible." />
-  <meta name="twitter:image" content="https://flyers.womacromax.com/phoneservice/media/phoneservice-social-card.jpg" />
+  <meta name="twitter:image" content="https://flyers.womacromax.com/phoneservice/media/frustrated%20phone%20user%20wishing%20for%20better%20service.png" />
+  <meta name="twitter:image:alt" content="Person frustrated with unreliable phone service and high bills" />
 
   <!-- Preconnect (perf) -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -42,7 +50,7 @@
   <!-- CSS Framework -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Structured Data (Organization + Website) -->
+  <!-- Structured Data (Organization) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -57,6 +65,7 @@
   }
   </script>
 
+  <!-- Structured Data (Website) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -96,37 +105,17 @@
   }
   </script>
 
-  <!-- Structured Data (FAQ — built from your questions) -->
+  <!-- Structured Data (FAQ — from your questions) -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
     "@type":"FAQPage",
     "mainEntity":[
-      {
-        "@type":"Question",
-        "name":"Do you have phone issues?",
-        "acceptedAnswer":{"@type":"Answer","text":"If you experience dropped calls, slow data, or poor coverage, a plan audit can match you with a network and plan optimized for your area—often improving reliability without increasing cost."}
-      },
-      {
-        "@type":"Question",
-        "name":"Are you tired of paying too much for phone service?",
-        "acceptedAnswer":{"@type":"Answer","text":"We compare plans and eligibility programs to reduce your monthly bill. Many customers qualify for promotions or credits that lower costs significantly."}
-      },
-      {
-        "@type":"Question",
-        "name":"Is your budget disrupted by fluctuating bills?",
-        "acceptedAnswer":{"@type":"Answer","text":"We prioritize plans with clear, consistent pricing—no hidden fees—so your monthly cost stays predictable."}
-      },
-      {
-        "@type":"Question",
-        "name":"Do you want a better, more reliable service?",
-        "acceptedAnswer":{"@type":"Answer","text":"Yes. We recommend carrier options based on real coverage data for your location, improving call quality and data speeds."}
-      },
-      {
-        "@type":"Question",
-        "name":"Would you like a free phone service?",
-        "acceptedAnswer":{"@type":"Answer","text":"Depending on eligibility (e.g., certain assistance programs or promotional credits), your monthly cost can be reduced to $0. We’ll help you check eligibility fast."}
-      }
+      {"@type":"Question","name":"Do you have phone issues?","acceptedAnswer":{"@type":"Answer","text":"If you experience dropped calls, slow data, or poor coverage, a plan audit can match you with a network and plan optimized for your area—often improving reliability without increasing cost."}},
+      {"@type":"Question","name":"Are you tired of paying too much for phone service?","acceptedAnswer":{"@type":"Answer","text":"We compare plans and eligibility programs to reduce your monthly bill. Many customers qualify for promotions or credits that lower costs significantly."}},
+      {"@type":"Question","name":"Is your budget disrupted by fluctuating bills?","acceptedAnswer":{"@type":"Answer","text":"We prioritize plans with clear, consistent pricing—no hidden fees—so your monthly cost stays predictable."}},
+      {"@type":"Question","name":"Do you want a better, more reliable service?","acceptedAnswer":{"@type":"Answer","text":"Yes. We recommend carrier options based on real coverage data for your location, improving call quality and data speeds."}},
+      {"@type":"Question","name":"Would you like a free phone service?","acceptedAnswer":{"@type":"Answer","text":"Depending on eligibility (e.g., certain assistance programs or promotional credits), your monthly cost can be reduced to $0. We’ll help you check eligibility fast."}}
     ]
   }
   </script>
@@ -141,7 +130,7 @@
 
     /* Page base */
     body {
-      background:#f4f6f8;
+      background:#f4f6f8;            /* page edge color (outside stage) */
       font-family:'Segoe UI',system-ui,Arial,sans-serif;
       overflow-x:hidden;
       margin:0;
@@ -170,7 +159,7 @@
       align-items: flex-start;
       justify-content: center;
       text-align: center;
-      padding-top: 3rem;
+      padding-top: 3rem; /* top padding so nothing gets cut off */
       overflow: hidden;
     }
 
@@ -257,7 +246,7 @@
     .card-wrap {
       position: relative;
       padding: 60px 20px;
-      background: transparent;
+      background: transparent;  /* <- key: let the stage bg show through */
     }
 
     .equal-col { display: flex; }
@@ -384,6 +373,7 @@
 
   <!-- Reveal on Scroll -->
   <script>
+    // Reveal cards on scroll
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
