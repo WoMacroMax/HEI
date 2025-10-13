@@ -331,11 +331,207 @@
 
     /* Services Section */
     .services-section {
-      width: 100%; padding: 0;
+      width: 100%; padding: 3rem 1.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(6px);
+    }
+    .services-inner {
+      max-width: 1280px; margin: 0 auto;
+    }
+    .services-header {
+      display: flex; align-items: center;
+      justify-content: space-between; margin-bottom: 1.5rem;
+    }
+    .services-title {
+      font-size: clamp(1.875rem, 4vw, 2.25rem);
+      font-weight: 800; color: white; margin: 0.5rem 0 0.5rem;
+    }
+    .services-subtitle {
+      color: #94a3b8; margin-bottom: 0;
+    }
+    .services-content {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.7s ease-in-out, opacity 0.7s ease-in-out;
+    }
+    .services-section.expanded .services-content {
+      max-height: 1200px;
+      opacity: 1;
     }
     .services-iframe {
       display: block; width: 100%;
       height: 800px; border: 0;
+      border-radius: 0.75rem;
+    }
+
+    /* Social Section */
+    .social-section {
+      width: 100%; padding: 3rem 1.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(6px);
+    }
+    .social-inner {
+      max-width: 1280px; margin: 0 auto;
+    }
+    .social-title {
+      font-size: clamp(1.875rem, 4vw, 2.25rem);
+      font-weight: 800; color: white; margin: 0.5rem 0 0.5rem;
+    }
+    .social-subtitle {
+      color: #94a3b8; margin-bottom: 1.5rem;
+    }
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+    .social-card {
+      background: hsl(var(--card));
+      border-radius: 0.75rem;
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+      transition: var(--transition-smooth);
+      border: 1px solid hsl(var(--border));
+      cursor: pointer;
+    }
+    .social-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-elegant);
+    }
+    .social-card-header {
+      padding: 1.25rem;
+    }
+    .social-card-title {
+      font-size: 1.05rem;
+      color: #111827;
+      margin: 0 0 0.5rem;
+      font-weight: 600;
+    }
+    .social-card-desc {
+      font-size: 0.95rem;
+      color: #334155;
+    }
+    .social-card-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .social-card.active .social-card-content {
+      max-height: 400px;
+    }
+    .social-card-iframe {
+      width: 100%;
+      height: 360px;
+      border: 0;
+      display: block;
+    }
+    .social-card-fallback {
+      width: 100%;
+      height: 360px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      background: rgba(0,0,0,0.03);
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .social-card-fallback p {
+      font-size: 0.9rem;
+      color: hsl(var(--muted));
+    }
+
+    /* Leave Confirmation Dialog */
+    .leave-dialog {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(2px);
+    }
+    .leave-dialog.show { display: flex; }
+    .leave-dialog-content {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1.5rem;
+      width: min(420px, 90vw);
+      box-shadow: var(--shadow-elegant);
+    }
+    .leave-dialog-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 0.5rem;
+    }
+    .leave-dialog-desc {
+      font-size: 0.95rem;
+      color: #334155;
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+    .leave-dialog-actions {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: flex-end;
+    }
+
+    /* Share QR Dialog */
+    .share-dialog {
+      position: fixed;
+      inset: 0;
+      z-index: 9998;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(2px);
+    }
+    .share-dialog.show { display: flex; }
+    .share-dialog-content {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1.5rem;
+      width: min(450px, 90vw);
+      box-shadow: var(--shadow-elegant);
+    }
+    .share-dialog-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .share-dialog-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #111827;
+    }
+    .share-dialog-close {
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      font-size: 24px;
+      color: #64748b;
+      padding: 0;
+      width: 32px;
+      height: 32px;
+    }
+    .share-dialog-close:hover { color: #111827; }
+    .share-dialog-row {
+      margin-bottom: 1rem;
+    }
+    .share-dialog-input-group {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .share-dialog-buttons {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
     }
 
     /* Modal */
@@ -475,6 +671,13 @@
     <button data-nav="home">Home</button>
     <button data-nav="blog">Smart Tips</button>
     <button data-nav="services">Services</button>
+    <button data-nav="social">Social</button>
+    <button id="shareMenuBtn" style="border-top: 1px solid #e5e7eb;">
+      <svg style="display: inline-block; width: 1.25rem; height: 1.25rem; vertical-align: middle; margin-right: 0.5rem;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" x2="12" y1="2" y2="15"/>
+      </svg>
+      Share Site
+    </button>
   </nav>
 
   <!-- Hero Section -->
@@ -583,12 +786,81 @@
 
   <!-- Services Section -->
   <section class="services-section" id="services">
-    <iframe
-      class="services-iframe"
-      src="https://gtc-010-23-menu-fix-womacromax.replit.app/campaign-live5?campaign=WMX-DATA-001&edit=false&show=true&servicesGridVisible=true"
-      title="MoveCheap Services"
-      loading="lazy"
-    ></iframe>
+    <div class="services-inner">
+      <div class="services-header">
+        <div>
+          <div class="brandline" aria-label="MoveCheap brand">
+            <span class="move">Move</span><span class="cheap">Cheap</span>
+          </div>
+          <h3 class="services-title">Our Services</h3>
+          <p class="services-subtitle">Hover or tap to explore our full range of services</p>
+        </div>
+        <svg class="chevron-icon" id="servicesChevron" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m6 9 6 6 6-6"/>
+        </svg>
+      </div>
+
+      <div class="services-content" id="servicesContent">
+        <iframe
+          class="services-iframe"
+          src="https://gtc-010-23-menu-fix-womacromax.replit.app/campaign-live5?campaign=WMX-DATA-001&edit=false&show=true&servicesGridVisible=true"
+          title="MoveCheap Services"
+          loading="lazy"
+        ></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Section -->
+  <section class="social-section" id="social">
+    <div class="social-inner">
+      <div class="brandline" aria-label="MoveCheap brand">
+        <span class="move">Move</span><span class="cheap">Cheap</span>
+      </div>
+      <h3 class="social-title">Watch & Learn</h3>
+      <p class="social-subtitle">Hover or tap to preview video content</p>
+
+      <div class="social-grid">
+        <article class="social-card" 
+                 data-url="https://www.youtube.com/watch?v=Vnfgh-2oE2Q"
+                 data-embed="https://www.youtube.com/embed/Vnfgh-2oE2Q"
+                 data-title="Moving Services Tutorial">
+          <div class="social-card-header">
+            <h4 class="social-card-title">Moving Services Tutorial</h4>
+            <p class="social-card-desc">Watch our comprehensive guide to professional moving services</p>
+          </div>
+          <div class="social-card-content">
+            <iframe class="social-card-iframe" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </article>
+
+        <article class="social-card"
+                 data-url="https://www.youtube.com/results?search_query=moving+services"
+                 data-embed="https://www.youtube.com/embed/videoseries?list=PLrAXtmErZgOeiKm4sgNOknGvNjby9efdf"
+                 data-title="Moving Services Search">
+          <div class="social-card-header">
+            <h4 class="social-card-title">Moving Services Search</h4>
+            <p class="social-card-desc">Explore more moving tips and tutorials on YouTube</p>
+          </div>
+          <div class="social-card-content">
+            <iframe class="social-card-iframe" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </article>
+
+        <article class="social-card"
+                 data-url="https://www.youtube.com/watch?v=qq7DUUW658A"
+                 data-embed="https://www.youtube.com/embed/qq7DUUW658A"
+                 data-title="Expert Moving Tips">
+          <div class="social-card-header">
+            <h4 class="social-card-title">Expert Moving Tips</h4>
+            <p class="social-card-desc">Learn professional moving techniques from the experts</p>
+          </div>
+          <div class="social-card-content">
+            <iframe class="social-card-iframe" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </article>
+      </div>
+    </div>
   </section>
 
   <!-- Modal -->
@@ -643,6 +915,61 @@
     </div>
   </div>
 
+  <!-- LEAVE CONFIRMATION DIALOG -->
+  <div class="leave-dialog" id="leaveDialog" aria-hidden="true" role="dialog">
+    <div class="leave-dialog-content">
+      <h3 class="leave-dialog-title">Open External Link?</h3>
+      <p class="leave-dialog-desc" id="leaveDialogDesc">You are about to leave this app. You can return here anytime.</p>
+      <div class="leave-dialog-actions">
+        <button class="btn btn-outline" id="leaveStay">Stay Here</button>
+        <button class="btn btn-primary" id="leaveConfirm">Open Link</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SHARE QR DIALOG -->
+  <div class="share-dialog" id="shareDialog" aria-hidden="true" role="dialog">
+    <div class="share-dialog-content">
+      <div class="share-dialog-header">
+        <h3 class="share-dialog-title">
+          <svg style="display: inline-block; width: 1.25rem; height: 1.25rem; vertical-align: middle; margin-right: 0.5rem;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" x2="12" y1="2" y2="15"/>
+          </svg>
+          Share This Site
+        </h3>
+        <button class="share-dialog-close" id="shareDialogClose">&times;</button>
+      </div>
+      <div class="share-dialog-row">
+        <div class="share-dialog-input-group">
+          <input class="share-input" id="shareDialogUrl" value="" readonly>
+          <button class="share-copy-btn" id="shareDialogCopy">Copy</button>
+        </div>
+      </div>
+      <div class="share-dialog-row">
+        <div class="qr-section">
+          <img id="shareDialogQr" class="qr-img" alt="QR code">
+          <div>
+            <div class="qr-text">Scan to open on mobile</div>
+            <a id="shareDialogDownload" class="qr-download" download="movecheap-qr.png" href="#">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/>
+              </svg>
+              Download QR
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="share-dialog-row">
+        <div class="share-dialog-buttons">
+          <a id="shareDialogWa" class="share-btn" target="_blank" rel="noopener">WhatsApp</a>
+          <a id="shareDialogSms" class="share-btn">SMS</a>
+          <a id="shareDialogEmail" class="share-btn">Email</a>
+          <button id="shareDialogNative" class="share-btn" type="button">Share…</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     // Hamburger Menu
     (function() {
@@ -681,6 +1008,15 @@
           }
         });
       });
+
+      // Share button in menu
+      const shareMenuBtn = document.getElementById('shareMenuBtn');
+      shareMenuBtn.addEventListener('click', () => {
+        toggleMenu();
+        setTimeout(() => {
+          if (window.openShareDialog) window.openShareDialog();
+        }, 300);
+      });
     })();
 
     // Smart Tips Expand/Collapse
@@ -711,6 +1047,211 @@
       section.addEventListener('touchstart', () => {
         if (isExpanded) collapse();
         else expand();
+      });
+    })();
+
+    // Services Expand/Collapse
+    (function() {
+      const section = document.querySelector('.services-section');
+      const chevron = document.getElementById('servicesChevron');
+      let isExpanded = false;
+
+      function expand() {
+        if (!isExpanded) {
+          section.classList.add('expanded');
+          chevron.classList.add('rotated');
+          isExpanded = true;
+        }
+      }
+
+      function collapse() {
+        if (isExpanded) {
+          section.classList.remove('expanded');
+          chevron.classList.remove('rotated');
+          isExpanded = false;
+        }
+      }
+
+      section.addEventListener('mouseenter', expand);
+      section.addEventListener('mouseleave', collapse);
+      section.addEventListener('touchstart', () => {
+        if (isExpanded) collapse();
+        else expand();
+      });
+    })();
+
+    // Social Cards with iframe error handling
+    (function() {
+      const socialCards = document.querySelectorAll('.social-card');
+      const leaveDialog = document.getElementById('leaveDialog');
+      const leaveDialogDesc = document.getElementById('leaveDialogDesc');
+      const leaveStay = document.getElementById('leaveStay');
+      const leaveConfirm = document.getElementById('leaveConfirm');
+      let pendingUrl = '';
+      let pendingTitle = '';
+
+      socialCards.forEach(card => {
+        const iframe = card.querySelector('.social-card-iframe');
+        const embedUrl = card.getAttribute('data-embed');
+        const externalUrl = card.getAttribute('data-url');
+        const title = card.getAttribute('data-title');
+        let loaded = false;
+        let hasError = false;
+
+        const loadIframe = () => {
+          if (!loaded && !hasError) {
+            iframe.src = embedUrl;
+            loaded = true;
+
+            // Error detection (timeout-based for blocked iframes)
+            setTimeout(() => {
+              try {
+                if (!iframe.contentWindow?.location) {
+                  hasError = true;
+                  showFallback(card, title, externalUrl);
+                }
+              } catch (e) {
+                // Cross-origin restriction - iframe probably loaded fine
+              }
+            }, 3000);
+          }
+        };
+
+        const showFallback = (cardEl, titleText, url) => {
+          const content = cardEl.querySelector('.social-card-content');
+          content.innerHTML = `
+            <div class="social-card-fallback">
+              <p>This content cannot be displayed in a frame.</p>
+              <button class="btn btn-primary" onclick="window.showLeaveDialog('${titleText}', '${url}')">
+                <svg style="display: inline-block; width: 1rem; height: 1rem; vertical-align: middle; margin-right: 0.5rem;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/>
+                </svg>
+                Open in New Tab
+              </button>
+            </div>
+          `;
+        };
+
+        // Hover to expand and load
+        card.addEventListener('mouseenter', () => {
+          card.classList.add('active');
+          loadIframe();
+        });
+        card.addEventListener('mouseleave', () => {
+          card.classList.remove('active');
+        });
+
+        // Touch to toggle
+        card.addEventListener('touchstart', (e) => {
+          e.preventDefault();
+          card.classList.toggle('active');
+          if (card.classList.contains('active')) {
+            loadIframe();
+          }
+        });
+      });
+
+      // Global function for fallback button
+      window.showLeaveDialog = (title, url) => {
+        pendingTitle = title;
+        pendingUrl = url;
+        leaveDialogDesc.textContent = `You are about to leave this app and open "${title}" in a new tab. You can return here anytime.`;
+        leaveDialog.classList.add('show');
+        leaveDialog.setAttribute('aria-hidden', 'false');
+      };
+
+      leaveStay.addEventListener('click', () => {
+        leaveDialog.classList.remove('show');
+        leaveDialog.setAttribute('aria-hidden', 'true');
+      });
+
+      leaveConfirm.addEventListener('click', () => {
+        if (pendingUrl) {
+          window.open(pendingUrl, '_blank', 'noopener,noreferrer');
+        }
+        leaveDialog.classList.remove('show');
+        leaveDialog.setAttribute('aria-hidden', 'true');
+      });
+
+      leaveDialog.addEventListener('click', (e) => {
+        if (e.target === leaveDialog) {
+          leaveDialog.classList.remove('show');
+          leaveDialog.setAttribute('aria-hidden', 'true');
+        }
+      });
+    })();
+
+    // Share QR Dialog
+    (function() {
+      const shareDialog = document.getElementById('shareDialog');
+      const shareDialogClose = document.getElementById('shareDialogClose');
+      const shareDialogUrl = document.getElementById('shareDialogUrl');
+      const shareDialogQr = document.getElementById('shareDialogQr');
+      const shareDialogDownload = document.getElementById('shareDialogDownload');
+      const shareDialogCopy = document.getElementById('shareDialogCopy');
+      const shareDialogWa = document.getElementById('shareDialogWa');
+      const shareDialogSms = document.getElementById('shareDialogSms');
+      const shareDialogEmail = document.getElementById('shareDialogEmail');
+      const shareDialogNative = document.getElementById('shareDialogNative');
+
+      window.openShareDialog = () => {
+        const currentUrl = window.location.href;
+        shareDialogUrl.value = currentUrl;
+        const qrSrc = `https://chart.googleapis.com/chart?cht=qr&chs=220x220&choe=UTF-8&chl=${encodeURIComponent(currentUrl)}`;
+        shareDialogQr.src = qrSrc;
+        shareDialogDownload.href = qrSrc;
+        
+        const msg = encodeURIComponent(`Check out MoveCheap Moving & Storage: ${currentUrl}`);
+        shareDialogWa.href = `https://wa.me/?text=${msg}`;
+        shareDialogSms.href = `sms:?&body=${msg}`;
+        shareDialogEmail.href = `mailto:?subject=${encodeURIComponent('MoveCheap Moving & Storage')}&body=${msg}`;
+        
+        shareDialog.classList.add('show');
+        shareDialog.setAttribute('aria-hidden', 'false');
+      };
+
+      shareDialogClose.addEventListener('click', () => {
+        shareDialog.classList.remove('show');
+        shareDialog.setAttribute('aria-hidden', 'true');
+      });
+
+      shareDialogCopy.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(shareDialogUrl.value);
+          shareDialogCopy.textContent = 'Copied!';
+          setTimeout(() => shareDialogCopy.textContent = 'Copy', 1200);
+        } catch {
+          shareDialogUrl.select();
+          document.execCommand('copy');
+          shareDialogCopy.textContent = 'Copied!';
+          setTimeout(() => shareDialogCopy.textContent = 'Copy', 1200);
+        }
+      });
+
+      shareDialogNative.addEventListener('click', async () => {
+        const url = shareDialogUrl.value;
+        if (navigator.share) {
+          try {
+            await navigator.share({
+              title: 'MoveCheap Moving & Storage',
+              text: 'Your BEST Rates Are Here!',
+              url
+            });
+          } catch {}
+        } else {
+          try {
+            await navigator.clipboard.writeText(url);
+            shareDialogNative.textContent = 'Copied!';
+            setTimeout(() => shareDialogNative.textContent = 'Share…', 1200);
+          } catch {}
+        }
+      });
+
+      shareDialog.addEventListener('click', (e) => {
+        if (e.target === shareDialog) {
+          shareDialog.classList.remove('show');
+          shareDialog.setAttribute('aria-hidden', 'true');
+        }
       });
     })();
 
