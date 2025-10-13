@@ -21,7 +21,7 @@
 <meta property="og:url" content="https://www.womacromax.com/"/>
 <meta property="og:title" content="Rod WoMAX Automation Suite | Intelligent Business Automation"/>
 <meta property="og:description" content="Transform your business with customized automation solutions. Eliminate tedious work and amplify productivity with WoMacroMAX."/>
-<meta property="og:image" content="https://www.womacromax.com/media/WoMacroMAXAutomation-logo-00.png"/>
+<meta property="og:image" content="https://www.womacromax.com/womacromax-social-card.png"/>
 <meta property="og:image:width" content="1200"/>
 <meta property="og:image:height" content="630"/>
 <meta property="og:site_name" content="WoMacroMAX Automation Suite"/>
@@ -32,7 +32,7 @@
 <meta name="twitter:url" content="https://www.womacromax.com/"/>
 <meta name="twitter:title" content="Rod WoMAX Automation Suite | Intelligent Business Automation"/>
 <meta name="twitter:description" content="Transform your business with customized automation solutions. Eliminate tedious work and amplify productivity with WoMacroMAX."/>
-<meta name="twitter:image" content="https://www.womacromax.com/media/WoMacroMAXAutomation-logo-00.png"/>
+<meta name="twitter:image" content="https://www.womacromax.com/womacromax-social-card.png"/>
 <meta name="twitter:image:alt" content="WoMacroMAX Automation Suite Logo"/>
 
 <!-- Additional SEO -->
@@ -211,6 +211,10 @@
     padding: calc(var(--spacing-unit) * 15) 0 calc(var(--spacing-unit) * 12);
     position: relative;
     overflow: hidden;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .hero::before {
@@ -230,76 +234,89 @@
     50% { transform: scale(1.1); opacity: 0.8; }
   }
 
-  .hero-content {
+  /* BRANDING ANIMATION */
+  .branding-block {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
     position: relative;
     z-index: 2;
   }
 
-  .hero-subtitle {
-    color: var(--color-gold);
-    font-weight: 600;
-    font-size: 0.875rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: calc(var(--spacing-unit) * 2);
+  .social-image {
+    width: 120px;
+    height: auto;
+    margin-top: -25px;
+    opacity: 0;
+    animation: fadeIn 2s ease-in forwards;
+    animation-delay: 1.4s;
   }
 
-  .hero-title {
-    font-family: 'Playfair Display', serif;
-    font-weight: 900;
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
-    line-height: 1.1;
-    color: white;
-    margin-bottom: calc(var(--spacing-unit) * 3);
+  @keyframes fadeIn {
+    to { opacity: 1; }
   }
 
-  .hero-title .highlight {
-    color: var(--color-accent);
+  .logo-container {
+    position: relative;
+    display: inline-block;
   }
 
-  .hero-description {
-    font-size: 1.25rem;
-    color: rgba(255,255,255,0.9);
-    max-width: 600px;
-    margin-bottom: calc(var(--spacing-unit) * 5);
-  }
-
-  .hero-cta {
+  .logo {
+    font-size: 48px;
+    font-weight: bold;
     display: flex;
-    gap: calc(var(--spacing-unit) * 2);
-    flex-wrap: wrap;
+    gap: 4px;
   }
 
-  .btn-primary-custom {
-    background: var(--color-accent);
-    color: white;
-    padding: calc(var(--spacing-unit) * 2) calc(var(--spacing-unit) * 4);
-    border-radius: 12px;
-    font-weight: 600;
-    border: none;
-    transition: var(--transition);
-    box-shadow: 0 4px 16px rgba(233,69,96,0.3);
+  .wo {
+    color: navy;
+    font-weight: normal;
   }
 
-  .btn-primary-custom:hover {
-    background: #d63850;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 24px rgba(233,69,96,0.4);
+  .macro {
+    color: #ffffff;
+    font-weight: 900;
   }
 
-  .btn-secondary-custom {
-    background: transparent;
-    color: white;
-    padding: calc(var(--spacing-unit) * 2) calc(var(--spacing-unit) * 4);
-    border-radius: 12px;
-    font-weight: 600;
-    border: 2px solid rgba(255,255,255,0.3);
-    transition: var(--transition);
+  .max {
+    color: #ff0000;
+    font-weight: bold;
+    position: relative;
   }
 
-  .btn-secondary-custom:hover {
-    border-color: white;
-    background: rgba(255,255,255,0.1);
+  .dotcom {
+    font-size: 12px;
+    color: #aaa;
+    position: absolute;
+    top: 0;
+    right: -30px;
+  }
+
+  .publishing {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    font-size: 24px;
+    color: #ffffff;
+    opacity: 0;
+    transition: transform 1.2s ease-out, opacity 0.8s ease-in;
+  }
+
+  .publishing.finished {
+    opacity: 1;
+  }
+
+  .dotcom a {
+    text-decoration: none;
+    color: inherit;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+  }
+
+  .publishing.finished ~ .logo .dotcom a {
+    pointer-events: auto;
+    opacity: 1;
   }
 
   /* SECTION */
@@ -600,14 +617,17 @@
       padding: calc(var(--spacing-unit) * 10) 0 calc(var(--spacing-unit) * 8);
     }
 
-    .hero-cta {
-      flex-direction: column;
+    .logo {
+      font-size: 36px;
     }
 
-    .btn-primary-custom,
-    .btn-secondary-custom {
-      width: 100%;
-      text-align: center;
+    .publishing {
+      font-size: 18px;
+      top: 50px;
+    }
+
+    .social-image {
+      width: 90px;
     }
 
     .section {
@@ -652,25 +672,17 @@
 
 <!-- HERO -->
 <section class="hero" id="home">
-  <div class="container">
-    <div class="hero-content">
-      <div class="hero-subtitle">Automation Excellence</div>
-      <h1 class="hero-title">
-        Transform Your Business with<br>
-        <span class="highlight">Intelligent Automation</span>
-      </h1>
-      <p class="hero-description">
-        Eliminate tedious manual work and amplify your productivity with customized automation solutions designed for modern businesses.
-      </p>
-      <div class="hero-cta">
-        <button class="btn-primary-custom" onclick="document.getElementById('portfolio').scrollIntoView({behavior: 'smooth'})">
-          View Our Work
-        </button>
-        <button class="btn-secondary-custom" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">
-          Get Started
-        </button>
+  <div class="branding-block">
+    <div class="logo-container">
+      <div class="logo">
+        <span class="wo">Wo</span><span class="macro">Macro</span>
+        <span class="max" id="max">MAX
+          <span class="dotcom"><a href="https://womacromax.com" target="_blank">.com</a></span>
+        </span>
       </div>
+      <div class="publishing" id="publishing">Publishing</div>
     </div>
+    <img src="https://womacromax.com/womacromax-social-card.png" alt="WoMacroMAX Social Card" class="social-image">
   </div>
 </section>
 
@@ -894,6 +906,18 @@
     }, 500);
   });
 
+  // Branding animation
+  window.addEventListener('load', () => {
+    const publishing = document.getElementById('publishing');
+    const max = document.getElementById('max');
+    const containerRect = max.closest('.logo-container').getBoundingClientRect();
+    const maxRect = max.getBoundingClientRect();
+
+    const offset = maxRect.right - containerRect.left - publishing.offsetWidth;
+    publishing.style.transform = `translateX(${offset}px)`;
+    publishing.classList.add('finished');
+  });
+
   // Modal handling
   const siteModal = new bootstrap.Modal(document.getElementById('siteModal'));
   const siteFrame = document.getElementById('siteFrame');
@@ -944,7 +968,6 @@
   });
 
   // Navbar shadow on scroll
-  let lastScroll = 0;
   window.addEventListener('scroll', () => {
     const navbar = document.querySelector('.navbar');
     if (window.scrollY > 100) {
