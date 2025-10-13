@@ -1,252 +1,822 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your BEST Rates Are Here - Professional Digital Marketing Solutions</title>
-    <meta name="description" content="Transform your business with our comprehensive digital marketing solutions. Get the best rates and professional services to grow your online presence.">
-    <meta name="author" content="Digital Marketing Experts">
-    
-    <!-- SEO Meta Tags -->
-    <meta property="og:title" content="Your BEST Rates Are Here - Digital Marketing Solutions">
-    <meta property="og:description" content="Transform your business with our comprehensive digital marketing solutions">
-    <meta property="og:type" content="website">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your BEST Rates Are Here - Professional Moving & Storage Solutions</title>
+  <meta name="description" content="Reliable moving and storage services designed for your convenience and budget. Experience professional care, secure storage, and unbeatable moving rates." />
+  <meta name="author" content="MoveCheap Moving & Storage" />
 
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
-            color: #1a1a2e;
-            background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
-            min-height: 100vh;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
+  <meta property="og:title" content="Your BEST Rates Are Here - Moving & Storage Experts" />
+  <meta property="og:description" content="Trusted moving and storage solutions for homes, offices, and businesses. Move smart, store safe, and save big." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
 
-        .hero-section {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            padding: 2rem;
-        }
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@lovable_dev" />
+  <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
 
-        .background-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(124, 58, 237, 0.95) 0%, rgba(168, 85, 247, 0.95) 100%);
-            z-index: 1;
-        }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-        .background-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><rect fill="%23667eea" width="1920" height="1080"/></svg>');
-            background-size: cover;
-            background-position: center;
-            opacity: 0.3;
-            z-index: 0;
-        }
+  <style>
+    :root {
+      --bg-start: 217 91% 6%;
+      --bg-end: 215 28% 17%;
+      --background: 220 26% 14%;
+      --foreground: 210 40% 98%;
 
-        .container {
-            position: relative;
-            z-index: 10;
-            max-width: 1200px;
-            width: 100%;
-        }
+      --primary: 188 94% 43%;
+      --primary-hover: 188 85% 35%;
+      --primary-foreground: 217 91% 6%;
+      --primary-glow: 188 94% 43% / 0.14;
 
-        h1 {
-            font-size: clamp(2.5rem, 8vw, 5rem);
-            font-weight: 800;
-            color: white;
-            margin-bottom: 1.5rem;
-            line-height: 1.1;
-            letter-spacing: -0.02em;
-        }
+      --accent: 142 76% 48%;
+      --accent-foreground: 217 91% 6%;
+      --accent-glow: 142 76% 48% / 0.18;
 
-        h2 {
-            font-size: clamp(1.5rem, 4vw, 2.25rem);
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 2.5rem;
-            line-height: 1.3;
-        }
+      --brand-move: 226 59% 26%;
+      --brand-cheap: 0 83% 52%;
 
-        .content-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 2.5rem;
-            border-radius: 1rem;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
-            max-width: 42rem;
-            margin-bottom: 2rem;
-        }
+      --card: 0 0% 100%;
+      --muted: 215 16.3% 46.9%;
+      --ring: 188 94% 43%;
+      --border: 214.3 31.8% 91.4%;
 
-        .content-card p {
-            font-size: 1.125rem;
-            color: #374151;
-            line-height: 1.8;
-            margin-bottom: 2rem;
-        }
+      --shadow-elegant: 0 20px 60px hsl(0 0% 0% / 0.25);
+      --shadow-card: 0 10px 30px hsl(0 0% 0% / 0.15);
+      --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-        .button-group {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        .btn {
-            display: inline-block;
-            padding: 1rem 2rem;
-            font-size: 1.125rem;
-            font-weight: 600;
-            text-decoration: none;
-            border-radius: 0.5rem;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-            cursor: pointer;
-            text-align: center;
-        }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: hsl(var(--foreground));
+      background: linear-gradient(135deg, hsl(var(--bg-start)) 0%, hsl(var(--bg-end)) 100%);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
 
-        .btn-primary {
-            background: #7c3aed;
-            color: white;
-            box-shadow: 0 8px 30px rgba(124, 58, 237, 0.3);
-        }
+    .transition-smooth { transition: var(--transition-smooth); }
+    .shadow-elegant { box-shadow: var(--shadow-elegant); }
+    .shadow-card { box-shadow: var(--shadow-card); }
 
-        .btn-primary:hover {
-            background: #6d28d9;
-            transform: scale(1.05);
-            box-shadow: 0 12px 40px rgba(124, 58, 237, 0.4);
-        }
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .animate-fade-in { animation: fadeIn 0.3s ease-in-out; }
+    .animate-scale-in { animation: scaleIn 0.2s ease-out; }
 
-        .btn-outline {
-            background: white;
-            color: #7c3aed;
-            border: 2px solid #7c3aed;
-        }
+    /* Hamburger Menu */
+    .hamburger-btn {
+      position: fixed; top: 1.5rem; right: 1.5rem; z-index: 50;
+      width: 3rem; height: 3rem; border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      box-shadow: var(--shadow-elegant);
+      transition: var(--transition-smooth);
+    }
+    .hamburger-btn:hover { background: rgba(255, 255, 255, 0.2); }
+    .hamburger-btn svg { width: 1.5rem; height: 1.5rem; color: white; }
 
-        .btn-outline:hover {
-            background: #7c3aed;
-            color: white;
-            transform: scale(1.05);
-        }
+    .menu-overlay {
+      position: fixed; inset: 0; z-index: 40;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      display: none;
+    }
+    .menu-overlay.show { display: block; }
 
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 3rem;
-        }
+    .menu-nav {
+      position: fixed; top: 6rem; right: 1.5rem; z-index: 40;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(16px);
+      border-radius: 1rem;
+      box-shadow: var(--shadow-elegant);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      overflow: hidden;
+      display: none;
+    }
+    .menu-nav.show { display: block; }
+    .menu-nav button {
+      display: block; width: 100%; padding: 1rem 2rem;
+      text-align: left; font-size: 1.125rem; font-weight: 600;
+      color: #111827; background: transparent; border: 0;
+      cursor: pointer; transition: var(--transition-smooth);
+    }
+    .menu-nav button:hover {
+      background: hsl(var(--primary-glow));
+      color: hsl(var(--primary));
+    }
 
-        .feature-card {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            padding: 2rem;
-            border-radius: 0.75rem;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-            transition: all 0.3s ease;
-        }
+    /* Hero Section */
+    .hero-section {
+      position: relative; min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; padding: 2rem;
+    }
+    .hero-section::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=2000&q=80');
+      background-size: cover; background-position: center;
+      opacity: 0.15; z-index: 0;
+    }
+    .hero-section::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, hsl(var(--bg-start) / 0.95) 0%, hsl(var(--bg-end) / 0.95) 100%);
+      z-index: 1;
+    }
 
-        .feature-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
-        }
+    .container {
+      position: relative; z-index: 10;
+      max-width: 1200px; width: 100%;
+      text-align: center;
+    }
 
-        .feature-card h3 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #1a1a2e;
-            margin-bottom: 0.75rem;
-        }
+    h1 {
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-weight: 800; color: #fff;
+      margin-bottom: 1.5rem; line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+    h1 .accent {
+      color: hsl(var(--accent));
+      text-shadow: 0 6px 24px hsl(var(--accent-glow));
+    }
 
-        .feature-card p {
-            font-size: 1rem;
-            color: #6b7280;
-            line-height: 1.6;
-        }
+    h2 {
+      font-size: clamp(1.5rem, 4vw, 2.25rem);
+      font-weight: 600;
+      color: rgba(255,255,255,0.92);
+      margin-bottom: 2.5rem; line-height: 1.3;
+    }
 
-        @media (max-width: 768px) {
-            .hero-section {
-                padding: 1.5rem;
-            }
+    .content-card {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      padding: 2.5rem; border-radius: 1rem;
+      box-shadow: var(--shadow-elegant);
+      max-width: 42rem; margin: 0 auto 2rem auto;
+      border: 1px solid hsl(var(--border));
+    }
+    .content-card p {
+      font-size: 1.125rem; color: #1f2937;
+      line-height: 1.8; margin-bottom: 1rem;
+    }
 
-            .content-card {
-                padding: 1.5rem;
-            }
+    .button-group {
+      display: flex; gap: 1rem;
+      flex-wrap: wrap; justify-content: center;
+      margin-top: 2rem;
+    }
 
-            .button-group {
-                flex-direction: column;
-            }
+    .btn {
+      display: inline-block; padding: 1rem 2rem;
+      font-size: 1.125rem; font-weight: 700;
+      text-decoration: none; border-radius: 0.75rem;
+      transition: var(--transition-smooth);
+      border: 2px solid transparent; cursor: pointer;
+    }
+    .btn-primary {
+      background: hsl(var(--primary));
+      color: hsl(var(--primary-foreground));
+      box-shadow: 0 10px 28px hsl(var(--primary-glow));
+    }
+    .btn-primary:hover {
+      background: hsl(var(--primary-hover));
+      transform: translateY(-1px);
+    }
+    .btn-outline {
+      background: #fff;
+      color: hsl(var(--primary));
+      border: 2px solid hsl(var(--primary));
+    }
+    .btn-outline:hover {
+      background: hsl(var(--primary));
+      color: hsl(var(--primary-foreground));
+    }
 
-            .btn {
-                width: 100%;
-            }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem; margin-top: 3rem;
+    }
 
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    .feature-card {
+      background: hsl(var(--card));
+      backdrop-filter: blur(10px);
+      padding: 2rem; border-radius: 0.75rem;
+      box-shadow: var(--shadow-card);
+      transition: var(--transition-smooth);
+      border: 1px solid hsl(var(--border));
+    }
+    .feature-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-elegant);
+    }
+    .feature-card h3 {
+      font-size: 1.25rem; font-weight: 800;
+      color: #111827; margin-bottom: 0.75rem;
+    }
+    .feature-card p {
+      font-size: 1rem; color: hsl(var(--muted));
+      line-height: 1.6;
+    }
+
+    /* Smart Tips Section */
+    .smart-tips-section {
+      width: 100%; padding: 3rem 1.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(6px);
+    }
+    .smart-tips-inner {
+      max-width: 1280px; margin: 0 auto;
+    }
+    .smart-tips-header {
+      display: flex; align-items: center;
+      justify-content: space-between; margin-bottom: 2rem;
+    }
+    .brandline {
+      display: inline-block; margin-bottom: 0.5rem;
+      user-select: none;
+    }
+    .brandline .move {
+      color: hsl(var(--brand-move));
+      font-size: 1.25rem; font-weight: 400;
+    }
+    .brandline .cheap {
+      color: hsl(var(--brand-cheap));
+      font-size: 1.25rem; font-weight: 800;
+    }
+    .smart-tips-title {
+      font-size: clamp(1.875rem, 4vw, 2.25rem);
+      font-weight: 800; color: white;
+      margin: 0;
+    }
+    .chevron-icon {
+      width: 2rem; height: 2rem;
+      color: rgba(255, 255, 255, 0.7);
+      transition: transform 0.5s ease;
+    }
+    .chevron-icon.rotated { transform: rotate(180deg); }
+
+    .smart-tips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      transition: all 0.7s ease-in-out;
+      max-height: 0; opacity: 0; overflow: hidden;
+    }
+    .smart-tips-grid.expanded {
+      max-height: 2000px; opacity: 1;
+    }
+
+    .blog-card {
+      background: hsl(var(--card));
+      border-radius: 0.75rem;
+      box-shadow: var(--shadow-card);
+      padding: 1.5rem;
+      transition: var(--transition-smooth);
+      border: 1px solid #f3f4f6;
+      cursor: pointer;
+    }
+    .blog-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-elegant);
+    }
+    .blog-meta {
+      font-size: 0.875rem;
+      color: hsl(var(--muted));
+      margin-bottom: 0.5rem;
+    }
+    .blog-card h4 {
+      font-size: 1.125rem; font-weight: 700;
+      color: #111827; margin-bottom: 0.75rem;
+    }
+    .blog-card p {
+      font-size: 0.875rem; color: #374151;
+      line-height: 1.5; margin-bottom: 1rem;
+    }
+    .blog-actions {
+      display: flex; gap: 0.5rem;
+      flex-wrap: wrap; align-items: center;
+    }
+    .chip {
+      font-size: 0.75rem; padding: 0.375rem 0.75rem;
+      border-radius: 9999px;
+      background: hsl(var(--primary-glow));
+      color: hsl(var(--primary));
+      border: 1px solid hsl(var(--primary) / 0.3);
+      font-weight: 500;
+    }
+    .link {
+      font-size: 0.875rem;
+      color: hsl(var(--primary-hover));
+      font-weight: 600; text-decoration: none;
+    }
+    .link:hover { text-decoration: underline; }
+
+    /* Services Section */
+    .services-section {
+      width: 100%; padding: 0;
+    }
+    .services-iframe {
+      display: block; width: 100%;
+      height: 800px; border: 0;
+    }
+
+    /* Modal */
+    .modal {
+      position: fixed; inset: 0; z-index: 9999;
+      display: none;
+    }
+    .modal.show { display: block; }
+    .modal-overlay {
+      position: absolute; inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+    }
+    .modal-content {
+      position: absolute; inset: 0;
+      display: flex; align-items: center;
+      justify-content: center; padding: 0;
+    }
+    .modal-inner {
+      position: relative; width: 100%; height: 100%;
+      background: white; overflow: hidden;
+    }
+    .modal-btn {
+      position: absolute; top: 0.75rem; z-index: 10;
+      width: 2.75rem; height: 2.75rem;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: var(--shadow-elegant);
+      border: 0; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: var(--transition-smooth);
+    }
+    .modal-btn:hover { background: white; }
+    .modal-close { right: 0.75rem; }
+    .modal-share-btn { right: 4rem; }
+    .modal-btn svg {
+      width: 1.25rem; height: 1.25rem;
+      color: #111827;
+    }
+
+    .share-popover {
+      position: absolute; top: 4rem; right: 0.75rem;
+      z-index: 20; width: min(380px, 92vw);
+      background: white; border-radius: 0.75rem;
+      box-shadow: var(--shadow-elegant);
+      border: 1px solid #e5e7eb;
+      overflow: hidden; display: none;
+    }
+    .share-popover.show { display: block; }
+    .share-row {
+      padding: 1rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .share-row:last-child { border-bottom: 0; }
+    .share-input-group {
+      display: flex; gap: 0.5rem;
+    }
+    .share-input {
+      flex: 1; padding: 0.5rem 0.75rem;
+      font-size: 0.875rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 0.5rem;
+    }
+    .share-copy-btn {
+      padding: 0.5rem 0.75rem;
+      font-size: 0.875rem;
+      background: hsl(var(--primary));
+      color: white; border: 0;
+      border-radius: 0.5rem;
+      cursor: pointer;
+    }
+    .qr-section {
+      display: flex; gap: 1rem;
+      align-items: center;
+    }
+    .qr-img {
+      width: 7rem; height: 7rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 0.5rem;
+    }
+    .qr-text {
+      font-size: 0.75rem;
+      color: #6b7280; margin-bottom: 0.5rem;
+    }
+    .qr-download {
+      display: inline-flex; align-items: center;
+      gap: 0.5rem; padding: 0.5rem 0.75rem;
+      font-size: 0.875rem;
+      background: white; color: #374151;
+      border: 1px solid #e5e7eb;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .share-buttons {
+      display: flex; gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .share-btn {
+      padding: 0.5rem 0.75rem;
+      font-size: 0.875rem;
+      background: white; color: #374151;
+      border: 1px solid #e5e7eb;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .modal-iframe {
+      width: 100%; height: 100%;
+      border: 0; display: block;
+    }
+
+    @media (max-width: 768px) {
+      .hero-section { padding: 1.5rem; }
+      .content-card { padding: 1.5rem; }
+      .button-group { flex-direction: column; }
+      .btn { width: 100%; }
+      .features-grid { grid-template-columns: 1fr; }
+      .services-iframe { height: 600px; }
+    }
+  </style>
 </head>
 <body>
-    <main class="hero-section">
-        <div class="background-image"></div>
-        <div class="background-overlay"></div>
-        
-        <div class="container">
-            <h1>Your BEST rates are here!!!</h1>
-            
-            <h2>Professional Digital Marketing Solutions</h2>
-            
-            <div class="content-card">
-                <p>
-                    Transform your business with our comprehensive digital solutions. 
-                    We deliver results-driven strategies that maximize your ROI and 
-                    accelerate growth in today's competitive digital landscape.
-                </p>
-                
-                <div class="button-group">
-                    <a href="#contact" class="btn btn-primary">Get Started Today</a>
-                    <a href="#services" class="btn btn-outline">Learn More</a>
-                </div>
-            </div>
-            
-            <div class="features-grid">
-                <article class="feature-card">
-                    <h3>Best Rates</h3>
-                    <p>Competitive pricing that fits your budget without compromising quality</p>
-                </article>
-                
-                <article class="feature-card">
-                    <h3>Expert Team</h3>
-                    <p>Industry professionals dedicated to your success and growth</p>
-                </article>
-                
-                <article class="feature-card">
-                    <h3>Proven Results</h3>
-                    <p>Data-driven strategies that deliver measurable business outcomes</p>
-                </article>
-            </div>
+  <!-- Hamburger Menu -->
+  <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle menu">
+    <svg id="menuIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/>
+    </svg>
+    <svg id="closeIcon" style="display: none;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
+    </svg>
+  </button>
+
+  <div class="menu-overlay animate-fade-in" id="menuOverlay"></div>
+  <nav class="menu-nav animate-scale-in" id="menuNav">
+    <button data-nav="home">Home</button>
+    <button data-nav="blog">Smart Tips</button>
+    <button data-nav="services">Services</button>
+  </nav>
+
+  <!-- Hero Section -->
+  <main class="hero-section" id="home">
+    <div class="container">
+      <h1>Your <span class="accent">BEST</span> Rates Are Here!</h1>
+      <h2>Professional Moving & Storage Solutions</h2>
+
+      <div class="content-card">
+        <p>
+          Whether you're relocating across town or storing your valuables for a while,
+          MoveCheap makes it simple, secure, and affordable. Our trained movers handle
+          your belongings with precision and care, while our climate-controlled storage
+          options keep everything safe until you need it.
+        </p>
+        <p>
+          We combine efficiency with unbeatable pricing, ensuring a stress-free moving
+          experience for families, offices, and small businesses alike.
+        </p>
+
+        <div class="button-group">
+          <button class="btn btn-primary" data-modal="https://gtc-010-23-menu-fix-womacromax.replit.app/contact?campaignId=WMX-New-Campaign-468-2025-07-21-1753103442505&purposeId=PRP-001&source=launch-manager&show=true">
+            Get Your Free Quote
+          </button>
+          <button class="btn btn-outline" data-modal="https://gtc-010-23-menu-fix-womacromax.replit.app/campaign-live5?campaign=WMX-New-Campaign-468-2025-07-21-1753103442505&edit=false&show=true&servicesGridVisible=true&services=SRV-FN-003%2CSRV-FN-002">
+            Explore Services
+          </button>
         </div>
-    </main>
+      </div>
+
+      <div class="features-grid">
+        <article class="feature-card">
+          <h3>Affordable Rates</h3>
+          <p>Transparent pricing with no hidden fees — move smarter and save more.</p>
+        </article>
+        <article class="feature-card">
+          <h3>Expert Movers</h3>
+          <p>Our licensed team handles your items like their own — safely and efficiently.</p>
+        </article>
+        <article class="feature-card">
+          <h3>Secure Storage</h3>
+          <p>Climate-controlled, insured, and monitored storage for total peace of mind.</p>
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <!-- Smart Tips Section -->
+  <section class="smart-tips-section" id="blog">
+    <div class="smart-tips-inner">
+      <div class="smart-tips-header">
+        <div>
+          <div class="brandline" aria-label="MoveCheap brand">
+            <span class="move">Move</span><span class="cheap">Cheap</span>
+          </div>
+          <h3 class="smart-tips-title">Smart Tips for a Smooth Move & Safe Storage</h3>
+        </div>
+        <svg class="chevron-icon" id="chevronIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m6 9 6 6 6-6"/>
+        </svg>
+      </div>
+
+      <div class="smart-tips-grid" id="smartTipsGrid">
+        <article class="blog-card" data-modal="https://gtc-010-23-menu-fix-womacromax.replit.app/campaign-live5?campaign=WMX-DATA-001&post=pack-like-a-pro&show=true">
+          <div class="blog-meta">Sep 28 — Moving Tips</div>
+          <h4>Pack Like a Pro: 5 Essentials You'll Wish You Knew</h4>
+          <p>Use uniform-sized boxes, label by room + priority, and keep a Day-1 tote with chargers, meds, and basic tools. Bubble-wrap is for fragile items—towels and blankets protect the rest.</p>
+          <div class="blog-actions">
+            <span class="chip">Checklist</span>
+            <a class="link" href="#">Open</a>
+          </div>
+        </article>
+
+        <article class="blog-card" data-modal="https://gtc-010-23-menu-fix-womacromax.replit.app/campaign-live5?campaign=WMX-DATA-001&post=storage-size&show=true">
+          <div class="blog-meta">Oct 02 — Storage</div>
+          <h4>Which Storage Size Do You Need?</h4>
+          <p>Studio = 5×10, 1–2 bedroom = 10×10, whole home = 10×20+. Add 20% if you're storing appliances or bulky furniture. Our team can estimate in minutes.</p>
+          <div class="blog-actions">
+            <span class="chip">Sizing</span>
+            <a class="link" href="#">Estimate Now</a>
+          </div>
+        </article>
+
+        <article class="blog-card" data-modal="https://gtc-010-23-menu-fix-womacromax.replit.app/campaign-live5?campaign=WMX-DATA-001&post=office-relocation&show=true">
+          <div class="blog-meta">Oct 07 — Business Moves</div>
+          <h4>Office Relocation With Zero Downtime</h4>
+          <p>We map inventory, tag equipment, and schedule after-hours moves to keep your team productive. Ask about weekend moves and staged setups.</p>
+          <div class="blog-actions">
+            <span class="chip">B2B</span>
+            <a class="link" href="#">Schedule</a>
+          </div>
+        </article>
+
+        <article class="blog-card" data-modal="https://gtc-010-23-menu-fix-womacromax.replit.app/campaign-live5?campaign=WMX-New-Campaign-468-2025-07-21-1753103442505&edit=false&show=true&servicesGridVisible=true&services=SRV-FN-003%2CSRV-FN-002">
+          <div class="blog-meta">Oct 10 — Safety</div>
+          <h4>Protecting Fragile & High-Value Items</h4>
+          <p>Double-box glass and electronics, use foam corners for frames, and photograph serial numbers. We offer specialty crates on request.</p>
+          <div class="blog-actions">
+            <span class="chip">Protection</span>
+            <a class="link" href="#">Add Crating</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="services-section" id="services">
+    <iframe
+      class="services-iframe"
+      src="https://gtc-010-23-menu-fix-womacromax.replit.app/campaign-live5?campaign=WMX-DATA-001&edit=false&show=true&servicesGridVisible=true"
+      title="MoveCheap Services"
+      loading="lazy"
+    ></iframe>
+  </section>
+
+  <!-- Modal -->
+  <div class="modal animate-fade-in" id="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-overlay" id="modalOverlay"></div>
+    <div class="modal-content">
+      <div class="modal-inner">
+        <button class="modal-btn modal-share-btn" id="shareBtn" title="Share" aria-label="Share">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" x2="12" y1="2" y2="15"/>
+          </svg>
+        </button>
+        <button class="modal-btn modal-close" id="modalClose" title="Close" aria-label="Close">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
+          </svg>
+        </button>
+
+        <div class="share-popover animate-scale-in" id="sharePopover">
+          <div class="share-row">
+            <div class="share-input-group">
+              <input class="share-input" id="shareUrl" value="" readonly>
+              <button class="share-copy-btn" id="copyBtn">Copy</button>
+            </div>
+          </div>
+          <div class="share-row">
+            <div class="qr-section">
+              <img id="qrImg" class="qr-img" alt="QR code">
+              <div>
+                <div class="qr-text">Scan to open on mobile</div>
+                <a id="downloadQr" class="qr-download" download="share-qr.png" href="#">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/>
+                  </svg>
+                  Download QR
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="share-row">
+            <div class="share-buttons">
+              <a id="waShare" class="share-btn" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+              <a id="smsShare" class="share-btn">SMS</a>
+              <a id="emailShare" class="share-btn">Email</a>
+              <button id="nativeShare" class="share-btn">Share…</button>
+            </div>
+          </div>
+        </div>
+
+        <iframe class="modal-iframe" id="modalIframe" src="about:blank" loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Hamburger Menu
+    (function() {
+      const hamburgerBtn = document.getElementById('hamburgerBtn');
+      const menuOverlay = document.getElementById('menuOverlay');
+      const menuNav = document.getElementById('menuNav');
+      const menuIcon = document.getElementById('menuIcon');
+      const closeIcon = document.getElementById('closeIcon');
+      let isOpen = false;
+
+      function toggleMenu() {
+        isOpen = !isOpen;
+        if (isOpen) {
+          menuOverlay.classList.add('show');
+          menuNav.classList.add('show');
+          menuIcon.style.display = 'none';
+          closeIcon.style.display = 'block';
+        } else {
+          menuOverlay.classList.remove('show');
+          menuNav.classList.remove('show');
+          menuIcon.style.display = 'block';
+          closeIcon.style.display = 'none';
+        }
+      }
+
+      hamburgerBtn.addEventListener('click', toggleMenu);
+      menuOverlay.addEventListener('click', toggleMenu);
+
+      document.querySelectorAll('[data-nav]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const section = e.target.getAttribute('data-nav');
+          const element = document.getElementById(section);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+            toggleMenu();
+          }
+        });
+      });
+    })();
+
+    // Smart Tips Expand/Collapse
+    (function() {
+      const section = document.querySelector('.smart-tips-section');
+      const grid = document.getElementById('smartTipsGrid');
+      const chevron = document.getElementById('chevronIcon');
+      let isExpanded = false;
+
+      function expand() {
+        if (!isExpanded) {
+          grid.classList.add('expanded');
+          chevron.classList.add('rotated');
+          isExpanded = true;
+        }
+      }
+
+      function collapse() {
+        if (isExpanded) {
+          grid.classList.remove('expanded');
+          chevron.classList.remove('rotated');
+          isExpanded = false;
+        }
+      }
+
+      section.addEventListener('mouseenter', expand);
+      section.addEventListener('mouseleave', collapse);
+      section.addEventListener('touchstart', () => {
+        if (isExpanded) collapse();
+        else expand();
+      });
+    })();
+
+    // Modal
+    (function() {
+      const modal = document.getElementById('modal');
+      const modalIframe = document.getElementById('modalIframe');
+      const modalClose = document.getElementById('modalClose');
+      const modalOverlay = document.getElementById('modalOverlay');
+      const shareBtn = document.getElementById('shareBtn');
+      const sharePopover = document.getElementById('sharePopover');
+      const shareUrl = document.getElementById('shareUrl');
+      const copyBtn = document.getElementById('copyBtn');
+      const qrImg = document.getElementById('qrImg');
+      const downloadQr = document.getElementById('downloadQr');
+      const waShare = document.getElementById('waShare');
+      const smsShare = document.getElementById('smsShare');
+      const emailShare = document.getElementById('emailShare');
+      const nativeShare = document.getElementById('nativeShare');
+
+      function openModal(url) {
+        modalIframe.src = url;
+        modal.classList.add('show');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+
+        shareUrl.value = url;
+        const qrSrc = `https://chart.googleapis.com/chart?cht=qr&chs=220x220&choe=UTF-8&chl=${encodeURIComponent(url)}`;
+        qrImg.src = qrSrc;
+        downloadQr.href = qrSrc;
+
+        const msg = encodeURIComponent(`Check this from MoveCheap: ${url}`);
+        waShare.href = `https://wa.me/?text=${msg}`;
+        smsShare.href = `sms:?&body=${msg}`;
+        emailShare.href = `mailto:?subject=${encodeURIComponent('MoveCheap — Quick Share')}&body=${msg}`;
+
+        sharePopover.classList.remove('show');
+      }
+
+      function closeModal() {
+        modal.classList.remove('show');
+        modal.setAttribute('aria-hidden', 'true');
+        modalIframe.src = 'about:blank';
+        document.body.style.overflow = '';
+        sharePopover.classList.remove('show');
+      }
+
+      document.querySelectorAll('[data-modal]').forEach(el => {
+        el.addEventListener('click', (e) => {
+          e.preventDefault();
+          const url = el.getAttribute('data-modal');
+          if (url) openModal(url);
+        });
+      });
+
+      modalClose.addEventListener('click', closeModal);
+      modalOverlay.addEventListener('click', closeModal);
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('show')) {
+          closeModal();
+        }
+      });
+
+      shareBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        sharePopover.classList.toggle('show');
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!sharePopover.contains(e.target) && e.target !== shareBtn) {
+          sharePopover.classList.remove('show');
+        }
+      });
+
+      copyBtn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(shareUrl.value);
+          copyBtn.textContent = 'Copied!';
+          setTimeout(() => copyBtn.textContent = 'Copy', 1200);
+        } catch {
+          shareUrl.select();
+          document.execCommand('copy');
+          copyBtn.textContent = 'Copied!';
+          setTimeout(() => copyBtn.textContent = 'Copy', 1200);
+        }
+      });
+
+      nativeShare.addEventListener('click', async () => {
+        if (navigator.share) {
+          try {
+            await navigator.share({
+              title: 'MoveCheap — Quick Share',
+              text: 'Check this from MoveCheap',
+              url: shareUrl.value
+            });
+          } catch {}
+        } else {
+          try {
+            await navigator.clipboard.writeText(shareUrl.value);
+            nativeShare.textContent = 'Copied!';
+            setTimeout(() => nativeShare.textContent = 'Share…', 1200);
+          } catch {}
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
