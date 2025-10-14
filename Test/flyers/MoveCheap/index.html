@@ -148,7 +148,7 @@
     }
     .hero-section::after {
       content: ''; position: absolute; inset: 0;
-      background: linear-gradient(135deg, hsl(var(--bg-start) / 0.92) 0%, hsl(var(--bg-end) / 0.92) 100%);
+      background: linear-gradient(135deg, hsl(var(--bg-start) / 0.95) 0%, hsl(var(--bg-end) / 0.95) 100%);
       z-index: 1;
     }
 
@@ -805,7 +805,7 @@
             <span class="move">Move</span><span class="cheap">Cheap</span>
           </div>
           <h3 class="services-title">Our Services</h3>
-          <p class="services-subtitle">Hover or tap to explore our full range of services</p>
+          <p class="services-subtitle">Click to explore our full range of services</p>
         </div>
         <svg class="chevron-icon" id="servicesChevron" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="m6 9 6 6 6-6"/>
@@ -830,7 +830,7 @@
         <span class="move">Move</span><span class="cheap">Cheap</span>
       </div>
       <h3 class="social-title">Watch & Learn</h3>
-      <p class="social-subtitle">Hover or tap to preview video content</p>
+      <p class="social-subtitle">Click to preview video content</p>
 
       <div class="social-grid">
         <article class="social-card" 
@@ -1036,60 +1036,44 @@
       const section = document.querySelector('.smart-tips-section');
       const grid = document.getElementById('smartTipsGrid');
       const chevron = document.getElementById('chevronIcon');
+      const header = document.querySelector('.smart-tips-header');
       let isExpanded = false;
 
-      function expand() {
-        if (!isExpanded) {
+      function toggle() {
+        isExpanded = !isExpanded;
+        if (isExpanded) {
           grid.classList.add('expanded');
           chevron.classList.add('rotated');
-          isExpanded = true;
-        }
-      }
-
-      function collapse() {
-        if (isExpanded) {
+        } else {
           grid.classList.remove('expanded');
           chevron.classList.remove('rotated');
-          isExpanded = false;
         }
       }
 
-      section.addEventListener('mouseenter', expand);
-      section.addEventListener('mouseleave', collapse);
-      section.addEventListener('touchstart', () => {
-        if (isExpanded) collapse();
-        else expand();
-      });
+      header.addEventListener('click', toggle);
+      header.style.cursor = 'pointer';
     })();
 
     // Services Expand/Collapse
     (function() {
       const section = document.querySelector('.services-section');
       const chevron = document.getElementById('servicesChevron');
+      const header = document.querySelector('.services-header');
       let isExpanded = false;
 
-      function expand() {
-        if (!isExpanded) {
+      function toggle() {
+        isExpanded = !isExpanded;
+        if (isExpanded) {
           section.classList.add('expanded');
           chevron.classList.add('rotated');
-          isExpanded = true;
-        }
-      }
-
-      function collapse() {
-        if (isExpanded) {
+        } else {
           section.classList.remove('expanded');
           chevron.classList.remove('rotated');
-          isExpanded = false;
         }
       }
 
-      section.addEventListener('mouseenter', expand);
-      section.addEventListener('mouseleave', collapse);
-      section.addEventListener('touchstart', () => {
-        if (isExpanded) collapse();
-        else expand();
-      });
+      header.addEventListener('click', toggle);
+      header.style.cursor = 'pointer';
     })();
 
     // Social Cards with iframe error handling
@@ -1144,23 +1128,15 @@
           `;
         };
 
-        // Hover to expand and load
-        card.addEventListener('mouseenter', () => {
-          card.classList.add('active');
-          loadIframe();
-        });
-        card.addEventListener('mouseleave', () => {
-          card.classList.remove('active');
-        });
-
-        // Touch to toggle
-        card.addEventListener('touchstart', (e) => {
-          e.preventDefault();
+        // Click to toggle and load
+        card.addEventListener('click', () => {
           card.classList.toggle('active');
           if (card.classList.contains('active')) {
             loadIframe();
           }
         });
+        
+        card.style.cursor = 'pointer';
       });
 
       // Global function for fallback button
