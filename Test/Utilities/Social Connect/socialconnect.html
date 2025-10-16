@@ -3,7 +3,21 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>| Powered by WoMacroMAX</title>
+<title>Brandify Social Connect | Powered by WoMacroMAX</title>
+
+<meta name="description" content="Brandify Social Connect — powered by WoMacroMAX Automation Network. Instantly connect across Facebook, Instagram, WhatsApp, and X with a single message and unified branding.">
+<meta name="author" content="WoMacroMAX Automation Network" />
+
+<!-- Social Metadata -->
+<meta property="og:title" content="Brandify Social Connect | Powered by WoMacroMAX" />
+<meta property="og:description" content="Unified communication across Facebook, Instagram, WhatsApp, and X — powered by WoMacroMAX." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="https://utilities.womacromax.com/assets/WoMacroMAXAutomation-logo-00.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Brandify Social Connect | Powered by WoMacroMAX" />
+<meta name="twitter:image" content="https://utilities.womacromax.com/assets/WoMacroMAXAutomation-logo-00.png" />
+
+<link rel="icon" href="https://utilities.womacromax.com/assets/WoMacroMAXAutomation-logo-00.png" type="image/png" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 
 <style>
@@ -26,12 +40,20 @@
     text-align: center;
     margin-bottom: 1.5rem;
   }
+
+  .brand-header img {
+    width: 90px;
+    height: auto;
+    margin-bottom: .75rem;
+  }
+
   .brand-header h2 {
     font-weight: 700;
     background: linear-gradient(90deg, var(--gold), var(--accent));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
+
   .brand-header small {
     color: #9eb6c9;
     font-weight: 500;
@@ -46,23 +68,40 @@
     margin: auto;
   }
 
+  .nav-pills {
+    justify-content: center;
+  }
+
   .nav-pills .nav-link {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
     font-weight: 600;
     border-radius: 12px;
-    margin: 5px;
+    margin: 6px;
     border: none;
     color: #fff;
-    transition: all .3s ease;
+    width: 110px;
+    height: 50px;
+    font-size: 0.9rem;
+    text-transform: capitalize;
+    transition: transform .2s ease-in-out;
   }
 
-  .nav-link svg { width: 22px; height: 22px; }
+  .nav-pills .nav-link:hover {
+    transform: scale(1.05);
+  }
+
+  .nav-link svg {
+    width: 20px;
+    height: 20px;
+  }
+
   .tab-fb   { background: #1877f2; }
   .tab-ig   { background: #E4405F; }
   .tab-wa   { background: #25D366; color: #08351d !important; }
-  .tab-x    { background: #000; border: 1px solid #444; color: #fff; }
+  .tab-x    { background: #000; border: 1px solid #555; color: #fff; }
 
   .form-control {
     background: #0f1720;
@@ -75,12 +114,14 @@
   .btn-brand {
     border-radius: 10px;
     font-weight: 700;
-    padding: 10px;
+    padding: 12px;
     width: 100%;
+    font-size: 1rem;
   }
 
   textarea { resize: none; }
   .hint { color: #9cb6c9; font-size: 0.9em; }
+
   footer {
     margin-top: 2rem;
     text-align: center;
@@ -91,21 +132,22 @@
 </head>
 <body>
   <div class="brand-header">
-    <h2>Social Connect</h2>
-    <small>Powered by <strong>WoMacroMAX</strong></small>
+    <img src="https://utilities.womacromax.com/assets/WoMacroMAXAutomation-logo-00.png" alt="WoMacroMAX Logo" />
+    <h2>Brandify Social Connect</h2>
+    <small>Powered by <strong>WoMacroMAX Automation Network</strong></small>
   </div>
 
   <div class="card-shell text-center">
-    <p class="hint mb-4">Compose a message once — instantly connect across all your social platforms.</p>
+    <p class="hint mb-4">Compose once — connect instantly across your social platforms.</p>
 
     <!-- Global message box -->
     <div class="mb-4">
       <label class="form-label fw-bold text-warning">Your Message</label>
-      <textarea id="globalMessage" class="form-control" rows="3" placeholder="Type your message to send across all apps..."></textarea>
+      <textarea id="globalMessage" class="form-control" rows="3" placeholder="Type your message to share across all apps..."></textarea>
     </div>
 
     <!-- Tabs -->
-    <ul class="nav nav-pills justify-content-center flex-wrap mb-3" id="socialTabs" role="tablist">
+    <ul class="nav nav-pills flex-wrap mb-3" id="socialTabs" role="tablist">
       <li class="nav-item"><button class="nav-link active tab-fb" data-bs-toggle="tab" data-bs-target="#facebook">
         <svg fill="currentColor" viewBox="0 0 24 24"><path d="M22 12.07C22 6.48 17.52 2 11.93 2S2 6.48 2 12.07C2 17.1 5.66 21.27 10.44 22v-7.05H7.9v-2.88h2.54V9.41c0-2.5 1.5-3.89 3.8-3.89c1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.87h2.78l-.44 2.88h-2.34V22c4.78-.73 8.44-4.9 8.44-9.93z"/></svg>
         Facebook</button></li>
@@ -155,7 +197,7 @@
   </div>
 
   <footer class="mt-4">
-    © <span id="year"></span> WoMacroMAX Automation Network — Social Connect
+    © <span id="year"></span> WoMacroMAX Automation Network — Brandify Social Connect
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
