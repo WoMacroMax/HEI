@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Brandify Social Connect | Powered by WoMacroMAX</title>
+<title>Social Connect | Powered by WoMacroMAX</title>
 
-<meta name="description" content="Brandify Social Connect — powered by WoMacroMAX Automation Network. Instantly connect across Facebook, Instagram, WhatsApp, and X with a single message and unified branding.">
+<meta name="description" content="Connect instantly across Facebook, Instagram, WhatsApp, and X — powered by WoMacroMAX Automation Network. Compose one message and share it seamlessly across your platforms.">
 <meta name="author" content="WoMacroMAX Automation Network" />
 
 <!-- Social Metadata -->
-<meta property="og:title" content="Brandify Social Connect | Powered by WoMacroMAX" />
+<meta property="og:title" content="Social Connect | Powered by WoMacroMAX" />
 <meta property="og:description" content="Unified communication across Facebook, Instagram, WhatsApp, and X — powered by WoMacroMAX." />
 <meta property="og:type" content="website" />
 <meta property="og:image" content="https://utilities.womacromax.com/assets/WoMacroMAXAutomation-logo-00.png" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Brandify Social Connect | Powered by WoMacroMAX" />
+<meta name="twitter:title" content="Social Connect | Powered by WoMacroMAX" />
 <meta name="twitter:image" content="https://utilities.womacromax.com/assets/WoMacroMAXAutomation-logo-00.png" />
 
 <link rel="icon" href="https://utilities.womacromax.com/assets/WoMacroMAXAutomation-logo-00.png" type="image/png" />
@@ -25,6 +25,7 @@
     --gold: #f8b400;
     --dark: #0b0e13;
     --accent: #25d366;
+    --form-bg: #111722;
   }
 
   body {
@@ -41,12 +42,6 @@
     margin-bottom: 1.5rem;
   }
 
-  .brand-header img {
-    width: 90px;
-    height: auto;
-    margin-bottom: .75rem;
-  }
-
   .brand-header h2 {
     font-weight: 700;
     background: linear-gradient(90deg, var(--gold), var(--accent));
@@ -60,7 +55,7 @@
   }
 
   .card-shell {
-    background: #111722;
+    background: var(--form-bg);
     border-radius: 20px;
     box-shadow: 0 0 20px rgba(0,0,0,0.6);
     padding: 25px;
@@ -128,17 +123,21 @@
     font-size: .9rem;
     color: #7f8fa0;
   }
+
+  /* SEO logo background for preview (not visible in page) */
+  meta[property="og:image"] {
+    background-color: var(--form-bg);
+  }
 </style>
 </head>
 <body>
   <div class="brand-header">
-    <img src="https://utilities.womacromax.com/assets/WoMacroMAXAutomation-logo-00.png" alt="WoMacroMAX Logo" />
-    <h2>Brandify Social Connect</h2>
+    <h2>Social Connect</h2>
     <small>Powered by <strong>WoMacroMAX Automation Network</strong></small>
   </div>
 
   <div class="card-shell text-center">
-    <p class="hint mb-4">Compose once — connect instantly across your social platforms.</p>
+    <p class="hint mb-4">Compose once — connect instantly across Facebook, Instagram, WhatsApp, and X.</p>
 
     <!-- Global message box -->
     <div class="mb-4">
@@ -197,7 +196,7 @@
   </div>
 
   <footer class="mt-4">
-    © <span id="year"></span> WoMacroMAX Automation Network — Brandify Social Connect
+    © <span id="year"></span> WoMacroMAX Automation Network — Social Connect
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
