@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WhatsApp in Modal (No Padding, No Horizontal Scroll)</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+
+  <style>
+    :root {
+      --wa1:#25d366;
+      --wa2:#128c7e;
+      --danger:#e53935;
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      overflow-x: hidden; /* global: no horizontal scroll */
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: linear-gradient(135deg, var(--wa1), var(--wa2));
+    }
+
+    /* Center card */
+    .shell {
+      min-height: 100%;
+      display: grid;
+      place-items: center;
+      padding: 16px;
+    }
+    .card-lite {
+      width: 100%;
+      max-width: 440px;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(12px);
+      color: #fff;
+      border: 0;
+      border-radius: 16px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+    }
+    .card-lite .form-control,
+    .card-lite .form-select {
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    /* Modal must be full screen, no padding, no scroll chrome */
+    .modal.fullscreen .modal-dialog {
+      max-width: none;
+      width: 100vw;
+      height: 100vh;
+      margin: 0; /* remove gutters */
+    }
+    .modal.fullscreen .modal-content {
+      height: 100vh;
+      border: 0;
+      border-radius: 0;
+      background: #000; /* pure frame look */
+      overflow: hidden; /* ensure no inner scrollbars */
+    }
+    .modal.fullscreen .modal-body {
+      padding: 0; /* NO padding */
+    }
+    /* iFrame fills screen, no borders */
+    #waFrame {
+      display: block;
+      width: 100vw;
+      height: 100vh;
+      border: 0;
+      overflow: hidden;
+    }
+
+    /* Red X close button (overlay, no modal chrome) */
+    .close-x {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 5;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: none;
+      background: var(--danger);
+      color: #fff;
+      font-weight: 800;
+      line-height: 42px;
+      text-align: center;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+      cursor: pointer;
+    }
+
+    /* Fallback panel shown when iFrame can’t load */
+    .fallback-panel {
+      position: absolute;
+      inset: 0;
+      display: none;            /* hidden by default */
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: #000;         /* match modal bg */
+    }
+    .fallback-inner {
+      max-width: 520px;
+      width: 100%;
+      text-align: center;
+      color: #fff;
+    }
+    .fallback-inner .btn {
+      border-radius: 12px;
+      font-weight: 700;
+    }
+
+    /* Small helper */
+    .hint { opacity: 0.85; font-size: .9rem; }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="card card-lite p-4">
+      <div class="text-center mb-3">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="" width="56" height="56" />
+        <h2 class="mt-2 mb-0">WhatsApp Quick Connect</h2>
+        <p class="hint mb-0">Open WhatsApp inside a full-screen modal (no padding, no horizontal scroll)</p>
+      </div>
+
+      <div class="mb-3">
+        <label for="waNumber" class="form-label">Phone (include country code)</label>
+        <input type="tel" id="waNumber" class="form-control" placeholder="+1 703 555 1234" inputmode="tel">
+      </div>
+
+      <div class="mb-3">
+        <label for="waMessage" class="form-label">Optional message</label>
+        <textarea id="waMessage" class="form-control" rows="2" placeholder="Type a message to prefill…"></textarea>
+      </div>
+
+      <div class="d-grid gap-3">
+        <button class="btn btn-light btn-lg fw-bold" id="openInModalBtn">
+          Open WhatsApp in Modal
+        </button>
+        <button class="btn btn-outline-light" id="nativeAppBtn" type="button">
+          Open in WhatsApp App (fallback)
+        </button>
+      </div>
+
+      <p class="hint text-center mt-3 mb-0">
+        If your browser blocks embedding, you’ll automatically get a button to open WhatsApp directly.
+      </p>
+    </div>
+  </div>
+
+  <!-- Fullscreen iFrame Modal -->
+  <div class="modal fullscreen fade" id="whatsAppModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <button class="close-x" data-bs-dismiss="modal" aria-label="Close">×</button>
+
+        <!-- Fallback overlay (hidden unless iFrame is blocked) -->
+        <div id="fallbackPanel" class="fallback-panel">
+          <div class="fallback-inner">
+            <h4 class="mb-3">Can’t display WhatsApp here</h4>
+            <p class="mb-4 hint">
+              Your browser is preventing WhatsApp from loading inside an iFrame. Tap below to open it directly.
+            </p>
+            <div class="d-grid gap-3">
+              <a id="fallbackOpenLink" class="btn btn-success btn-lg" target="_blank" rel="noopener">Open WhatsApp</a>
+              <a id="fallbackNativeLink" class="btn btn-outline-light" rel="noopener">Open in WhatsApp App</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-body">
+          <iframe id="waFrame" title="WhatsApp" referrerpolicy="no-referrer"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstr
