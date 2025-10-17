@@ -1,26 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Success STORY Campaign Strategy — Full</title>
+  <title>Success STORY Campaign Strategy — Full (Carousel Edition)</title>
+
+  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
   <style>
     :root{
       --card-radius: 12px;
       --shadow: 0 6px 20px rgba(0,0,0,0.06);
       --muted: #6c6c6c;
+      --accent: #ffb300;
     }
 
     /* Core layout */
     body {
       font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
-      padding: 2rem;
+      padding: 20px 20px 60px 20px;
       background-color: #fafafa;
       color: #222;
     }
 
-    h1 { font-weight: 700; margin-bottom: 0.4rem; }
+    h1 {
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.2px;
+    }
 
     /* Tabs */
     .nav-tabs .nav-link {
@@ -28,6 +36,8 @@
       font-weight: 700;
       border: none;
       margin-right: 6px;
+      padding: 0.55rem 0.85rem;
+      border-radius: 6px;
     }
     .nav-tabs .nav-link.active {
       box-shadow: inset 0 -3px 0 rgba(255,255,255,0.15);
@@ -58,11 +68,12 @@
     ul.bulletpoints { margin-top: 1rem; padding-left: 1.25rem; }
     ul.bulletpoints li { margin-bottom: 0.5rem; }
 
-    .right-column img {
-      border-radius: 12px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-      width:100%;
-      display:block;
+    /* Right column carousel sizing */
+    .right-column .carousel, 
+    .right-column .carousel-item img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
     }
 
     .right-caption {
@@ -101,7 +112,7 @@
       margin-bottom: 1.25rem;
       box-shadow: var(--shadow);
     }
-    .summary h2 { color: #ffb300; margin-bottom: 0.6rem; }
+    .summary h2 { color: var(--accent); margin-bottom: 0.6rem; }
     .flow-img {
       width: 100%;
       max-height: 220px;
@@ -126,13 +137,22 @@
     .codebox { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace; background:#f4f4f4; padding:6px 8px; border-radius:6px; display:inline-block; }
     .spacer { height: 12px; }
 
+    /* Make carousel images clickable and show pointer */
+    .carousel-item a { display:block; }
+    .carousel-item img { cursor: pointer; }
+
+    /* Accessibility improvements */
+    .carousel-control-prev, .carousel-control-next {
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.25));
+    }
+
   </style>
 </head>
 <body>
   <div class="container">
 
     <!-- Header -->
-    <h1>Success STORY Campaign Strategy</h1>
+    <h1>Success STORY Campaign Strategy — Carousel Edition</h1>
     <p class="muted mb-4">
       <strong>Presented by:</strong> Rodney Womack, Brand Marketing Strategist<br>
       <strong>Date:</strong> Friday, October 1, 2025 &nbsp;&nbsp;&nbsp;
@@ -143,8 +163,8 @@
     <div class="summary">
       <h2>Campaign Summary</h2>
       <p>
-        The <strong>Success STORY Campaign Strategy</strong> transforms your existing content, events, and client interactions into a continuous marketing engine.
-        By capturing authentic moments and redistributing them with purpose, this strategy connects storytelling, automation, and analytics into one repeatable growth loop.
+        The <strong>Success STORY Campaign Strategy</strong> converts event moments, customer experiences, and digital interactions into a repeatable growth machine.
+        Capture real moments, launch focused campaigns, enable direct transactions, coordinate scheduling, harvest feedback, and redistribute to amplify reach.
       </p>
 
       <!-- Flowchart / Visual Overview -->
@@ -157,6 +177,7 @@
             <li><strong>Outcome:</strong> A scalable marketing system that converts everyday experiences into measurable results.</li>
           </ul>
         </div>
+
         <div class="col-md-4 text-center">
           <!-- example illustrative image; replace with your diagram if available -->
           <img class="flow-img" src="https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=1200&q=80&auto=format&fit=crop" alt="Overview flowchart illustration — circle diagram representing marketing loop" />
@@ -166,51 +187,51 @@
     </div>
 
     <!-- Tabs -->
-    <ul class="nav nav-tabs justify-content-center mb-4" id="strategyTabs" role="tablist">
+    <ul class="nav nav-tabs justify-content-center mb-4" id="strategyTabs" role="tablist" aria-label="Strategy tabs">
       <li class="nav-item">
-        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab1" type="button" role="tab">Capture</button>
+        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab1" type="button" role="tab" aria-controls="tab1" aria-selected="true">Capture</button>
       </li>
       <li class="nav-item align-self-center px-2">➡️</li>
 
       <li class="nav-item">
-        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab2" type="button" role="tab">Campaign</button>
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab2" type="button" role="tab" aria-controls="tab2" aria-selected="false">Campaign</button>
       </li>
       <li class="nav-item align-self-center px-2">➡️</li>
 
       <li class="nav-item">
-        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab3" type="button" role="tab">Transactions</button>
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab3" type="button" role="tab" aria-controls="tab3" aria-selected="false">Transactions</button>
       </li>
       <li class="nav-item align-self-center px-2">➡️</li>
 
       <li class="nav-item">
-        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab4" type="button" role="tab">Scheduling</button>
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab4" type="button" role="tab" aria-controls="tab4" aria-selected="false">Scheduling</button>
       </li>
       <li class="nav-item align-self-center px-2">➡️</li>
 
       <li class="nav-item">
-        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab5" type="button" role="tab">Feedback</button>
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab5" type="button" role="tab" aria-controls="tab5" aria-selected="false">Feedback</button>
       </li>
       <li class="nav-item align-self-center px-2">➡️</li>
 
       <li class="nav-item">
-        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab6" type="button" role="tab">Redistribute</button>
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab6" type="button" role="tab" aria-controls="tab6" aria-selected="false">Redistribute</button>
       </li>
       <li class="nav-item align-self-center px-2">➡️</li>
 
       <li class="nav-item">
-        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab7" type="button" role="tab">Other Success Stories</button>
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab7" type="button" role="tab" aria-controls="tab7" aria-selected="false">Other Success Stories</button>
       </li>
       <li class="nav-item align-self-center px-2">➡️</li>
 
       <li class="nav-item">
-        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab8" type="button" role="tab">Client Payment</button>
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab8" type="button" role="tab" aria-controls="tab8" aria-selected="false">Client Payment</button>
       </li>
     </ul>
 
-    <div class="tab-content">
+    <div class="tab-content" id="strategyTabsContent">
 
       <!-- TAB 1: Capture -->
-      <div class="tab-pane fade show active" id="tab1" role="tabpanel">
+      <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1">
         <div class="row align-items-center">
           <div class="col-md-8">
             <div class="hero-headline">Capture & Repurpose Artifacts</div>
@@ -233,18 +254,43 @@
             </ul>
           </div>
 
+          <!-- Right column: carousel of capture images (clickable links) -->
           <div class="col-md-4 right-column order-md-2">
-            <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?w=1200&q=80&auto=format&fit=crop" alt="Person organizing photos on desk" />
-            <small class="right-caption">“Every story starts with what you’ve already captured.”</small>
+            <div id="captureCarousel" class="carousel slide" data-bs-ride="carousel" aria-label="Capture images carousel">
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <a href="https://www.womacromax.com/gallery/capture1" target="_blank" rel="noopener noreferrer" title="Capture — Photos on desk">
+                    <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?w=1200&q=80&auto=format&fit=crop" class="d-block w-100" alt="Person organizing photos on desk">
+                  </a>
+                </div>
+                <div class="carousel-item">
+                  <a href="https://www.womacromax.com/gallery/capture2" target="_blank" rel="noopener noreferrer" title="Capture — Team review">
+                    <img src="https://images.unsplash.com/photo-1522204505290-1cddd2f1a48a?w=1200&q=80&auto=format&fit=crop" class="d-block w-100" alt="Team reviewing content on laptops">
+                  </a>
+                </div>
+                <div class="carousel-item">
+                  <a href="https://www.womacromax.com/gallery/capture3" target="_blank" rel="noopener noreferrer" title="Capture — Smartphone recording">
+                    <img src="https://images.unsplash.com/photo-1489528792648-9f3f4bfa1e83?w=1200&q=80&auto=format&fit=crop" class="d-block w-100" alt="Hands holding smartphone recording video">
+                  </a>
+                </div>
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#captureCarousel" data-bs-slide="prev" aria-label="Previous capture image">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#captureCarousel" data-bs-slide="next" aria-label="Next capture image">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              </button>
+            </div>
+
+            <small class="right-caption">“Every story starts with what you’ve already captured.” — click an image to open its POC</small>
           </div>
         </div>
       </div>
 
       <!-- TAB 2: Campaign -->
-      <div class="tab-pane fade" id="tab2" role="tabpanel">
+      <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab2">
         <div class="row align-items-center">
           <div class="col-md-8">
-            <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1600&q=80&auto=format&fit=crop" alt="Person posting campaign online" class="hero-image d-block d-md-none mb-3" />
             <div class="hero-headline">Launch Your Promotional Campaign</div>
 
             <div class="section-title">Tactical Actions</div>
@@ -263,15 +309,41 @@
             </ul>
           </div>
 
+          <!-- Right column: campaign carousel -->
           <div class="col-md-4 right-column">
-            <img src="https://images.unsplash.com/photo-1554774853-aae0a22c8aa4?w=1200&q=80&auto=format&fit=crop" alt="Marketing dashboard with charts" />
-            <small class="right-caption">“Launch with precision — let the visuals do the heavy lifting.”</small>
+            <div id="campaignCarousel" class="carousel slide" data-bs-ride="carousel" aria-label="Campaign images carousel">
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <a href="https://www.womacromax.com/pocs/campaign-visuals" target="_blank" rel="noopener noreferrer" title="Campaign visuals">
+                    <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1200&q=80&auto=format&fit=crop" class="d-block w-100" alt="Person scheduling posts">
+                  </a>
+                </div>
+                <div class="carousel-item">
+                  <a href="https://www.womacromax.com/pocs/campaign-dashboard" target="_blank" rel="noopener noreferrer" title="Campaign dashboard">
+                    <img src="https://images.unsplash.com/photo-1554774853-aae0a22c8aa4?w=1200&q=80&auto=format&fit=crop" class="d-block w-100" alt="Marketing dashboard with charts">
+                  </a>
+                </div>
+                <div class="carousel-item">
+                  <a href="https://www.womacromax.com/pocs/campaign-creative" target="_blank" rel="noopener noreferrer" title="Campaign creative">
+                    <img src="https://images.unsplash.com/photo-1600096194534-74a3f35c1e2e?w=1200&q=80&auto=format&fit=crop" class="d-block w-100" alt="Branded campaign assets">
+                  </a>
+                </div>
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#campaignCarousel" data-bs-slide="prev" aria-label="Previous campaign image">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#campaignCarousel" data-bs-slide="next" aria-label="Next campaign image">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              </button>
+            </div>
+
+            <small class="right-caption">Click an image to open the campaign proof of concept (POC)</small>
           </div>
         </div>
       </div>
 
       <!-- TAB 3: Transactions -->
-      <div class="tab-pane fade" id="tab3" role="tabpanel">
+      <div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="tab3">
         <div class="row align-items-center">
           <div class="col-md-8">
             <div class="hero-headline">Enable Direct Transactions</div>
@@ -292,15 +364,41 @@
             </ul>
           </div>
 
+          <!-- Right column: transactions carousel -->
           <div class="col-md-4 right-column">
-            <img src="https://images.unsplash.com/photo-1605902711622-cfb43c4437d3?w=1200&q=80&auto=format&fit=crop" alt="Mobile shopping cart" />
-            <small class="right-caption">“The faster the transaction, the stronger the connection.”</small>
+            <div id="transactionsCarousel" class="carousel slide" data-bs-ride="carousel" aria-label="Transactions carousel">
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <a href="https://www.womacromax.com/pocs/mobile-checkout" target="_blank" rel="noopener noreferrer" title="Mobile checkout">
+                    <img src="https://images.unsplash.com/photo-1605902711622-cfb43c4437d3?w=1200&q=80&auto=format&fit=crop" class="d-block w-100" alt="Mobile shopping cart">
+                  </a>
+                </div>
+                <div class="carousel-item">
+                  <a href="https://www.womacromax.com/pocs/oneclick-pay" target="_blank" rel="noopener noreferrer" title="One-click pay">
+                    <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200&q=80&auto=format&fit=crop" class="d-block w-100" alt="Customer purchasing online">
+                  </a>
+                </div>
+                <div class="carousel-item">
+                  <a href="https://www.womacromax.com/pocs/analytics-payments" target="_blank" rel="noopener noreferrer" title="Payment analytics">
+                    <img src="https://images.unsplash.com/photo-1611078486798-5d3e04d6b4c9?w=1200&q=80&auto=format&fit=crop" class="d-block w-100" alt="Checkout analytics">
+                  </a>
+                </div>
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#transactionsCarousel" data-bs-slide="prev" aria-label="Previous transaction image">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#transactionsCarousel" data-bs-slide="next" aria-label="Next transaction image">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              </button>
+            </div>
+
+            <small class="right-caption">Open payment POCs in a new tab by clicking a slide</small>
           </div>
         </div>
       </div>
 
       <!-- TAB 4: Scheduling -->
-      <div class="tab-pane fade" id="tab4" role="tabpanel">
+      <div class="tab-pane fade" id="tab4" role="tabpanel" aria-labelledby="tab4">
         <div class="row align-items-center">
           <div class="col-md-8">
             <div class="hero-headline">Streamline Scheduling</div>
@@ -321,15 +419,41 @@
             </ul>
           </div>
 
+          <!-- Right column: scheduling carousel -->
           <div class="col-md-4 right-column">
-            <img src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?w=1200&q=80&auto=format&fit=crop" alt="Person checking calendar on phone" />
-            <small class="right-caption">“Make time work for you — not the other way around.”</small>
+            <div id="schedulingCarousel" class="carousel slide" data-bs-ride="carousel" aria-label="Scheduling carousel">
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <a href="https://www.womacromax.com/pocs/booking-widget" target="_blank" rel="noopener noreferrer" title="Booking widget">
+                    <img src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?w=1200&q=80&auto=format&fit=crop" class="d-block w-100" alt="Person checking calendar on phone">
+                  </a>
+                </div>
+                <div class="carousel-item">
+                  <a href="https://www.womacromax.com/pocs/time-slot-preview" target="_blank" rel="noopener noreferrer" title="Time slot preview">
+                    <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=1200&q=80&auto=format&fit=crop" class="d-block w-100" alt="Time slot UI">
+                  </a>
+                </div>
+                <div class="carousel-item">
+                  <a href="https://www.womacromax.com/pocs/reminders" target="_blank" rel="noopener noreferrer" title="Reminders">
+                    <img src="https://images.unsplash.com/photo-1593642634315-48f5414c3ad9?w=1200&q=80&auto=format&fit=crop" class="d-block w-100" alt="Reminders and notifications">
+                  </a>
+                </div>
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#schedulingCarousel" data-bs-slide="prev" aria-label="Previous scheduling image">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#schedulingCarousel" data-bs-slide="next" aria-label="Next scheduling image">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              </button>
+            </div>
+
+            <small class="right-caption">Click entries to inspect scheduling POCs</small>
           </div>
         </div>
       </div>
 
       <!-- TAB 5: Feedback -->
-      <div class="tab-pane fade" id="tab5" role="tabpanel">
+      <div class="tab-pane fade" id="tab5" role="tabpanel" aria-labelledby="tab5">
         <div class="row align-items-center">
           <div class="col-md-8">
             <div class="hero-headline">Harvest & Redistribute Feedback</div>
@@ -350,15 +474,41 @@
             </ul>
           </div>
 
+          <!-- Right column: feedback carousel -->
           <div class="col-md-4 right-column">
-            <img src="https://images.unsplash.com/photo-1573496529574-be85d6a60704?w=1200&q=80&auto=format&fit=crop" alt="Interview or testimonial recording" />
-            <small class="right-caption">“Your customers’ words are your most powerful marketing.”</small>
+            <div id="feedbackCarousel" class="carousel slide" data-bs-ride="carousel" aria-label="Feedback images carousel">
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <a href="https://www.womacromax.com/pocs/testimonial-capture" target="_blank" rel="noopener noreferrer" title="Testimonial capture">
+                    <img src="https://images.unsplash.com/photo-1573496529574-be85d6a60704?w=1200&q=80&auto=format&fit=crop" class="d-block w-100" alt="Interview testimonial">
+                  </a>
+                </div>
+                <div class="carousel-item">
+                  <a href="https://www.womacromax.com/pocs/ugc-gallery" target="_blank" rel="noopener noreferrer" title="UGC gallery">
+                    <img src="https://images.unsplash.com/photo-1590608897129-79da98d15943?w=1200&q=80&auto=format&fit=crop" class="d-block w-100" alt="Smiling customers">
+                  </a>
+                </div>
+                <div class="carousel-item">
+                  <a href="https://flyers.womacromax.com/movecheap/" target="_blank" rel="noopener noreferrer" title="Feedback analytics">
+                    <img src="https://flyers.womacromax.com/MoveCheap/assets/MoveCheap.jpg" class="d-block w-100" alt="Customer feedback dashboard">
+                  </a>
+                </div>
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#feedbackCarousel" data-bs-slide="prev" aria-label="Previous feedback image">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#feedbackCarousel" data-bs-slide="next" aria-label="Next feedback image">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              </button>
+            </div>
+
+            <small class="right-caption">Open these feedback POCs to review outcomes and metrics</small>
           </div>
         </div>
       </div>
 
       <!-- TAB 6: Redistribute -->
-      <div class="tab-pane fade" id="tab6" role="tabpanel">
+      <div class="tab-pane fade" id="tab6" role="tabpanel" aria-labelledby="tab6">
         <div class="row align-items-center">
           <div class="col-md-8">
             <div class="hero-headline">Redistribute to Social Media</div>
@@ -380,71 +530,146 @@
             </ul>
           </div>
 
+          <!-- Right column: redistribute carousel -->
           <div class="col-md-4 right-column">
-            <img src="https://images.unsplash.com/photo-1616469829936-5b7191cc88a3?w=1200&q=80&auto=format&fit=crop" alt="QR code on poster/flyer" />
-            <small class="right-caption">“Transform offline moments into digital momentum.”</small>
+            <div id="redistributeCarousel" class="carousel slide" data-bs-ride="carousel" aria-label="Redistribute carousel">
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <a href="https://www.womacromax.com/pocs/qr-power" target="_blank" rel="noopener noreferrer" title="QR flyer">
+                    <img src="https://images.unsplash.com/photo-1616469829936-5b7191cc88a3?w=1200&q=80&auto=format&fit=crop" class="d-block w-100" alt="QR flyer poster">
+                  </a>
+                </div>
+                <div class="carousel-item">
+                  <a href="https://www.womacromax.com/pocs/highlight-reel" target="_blank" rel="noopener noreferrer" title="Highlight reel">
+                    <img src="https://images.unsplash.com/photo-1504198453319-5ce911bafcde?w=1200&q=80&auto=format&fit=crop" class="d-block w-100" alt="Event highlight reel">
+                  </a>
+                </div>
+                <div class="carousel-item">
+                  <a href="https://www.womacromax.com/pocs/social-amp" target="_blank" rel="noopener noreferrer" title="Social amplification">
+                    <img src="https://images.unsplash.com/photo-1520975913574-151c63f3cb4a?w=1200&q=80&auto=format&fit=crop" class="d-block w-100" alt="Social media amplification">
+                  </a>
+                </div>
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#redistributeCarousel" data-bs-slide="prev" aria-label="Previous redistribute image">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#redistributeCarousel" data-bs-slide="next" aria-label="Next redistribute image">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              </button>
+            </div>
+
+            <small class="right-caption">Click slides to open redistribution POCs and campaign pages</small>
           </div>
         </div>
       </div>
 
-      <!-- TAB 7: Other Success Stories (INDEX of URLs left / Photo right) -->
-      <div class="tab-pane fade" id="tab7" role="tabpanel">
+      <!-- TAB 7: Other Success Stories (INDEX of URLs left / Carousel right) -->
+      <div class="tab-pane fade" id="tab7" role="tabpanel" aria-labelledby="tab7">
         <div class="row">
           <!-- Left column: Index of URLs / Proof of Concept links -->
           <div class="col-md-8">
             <div class="hero-headline">OTHER SUCCESS STORIES — Proof of Concepts</div>
-            <p class="mb-2">Index of example Proof-of-Concept pages and mini case studies. Replace these with your live URLs or internal proofs.</p>
+            <p class="mb-2">Index of example Proof-of-Concept pages and mini case studies. Click a thumbnail on the right or the link to open each POC.</p>
 
             <div class="poc-list">
               <ol>
                 <li class="mb-3">
-                  <strong><a href="https://example.com/poc-event-highlight" target="_blank" rel="noopener noreferrer">Event Highlight Reel — POC</a></strong><br>
-                  <small class="text-muted">Short-form video reel + testimonial gallery demonstrating a 3x engagement lift.</small>
+                  <strong><a href="https://lost-trail-guide.lovable.app/" target="_blank" rel="noopener noreferrer">Health Equity Impact</a></strong><br>
+                  <small class="text-muted">Transforming Healthcare Together — community-driven solutions that increase access and outreach.</small>
                 </li>
+
                 <li class="mb-3">
-                  <strong><a href="https://example.com/poc-qr-booking" target="_blank" rel="noopener noreferrer">QR → Booking Flow — POC</a></strong><br>
-                  <small class="text-muted">QR codes on offline flyers routed to a streamlined booking + checkout flow.</small>
+                  <strong><a href="https://6806a12b2fda470b9f0f2eed--regal-squirrel-cc6a11.netlify.app/" target="_blank" rel="noopener noreferrer">Gentle Touch Senior Concierge</a></strong><br>
+                  <small class="text-muted">Compassionate, on-demand services to help seniors age in place with dignity and independence.</small>
                 </li>
+
                 <li class="mb-3">
-                  <strong><a href="https://example.com/poc-social-ugc" target="_blank" rel="noopener noreferrer">UGC Amplification — POC</a></strong><br>
-                  <small class="text-muted">User-generated content campaign that converted attendees into content creators.</small>
+                  <strong><a href="https://flyers.womacromax.com/phoneservice/" target="_blank" rel="noopener noreferrer">📱 Free Phone Service That Works for You</a></strong><br>
+                  <small class="text-muted">Automated outreach and acquisition pipeline for phone service enrollment.</small>
                 </li>
+
                 <li class="mb-3">
-                  <strong><a href="https://example.com/poc-mini-store" target="_blank" rel="noopener noreferrer">Mini Storefront — POC</a></strong><br>
-                  <small class="text-muted">Direct transaction implementation for event merchandise and instant checkout.</small>
+                  <strong><a href="https://flyers.womacromax.com/ms%20wandas/" target="_blank" rel="noopener noreferrer">Ms. Wanda's — Exquisite Southern Cuisine</a></strong><br>
+                  <small class="text-muted">Restaurant UX and local marketing playbook demonstrating community-driven orders and events.</small>
                 </li>
+
                 <li class="mb-3">
-                  <strong><a href="https://example.com/poc-feedback-loop" target="_blank" rel="noopener noreferrer">Feedback-to-Content Loop — POC</a></strong><br>
-                  <small class="text-muted">How testimonial capture and redistribution drove referral traffic.</small>
+                  <strong><a href="https://www.womacromax.com" target="_blank" rel="noopener noreferrer">Your BEST Rates Are Here! - MoveCheap And Store It</a></strong><br>
+                  <small class="text-muted">Whether you're relocating across town or storing your valuables for a while, MoveCheap makes it simple, secure, and affordable. Our trained movers handle your belongings with precision and care, while our climate-controlled storage options keep everything safe until you need it.
+
+We combine efficiency with unbeatable pricing, ensuring a stress-free moving experience for families, offices, and small businesses alike.</small>
                 </li>
+
+                <!-- NEW POC (as requested earlier) -->
+                <li class="mb-3">
+                  <strong><a href="https://www.womacromax.com" target="_blank" rel="noopener noreferrer">Transform Your Business with
+Intelligent Automation - WoMacroMAX Automation</a></strong><br>
+                  <small class="text-muted">Eliminate tedious manual work and amplify your productivity with customized automation solutions designed for modern businesses.</small>
+                </li>
+
               </ol>
             </div>
 
-            <p class="mt-3"><small class="text-muted">Tip: Host each Proof of Concept under a simple, trackable path (example.com/poc-*) so you can A/B test formats and record performance.</small></p>
+           
           </div>
 
-          <!-- Right column: Photos/thumbnails for each POC -->
+          <!-- Right column: clickable carousel for POCs -->
           <div class="col-md-4 right-column">
-            <div class="mb-3">
-              <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&q=80&auto=format&fit=crop" alt="Event highlight video thumbnail" />
-              <small class="right-caption">Event Highlight Reel — visual snapshot</small>
+            <div id="pocCarousel" class="carousel slide" data-bs-ride="carousel" aria-label="POC carousel">
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <a href="https://lost-trail-guide.lovable.app/" target="_blank" rel="noopener noreferrer" title="Health Equity Impact">
+                    <img src="https://flyers.womacromax.com/assets/Health%20Equity%20Impact%20-%20Transforming%20Healthcare%20Together.png" class="d-block w-100" alt="Health Equity Impact snapshot">
+                  </a>
+                </div>
+
+                <div class="carousel-item">
+                  <a href="https://6806a12b2fda470b9f0f2eed--regal-squirrel-cc6a11.netlify.app/" target="_blank" rel="noopener noreferrer" title="Gentle Touch Senior Concierge">
+                    <img src="https://womacromax.com/media/gentletouch.png" class="d-block w-100" alt="Gentle Touch snapshot">
+                  </a>
+                </div>
+
+                <div class="carousel-item">
+                  <a href="https://flyers.womacromax.com/phoneservice/" target="_blank" rel="noopener noreferrer" title="Phone Service">
+                    <img src="https://flyers.womacromax.com/phoneservice/media/frustrated%20phone%20user%20wishing%20for%20better%20service.png" class="d-block w-100" alt="Phone service snapshot">
+                  </a>
+                </div>
+
+                <div class="carousel-item">
+                  <a href="https://flyers.womacromax.com/ms%20wandas/" target="_blank" rel="noopener noreferrer" title="Ms. Wanda's">
+                    <img src="https://womacromax.com/media/GoodSoulFoodBoutique.png" class="d-block w-100" alt="Ms. Wanda's snapshot">
+                  </a>
+                </div>
+
+                <div class="carousel-item">
+                  <a href="https://flyers.womacromax.com/movecheap/" target="_blank" rel="noopener noreferrer" title="Feedback-to-Content Loop">
+                    <img src="https://flyers.womacromax.com/MoveCheap/assets/MoveCheap.jpg" class="d-block w-100" alt="MoveCheap.com">
+                  </a>
+                </div>
+
+                <div class="carousel-item">
+                  <a href="https://www.womacromax.com" target="_blank" rel="noopener noreferrer" title="WoMacroMax">
+                    <img src="media/WoMacroMAXAutomation-logo-00.png" class="d-block w-100" alt="Small Biz Accelerator">
+                  </a>
+                </div>
+              </div>
+
+              <button class="carousel-control-prev" type="button" data-bs-target="#pocCarousel" data-bs-slide="prev" aria-label="Previous POC">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#pocCarousel" data-bs-slide="next" aria-label="Next POC">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              </button>
             </div>
 
-            <div class="mb-3">
-              <img src="https://images.unsplash.com/photo-1508385082359-f1b41b98c0cf?w=1200&q=80&auto=format&fit=crop" alt="QR flyer thumbnail" />
-              <small class="right-caption">QR → Booking Flow — poster sample</small>
-            </div>
-
-            <div class="mb-3">
-              <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&q=80&auto=format&fit=crop" alt="User-generated content thumbnail" />
-              <small class="right-caption">UGC Amplification — candid UGC image</small>
-            </div>
+            <small class="right-caption">Click a thumbnail to open the selected Proof of Concept in a new tab</small>
           </div>
+
         </div>
       </div>
 
       <!-- TAB 8: CLIENT PAYMENT (CashApp / Zelle) -->
-      <div class="tab-pane fade" id="tab8" role="tabpanel">
+      <div class="tab-pane fade" id="tab8" role="tabpanel" aria-labelledby="tab8">
         <div class="row align-items-start">
 
           <!-- Left: Payment Info -->
@@ -457,9 +682,9 @@
 
             <div class="section-title">Payment Details</div>
             <ul class="bulletpoints">
-              <li><strong>CashApp (Cashtag):</strong> <span class="codebox">$RodneyWomack</span></li>
-              <li><strong>Zelle (Phone):</strong> <span class="codebox">703-596-2482</span></li>
-              <li><strong>Zelle (Email):</strong> <span class="codebox">rodneywomack@gmail.com</span></li>
+              <li><strong>CashApp (Cashtag):</strong> <span class="codebox">$payblab</span></li>
+              <li><strong>Zelle (Phone):</strong> <span class="codebox">240-380-4868</span></li>
+              <li><strong>Zelle (Email):</strong> <span class="codebox">blab942@yahoo.com</span></li>
               <li><strong>Memo / Note:</strong> Include your project name or invoice number for tracking.</li>
               <li><strong>Confirmation:</strong> Please SMS or email the receipt to the contact used on the invoice.</li>
             </ul>
@@ -475,52 +700,94 @@
 
             <div class="section-title">Contact for Billing</div>
             <p class="muted mb-1"><strong>Billing Contact:</strong></p>
-            <p class="muted">Phone: <span class="codebox">703-596-2482</span><br>Email: <span class="codebox">rodneywomack@gmail.com</span></p>
+            <p class="muted">Phone: <span class="codebox">703-596-2482</span><br>Email: <span class="codebox">blab942@yahoo.com</span></p>
 
             <div class="spacer"></div>
 
             <small class="text-muted">Note: Always verify the cashtag and phone/email before sending. Replace these details if account information changes.</small>
           </div>
 
-          <!-- Right: QR Codes and Hero QR for www.womacromax.com -->
+          <!-- Right: QR Codes and Hero QR for www.womacromax.com (clickable carousel as well) -->
           <div class="col-md-6 right-column">
-            <!-- Hero QR for www.womacromax.com placed at top of the right column as requested -->
-            <div class="text-center mb-4">
-              <!-- Hero QR pointing to the site (user requested www.womacromax.com) -->
-              <img src="https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=https%3A%2F%2Fwww.womacromax.com" alt="www.womacromax.com QR Code" class="hero-image" style="max-height:320px; object-fit:contain;">
-              <small class="right-caption">Scan to visit <strong>www.womacromax.com</strong></small>
+            <div id="paymentCarousel" class="carousel slide" data-bs-ride="carousel" aria-label="Payment carousel">
+              <div class="carousel-inner">
+
+                <!-- Hero QR for www.womacromax.com placed as first slide -->
+                <div class="carousel-item active">
+                  <a href="https://www.womacromax.com" target="_blank" rel="noopener noreferrer" title="Visit womacromax.com">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=https%3A%2F%2Fwww.womacromax.com" class="d-block w-100 hero-image" alt="www.womacromax.com QR Code">
+                  </a>
+                  <div class="carousel-caption d-none d-md-block">
+                    <p class="bg-dark bg-opacity-50 p-2 rounded">Visit <strong>www.womacromax.com</strong></p>
+                  </div>
+                </div>
+
+                <!-- CashApp QR -->
+                <div class="carousel-item">
+                  <a href="https://cash.app/$payblab" target="_blank" rel="noopener noreferrer" title="CashApp: $payblab">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=cashtag%3A%24payblab" class="d-block w-100" alt="CashApp QR Code — $payblab">
+                  </a>
+                  <div class="carousel-caption d-none d-md-block">
+                    <p class="bg-dark bg-opacity-50 p-2 rounded">CashApp — <span class="codebox">$payblab</span></p>
+                  </div>
+                </div>
+
+                <!-- Zelle QR -->
+                <div class="carousel-item">
+                  <a href="https://www.womacromax.com/pocs/zelle-7035962482" target="_blank" rel="noopener noreferrer" title="Zelle: 703-596-2482">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=zelle%3A7035962482" class="d-block w-100" alt="Zelle QR Code — 703-596-2482">
+                  </a>
+                  <div class="carousel-caption d-none d-md-block">
+                    <p class="bg-dark bg-opacity-50 p-2 rounded">Zelle — <span class="codebox">703-596-2482</span></p>
+                  </div>
+                </div>
+
+              </div>
+
+              <button class="carousel-control-prev" type="button" data-bs-target="#paymentCarousel" data-bs-slide="prev" aria-label="Previous payment slide">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#paymentCarousel" data-bs-slide="next" aria-label="Next payment slide">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              </button>
             </div>
 
-            <!-- CashApp QR -->
-            <div class="text-center mb-4">
-              <!-- Using the QR generator to produce a QR that encodes the CashApp cashtag (cashtag format often varies by provider; this is a demonstration) -->
-              <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=cashtag%3A%24RodneyWomack" alt="CashApp QR Code" style="max-width:250px; border-radius:8px; box-shadow:0 8px 20px rgba(0,0,0,0.08);">
-              <small class="right-caption">CashApp — <span class="codebox">$RodneyWomack</span></small>
-            </div>
-
-            <!-- Zelle QR -->
-            <div class="text-center mb-4">
-              <!-- Note: Zelle QR formats depend on bank; this encodes the phone number for demonstration -->
-              <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=zelle%3A7035962482" alt="Zelle QR Code" style="max-width:250px; border-radius:8px; box-shadow:0 8px 20px rgba(0,0,0,0.08);">
-              <small class="right-caption">Zelle — <span class="codebox">703-596-2482</span></small>
-            </div>
-
-            <div class="text-center">
-              <small class="muted">Replace QR images with official, bank/merchant-generated codes in production for security and verification.</small>
-            </div>
+            <small class="right-caption">Scan to visit the site or open payment links. Replace with official merchant QR codes in production.</small>
           </div>
+
         </div>
       </div>
 
     </div> <!-- /tab-content -->
 
-    <footer>
-      <p class="mb-0">Images and QR codes are placeholders for demonstration. Replace with licensed or owned assets and verified payment QR codes before publishing.</p>
+    <!-- Footer and notes -->
+    <footer class="mt-4">
+      <p class="mb-0">Images and QR codes in this demo are placeholders or generated via free QR APIs. Replace with licensed or owned assets and verified payment QR codes before publishing.</p>
       <p class="mb-0">© <strong>WoMacroMAX</strong> — <a href="https://www.womacromax.com" target="_blank" rel="noopener noreferrer">www.womacromax.com</a></p>
     </footer>
 
   </div> <!-- /container -->
 
+  <!-- Bootstrap JS (bundle includes Popper) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Accessibility & UX enhancements:
+    // Pause all carousels on hover for better accessibility and control
+    document.querySelectorAll('.carousel').forEach(function(carousel){
+      carousel.addEventListener('mouseenter', function(){ bootstrap.Carousel.getInstance(carousel)?.pause(); });
+      carousel.addEventListener('mouseleave', function(){ bootstrap.Carousel.getInstance(carousel)?.cycle(); });
+    });
+
+    // Make sure clicking a carousel image opens the link in a new tab (we wrapped images in <a>)
+    // No extra code needed because anchors have target="_blank" already.
+
+    // If you want every carousel to start cycling slower on mobile, we can adjust here:
+    document.querySelectorAll('.carousel').forEach(function(car){
+      const instance = bootstrap.Carousel.getOrCreateInstance(car, { interval: 4500, ride: 'carousel' });
+      // instance.pause(); // uncomment to start paused
+    });
+  </script>
+
 </body>
 </html>
