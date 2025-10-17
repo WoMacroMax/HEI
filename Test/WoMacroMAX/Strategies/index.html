@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Success STORY Campaign Strategy — Full</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root{
+      --card-radius: 12px;
+      --shadow: 0 6px 20px rgba(0,0,0,0.06);
+      --muted: #6c6c6c;
+    }
+
+    /* Core layout */
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+      padding: 2rem;
+      background-color: #fafafa;
+      color: #222;
+    }
+
+    h1 { font-weight: 700; margin-bottom: 0.4rem; }
+
+    /* Tabs */
+    .nav-tabs .nav-link {
+      color: white;
+      font-weight: 700;
+      border: none;
+      margin-right: 6px;
+    }
+    .nav-tabs .nav-link.active {
+      box-shadow: inset 0 -3px 0 rgba(255,255,255,0.15);
+    }
+
+    /* Tab panes */
+    .tab-pane {
+      padding: 1.5rem;
+      border-radius: var(--card-radius);
+      box-shadow: var(--shadow);
+      background: white;
+      margin-bottom: 1rem;
+    }
+
+    .hero-image {
+      width: 100%;
+      max-height: 300px;
+      object-fit: cover;
+      border-radius: var(--card-radius);
+      display:block;
+      margin-bottom: 0.9rem;
+    }
+
+    .hero-headline { font-size: 1.6rem; font-weight: 600; margin-bottom: 0.75rem; }
+
+    .section-title { font-weight: 700; margin-top: 1rem; }
+
+    ul.bulletpoints { margin-top: 1rem; padding-left: 1.25rem; }
+    ul.bulletpoints li { margin-bottom: 0.5rem; }
+
+    .right-column img {
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      width:100%;
+      display:block;
+    }
+
+    .right-caption {
+      display:block;
+      margin-top:0.6rem;
+      font-size: .9rem;
+      color: var(--muted);
+      text-align:center;
+    }
+
+    /* Tab background tints */
+    #tab1 { background-color: #eaf4ff; }
+    #tab2 { background-color: #eef9f0; }
+    #tab3 { background-color: #fffaf0; }
+    #tab4 { background-color: #e8fbff; }
+    #tab5 { background-color: #f3edff; }
+    #tab6 { background-color: #fff6ed; }
+    #tab7 { background-color: #f7f3ff; }
+    #tab8 { background-color: #ecfdf5; }
+
+    /* Tab colors */
+    .nav-link[data-bs-target="#tab1"] { background-color: #2196f3; }
+    .nav-link[data-bs-target="#tab2"] { background-color: #4caf50; }
+    .nav-link[data-bs-target="#tab3"] { background-color: #ffb300; color: #000; }
+    .nav-link[data-bs-target="#tab4"] { background-color: #00acc1; }
+    .nav-link[data-bs-target="#tab5"] { background-color: #7e57c2; }
+    .nav-link[data-bs-target="#tab6"] { background-color: #fb8c00; }
+    .nav-link[data-bs-target="#tab7"] { background-color: #6d4c41; }
+    .nav-link[data-bs-target="#tab8"] { background-color: #2e7d32; }
+
+    .summary {
+      background-color: #212121;
+      color: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin-bottom: 1.25rem;
+      box-shadow: var(--shadow);
+    }
+    .summary h2 { color: #ffb300; margin-bottom: 0.6rem; }
+    .flow-img {
+      width: 100%;
+      max-height: 220px;
+      object-fit: contain;
+      display:block;
+      border-radius: 8px;
+    }
+    .poc-list a { word-break: break-all; }
+
+    footer { margin-top: 1.5rem; color: var(--muted); font-size: .9rem; text-align:center; }
+
+    /* Responsive tweaks */
+    @media (max-width: 767.98px){
+      .hero-headline { font-size: 1.25rem; }
+      .nav-tabs { overflow-x: auto; white-space: nowrap; }
+      .nav-tabs .nav-item { display:inline-block; }
+      .right-column { margin-top: 1rem; }
+    }
+
+    /* Additional small helpers */
+    .muted { color: var(--muted); }
+    .codebox { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace; background:#f4f4f4; padding:6px 8px; border-radius:6px; display:inline-block; }
+    .spacer { height: 12px; }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Header -->
+    <h1>Success STORY Campaign Strategy</h1>
+    <p class="muted mb-4">
+      <strong>Presented by:</strong> Rodney Womack, Brand Marketing Strategist<br>
+      <strong>Date:</strong> Friday, October 1, 2025 &nbsp;&nbsp;&nbsp;
+      <strong>Time:</strong> 12:56 PM
+    </p>
+
+    <!-- Campaign Summary Section (above tabs) -->
+    <div class="summary">
+      <h2>Campaign Summary</h2>
+      <p>
+        The <strong>Success STORY Campaign Strategy</strong> transforms your existing content, events, and client interactions into a continuous marketing engine.
+        By capturing authentic moments and redistributing them with purpose, this strategy connects storytelling, automation, and analytics into one repeatable growth loop.
+      </p>
+
+      <!-- Flowchart / Visual Overview -->
+      <div class="row g-2 align-items-center mt-3">
+        <div class="col-md-8">
+          <p class="mb-2"><strong>How it works:</strong> Capture → Campaign → Transactions → Scheduling → Feedback → Redistribute → Repeat.</p>
+          <ul class="mb-0">
+            <li><strong>Purpose:</strong> Build a reusable content cycle that promotes credibility and conversion.</li>
+            <li><strong>Focus:</strong> Leverage automation, visual storytelling, and real engagement data.</li>
+            <li><strong>Outcome:</strong> A scalable marketing system that converts everyday experiences into measurable results.</li>
+          </ul>
+        </div>
+        <div class="col-md-4 text-center">
+          <!-- example illustrative image; replace with your diagram if available -->
+          <img class="flow-img" src="https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=1200&q=80&auto=format&fit=crop" alt="Overview flowchart illustration — circle diagram representing marketing loop" />
+          <small style="color:rgba(255,255,255,0.8)">Overview: The 6-stage content loop</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <ul class="nav nav-tabs justify-content-center mb-4" id="strategyTabs" role="tablist">
+      <li class="nav-item">
+        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab1" type="button" role="tab">Capture</button>
+      </li>
+      <li class="nav-item align-self-center px-2">➡️</li>
+
+      <li class="nav-item">
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab2" type="button" role="tab">Campaign</button>
+      </li>
+      <li class="nav-item align-self-center px-2">➡️</li>
+
+      <li class="nav-item">
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab3" type="button" role="tab">Transactions</button>
+      </li>
+      <li class="nav-item align-self-center px-2">➡️</li>
+
+      <li class="nav-item">
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab4" type="button" role="tab">Scheduling</button>
+      </li>
+      <li class="nav-item align-self-center px-2">➡️</li>
+
+      <li class="nav-item">
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab5" type="button" role="tab">Feedback</button>
+      </li>
+      <li class="nav-item align-self-center px-2">➡️</li>
+
+      <li class="nav-item">
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab6" type="button" role="tab">Redistribute</button>
+      </li>
+      <li class="nav-item align-self-center px-2">➡️</li>
+
+      <li class="nav-item">
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab7" type="button" role="tab">Other Success Stories</button>
+      </li>
+      <li class="nav-item align-self-center px-2">➡️</li>
+
+      <li class="nav-item">
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab8" type="button" role="tab">Client Payment</button>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+
+      <!-- TAB 1: Capture -->
+      <div class="tab-pane fade show active" id="tab1" role="tabpanel">
+        <div class="row align-items-center">
+          <div class="col-md-8">
+            <div class="hero-headline">Capture & Repurpose Artifacts</div>
+
+            <div class="section-title">Tactical Actions</div>
+            <ul class="bulletpoints">
+              <li>Collect photos and videos from existing platforms and events.</li>
+              <li>Tag and organize content by theme, audience segment, and campaign relevance.</li>
+              <li>Create short-form edits and stills ready for multi-format reuse.</li>
+              <li>Catalog raw assets in a searchable folder structure (date / event / tag / hero).</li>
+              <li>Keep a running “best-of” folder for evergreen storytelling pieces.</li>
+            </ul>
+
+            <div class="section-title">Strategic Outcomes</div>
+            <ul class="bulletpoints">
+              <li>Reinforce brand identity using recognizable assets.</li>
+              <li>Reduce production costs by leveraging existing media.</li>
+              <li>Increase authenticity through real customer moments.</li>
+              <li>Accelerate campaign planning with ready-to-use media packages.</li>
+            </ul>
+          </div>
+
+          <div class="col-md-4 right-column order-md-2">
+            <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?w=1200&q=80&auto=format&fit=crop" alt="Person organizing photos on desk" />
+            <small class="right-caption">“Every story starts with what you’ve already captured.”</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: Campaign -->
+      <div class="tab-pane fade" id="tab2" role="tabpanel">
+        <div class="row align-items-center">
+          <div class="col-md-8">
+            <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1600&q=80&auto=format&fit=crop" alt="Person posting campaign online" class="hero-image d-block d-md-none mb-3" />
+            <div class="hero-headline">Launch Your Promotional Campaign</div>
+
+            <div class="section-title">Tactical Actions</div>
+            <ul class="bulletpoints">
+              <li>Craft campaign visuals, headlines, and unified messaging pillars.</li>
+              <li>Plan and schedule multi-channel posts for peak engagement windows.</li>
+              <li>Embed clear CTAs tied to measurable objectives (book, buy, subscribe).</li>
+              <li>Set trackable UTM parameters for campaign links for accurate attribution.</li>
+            </ul>
+
+            <div class="section-title">Strategic Outcomes</div>
+            <ul class="bulletpoints">
+              <li>Drive targeted engagement and qualified leads.</li>
+              <li>Improve conversion rates through consistent messaging.</li>
+              <li>Create repeatable campaign playbooks for future launches.</li>
+            </ul>
+          </div>
+
+          <div class="col-md-4 right-column">
+            <img src="https://images.unsplash.com/photo-1554774853-aae0a22c8aa4?w=1200&q=80&auto=format&fit=crop" alt="Marketing dashboard with charts" />
+            <small class="right-caption">“Launch with precision — let the visuals do the heavy lifting.”</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: Transactions -->
+      <div class="tab-pane fade" id="tab3" role="tabpanel">
+        <div class="row align-items-center">
+          <div class="col-md-8">
+            <div class="hero-headline">Enable Direct Transactions</div>
+
+            <div class="section-title">Tactical Actions</div>
+            <ul class="bulletpoints">
+              <li>Integrate a streamlined shopping cart with saved user profiles.</li>
+              <li>Optimize checkout flow for mobile-first purchases and one-click payments.</li>
+              <li>Instrument analytics to track funnel dropoffs and cart recovery.</li>
+              <li>Implement safe, PCI-compliant payment gateways and save customer billing preferences securely.</li>
+            </ul>
+
+            <div class="section-title">Strategic Outcomes</div>
+            <ul class="bulletpoints">
+              <li>Reduce purchase friction and increase conversion velocity.</li>
+              <li>Capture revenue at point-of-interest across channels.</li>
+              <li>Gain insights to personalize offers and improve retention.</li>
+            </ul>
+          </div>
+
+          <div class="col-md-4 right-column">
+            <img src="https://images.unsplash.com/photo-1605902711622-cfb43c4437d3?w=1200&q=80&auto=format&fit=crop" alt="Mobile shopping cart" />
+            <small class="right-caption">“The faster the transaction, the stronger the connection.”</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 4: Scheduling -->
+      <div class="tab-pane fade" id="tab4" role="tabpanel">
+        <div class="row align-items-center">
+          <div class="col-md-8">
+            <div class="hero-headline">Streamline Scheduling</div>
+
+            <div class="section-title">Tactical Actions</div>
+            <ul class="bulletpoints">
+              <li>Automate appointment booking and confirmations via calendar integrations.</li>
+              <li>Offer mobile-friendly booking widgets and time-slot previews.</li>
+              <li>Send automated reminders (SMS, email) and allow easy rescheduling.</li>
+              <li>Show available windows dynamically based on estimated task duration.</li>
+            </ul>
+
+            <div class="section-title">Strategic Outcomes</div>
+            <ul class="bulletpoints">
+              <li>Eliminate back-and-forth coordination and missed appointments.</li>
+              <li>Improve client satisfaction with clear confirmation flows.</li>
+              <li>Free staff time for high-value interactions.</li>
+            </ul>
+          </div>
+
+          <div class="col-md-4 right-column">
+            <img src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?w=1200&q=80&auto=format&fit=crop" alt="Person checking calendar on phone" />
+            <small class="right-caption">“Make time work for you — not the other way around.”</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 5: Feedback -->
+      <div class="tab-pane fade" id="tab5" role="tabpanel">
+        <div class="row align-items-center">
+          <div class="col-md-8">
+            <div class="hero-headline">Harvest & Redistribute Feedback</div>
+
+            <div class="section-title">Tactical Actions</div>
+            <ul class="bulletpoints">
+              <li>Collect testimonials, photos, and short video reactions at events.</li>
+              <li>Edit and tag content for repurposing as case studies and social proof.</li>
+              <li>Plan a cadence for sharing feedback-driven content across channels.</li>
+              <li>Use short-form clips and quote cards to maximize social proof reach.</li>
+            </ul>
+
+            <div class="section-title">Strategic Outcomes</div>
+            <ul class="bulletpoints">
+              <li>Showcase real customer experiences to build trust.</li>
+              <li>Use feedback to refine product messaging and features.</li>
+              <li>Create momentum that fuels future campaigns.</li>
+            </ul>
+          </div>
+
+          <div class="col-md-4 right-column">
+            <img src="https://images.unsplash.com/photo-1573496529574-be85d6a60704?w=1200&q=80&auto=format&fit=crop" alt="Interview or testimonial recording" />
+            <small class="right-caption">“Your customers’ words are your most powerful marketing.”</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 6: Redistribute -->
+      <div class="tab-pane fade" id="tab6" role="tabpanel">
+        <div class="row align-items-center">
+          <div class="col-md-8">
+            <div class="hero-headline">Redistribute to Social Media</div>
+
+            <div class="section-title">Tactical Actions</div>
+            <ul class="bulletpoints">
+              <li>Embed QR codes into event materials and digital flyers to bridge offline → online.</li>
+              <li>Link QR codes directly to booking pages, product pages, or testimonial galleries.</li>
+              <li>Cross-post condensed highlight reels, carousel stories, and user reviews.</li>
+              <li>Amplify reach with targeted hashtags, geo-tags, and influencer partnerships.</li>
+              <li>Monitor performance and iterate on formats that convert.</li>
+            </ul>
+
+            <div class="section-title">Strategic Outcomes</div>
+            <ul class="bulletpoints">
+              <li>Turn every offline touchpoint into an online lead engine.</li>
+              <li>Drive consistent inbound traffic and measurable conversions.</li>
+              <li>Establish a self-sustaining loop where users become promoters.</li>
+            </ul>
+          </div>
+
+          <div class="col-md-4 right-column">
+            <img src="https://images.unsplash.com/photo-1616469829936-5b7191cc88a3?w=1200&q=80&auto=format&fit=crop" alt="QR code on poster/flyer" />
+            <small class="right-caption">“Transform offline moments into digital momentum.”</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 7: Other Success Stories (INDEX of URLs left / Photo right) -->
+      <div class="tab-pane fade" id="tab7" role="tabpanel">
+        <div class="row">
+          <!-- Left column: Index of URLs / Proof of Concept links -->
+          <div class="col-md-8">
+            <div class="hero-headline">OTHER SUCCESS STORIES — Proof of Concepts</div>
+            <p class="mb-2">Index of example Proof-of-Concept pages and mini case studies. Replace these with your live URLs or internal proofs.</p>
+
+            <div class="poc-list">
+              <ol>
+                <li class="mb-3">
+                  <strong><a href="https://example.com/poc-event-highlight" target="_blank" rel="noopener noreferrer">Event Highlight Reel — POC</a></strong><br>
+                  <small class="text-muted">Short-form video reel + testimonial gallery demonstrating a 3x engagement lift.</small>
+                </li>
+                <li class="mb-3">
+                  <strong><a href="https://example.com/poc-qr-booking" target="_blank" rel="noopener noreferrer">QR → Booking Flow — POC</a></strong><br>
+                  <small class="text-muted">QR codes on offline flyers routed to a streamlined booking + checkout flow.</small>
+                </li>
+                <li class="mb-3">
+                  <strong><a href="https://example.com/poc-social-ugc" target="_blank" rel="noopener noreferrer">UGC Amplification — POC</a></strong><br>
+                  <small class="text-muted">User-generated content campaign that converted attendees into content creators.</small>
+                </li>
+                <li class="mb-3">
+                  <strong><a href="https://example.com/poc-mini-store" target="_blank" rel="noopener noreferrer">Mini Storefront — POC</a></strong><br>
+                  <small class="text-muted">Direct transaction implementation for event merchandise and instant checkout.</small>
+                </li>
+                <li class="mb-3">
+                  <strong><a href="https://example.com/poc-feedback-loop" target="_blank" rel="noopener noreferrer">Feedback-to-Content Loop — POC</a></strong><br>
+                  <small class="text-muted">How testimonial capture and redistribution drove referral traffic.</small>
+                </li>
+              </ol>
+            </div>
+
+            <p class="mt-3"><small class="text-muted">Tip: Host each Proof of Concept under a simple, trackable path (example.com/poc-*) so you can A/B test formats and record performance.</small></p>
+          </div>
+
+          <!-- Right column: Photos/thumbnails for each POC -->
+          <div class="col-md-4 right-column">
+            <div class="mb-3">
+              <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&q=80&auto=format&fit=crop" alt="Event highlight video thumbnail" />
+              <small class="right-caption">Event Highlight Reel — visual snapshot</small>
+            </div>
+
+            <div class="mb-3">
+              <img src="https://images.unsplash.com/photo-1508385082359-f1b41b98c0cf?w=1200&q=80&auto=format&fit=crop" alt="QR flyer thumbnail" />
+              <small class="right-caption">QR → Booking Flow — poster sample</small>
+            </div>
+
+            <div class="mb-3">
+              <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&q=80&auto=format&fit=crop" alt="User-generated content thumbnail" />
+              <small class="right-caption">UGC Amplification — candid UGC image</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 8: CLIENT PAYMENT (CashApp / Zelle) -->
+      <div class="tab-pane fade" id="tab8" role="tabpanel">
+        <div class="row align-items-start">
+
+          <!-- Left: Payment Info -->
+          <div class="col-md-6">
+            <div class="hero-headline">Client Payment — CashApp / Zelle</div>
+
+            <p class="muted">
+              Please use one of the options below to submit payments. After payment, send a receipt screenshot or confirmation message to confirm.
+            </p>
+
+            <div class="section-title">Payment Details</div>
+            <ul class="bulletpoints">
+              <li><strong>CashApp (Cashtag):</strong> <span class="codebox">$RodneyWomack</span></li>
+              <li><strong>Zelle (Phone):</strong> <span class="codebox">703-596-2482</span></li>
+              <li><strong>Zelle (Email):</strong> <span class="codebox">rodneywomack@gmail.com</span></li>
+              <li><strong>Memo / Note:</strong> Include your project name or invoice number for tracking.</li>
+              <li><strong>Confirmation:</strong> Please SMS or email the receipt to the contact used on the invoice.</li>
+            </ul>
+
+            <div class="section-title">Processing Notes</div>
+            <ul class="bulletpoints">
+              <li>Payments are processed immediately upon receipt and will be acknowledged within 1 business day.</li>
+              <li>Refunds and disputes follow the platform's standard policy — please contact support for assistance.</li>
+              <li>For large transfers, please reach out in advance to confirm the amount and expected delivery time.</li>
+            </ul>
+
+            <div class="spacer"></div>
+
+            <div class="section-title">Contact for Billing</div>
+            <p class="muted mb-1"><strong>Billing Contact:</strong></p>
+            <p class="muted">Phone: <span class="codebox">703-596-2482</span><br>Email: <span class="codebox">rodneywomack@gmail.com</span></p>
+
+            <div class="spacer"></div>
+
+            <small class="text-muted">Note: Always verify the cashtag and phone/email before sending. Replace these details if account information changes.</small>
+          </div>
+
+          <!-- Right: QR Codes and Hero QR for www.womacromax.com -->
+          <div class="col-md-6 right-column">
+            <!-- Hero QR for www.womacromax.com placed at top of the right column as requested -->
+            <div class="text-center mb-4">
+              <!-- Hero QR pointing to the site (user requested www.womacromax.com) -->
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=https%3A%2F%2Fwww.womacromax.com" alt="www.womacromax.com QR Code" class="hero-image" style="max-height:320px; object-fit:contain;">
+              <small class="right-caption">Scan to visit <strong>www.womacromax.com</strong></small>
+            </div>
+
+            <!-- CashApp QR -->
+            <div class="text-center mb-4">
+              <!-- Using the QR generator to produce a QR that encodes the CashApp cashtag (cashtag format often varies by provider; this is a demonstration) -->
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=cashtag%3A%24RodneyWomack" alt="CashApp QR Code" style="max-width:250px; border-radius:8px; box-shadow:0 8px 20px rgba(0,0,0,0.08);">
+              <small class="right-caption">CashApp — <span class="codebox">$RodneyWomack</span></small>
+            </div>
+
+            <!-- Zelle QR -->
+            <div class="text-center mb-4">
+              <!-- Note: Zelle QR formats depend on bank; this encodes the phone number for demonstration -->
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=zelle%3A7035962482" alt="Zelle QR Code" style="max-width:250px; border-radius:8px; box-shadow:0 8px 20px rgba(0,0,0,0.08);">
+              <small class="right-caption">Zelle — <span class="codebox">703-596-2482</span></small>
+            </div>
+
+            <div class="text-center">
+              <small class="muted">Replace QR images with official, bank/merchant-generated codes in production for security and verification.</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div> <!-- /tab-content -->
+
+    <footer>
+      <p class="mb-0">Images and QR codes are placeholders for demonstration. Replace with licensed or owned assets and verified payment QR codes before publishing.</p>
+      <p class="mb-0">© <strong>WoMacroMAX</strong> — <a href="https://www.womacromax.com" target="_blank" rel="noopener noreferrer">www.womacromax.com</a></p>
+    </footer>
+
+  </div> <!-- /container -->
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
