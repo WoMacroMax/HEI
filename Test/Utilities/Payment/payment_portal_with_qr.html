@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Portal - Cash App & Zelle</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <style>
+        :root {
+            --cashapp-green: #00D64B;
+            --zelle-purple: #6D1ED4;
+            --cashapp-dark: #0D0D0D;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            padding: 20px 0;
+        }
+        
+        .payment-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            max-width: 500px;
+            width: 100%;
+            margin: 20px;
+        }
+        
+        .payment-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 30px 20px;
+            text-align: center;
+            color: white;
+        }
+        
+        .payment-header i {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+        
+        .payment-header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0;
+        }
+        
+        /* Custom Tab Styles */
+        .nav-tabs {
+            border-bottom: none;
+            padding: 0 30px;
+            background: white;
+        }
+        
+        .nav-tabs .nav-link {
+            border: none;
+            color: #6c757d;
+            font-weight: 600;
+            padding: 20px 30px;
+            position: relative;
+            transition: all 0.3s;
+            border-radius: 0;
+        }
+        
+        .nav-tabs .nav-link:hover {
+            color: #333;
+            background: rgba(0, 0, 0, 0.02);
+        }
+        
+        .nav-tabs .nav-link.active {
+            color: #333;
+            background: white;
+            border: none;
+        }
+        
+        .nav-tabs .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--cashapp-green), var(--zelle-purple));
+        }
+        
+        .nav-tabs .nav-link i {
+            margin-right: 8px;
+            font-size: 18px;
+        }
+        
+        .payment-body {
+            padding: 40px 30px;
+        }
+        
+        .qr-section {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 15px;
+        }
+        
+        .qr-section img {
+            max-width: 200px;
+            height: auto;
+            border: 3px solid white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background: white;
+            padding: 10px;
+        }
+        
+        .qr-label {
+            font-weight: 700;
+            color: #333;
+            margin-top: 15px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .qr-description {
+            color: #6c757d;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+        
+        .amount-input-wrapper {
+            position: relative;
+            margin-bottom: 30px;
+        }
+        
+        .currency-symbol {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 32px;
+            color: #6c757d;
+            font-weight: 600;
+        }
+        
+        .amount-input {
+            width: 100%;
+            padding: 20px 20px 20px 50px;
+            font-size: 32px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        
+        .amount-input:focus {
+            outline: none;
+            border-color: var(--cashapp-green);
+            box-shadow: 0 0 0 4px rgba(0, 214, 75, 0.1);
+        }
+        
+        .zelle-tab .amount-input:focus {
+            border-color: var(--zelle-purple);
+            box-shadow: 0 0 0 4px rgba(109, 30, 212, 0.1);
+        }
+        
+        .quick-amounts {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .quick-amount-btn {
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            background: white;
+            border-radius: 10px;
+            font-weight: 600;
+            color: #333;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .quick-amount-btn:hover {
+            border-color: var(--cashapp-green);
+            background: rgba(0, 214, 75, 0.05);
+            color: var(--cashapp-green);
+        }
+        
+        .zelle-tab .quick-amount-btn:hover {
+            border-color: var(--zelle-purple);
+            background: rgba(109, 30, 212, 0.05);
+            color: var(--zelle-purple);
+        }
+        
+        .pay-button {
+            width: 100%;
+            padding: 18px;
+            background: var(--cashapp-green);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .pay-button:hover {
+            background: #00b33c;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 214, 75, 0.3);
+        }
+        
+        .pay-button:active {
+            transform: translateY(0);
+        }
+        
+        .pay-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .pay-button.zelle-btn {
+            background: var(--zelle-purple);
+        }
+        
+        .pay-button.zelle-btn:hover {
+            background: #5a18b0;
+            box-shadow: 0 10px 20px rgba(109, 30, 212, 0.3);
+        }
+        
+        .info-text {
+            text-align: center;
+            color: #6c757d;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+        
+        .cashtag, .zelle-info {
+            color: var(--cashapp-green);
+            font-weight: 700;
+        }
+        
+        .zelle-info {
+            color: var(--zelle-purple);
+        }
+        
+        .zelle-details {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .zelle-detail-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .zelle-detail-item:last-child {
+            border-bottom: none;
+        }
+        
+        .zelle-detail-item i {
+            font-size: 24px;
+            color: var(--zelle-purple);
+            margin-right: 15px;
+            width: 30px;
+            text-align: center;
+        }
+        
+        .zelle-detail-content {
+            flex: 1;
+        }
+        
+        .zelle-detail-label {
+            font-size: 12px;
+            color: #6c757d;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        
+        .zelle-detail-value {
+            font-size: 16px;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .copy-btn {
+            background: none;
+            border: none;
+            color: var(--zelle-purple);
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+        
+        .copy-btn:hover {
+            background: rgba(109, 30, 212, 0.1);
+        }
+        
+        .copy-btn i {
+            font-size: 18px;
+        }
+        
+        @media (max-width: 576px) {
+            .payment-card {
+                margin: 10px;
+            }
+            
+            .payment-header {
+                padding: 30px 20px 15px;
+            }
+            
+            .payment-body {
+                padding: 30px 20px;
+            }
+            
+            .nav-tabs {
+                padding: 0 15px;
+            }
+            
+            .nav-tabs .nav-link {
+                padding: 15px 20px;
+                font-size: 14px;
+            }
+            
+            .amount-input {
+                font-size: 28px;
+            }
+            
+            .qr-section img {
+                max-width: 150px;
+            }
+        }
+        
+        .alert {
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .divider span {
+            padding: 0 15px;
+            color: #6c757d;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-card">
+        <div class="payment-header">
+            <i class="bi bi-credit-card-2-front"></i>
+            <h1>Payment Portal</h1>
+        </div>
+        
+        <!-- Tabs -->
+        <ul class="nav nav-tabs" id="paymentTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="cashapp-tab" data-bs-toggle="tab" data-bs-target="#cashapp" type="button" role="tab">
+                    <i class="bi bi-cash-coin"></i> Cash App
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="zelle-tab" data-bs-toggle="tab" data-bs-target="#zelle" type="button" role="tab">
+                    <i class="bi bi-lightning-charge-fill"></i> Zelle
+                </button>
+            </li>
+        </ul>
+        
+        <!-- Tab Content -->
+        <div class="tab-content" id="paymentTabContent">
+            <!-- Cash App Tab -->
+            <div class="tab-pane fade show active" id="cashapp" role="tabpanel">
+                <div class="payment-body">
+                    <!-- Cash App QR Code -->
+                    <div class="qr-section">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXIAAAFyCAIAAABnRsZeAAAHrUlEQVR4nO3dQY7cNhBA0Uzgy+QuOW7ukuMoWwMBGCP8dFHt9/YtqeXpDy4K5a/neX4D6Pw+/QDAp5EVICYrQExWgJisADFZAWKyAsRkBYjJChCTFSAmK0BMVoCYrAAxWQFisgLEZAWIyQoQkxUgJitA7NvOh7/+/rN6jks8f/x16Mrrd7Vz351/hfV933jltTu/0Z123rPTChCTFSAmK0BMVoCYrAAxWQFisgLEZAWIyQoQ25qyXTs3sbpjZxry3KTszn3X3jhHe87UM3/eb2HNaQWIyQoQkxUgJitATFaAmKwAMVkBYrICxGQFiB2csl1740SjTbc/58pr5+47NQv7xt/CmtMKEJMVICYrQExWgJisADFZAWKyAsRkBYjJChAbm7L9PDuTsuc27O6YuvKds7D8OKcVICYrQExWgJisADFZAWKyAsRkBYjJChCTFSBmyjazM0c7tX/3zk235+aVTej+HE4rQExWgJisADFZAWKyAsRkBYjJChCTFSAmK0BsbMr2jfOOn7fb9Y3TvVP3nXpXb+S0AsRkBYjJChCTFSAmK0BMVoCYrAAxWQFisgLEDk7ZnpukvNO5Has+++Om7rv2q/0WnFaAmKwAMVkBYrICxGQFiMkKEJMVICYrQExWgNjX8zzTz/Aad85K7mxCndrtOrXLdm1nQpfvOa0AMVkBYrICxGQFiMkKEJMVICYrQExWgJisALGDu2zPmZp2PTdnaYvq93Y2zk5936l55bWpuWGnFSAmK0BMVoCYrAAxWQFisgLEZAWIyQoQkxUgtrXL9vM2kt45vzv1ns9Njt65Q/fOadc7f2VrTitATFaAmKwAMVkBYrICxGQFiMkKEJMVICYrQOzgLtupjaQ79z332R3n5krfuOn2zmfeeao7p5l3OK0AMVkBYrICxGQFiMkKEJMVICYrQExWgJisALGtXbZbN/64rbF3bm9de+OW3Kn73rnpdufKazv3dVoBYrICxGQFiMkKEJMVICYrQExWgJisADFZAWIHd9mec25L7p2bQadmUtemthGf88bJ4Kl3tea0AsRkBYjJChCTFSAmK0BMVoCYrAAxWQFisgLEtqZsd+b/zk3Krr1xL+wU7/nHnfu+b9zO67QCxGQFiMkKEJMVICYrQExWgJisADFZAWKyAsS+nuc5delj83+ft1X0zn2ld05w7pj6m/zV/q6cVoCYrAAxWQFisgLEZAWIyQoQkxUgJitATFaA2NYu27U75yyn5h3X7pzCXJu679rOU03N0a7dOYG95rQCxGQFiMkKEJMVICYrQExWgJisADFZAWKyAsQO7rI9585dtjtXPueN72rH573nc+yyBV5DVoCYrAAxWQFisgLEZAWIyQoQkxUgJitAbGvKdmq759qd2z3vnDp9457UHXfOwp57z1Nz4U4rQExWgJisADFZAWKyAsRkBYjJChCTFSAmK0Ds27lLT0343TnPeu7Kd06OnvPG7/t5O5LXnFaAmKwAMVkBYrICxGQFiMkKEJMVICYrQExWgNjBKdsd53asTk0lTs1Z3rmtduqpprbGTs3RTs1nO60AMVkBYrICxGQFiMkKEJMVICYrQExWgJisALGv53lmbvzCTbfn7nvnlXd83kbhc+yyBfgPsgLEZAWIyQoQkxUgJitATFaAmKwAMVkBYltTtndOrO7c9/O+0c59z23JNRn8vTf+5aw5rQAxWQFisgLEZAWIyQoQkxUgJitATFaAmKwAsbFdtlPunGfdue/UxOqd23nPTcreuTX2Tk4rQExWgJisADFZAWKyAsRkBYjJChCTFSAmK0BsbMr2zk2oU1fe8XlztFOm3uTanbPda04rQExWgJisADFZAWKyAsRkBYjJChCTFSAmK0Ds286H7/zf6u+c4FwzKfu9qa2xd/7l7PwLTr1JpxUgJitATFaAmKwAMVkBYrICxGQFiMkKEJMVILY1ZTs1w3fnFOadT7Xz2Tsnoaee+c5J6Dsn3Z1WgJisADFZAWKyAsRkBYjJChCTFSAmK0BMVoDY2C7bO01Nyq7duTV2akvuG/+Npt7G1C/UaQWIyQoQkxUgJitATFaAmKwAMVkBYrICxGQFiG1N2a69cRry3JV3piHPffacqdnQz9t0e+cO3TWnFSAmK0BMVoCYrAAxWQFisgLEZAWIyQoQkxUgdnDKdu3O/azn7ntuovHcntQ77zvljc889VtwWgFisgLEZAWIyQoQkxUgJitATFaAmKwAMVkBYmNTtm90507Zc5Oy6yvf+X3fOK+8c+Vzz2yXLXARWQFisgLEZAWIyQoQkxUgJitATFaAmKwAMVO2P8nOROO5z67duSV358p3vsmpb3RuEtppBYjJChCTFSAmK0BMVoCYrAAxWQFisgLEZAWIfT3P8/8/PLTNdMedG1jXPm+Olh935wblNacVICYrQExWgJisADFZAWKyAsRkBYjJChCTFSB2cJftrzaFee77Tl15akbzzlnntTfOwp57KqcVICYrQExWgJisADFZAWKyAsRkBYjJChCTFSC2tcsW4N+cVoCYrAAxWQFisgLEZAWIyQoQkxUgJitATFaAmKwAMVkBYrICxGQFiMkKEJMVICYrQExWgJisADFZAWL/ANQz0GfDEWSfAAAAAElFTkSuQmCC" alt="Cash App QR Code">
+                        <div class="qr-label">Scan to Pay</div>
+                        <div class="qr-description">$payBlab</div>
+                    </div>
+                    
+                    <div class="divider"><span>or enter amount</span></div>
+                    
+                    <div id="cashappErrorAlert" class="alert alert-danger d-none" role="alert">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                        <span id="cashappErrorMessage"></span>
+                    </div>
+                    
+                    <div class="amount-input-wrapper">
+                        <span class="currency-symbol">$</span>
+                        <input 
+                            type="number" 
+                            class="amount-input" 
+                            id="cashappAmountInput" 
+                            placeholder="0.00" 
+                            min="1" 
+                            step="0.01"
+                            autocomplete="off"
+                        >
+                    </div>
+                    
+                    <div class="quick-amounts">
+                        <button class="quick-amount-btn" onclick="setCashAppAmount(5)">$5</button>
+                        <button class="quick-amount-btn" onclick="setCashAppAmount(10)">$10</button>
+                        <button class="quick-amount-btn" onclick="setCashAppAmount(20)">$20</button>
+                        <button class="quick-amount-btn" onclick="setCashAppAmount(50)">$50</button>
+                        <button class="quick-amount-btn" onclick="setCashAppAmount(100)">$100</button>
+                        <button class="quick-amount-btn" onclick="setCashAppAmount(200)">$200</button>
+                    </div>
+                    
+                    <button class="pay-button" id="cashappPayButton" onclick="processCashAppPay()">
+                        <i class="bi bi-send-fill"></i>
+                        <span>Pay with Cash App</span>
+                    </button>
+                    
+                    <p class="info-text">
+                        You'll be redirected to Cash App to complete your payment to <span class="cashtag">$payBlab</span>
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Zelle Tab -->
+            <div class="tab-pane fade zelle-tab" id="zelle" role="tabpanel">
+                <div class="payment-body">
+                    <div id="zelleErrorAlert" class="alert alert-danger d-none" role="alert">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                        <span id="zelleErrorMessage"></span>
+                    </div>
+                    
+                    <!-- Zelle QR Codes -->
+                    <div class="qr-section">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASIAAAEiCAIAAADS3EjhAAAFE0lEQVR4nO3dwZHTQBBAUUyRBwGQG8GQGwEQibhymoIaf3qkfe+6tWvJ619zcFfrdV3XJ6D0efoC4PlkBjmZQU5mkJMZ5GQGOZlBTmaQkxnkZAY5mUFOZpCTGeRkBjmZQU5mkJMZ5GQGOZlB7svOL3//+vNd13GIH7++LX46db/rq9qxvqOd1/1on401pxnkZAY5mUFOZpCTGeRkBjmZQU5mkJMZ5LamQNa62YUdO9MJ3YzIzl/eeZ+n/kfP+2ysOc0gJzPIyQxyMoOczCAnM8jJDHIyg5zMIBdOgax137ifuTmjmxFZm3rdHXf8bKw5zSAnM8jJDHIyg5zMICczyMkMcjKDnMwgNzYFckd3nIo4c+vGR+M0g5zMICczyMkMcjKDnMwgJzPIyQxyMoOcKZB/cOY0RreDZOd1+ZPTDHIyg5zMICczyMkMcjKDnMwgJzPIyQxyY1Mgd5whMG/xfzzvfp1mkJMZ5GQGOZlBTmaQkxnkZAY5mUFOZpALp0C6qYgp6zvamRHpfndtaq7leZ+NNacZ5GQGOZlBTmaQkxnkZAY5mUFOZpCTGeS2pkCet7Ohc8dZjR0+G39ymkFOZpCTGeRkBjmZQU5mkJMZ5GQGOZlB7nVd1/Q1vNnOVMTU7MLUNXdbRu64N6V7N5xmkJMZ5GQGOZlBTmaQkxnkZAY5mUFOZpDb2gXSzS7sfB/fTXJ09zs1ffLRNnZM7U1xmkFOZpCTGeRkBjmZQU5mkJMZ5GQGOZlBbmsXyJnPItlx5gTJ2pn7S+74Tq7ZBQJHkxnkZAY5mUFOZpCTGeRkBjmZQU5mkAunQKae3LF2x+en7Djzfs/kiTBwYzKDnMwgJzPIyQxyMoOczCAnM8jJDHJbT4Tp5jx2TD1rprvf501yTE29eCIMPJbMICczyMkMcjKDnMwgJzPIyQxyMoPcLXeBdGwoeddfPnO7yRSnGeRkBjmZQU5mkJMZ5GQGOZlBTmaQkxnktnaB7DhzZ8OO7o66393ZfbLjzPequ1+nGeRkBjmZQU5mkJMZ5GQGOZlBTmaQkxnkxqZAppw5fzC1GeXMbR9r3TV3/wWnGeRkBjmZQU5mkJMZ5GQGOZlBTmaQkxnkxqZApuYPpmYXpiY51qbmPO6462WH0wxyMoOczCAnM8jJDHIyg5zMICczyMkMcq/ruqav4Ta6XRFTf3nHmRtKznxdpxnkZAY5mUFOZpCTGeRkBjmZQU5mkJMZ5LZ2gTxvo8P6m/4zpzHOdOYkxxSnGeRkBjmZQU5mkJMZ5GQGOZlBTmaQkxnkwifCdN/075h6mszOs1e6iYruiTB33NjRcZpBTmaQkxnkZAY5mUFOZpCTGeRkBjmZQS6cAlm745NK7jgz0V3zmVs31qb+R04zyMkMcjKDnMwgJzPIyQxyMoOczCAnM8iNTYF8NFNTL2e+7tTGjqn3ymkGOZlBTmaQkxnkZAY5mUFOZpCTGeRkBjlTIG+zM9lw5l6NqZmJtTPnS9acZpCTGeRkBjmZQU5mkJMZ5GQGOZlBTmaQG5sCOfPb+k43u3DmVMSZz7hZ/253zU4zyMkMcjKDnMwgJzPIyQxyMoOczCAnM8iFUyBn7re4I+/k3+v2l+zMiDjNICczyMkMcjKDnMwgJzPIyQxyMoOczCD3uq5r+hrg4ZxmkJMZ5GQGOZlBTmaQkxnkZAY5mUFOZpCTGeRkBjmZQU5mkJMZ5GQGOZlBTmaQkxnkZAa53zAbde7dOCNRAAAAAElFTkSuQmCC" alt="Zelle Phone QR Code">
+                        <div class="qr-label">Scan to Pay - Phone</div>
+                        <div class="qr-description">240-380-4868</div>
+                    </div>
+                    
+                    <div class="divider"><span>or</span></div>
+                    
+                    <div class="zelle-details">
+                        <div class="zelle-detail-item">
+                            <i class="bi bi-phone-fill"></i>
+                            <div class="zelle-detail-content">
+                                <div class="zelle-detail-label">Phone Number</div>
+                                <div class="zelle-detail-value">240-380-4868</div>
+                            </div>
+                            <button class="copy-btn" onclick="copyToClipboard('240-380-4868', 'phone')" title="Copy phone">
+                                <i class="bi bi-clipboard"></i>
+                            </button>
+                        </div>
+                        <div class="zelle-detail-item">
+                            <i class="bi bi-envelope-fill"></i>
+                            <div class="zelle-detail-content">
+                                <div class="zelle-detail-label">Email Address</div>
+                                <div class="zelle-detail-value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="791b15181b404d4b390018111616571a1614">[email&#160;protected]</a></div>
+                            </div>
+                            <button class="copy-btn" onclick="copyToClipboard('blab942@yahoo.com', 'email')" title="Copy email">
+                                <i class="bi bi-clipboard"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="divider"><span>enter amount</span></div>
+                    
+                    <div class="amount-input-wrapper">
+                        <span class="currency-symbol">$</span>
+                        <input 
+                            type="number" 
+                            class="amount-input" 
+                            id="zelleAmountInput" 
+                            placeholder="0.00" 
+                            min="1" 
+                            step="0.01"
+                            autocomplete="off"
+                        >
+                    </div>
+                    
+                    <div class="quick-amounts">
+                        <button class="quick-amount-btn" onclick="setZelleAmount(5)">$5</button>
+                        <button class="quick-amount-btn" onclick="setZelleAmount(10)">$10</button>
+                        <button class="quick-amount-btn" onclick="setZelleAmount(20)">$20</button>
+                        <button class="quick-amount-btn" onclick="setZelleAmount(50)">$50</button>
+                        <button class="quick-amount-btn" onclick="setZelleAmount(100)">$100</button>
+                        <button class="quick-amount-btn" onclick="setZelleAmount(200)">$200</button>
+                    </div>
+                    
+                    <button class="pay-button zelle-btn" id="zellePayButton" onclick="processZellePay()">
+                        <i class="bi bi-lightning-charge-fill"></i>
+                        <span>Continue to Zelle</span>
+                    </button>
+                    
+                    <p class="info-text">
+                        Open your banking app and send to <span class="zelle-info">240-380-4868</span> or <span class="zelle-info"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4b29272a29727f790b322a23242465282426">[email&#160;protected]</a></span> via Zelle
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Toast Notification -->
+    <div class="toast-container">
+        <div id="copyToast" class="toast align-items-center text-white bg-success border-0" role="alert">
+            <div class="d-flex">
+                <div class="toast-body">
+                    <i class="bi bi-check-circle-fill me-2"></i>
+                    <span id="toastMessage">Copied to clipboard!</span>
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap 5 JS Bundle -->
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Cash App Elements
+        const cashappAmountInput = document.getElementById('cashappAmountInput');
+        const cashappPayButton = document.getElementById('cashappPayButton');
+        const cashappErrorAlert = document.getElementById('cashappErrorAlert');
+        const cashappErrorMessage = document.getElementById('cashappErrorMessage');
+        
+        // Zelle Elements
+        const zelleAmountInput = document.getElementById('zelleAmountInput');
+        const zellePayButton = document.getElementById('zellePayButton');
+        const zelleErrorAlert = document.getElementById('zelleErrorAlert');
+        const zelleErrorMessage = document.getElementById('zelleErrorMessage');
+        
+        // Constants
+        const cashTag = 'payBlab';
+        const zellePhone = '240-380-4868';
+        const zelleEmail = 'blab942@yahoo.com';
+        
+        // Cash App Functions
+        cashappAmountInput.addEventListener('input', function() {
+            hideError('cashapp');
+            validateAmount('cashapp');
+        });
+        
+        function setCashAppAmount(amount) {
+            cashappAmountInput.value = amount.toFixed(2);
+            hideError('cashapp');
+            validateAmount('cashapp');
+            cashappAmountInput.focus();
+        }
+        
+        function processCashAppPay() {
+            const amount = parseFloat(cashappAmountInput.value);
+            
+            if (!validateAmount('cashapp')) {
+                if (!cashappAmountInput.value) {
+                    showError('cashapp', 'Please enter an amount');
+                }
+                return;
+            }
+            
+            const formattedAmount = amount.toFixed(2);
+            const cashAppUrl = `https://cash.app/$${cashTag}/${formattedAmount}`;
+            window.location.href = cashAppUrl;
+        }
+        
+        cashappAmountInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !cashappPayButton.disabled) {
+                processCashAppPay();
+            }
+        });
+        
+        // Zelle Functions
+        zelleAmountInput.addEventListener('input', function() {
+            hideError('zelle');
+            validateAmount('zelle');
+        });
+        
+        function setZelleAmount(amount) {
+            zelleAmountInput.value = amount.toFixed(2);
+            hideError('zelle');
+            validateAmount('zelle');
+            zelleAmountInput.focus();
+        }
+        
+        function processZellePay() {
+            const amount = parseFloat(zelleAmountInput.value);
+            
+            if (!validateAmount('zelle')) {
+                if (!zelleAmountInput.value) {
+                    showError('zelle', 'Please enter an amount');
+                }
+                return;
+            }
+            
+            const formattedAmount = amount.toFixed(2);
+            
+            // Show instructions modal or redirect to Zelle (if supported)
+            alert(`Please open your banking app and send $${formattedAmount} via Zelle to:\n\nPhone: ${zellePhone}\nOR\nEmail: ${zelleEmail}`);
+        }
+        
+        zelleAmountInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !zellePayButton.disabled) {
+                processZellePay();
+            }
+        });
+        
+        // Shared Validation Function
+        function validateAmount(type) {
+            const input = type === 'cashapp' ? cashappAmountInput : zelleAmountInput;
+            const button = type === 'cashapp' ? cashappPayButton : zellePayButton;
+            const amount = parseFloat(input.value);
+            
+            if (!input.value || amount <= 0) {
+                button.disabled = true;
+                return false;
+            }
+            
+            if (amount < 1) {
+                showError(type, 'Minimum amount is $1.00');
+                button.disabled = true;
+                return false;
+            }
+            
+            button.disabled = false;
+            return true;
+        }
+        
+        // Error Handling
+        function showError(type, message) {
+            if (type === 'cashapp') {
+                cashappErrorMessage.textContent = message;
+                cashappErrorAlert.classList.remove('d-none');
+            } else {
+                zelleErrorMessage.textContent = message;
+                zelleErrorAlert.classList.remove('d-none');
+            }
+        }
+        
+        function hideError(type) {
+            if (type === 'cashapp') {
+                cashappErrorAlert.classList.add('d-none');
+            } else {
+                zelleErrorAlert.classList.add('d-none');
+            }
+        }
+        
+        // Copy to Clipboard Function
+        function copyToClipboard(text, type) {
+            navigator.clipboard.writeText(text).then(function() {
+                const toastMessage = document.getElementById('toastMessage');
+                toastMessage.textContent = type === 'phone' ? 'Phone number copied!' : 'Email address copied!';
+                
+                const toastElement = document.getElementById('copyToast');
+                const toast = new bootstrap.Toast(toastElement);
+                toast.show();
+            }).catch(function(err) {
+                console.error('Failed to copy: ', err);
+            });
+        }
+        
+        // Focus on active tab's input
+        document.getElementById('cashapp-tab').addEventListener('shown.bs.tab', function () {
+            cashappAmountInput.focus();
+        });
+        
+        document.getElementById('zelle-tab').addEventListener('shown.bs.tab', function () {
+            zelleAmountInput.focus();
+        });
+        
+        // Initial focus
+        window.addEventListener('load', function() {
+            cashappAmountInput.focus();
+        });
+    </script>
+</body>
+</html>
