@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Excel → Webform (Auto Convert)</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { padding: 18px; }
+    .cell-list { max-height: 300px; overflow:auto; }
+    pre { background:#f8f9fa; padding:12px; border-radius:6px; }
+    .kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h3>Excel → Webform (Auto Converter)</h3>
+    <p class="text-muted">Upload an .xlsx, mark inputs, then click <strong>Generate Webform</strong>.</p>
+
+    <div class="mb-3">
+      <input id="fileInput" type="file" accept=".xlsx,.xls" class="form-control"/>
+    </div>
+
+    <div id="parserArea" style="display:none;">
+      <ul class="nav nav-tabs" id="sheetTabs" role="tablist"></ul>
+      <div class="tab-content mt-3" id="sheetContent"></div>
+
+      <div class="mt-3">
+        <button id="generateBtn" class="btn btn-primary">Generate Webform</button>
+        <button id="downloadBtn" class="btn btn-outline-secondary" style="display:none;">Download ZIP (HTML)</button>
+      </div>
+
+      <hr/>
+      <h5>Generated HTML Preview</h5>
+      <div id="previewArea"></div>
+    </div>
+
+    <hr/>
+    <h6>Notes</h6>
+    <ul>
+      <li>This tool will attempt to translate common formulas: <code>SUM, AVERAGE, IF, ROUND, MIN, MAX</code> and basic arithmetic. Complex Excel-only functions may need manual edits.</li>
+      <li>Detected "inputs" are initially cells without formulas. You can toggle which cells become inputs in the UI per sheet.</li>
+      <li>The page generates a standalone HTML file you can download and host anywhere.</li>
+    </ul>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+<script>
+(function() {
+  const fileInput = document.getElementById('fileInput');
+  const parserArea = document.getElementById('parserArea');
+  const sheetTabs = document.getElementById('sheetTabs');
+  const sheetContent = document.getElementById('sheetContent');
+  const generateBtn = document.getElementById('generateBtn');
+  const previewArea = document.getElementById('previewArea');
+  const downloadBtn = document.getElementById('downloadBtn');
+
+  let workbook = null;
+  let parsed = { sheets: [] }; // {name, cells: {A1:{v,f}}, inputs: Set([...]) }
+
+  function cellRefToRC(cellRef) {
+    // e.g. B12 -> {r:11,c:1}
+    const match = cellRef.match(/^([A-Z]+)(\d+)$/i);
+    if(!match) return null;
+    const col = match[1].toUpperCase();
+    let c = 0;
+    for (let i = 0; i < col.length; i++) {
+      c = c*26 + (col.charCodeAt(i) - 64);
+    }
+    return { r: parseInt(match[2],10)-1, c: c-1 };
+  }
+
+  function getCellValue(sheetObj, ref) {
+    if(!sheetObj || !sheetObj[ref]) return null;
+    const cell = sheetObj[ref];
+    return cell.v !== undefined ? cell.v : null;
+  }
+
+  function rangeToRefs(range) {
+    // e.g. A1:B3 -> [A1,A2,A3,B1,B2,B3]
+    const m = range.split(':');
+    if(m.length===1) return [range];
+    const a = cellRefToRC(m[0]), b = cellRefToRC(m[1]);
+    const refs = [];
+    for(let r=a.r;r<=b.r;r++){
+      for(let c=a.c;c<=b.c;c++){
+        // convert c back to letters
+        let col = '';
+        let x = c+1;
+        while(x>0) { let rem = (x-1)%26; col = String.fromCharCode(65+rem) + col; x = Math.floor((x-1)/26); }
+        refs.push(col + (r+1));
+      }
+    }
+    return refs;
+  }
+
+  function evalFormulaToJS(formulaRaw, sheetObj, sheetName) {
+    // Remove leading =
+    if(!formulaRaw) return null;
+    let f = formulaRaw.trim();
+    if(f[0]=='=') f = f.slice(1);
+
+    // Basic: replace ranges in functions SUM(A1:A3) => SUM(A1:A3)
+    // We will translate functions we know.
+    // Convert function names to lowercase to ease matching
+    // We'll do replacements in a best-effort manner.
+
+    // Helpers in generated code will be: get(cellRef), range(refStart:refEnd) => array, sum(), avg(), IF(a,b,c)
+    // Replace function names with JS counterparts:
+    f = f.replace(/\bSUM\s*\(/ig, 'sum(');
+    f = f.replace(/\bAVERAGE\s*\(/ig, 'average(');
+    f = f.replace(/\bIF\s*\(/ig, 'IF(');
+    f = f.replace(/\bROUND\s*\(/ig, 'round(');
+    f = f.replace(/\bMIN\s*\(/ig, 'Math.min(');
+    f = f.replace(/\bMAX\s*\(/ig, 'Math.max(');
+
+    // Replace cell range expressions like A1:B3 inside functions with range("A1:B3")
+    f = f.replace(/([A-Z]{1,3}\d+:[A-Z]{1,3}\d+)/ig, function(match) {
+      return `range("${match.toUpperCase()}")`;
+    });
+
+    // Replace single cell refs (but be careful with function args and numbers)
+    // We'll replace tokens that look like cell refs with get("A1")
+    f = f.replace(/(^|[^A-Z0-9_"])(([A-Z]{1,3}\d+))(?=[^A-Z0-9_"]|$)/ig, function(_,prefix,cellRef){
+      return prefix + `get("${cellRef.toUpperCase()}")`;
+    });
+
+    // Replace ^ operator (Excel uses ^) with Math.pow
+    f = f.replace(/\^/g, '**');
+
+    // Return the JS code string (we'll wrap in function later)
+    return f;
+  }
+
+  function buildSheetUI(name, sheetObj) {
+    // Gather cell refs
+    const refs = Object.keys(sheetObj).filter(k => k[0] !== '!' ).sort((a,b)=>{
+      // sort by row then col
+      const ra = parseInt(a.replace(/^\D+/,''),10);
+      const rb = parseInt(b.replace(/^\D+/,''),10);
+      if(ra!==rb) return ra-rb;
+      // col comparison
+      return a.localeCompare(b,{numeric:true});
+    });
+
+    const cells = {};
+    refs.forEach(r => {
+      cells[r] = sheetObj[r];
+    });
+
+    // Auto-detect inputs: cells without formula and with primitive values (number/string) and not empty
+    const inputs = new Set();
+    refs.forEach(r=>{
+      const c = cells[r];
+      if(c && c.f === undefined && c.v !== undefined && c.t !== 'z') {
+        // treat strings and numbers as possible inputs
+        inputs.add(r);
+      }
+    });
+
+    parsed.sheets.push({ name, cells, inputs });
+  }
+
+  fileInput.addEventListener('change', (ev)=>{
+    const file = ev.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const data = new Uint8Array(e.target.result);
+      workbook = XLSX.read(data, {type:'array', cellFormula:true, cellNF:true, cellDates:true});
+      // parse sheets
+      parsed = { sheets: [] };
+      workbook.SheetNames.forEach(name=>{
+        buildSheetUI(name, workbook.Sheets[name]);
+      });
+      renderParsedUI();
+      parserArea.style.display = 'block';
+    };
+    reader.readAsArrayBuffer(file);
+  });
+
+  function renderParsedUI() {
+    sheetTabs.innerHTML = '';
+    sheetContent.innerHTML = '';
+    parsed.sheets.forEach((s, idx)=>{
+      const tabId = 'tab-' + idx;
+      const active = idx===0 ? 'active' : '';
+      // tab header
+      const li = document.createElement('li');
+      li.className = 'nav-item';
+      li.innerHTML = `<button class="nav-link ${active}" id="tab-btn-${idx}" data-bs-toggle="tab" data-bs-target="#${tabId}" type="button" role="tab">${escapeHtml(s.name)}</button>`;
+      sheetTabs.appendChild(li);
+
+      // tab content
+      const pane = document.createElement('div');
+      pane.className = 'tab-pane fade' + (idx===0 ? ' show active' : '');
+      pane.id = tabId;
+
+      // list cells and toggle inputs
+      let html = `<div class="row">
+        <div class="col-md-6">
+          <h6>Detected cells in <span class="kbd">${escapeHtml(s.name)}</span></h6>
+          <div class="cell-list list-group">`;
+
+      Object.keys(s.cells).forEach(ref=>{
+        const cell = s.cells[ref];
+        const value = cell.v !== undefined ? cell.v : '';
+        const formula = cell.f !== undefined ? cell.f : '';
+        const isInput = s.inputs.has(ref);
+        html += `<label class="list-group-item">
+          <input type="checkbox" data-sheet="${idx}" data-ref="${ref}" ${isInput ? 'checked' : ''} /> <strong>${ref}</strong>
+          &nbsp; <span class="text-muted">value:</span> <em>${escapeHtml(String(value))}</em>
+          ${ formula ? `<div><small class="text-warning">formula: ${escapeHtml(cell.f)}</small></div>` : ''}
+        </label>`;
+      });
+
+      html += `</div></div>
+        <div class="col-md-6">
+          <h6>Instructions</h6>
+          <p>Toggle checkboxes to determine which cells become editable inputs in the generated form. Cells that contain formulas are not selected as inputs by default.</p>
+          <h6>Formula preview</h6>
+          <div>`;
+      Object.keys(s.cells).forEach(ref=>{
+        const cell = s.cells[ref];
+        if(cell.f) {
+          const js = evalFormulaToJS(cell.f, s.cells, s.name);
+          html += `<div class="mb-2"><strong>${ref}</strong> — <small class="text-muted">${escapeHtml(cell.f)}</small>
+                   <pre style="white-space:pre-wrap;margin-top:6px">${escapeHtml(js)}</pre></div>`;
+        }
+      });
+      html += `</div></div></div>`;
+
+      pane.innerHTML = html;
+      sheetContent.appendChild(pane);
+    });
+
+    // attach handlers for checkboxes
+    sheetContent.querySelectorAll('input[type=checkbox]').forEach(cb=>{
+      cb.addEventListener('change', function(e){
+        const sheetIdx = parseInt(this.dataset.sheet,10);
+        const ref = this.dataset.ref;
+        if(this.checked) parsed.sheets[sheetIdx].inputs.add(ref);
+        else parsed.sheets[sheetIdx].inputs.delete(ref);
+      });
+    });
+  }
+
+  function escapeHtml(s){ return (s+'').replace(/[&<>"']/g, (m)=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+  function generateStandaloneHTML() {
+    // Build HTML app: include helpers (get(), range(), sum, average, IF, round), inputs for selected cells, and JS translation for formulas
+    let html = `<!doctype html>
+<html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Generated Calculator</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<style>body{padding:18px}.result-box{background:#f8f9fa;padding:12px;border-radius:6px}</style>
+</head><body>
+<div class="container">
+  <h3>Calculator (Generated)</h3>
+  <p class="text-muted">This file was auto-generated. Edit formulas in the code if needed.</p>
+
+  <ul class="nav nav-tabs" id="genTabs" role="tablist">`;
+
+    parsed.sheets.forEach((s, idx)=>{
+      html += `<li class="nav-item" role="presentation">
+        <button class="nav-link ${idx===0? 'active':''}" id="g-tab-${idx}" data-bs-toggle="tab" data-bs-target="#g-${idx}" type="button">${escapeHtml(s.name)}</button>
+      </li>`;
+    });
+
+    html += `</ul><div class="tab-content mt-3">`;
+
+    parsed.sheets.forEach((s, idx)=>{
+      html += `<div class="tab-pane fade ${idx===0? 'show active':''}" id="g-${idx}">
+        <form id="form-${idx}">`;
+      // inputs
+      html += `<div class="row">`;
+      parsed.sheets[idx] = parsed.sheets[idx]; // ensure
+      Array.from(s.inputs).forEach(ref=>{
+        const cell = s.cells[ref];
+        const val = cell && cell.v !== undefined ? cell.v : '';
+        html += `<div class="col-md-4 mb-2">
+          <label class="form-label"><strong>${ref}</strong></label>
+          <input name="${ref}" id="input-${idx}-${ref}" class="form-control" value="${escapeHtml(String(val))}" />
+        </div>`;
+      });
+      html += `</div>`;
+
+      // results area: list formula cells
+      html += `<h6 class="mt-3">Results</h6><div id="results-${idx}" class="result-box">`;
+      Object.keys(s.cells).forEach(ref=>{
+        const cell = s.cells[ref];
+        if(cell && cell.f) {
+          // generate a span for the output
+          html += `<div class="mb-2"><strong>${ref}</strong>: <span id="out-${idx}-${ref}">-</span>
+            <div><small class="text-muted">(${escapeHtml(cell.f)})</small></div></div>`;
+        }
+      });
+      html += `</div></form></div>`;
+    });
+
+    // JS helpers + compute function
+    html += `</div>
+<script>
+(function(){
+  function getVal(fromId) {
+    const el = document.getElementById(fromId);
+    if(!el) return null;
+    const v = el.value;
+    // try number
+    if(v==='') return 0;
+    const n = parseFloat(v);
+    return isFinite(n)? n : v;
+  }
+
+  function sum(arr){ return arr.reduce((a,b)=>a+(parseFloat(b)||0),0); }
+  function average(arr){ return arr.length? sum(arr)/arr.length : 0; }
+  function IF(a,b,c){ return a? b : c; }
+  function round(v, dec) { if(!dec) dec=0; const m = Math.pow(10,dec); return Math.round(v*m)/m; }
+  function rangeVals(sheetIdx, rangeStr) {
+    // rangeStr like "A1:B3"
+    // We'll get values from inputs if present, or zero otherwise (best-effort)
+    // Try to read generated input fields in the whole document
+    const refs = (function(rs){
+      const m = rs.split(':');
+      if(m.length===1) return [rs];
+      // simple conversion
+      function refToRC(ref){
+        const match = ref.match(/^([A-Z]+)(\\d+)$/i);
+        let col = match[1].toUpperCase(), row = parseInt(match[2],10);
+        let c=0;
+        for(let i=0;i<col.length;i++){ c = c*26 + (col.charCodeAt(i)-64); }
+        return {r: row-1, c};
+      }
+      const a = refToRC(m[0]), b = refToRC(m[1]);
+      const out=[]; for(let r=a.r;r<=b.r;r++){ for(let c=a.c;c<=b.c;c++){
+        let x=c+1; let col=''; while(x>0){ let rem=(x-1)%26; col = String.fromCharCode(65+rem) + col; x=Math.floor((x-1)/26); }
+        out.push(col + (r+1));
+      } } return out;
+    })(rangeStr);
+    const vals = refs.map(ref=>{
+      // find any input with name ref (in any sheet)
+      const el = document.querySelector('[name=\"'+ref+'\"]') || document.getElementById('input-0-'+ref) || null;
+      if(el) {
+        const v = el.value;
+        const n = parseFloat(v);
+        return (isFinite(n)? n : 0);
+      } else return 0;
+    });
+    return vals;
+  }
+
+  function get(ref) {
+    // try to find an input with name=ref
+    const el = document.querySelector('[name=\"'+ref+'\"]');
+    if(el) {
+      const v = el.value;
+      const n = parseFloat(v);
+      return (isFinite(n)? n : v);
+    }
+    return 0;
+  }
+
+  // Compute function (auto-generated)
+  function computeAll(){
+    ${ parsed.sheets.map((s, idx) => {
+      // For each formula cell generate JS to set output span
+      return Object.keys(s.cells).filter(ref => s.cells[ref].f).map(ref=>{
+        const cell = s.cells[ref];
+        const jsExpr = (function(){
+          const raw = cell.f;
+          let code = raw? raw.trim(): '';
+          if(code[0]==='=') code = code.slice(1);
+          // reuse same translator rules as main UI:
+          code = code.replace(/\\bSUM\\s*\\(/ig, 'sum(');
+          code = code.replace(/\\bAVERAGE\\s*\\(/ig, 'average(');
+          code = code.replace(/\\bIF\\s*\\(/ig, 'IF(');
+          code = code.replace(/\\bROUND\\s*\\(/ig, 'round(');
+          code = code.replace(/\\bMIN\\s*\\(/ig, 'Math.min(');
+          code = code.replace(/\\bMAX\\s*\\(/ig, 'Math.max(');
+          code = code.replace(/([A-Z]{1,3}\\d+:?[A-Z]{0,3}\\d*)/ig, function(m){
+            if(m.indexOf(':')>-1) return 'rangeVals('+idx+',"'+m.toUpperCase()+'")';
+            return 'get("'+m.toUpperCase()+'")';
+          });
+          code = code.replace(/\\^/g,'**');
+          return code;
+        })();
+        // wrap in try/catch
+        return `try{ var val = (function(){ return ${jsExpr}; })(); document.getElementById('out-${idx}-${ref}').textContent = (typeof val === 'number'? (+val).toFixed(4) : val); }catch(e){ document.getElementById('out-${idx}-${ref}').textContent = 'ERR'; }`;
+      }).join('\\n');
+    }).join('\\n') }
+
+  }
+
+  // attach listeners on inputs
+  document.querySelectorAll('input').forEach(i=>{
+    i.addEventListener('input', computeAll);
+  });
+
+  // initial compute
+  computeAll();
+
+  // expose compute for debugging
+  window.computeAll = computeAll;
+})();
+</script>
+
+</body></html>`;
+
+    return html;
+  }
+
+  generateBtn.addEventListener('click', ()=>{
+    // generate HTML and show preview
+    const out = generateStandaloneHTML();
+    previewArea.innerHTML = `<h6>Standalone HTML</h6><p>Copy this file to host or download below.</p><pre style="max-height:400px;overflow:auto">${escapeHtml(out.slice(0,20000))}${out.length>20000? "\\n\\n... (truncated preview)":" "}</pre>`;
+    downloadBtn.style.display = 'inline-block';
+    downloadBtn.onclick = async function(){
+      const zip = new JSZip();
+      zip.file('generated-calculator.html', out);
+      const blob = await zip.generateAsync({type:'blob'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'generated-calculator.zip';
+      a.click();
+      URL.revokeObjectURL(url);
+    };
+  });
+
+})();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body></html>

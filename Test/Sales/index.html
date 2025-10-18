@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Success STORY Campaign Strategy</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background-color: #fafbfe;
+      color: #222;
+      line-height: 1.6;
+      padding: 2rem 2rem;
+      transition: background 0.5s ease;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.88);
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      font-size: 2.2em;
+      color: #003366;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      color: #006bb6;
+      margin-bottom: 2rem;
+    }
+
+    .section-title {
+      color: #006bb6;
+      font-size: 1.25em;
+      margin-top: 2rem;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    ul {
+      margin-bottom: 2rem;
+      padding-left: 2rem;
+    }
+
+    li {
+      margin: 0.5rem 0;
+    }
+
+    .note-card {
+      background-color: #eaf6ff;
+      border-left: 4px solid #009fe3;
+      padding: 1rem;
+      margin: 2rem 0;
+    }
+
+    .note-card p {
+      color: #005073;
+      font-size: 0.96em;
+      line-height: 1.6;
+    }
+
+    .note-card strong {
+      font-weight: 600;
+    }
+
+    button {
+      background-color: #006bb6;
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background-color 0.2s;
+    }
+
+    button:hover {
+      background-color: #004a7a;
+    }
+
+    button.secondary {
+      background-color: white;
+      color: #006bb6;
+      border: 1px solid #006bb6;
+    }
+
+    button.secondary:hover {
+      background-color: #f0f9ff;
+    }
+
+    .input-group {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    input[type="text"], input[type="file"] {
+      flex: 1;
+      padding: 0.6rem;
+      font-size: 1rem;
+      border: 1px solid #006bb6;
+      border-radius: 6px;
+      outline: none;
+    }
+
+    input[type="text"]:focus {
+      border-color: #003366;
+      box-shadow: 0 0 0 3px rgba(0, 107, 182, 0.1);
+    }
+
+    footer {
+      margin-top: 3rem;
+      color: #888;
+      font-size: 0.95em;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .bg-controls {
+      margin-bottom: 1.5rem;
+      background: #f0f9ff;
+      border: 1px solid #cde7ff;
+      padding: 1rem;
+      border-radius: 8px;
+    }
+
+    .bg-controls label {
+      font-weight: 500;
+      color: #004a7a;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="button-group">
+      <button id="add-button" onclick="showInput()">Add Custom Action Item</button>
+    </div>
+
+    <div class="bg-controls">
+      <label>Background Image Options:</label>
+      <div class="input-group">
+        <input type="text" id="bg-url" placeholder="Enter image URL...">
+        <input type="file" id="bg-file" accept="image/*">
+        <button onclick="applyBackground()">Apply</button>
+        <button class="secondary" onclick="removeBackground()">Remove</button>
+      </div>
+    </div>
+
+    <h1>Success STORY Campaign Strategy</h1>
+    <div class="subtitle">Proposal Document · October 2025</div>
+
+    <div class="section-title">Purpose</div>
+    <ul>
+      <li>Build a reusable content cycle to increase credibility and conversion.</li>
+    </ul>
+
+    <div class="section-title">Focus</div>
+    <ul>
+      <li>Leverage automation, visual storytelling, and engagement data.</li>
+    </ul>
+
+    <div class="section-title">Key Outcomes</div>
+    <ul>
+      <li>Establish a scalable marketing system utilizing everyday experiences.</li>
+      <li>Transform moments into measurable business results.</li>
+    </ul>
+
+    <div class="section-title">Actionable Items</div>
+    <ul id="actionable-items">
+      <li>Collect photos and videos from events and digital platforms.</li>
+      <li>Tag and organize assets by theme, audience, and campaign relevance.</li>
+      <li>Create short-form edits and still images for multi-format campaigns.</li>
+      <li>Catalog assets in a structured, searchable folder (by date/event/tag/hero).</li>
+      <li>Maintain a 'best-of' evergreen folder for ongoing storytelling.</li>
+      <li>Reinforce brand identity using authentic, familiar assets.</li>
+      <li>Reduce production costs by reusing existing content.</li>
+      <li>Accelerate campaign launches with pre-built media packages.</li>
+      <li>Ensure only licensed or owned assets, verified QR/payment codes are used for public release.</li>
+    </ul>
+
+    <div id="input-container" class="hidden">
+      <div class="input-group">
+        <input type="text" id="new-item-input" placeholder="Enter a new actionable item...">
+        <button onclick="addItem()">Add</button>
+        <button class="secondary" onclick="cancelAdd()">Cance
