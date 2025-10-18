@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Success STORY Campaign Strategy - Proposal</title>
+  <meta name="description" content="Build a reusable content cycle with automation, visual storytelling, and engagement data to increase credibility and conversion.">
+  <meta name="author" content="Success STORY Campaign">
+  
+  <meta property="og:title" content="Success STORY Campaign Strategy">
+  <meta property="og:description" content="Transform everyday moments into measurable business results with our scalable marketing system.">
+  <meta property="og:type" content="website">
+
+  <style>
+    :root {
+      /* New palette: soft light backgrounds, dark readable text */
+      --primary-bg: #f2f7f9;        /* pale blue-gray */
+      --accent: #b3e5f0;            /* soft teal */
+      --accent-deep: #9bd8e3;       /* gentle teal gradient end */
+      --gold: #f4ca64;              /* muted gold */
+      --muted: #3b4a54;             /* readable gray */
+      --surface: #ffffff;           /* card base */
+      --surface-2: #f9fdfd;         /* very light tint */
+      --text: #14222c;              /* dark readable text */
+      --light-on-accent: #14222c;   /* replaced white text with dark */
+      --bg-gradient-start: #f7fcfd;
+      --bg-gradient-end: #eef7f8;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 2rem 1rem;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .container {
+      max-width: 1024px;
+      margin: 0 auto;
+    }
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, #d6f3f7 0%, var(--primary-bg) 100%);
+      border-radius: 1rem;
+      padding: 3rem 2rem;
+      text-align: center;
+      box-shadow: 0 12px 40px rgba(120, 150, 160, 0.25);
+      margin-bottom: 1.5rem;
+      position: relative;
+      overflow: hidden;
+      color: var(--text);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      right: -20%;
+      width: 60%;
+      height: 200%;
+      background: radial-gradient(circle at 20% 20%, rgba(244,202,100,0.15) 0%, transparent 40%),
+                  radial-gradient(circle at 80% 80%, rgba(155,216,227,0.15) 0%, transparent 30%);
+      transform: rotate(12deg);
+      z-index: 0;
+    }
+
+    .hero-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 4rem;
+      height: 4rem;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.4);
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+      color: var(--text);
+      font-size: 1.6rem;
+      box-shadow: 0 6px 18px rgba(4,10,14,0.15) inset;
+    }
+
+    .hero-icon::after {
+      content: '📈';
+      font-size: 1.8rem;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+      line-height: 1.15;
+      position: relative;
+      z-index: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .hero p {
+      font-size: 1.0625rem;
+      color: var(--muted);
+      font-weight: 500;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Card Component */
+    .card {
+      background: var(--surface);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: 0 6px 22px rgba(9, 12, 18, 0.06);
+      margin-bottom: 1.5rem;
+      transition: box-shadow 0.25s ease, transform 0.25s ease;
+      color: var(--text);
+    }
+
+    .card:hover {
+      box-shadow: 0 12px 38px rgba(9, 12, 18, 0.09);
+      transform: translateY(-3px);
+    }
+
+    /* Content Section */
+    .content-section {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .content-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .content-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .content-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 0.5rem;
+      background: rgba(179,229,240,0.35);
+      color: var(--text);
+      font-size: 1.25rem;
+    }
+
+    /* titles: light accent backgrounds with dark readable text */
+    .content-item h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin: 0;
+      background: linear-gradient(90deg, var(--accent) 0%, var(--accent-deep) 100%);
+      color: var(--text);
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.5rem;
+      display: inline-block;
+    }
+
+    .content-list {
+      list-style: none;
+      margin-left: 3.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .content-list li {
+      display: flex;
+      align-items: start;
+      gap: 0.5rem;
+      color: var(--muted);
+      font-size: 0.9375rem;
+    }
+
+    .content-list li::before {
+      content: '•';
+      color: var(--gold);
+      font-weight: bold;
+      font-size: 1.25rem;
+      line-height: 1.5;
+      margin-top: 2px;
+    }
+    /* Pricing Comparison */
+    .pricing-header {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .pricing-header h2 {
+      font-size: 1.875rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(90deg, var(--accent) 0%, var(--accent-deep) 100%);
+      color: var(--text);
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 0.5rem;
+    }
+
+    .pricing-header p {
+      color: var(--muted);
+      font-size: 0.9375rem;
+    }
+
+    .pricing-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1.5rem;
+      overflow-x: auto;
+      display: block;
+    }
+
+    .pricing-table table {
+      width: 100%;
+      min-width: 500px;
+      border-radius: 0.5rem;
+      overflow: hidden;
+    }
+
+    .pricing-table th,
+    .pricing-table td {
+      padding: 0.875rem;
+      text-align: left;
+      border-bottom: 1px solid #e0ebec;
+    }
+
+    .pricing-table thead th {
+      background: linear-gradient(90deg, rgba(179,229,240,0.3) 0%, rgba(155,216,227,0.2) 100%);
+      color: var(--text);
+      font-weight: 700;
+      font-size: 0.9375rem;
+      border-bottom: 2px solid rgba(155,216,227,0.35);
+    }
+
+    .pricing-table tbody td {
+      color: var(--muted);
+      font-size: 0.875rem;
+    }
+
+    .pricing-table tbody tr:hover {
+      background: rgba(179,229,240,0.15);
+    }
+
+    .pay-as-you-go {
+      text-align: center;
+      padding: 1rem;
+      background: linear-gradient(90deg, rgba(244,202,100,0.25) 0%, rgba(179,229,240,0.15) 100%);
+      border-radius: 0.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+      border: 1px solid rgba(179,229,240,0.2);
+    }
+
+    .pay-as-you-go h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      color: var(--text);
+    }
+
+    .pay-as-you-go p {
+      color: var(--muted);
+      font-size: 0.9375rem;
+    }
+
+    /* Pricing Cards */
+    .pricing-cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .pricing-cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .pricing-card {
+      background: linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%);
+      border: 1px solid rgba(155,216,227,0.25);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: 0 8px 28px rgba(3,7,10,0.04);
+      transition: all 0.28s ease;
+      color: var(--text);
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 44px rgba(3,7,10,0.08);
+    }
+
+    .pricing-card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .pricing-card-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 3rem;
+      height: 3rem;
+      border-radius: 0.75rem;
+      background: rgba(179,229,240,0.35);
+      color: var(--text);
+      font-size: 1.5rem;
+      box-shadow: 0 6px 14px rgba(155,216,227,0.15) inset;
+    }
+
+    .pricing-card-title {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pricing-card-title h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin: 0;
+      background: linear-gradient(90deg, var(--accent) 0%, var(--accent-deep) 100%);
+      color: var(--text);
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.5rem;
+      display: inline-block;
+    }
+
+    .pricing-card-price {
+      display: flex;
+      align-items: baseline;
+      gap: 0.25rem;
+      margin-top: 6px;
+    }
+
+    .pricing-card-price .amount {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--gold);
+    }
+
+    .pricing-card-price .unit {
+      font-size: 0.875rem;
+      color: var(--muted);
+      margin-left: 6px;
+    }
+
+    .pricing-card-description {
+      color: var(--muted);
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+      min-height: 60px;
+    }
+
+    /* Buttons: soft gradient, darker text */
+    .pricing-button {
+      display: inline-block;
+      text-align: center;
+      width: 100%;
+      padding: 0.75rem 1.5rem;
+      background: linear-gradient(90deg, var(--accent) 0%, var(--accent-deep) 100%);
+      color: var(--text);
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 10px 30px rgba(155,216,227,0.15);
+      text-decoration: none;
+      display: block;
+    }
+
+    .pricing-button:hover {
+      background: linear-gradient(90deg, var(--accent-deep) 0%, #a3cfd9 100%);
+      transform: translateY(-3px);
+      box-shadow: 0 14px 38px rgba(155,216,227,0.25);
+    }
+
+    .pricing-button:active {
+      transform: translateY(0);
+    }
+    /* Responsive tweaks */
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem 0.5rem;
+      }
+
+      .hero {
+        padding: 2rem 1rem;
+      }
+
+      .hero h1 {
+        font-size: 1.75rem;
+      }
+
+      .pricing-table {
+        font-size: 0.8125rem;
+      }
+
+      .content-list {
+        margin-left: 0;
+      }
+    }
+
+    /* Secondary compact styles (adjusted to remove white text) */
+    .wrap {
+      max-width: 420px;
+      margin: 10px auto;
+      padding: 12px;
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 12px;
+      box-shadow: 0 8px 22px rgba(2,8,12,0.04);
+    }
+
+    .hero-container {
+      background: linear-gradient(180deg, rgba(179,229,240,0.25) 0%, rgba(244,202,100,0.1) 100%);
+      padding: 20px;
+      border-radius: 14px;
+      margin-bottom: 14px;
+      text-align: center;
+      color: var(--text);
+    }
+
+    .hero-title {
+      font-size: 24px;
+      color: var(--text);
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .hero-sub {
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 14px;
+    }
+
+    h2 {
+      color: var(--text);
+      font-size: 18px;
+      margin: 10px 0;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .info-card {
+      background: linear-gradient(90deg, var(--accent) 0%, var(--accent-deep) 100%);
+      border: 1px solid rgba(179,229,240,0.25);
+      padding: 10px;
+      border-radius: 10px;
+      min-height: 72px;
+      color: var(--text);
+    }
+
+    .info-card h4 {
+      margin: 0 0 6px;
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .info-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .pricing-container {
+      background: var(--surface);
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 6px 22px rgba(2,8,12,0.04);
+      margin-top: 14px;
+    }
+
+    .pricing-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .pricing-card {
+      background: linear-gradient(180deg, rgba(179,229,240,0.15) 0%, rgba(179,229,240,0.05) 100%);
+      border: 1px solid rgba(179,229,240,0.2);
+      padding: 12px;
+      border-radius: 10px;
+      color: var(--text);
+    }
+
+    .pricing-card h3 {
+      color: var(--text);
+      margin: 0 0 6px;
+    }
+
+    .price {
+      color: var(--gold);
+      font-weight: 800;
+    }
+
+    .description {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .btn {
+      background: linear-gradient(90deg, var(--accent) 0%, var(--accent-deep) 100%);
+      color: var(--text);
+      border: 0;
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .pricing-comparison {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 13px;
+    }
+
+    .pricing-comparison td, .pricing-comparison th {
+      padding: 8px;
+      border-bottom: 1px solid #e9f2f3;
+      text-align: left;
+      color: var(--text);
+    }
+
+    .pricing-comparison thead th {
+      border-bottom: 2px solid rgba(179,229,240,0.3);
+      color: var(--text);
+    }
+
+    @media (max-width: 420px) {
+      .wrap { padding: 10px; }
+      .hero-title { font-size: 20px; }
+      .info-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <!-- Hero Section -->
+    <div class="hero">
+      <div class="hero-icon"></div>
+      <h1>A Success <span style="color:#3b7fc4;">STORY's</span><br>Campaign Strategy</h1>
+
+      <p>Proposal Document · October 2025</p>
+    </div>
+
+    <!-- Pricing Section -->
+    <div class="pricing-container">
+      <h2 style="margin-bottom:6px;text-align:center" class="pricing-header">Flexible Pricing</h2>
+      <p style="color:var(--muted);font-size:13px;margin-bottom:8px;text-align:center">
+        Choose the option that fits your growth goals best. No long-term contracts, simple pricing.
+      </p>
+
+      <table class="pricing-comparison">
+        <thead>
+          <tr><th>Feature</th><th>Setup</th><th>Credits</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Cost</td><td>$150 one-time</td><td>$150 per credit</td></tr>
+          <tr><td>What You Get</td><td>Onboarding, campaign system, lead capture setup</td><td>Additional campaigns & response handling</td></tr>
+          <tr><td>Commitment</td><td>One-time</td><td>Flexible / Pay-as-needed</td></tr>
+          <tr><td>Ideal For</td><td>New clients</td><td>Businesses scaling campaigns</td></tr>
+        </tbody>
+      </table>
+
+      <div class="pay-as-you-go">
+        <h3>Pay-as-you-go</h3>
+        <p>After setup, pay only for delivered results.</p>
+      </div>
+
+      <!-- Pricing Cards -->
+      <div class="pricing-cards">
+        <div class="pricing-card">
+          <div class="pricing-card-header">
+            <div class="pricing-card-icon">🚀</div>
+            <div class="pricing-card-title">
+              <h3>Setup</h3>
+              <div class="pricing-card-price">
+                <span class="amount">$150</span>
+              </div>
+            </div>
+          </div>
+          <p class="pricing-card-description">
+            Covers onboarding, campaign system, lead capture setup, tagging system.
+          </p>
+          <a class="pricing-button" href="https://gtc-010-23-menu-fix-womacromax.replit.app/contact?campaignId=WMX-New-Campaign-468-2025-07-21-1753103442505&source=launch-manager&show=true" target="_blank" rel="noopener noreferrer">
+            Schedule A Call
+          </a>
+        </div>
+
+        <div class="pricing-card">
+          <div class="pricing-card-header">
+            <div class="pricing-card-icon">⚡</div>
+            <div class="pricing-card-title">
+              <h3>Credits</h3>
+              <div class="pricing-card-price">
+                <span class="amount">$150</span>
+                <span class="unit">/ credit</span>
+              </div>
+            </div>
+          </div>
+          <p class="pricing-card-description">
+            Credits are used for additional campaigns and response volume (prospect calls, inquiries, emails). Example: 1 credit = 2 campaign or up to 30 responses.
+          </p>
+          <a class="pricing-button" href="https://sales.womacromax.com/cashapp_zelle_payment.html" target="_blank" rel="noopener noreferrer">
+            Pay via. $CashApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Minimal JS placeholder, no modal/cart logic.
+  </script>
+</body>
+</html>
