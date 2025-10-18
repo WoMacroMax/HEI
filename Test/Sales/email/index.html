@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Success STORY Campaign SPA</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Inter', 'Poppins', Arial, sans-serif;background-color:#fff0f5;color:#222;line-height:1.6}
+
+    .wrap{max-width:420px;margin:10px auto;padding:12px}
+    .card{background:#fff;border-radius:12px;padding:12px;box-shadow:0 6px 18px rgba(15,23,42,0.04);}
+
+    /* Hero */
+    .hero-container{background:#ffe4ec;padding:20px;border-radius:14px;margin-bottom:14px;text-align:center}
+    .hero-title{font-size:24px;color:#b0004f;font-weight:800;line-height:1.2}
+    .hero-sub{color:#9a1f60;margin-top:8px;font-size:14px}
+
+    h2{color:#c2185b;font-size:18px;margin:10px 0}
+
+    /* New grid for items */
+    .info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:10px}
+    .info-card{background:#fff0f5;border:1px solid #ffc1dd;padding:10px;border-radius:10px;min-height:72px}
+    .info-card h4{margin:0 0 6px;color:#b0004f;font-size:14px}
+    .info-card p{margin:0;color:#6b7280;font-size:13px}
+
+    /* Pricing */
+    .pricing-container{background:#fff;border-radius:14px;padding:16px;box-shadow:0 4px 12px rgba(0,0,0,0.05);margin-top:14px}
+    .pricing-grid{display:flex;flex-direction:column;gap:10px}
+    .pricing-card{background:#fff0f5;border:1px solid #ffc1dd;padding:12px;border-radius:10px}
+    .pricing-card h3{color:#d63384;margin:0 0 6px}
+    .price{color:#d63384;font-weight:700}
+    .description{color:#6b7280;font-size:13px}
+    .btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .btn{background:#d63384;color:#fff;border:0;padding:8px 10px;border-radius:8px;font-weight:700;cursor:pointer}
+
+    .pricing-comparison{width:100%;border-collapse:collapse;margin-top:10px;font-size:13px}
+    .pricing-comparison td,.pricing-comparison th{padding:8px;border-bottom:1px solid #f1f1f1;text-align:left}
+    .pricing-comparison thead th{border-bottom:2px solid #d63384;color:#b0004f}
+
+    /* Modal */
+    .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);align-items:center;justify-content:center;z-index:999}
+    .modal .modal-content{background:#fff5f8;padding:14px;border-radius:12px;width:92%;max-width:380px;position:relative}
+    .close-red{position:absolute;right:10px;top:10px;background:#e11;border-radius:20px;width:30px;height:30px;border:0;color:#fff;font-weight:700;cursor:pointer}
+    .cart-list{margin-top:12px;text-align:left}
+    .cart-list li{margin:6px 0}
+    .cart-total{margin-top:10px;font-weight:800;color:#b0004f;text-align:right}
+    .submit-btn{display:inline-block;margin-top:12px;background:#d63384;color:#fff;border:0;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:700}
+
+    @media (max-width:420px){.wrap{padding:10px}.hero-title{font-size:20px}.info-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero-container card">
+      <div class="hero-title">Success STORY<br>Campaign Strategy</div>
+      <div class="hero-sub">Proposal Document · October 2025</div>
+    </div>
+
+    <!-- Bulleted items restored -->
+    <div class="card">
+      <h2>Purpose</h2>
+      <ul>
+        <li>Build a reusable content cycle to increase credibility and conversion.</li>
+      </ul>
+
+      <h2>Focus</h2>
+      <ul>
+        <li>Leverage automation, visual storytelling, and engagement data.</li>
+      </ul>
+
+      <h2>Key Outcomes</h2>
+      <ul>
+        <li>Establish a scalable marketing system utilizing everyday experiences.</li>
+        <li>Transform moments into measurable business results.</li>
+      </ul>
+    </div>
+
+    <!-- Pricing Section in Container -->
+    <div class="pricing-container">
+      <h2 style="margin-bottom:6px;text-align:center">Flexible Pricing</h2>
+      <p style="color:#6b7280;font-size:13px;margin-bottom:8px;text-align:center">Choose the option that fits your growth goals best. No long-term contracts, simple pricing.</p>
+
+      <table class="pricing-comparison">
+        <thead>
+          <tr><th>Feature</th><th>Setup</th><th>Credits</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Cost</td><td>$299 one-time</td><td>$50 per credit</td></tr>
+          <tr><td>What You Get</td><td>Onboarding, campaign system, lead capture setup</td><td>Additional campaigns & response handling</td></tr>
+          <tr><td>Commitment</td><td>One-time</td><td>Flexible / Pay-as-needed</td></tr>
+          <tr><td>Ideal For</td><td>New clients</td><td>Businesses scaling campaigns</td></tr>
+        </tbody>
+      </table>
+
+      <p style="color:#b0004f;font-weight:600;text-align:center;margin-top:14px">Pay-as-you-go<br>No obligation. Pay only for delivered results.</p>
+
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <h3>Setup</h3>
+          <div class="price">$299 one-time</div>
+          <div class="description">Covers onboarding, campaign system, lead capture setup, tagging system.</div>
+          <div class="btn-row"><button class="btn" onclick="addToCart('Setup - $299',299)">Get Started</button></div>
+        </div>
+
+        <div class="pricing-card">
+          <h3>Credits</h3>
+          <div class="price">$50 / credit</div>
+          <div class="description">Credits are used for additional campaigns and response volume (prospect calls, inquiries, emails). Example: 1 credit = 1 campaign or up to 100 responses.</div>
+          <div class="btn-row"><button class="btn" onclick="addToCart('Credits - $50',50)">Add Credits</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shopping Cart Modal -->
+  <div id="cartModal" class="modal">
+    <div class="modal-content">
+      <button class="close-red" onclick="closeModal()">×</button>
+      <h3 style="color:#b0004f;margin-top:4px">Shopping Cart Summary</h3>
+      <ul id="cart-items" class="cart-list"></ul>
+      <div id="cart-total" class="cart-total">Total: $0</div>
+      <div style="display:flex;gap:8px;justify-content:center;margin-top:10px">
+        <button class="submit-btn" onclick="submitCart()">Submit</button>
+        <button class="btn" style="background:#fff;color:#d63384;border:1px solid #d63384" onclick="clearCart()">Clear</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const modal=document.getElementById('cartModal');
+    const cartItemsEl=document.getElementById('cart-items');
+    const cartTotalEl=document.getElementById('cart-total');
+    let cart=[];
+
+    function addToCart(name,price){
+      cart.push({name,price});
+      renderCart();
+      modal.style.display='flex';
+    }
+
+    function renderCart(){
+      if(!cart.length){cartItemsEl.innerHTML='<li><em>Cart is empty</em></li>';cartTotalEl.textContent='Total: $0';return}
+      cartItemsEl.innerHTML=cart.map((c,i)=>`<li>${i+1}. ${c.name} ${c.price?('- $'+c.price):''}</li>`).join('');
+      const total = cart.reduce((s,i)=>s+(i.price||0),0);
+      cartTotalEl.textContent = 'Total: $' + total;
+    }
+
+    function closeModal(){modal.style.display='none'}
+    function clearCart(){cart=[];renderCart();}
+    function submitCart(){
+      const summary = cart.map(c=>c.name + (c.price?(' ($'+c.price+')'):'' )).join(', ');
+      const total = cart.reduce((s,i)=>s+(i.price||0),0);
+      alert('Submitted: ' + summary + "
+Total: $" + total);
+      cart=[];renderCart();closeModal();
+    }
+
+    window.addEventListener('click',e=>{if(e.target===modal)closeModal();});
+  </script>
+</body>
+</html>
