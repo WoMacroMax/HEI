@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Success STORY Campaign SPA</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;background-color:#fff0f5;color:#222;line-height:1.6;transition:background 0.5s ease;}
+    .container{max-width:400px;margin:0 auto;padding:16px;background:#ffe4f0;border-radius:12px;}
+    h1{font-size:1.8em;color:#d63384;margin-bottom:0.5rem;font-weight:600;}
+    .subtitle{color:#c2185b;margin-bottom:1.2rem;}
+    .section-title{color:#c2185b;font-size:1em;margin-top:1rem;margin-bottom:0.5rem;font-weight:500;}
+    ul{margin-bottom:1rem;padding-left:1.5rem;}
+    li{margin:0.4rem 0;}
+    .note-card{background-color:#ffd9ec;border-left:4px solid #d63384;padding:0.5rem;margin:1rem 0;}
+    .note-card p{color:#9a1f60;font-size:0.9em;line-height:1.4;}
+    .note-card strong{font-weight:600;}
+    button{background-color:#d63384;color:white;border:none;padding:0.5rem 0.8rem;font-size:0.9rem;border-radius:6px;cursor:pointer;font-weight:500;transition:background-color 0.2s;}
+    button:hover{background-color:#a61d6f;}
+    button.secondary{background-color:white;color:#d63384;border:1px solid #d63384;}
+    button.secondary:hover{background-color:#ffe4f0;}
+    .input-group{display:flex;gap:0.5rem;margin-bottom:1rem;flex-direction:column;}
+    input[type="text"], input[type="file"]{width:100%;padding:0.5rem;font-size:0.9rem;border:1px solid #d63384;border-radius:6px;outline:none;}
+    input[type="text"]:focus{border-color:#a61d6f;box-shadow:0 0 0 3px rgba(214,51,132,0.1);}
+    .hidden{display:none;}
+    .button-group{display:flex;gap:0.5rem;margin-bottom:1rem;flex-direction:column;}
+    .bg-controls{margin-bottom:1rem;background:#ffe4f0;border:1px solid #ffc1dd;padding:0.5rem;border-radius:8px;}
+    .bg-controls label{font-weight:500;color:#a61d6f;display:block;margin-bottom:0.5rem;}
+
+    .pricing{padding:10px 0;}
+    .pricing-grid{display:flex;flex-direction:column;gap:10px;margin-top:10px;}
+    .pricing-card{background:#fff0f5;border-radius:10px;padding:10px;border:1px solid #ffc1dd;box-shadow:0 3px 10px rgba(214,51,132,0.1);}
+    .pricing-card h3{margin:0 0 5px;color:#d63384;}
+    .price{color:#d63384;font-weight:700;font-size:15px;margin:3px 0;}
+    .description{color:#6b7280;line-height:1.3;font-size:0.85em;}
+    .cta{display:inline-block;margin-top:6px;padding:6px 10px;border-radius:6px;background:#d63384;color:#fff;border:0;cursor:pointer;font-weight:600;font-size:0.9rem;}
+    .pricing-comparison th,.pricing-comparison td{vertical-align:top;padding:6px;border-bottom:1px solid #f1f1f1;text-align:left;font-size:11px;}
+    .pricing-comparison thead tr{background:#fff0;border-bottom:2px solid #d63384;}
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Success STORY Campaign Strategy</h1>
+  <div class="subtitle">Proposal Document · October 2025</div>
+
+  <div class="section-title">Purpose</div>
+  <ul>
+    <li>Build a reusable content cycle to increase credibility and conversion.</li>
+  </ul>
+
+  <div class="section-title">Focus</div>
+  <ul>
+    <li>Leverage automation, visual storytelling, and engagement data.</li>
+  </ul>
+
+  <div class="section-title">Key Outcomes</div>
+  <ul>
+    <li>Establish a scalable marketing system utilizing everyday experiences.</li>
+    <li>Transform moments into measurable business results.</li>
+  </ul>
+
+  <div class="section-title">Actionable Items</div>
+  <ul id="actionable-items">
+    <li>Collect photos and videos from events and digital platforms.</li>
+    <li>Tag and organize assets by theme, audience, and campaign relevance.</li>
+    <li>Create short-form edits and still images for multi-format campaigns.</li>
+    <li>Catalog assets in a structured, searchable folder (by date/event/tag/hero).</li>
+    <li>Maintain a 'best-of' evergreen folder for ongoing storytelling.</li>
+    <li>Reinforce brand identity using authentic, familiar assets.</li>
+    <li>Reduce production costs by reusing existing content.</li>
+    <li>Accelerate campaign launches with pre-built media packages.</li>
+    <li>Ensure only licensed or owned assets, verified QR/payment codes are used for public release.</li>
+  </ul>
+
+  <div id="input-container" class="hidden">
+    <div class="input-group">
+      <input type="text" id="new-item-input" placeholder="Enter a new actionable item...">
+      <button onclick="addItem()">Add</button>
+      <button class="secondary" onclick="cancelAdd()">Cancel</button>
+    </div>
+  </div>
+
+  <section class="pricing" id="pricing">
+    <h2>Flexible Pricing</h2>
+    <p>Choose the option that fits your growth goals best. No long-term contracts, simple pricing.</p>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3>Setup</h3>
+        <p class="price">$299 one-time</p>
+        <p class="description">Covers onboarding, campaign system, lead capture setup, tagging system.</p>
+        <button class="cta" onclick="selectPlan('Setup',299)">Get Started</button>
+      </div>
+
+      <div class="pricing-card">
+        <h3>Credits</h3>
+        <p class="price">$50 / credit</p>
+        <p class="description">Credits are used for additional campaigns and response volume (prospect calls, inquiries, emails). Example: 1 credit = 1 campaign or up to 100 responses.</p>
+        <button class="cta" onclick="selectPlan('Credits',50)">Add Credits</button>
+      </div>
+
+      <div class="pricing-card">
+        <h3>Outcomes</h3>
+        <p class="price">Pay-as-you-go</p>
+        <p class="description">No obligation. Pay only for delivered results.</p>
+        <button class="cta" onclick="selectPlan('Outcomes',0)">Scale Results</button>
+      </div>
+    </div>
+
+    <table class="pricing-comparison" style="width:100%;margin-top:14px;border-collapse:collapse;text-align:left;font-size:11px;">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Setup</th>
+          <th>Credits</th>
+          <th>Outcomes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Cost</td><td>$299 one-time</td><td>$50 per credit</td><td>Pay for results only</td></tr>
+        <tr><td>What You Get</td><td>Onboarding, campaign system, lead capture setup</td><td>Additional campaigns & response handling</td><td>Performance-based outcomes</td></tr>
+        <tr><td>Commitment</td><td>One-time</td><td>Flexible / Pay-as-needed</td><td>No commitment</td></tr>
+        <tr><td>Ideal For</td><td>New clients</td><td>Businesses scaling campaigns</td><td>ROI-focused brands</td></tr>
+      </tbody>
+    </table>
+  </section>
+</div>
+
+<script>
+function showInput(){document.getElementById('input-container').classList.remove('hidden');document.getElementById('new-item-input').focus();}
+function cancelAdd(){document.getElementById('input-container').classList.add('hidden');document.getElementById('new-item-input').value='';}
+function addItem(){const val=document.getElementById('new-item-input').value;if(val){const ul=document.getElementById('actionable-items');const li=document.createElement('li');li.textContent=val;ul.appendChild(li);cancelAdd();}}
+function selectPlan(name,price){alert('Selected: '+name+' ($'+price+')');}
+function applyBackground(){const url=document.getElementById('bg-url').value;if(url)document.body.style.backgroundImage='url('+url+')';}
+function removeBackground(){document.body.style.backgroundImage='none';}
+</script>
+</body>
+</html>

@@ -110,7 +110,7 @@
       margin-bottom: 1rem;
     }
 
-    input[type="text"] {
+    input[type="text"], input[type="file"] {
       flex: 1;
       padding: 0.6rem;
       font-size: 1rem;
@@ -140,13 +140,37 @@
       margin-bottom: 1.5rem;
       flex-wrap: wrap;
     }
+
+    .bg-controls {
+      margin-bottom: 1.5rem;
+      background: #f0f9ff;
+      border: 1px solid #cde7ff;
+      padding: 1rem;
+      border-radius: 8px;
+    }
+
+    .bg-controls label {
+      font-weight: 500;
+      color: #004a7a;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="button-group">
       <button id="add-button" onclick="showInput()">Add Custom Action Item</button>
-      <button id="toggle-bg" class="secondary" onclick="toggleBackground()">Toggle Background</button>
+    </div>
+
+    <div class="bg-controls">
+      <label>Background Image Options:</label>
+      <div class="input-group">
+        <input type="text" id="bg-url" placeholder="Enter image URL...">
+        <input type="file" id="bg-file" accept="image/*">
+        <button onclick="applyBackground()">Apply</button>
+        <button class="secondary" onclick="removeBackground()">Remove</button>
+      </div>
     </div>
 
     <h1>Success STORY Campaign Strategy</h1>
@@ -185,61 +209,4 @@
       <div class="input-group">
         <input type="text" id="new-item-input" placeholder="Enter a new actionable item...">
         <button onclick="addItem()">Add</button>
-        <button class="secondary" onclick="cancelAdd()">Cancel</button>
-      </div>
-    </div>
-
-    <div class="note-card">
-      <p>
-        <strong>Note:</strong> This demo may use placeholder images and QR codes. Replace all placeholders with compliant, owned, or licensed assets before campaign launch.
-      </p>
-    </div>
-
-    <footer>&copy; 2025 WoMacroMAX · www.womacromax.com</footer>
-  </div>
-
-  <script>
-    function showInput() {
-      document.getElementById('input-container').classList.remove('hidden');
-      document.getElementById('add-button').classList.add('hidden');
-      document.getElementById('new-item-input').focus();
-    }
-
-    function cancelAdd() {
-      document.getElementById('input-container').classList.add('hidden');
-      document.getElementById('add-button').classList.remove('hidden');
-      document.getElementById('new-item-input').value = '';
-    }
-
-    function addItem() {
-      const input = document.getElementById('new-item-input');
-      const value = input.value.trim();
-      if (value) {a
-        const ul = document.getElementById('actionable-items');
-        const li = document.createElement('li');
-        li.textContent = value;
-        ul.appendChild(li);
-        cancelAdd();
-      }
-    }
-
-    document.getElementById('new-item-input').addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') {
-        addItem();
-      }
-    });
-
-    // Background toggle logic
-    let bgEnabled = false;
-    function toggleBackground() {
-      const body = document.body;
-      bgEnabled = !bgEnabled;
-      if (bgEnabled) {
-        body.style.backgroundImage = "url('https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1600&q=80')";
-      } else {
-        body.style.backgroundImage = "none";
-      }
-    }
-  </script>
-</body>
-</html>
+        <button class="secondary" onclick="cancelAdd()">Cance
