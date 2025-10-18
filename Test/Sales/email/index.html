@@ -573,12 +573,11 @@
 </head>
 
 <body>
-  <div class="container">
+ <div class="container">
     <!-- Hero Section -->
     <div class="hero">
       <div class="hero-icon"></div>
       <h1>A Success <span style="color:#3b7fc4;">STORY's</span><br>Campaign Strategy</h1>
-
       <p>Proposal Document · October 2025</p>
     </div>
 
@@ -606,47 +605,46 @@
         <p>After setup, pay only for delivered results.</p>
       </div>
 
+      <style>
+        /* ✅ Added button image scaling + hover */
+        .pricing-image-button img {
+          display: block;
+          width: 80%;
+          height: auto;
+          margin: 10px auto 0;
+          border-radius: 10px;
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .pricing-image-button img:hover {
+          transform: scale(1.05);
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+      </style>
+
       <!-- Pricing Cards -->
       <div class="pricing-cards">
+        <!-- Setup Card -->
         <div class="pricing-card">
           <div class="pricing-card-header">
-            <div class="pricing-card-icon">🚀</div>
-            <div class="pricing-card-title">
-              <h3>Setup</h3>
-              <div class="pricing-card-price">
-                <span class="amount">$150</span>
-              </div>
-            </div>
           </div>
-          <p class="pricing-card-description">
-            Covers onboarding, campaign system, lead capture setup, tagging system.
-          </p>
-          <a class="pricing-button" href="https://gtc-010-23-menu-fix-womacromax.replit.app/contact?campaignId=WMX-New-Campaign-468-2025-07-21-1753103442505&source=launch-manager&show=true" target="_blank" rel="noopener noreferrer">
-            Schedule A Call
+          <!-- ✅ Clickable scaled image -->
+          <a class="pricing-image-button" href="https://gtc-010-23-menu-fix-womacromax.replit.app/contact?campaignId=WMX-New-Campaign-468-2025-07-21-1753103442505&source=launch-manager&show=true" target="_blank" rel="noopener noreferrer">
+            <img src="https://sales.womacromax.com/email/assets/schedulecall.png" alt="Schedule a Call">
           </a>
         </div>
 
+        <!-- Credits Card -->
         <div class="pricing-card">
           <div class="pricing-card-header">
-            <div class="pricing-card-icon">⚡</div>
-            <div class="pricing-card-title">
-              <h3>Credits</h3>
-              <div class="pricing-card-price">
-                <span class="amount">$150</span>
-                <span class="unit">/ credit</span>
-              </div>
-            </div>
-          </div>
-          <p class="pricing-card-description">
-            Credits are used for additional campaigns and response volume (prospect calls, inquiries, emails). Example: 1 credit = 2 campaign or up to 30 responses.
-          </p>
-          <a class="pricing-button" href="https://sales.womacromax.com/cashapp_zelle_payment.html" target="_blank" rel="noopener noreferrer">
-            Pay via. $CashApp
+          <!-- ✅ Clickable scaled image -->
+          <a class="pricing-image-button" href="https://sales.womacromax.com/cashapp_zelle_payment.html" target="_blank" rel="noopener noreferrer">
+            <img src="https://sales.womacromax.com/email/assets/paycashapp.png" alt="Pay via CashApp">
           </a>
         </div>
       </div>
     </div>
   </div>
+
 
   <script>
     // Minimal JS placeholder, no modal/cart logic.
