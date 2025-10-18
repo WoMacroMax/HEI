@@ -10,8 +10,23 @@
   <meta property="og:title" content="Success STORY Campaign Strategy">
   <meta property="og:description" content="Transform everyday moments into measurable business results with our scalable marketing system.">
   <meta property="og:type" content="website">
-  
+
   <style>
+    :root {
+      /* New palette: soft light backgrounds, dark readable text */
+      --primary-bg: #f2f7f9;        /* pale blue-gray */
+      --accent: #b3e5f0;            /* soft teal */
+      --accent-deep: #9bd8e3;       /* gentle teal gradient end */
+      --gold: #f4ca64;              /* muted gold */
+      --muted: #3b4a54;             /* readable gray */
+      --surface: #ffffff;           /* card base */
+      --surface-2: #f9fdfd;         /* very light tint */
+      --text: #14222c;              /* dark readable text */
+      --light-on-accent: #14222c;   /* replaced white text with dark */
+      --bg-gradient-start: #f7fcfd;
+      --bg-gradient-end: #eef7f8;
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -19,45 +34,44 @@
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
-      background: linear-gradient(135deg, #fef3f9 0%, #fce4ec 100%);
-      color: #1a1a1a;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+      color: var(--text);
       line-height: 1.6;
       padding: 2rem 1rem;
       min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     .container {
       max-width: 1024px;
       margin: 0 auto;
     }
-
     /* Hero Section */
     .hero {
-      background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+      background: linear-gradient(135deg, #d6f3f7 0%, var(--primary-bg) 100%);
       border-radius: 1rem;
       padding: 3rem 2rem;
       text-align: center;
-      box-shadow: 0 10px 30px rgba(219, 39, 119, 0.2);
+      box-shadow: 0 12px 40px rgba(120, 150, 160, 0.25);
       margin-bottom: 1.5rem;
       position: relative;
       overflow: hidden;
+      color: var(--text);
     }
 
     .hero::before {
       content: '';
       position: absolute;
-      top: -50%;
-      right: -50%;
-      width: 200%;
+      top: -30%;
+      right: -20%;
+      width: 60%;
       height: 200%;
-      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-      animation: pulse 15s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.1); }
+      background: radial-gradient(circle at 20% 20%, rgba(244,202,100,0.15) 0%, transparent 40%),
+                  radial-gradient(circle at 80% 80%, rgba(155,216,227,0.15) 0%, transparent 30%);
+      transform: rotate(12deg);
+      z-index: 0;
     }
 
     .hero-icon {
@@ -67,30 +81,34 @@
       width: 4rem;
       height: 4rem;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255,255,255,0.4);
       margin-bottom: 1rem;
       position: relative;
       z-index: 1;
+      color: var(--text);
+      font-size: 1.6rem;
+      box-shadow: 0 6px 18px rgba(4,10,14,0.15) inset;
     }
 
     .hero-icon::after {
-      content: '📄';
-      font-size: 2rem;
+      content: '📈';
+      font-size: 1.8rem;
     }
 
     .hero h1 {
       font-size: 2.5rem;
       font-weight: 800;
-      color: white;
+      color: var(--text);
       margin-bottom: 0.75rem;
-      line-height: 1.2;
+      line-height: 1.15;
       position: relative;
       z-index: 1;
+      letter-spacing: -0.02em;
     }
 
     .hero p {
-      font-size: 1.125rem;
-      color: rgba(255, 255, 255, 0.9);
+      font-size: 1.0625rem;
+      color: var(--muted);
       font-weight: 500;
       position: relative;
       z-index: 1;
@@ -98,17 +116,18 @@
 
     /* Card Component */
     .card {
-      background: white;
+      background: var(--surface);
       border-radius: 1rem;
       padding: 1.5rem;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 6px 22px rgba(9, 12, 18, 0.06);
       margin-bottom: 1.5rem;
-      transition: box-shadow 0.3s ease, transform 0.3s ease;
+      transition: box-shadow 0.25s ease, transform 0.25s ease;
+      color: var(--text);
     }
 
     .card:hover {
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-      transform: translateY(-2px);
+      box-shadow: 0 12px 38px rgba(9, 12, 18, 0.09);
+      transform: translateY(-3px);
     }
 
     /* Content Section */
@@ -136,16 +155,21 @@
       width: 2.5rem;
       height: 2.5rem;
       border-radius: 0.5rem;
-      background: rgba(236, 72, 153, 0.1);
-      color: #db2777;
+      background: rgba(179,229,240,0.35);
+      color: var(--text);
       font-size: 1.25rem;
     }
 
+    /* titles: light accent backgrounds with dark readable text */
     .content-item h2 {
       font-size: 1.25rem;
       font-weight: 700;
-      color: #db2777;
       margin: 0;
+      background: linear-gradient(90deg, var(--accent) 0%, var(--accent-deep) 100%);
+      color: var(--text);
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.5rem;
+      display: inline-block;
     }
 
     .content-list {
@@ -160,18 +184,18 @@
       display: flex;
       align-items: start;
       gap: 0.5rem;
-      color: #6b7280;
+      color: var(--muted);
       font-size: 0.9375rem;
     }
 
     .content-list li::before {
       content: '•';
-      color: #db2777;
+      color: var(--gold);
       font-weight: bold;
       font-size: 1.25rem;
       line-height: 1.5;
+      margin-top: 2px;
     }
-
     /* Pricing Comparison */
     .pricing-header {
       text-align: center;
@@ -181,12 +205,16 @@
     .pricing-header h2 {
       font-size: 1.875rem;
       font-weight: 700;
-      color: #db2777;
       margin-bottom: 0.5rem;
+      background: linear-gradient(90deg, var(--accent) 0%, var(--accent-deep) 100%);
+      color: var(--text);
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 0.5rem;
     }
 
     .pricing-header p {
-      color: #6b7280;
+      color: var(--muted);
       font-size: 0.9375rem;
     }
 
@@ -201,49 +229,53 @@
     .pricing-table table {
       width: 100%;
       min-width: 500px;
+      border-radius: 0.5rem;
+      overflow: hidden;
     }
 
     .pricing-table th,
     .pricing-table td {
       padding: 0.875rem;
       text-align: left;
-      border-bottom: 1px solid #f3f4f6;
+      border-bottom: 1px solid #e0ebec;
     }
 
     .pricing-table thead th {
-      background: rgba(236, 72, 153, 0.05);
-      color: #db2777;
-      font-weight: 600;
+      background: linear-gradient(90deg, rgba(179,229,240,0.3) 0%, rgba(155,216,227,0.2) 100%);
+      color: var(--text);
+      font-weight: 700;
       font-size: 0.9375rem;
-      border-bottom: 2px solid #ec4899;
+      border-bottom: 2px solid rgba(155,216,227,0.35);
     }
 
     .pricing-table tbody td {
-      color: #4b5563;
+      color: var(--muted);
       font-size: 0.875rem;
     }
 
     .pricing-table tbody tr:hover {
-      background: rgba(236, 72, 153, 0.02);
+      background: rgba(179,229,240,0.15);
     }
 
     .pay-as-you-go {
       text-align: center;
       padding: 1rem;
-      background: rgba(236, 72, 153, 0.05);
+      background: linear-gradient(90deg, rgba(244,202,100,0.25) 0%, rgba(179,229,240,0.15) 100%);
       border-radius: 0.5rem;
       margin-bottom: 1.5rem;
+      color: var(--text);
+      border: 1px solid rgba(179,229,240,0.2);
     }
 
     .pay-as-you-go h3 {
       font-size: 1.25rem;
       font-weight: 700;
-      color: #db2777;
       margin-bottom: 0.25rem;
+      color: var(--text);
     }
 
     .pay-as-you-go p {
-      color: #6b7280;
+      color: var(--muted);
       font-size: 0.9375rem;
     }
 
@@ -262,17 +294,18 @@
     }
 
     .pricing-card {
-      background: linear-gradient(135deg, white 0%, rgba(236, 72, 153, 0.05) 100%);
-      border: 1px solid rgba(236, 72, 153, 0.1);
+      background: linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%);
+      border: 1px solid rgba(155,216,227,0.25);
       border-radius: 1rem;
       padding: 1.5rem;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-      transition: all 0.3s ease;
+      box-shadow: 0 8px 28px rgba(3,7,10,0.04);
+      transition: all 0.28s ease;
+      color: var(--text);
     }
 
     .pricing-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(236, 72, 153, 0.2);
+      transform: translateY(-6px);
+      box-shadow: 0 18px 44px rgba(3,7,10,0.08);
     }
 
     .pricing-card-header {
@@ -289,9 +322,10 @@
       width: 3rem;
       height: 3rem;
       border-radius: 0.75rem;
-      background: rgba(236, 72, 153, 0.1);
-      color: #db2777;
+      background: rgba(179,229,240,0.35);
+      color: var(--text);
       font-size: 1.5rem;
+      box-shadow: 0 6px 14px rgba(155,216,227,0.15) inset;
     }
 
     .pricing-card-title {
@@ -302,254 +336,69 @@
     .pricing-card-title h3 {
       font-size: 1.25rem;
       font-weight: 700;
-      color: #db2777;
       margin: 0;
+      background: linear-gradient(90deg, var(--accent) 0%, var(--accent-deep) 100%);
+      color: var(--text);
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.5rem;
+      display: inline-block;
     }
 
     .pricing-card-price {
       display: flex;
       align-items: baseline;
       gap: 0.25rem;
+      margin-top: 6px;
     }
 
     .pricing-card-price .amount {
       font-size: 1.5rem;
-      font-weight: 700;
-      color: #db2777;
+      font-weight: 800;
+      color: var(--gold);
     }
 
     .pricing-card-price .unit {
       font-size: 0.875rem;
-      color: #6b7280;
+      color: var(--muted);
+      margin-left: 6px;
     }
 
     .pricing-card-description {
-      color: #6b7280;
+      color: var(--muted);
       font-size: 0.875rem;
       margin-bottom: 1rem;
       min-height: 60px;
     }
 
+    /* Buttons: soft gradient, darker text */
     .pricing-button {
+      display: inline-block;
+      text-align: center;
       width: 100%;
       padding: 0.75rem 1.5rem;
-      background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
-      color: white;
+      background: linear-gradient(90deg, var(--accent) 0%, var(--accent-deep) 100%);
+      color: var(--text);
       border: none;
       border-radius: 0.5rem;
       font-size: 1rem;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 12px rgba(219, 39, 119, 0.3);
+      transition: all 0.25s ease;
+      box-shadow: 0 10px 30px rgba(155,216,227,0.15);
+      text-decoration: none;
+      display: block;
     }
 
     .pricing-button:hover {
-      background: linear-gradient(135deg, #db2777 0%, #be185d 100%);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(219, 39, 119, 0.4);
+      background: linear-gradient(90deg, var(--accent-deep) 0%, #a3cfd9 100%);
+      transform: translateY(-3px);
+      box-shadow: 0 14px 38px rgba(155,216,227,0.25);
     }
 
     .pricing-button:active {
       transform: translateY(0);
     }
-
-    /* Modal */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: 1000;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
-      backdrop-filter: blur(4px);
-    }
-
-    .modal.active {
-      display: flex;
-    }
-
-    .modal-content {
-      background: white;
-      border-radius: 1rem;
-      padding: 2rem;
-      max-width: 500px;
-      width: 100%;
-      position: relative;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-      animation: modalSlideIn 0.3s ease;
-    }
-
-    @keyframes modalSlideIn {
-      from {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      width: 2rem;
-      height: 2rem;
-      border: none;
-      background: #ef4444;
-      color: white;
-      border-radius: 50%;
-      font-size: 1.25rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s ease;
-    }
-
-    .modal-close:hover {
-      background: #dc2626;
-      transform: rotate(90deg);
-    }
-
-    .modal h2 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #db2777;
-      margin-bottom: 1rem;
-    }
-
-    .cart-items {
-      list-style: none;
-      margin-bottom: 1rem;
-      max-height: 300px;
-      overflow-y: auto;
-    }
-
-    .cart-item {
-      display: flex;
-      justify-content: space-between;
-      padding: 0.75rem;
-      margin-bottom: 0.5rem;
-      background: rgba(236, 72, 153, 0.05);
-      border-radius: 0.5rem;
-      font-size: 0.9375rem;
-    }
-
-    .cart-item-name {
-      color: #1a1a1a;
-      font-weight: 500;
-    }
-
-    .cart-item-price {
-      color: #db2777;
-      font-weight: 600;
-    }
-
-    .cart-empty {
-      text-align: center;
-      padding: 2rem;
-      color: #6b7280;
-      font-style: italic;
-    }
-
-    .cart-total {
-      text-align: right;
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: #db2777;
-      padding: 1rem 0;
-      border-top: 2px solid rgba(236, 72, 153, 0.2);
-      margin-bottom: 1rem;
-    }
-
-    .modal-buttons {
-      display: flex;
-      gap: 0.75rem;
-    }
-
-    .modal-button {
-      flex: 1;
-      padding: 0.75rem 1.5rem;
-      border: none;
-      border-radius: 0.5rem;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .modal-button-submit {
-      background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
-      color: white;
-      box-shadow: 0 4px 12px rgba(219, 39, 119, 0.3);
-    }
-
-    .modal-button-submit:hover {
-      background: linear-gradient(135deg, #db2777 0%, #be185d 100%);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(219, 39, 119, 0.4);
-    }
-
-    .modal-button-clear {
-      background: white;
-      color: #db2777;
-      border: 2px solid #db2777;
-    }
-
-    .modal-button-clear:hover {
-      background: rgba(236, 72, 153, 0.1);
-    }
-
-    /* Toast Notification */
-    .toast {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      background: white;
-      padding: 1rem 1.5rem;
-      border-radius: 0.5rem;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-      display: none;
-      align-items: center;
-      gap: 0.75rem;
-      z-index: 2000;
-      animation: toastSlideIn 0.3s ease;
-    }
-
-    @keyframes toastSlideIn {
-      from {
-        opacity: 0;
-        transform: translateX(100%);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    .toast.active {
-      display: flex;
-    }
-
-    .toast-icon {
-      color: #10b981;
-      font-size: 1.5rem;
-    }
-
-    .toast-message {
-      color: #1a1a1a;
-      font-weight: 500;
-    }
-
-    /* Responsive */
+    /* Responsive tweaks */
     @media (max-width: 768px) {
       body {
         padding: 1rem 0.5rem;
@@ -570,80 +419,175 @@
       .content-list {
         margin-left: 0;
       }
-
-      .modal-content {
-        padding: 1.5rem;
-      }
-
-      .modal-buttons {
-        flex-direction: column;
-      }
-
-      .toast {
-        bottom: 1rem;
-        right: 1rem;
-        left: 1rem;
-      }
     }
-        *{margin:0;padding:0;box-sizing:border-box}
-    body{font-family:'Inter', 'Poppins', Arial, sans-serif;background-color:#fff0f5;color:#222;line-height:1.6}
 
-    .wrap{max-width:420px;margin:10px auto;padding:12px}
-    .card{background:#fff;border-radius:12px;padding:12px;box-shadow:0 6px 18px rgba(15,23,42,0.04);}
+    /* Secondary compact styles (adjusted to remove white text) */
+    .wrap {
+      max-width: 420px;
+      margin: 10px auto;
+      padding: 12px;
+    }
 
-    /* Hero */
-    .hero-container{background:#ffe4ec;padding:20px;border-radius:14px;margin-bottom:14px;text-align:center}
-    .hero-title{font-size:24px;color:#b0004f;font-weight:800;line-height:1.2}
-    .hero-sub{color:#9a1f60;margin-top:8px;font-size:14px}
+    .card {
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 12px;
+      box-shadow: 0 8px 22px rgba(2,8,12,0.04);
+    }
 
-    h2{color:#c2185b;font-size:18px;margin:10px 0}
+    .hero-container {
+      background: linear-gradient(180deg, rgba(179,229,240,0.25) 0%, rgba(244,202,100,0.1) 100%);
+      padding: 20px;
+      border-radius: 14px;
+      margin-bottom: 14px;
+      text-align: center;
+      color: var(--text);
+    }
 
-    /* New grid for items */
-    .info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:10px}
-    .info-card{background:#fff0f5;border:1px solid #ffc1dd;padding:10px;border-radius:10px;min-height:72px}
-    .info-card h4{margin:0 0 6px;color:#b0004f;font-size:14px}
-    .info-card p{margin:0;color:#6b7280;font-size:13px}
+    .hero-title {
+      font-size: 24px;
+      color: var(--text);
+      font-weight: 800;
+      line-height: 1.2;
+    }
 
-    /* Pricing */
-    .pricing-container{background:#fff;border-radius:14px;padding:16px;box-shadow:0 4px 12px rgba(0,0,0,0.05);margin-top:14px}
-    .pricing-grid{display:flex;flex-direction:column;gap:10px}
-    .pricing-card{background:#fff0f5;border:1px solid #ffc1dd;padding:12px;border-radius:10px}
-    .pricing-card h3{color:#d63384;margin:0 0 6px}
-    .price{color:#d63384;font-weight:700}
-    .description{color:#6b7280;font-size:13px}
-    .btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
-    .btn{background:#d63384;color:#fff;border:0;padding:8px 10px;border-radius:8px;font-weight:700;cursor:pointer}
+    .hero-sub {
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 14px;
+    }
 
-    .pricing-comparison{width:100%;border-collapse:collapse;margin-top:10px;font-size:13px}
-    .pricing-comparison td,.pricing-comparison th{padding:8px;border-bottom:1px solid #f1f1f1;text-align:left}
-    .pricing-comparison thead th{border-bottom:2px solid #d63384;color:#b0004f}
+    h2 {
+      color: var(--text);
+      font-size: 18px;
+      margin: 10px 0;
+    }
 
-    /* Modal */
-    .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);align-items:center;justify-content:center;z-index:999}
-    .modal .modal-content{background:#fff5f8;padding:14px;border-radius:12px;width:92%;max-width:380px;position:relative}
-    .close-red{position:absolute;right:10px;top:10px;background:#e11;border-radius:20px;width:30px;height:30px;border:0;color:#fff;font-weight:700;cursor:pointer}
-    .cart-list{margin-top:12px;text-align:left}
-    .cart-list li{margin:6px 0}
-    .cart-total{margin-top:10px;font-weight:800;color:#b0004f;text-align:right}
-    .submit-btn{display:inline-block;margin-top:12px;background:#d63384;color:#fff;border:0;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:700}
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 10px;
+    }
 
-    @media (max-width:420px){.wrap{padding:10px}.hero-title{font-size:20px}.info-grid{grid-template-columns:1fr}}
+    .info-card {
+      background: linear-gradient(90deg, var(--accent) 0%, var(--accent-deep) 100%);
+      border: 1px solid rgba(179,229,240,0.25);
+      padding: 10px;
+      border-radius: 10px;
+      min-height: 72px;
+      color: var(--text);
+    }
+
+    .info-card h4 {
+      margin: 0 0 6px;
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .info-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .pricing-container {
+      background: var(--surface);
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 6px 22px rgba(2,8,12,0.04);
+      margin-top: 14px;
+    }
+
+    .pricing-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .pricing-card {
+      background: linear-gradient(180deg, rgba(179,229,240,0.15) 0%, rgba(179,229,240,0.05) 100%);
+      border: 1px solid rgba(179,229,240,0.2);
+      padding: 12px;
+      border-radius: 10px;
+      color: var(--text);
+    }
+
+    .pricing-card h3 {
+      color: var(--text);
+      margin: 0 0 6px;
+    }
+
+    .price {
+      color: var(--gold);
+      font-weight: 800;
+    }
+
+    .description {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .btn {
+      background: linear-gradient(90deg, var(--accent) 0%, var(--accent-deep) 100%);
+      color: var(--text);
+      border: 0;
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .pricing-comparison {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 13px;
+    }
+
+    .pricing-comparison td, .pricing-comparison th {
+      padding: 8px;
+      border-bottom: 1px solid #e9f2f3;
+      text-align: left;
+      color: var(--text);
+    }
+
+    .pricing-comparison thead th {
+      border-bottom: 2px solid rgba(179,229,240,0.3);
+      color: var(--text);
+    }
+
+    @media (max-width: 420px) {
+      .wrap { padding: 10px; }
+      .hero-title { font-size: 20px; }
+      .info-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
+
 <body>
   <div class="container">
     <!-- Hero Section -->
     <div class="hero">
       <div class="hero-icon"></div>
-      <h1>Success STORY<br>Campaign Strategy</h1>
+      <h1>A Success <span style="color:#3b7fc4;">STORY's</span><br>Campaign Strategy</h1>
+
       <p>Proposal Document · October 2025</p>
     </div>
 
-
-    <!-- Pricing Section in Container -->
+    <!-- Pricing Section -->
     <div class="pricing-container">
-      <h2 style="margin-bottom:6px;text-align:center">Flexible Pricing</h2>
-      <p style="color:#6b7280;font-size:13px;margin-bottom:8px;text-align:center">Choose the option that fits your growth goals best. No long-term contracts, simple pricing.</p>
+      <h2 style="margin-bottom:6px;text-align:center" class="pricing-header">Flexible Pricing</h2>
+      <p style="color:var(--muted);font-size:13px;margin-bottom:8px;text-align:center">
+        Choose the option that fits your growth goals best. No long-term contracts, simple pricing.
+      </p>
 
       <table class="pricing-comparison">
         <thead>
@@ -656,8 +600,6 @@
           <tr><td>Ideal For</td><td>New clients</td><td>Businesses scaling campaigns</td></tr>
         </tbody>
       </table>
-
-
 
       <div class="pay-as-you-go">
         <h3>Pay-as-you-go</h3>
@@ -679,9 +621,9 @@
           <p class="pricing-card-description">
             Covers onboarding, campaign system, lead capture setup, tagging system.
           </p>
-          <button class="pricing-button" onclick="addToCart('Setup - $299', 299)">
-            Get Started
-          </button>
+          <a class="pricing-button" href="https://gtc-010-23-menu-fix-womacromax.replit.app/contact?campaignId=WMX-New-Campaign-468-2025-07-21-1753103442505&source=launch-manager&show=true" target="_blank" rel="noopener noreferrer">
+            Schedule A Call
+          </a>
         </div>
 
         <div class="pricing-card">
@@ -698,124 +640,16 @@
           <p class="pricing-card-description">
             Credits are used for additional campaigns and response volume (prospect calls, inquiries, emails). Example: 1 credit = 2 campaign or up to 30 responses.
           </p>
-          <button class="pricing-button" onclick="addToCart('Credits - $50', 50)">
-            Add Credits
-          </button>
+          <a class="pricing-button" href="https://sales.womacromax.com/cashapp_zelle_payment.html" target="_blank" rel="noopener noreferrer">
+            Pay via. $CashApp
+          </a>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Shopping Cart Modal -->
-  <div id="cartModal" class="modal">
-    <div class="modal-content">
-      <button class="modal-close" onclick="closeModal()">×</button>
-      <h2>Shopping Cart</h2>
-      <ul id="cartItems" class="cart-items"></ul>
-      <div id="cartTotal" class="cart-total">Total: $0</div>
-      <div class="modal-buttons">
-        <button class="modal-button modal-button-submit" onclick="submitCart()">
-          Submit Order
-        </button>
-        <button class="modal-button modal-button-clear" onclick="clearCart()">
-          Clear Cart
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Toast Notification -->
-  <div id="toast" class="toast">
-    <span class="toast-icon">✓</span>
-    <span class="toast-message" id="toastMessage"></span>
-  </div>
-
   <script>
-    // Cart state
-    let cart = [];
-
-    // DOM elements
-    const modal = document.getElementById('cartModal');
-    const cartItemsEl = document.getElementById('cartItems');
-    const cartTotalEl = document.getElementById('cartTotal');
-    const toastEl = document.getElementById('toast');
-    const toastMessageEl = document.getElementById('toastMessage');
-
-    // Add item to cart
-    function addToCart(name, price) {
-      cart.push({ name, price });
-      renderCart();
-      openModal();
-    }
-
-    // Render cart items
-    function renderCart() {
-      if (cart.length === 0) {
-        cartItemsEl.innerHTML = '<li class="cart-empty">Your cart is empty</li>';
-        cartTotalEl.textContent = 'Total: $0';
-        return;
-      }
-
-      cartItemsEl.innerHTML = cart.map((item, index) => `
-        <li class="cart-item">
-          <span class="cart-item-name">${index + 1}. ${item.name}</span>
-          <span class="cart-item-price">$${item.price}</span>
-        </li>
-      `).join('');
-
-      const total = cart.reduce((sum, item) => sum + item.price, 0);
-      cartTotalEl.textContent = `Total: $${total}`;
-    }
-
-    // Open modal
-    function openModal() {
-      modal.classList.add('active');
-    }
-
-    // Close modal
-    function closeModal() {
-      modal.classList.remove('active');
-    }
-
-    // Clear cart
-    function clearCart() {
-      cart = [];
-      renderCart();
-    }
-
-    // Submit order
-    function submitCart() {
-      if (cart.length === 0) {
-        showToast('Your cart is empty!');
-        return;
-      }
-
-      const total = cart.reduce((sum, item) => sum + item.price, 0);
-      showToast(`Order submitted! Total: $${total}`);
-      cart = [];
-      renderCart();
-      closeModal();
-    }
-
-    // Show toast notification
-    function showToast(message) {
-      toastMessageEl.textContent = message;
-      toastEl.classList.add('active');
-      
-      setTimeout(() => {
-        toastEl.classList.remove('active');
-      }, 3000);
-    }
-
-    // Close modal when clicking outside
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        closeModal();
-      }
-    });
-
-    // Initialize cart display
-    renderCart();
+    // Minimal JS placeholder, no modal/cart logic.
   </script>
 </body>
 </html>
