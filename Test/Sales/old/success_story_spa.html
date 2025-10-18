@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Success Story Marketing — SPA</title>
+  <meta name="description" content="Turn real moments into revenue-driving content. Single-file SPA replica." />
+  <style>
+    :root{--accent:#d23b3b;--muted:#6b7280;--bg:#fff;--card:#f9fafb;--maxw:1100px}
+    *{box-sizing:border-box}body{font-family:Inter,system-ui,Arial,sans-serif;line-height:1.5;color:#111;margin:0;background:#f3f4f6}
+    .container{max-width:var(--maxw);margin:0 auto;padding:28px}
+    header{background:linear-gradient(180deg,#fff 0%, #fff0);padding:28px 0}
+    .nav{display:flex;align-items:center;justify-content:space-between}
+    .brand{font-weight:700;color:var(--accent)}
+    nav a{margin-left:18px;text-decoration:none;color:var(--muted)}
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;margin-top:30px}
+    .hero h1{font-size:32px;margin:0 0 12px}
+    .hero p{color:var(--muted);margin:0 0 18px}
+    .cta-row{display:flex;gap:12px}
+    .btn{background:var(--accent);color:#fff;padding:12px 16px;border-radius:8px;border:0;cursor:pointer}
+    .btn-outline{background:transparent;color:var(--accent);border:2px solid var(--accent);padding:10px 14px;border-radius:8px}
+    .card{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 6px 18px rgba(15,23,42,0.05)}
+    .pricing-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
+    .section{margin:48px 0}
+    .steps{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .stat-grid{display:flex;gap:20px;flex-wrap:wrap}
+    .stat{flex:1;min-width:120px;background:#fff;padding:16px;border-radius:10px;text-align:center}
+    footer{padding:28px 0;color:var(--muted)}
+    @media (max-width:900px){.hero{grid-template-columns:1fr;}.pricing-grid{grid-template-columns:1fr}.nav{flex-direction:column;align-items:flex-start}.container{padding:18px}}
+    /* small utilities */
+    .badge{display:inline-block;padding:6px 10px;border-radius:999px;background:#fff;color:var(--accent);font-weight:600}
+    .center{display:flex;align-items:center;justify-content:center}
+    .hidden{display:none}
+    /* smooth in-page navigation */
+    html{scroll-behavior:smooth}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">SuccessStory</div>
+      <nav>
+        <a href="#why">Why</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#demos" class="badge">View Demos</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <h1>Turn Real Moments Into Revenue-Driving Content</h1>
+        <p>Success stories don't need big budgets—they need smart systems. Build a content engine that transforms everyday customer experiences into conversion-focused marketing assets.</p>
+        <div class="cta-row">
+          <button class="btn" id="getStarted">Get Started</button>
+          <button class="btn-outline" onclick="location.href='#demos'">View Examples</button>
+        </div>
+
+        <div class="section">
+          <h3>SuccessStory's Content Reuse Strategy</h3>
+          <div class="steps">
+            <div class="card">
+              <h4>01 — Collect Existing Assets</h4>
+              <p class="muted">Gather photos and videos from past events and social posts. Look for standout moments—decor setups, testimonials, guest reactions.</p>
+            </div>
+            <div class="card">
+              <h4>02 — Tag & Organize</h4>
+              <p class="muted">Apply consistent tags by event type, audience, and marketing use to make assets instantly searchable.</p>
+            </div>
+            <div class="card">
+              <h4>03 — Create Format Variations</h4>
+              <p class="muted">Generate short clips, vertical crops, and stills optimized for social and ads.</p>
+            </div>
+            <div class="card">
+              <h4>04 — Curate Evergreen Gallery</h4>
+              <p class="muted">Maintain a ‘best-of’ folder with your strongest visuals and quotes for quick-turn promotions.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside>
+        <div class="card">
+          <h3>Flexible Pricing</h3>
+          <div class="pricing-grid">
+            <div class="card">
+              <h4>Price Point 1: Setup</h4>
+              <p>$150 <small style="text-decoration:line-through;color:var(--muted);">$300</small></p>
+              <button class="btn" onclick="selectPlan('Setup',150)">Select Plan</button>
+            </div>
+            <div class="card">
+              <h4>Price Point 2: Credits</h4>
+              <p>$150 <small style="text-decoration:line-through;color:var(--muted);">$300</small></p>
+              <button class="btn" onclick="selectPlan('Credits',150)">Select Plan</button>
+            </div>
+          </div>
+
+          <div style="margin-top:14px">
+            <h4>Strategic Outcomes</h4>
+            <ul>
+              <li>Reinforce Brand Identity</li>
+              <li>Reduce Production Costs</li>
+              <li>Increase Authenticity</li>
+              <li>Accelerate Campaigns</li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section id="why" class="section">
+      <h3>From Archive to Action</h3>
+      <p class="muted">Every photo tells a story. By transforming scattered media into a strategic content library—tagged by event type, organized by theme, and formatted for reuse—you unlock a renewable marketing engine.</p>
+
+      <div class="stat-grid" style="margin-top:18px">
+        <div class="stat">
+          <div style="font-size:28px;font-weight:700">60%</div>
+          <div class="muted">Cost Reduction</div>
+        </div>
+        <div class="stat">
+          <div style="font-size:28px;font-weight:700">3x</div>
+          <div class="muted">Faster Launches</div>
+        </div>
+        <div class="stat">
+          <div style="font-size:28px;font-weight:700">45%</div>
+          <div class="muted">Higher Engagement</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="roadmap" class="section">
+      <h3>Your Implementation Roadmap</h3>
+      <div class="steps">
+        <div class="card"><strong>Month 1:</strong> Audit & Collect</div>
+        <div class="card"><strong>Month 2:</strong> Organize & Tag</div>
+        <div class="card"><strong>Month 3:</strong> Repurpose & Deploy</div>
+        <div class="card"><strong>Ongoing:</strong> Scale & Optimize</div>
+      </div>
+    </section>
+
+    <section id="demos" class="section">
+      <h3>View Demos</h3>
+      <p class="muted">Click any demo card to preview example assets and campaigns.</p>
+      <div class="steps">
+        <div class="card"><strong>Venue Showcase</strong><p class="muted">Gallery-driven social campaign example.</p></div>
+        <div class="card"><strong>Testimonial Series</strong><p class="muted">Short-form videos & quote cards.</p></div>
+      </div>
+    </section>
+
+    <section id="pricing" class="section">
+      <h3>Pricing & Plans</h3>
+      <div class="card">
+        <p>Choose a plan to get started. Click "Select Plan" to open the lightweight checkout modal (demo only).</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="container">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+      <div>© WoMacroMAX — Proposal Document · October 2025</div>
+      <div style="color:var(--muted)">Made with ♥ by SuccessStory</div>
+    </div>
+  </footer>
+
+  <!-- lightweight JS for SPA behaviour and modal demo -->
+  <script>
+    // simple hash-based routing: show/hide sections or keep single page
+    (function(){
+      const getStartedBtn = document.getElementById('getStarted');
+      getStartedBtn.addEventListener('click',()=>{location.hash='pricing';document.getElementById('pricing').scrollIntoView({behavior:'smooth'})});
+    })();
+
+    function selectPlan(name,price){
+      const modalHtml = `\n        <div style="position:fixed;inset:0;background:rgba(2,6,23,0.6);display:flex;align-items:center;justify-content:center;z-index:999;padding:18px">\n          <div style="max-width:520px;width:100%;background:#fff;padding:22px;border-radius:12px;position:relative">\n            <button onclick="document.getElementById('planModal').remove()" style="position:absolute;right:12px;top:12px;border:0;background:transparent;font-size:18px">✕</button>\n            <h3>Confirm: ${name}</h3>\n            <p>Price: $${price}</p>\n            <div style=\"display:flex;gap:10px;justify-content:flex-end;margin-top:18px\">\n              <button onclick=\"document.getElementById('planModal').remove()\" class=\"btn-outline\">Cancel</button>\n              <button onclick=\"alert('Demo checkout — replace with real payment integration')\" class=\"btn\">Checkout</button>\n            </div>\n          </div>\n        </div>\n      `;
+
+      const wrapper = document.createElement('div');
+      wrapper.id = 'planModal';
+      wrapper.innerHTML = modalHtml;
+      document.body.appendChild(wrapper);
+    }
+
+    // small accessibility: allow Esc to close modal
+    document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ const m=document.getElementById('planModal'); if(m) m.remove(); }})
+  </script>
+</body>
+</html>
