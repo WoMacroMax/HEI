@@ -3,791 +3,973 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Success STORY Campaign Strategy — Full (Carousel Edition)</title>
-
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <title>Success STORY Campaign Strategy — WoMacroMAX</title>
+  <meta name="description" content="Transform event moments and customer experiences into a repeatable growth machine with the Success STORY Campaign Strategy by WoMacroMAX." />
+  <meta name="author" content="WoMacroMAX - Rodney Womack" />
 
   <style>
-    :root{
-      --card-radius: 12px;
-      --shadow: 0 6px 20px rgba(0,0,0,0.06);
-      --muted: #6c6c6c;
-      --accent: #ffb300;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    /* Core layout */
+    :root {
+      --primary: #3b82f6;
+      --primary-dark: #2563eb;
+      --accent: #f59e0b;
+      --destructive: #ef4444;
+      --background: #fafafa;
+      --card: #ffffff;
+      --border: #e5e7eb;
+      --text: #1f2937;
+      --text-muted: #6b7280;
+      --shadow: 0 4px 16px rgba(59, 130, 246, 0.12);
+      --shadow-lg: 0 8px 24px rgba(59, 130, 246, 0.15);
+      --radius: 12px;
+      
+      --stage-capture: #3b82f6;
+      --stage-campaign: #10b981;
+      --stage-transactions: #f59e0b;
+      --stage-scheduling: #06b6d4;
+      --stage-feedback: #8b5cf6;
+      --stage-redistribute: #f97316;
+      --stage-stories: #ca8a04;
+      --stage-payment: #059669;
+    }
+
     body {
-      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
-      padding: 20px 20px 60px 20px;
-      background-color: #fafafa;
-      color: #222;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(180deg, #ffffff, #dbeafe);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
     }
 
-    h1 {
-      font-weight: 700;
-      margin-bottom: 0.4rem;
-      letter-spacing: -0.2px;
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
     }
 
-    /* Tabs */
-    .nav-tabs .nav-link {
+    /* Header */
+    header {
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
       color: white;
-      font-weight: 700;
-      border: none;
-      margin-right: 6px;
-      padding: 0.55rem 0.85rem;
-      border-radius: 6px;
-    }
-    .nav-tabs .nav-link.active {
-      box-shadow: inset 0 -3px 0 rgba(255,255,255,0.15);
+      padding: 3rem 1.5rem;
+      margin-bottom: 2.5rem;
     }
 
-    /* Tab panes */
-    .tab-pane {
-      padding: 1.5rem;
-      border-radius: var(--card-radius);
-      box-shadow: var(--shadow);
-      background: white;
+    header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
       margin-bottom: 1rem;
     }
 
-    .hero-image {
-      width: 100%;
-      max-height: 300px;
-      object-fit: cover;
-      border-radius: var(--card-radius);
-      display:block;
-      margin-bottom: 0.9rem;
+    header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
     }
 
-    .hero-headline { font-size: 1.6rem; font-weight: 600; margin-bottom: 0.75rem; }
-
-    .section-title { font-weight: 700; margin-top: 1rem; }
-
-    ul.bulletpoints { margin-top: 1rem; padding-left: 1.25rem; }
-    ul.bulletpoints li { margin-bottom: 0.5rem; }
-
-    /* Right column carousel sizing */
-    .right-column .carousel, 
-    .right-column .carousel-item img {
-      width: 100%;
-      height: auto;
-      border-radius: 10px;
-    }
-
-    .right-caption {
-      display:block;
-      margin-top:0.6rem;
-      font-size: .9rem;
-      color: var(--muted);
-      text-align:center;
-    }
-
-    /* Tab background tints */
-    #tab1 { background-color: #eaf4ff; }
-    #tab2 { background-color: #eef9f0; }
-    #tab3 { background-color: #fffaf0; }
-    #tab4 { background-color: #e8fbff; }
-    #tab5 { background-color: #f3edff; }
-    #tab6 { background-color: #fff6ed; }
-    #tab7 { background-color: #f7f3ff; }
-    #tab8 { background-color: #ecfdf5; }
-
-    /* Tab colors */
-    .nav-link[data-bs-target="#tab1"] { background-color: #2196f3; }
-    .nav-link[data-bs-target="#tab2"] { background-color: #4caf50; }
-    .nav-link[data-bs-target="#tab3"] { background-color: #ffb300; color: #000; }
-    .nav-link[data-bs-target="#tab4"] { background-color: #00acc1; }
-    .nav-link[data-bs-target="#tab5"] { background-color: #7e57c2; }
-    .nav-link[data-bs-target="#tab6"] { background-color: #fb8c00; }
-    .nav-link[data-bs-target="#tab7"] { background-color: #6d4c41; }
-    .nav-link[data-bs-target="#tab8"] { background-color: #2e7d32; }
-
-    .summary {
-      background-color: #212121;
+    /* Campaign Summary */
+    .campaign-summary {
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
       color: white;
+      padding: 2rem;
+      border-radius: var(--radius);
+      margin-bottom: 2.5rem;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .campaign-summary h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .campaign-summary p {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.8;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .summary-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
       padding: 1.5rem;
-      border-radius: 12px;
-      margin-bottom: 1.25rem;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+
+    .summary-card:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .summary-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Tabs */
+    .tabs-mobile {
+      display: block;
+      margin-bottom: 1.5rem;
+    }
+
+    .tabs-mobile select {
+      width: 100%;
+      padding: 1rem;
+      border-radius: var(--radius);
+      border: 2px solid var(--border);
+      background: var(--card);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .tabs-desktop {
+      display: none;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .tab-button {
+      padding: 0.75rem 1.25rem;
+      border-radius: var(--radius);
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .tab-button:hover {
+      transform: scale(1.05);
       box-shadow: var(--shadow);
     }
-    .summary h2 { color: var(--accent); margin-bottom: 0.6rem; }
-    .flow-img {
+
+    .tab-button.active {
+      box-shadow: var(--shadow-lg);
+      transform: scale(1.05);
+    }
+
+    .arrow {
+      color: var(--text-muted);
+      font-size: 1.2rem;
+    }
+
+    /* Tab Content */
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .content-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      border: 2px solid;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+    }
+
+    .content-main h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+
+    .content-main h3 {
+      font-size: 1.3rem;
+      margin: 1.5rem 0 1rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .content-main ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .content-main li {
+      margin-bottom: 0.75rem;
+      padding-left: 1.5rem;
+      position: relative;
+      color: var(--text-muted);
+    }
+
+    .content-main li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    /* Carousel */
+    .carousel {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .carousel-inner {
+      position: relative;
       width: 100%;
-      max-height: 220px;
-      object-fit: contain;
-      display:block;
+      overflow: hidden;
+    }
+
+    .carousel-item {
+      display: none;
+      width: 100%;
+    }
+
+    .carousel-item.active {
+      display: block;
+    }
+
+    .carousel-item img {
+      width: 100%;
+      height: 16rem;
+      object-fit: cover;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .carousel-item img:hover {
+      transform: scale(1.05);
+    }
+
+    .carousel-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      border-radius: 50%;
+      width: 2.5rem;
+      height: 2.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: all 0.3s;
+      box-shadow: var(--shadow);
+    }
+
+    .carousel:hover .carousel-button {
+      opacity: 1;
+    }
+
+    .carousel-button.prev {
+      left: 0.5rem;
+    }
+
+    .carousel-button.next {
+      right: 0.5rem;
+    }
+
+    .carousel-button:hover {
+      background: white;
+    }
+
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .carousel-dot {
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 50%;
+      background: rgba(107, 114, 128, 0.3);
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .carousel-dot.active {
+      width: 2rem;
+      background: var(--primary);
+    }
+
+    .carousel-caption {
+      text-align: center;
+      margin-top: 0.75rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* Special Content */
+    .special-content {
+      margin-bottom: 1.5rem;
+    }
+
+    .poc-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .poc-item {
+      padding: 1rem;
+      background: rgba(107, 114, 128, 0.05);
+      border: 1px solid var(--border);
       border-radius: 8px;
-    }
-    .poc-list a { word-break: break-all; }
-
-    footer { margin-top: 1.5rem; color: var(--muted); font-size: .9rem; text-align:center; }
-
-    /* Responsive tweaks */
-    @media (max-width: 767.98px){
-      .hero-headline { font-size: 1.25rem; }
-      .nav-tabs { overflow-x: auto; white-space: nowrap; }
-      .nav-tabs .nav-item { display:inline-block; }
-      .right-column { margin-top: 1rem; }
+      cursor: pointer;
+      transition: all 0.3s;
     }
 
-    /* Additional small helpers */
-    .muted { color: var(--muted); }
-    .codebox { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace; background:#f4f4f4; padding:6px 8px; border-radius:6px; display:inline-block; }
-    .spacer { height: 12px; }
-
-    /* Make carousel images clickable and show pointer */
-    .carousel-item a { display:block; }
-    .carousel-item img { cursor: pointer; }
-
-    /* Accessibility improvements */
-    .carousel-control-prev, .carousel-control-next {
-      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.25));
+    .poc-item:hover {
+      background: rgba(107, 114, 128, 0.1);
+      border-color: var(--primary);
     }
 
+    .poc-item h4 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+
+    .poc-item p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .payment-details {
+      background: rgba(107, 114, 128, 0.05);
+      padding: 1.5rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      margin-bottom: 1.5rem;
+    }
+
+    .payment-details h4 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .payment-details code {
+      background: var(--card);
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: var(--border);
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-right: 0.5rem;
+    }
+
+    /* Iframe Modal */
+    .iframe-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(4px);
+      z-index: 9999;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    .iframe-modal.active {
+      display: block;
+    }
+
+    .iframe-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .iframe-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      z-index: 10000;
+      background: var(--destructive);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 3rem;
+      height: 3rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      transition: all 0.2s;
+    }
+
+    .iframe-close:hover {
+      transform: scale(1.1);
+      background: #dc2626;
+    }
+
+    .iframe-modal iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      overflow: hidden;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--card);
+      border-top: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+      margin-top: 3rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    footer p {
+      margin-bottom: 0.5rem;
+    }
+
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (min-width: 768px) {
+      header h1 {
+        font-size: 3rem;
+      }
+
+      .tabs-mobile {
+        display: none;
+      }
+
+      .tabs-desktop {
+        display: flex;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+
+      header h1 {
+        font-size: 1.75rem;
+      }
+
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
+  <!-- Iframe Modal -->
+  <div id="iframeModal" class="iframe-modal">
+    <div class="iframe-container">
+      <button class="iframe-close" onclick="closeIframe()">×</button>
+      <iframe id="iframeContent" src="" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
+    </div>
+  </div>
 
-    <!-- Header -->
-    <h1>Success STORY Campaign Strategy — Carousel Edition</h1>
-    <p class="muted mb-4">
-      <strong>Presented by:</strong> Rodney Womack, Brand Marketing Strategist<br>
-      <strong>Date:</strong> Friday, October 1, 2025 &nbsp;&nbsp;&nbsp;
-      <strong>Time:</strong> 12:56 PM
-    </p>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <h1>Success STORY Campaign Strategy</h1>
+      <p><strong>Presented by:</strong> Rodney Womack, Brand Marketing Strategist</p>
+      <p><strong>Date:</strong> Friday, October 1, 2025 | <strong>Time:</strong> 12:56 PM</p>
+    </div>
+  </header>
 
-    <!-- Campaign Summary Section (above tabs) -->
-    <div class="summary">
-      <h2>Campaign Summary</h2>
+  <main class="container">
+    <!-- Campaign Summary -->
+    <div class="campaign-summary">
+      <h2>✓ Campaign Summary</h2>
       <p>
         The <strong>Success STORY Campaign Strategy</strong> converts event moments, customer experiences, and digital interactions into a repeatable growth machine.
         Capture real moments, launch focused campaigns, enable direct transactions, coordinate scheduling, harvest feedback, and redistribute to amplify reach.
       </p>
 
-      <!-- Flowchart / Visual Overview -->
-      <div class="row g-2 align-items-center mt-3">
-        <div class="col-md-8">
-          <p class="mb-2"><strong>How it works:</strong> Capture → Campaign → Transactions → Scheduling → Feedback → Redistribute → Repeat.</p>
-          <ul class="mb-0">
-            <li><strong>Purpose:</strong> Build a reusable content cycle that promotes credibility and conversion.</li>
-            <li><strong>Focus:</strong> Leverage automation, visual storytelling, and real engagement data.</li>
-            <li><strong>Outcome:</strong> A scalable marketing system that converts everyday experiences into measurable results.</li>
-          </ul>
+      <div class="summary-grid">
+        <div class="summary-card">
+          <h3>🎯 Purpose</h3>
+          <p>Build a reusable content cycle that promotes credibility and conversion.</p>
         </div>
+        <div class="summary-card">
+          <h3>🔍 Focus</h3>
+          <p>Leverage automation, visual storytelling, and real engagement data.</p>
+        </div>
+        <div class="summary-card">
+          <h3>📈 Outcome</h3>
+          <p>A scalable marketing system that converts everyday experiences into measurable results.</p>
+        </div>
+      </div>
 
-        <div class="col-md-4 text-center">
-          <!-- example illustrative image; replace with your diagram if available -->
-          <img class="flow-img" src="https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=1200&q=80&auto=format&fit=crop" alt="Overview flowchart illustration — circle diagram representing marketing loop" />
-          <small style="color:rgba(255,255,255,0.8)">Overview: The 6-stage content loop</small>
-        </div>
+      <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(255, 255, 255, 0.1); border-radius: 8px;">
+        <p style="text-align: center; font-weight: 600;">
+          <strong>How it works:</strong> Capture → Campaign → Transactions → Scheduling → Feedback → Redistribute → Repeat
+        </p>
       </div>
     </div>
 
-    <!-- Tabs -->
-    <ul class="nav nav-tabs justify-content-center mb-4" id="strategyTabs" role="tablist" aria-label="Strategy tabs">
-      <li class="nav-item">
-        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab1" type="button" role="tab" aria-controls="tab1" aria-selected="true">Capture</button>
-      </li>
-      <li class="nav-item align-self-center px-2">➡️</li>
-
-      <li class="nav-item">
-        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab2" type="button" role="tab" aria-controls="tab2" aria-selected="false">Campaign</button>
-      </li>
-      <li class="nav-item align-self-center px-2">➡️</li>
-
-      <li class="nav-item">
-        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab3" type="button" role="tab" aria-controls="tab3" aria-selected="false">Transactions</button>
-      </li>
-      <li class="nav-item align-self-center px-2">➡️</li>
-
-      <li class="nav-item">
-        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab4" type="button" role="tab" aria-controls="tab4" aria-selected="false">Scheduling</button>
-      </li>
-      <li class="nav-item align-self-center px-2">➡️</li>
-
-      <li class="nav-item">
-        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab5" type="button" role="tab" aria-controls="tab5" aria-selected="false">Feedback</button>
-      </li>
-      <li class="nav-item align-self-center px-2">➡️</li>
-
-      <li class="nav-item">
-        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab6" type="button" role="tab" aria-controls="tab6" aria-selected="false">Redistribute</button>
-      </li>
-      <li class="nav-item align-self-center px-2">➡️</li>
-
-      <li class="nav-item">
-        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab7" type="button" role="tab" aria-controls="tab7" aria-selected="false">Other Success Stories</button>
-      </li>
-      <li class="nav-item align-self-center px-2">➡️</li>
-
-      <li class="nav-item">
-        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab8" type="button" role="tab" aria-controls="tab8" aria-selected="false">Client Payment</button>
-      </li>
-    </ul>
-
-    <div class="tab-content" id="strategyTabsContent">
-
-      <!-- TAB 1: Capture -->
-      <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1">
-        <div class="row align-items-center">
-          <div class="col-md-8">
-            <div class="hero-headline">Capture & Repurpose Artifacts</div>
-
-            <div class="section-title">Tactical Actions</div>
-            <ul class="bulletpoints">
-              <li>Collect photos and videos from existing platforms and events.</li>
-              <li>Tag and organize content by theme, audience segment, and campaign relevance.</li>
-              <li>Create short-form edits and stills ready for multi-format reuse.</li>
-              <li>Catalog raw assets in a searchable folder structure (date / event / tag / hero).</li>
-              <li>Keep a running “best-of” folder for evergreen storytelling pieces.</li>
-            </ul>
-
-            <div class="section-title">Strategic Outcomes</div>
-            <ul class="bulletpoints">
-              <li>Reinforce brand identity using recognizable assets.</li>
-              <li>Reduce production costs by leveraging existing media.</li>
-              <li>Increase authenticity through real customer moments.</li>
-              <li>Accelerate campaign planning with ready-to-use media packages.</li>
-            </ul>
-          </div>
-
-          <!-- Right column: carousel of capture images (clickable links) -->
-          <div class="col-md-4 right-column order-md-2">
-            <div id="captureCarousel" class="carousel slide" data-bs-ride="carousel" aria-label="Capture images carousel">
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <a href="https://www.womacromax.com/gallery/capture1" target="_blank" rel="noopener noreferrer" title="Capture — Photos on desk">
-                    <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?w=1200&q=80&auto=format&fit=crop" class="d-block w-100" alt="Person organizing photos on desk">
-                  </a>
-                </div>
-                <div class="carousel-item">
-                  <a href="https://www.womacromax.com/gallery/capture2" target="_blank" rel="noopener noreferrer" title="Capture — Team review">
-                    <img src="https://images.unsplash.com/photo-1522204505290-1cddd2f1a48a?w=1200&q=80&auto=format&fit=crop" class="d-block w-100" alt="Team reviewing content on laptops">
-                  </a>
-                </div>
-                <div class="carousel-item">
-                  <a href="https://www.womacromax.com/gallery/capture3" target="_blank" rel="noopener noreferrer" title="Capture — Smartphone recording">
-                    <img src="https://images.unsplash.com/photo-1489528792648-9f3f4bfa1e83?w=1200&q=80&auto=format&fit=crop" class="d-block w-100" alt="Hands holding smartphone recording video">
-                  </a>
-                </div>
-              </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#captureCarousel" data-bs-slide="prev" aria-label="Previous capture image">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#captureCarousel" data-bs-slide="next" aria-label="Next capture image">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              </button>
-            </div>
-
-            <small class="right-caption">“Every story starts with what you’ve already captured.” — click an image to open its POC</small>
-          </div>
-        </div>
-      </div>
-
-      <!-- TAB 2: Campaign -->
-      <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab2">
-        <div class="row align-items-center">
-          <div class="col-md-8">
-            <div class="hero-headline">Launch Your Promotional Campaign</div>
-
-            <div class="section-title">Tactical Actions</div>
-            <ul class="bulletpoints">
-              <li>Craft campaign visuals, headlines, and unified messaging pillars.</li>
-              <li>Plan and schedule multi-channel posts for peak engagement windows.</li>
-              <li>Embed clear CTAs tied to measurable objectives (book, buy, subscribe).</li>
-              <li>Set trackable UTM parameters for campaign links for accurate attribution.</li>
-            </ul>
-
-            <div class="section-title">Strategic Outcomes</div>
-            <ul class="bulletpoints">
-              <li>Drive targeted engagement and qualified leads.</li>
-              <li>Improve conversion rates through consistent messaging.</li>
-              <li>Create repeatable campaign playbooks for future launches.</li>
-            </ul>
-          </div>
-
-          <!-- Right column: campaign carousel -->
-          <div class="col-md-4 right-column">
-            <div id="campaignCarousel" class="carousel slide" data-bs-ride="carousel" aria-label="Campaign images carousel">
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <a href="https://www.womacromax.com/pocs/campaign-visuals" target="_blank" rel="noopener noreferrer" title="Campaign visuals">
-                    <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1200&q=80&auto=format&fit=crop" class="d-block w-100" alt="Person scheduling posts">
-                  </a>
-                </div>
-                <div class="carousel-item">
-                  <a href="https://www.womacromax.com/pocs/campaign-dashboard" target="_blank" rel="noopener noreferrer" title="Campaign dashboard">
-                    <img src="https://images.unsplash.com/photo-1554774853-aae0a22c8aa4?w=1200&q=80&auto=format&fit=crop" class="d-block w-100" alt="Marketing dashboard with charts">
-                  </a>
-                </div>
-                <div class="carousel-item">
-                  <a href="https://www.womacromax.com/pocs/campaign-creative" target="_blank" rel="noopener noreferrer" title="Campaign creative">
-                    <img src="https://images.unsplash.com/photo-1600096194534-74a3f35c1e2e?w=1200&q=80&auto=format&fit=crop" class="d-block w-100" alt="Branded campaign assets">
-                  </a>
-                </div>
-              </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#campaignCarousel" data-bs-slide="prev" aria-label="Previous campaign image">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#campaignCarousel" data-bs-slide="next" aria-label="Next campaign image">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              </button>
-            </div>
-
-            <small class="right-caption">Click an image to open the campaign proof of concept (POC)</small>
-          </div>
-        </div>
-      </div>
-
-      <!-- TAB 3: Transactions -->
-      <div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="tab3">
-        <div class="row align-items-center">
-          <div class="col-md-8">
-            <div class="hero-headline">Enable Direct Transactions</div>
-
-            <div class="section-title">Tactical Actions</div>
-            <ul class="bulletpoints">
-              <li>Integrate a streamlined shopping cart with saved user profiles.</li>
-              <li>Optimize checkout flow for mobile-first purchases and one-click payments.</li>
-              <li>Instrument analytics to track funnel dropoffs and cart recovery.</li>
-              <li>Implement safe, PCI-compliant payment gateways and save customer billing preferences securely.</li>
-            </ul>
-
-            <div class="section-title">Strategic Outcomes</div>
-            <ul class="bulletpoints">
-              <li>Reduce purchase friction and increase conversion velocity.</li>
-              <li>Capture revenue at point-of-interest across channels.</li>
-              <li>Gain insights to personalize offers and improve retention.</li>
-            </ul>
-          </div>
-
-          <!-- Right column: transactions carousel -->
-          <div class="col-md-4 right-column">
-            <div id="transactionsCarousel" class="carousel slide" data-bs-ride="carousel" aria-label="Transactions carousel">
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <a href="https://www.womacromax.com/pocs/mobile-checkout" target="_blank" rel="noopener noreferrer" title="Mobile checkout">
-                    <img src="https://images.unsplash.com/photo-1605902711622-cfb43c4437d3?w=1200&q=80&auto=format&fit=crop" class="d-block w-100" alt="Mobile shopping cart">
-                  </a>
-                </div>
-                <div class="carousel-item">
-                  <a href="https://www.womacromax.com/pocs/oneclick-pay" target="_blank" rel="noopener noreferrer" title="One-click pay">
-                    <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200&q=80&auto=format&fit=crop" class="d-block w-100" alt="Customer purchasing online">
-                  </a>
-                </div>
-                <div class="carousel-item">
-                  <a href="https://www.womacromax.com/pocs/analytics-payments" target="_blank" rel="noopener noreferrer" title="Payment analytics">
-                    <img src="https://images.unsplash.com/photo-1611078486798-5d3e04d6b4c9?w=1200&q=80&auto=format&fit=crop" class="d-block w-100" alt="Checkout analytics">
-                  </a>
-                </div>
-              </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#transactionsCarousel" data-bs-slide="prev" aria-label="Previous transaction image">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#transactionsCarousel" data-bs-slide="next" aria-label="Next transaction image">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              </button>
-            </div>
-
-            <small class="right-caption">Open payment POCs in a new tab by clicking a slide</small>
-          </div>
-        </div>
-      </div>
-
-      <!-- TAB 4: Scheduling -->
-      <div class="tab-pane fade" id="tab4" role="tabpanel" aria-labelledby="tab4">
-        <div class="row align-items-center">
-          <div class="col-md-8">
-            <div class="hero-headline">Streamline Scheduling</div>
-
-            <div class="section-title">Tactical Actions</div>
-            <ul class="bulletpoints">
-              <li>Automate appointment booking and confirmations via calendar integrations.</li>
-              <li>Offer mobile-friendly booking widgets and time-slot previews.</li>
-              <li>Send automated reminders (SMS, email) and allow easy rescheduling.</li>
-              <li>Show available windows dynamically based on estimated task duration.</li>
-            </ul>
-
-            <div class="section-title">Strategic Outcomes</div>
-            <ul class="bulletpoints">
-              <li>Eliminate back-and-forth coordination and missed appointments.</li>
-              <li>Improve client satisfaction with clear confirmation flows.</li>
-              <li>Free staff time for high-value interactions.</li>
-            </ul>
-          </div>
-
-          <!-- Right column: scheduling carousel -->
-          <div class="col-md-4 right-column">
-            <div id="schedulingCarousel" class="carousel slide" data-bs-ride="carousel" aria-label="Scheduling carousel">
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <a href="https://www.womacromax.com/pocs/booking-widget" target="_blank" rel="noopener noreferrer" title="Booking widget">
-                    <img src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?w=1200&q=80&auto=format&fit=crop" class="d-block w-100" alt="Person checking calendar on phone">
-                  </a>
-                </div>
-                <div class="carousel-item">
-                  <a href="https://www.womacromax.com/pocs/time-slot-preview" target="_blank" rel="noopener noreferrer" title="Time slot preview">
-                    <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=1200&q=80&auto=format&fit=crop" class="d-block w-100" alt="Time slot UI">
-                  </a>
-                </div>
-                <div class="carousel-item">
-                  <a href="https://www.womacromax.com/pocs/reminders" target="_blank" rel="noopener noreferrer" title="Reminders">
-                    <img src="https://images.unsplash.com/photo-1593642634315-48f5414c3ad9?w=1200&q=80&auto=format&fit=crop" class="d-block w-100" alt="Reminders and notifications">
-                  </a>
-                </div>
-              </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#schedulingCarousel" data-bs-slide="prev" aria-label="Previous scheduling image">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#schedulingCarousel" data-bs-slide="next" aria-label="Next scheduling image">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              </button>
-            </div>
-
-            <small class="right-caption">Click entries to inspect scheduling POCs</small>
-          </div>
-        </div>
-      </div>
-
-      <!-- TAB 5: Feedback -->
-      <div class="tab-pane fade" id="tab5" role="tabpanel" aria-labelledby="tab5">
-        <div class="row align-items-center">
-          <div class="col-md-8">
-            <div class="hero-headline">Harvest & Redistribute Feedback</div>
-
-            <div class="section-title">Tactical Actions</div>
-            <ul class="bulletpoints">
-              <li>Collect testimonials, photos, and short video reactions at events.</li>
-              <li>Edit and tag content for repurposing as case studies and social proof.</li>
-              <li>Plan a cadence for sharing feedback-driven content across channels.</li>
-              <li>Use short-form clips and quote cards to maximize social proof reach.</li>
-            </ul>
-
-            <div class="section-title">Strategic Outcomes</div>
-            <ul class="bulletpoints">
-              <li>Showcase real customer experiences to build trust.</li>
-              <li>Use feedback to refine product messaging and features.</li>
-              <li>Create momentum that fuels future campaigns.</li>
-            </ul>
-          </div>
-
-          <!-- Right column: feedback carousel -->
-          <div class="col-md-4 right-column">
-            <div id="feedbackCarousel" class="carousel slide" data-bs-ride="carousel" aria-label="Feedback images carousel">
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <a href="https://www.womacromax.com/pocs/testimonial-capture" target="_blank" rel="noopener noreferrer" title="Testimonial capture">
-                    <img src="https://images.unsplash.com/photo-1573496529574-be85d6a60704?w=1200&q=80&auto=format&fit=crop" class="d-block w-100" alt="Interview testimonial">
-                  </a>
-                </div>
-                <div class="carousel-item">
-                  <a href="https://www.womacromax.com/pocs/ugc-gallery" target="_blank" rel="noopener noreferrer" title="UGC gallery">
-                    <img src="https://images.unsplash.com/photo-1590608897129-79da98d15943?w=1200&q=80&auto=format&fit=crop" class="d-block w-100" alt="Smiling customers">
-                  </a>
-                </div>
-                <div class="carousel-item">
-                  <a href="https://flyers.womacromax.com/movecheap/" target="_blank" rel="noopener noreferrer" title="Feedback analytics">
-                    <img src="https://flyers.womacromax.com/MoveCheap/assets/MoveCheap.jpg" class="d-block w-100" alt="Customer feedback dashboard">
-                  </a>
-                </div>
-              </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#feedbackCarousel" data-bs-slide="prev" aria-label="Previous feedback image">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#feedbackCarousel" data-bs-slide="next" aria-label="Next feedback image">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              </button>
-            </div>
-
-            <small class="right-caption">Open these feedback POCs to review outcomes and metrics</small>
-          </div>
-        </div>
-      </div>
-
-      <!-- TAB 6: Redistribute -->
-      <div class="tab-pane fade" id="tab6" role="tabpanel" aria-labelledby="tab6">
-        <div class="row align-items-center">
-          <div class="col-md-8">
-            <div class="hero-headline">Redistribute to Social Media</div>
-
-            <div class="section-title">Tactical Actions</div>
-            <ul class="bulletpoints">
-              <li>Embed QR codes into event materials and digital flyers to bridge offline → online.</li>
-              <li>Link QR codes directly to booking pages, product pages, or testimonial galleries.</li>
-              <li>Cross-post condensed highlight reels, carousel stories, and user reviews.</li>
-              <li>Amplify reach with targeted hashtags, geo-tags, and influencer partnerships.</li>
-              <li>Monitor performance and iterate on formats that convert.</li>
-            </ul>
-
-            <div class="section-title">Strategic Outcomes</div>
-            <ul class="bulletpoints">
-              <li>Turn every offline touchpoint into an online lead engine.</li>
-              <li>Drive consistent inbound traffic and measurable conversions.</li>
-              <li>Establish a self-sustaining loop where users become promoters.</li>
-            </ul>
-          </div>
-
-          <!-- Right column: redistribute carousel -->
-          <div class="col-md-4 right-column">
-            <div id="redistributeCarousel" class="carousel slide" data-bs-ride="carousel" aria-label="Redistribute carousel">
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <a href="https://www.womacromax.com/pocs/qr-power" target="_blank" rel="noopener noreferrer" title="QR flyer">
-                    <img src="https://images.unsplash.com/photo-1616469829936-5b7191cc88a3?w=1200&q=80&auto=format&fit=crop" class="d-block w-100" alt="QR flyer poster">
-                  </a>
-                </div>
-                <div class="carousel-item">
-                  <a href="https://www.womacromax.com/pocs/highlight-reel" target="_blank" rel="noopener noreferrer" title="Highlight reel">
-                    <img src="https://images.unsplash.com/photo-1504198453319-5ce911bafcde?w=1200&q=80&auto=format&fit=crop" class="d-block w-100" alt="Event highlight reel">
-                  </a>
-                </div>
-                <div class="carousel-item">
-                  <a href="https://www.womacromax.com/pocs/social-amp" target="_blank" rel="noopener noreferrer" title="Social amplification">
-                    <img src="https://images.unsplash.com/photo-1520975913574-151c63f3cb4a?w=1200&q=80&auto=format&fit=crop" class="d-block w-100" alt="Social media amplification">
-                  </a>
-                </div>
-              </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#redistributeCarousel" data-bs-slide="prev" aria-label="Previous redistribute image">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#redistributeCarousel" data-bs-slide="next" aria-label="Next redistribute image">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              </button>
-            </div>
-
-            <small class="right-caption">Click slides to open redistribution POCs and campaign pages</small>
-          </div>
-        </div>
-      </div>
-
-      <!-- TAB 7: Other Success Stories (INDEX of URLs left / Carousel right) -->
-      <div class="tab-pane fade" id="tab7" role="tabpanel" aria-labelledby="tab7">
-        <div class="row">
-          <!-- Left column: Index of URLs / Proof of Concept links -->
-          <div class="col-md-8">
-            <div class="hero-headline">OTHER SUCCESS STORIES — Proof of Concepts</div>
-            <p class="mb-2">Index of example Proof-of-Concept pages and mini case studies. Click a thumbnail on the right or the link to open each POC.</p>
-
-            <div class="poc-list">
-              <ol>
-                <li class="mb-3">
-                  <strong><a href="https://lost-trail-guide.lovable.app/" target="_blank" rel="noopener noreferrer">Health Equity Impact</a></strong><br>
-                  <small class="text-muted">Transforming Healthcare Together — community-driven solutions that increase access and outreach.</small>
-                </li>
-
-                <li class="mb-3">
-                  <strong><a href="https://6806a12b2fda470b9f0f2eed--regal-squirrel-cc6a11.netlify.app/" target="_blank" rel="noopener noreferrer">Gentle Touch Senior Concierge</a></strong><br>
-                  <small class="text-muted">Compassionate, on-demand services to help seniors age in place with dignity and independence.</small>
-                </li>
-
-                <li class="mb-3">
-                  <strong><a href="https://flyers.womacromax.com/phoneservice/" target="_blank" rel="noopener noreferrer">📱 Free Phone Service That Works for You</a></strong><br>
-                  <small class="text-muted">Automated outreach and acquisition pipeline for phone service enrollment.</small>
-                </li>
-
-                <li class="mb-3">
-                  <strong><a href="https://flyers.womacromax.com/ms%20wandas/" target="_blank" rel="noopener noreferrer">Ms. Wanda's — Exquisite Southern Cuisine</a></strong><br>
-                  <small class="text-muted">Restaurant UX and local marketing playbook demonstrating community-driven orders and events.</small>
-                </li>
-
-                <li class="mb-3">
-                  <strong><a href="https://www.womacromax.com" target="_blank" rel="noopener noreferrer">Your BEST Rates Are Here! - MoveCheap And Store It</a></strong><br>
-                  <small class="text-muted">Whether you're relocating across town or storing your valuables for a while, MoveCheap makes it simple, secure, and affordable. Our trained movers handle your belongings with precision and care, while our climate-controlled storage options keep everything safe until you need it.
-
-We combine efficiency with unbeatable pricing, ensuring a stress-free moving experience for families, offices, and small businesses alike.</small>
-                </li>
-
-                <!-- NEW POC (as requested earlier) -->
-                <li class="mb-3">
-                  <strong><a href="https://www.womacromax.com" target="_blank" rel="noopener noreferrer">Transform Your Business with
-Intelligent Automation - WoMacroMAX Automation</a></strong><br>
-                  <small class="text-muted">Eliminate tedious manual work and amplify your productivity with customized automation solutions designed for modern businesses.</small>
-                </li>
-
-              </ol>
-            </div>
-
-           
-          </div>
-
-          <!-- Right column: clickable carousel for POCs -->
-          <div class="col-md-4 right-column">
-            <div id="pocCarousel" class="carousel slide" data-bs-ride="carousel" aria-label="POC carousel">
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <a href="https://lost-trail-guide.lovable.app/" target="_blank" rel="noopener noreferrer" title="Health Equity Impact">
-                    <img src="https://flyers.womacromax.com/assets/Health%20Equity%20Impact%20-%20Transforming%20Healthcare%20Together.png" class="d-block w-100" alt="Health Equity Impact snapshot">
-                  </a>
-                </div>
-
-                <div class="carousel-item">
-                  <a href="https://6806a12b2fda470b9f0f2eed--regal-squirrel-cc6a11.netlify.app/" target="_blank" rel="noopener noreferrer" title="Gentle Touch Senior Concierge">
-                    <img src="https://womacromax.com/media/gentletouch.png" class="d-block w-100" alt="Gentle Touch snapshot">
-                  </a>
-                </div>
-
-                <div class="carousel-item">
-                  <a href="https://flyers.womacromax.com/phoneservice/" target="_blank" rel="noopener noreferrer" title="Phone Service">
-                    <img src="https://flyers.womacromax.com/phoneservice/media/frustrated%20phone%20user%20wishing%20for%20better%20service.png" class="d-block w-100" alt="Phone service snapshot">
-                  </a>
-                </div>
-
-                <div class="carousel-item">
-                  <a href="https://flyers.womacromax.com/ms%20wandas/" target="_blank" rel="noopener noreferrer" title="Ms. Wanda's">
-                    <img src="https://womacromax.com/media/GoodSoulFoodBoutique.png" class="d-block w-100" alt="Ms. Wanda's snapshot">
-                  </a>
-                </div>
-
-                <div class="carousel-item">
-                  <a href="https://flyers.womacromax.com/movecheap/" target="_blank" rel="noopener noreferrer" title="Feedback-to-Content Loop">
-                    <img src="https://flyers.womacromax.com/MoveCheap/assets/MoveCheap.jpg" class="d-block w-100" alt="MoveCheap.com">
-                  </a>
-                </div>
-
-                <div class="carousel-item">
-                  <a href="https://www.womacromax.com" target="_blank" rel="noopener noreferrer" title="WoMacroMax">
-                    <img src="media/WoMacroMAXAutomation-logo-00.png" class="d-block w-100" alt="Small Biz Accelerator">
-                  </a>
-                </div>
-              </div>
-
-              <button class="carousel-control-prev" type="button" data-bs-target="#pocCarousel" data-bs-slide="prev" aria-label="Previous POC">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#pocCarousel" data-bs-slide="next" aria-label="Next POC">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              </button>
-            </div>
-
-            <small class="right-caption">Click a thumbnail to open the selected Proof of Concept in a new tab</small>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- TAB 8: CLIENT PAYMENT (CashApp / Zelle) -->
-      <div class="tab-pane fade" id="tab8" role="tabpanel" aria-labelledby="tab8">
-        <div class="row align-items-start">
-
-          <!-- Left: Payment Info -->
-          <div class="col-md-6">
-            <div class="hero-headline">Client Payment — CashApp / Zelle</div>
-
-            <p class="muted">
-              Please use one of the options below to submit payments. After payment, send a receipt screenshot or confirmation message to confirm.
-            </p>
-
-            <div class="section-title">Payment Details</div>
-            <ul class="bulletpoints">
-              <li><strong>CashApp (Cashtag):</strong> <span class="codebox">$payblab</span></li>
-              <li><strong>Zelle (Phone):</strong> <span class="codebox">240-380-4868</span></li>
-              <li><strong>Zelle (Email):</strong> <span class="codebox">blab942@yahoo.com</span></li>
-              <li><strong>Memo / Note:</strong> Include your project name or invoice number for tracking.</li>
-              <li><strong>Confirmation:</strong> Please SMS or email the receipt to the contact used on the invoice.</li>
-            </ul>
-
-            <div class="section-title">Processing Notes</div>
-            <ul class="bulletpoints">
-              <li>Payments are processed immediately upon receipt and will be acknowledged within 1 business day.</li>
-              <li>Refunds and disputes follow the platform's standard policy — please contact support for assistance.</li>
-              <li>For large transfers, please reach out in advance to confirm the amount and expected delivery time.</li>
-            </ul>
-
-            <div class="spacer"></div>
-
-            <div class="section-title">Contact for Billing</div>
-            <p class="muted mb-1"><strong>Billing Contact:</strong></p>
-            <p class="muted">Phone: <span class="codebox">703-596-2482</span><br>Email: <span class="codebox">blab942@yahoo.com</span></p>
-
-            <div class="spacer"></div>
-
-            <small class="text-muted">Note: Always verify the cashtag and phone/email before sending. Replace these details if account information changes.</small>
-          </div>
-
-          <!-- Right: QR Codes and Hero QR for www.womacromax.com (clickable carousel as well) -->
-          <div class="col-md-6 right-column">
-            <div id="paymentCarousel" class="carousel slide" data-bs-ride="carousel" aria-label="Payment carousel">
-              <div class="carousel-inner">
-
-                <!-- Hero QR for www.womacromax.com placed as first slide -->
-                <div class="carousel-item active">
-                  <a href="https://www.womacromax.com" target="_blank" rel="noopener noreferrer" title="Visit womacromax.com">
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=https%3A%2F%2Fwww.womacromax.com" class="d-block w-100 hero-image" alt="www.womacromax.com QR Code">
-                  </a>
-                  <div class="carousel-caption d-none d-md-block">
-                    <p class="bg-dark bg-opacity-50 p-2 rounded">Visit <strong>www.womacromax.com</strong></p>
-                  </div>
-                </div>
-
-                <!-- CashApp QR -->
-                <div class="carousel-item">
-                  <a href="https://cash.app/$payblab" target="_blank" rel="noopener noreferrer" title="CashApp: $payblab">
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=cashtag%3A%24payblab" class="d-block w-100" alt="CashApp QR Code — $payblab">
-                  </a>
-                  <div class="carousel-caption d-none d-md-block">
-                    <p class="bg-dark bg-opacity-50 p-2 rounded">CashApp — <span class="codebox">$payblab</span></p>
-                  </div>
-                </div>
-
-                <!-- Zelle QR -->
-                <div class="carousel-item">
-                  <a href="https://www.womacromax.com/pocs/zelle-7035962482" target="_blank" rel="noopener noreferrer" title="Zelle: 703-596-2482">
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=zelle%3A7035962482" class="d-block w-100" alt="Zelle QR Code — 703-596-2482">
-                  </a>
-                  <div class="carousel-caption d-none d-md-block">
-                    <p class="bg-dark bg-opacity-50 p-2 rounded">Zelle — <span class="codebox">703-596-2482</span></p>
-                  </div>
-                </div>
-
-              </div>
-
-              <button class="carousel-control-prev" type="button" data-bs-target="#paymentCarousel" data-bs-slide="prev" aria-label="Previous payment slide">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#paymentCarousel" data-bs-slide="next" aria-label="Next payment slide">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              </button>
-            </div>
-
-            <small class="right-caption">Scan to visit the site or open payment links. Replace with official merchant QR codes in production.</small>
-          </div>
-
-        </div>
-      </div>
-
-    </div> <!-- /tab-content -->
-
-    <!-- Footer and notes -->
-    <footer class="mt-4">
-      <p class="mb-0">Images and QR codes in this demo are placeholders or generated via free QR APIs. Replace with licensed or owned assets and verified payment QR codes before publishing.</p>
-      <p class="mb-0">© <strong>WoMacroMAX</strong> — <a href="https://www.womacromax.com" target="_blank" rel="noopener noreferrer">www.womacromax.com</a></p>
-    </footer>
-
-  </div> <!-- /container -->
-
-  <!-- Bootstrap JS (bundle includes Popper) -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Mobile Tabs -->
+    <div class="tabs-mobile">
+      <select id="tabSelect" onchange="switchTab(this.value)">
+        <option value="capture">Capture</option>
+        <option value="campaign">Campaign</option>
+        <option value="transactions">Transactions</option>
+        <option value="scheduling">Scheduling</option>
+        <option value="feedback">Feedback</option>
+        <option value="redistribute">Redistribute</option>
+        <option value="stories">Other Success Stories</option>
+        <option value="payment">Client Payment</option>
+      </select>
+    </div>
+
+    <!-- Desktop Tabs -->
+    <div class="tabs-desktop">
+      <button class="tab-button active" style="background: var(--stage-capture);" onclick="switchTab('capture')">📷 Capture</button>
+      <span class="arrow">→</span>
+      <button class="tab-button" style="background: var(--stage-campaign);" onclick="switchTab('campaign')">📢 Campaign</button>
+      <span class="arrow">→</span>
+      <button class="tab-button" style="background: var(--stage-transactions);" onclick="switchTab('transactions')">🛒 Transactions</button>
+      <span class="arrow">→</span>
+      <button class="tab-button" style="background: var(--stage-scheduling);" onclick="switchTab('scheduling')">📅 Scheduling</button>
+      <span class="arrow">→</span>
+      <button class="tab-button" style="background: var(--stage-feedback);" onclick="switchTab('feedback')">💬 Feedback</button>
+      <span class="arrow">→</span>
+      <button class="tab-button" style="background: var(--stage-redistribute);" onclick="switchTab('redistribute')">📤 Redistribute</button>
+      <span class="arrow">→</span>
+      <button class="tab-button" style="background: var(--stage-stories);" onclick="switchTab('stories')">📄 Stories</button>
+      <span class="arrow">→</span>
+      <button class="tab-button" style="background: var(--stage-payment);" onclick="switchTab('payment')">💳 Payment</button>
+    </div>
+
+    <!-- Tab Contents (will be generated by JavaScript) -->
+    <div id="tabContents"></div>
+  </main>
+
+  <footer>
+    <p>Images and QR codes in this demo are placeholders or generated via free QR APIs. Replace with licensed or owned assets and verified payment QR codes before publishing.</p>
+    <p>© <strong>WoMacroMAX</strong> — <a href="https://www.womacromax.com" target="_blank">www.womacromax.com</a></p>
+  </footer>
 
   <script>
-    // Accessibility & UX enhancements:
-    // Pause all carousels on hover for better accessibility and control
-    document.querySelectorAll('.carousel').forEach(function(carousel){
-      carousel.addEventListener('mouseenter', function(){ bootstrap.Carousel.getInstance(carousel)?.pause(); });
-      carousel.addEventListener('mouseleave', function(){ bootstrap.Carousel.getInstance(carousel)?.cycle(); });
-    });
+    // Data
+    const stageData = {
+      capture: {
+        title: "Capture & Repurpose Artifacts",
+        color: "var(--stage-capture)",
+        tacticalActions: [
+          "Collect photos and videos from existing platforms and events.",
+          "Tag and organize content by theme, audience segment, and campaign relevance.",
+          "Create short-form edits and stills ready for multi-format reuse.",
+          "Catalog raw assets in a searchable folder structure (date / event / tag / hero).",
+          "Keep a running 'best-of' folder for evergreen storytelling pieces."
+        ],
+        strategicOutcomes: [
+          "Reinforce brand identity using recognizable assets.",
+          "Reduce production costs by leveraging existing media.",
+          "Increase authenticity through real customer moments.",
+          "Accelerate campaign planning with ready-to-use media packages."
+        ],
+        images: [
+          { src: "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?w=1200&q=80&auto=format&fit=crop", alt: "Person organizing photos", link: "https://www.womacromax.com/gallery/capture1", caption: "Every story starts with what you've already captured" },
+          { src: "https://images.unsplash.com/photo-1522204505290-1cddd2f1a48a?w=1200&q=80&auto=format&fit=crop", alt: "Team reviewing content", link: "https://www.womacromax.com/gallery/capture2", caption: "Collaborative content curation" },
+          { src: "https://images.unsplash.com/photo-1489528792648-9f3f4bfa1e83?w=1200&q=80&auto=format&fit=crop", alt: "Smartphone recording", link: "https://www.womacromax.com/gallery/capture3", caption: "Mobile-first content capture" }
+        ]
+      },
+      campaign: {
+        title: "Launch Your Promotional Campaign",
+        color: "var(--stage-campaign)",
+        tacticalActions: [
+          "Craft campaign visuals, headlines, and unified messaging pillars.",
+          "Plan and schedule multi-channel posts for peak engagement windows.",
+          "Embed clear CTAs tied to measurable objectives (book, buy, subscribe).",
+          "Set trackable UTM parameters for campaign links for accurate attribution."
+        ],
+        strategicOutcomes: [
+          "Drive targeted engagement and qualified leads.",
+          "Improve conversion rates through consistent messaging.",
+          "Create repeatable campaign playbooks for future launches."
+        ],
+        images: [
+          { src: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1200&q=80&auto=format&fit=crop", alt: "Person scheduling posts", link: "https://www.womacromax.com/pocs/campaign-visuals", caption: "Strategic campaign planning" },
+          { src: "https://images.unsplash.com/photo-1554774853-aae0a22c8aa4?w=1200&q=80&auto=format&fit=crop", alt: "Marketing dashboard", link: "https://www.womacromax.com/pocs/campaign-dashboard", caption: "Data-driven optimization" },
+          { src: "https://images.unsplash.com/photo-1600096194534-74a3f35c1e2e?w=1200&q=80&auto=format&fit=crop", alt: "Branded assets", link: "https://www.womacromax.com/pocs/campaign-creative", caption: "Consistent brand storytelling" }
+        ]
+      },
+      transactions: {
+        title: "Enable Direct Transactions",
+        color: "var(--stage-transactions)",
+        tacticalActions: [
+          "Integrate a streamlined shopping cart with saved user profiles.",
+          "Optimize checkout flow for mobile-first purchases and one-click payments.",
+          "Instrument analytics to track funnel dropoffs and cart recovery.",
+          "Implement safe, PCI-compliant payment gateways and save customer billing preferences securely."
+        ],
+        strategicOutcomes: [
+          "Reduce purchase friction and increase conversion velocity.",
+          "Capture revenue at point-of-interest across channels.",
+          "Gain insights to personalize offers and improve retention."
+        ],
+        images: [
+          { src: "https://images.unsplash.com/photo-1605902711622-cfb43c4437d3?w=1200&q=80&auto=format&fit=crop", alt: "Mobile shopping", link: "https://www.womacromax.com/pocs/mobile-checkout", caption: "Seamless mobile commerce" },
+          { src: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200&q=80&auto=format&fit=crop", alt: "Online purchase", link: "https://www.womacromax.com/pocs/oneclick-pay", caption: "One-click optimization" },
+          { src: "https://images.unsplash.com/photo-1611078486798-5d3e04d6b4c9?w=1200&q=80&auto=format&fit=crop", alt: "Checkout analytics", link: "https://www.womacromax.com/pocs/analytics-payments", caption: "Transaction insights" }
+        ]
+      },
+      scheduling: {
+        title: "Streamline Scheduling",
+        color: "var(--stage-scheduling)",
+        tacticalActions: [
+          "Automate appointment booking and confirmations via calendar integrations.",
+          "Offer mobile-friendly booking widgets and time-slot previews.",
+          "Send automated reminders (SMS, email) and allow easy rescheduling.",
+          "Show available windows dynamically based on estimated task duration."
+        ],
+        strategicOutcomes: [
+          "Eliminate back-and-forth coordination and missed appointments.",
+          "Improve client satisfaction with clear confirmation flows.",
+          "Free staff time for high-value interactions."
+        ],
+        images: [
+          { src: "https://images.unsplash.com/photo-1556740749-887f6717d7e4?w=1200&q=80&auto=format&fit=crop", alt: "Calendar on phone", link: "https://www.womacromax.com/pocs/booking-widget", caption: "Automated scheduling" },
+          { src: "https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=1200&q=80&auto=format&fit=crop", alt: "Time slot UI", link: "https://www.womacromax.com/pocs/time-slot-preview", caption: "Real-time availability" },
+          { src: "https://images.unsplash.com/photo-1593642634315-48f5414c3ad9?w=1200&q=80&auto=format&fit=crop", alt: "Reminders", link: "https://www.womacromax.com/pocs/reminders", caption: "Smart reminder system" }
+        ]
+      },
+      feedback: {
+        title: "Harvest & Redistribute Feedback",
+        color: "var(--stage-feedback)",
+        tacticalActions: [
+          "Collect testimonials, photos, and short video reactions at events.",
+          "Edit and tag content for repurposing as case studies and social proof.",
+          "Plan a cadence for sharing feedback-driven content across channels.",
+          "Use short-form clips and quote cards to maximize social proof reach."
+        ],
+        strategicOutcomes: [
+          "Showcase real customer experiences to build trust.",
+          "Use feedback to refine product messaging and features.",
+          "Create momentum that fuels future campaigns."
+        ],
+        images: [
+          { src: "https://images.unsplash.com/photo-1573496529574-be85d6a60704?w=1200&q=80&auto=format&fit=crop", alt: "Interview testimonial", link: "https://www.womacromax.com/pocs/testimonial-capture", caption: "Authentic testimonials" },
+          { src: "https://images.unsplash.com/photo-1590608897129-79da98d15943?w=1200&q=80&auto=format&fit=crop", alt: "Smiling customers", link: "https://www.womacromax.com/pocs/ugc-gallery", caption: "User-generated content" },
+          { src: "https://flyers.womacromax.com/MoveCheap/assets/MoveCheap.jpg", alt: "Feedback dashboard", link: "https://flyers.womacromax.com/movecheap/", caption: "Feedback analytics" }
+        ]
+      },
+      redistribute: {
+        title: "Redistribute to Social Media",
+        color: "var(--stage-redistribute)",
+        tacticalActions: [
+          "Embed QR codes into event materials and digital flyers to bridge offline → online.",
+          "Link QR codes directly to booking pages, product pages, or testimonial galleries.",
+          "Cross-post condensed highlight reels, carousel stories, and user reviews.",
+          "Amplify reach with targeted hashtags, geo-tags, and influencer partnerships.",
+          "Monitor performance and iterate on formats that convert."
+        ],
+        strategicOutcomes: [
+          "Turn every offline touchpoint into an online lead engine.",
+          "Drive consistent inbound traffic and measurable conversions.",
+          "Establish a self-sustaining loop where users become promoters."
+        ],
+        images: [
+          { src: "https://images.unsplash.com/photo-1616469829936-5b7191cc88a3?w=1200&q=80&auto=format&fit=crop", alt: "QR flyer", link: "https://www.womacromax.com/pocs/qr-power", caption: "QR-powered offline-to-online" },
+          { src: "https://images.unsplash.com/photo-1504198453319-5ce911bafcde?w=1200&q=80&auto=format&fit=crop", alt: "Event highlights", link: "https://www.womacromax.com/pocs/highlight-reel", caption: "Visual storytelling" },
+          { src: "https://images.unsplash.com/photo-1520975913574-151c63f3cb4a?w=1200&q=80&auto=format&fit=crop", alt: "Social amplification", link: "https://www.womacromax.com/pocs/social-amp", caption: "Multi-channel amplification" }
+        ]
+      },
+      stories: {
+        title: "Other Success Stories — Proof of Concepts",
+        color: "var(--stage-stories)",
+        special: true,
+        pocs: [
+          { title: "Health Equity Impact", desc: "Transforming Healthcare Together — community-driven solutions that increase access and outreach.", link: "https://lost-trail-guide.lovable.app/" },
+          { title: "Gentle Touch Senior Concierge", desc: "Compassionate, on-demand services to help seniors age in place with dignity and independence.", link: "https://6806a12b2fda470b9f0f2eed--regal-squirrel-cc6a11.netlify.app/" },
+          { title: "📱 Free Phone Service That Works for You", desc: "Automated outreach and acquisition pipeline for phone service enrollment.", link: "https://flyers.womacromax.com/phoneservice/" },
+          { title: "Ms. Wanda's — Exquisite Southern Cuisine", desc: "Restaurant UX and local marketing playbook demonstrating community-driven orders and events.", link: "https://flyers.womacromax.com/ms%20wandas/" },
+          { title: "Your BEST Rates Are Here! - MoveCheap And Store It", desc: "Whether you're relocating across town or storing your valuables for a while, MoveCheap makes it simple, secure, and affordable.", link: "https://www.womacromax.com" },
+          { title: "Natural Scalp Care - That Actually Works!", desc: "Transform your scalp health with our organic seed oil-based treatments. Expert care for dry, itchy scalp issues.", link: "https://right2choose.womacromax.com/" },
+          { title: "Transform Your Business with Intelligent Automation - WoMacroMAX", desc: "Eliminate tedious manual work and amplify your productivity with customized automation solutions.", link: "https://www.womacromax.com" }
+        ],
+        images: [
+          { src: "https://flyers.womacromax.com/assets/Health%20Equity%20Impact%20-%20Transforming%20Healthcare%20Together.png", alt: "Health Equity", link: "https://lost-trail-guide.lovable.app/" },
+          { src: "https://womacromax.com/media/gentletouch.png", alt: "Gentle Touch", link: "https://6806a12b2fda470b9f0f2eed--regal-squirrel-cc6a11.netlify.app/" },
+          { src: "https://flyers.womacromax.com/phoneservice/media/frustrated%20phone%20user%20wishing%20for%20better%20service.png", alt: "Phone service", link: "https://flyers.womacromax.com/phoneservice/" },
+          { src: "https://womacromax.com/media/GoodSoulFoodBoutique.png", alt: "Ms. Wanda's", link: "https://flyers.womacromax.com/ms%20wandas/" },
+          { src: "https://right2choose.womacromax.com/assets/hair-oil-ad-BOrrBT9Z.png", alt: "Dynamic Choice Salon", link: "https://right2choose.womacromax.com" },
+          { src: "https://flyers.womacromax.com/MoveCheap/assets/MoveCheap.jpg", alt: "MoveCheap", link: "https://flyers.womacromax.com/movecheap/" },
+          { src: "https://womacromax.com/media/WoMacroMAXAutomation-logo-00.png", alt: "WoMacroMAX.com", link: "https://womacromax.com" }
+        ],
+      },
+      payment: {
+        title: "Client Payment — CashApp / Zelle",
+        color: "var(--stage-payment)",
+        special: true,
+        payment: true,
+        images: [
+          { src: "https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=https%3A%2F%2Fwww.womacromax.com", alt: "www.womacromax.com QR", link: "https://www.womacromax.com", caption: "Visit www.womacromax.com" },
+          { src: "https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=cashtag%3A%24payblab", alt: "CashApp QR", link: "https://cash.app/$payblab", caption: "CashApp — $payblab" },
+          { src: "https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=zelle%3A2403804868", alt: "Zelle QR", link: "https://www.womacromax.com/pocs/zelle-2403804868", caption: "Zelle — 240-380-4868" }
+        ]
+      }
+    };
 
-    // Make sure clicking a carousel image opens the link in a new tab (we wrapped images in <a>)
-    // No extra code needed because anchors have target="_blank" already.
+    // Current carousel indexes
+    const carouselIndexes = {};
 
-    // If you want every carousel to start cycling slower on mobile, we can adjust here:
-    document.querySelectorAll('.carousel').forEach(function(car){
-      const instance = bootstrap.Carousel.getOrCreateInstance(car, { interval: 4500, ride: 'carousel' });
-      // instance.pause(); // uncomment to start paused
+    // Initialize
+    window.onload = function() {
+      renderTabs();
+      switchTab('capture');
+    };
+
+    function renderTabs() {
+      const container = document.getElementById('tabContents');
+      
+      for (const [key, data] of Object.entries(stageData)) {
+        carouselIndexes[key] = 0;
+        const tabContent = document.createElement('div');
+        tabContent.className = 'tab-content';
+        tabContent.id = `tab-${key}`;
+        
+        const card = document.createElement('div');
+        card.className = 'content-card';
+        card.style.borderColor = `${data.color}30`;
+        card.style.background = `${data.color}05`;
+        
+        const grid = document.createElement('div');
+        grid.className = 'content-grid';
+        
+        const mainContent = document.createElement('div');
+        mainContent.className = 'content-main';
+        
+        if (data.special) {
+          if (data.payment) {
+            mainContent.innerHTML = `
+              <h2>${data.title}</h2>
+              <div class="special-content">
+                <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Please use one of the options below to submit payments. After payment, send a receipt screenshot or confirmation message to confirm.</p>
+                <div class="payment-details">
+                  <h4>Payment Details</h4>
+                  <div style="margin-bottom: 0.5rem;"><span class="badge">CashApp</span><code>$payblab</code></div>
+                  <div style="margin-bottom: 0.5rem;"><span class="badge">Zelle (Phone)</span><code>240-380-4868</code></div>
+                  <div style="margin-bottom: 0.5rem;"><span class="badge">Zelle (Email)</span><code>blab942@yahoo.com</code></div>
+                </div>
+                <div style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">
+                  <p>• <strong>Memo/Note:</strong> Include your project name or invoice number for tracking.</p>
+                  <p>• <strong>Confirmation:</strong> Please SMS or email the receipt to the contact used on the invoice.</p>
+                  <p>• Payments are processed immediately upon receipt and acknowledged within 1 business day.</p>
+                </div>
+                <div class="payment-details">
+                  <h4>Billing Contact</h4>
+                  <p style="font-size: 0.9rem;"><strong>Phone:</strong> <code>703-596-2482</code><br><strong>Email:</strong> <code>blab942@yahoo.com</code></p>
+                </div>
+              </div>
+            `;
+          } else {
+            let pocsHtml = '<div class="poc-list">';
+            for (const poc of data.pocs) {
+              pocsHtml += `
+                <div class="poc-item" onclick="openIframe('${poc.link}')">
+                  <h4>${poc.title}</h4>
+                  <p>${poc.desc}</p>
+                </div>
+              `;
+            }
+            pocsHtml += '</div>';
+            mainContent.innerHTML = `
+              <h2>${data.title}</h2>
+              <div class="special-content">
+                <p style="color: var(--text-muted); margin-bottom: 1rem;">Index of example Proof-of-Concept pages and mini case studies. Click a thumbnail or link to explore each POC.</p>
+                ${pocsHtml}
+              </div>
+            `;
+          }
+        } else {
+          let tacticalHtml = '<ul>';
+          for (const action of data.tacticalActions) {
+            tacticalHtml += `<li>${action}</li>`;
+          }
+          tacticalHtml += '</ul>';
+          
+          let outcomesHtml = '<ul>';
+          for (const outcome of data.strategicOutcomes) {
+            outcomesHtml += `<li>${outcome}</li>`;
+          }
+          outcomesHtml += '</ul>';
+          
+          mainContent.innerHTML = `
+            <h2>${data.title}</h2>
+            <h3>✓ Tactical Actions</h3>
+            ${tacticalHtml}
+            <h3>✓ Strategic Outcomes</h3>
+            ${outcomesHtml}
+          `;
+        }
+        
+        const carouselDiv = document.createElement('div');
+        carouselDiv.innerHTML = `
+          <div class="carousel" id="carousel-${key}">
+            <div class="carousel-inner">
+              ${data.images.map((img, idx) => `
+                <div class="carousel-item ${idx === 0 ? 'active' : ''}">
+                  <img src="${img.src}" alt="${img.alt}" onclick="openIframe('${img.link}')">
+                </div>
+              `).join('')}
+            </div>
+            ${data.images.length > 1 ? `
+              <button class="carousel-button prev" onclick="prevSlide('${key}')">‹</button>
+              <button class="carousel-button next" onclick="nextSlide('${key}')">›</button>
+            ` : ''}
+          </div>
+          ${data.images.length > 1 ? `
+            <div class="carousel-dots">
+              ${data.images.map((_, idx) => `
+                <button class="carousel-dot ${idx === 0 ? 'active' : ''}" onclick="goToSlide('${key}', ${idx})"></button>
+              `).join('')}
+            </div>
+          ` : ''}
+          ${data.images[0].caption ? `<p class="carousel-caption">${data.images[0].caption}</p>` : ''}
+        `;
+        
+        grid.appendChild(mainContent);
+        grid.appendChild(carouselDiv);
+        card.appendChild(grid);
+        tabContent.appendChild(card);
+        container.appendChild(tabContent);
+      }
+    }
+
+    function switchTab(tabId) {
+      // Update select
+      document.getElementById('tabSelect').value = tabId;
+      
+      // Update tab buttons
+      const buttons = document.querySelectorAll('.tab-button');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      
+      // Update tab contents
+      const contents = document.querySelectorAll('.tab-content');
+      contents.forEach(content => content.classList.remove('active'));
+      
+      document.getElementById(`tab-${tabId}`).classList.add('active');
+      
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function nextSlide(stage) {
+      const images = stageData[stage].images;
+      carouselIndexes[stage] = (carouselIndexes[stage] + 1) % images.length;
+      updateCarousel(stage);
+    }
+
+    function prevSlide(stage) {
+      const images = stageData[stage].images;
+      carouselIndexes[stage] = (carouselIndexes[stage] - 1 + images.length) % images.length;
+      updateCarousel(stage);
+    }
+
+    function goToSlide(stage, index) {
+      carouselIndexes[stage] = index;
+      updateCarousel(stage);
+    }
+
+    function updateCarousel(stage) {
+      const carousel = document.querySelector(`#carousel-${stage} .carousel-inner`);
+      const items = carousel.querySelectorAll('.carousel-item');
+      const dots = document.querySelectorAll(`#carousel-${stage}`).length > 0 ? 
+        document.querySelector(`#tab-${stage}`).querySelectorAll('.carousel-dot') : [];
+      const caption = document.querySelector(`#tab-${stage} .carousel-caption`);
+      
+      items.forEach((item, idx) => {
+        item.classList.toggle('active', idx === carouselIndexes[stage]);
+      });
+      
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle('active', idx === carouselIndexes[stage]);
+      });
+      
+      if (caption && stageData[stage].images[carouselIndexes[stage]].caption) {
+        caption.textContent = stageData[stage].images[carouselIndexes[stage]].caption;
+      }
+    }
+
+    function openIframe(url) {
+      const modal = document.getElementById('iframeModal');
+      const iframe = document.getElementById('iframeContent');
+      iframe.src = url;
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeIframe() {
+      const modal = document.getElementById('iframeModal');
+      const iframe = document.getElementById('iframeContent');
+      modal.classList.remove('active');
+      iframe.src = '';
+      document.body.style.overflow = 'unset';
+    }
+
+    // Close modal on background click
+    document.getElementById('iframeModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeIframe();
+      }
     });
   </script>
-
 </body>
 </html>
