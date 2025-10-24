@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Success STORY's Campaign Strategy</title>
+    <meta name="description" content="Flexible campaign pricing with pay-as-you-go model">
+    <meta name="author" content="Success STORY">
+    <meta property="og:title" content="A Success STORY's Campaign Strategy">
+    <meta property="og:description" content="Proposal Document for Campaign Strategy - October 2025">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://sales.womacromax.com/assets/successstoryseo.png">
+    
+    <style>
+        /* Import a crisp UI font (safe to include inside style tag) */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+
+        /* Reset + base */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root{
+            /* Modern palette */
+            --bg: 220 18% 98%;
+            --surface: 0 0% 100%;
+            --muted: 215 12% 48%;
+            --primary-h: 214 89% 46%;
+            --primary: 214 64% 12%;
+            --accent-h: 167 60% 32%;
+            --glass: 210 16% 96%;
+            --border: 215 20% 92%;
+            --radius: 14px;
+            --shadow-1: 0 6px 20px rgba(20,24,40,0.06);
+            --shadow-2: 0 18px 40px rgba(20,24,40,0.08);
+            --max-width: 1152px;
+        }
+
+        html,body{height:100%}
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+            background: hsl(var(--bg));
+            color: hsl(var(--primary));
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
+            line-height:1.5;
+        }
+
+        .container{ max-width:var(--max-width); margin:0 auto; padding:0 1rem; }
+
+        /* HERO */
+        .hero-section{
+            position:relative;
+            padding:5.25rem 1rem;
+            overflow:hidden;
+        }
+
+        /* layered soft gradients */
+        .hero-gradient-1{
+            position:absolute; inset:0;
+            background:
+                radial-gradient(600px 400px at 10% 20%, rgba(39, 102, 255, 0.06), transparent 18%),
+                radial-gradient(500px 300px at 85% 80%, rgba(20, 184, 166, 0.05), transparent 18%);
+            pointer-events:none;
+            transform: translateZ(0);
+        }
+        .hero-gradient-2{
+            position:absolute; inset:0;
+            background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0));
+            mix-blend-mode:overlay;
+            pointer-events:none;
+        }
+        .hero-content{ position:relative; z-index:10; text-align:center; max-width:880px; margin:0 auto; }
+
+        /* logo as a refined card */
+        .logo-container{
+            display:inline-flex; align-items:center; justify-content:center;
+            width:72px; height:72px; border-radius:18px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(250,250,252,0.85));
+            box-shadow: var(--shadow-1);
+            border:1px solid hsl(var(--border));
+            margin-bottom:1.25rem;
+        }
+        .logo-inner{ width:64px; height:64px; padding:8px; border-radius:14px; background: linear-gradient(135deg, rgba(255,255,255,0.6), rgba(245,247,250,0.6)); display:flex; align-items:center; justify-content:center; }
+        .logo-inner img{ width:100%; height:100%; object-fit:contain; filter: drop-shadow(0 6px 18px rgba(20,24,40,0.06)); }
+
+        /* Headline */
+        h1{
+            font-weight:700;
+            font-size:3rem;
+            color: hsl(var(--primary));
+            letter-spacing:-0.01em;
+            line-height:1.03;
+            margin-bottom: .9rem;
+            animation: fadeInUp .7s ease both;
+        }
+        @media(min-width:768px){ h1{ font-size:3.75rem; } }
+        h1 .primary-text{ color: hsl(var(--primary)); display:inline-block; background: linear-gradient(90deg, rgba(39,102,255,0.12), rgba(20,184,166,0.06)); padding:.05rem .4rem; border-radius:8px; font-weight:800; letter-spacing:-0.01em; }
+        h1 .block-text{ display:block; font-weight:600; color: rgba(17,24,39,0.85); margin-top:6px; font-size: .95em; }
+
+        .subtitle-badge{
+            display:inline-flex; align-items:center; gap:.7rem;
+            padding:.6rem 1rem; border-radius:9999px;
+            backdrop-filter: blur(6px);
+            background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(250,250,252,0.55));
+            border:1px solid hsl(var(--border));
+            box-shadow: 0 4px 18px rgba(20,24,40,0.04);
+            margin: .75rem 0 1.5rem;
+        }
+        .pulse-dot{ width:10px; height:10px; border-radius:999px; background: linear-gradient(90deg, rgb(52, 138, 255), rgb(20,184,166)); box-shadow: 0 6px 18px rgba(39,102,255,0.15); animation:pulse 2s infinite; }
+        .subtitle-text{ font-weight:600; color: rgba(17,24,39,0.6); letter-spacing:.01em; font-size:.98rem; }
+
+        /* Primary CTA */
+        .button-primary{
+            display:inline-flex; align-items:center; gap:.6rem;
+            padding: .85rem 1.4rem;
+            font-weight:700; border-radius:10px; text-decoration:none;
+            background: linear-gradient(90deg, rgb(39,102,255), rgb(20,184,166));
+            color: #fff; box-shadow: var(--shadow-2);
+            transition: transform .18s ease, box-shadow .18s ease;
+            margin-top:.75rem;
+        }
+        .button-primary:hover{ transform: translateY(-3px); box-shadow: 0 28px 60px rgba(20,24,40,0.12); }
+        .arrow-icon{ display:inline-block; width:18px; height:18px; vertical-align:middle; opacity:.95; }
+
+        /* Pricing Section */
+        .pricing-section{ padding:4rem 1rem 3.5rem; background:transparent; }
+        .section-header{ text-align:center; margin-bottom:1.75rem; }
+        h2{ font-size:1.9rem; font-weight:700; color: rgba(17,24,39,0.9); margin-bottom:.35rem; }
+        .section-description{ color: rgba(17,24,39,0.55); font-size:1.03rem; max-width:46rem; margin:0 auto; }
+
+        /* Table polish */
+        .comparison-table-wrapper{ overflow-x:auto; margin:1.25rem 0 2rem; border-radius:12px; padding:6px; background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(245,247,250,0.6)); border:1px solid hsl(var(--border)); box-shadow: var(--shadow-1); }
+        .comparison-table{
+            width:100%; border-collapse:separate; border-spacing:0; overflow:hidden;
+            background: hsl(var(--surface)); border-radius:10px; min-width:640px;
+        }
+        .comparison-table thead th{
+            text-align:center; font-weight:700; padding:14px 18px; background: linear-gradient(180deg, rgba(250,250,252,0.9), rgba(245,247,250,0.9));
+            color: rgba(17,24,39,0.75); border-bottom:1px solid hsl(var(--border));
+            position: sticky; top:0; backdrop-filter: blur(4px);
+        }
+        .comparison-table th, .comparison-table td{ padding:14px 18px; vertical-align:middle; border-bottom:1px solid hsl(var(--border)); color: rgba(17,24,39,0.65); }
+        .comparison-table tbody tr:nth-child(even){ background: linear-gradient(90deg, rgba(250,250,252,0.9), rgba(255,255,255,0.9)); }
+        .comparison-table td:first-child{ font-weight:600; color: rgba(17,24,39,0.85); width:260px; }
+        .comparison-table td{ font-size:0.975rem; }
+
+        /* Pay-as-you-go card */
+        .payg-highlight{
+            background: linear-gradient(180deg, rgba(241,250,255,0.9), rgba(242,255,245,0.9));
+            border:1px solid rgba(29,155,98,0.12);
+            padding:1.25rem 1.25rem; border-radius:12px; text-align:center; margin-bottom:1.5rem;
+            box-shadow: 0 8px 30px rgba(20,24,40,0.03);
+        }
+        .payg-title{ font-size:1.25rem; font-weight:800; color: rgb(18, 83, 49); margin-bottom: .25rem; }
+        .payg-description{ color: rgb(21, 128, 61); font-weight:600; font-size:1rem; }
+
+        /* Pricing grid & cards */
+        .pricing-grid{ display:grid; grid-template-columns:1fr; gap:1.25rem; }
+        @media(min-width:768px){ .pricing-grid{ grid-template-columns:repeat(2,1fr); } }
+
+        .pricing-card{
+            background: linear-gradient(180deg, #fff, #fbfdff);
+            border:1px solid hsl(var(--border)); border-radius:12px; padding:1.25rem;
+            box-shadow: var(--shadow-1); transition: transform .18s ease, box-shadow .18s ease;
+            display:flex; flex-direction:column; gap:.85rem;
+        }
+        .pricing-card:hover{ transform: translateY(-6px); box-shadow: 0 30px 60px rgba(20,24,40,0.08); }
+        .pricing-card.highlighted{ border-color: rgba(39,102,255,0.22); }
+
+        .pricing-card.highlighted::before{
+            content:""; position:absolute; inset:auto 0 calc(100% - 8px) 0; height:6px; border-radius:8px; background: linear-gradient(90deg, rgba(39,102,255,0.9), rgba(20,184,166,0.9));
+            transform: translateY(8px); pointer-events:none;
+        }
+
+        .card-header{ display:flex; align-items:center; gap:.8rem; }
+        .card-icon{ width:46px; height:46px; display:flex; align-items:center; justify-content:center; border-radius:10px; font-size:1.25rem; background: linear-gradient(180deg, rgba(245,247,250,0.9), rgba(255,255,255,0.9)); border:1px solid hsl(var(--border)); }
+        .card-title{ font-size:1.12rem; font-weight:700; color: rgba(17,24,39,0.9); }
+        .card-price{ font-weight:800; color: rgb(39,102,255); font-size:1.05rem; }
+
+        .card-description{ color: rgba(17,24,39,0.6); font-size:0.98rem; margin-top:.3rem; flex:1; }
+        .card-button{ display:inline-block; padding:.6rem 1rem; font-weight:700; border-radius:8px; text-decoration:none; cursor:pointer; transition: transform .12s ease; border:1px solid transparent; }
+        .card-button.primary{ background: linear-gradient(90deg, rgb(39,102,255), rgb(20,184,166)); color:#fff; box-shadow: 0 12px 30px rgba(39,102,255,0.12); }
+        .card-button.outline{ background:transparent; color: rgba(17,24,39,0.85); border:1px solid hsl(var(--border)); }
+        .card-button:hover{ transform: translateY(-3px); opacity:0.98; }
+
+        /* CTA Section */
+        .cta-section{ padding:3.5rem 1rem 4.5rem; background: linear-gradient(180deg, rgba(39,102,255,0.04), rgba(20,184,166,0.02)); border-top:1px solid rgba(39,102,255,0.03); }
+        .cta-content{ text-align:center; max-width:760px; margin:0 auto; }
+        .cta-content h2{ font-weight:800; font-size:1.6rem; color: rgba(17,24,39,0.9); margin-bottom:.6rem; }
+        .cta-description{ color: rgba(17,24,39,0.6); font-size:1.03rem; margin-bottom:1rem; }
+
+        /* small utilities */
+        .arrow-icon svg{ width:100%; height:100%; stroke:rgba(255,255,255,0.95); stroke-width:2; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+        .card-icon, .arrow-icon{ will-change:transform; }
+
+        /* animations */
+        @keyframes fadeInUp{ from{ opacity:0; transform:translateY(12px) } to{ opacity:1; transform:translateY(0) } }
+        @keyframes pulse{ 0%{ transform:scale(1); opacity:1 } 50%{ transform:scale(.86); opacity:.6 } 100%{ transform:scale(1); opacity:1 } }
+
+        /* accessibility + print */
+        @media (prefers-reduced-motion: reduce){ *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition: none !important; } }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-gradient-1"></div>
+        <div class="hero-gradient-2"></div>
+        <div class="hero-gradient-3"></div>
+        
+        <div class="container">
+            <div class="hero-content">
+                <!-- Logo -->
+                <div class="logo-container">
+                    <div class="logo-inner">
+                        <img 
+                            src="https://sales.womacromax.com/assets/successstoryseo.png" 
+                            alt="Success STORY" 
+                        />
+                    </div>
+                </div>
+                
+                <!-- Title -->
+                <h1>
+                    A Success <span class="primary-text">STORY's</span>
+                    <span class="block-text">Campaign Strategy</span>
+                </h1>
+                
+                <!-- Subtitle -->
+                <div class="subtitle-badge">
+                    <div class="pulse-dot"></div>
+                    <p class="subtitle-text">
+                        Proposal Document · October 2025
+                    </p>
+                </div>
+                
+                <!-- CTA Button -->
+                <a href="#pricing" class="button-primary">
+                    View Pricing 
+                    <span class="arrow-icon">
+                        <svg viewBox="0 0 24 24">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </section>
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Flexible Pricing</h2>
+                <p class="section-description">
+                    Choose the option that fits your growth goals best. No long-term contracts, simple pricing.
+                </p>
+            </div>
+
+            <!-- Comparison Table -->
+            <div class="comparison-table-wrapper">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Setup</th>
+                            <th>Credits</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Cost</td>
+                            <td>$150 one-time</td>
+                            <td>$150 per credit</td>
+                        </tr>
+                        <tr>
+                            <td>What You Get</td>
+                            <td>Setup of initial campaign, lead capture, SEO, calendar</td>
+                            <td>Additional campaigns & response handling</td>
+                        </tr>
+                        <tr>
+                            <td>Commitment</td>
+                            <td>One-time</td>
+                            <td>Flexible / Pay-as-needed</td>
+                        </tr>
+                        <tr>
+                            <td>Ideal For</td>
+                            <td>New clients</td>
+                            <td>Businesses scaling campaigns</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pay-as-you-go Highlight -->
+            <div class="payg-highlight">
+                <h3 class="payg-title">Pay-as-you-go</h3>
+                <p class="payg-description">After setup, pay only for delivered results.</p>
+            </div>
+
+            <!-- Pricing Cards -->
+            <div class="pricing-grid">
+                <!-- Setup Card -->
+                <div class="pricing-card">
+                    <div class="card-header">
+                        <div class="card-icon">🚀</div>
+                        <div class="card-title-group">
+                            <div class="card-title">Setup</div>
+                            <div class="card-price">$150</div>
+                        </div>
+                    </div>
+                    <p class="card-description">
+                        Setup of initial campaign, lead capture, SEO, calendar to boost activity on your site
+                    </p>
+                    <a 
+                        href="https://gtc-010-23-menu-fix-womacromax.replit.app/contact?campaignId=WMX-New-Campaign-468-2025-07-21-1753103442505&source=launch-manager&show=true" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        class="card-button outline"
+                    >
+                        📞 Click to Schedule a Call
+                    </a>
+                </div>
+
+                <!-- Credits Card -->
+                <div class="pricing-card highlighted">
+                    <div class="card-header">
+                        <div class="card-icon">⚡</div>
+                        <div class="card-title-group">
+                            <div class="card-title">Credits</div>
+                            <div class="card-price">$150 / credit</div>
+                        </div>
+                    </div>
+                    <p class="card-description">
+                        Credits are used for additional campaigns and response volume (prospect calls, inquiries, emails). Example: 1 credit = 2 campaigns or up to 30 responses.
+                    </p>
+                    <a 
+                        href="https://sales.womacromax.com/cashapp_zelle_payment.html" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        class="card-button primary"
+                    >
+                        Click to Pay via. $CashApp
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>
+                    Ready to Launch Your Success <span class="primary-text">Campaign</span>?
+                </h2>
+                <p class="cta-description">
+                    Start with setup and scale with flexible credits.
+                </p>
+                <a 
+                    href="https://gtc-010-23-menu-fix-womacromax.replit.app/contact?campaignId=WMX-New-Campaign-468-2025-07-21-1753103442505&source=launch-manager&show=true" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="button-primary"
+                >
+                    Schedule a Call 
+                    <span class="arrow-icon">
+                        <svg viewBox="0 0 24 24">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        console.log('Success STORY Campaign Strategy - Standalone SPA loaded');
+    </script>
+</body>
+</html>
