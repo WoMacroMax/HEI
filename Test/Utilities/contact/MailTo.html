@@ -57,9 +57,9 @@
 </head>
 <body>
   <div class="contact-card">
-    <h2>📋 Your Info</h2>
-    <p>Enter your name to personalize your outreach</p>
-    <input type="text" id="userName" name="userName" placeholder="Your Name" />
+    <h2>📋 Personalize Your Message</h2>
+    <p>Enter your name to personalize the WhatsApp message</p>
+    <input type="text" id="senderName" placeholder="Your Name" />
 
     <h2>📬 Get in Touch</h2>
     <p>Tap below to connect instantly</p>
@@ -68,20 +68,20 @@
     <a href="sms:+12406052820?body=Hi%20Rodney%2C%20I%20saw%20your%20listing!" class="contact-button sms">💬 Text Us</a>
     <a href="mailto:blab@yahoo.com?subject=Inquiry&body=Hi%20Rodney%2C%20I%20have%20a%20question%20about%20your%20services." class="contact-button email">✉️ Email Rodney</a>
     <a id="waLink" href="https://wa.me/12406052820?text=Hi%20Rodney%2C%20I'd%20like%20to%20speak%20with%20you!" class="contact-button whatsapp">🟢 WhatsApp Rodney</a>
-    <a href="https://m.me/blab942@yahoo.com" class="contact-button messenger">🔵 Messenger Call (via Chat)</a>
+    <a href="https://m.me/YourPageUsername" class="contact-button messenger">🔵 Messenger Call (via Chat)</a>
     <a href="https://gtc-010-23-menu-fix-womacromax.replit.app/contact?campaignId=WMX-New-Campaign-468-2025-07-21-1753103442505&source=launch-manager&show=true" class="contact-button form">📋 Set An Appointment</a>
     <a href="https://gtc-010-23-menu-fix-womacromax.replit.app/cashapp-payment" class="contact-button form">📋 Pay Me</a>
   </div>
 
   <script>
     const waLink = document.getElementById("waLink");
-    const userNameInput = document.getElementById("userName");
+    const senderInput = document.getElementById("senderName");
 
-    userNameInput.addEventListener("input", function () {
-      const name = encodeURIComponent(userNameInput.value.trim());
-      const message = name
-        ? `Hi Rodney, this is ${name}, I'd like to speak with you!`
-        : `Hi Rodney, I'd like to speak with you!`;
+    senderInput.addEventListener("input", function () {
+      const senderName = senderInput.value.trim();
+      const message = senderName
+        ? `Hi Rodney this is ${senderName} and I'd like to speak with you`
+        : `Hi Rodney I'd like to speak with you`;
       waLink.href = `https://wa.me/12406052820?text=${encodeURIComponent(message)}`;
     });
   </script>
