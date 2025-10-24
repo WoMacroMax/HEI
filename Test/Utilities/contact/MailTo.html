@@ -58,44 +58,19 @@
 <body>
   <div class="contact-card">
     <h2>📋 Your Info</h2>
-    <p>Enter your name and number to personalize your message</p>
-    <input type="text" id="userName" placeholder="Your Name" />
-    <input type="tel" id="userPhone" placeholder="Your Phone Number" />
+    <p>Enter your name to personalize your outreach</p>
+    <input type="text" id="userName" name="userName" placeholder="Your Name" />
 
     <h2>📬 Get in Touch</h2>
     <p>Tap below to connect instantly</p>
 
     <a href="tel:+12406052820" class="contact-button call">📞 Call Now</a>
-    <a id="smsLink" href="sms:+12406052820?body=Hi%20there%2C%20I%20saw%20your%20listing!" class="contact-button sms">💬 Text Us</a>
+    <a href="sms:+12406052820?body=Hi%20there%2C%20I%20saw%20your%20listing!" class="contact-button sms">💬 Text Us</a>
     <a href="mailto:blab@yahoo.com?subject=Inquiry&body=Hi%20Rodney%2C%20I%20have%20a%20question%20about%20your%20services." class="contact-button email">✉️ Email Rodney</a>
-    <a id="waLink" href="https://wa.me/12406052820?text=Hi%20there%2C%20I'd%20like%20to%20speak%20with%20you!" class="contact-button whatsapp">🟢 WhatsApp Call (via Chat)</a>
-    <a href="https://m.me/YourPageUsername" class="contact-button messenger">🔵 Messenger Call (via Chat)</a>
+    <a href="https://wa.me/12406052820?text=Hi%20there%2C%20I'd%20like%20to%20speak%20with%20you!" class="contact-button whatsapp">🟢 WhatsApp Call (via Chat)</a>
+    <a href="https://m.me/blab942@yahoo.com" class="contact-button messenger">🔵 Messenger Call (via Chat)</a>
     <a href="https://gtc-010-23-menu-fix-womacromax.replit.app/contact?campaignId=WMX-New-Campaign-468-2025-07-21-1753103442505&source=launch-manager&show=true" class="contact-button form">📋 Set An Appointment</a>
     <a href="https://gtc-010-23-menu-fix-womacromax.replit.app/cashapp-payment" class="contact-button form">📋 Pay Me</a>
   </div>
-
-  <script>
-    const smsLink = document.getElementById("smsLink");
-    const waLink = document.getElementById("waLink");
-
-    document.getElementById("userPhone").addEventListener("input", updateLinks);
-    document.getElementById("userName").addEventListener("input", updateLinks);
-
-    function updateLinks() {
-      const name = encodeURIComponent(document.getElementById("userName").value.trim());
-      const phone = encodeURIComponent(document.getElementById("userPhone").value.trim());
-
-      const smsBody = name && phone
-        ? `Hi%20Rodney%2C%20this%20is%20${name}%20at%20${phone}%2C%20I%20saw%20your%20listing!`
-        : `Hi%20there%2C%20I%20saw%20your%20listing!`;
-
-      const waText = name && phone
-        ? `Hi%20Rodney%2C%20this%20is%20${name}%20at%20${phone}%2C%20I'd%20like%20to%20speak%20with%20you!`
-        : `Hi%20there%2C%20I'd%20like%20to%20speak%20with%20you!`;
-
-      smsLink.href = `sms:+12406052820?body=${smsBody}`;
-      waLink.href = `https://wa.me/12406052820?text=${waText}`;
-    }
-  </script>
 </body>
 </html>
