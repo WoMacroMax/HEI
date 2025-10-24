@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quick Contact</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 20px;
+    }
+    .contact-card {
+      max-width: 480px;
+      margin: auto;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 24px;
+      text-align: center;
+    }
+    .contact-card h2 {
+      margin-top: 0;
+      color: #333;
+    }
+    .contact-card p {
+      color: #666;
+      margin: 8px 0 16px;
+    }
+    .contact-button {
+      display: block;
+      margin: 12px auto;
+      padding: 12px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      color: #fff;
+      font-weight: bold;
+      width: 80%;
+      max-width: 300px;
+    }
+    .call { background: #007BFF; }
+    .sms { background: #28A745; }
+    .gps { background: #FFC107; color: #333; }
+    .email { background: #6f42c1; }
+  </style>
+</head>
+<body>
+  <div class="contact-card">
+    <h2>📬 Get in Touch</h2>
+    <p>Tap below to connect instantly</p>
+    <a href="tel:+12025550123" class="contact-button call">📞 Call Now</a>
+    <a href="sms:+12025550123?body=Hi%20there%2C%20I%20saw%20your%20listing!" class="contact-button sms">💬 Text Us</a>
+    <a href="https://www.google.com/maps?q=40.7128,-74.0060" class="contact-button gps">📍 Navigate</a>
+    <a href="mailto:tobit@example.com?subject=Inquiry&body=Hi%20Tobit%2C%20I%20have%20a%20question%20about%20your%20services." class="contact-button email">✉️ Email Tobit</a>
+  </div>
+</body>
+</html>
