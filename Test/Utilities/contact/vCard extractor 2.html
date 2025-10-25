@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Smart Contact Capture</title>
+<style>
+  body{font-family:system-ui,Arial;margin:0;padding:20px;background:#f9f9fb;color:#222}
+  h1{font-size:1.4rem;margin-bottom:10px}
+  p{color:#666}
+  button,.btn{padding:10px 16px;border:none;border-radius:6px;cursor:pointer;font-size:1rem}
+  .btn-primary{background:#007bff;color:white}
+  .btn-secondary{background:#6c757d;color:white}
+  .btn-success{background:#2e9e2e;color:white}
+  .section{margin-top:20px;padding:15px;background:white;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.1)}
+  input,select{width:100%;padding:8px;margin:5px 0 10px;border:1px solid #ccc;border-radius:5px;font-size:1rem}
+  pre{background:#f3f3f3;padding:12px;border-radius:6px;overflow:auto}
+  #manualForm{display:none}
+  #previewArea{display:none}
+</style>
+</head>
+<body>
+  <h1>📇 Add Your Contact</h1>
+  <p>Pick a contact from your phone or manually fill out the form below. Your vCard (.vcf) will be generated and uploaded securely.</p>
+
+  <!-- AUTO CONTACT PICKER -->
+  <div class="section">
+    <h3>1️⃣ Pick From Your Device (Automatic)</h3>
+    <p>This works on most Android browsers (Chrome, Edge). You’ll be asked to select a contact from your phone.</p>
+    <button id="pickBtn" class="btn-primary">Select Contact</button>
+  </div>
+
+  <!-- MANUAL ENTRY FALLBACK -->
+  <div class="section">
+    <h3>2️⃣ Or Enter Details Manually</h3>
+    <p>If your browser doesn’t support the contact picker, fill this form instead.</p>
+    <button id="openManualBtn" class="btn-secondary">Open Manual Form</button>
+    <form id="manualForm">
+      <label>Full Name</label>
+      <input type="text" id="nameInput" placeholder="John Doe" required>
+      <label>Phone Number</label>
+      <input type="tel" id="phoneInput" placeholder="+1234567890">
+      <label>Email</label>
+      <input type="email" id="emailInput" placeholder="you@example.com">
+      <button type="submit" class="btn-success">Generate & Upload vCard</button>
+    </form>
+  </div>
+
+  <!-- PREVIEW AREA -->
+  <div id="previewArea" class="section">
+    <h3>Generated vCard</h3>
+    <pre id="vcardPre"></pre>
+    <button id="downloadBtn" class="btn-secondary">Download .vcf</button>
+    <button id="uploadBtn" class="btn-success">Upload to Server</button>
+  </div>
+
+  <p id="info" style="margin-top:20px;color:#555;">Status: Idle</p>
+
+<script>
+(function(){
+  const pickBtn = document.getElementById('pickBtn');
+  const openManualBtn = document.getElementById('openManualBtn');
+  const manualForm = document.getElementById('manualForm');
+  const info = document.getElementById('info');
+  const previewArea = document.getElementById('previewArea');
+  const vcardPre = document.getElementById('vcardPre');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const uploadBtn = document.getElementById('uploadBtn');
+
+  let lastVCardText = '';
+
+  const supportsPicker = !!(navigator.contacts && navigator.contacts.select);
+  if (!supportsPicker) {
+    info.textContent = 'Status: Contact Picker not supported — use manual form below.';
+  }
+
+  // --- CONTACT PICKER PATH ---
+  pickBtn.addEventListener('click', async () => {
+    if (!supportsPicker) {
+      alert('Your browser does not support contact picker. Please use the manual form.');
+      return;
+    }
+    try {
+      const contacts = await navigator.contacts.select(['name','tel','email'], {multiple:false});
+      if (!contacts || contacts.length === 0) return;
+      const c = contacts[0];
+      lastVCardText = buildVCard({
+        fullName: (c.name && c.name[0]) || '',
+        phone: (c.tel && c.tel[0]) || '',
+        email: (c.email && c.email[0]) || ''
+      });
+      showPreview();
+      info.textContent = 'Status: Contact selected.';
+    } catch (err) {
+      info.textContent = 'Status: Contact picker error: ' + err.message;
+    }
+  });
+
+  // --- MANUAL FORM PATH ---
+  openManualBtn.addEventListener('click', ()=>{
+    manualForm.style.display = manualForm.style.display === 'block' ? 'none' : 'block';
+  });
+
+  manualForm.addEventListener('submit', e=>{
+    e.preventDefault();
+    const data = {
+      fullName: document.getElementById('nameInput').value.trim(),
+      phone: document.getElementById('phoneInput').value.trim(),
+      email: document.getElementById('emailInput').value.trim()
+    };
+    lastVCardText = buildVCard(data);
+    showPreview();
+    info.textContent = 'Status: vCard created from manual form.';
+  });
+
+  // --- PREVIEW + SAVE/UPLOAD ---
+  function showPreview(){
+    vcardPre.textContent = lastVCardText;
+    previewArea.style.display = 'block';
+  }
+
+  downloadBtn.addEventListener('click', ()=>{
+    if (!lastVCardText) return;
+    const blob = new Blob([lastVCardText], {type:'text/vcard'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'contact.vcf';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(a.href);
+  });
+
+  uploadBtn.addEventListener('click', async ()=>{
+    if (!lastVCardText) return;
+    info.textContent = 'Status: Uploading...';
+    const blob = new Blob([lastVCardText], {type:'text/vcard'});
+    const fd = new FormData();
+    fd.append('file', blob, 'contact.vcf');
+    try {
+      const res = await fetch('/api/upload-vcard', {method:'POST',body:fd});
+      if (res.ok) info.textContent = 'Status: Uploaded successfully ✅';
+      else info.textContent = 'Status: Upload failed ❌';
+    } catch (e) {
+      info.textContent = 'Status: Upload error: ' + e.message;
+    }
+  });
+
+  // --- VCF BUILDER ---
+  function buildVCard(c){
+    const lines = [
+      'BEGIN:VCARD',
+      'VERSION:3.0',
+      'FN:' + (c.fullName || ''),
+      'TEL:' + (c.phone || ''),
+      'EMAIL:' + (c.email || ''),
+      'END:VCARD'
+    ];
+    return lines.join('\r\n');
+  }
+})();
+</script>
+</body>
+</html>
