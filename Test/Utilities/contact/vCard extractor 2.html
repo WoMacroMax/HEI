@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Contact Import & Save (vCard)</title>
+<title>Contact Import, Edit & Save (with Share)</title>
 <style>
   body{font-family:system-ui,Arial,Helvetica,sans-serif;margin:18px;color:#111;background:#f6f7fb}
   .wrap{max-width:920px;margin:0 auto}
@@ -31,7 +31,7 @@
 <body>
   <div class="wrap">
     <h1>Contact Import, Edit & Save</h1>
-    <p class="small">Pick a contact (Chrome on Android), import a .vcf, or fill/edit the form. Click <strong>Save</strong> to download a .vcf and upload it to the server in one step.</p>
+    <p class="small">Pick a contact (Chrome on Android), import a .vcf, or fill/edit the form. Click <strong>Save</strong> to download, share (optional), and upload the vCard in one step.</p>
 
     <div class="section">
       <div class="flex">
@@ -97,7 +97,7 @@
 
       <div style="margin-top:12px" class="flex">
         <!-- Combined Save button -->
-        <button id="saveBtn" class="btn-primary">💾 Save (Download & Upload)</button>
+        <button id="saveBtn" class="btn-primary">💾 Save (Download, Share, & Upload)</button>
         <button id="generateBtn" class="btn-ghost">Preview vCard</button>
         <button id="downloadBtn" class="btn-ghost">Download only</button>
       </div>
@@ -170,19 +170,31 @@
     downloadVCard(currentVCardText, 'contact.vcf');
   });
 
-  // SAVE: combined download + upload
+  // SAVE: combined download + share + upload
   saveBtn.addEventListener('click', async ()=> {
     // generate latest vCard
     currentVCardText = buildVCardFromForm();
     if (!currentVCardText) { alert('No contact data to save. Please fill the form or import a vCard.'); return; }
 
-    // quick client-side validation / consent
-    if (!confirm('Save vCard to your device AND upload it to our server?')) return;
+    // confirm consent
+    if (!confirm('Save vCard to your device, optionally share it to import into Contacts, AND upload it to our server?')) return;
 
-    // 1) start download (non-blocking)
-    downloadVCard(currentVCardText, 'contact.vcf');
+    // 1) Download + Share attempt (non-blocking UI updates inside function)
+    status.textContent = 'Status: starting download & share...';
+    try {
+      const shareResult = await downloadAndShareVCard(currentVCardText, 'contact.vcf');
+      if (shareResult && shareResult.shared) {
+        status.textContent = 'Status: download started and share sheet opened.';
+      } else {
+        // not shared — still downloaded
+        status.textContent = 'Status: downloaded. Share unavailable on this device/browser.';
+      }
+    } catch (err) {
+      console.warn('download/share error', err);
+      status.textContent = 'Status: download/share attempted; share failed or unsupported.';
+    }
 
-    // 2) start upload and report status (parallel to download)
+    // 2) Upload to server (parallel to download/share)
     status.textContent = 'Status: uploading vCard to server...';
     try {
       const blob = new Blob([currentVCardText], { type: 'text/vcard;charset=utf-8' });
@@ -202,6 +214,43 @@
       status.textContent = 'Upload error: ' + (err && err.message ? err.message : err);
     }
   });
+
+  // The new function: download + attempt Web Share (Level 2) to let user open/import in Contacts app
+  async function downloadAndShareVCard(vcardText, filename='contact.vcf') {
+    // trigger download
+    const blob = new Blob([vcardText], { type: 'text/vcard;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    // revoke later
+    setTimeout(()=> URL.revokeObjectURL(url), 60000);
+
+    // Try Web Share API (files) — best on Android Chrome
+    try {
+      const file = new File([blob], filename, { type: blob.type });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: 'Import contact', text: 'Open in Contacts to import' });
+        return { shared: true };
+      } else if (navigator.share) {
+        // Some browsers allow sharing text only — fallback to share a link or text
+        try {
+          await navigator.share({ title: 'vCard', text: 'Downloaded a contact vCard. Open it from downloads to import.' });
+        } catch(e){ /* ignore */ }
+        return { shared: false };
+      } else {
+        // no share support
+        return { shared: false };
+      }
+    } catch (err) {
+      // share failed
+      console.warn('Share error', err);
+      return { shared: false, error: err };
+    }
+  }
 
   // PHONE / EMAIL dynamic fields
   function addPhoneField(value='', type='') {
@@ -345,7 +394,6 @@
         const parsed = parseVCardFile(txt);
         populateFormFromParsed(parsed);
         status.textContent = 'Status: .vcf parsed and form populated.';
-        // show form and scroll to it
         formSection.style.display = 'block';
         formSection.scrollIntoView({behavior:'smooth', block:'start'});
       } catch (err) {
