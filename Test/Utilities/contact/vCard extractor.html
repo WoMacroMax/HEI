@@ -2,68 +2,254 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Success STORY vCard Extractor</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    body { background: #f8f9fa; padding: 2em; }
-    .tab-pane ul { padding-left: 1em; }
+    body { font-family: Arial, sans-serif; margin: 20px; background:#f7f7f7; color:#222; }
+    h1 { margin-bottom: 12px; }
+    .tabs { display: flex; gap:8px; margin-bottom: 10px; }
+    .tab { padding: 10px 16px; border: 1px solid #d0d0d0; border-bottom: none; cursor: pointer; background: #f0f0f0; border-radius:6px 6px 0 0;}
+    .tab.active { background: white; font-weight: 700; box-shadow: 0 2px 4px rgba(0,0,0,0.03); }
+    .tab-content { border: 1px solid #d0d0d0; padding: 15px; background: white; border-radius:0 6px 6px 6px; }
+    #capture input[type=file] { margin-bottom: 10px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { border: 1px solid #e0e0e0; padding: 8px; text-align: left; }
+    th { background:#fafafa; }
+    .qr-code { margin: 8px; display: inline-block; text-align:center; vertical-align: top; }
+    .qr-code img { display:block; margin:0 auto 6px; }
+    .message-links a { margin-right: 10px; }
+    .small-muted { color:#666; font-size:0.9rem; margin-top:6px; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1 class="mb-4">Success STORY vCard Extractor</h1>
-    <ul class="nav nav-tabs" id="storyTabs" role="tablist">
-      <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="capture-tab" data-bs-toggle="tab" data-bs-target="#capture" type="button" role="tab">Capture</button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="campaign-tab" data-bs-toggle="tab" data-bs-target="#campaign" type="button" role="tab">Campaign</button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="qr-tab" data-bs-toggle="tab" data-bs-target="#qr" type="button" role="tab">QR Codes</button>
-      </li>
-    </ul>
+  <h1>Success STORY vCard Extractor</h1>
 
-    <div class="tab-content mt-3" id="storyTabsContent">
-      <div class="tab-pane fade show active" id="capture" role="tabpanel">
-        <h4>Upload a vCard (.vcf)</h4>
-        <input type="file" id="vcfInput" accept=".vcf" class="form-control" />
-        <div id="output" class="mt-3"></div>
-      </div>
-
-      <div class="tab-pane fade" id="campaign" role="tabpanel">
-        <h4>Campaign Messaging</h4>
-        <p>Use extracted contact info to personalize outreach across WhatsApp, SMS, and email channels.</p>
-      </div>
-
-      <div class="tab-pane fade" id="qr" role="tabpanel">
-        <h4>QR Code Integration</h4>
-        <p>Generate QR codes from vCard data for recruiter cards or healthcare IT workflows.</p>
-      </div>
-    </div>
+  <div class="tabs">
+    <div class="tab active" data-tab="capture">Capture</div>
+    <div class="tab" data-tab="campaign">Campaign</div>
+    <div class="tab" data-tab="qrcodes">QR Codes</div>
   </div>
 
+  <div class="tab-content" id="capture">
+    <input type="file" id="vcardFile" accept=".vcf" multiple />
+    <div id="contactsList" class="small-muted">No contacts loaded.</div>
+  </div>
+
+  <div class="tab-content" id="campaign" style="display:none;">
+    <div id="campaignList" class="small-muted">No contacts available for campaign.</div>
+  </div>
+
+  <div class="tab-content" id="qrcodes" style="display:none;">
+    <div id="qrCodesContainer" class="small-muted">No contacts available for QR codes.</div>
+  </div>
+
+  <!-- QR code library -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+
   <script>
-    document.getElementById('vcfInput').addEventListener('change', function (event) {
-      const file = event.target.files[0];
-      const reader = new FileReader();
-      reader.onload = function () {
-        const text = reader.result;
-        const contacts = text.split("BEGIN:VCARD").slice(1);
-        let html = "<h5>Extracted Contacts:</h5><ul class='list-group'>";
-        contacts.forEach(card => {
-          const name = card.match(/FN:(.*)/)?.[1] || "Unnamed";
-          const phone = card.match(/TEL.*:(.*)/)?.[1] || "No phone";
-          const email = card.match(/EMAIL.*:(.*)/)?.[1] || "No email";
-          html += `<li class='list-group-item'><strong>${name}</strong><br>📞 ${phone}<br>📧 ${email}</li>`;
-        });
-        html += "</ul>";
-        document.getElementById("output").innerHTML = html;
-      };
-      reader.readAsText(file);
+    // Elements
+    const tabs = document.querySelectorAll('.tab');
+    const tabContents = document.querySelectorAll('.tab-content');
+    let contacts = [];
+
+    // Tab switching
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        tabContents.forEach(tc => tc.style.display = 'none');
+        const panel = document.getElementById(tab.dataset.tab);
+        if (panel) panel.style.display = 'block';
+
+        if (tab.dataset.tab === 'campaign') renderCampaign();
+        else if (tab.dataset.tab === 'qrcodes') renderQRCodes();
+      });
     });
+
+    // File input
+    document.getElementById('vcardFile').addEventListener('change', (event) => {
+      const files = Array.from(event.target.files || []);
+      contacts = [];
+      if (files.length === 0) {
+        renderContacts();
+        return;
+      }
+      let readCount = 0;
+      files.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const vcardText = e.target.result;
+          const parsedContacts = parseVCard(vcardText);
+          contacts = contacts.concat(parsedContacts);
+          readCount++;
+          if (readCount === files.length) {
+            renderContacts();
+          }
+        };
+        reader.onerror = () => {
+          readCount++;
+          if (readCount === files.length) renderContacts();
+        };
+        reader.readAsText(file);
+      });
+    });
+
+    // Parse vCard (handles common TEL/EMAIL formats)
+    function parseVCard(vcardText) {
+      const entries = vcardText.split(/END:VCARD/gi);
+      const parsed = [];
+      entries.forEach(entry => {
+        if (!entry || entry.trim() === '') return;
+        const contact = {};
+        // Normalize line endings and unfold folded lines (RFC 2425: lines that start with space or tab are continuations)
+        const unfolded = entry.replace(/\r?\n[ \t]/g, '');
+        const lines = unfolded.split(/\r?\n/);
+        lines.forEach(line => {
+          if (!line) return;
+          // Full name
+          if (/^FN:/i.test(line)) {
+            contact.fullName = line.replace(/^FN:/i, '').trim();
+          }
+          // TEL (capture everything after the last colon)
+          else if (/^TEL/i.test(line)) {
+            const m = line.match(/^[^:]*:(.*)$/);
+            if (m && m[1]) contact.phone = (contact.phone ? contact.phone + ',' : '') + m[1].trim();
+          }
+          // EMAIL
+          else if (/^EMAIL/i.test(line)) {
+            const m = line.match(/^[^:]*:(.*)$/);
+            if (m && m[1]) contact.email = m[1].trim();
+          }
+        });
+        // If no full name but has N: fallback to N: family;given
+        if (!contact.fullName) {
+          const m = entry.match(/^N:(.*)$/im);
+          if (m && m[1]) {
+            const parts = m[1].split(';').filter(Boolean);
+            contact.fullName = parts.reverse().join(' ').trim() || undefined;
+          }
+        }
+        // push when we have at least one identifier
+        if (contact.fullName || contact.phone || contact.email) parsed.push(contact);
+      });
+      return parsed;
+    }
+
+    // Render contacts table in Capture tab
+    function renderContacts() {
+      const container = document.getElementById('contactsList');
+      if (!contacts || contacts.length === 0) {
+        container.innerHTML = '<p class="small-muted">No contacts loaded.</p>';
+        return;
+      }
+      const rows = contacts.map(c => {
+        const phones = c.phone ? c.phone : '';
+        const emails = c.email ? c.email : '';
+        return `<tr>
+          <td>${escapeHtml(c.fullName || '')}</td>
+          <td>${escapeHtml(phones)}</td>
+          <td>${escapeHtml(emails)}</td>
+        </tr>`;
+      }).join('');
+      const html = `<table>
+        <thead><tr><th>Name</th><th>Phone</th><th>Email</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>`;
+      container.innerHTML = html;
+    }
+
+    // Render campaign links (WhatsApp / SMS / Email)
+    function renderCampaign() {
+      const container = document.getElementById('campaignList');
+      if (!contacts || contacts.length === 0) {
+        container.innerHTML = '<p class="small-muted">No contacts available for campaign.</p>';
+        return;
+      }
+      const rows = contacts.map(c => {
+        const name = c.fullName || '';
+        // sanitize phone: keep digits and plus sign
+        const rawPhone = (c.phone || '').split(',')[0] || '';
+        const phone = rawPhone.replace(/[^\d+]/g, '');
+        const waLink = phone ? `https://wa.me/${encodeURIComponent(phone.replace(/^\+/, ''))}?text=${encodeURIComponent('Hello ' + name)}` : '';
+        const smsLink = phone ? `sms:${encodeURIComponent(phone)}?body=${encodeURIComponent('Hello ' + name)}` : '';
+        const emailLink = c.email ? `mailto:${encodeURIComponent(c.email)}?subject=${encodeURIComponent('Hello ' + name)}&body=${encodeURIComponent('Dear ' + name + ',\n\nThis is a personalized message.')}` : '';
+        const waAnchor = waLink ? `<a href="${waLink}" target="_blank" rel="noopener">WhatsApp</a>` : '';
+        const smsAnchor = smsLink ? `<a href="${smsLink}" target="_blank" rel="noopener">SMS</a>` : '';
+        const emailAnchor = emailLink ? `<a href="${emailLink}" target="_blank" rel="noopener">Email</a>` : '';
+        return `<tr>
+          <td>${escapeHtml(name)}</td>
+          <td>${waAnchor}</td>
+          <td>${smsAnchor}</td>
+          <td>${emailAnchor}</td>
+        </tr>`;
+      }).join('');
+      const html = `<table>
+        <thead><tr><th>Name</th><th>WhatsApp</th><th>SMS</th><th>Email</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>`;
+      container.innerHTML = html;
+    }
+
+    // Render QR codes for each contact (vCard)
+    function renderQRCodes() {
+      const container = document.getElementById('qrCodesContainer');
+      container.innerHTML = '';
+      if (!contacts || contacts.length === 0) {
+        container.innerHTML = '<p class="small-muted">No contacts available for QR codes.</p>';
+        return;
+      }
+      contacts.forEach(contact => {
+        const name = contact.fullName || '';
+        const phone = contact.phone ? contact.phone.split(',')[0] : '';
+        const email = contact.email || '';
+        const vcardString = [
+          'BEGIN:VCARD',
+          'VERSION:3.0',
+          `FN:${name}`,
+          phone ? `TEL:${phone}` : '',
+          email ? `EMAIL:${email}` : '',
+          'END:VCARD'
+        ].filter(Boolean).join('\r\n');
+
+        // create wrapper
+        const wrapper = document.createElement('div');
+        wrapper.className = 'qr-code';
+        const label = document.createElement('div');
+        label.textContent = name || '(no name)';
+        label.style.fontSize = '0.9rem';
+        label.style.marginTop = '6px';
+
+        // generate image dataURL and append
+        QRCode.toDataURL(vcardString, { width: 128 })
+          .then(url => {
+            const img = document.createElement('img');
+            img.src = url;
+            img.width = 128;
+            img.height = 128;
+            wrapper.appendChild(img);
+            wrapper.appendChild(label);
+            container.appendChild(wrapper);
+          })
+          .catch(err => {
+            console.error('QR error', err);
+            const errDiv = document.createElement('div');
+            errDiv.textContent = 'QR generation error';
+            wrapper.appendChild(errDiv);
+            wrapper.appendChild(label);
+            container.appendChild(wrapper);
+          });
+      });
+    }
+
+    // small helper to escape HTML (prevents simple injection when inserting names/emails)
+    function escapeHtml(unsafe) {
+      return String(unsafe)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
