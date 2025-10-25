@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Contact Import & Edit (vCard)</title>
+<title>Contact Import & Save (vCard)</title>
 <style>
   body{font-family:system-ui,Arial,Helvetica,sans-serif;margin:18px;color:#111;background:#f6f7fb}
-  .wrap{max-width:900px;margin:0 auto}
-  h1{margin:0 0 8px;font-size:1.4rem}
+  .wrap{max-width:920px;margin:0 auto}
+  h1{margin:0 0 8px;font-size:1.3rem}
   .row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
   .col{flex:1}
   label{display:block;font-size:0.9rem;color:#333;margin-bottom:4px}
@@ -24,14 +24,14 @@
   .phones, .emails {margin-top:6px}
   .field-row{display:flex;gap:8px;margin-bottom:6px}
   .field-row input{flex:1}
-  .field-row button{flex:0 0 auto}
+  .status{margin-top:12px;font-size:0.95rem}
   pre{background:#f3f4f6;padding:12px;border-radius:6px;overflow:auto}
 </style>
 </head>
 <body>
   <div class="wrap">
-    <h1>Contact Import & Edit</h1>
-    <p class="small">Pick a contact (Chrome on Android), import a .vcf, or fill/edit the form manually. Then download or upload the generated .vcf.</p>
+    <h1>Contact Import, Edit & Save</h1>
+    <p class="small">Pick a contact (Chrome on Android), import a .vcf, or fill/edit the form. Click <strong>Save</strong> to download a .vcf and upload it to the server in one step.</p>
 
     <div class="section">
       <div class="flex">
@@ -43,7 +43,7 @@
         <button id="openFormBtn" class="btn-secondary">Show / Hide Manual Form</button>
         <button id="clearBtn" class="btn-ghost">Clear</button>
       </div>
-      <div style="margin-top:10px" id="supportNote" class="small"></div>
+      <div id="supportNote" class="small" style="margin-top:10px"></div>
     </div>
 
     <!-- FORM -->
@@ -96,9 +96,10 @@
       </div>
 
       <div style="margin-top:12px" class="flex">
-        <button id="generateBtn" class="btn-primary">Generate vCard</button>
-        <button id="downloadBtn" class="btn-ghost">Download .vcf</button>
-        <button id="uploadBtn" class="btn-secondary">Upload to Server</button>
+        <!-- Combined Save button -->
+        <button id="saveBtn" class="btn-primary">💾 Save (Download & Upload)</button>
+        <button id="generateBtn" class="btn-ghost">Preview vCard</button>
+        <button id="downloadBtn" class="btn-ghost">Download only</button>
       </div>
 
       <div style="margin-top:12px">
@@ -107,7 +108,7 @@
       </div>
     </div>
 
-    <div id="status" class="small" style="margin-top:12px;color:#333">Status: idle</div>
+    <div id="status" class="status">Status: idle</div>
   </div>
 
 <script>
@@ -134,19 +135,21 @@
   const addPhoneBtn = document.getElementById('addPhoneBtn');
   const addEmailBtn = document.getElementById('addEmailBtn');
 
+  const saveBtn = document.getElementById('saveBtn');
   const generateBtn = document.getElementById('generateBtn');
   const downloadBtn = document.getElementById('downloadBtn');
-  const uploadBtn = document.getElementById('uploadBtn');
   const vcardPreview = document.getElementById('vcardPreview');
   const status = document.getElementById('status');
 
   let currentVCardText = '';
 
-  // Init
-  supportNote.textContent = supportsPicker ? 'Contact Picker is available in this browser.' : 'Contact Picker NOT available — use Import .vcf or Manual Form.';
-  if (!supportsPicker) pickBtn.disabled = false; // still allow message
+  // Init UI
+  supportNote.textContent = supportsPicker ? 'Contact Picker available.' : 'Contact Picker NOT available — use Import .vcf or Manual Form.';
   pickBtn.addEventListener('click', onPickContact);
-  openFormBtn.addEventListener('click', ()=> formSection.style.display = formSection.style.display === 'none' ? 'block' : 'none');
+  openFormBtn.addEventListener('click', ()=> {
+    formSection.style.display = formSection.style.display === 'none' ? 'block' : 'none';
+    if (formSection.style.display === 'block') formSection.scrollIntoView({behavior:'smooth', block:'start'});
+  });
   clearBtn.addEventListener('click', clearAll);
 
   chooseFileBtn.addEventListener('click', ()=> vcfFileInput.click());
@@ -157,8 +160,8 @@
 
   generateBtn.addEventListener('click', ()=> {
     currentVCardText = buildVCardFromForm();
-    vcardPreview.textContent = currentVCardText;
-    status.textContent = 'Status: vCard generated (preview updated).';
+    vcardPreview.textContent = currentVCardText || '(no data)';
+    status.textContent = 'Status: vCard preview updated.';
   });
 
   downloadBtn.addEventListener('click', ()=> {
@@ -167,22 +170,33 @@
     downloadVCard(currentVCardText, 'contact.vcf');
   });
 
-  uploadBtn.addEventListener('click', async ()=> {
-    if (!currentVCardText) currentVCardText = buildVCardFromForm();
-    if (!currentVCardText) { alert('No vCard data to upload.'); return; }
-    if (!confirm('Upload this contact to server?')) return;
-    status.textContent = 'Status: uploading...';
+  // SAVE: combined download + upload
+  saveBtn.addEventListener('click', async ()=> {
+    // generate latest vCard
+    currentVCardText = buildVCardFromForm();
+    if (!currentVCardText) { alert('No contact data to save. Please fill the form or import a vCard.'); return; }
+
+    // quick client-side validation / consent
+    if (!confirm('Save vCard to your device AND upload it to our server?')) return;
+
+    // 1) start download (non-blocking)
+    downloadVCard(currentVCardText, 'contact.vcf');
+
+    // 2) start upload and report status (parallel to download)
+    status.textContent = 'Status: uploading vCard to server...';
     try {
-      const blob = new Blob([currentVCardText], { type: 'text/vcard' });
+      const blob = new Blob([currentVCardText], { type: 'text/vcard;charset=utf-8' });
       const fd = new FormData();
       fd.append('file', blob, 'contact.vcf');
-      const res = await fetch('/api/upload-vcard', { method: 'POST', body: fd });
+
+      // Customize endpoint if needed
+      const res = await fetch('/api/upload-vcard', { method: 'POST', body: fd, credentials: 'include' });
       if (!res.ok) {
         const txt = await res.text().catch(()=>res.statusText);
         status.textContent = 'Upload failed: ' + txt;
       } else {
         const json = await res.json().catch(()=>null);
-        status.textContent = 'Uploaded successfully' + (json && json.filename ? ': ' + json.filename : '.');
+        status.textContent = 'Saved locally and uploaded successfully' + (json && json.filename ? ': ' + json.filename : '.');
       }
     } catch (err) {
       status.textContent = 'Upload error: ' + (err && err.message ? err.message : err);
@@ -238,9 +252,7 @@
   // Build vCard from form fields
   function buildVCardFromForm() {
     const fn = (fullNameInput.value || '').trim();
-    if (!fn && !hasAnyContactField()) {
-      return '';
-    }
+    if (!fn && !hasAnyContactField()) return '';
     const lines = ['BEGIN:VCARD','VERSION:3.0'];
     if (fn) lines.push('FN:' + escapeV(fn));
     const org = (companyInput.value || '').trim();
@@ -249,7 +261,6 @@
     if (title) lines.push('TITLE:' + escapeV(title));
     const bday = (birthdayInput.value || '').trim();
     if (bday) lines.push('BDAY:' + bday);
-    // phones
     Array.from(phonesContainer.querySelectorAll('.field-row')).forEach(row=>{
       const inputs = row.querySelectorAll('input');
       const val = (inputs[0] && inputs[0].value.trim()) || '';
@@ -259,7 +270,6 @@
         lines.push(`TEL${typeStr}:${escapeV(val)}`);
       }
     });
-    // emails
     Array.from(emailsContainer.querySelectorAll('.field-row')).forEach(row=>{
       const inputs = row.querySelectorAll('input');
       const val = (inputs[0] && inputs[0].value.trim()) || '';
@@ -269,18 +279,12 @@
         lines.push(`EMAIL${typeStr}:${escapeV(val)}`);
       }
     });
-    // address (single)
     const adr = (addressInput.value || '').trim();
     if (adr) {
-      // expect semicolon-separated parts, but allow raw string too
       const parts = adr.split(';').map(s=>s.trim());
-      // vCard ADR format: PO Box;Extended;Street;Locality(city);Region;PostalCode;Country
-      // We'll place provided parts into Street;City;Region;Postal;Country
-      // Build minimal ADR with empty placeholders
       const adrParts = ['', '', '', '', '', '', ''];
-      // map last N parts into end of adrParts
       for (let i=0;i<parts.length && i<7;i++){
-        adrParts[2 + i] = parts[i]; // starting street slot
+        adrParts[2 + i] = parts[i];
       }
       lines.push('ADR:' + adrParts.join(';'));
     }
@@ -290,10 +294,9 @@
     return lines.join('\r\n');
   }
 
-  // Helpers
   function hasAnyContactField() {
     return fullNameInput.value || companyInput.value || titleInput.value ||
-      phonesContainer.querySelectorAll('input')[0] || emailsContainer.querySelectorAll('input')[0];
+      phonesContainer.querySelectorAll('input').length || emailsContainer.querySelectorAll('input').length;
   }
   function escapeV(s) {
     return String(s).replace(/\r?\n/g,' ').replace(/,/g,'\\,').replace(/;/g,'\\;');
@@ -303,16 +306,20 @@
   }
 
   function downloadVCard(text, filename='contact.vcf') {
-    const blob = new Blob([text], { type: 'text/vcard;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    setTimeout(()=> URL.revokeObjectURL(url), 60000);
-    status.textContent = 'Status: download started.';
+    try {
+      const blob = new Blob([text], { type: 'text/vcard;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(()=> URL.revokeObjectURL(url), 60000);
+      status.textContent = 'Status: download started.';
+    } catch (err) {
+      status.textContent = 'Download error: ' + (err && err.message ? err.message : err);
+    }
   }
 
   // Clear form
@@ -323,7 +330,8 @@
     vcardPreview.textContent = '';
     currentVCardText = '';
     status.textContent = 'Status: cleared.';
-    if (formSection.style.display === 'none') formSection.style.display = 'block';
+    formSection.style.display = 'block';
+    formSection.scrollIntoView({behavior:'smooth', block:'start'});
   }
 
   // VCF file import handling
@@ -337,12 +345,14 @@
         const parsed = parseVCardFile(txt);
         populateFormFromParsed(parsed);
         status.textContent = 'Status: .vcf parsed and form populated.';
+        // show form and scroll to it
+        formSection.style.display = 'block';
+        formSection.scrollIntoView({behavior:'smooth', block:'start'});
       } catch (err) {
         status.textContent = 'Parse error: ' + (err && err.message ? err.message : err);
       }
     };
     reader.readAsText(f);
-    // reset input so same file can be selected again
     vcfFileInput.value = '';
   }
 
@@ -354,14 +364,12 @@
     }
     try {
       status.textContent = 'Status: opening contact picker...';
-      // request fields - adjust as needed
       const contacts = await navigator.contacts.select(['name','tel','email','address'], { multiple: false });
       if (!contacts || contacts.length === 0) {
         status.textContent = 'Status: no contact selected.';
         return;
       }
       const c = contacts[0];
-      // Build an intermediate parsed object similar to parseVCardFile result
       const parsed = {
         fn: (Array.isArray(c.name) ? c.name[0] : c.name) || '',
         org: '',
@@ -373,22 +381,19 @@
       };
       populateFormFromParsed(parsed);
       status.textContent = 'Status: contact picked and form populated.';
-      if (formSection.style.display === 'none') formSection.style.display = 'block';
+      formSection.style.display = 'block';
+      formSection.scrollIntoView({behavior:'smooth', block:'start'});
     } catch (err) {
       status.textContent = 'Contact picker error: ' + (err && err.message ? err.message : err);
     }
   }
 
-  // Parse vCard text into simplified object for our form.
-  // Handles multiple VCARD entries by taking the first one.
+  // Parse vCard (basic) into simplified object
   function parseVCardFile(text) {
     if (!text) throw new Error('Empty vCard text');
-    // unfold folded lines: lines that start with space or tab are continuations
     const unfolded = text.replace(/\r?\n[ \t]/g, '');
-    // split into entries
     const entries = unfolded.split(/END:VCARD/i).map(s=>s.trim()).filter(Boolean);
     if (entries.length === 0) throw new Error('No VCARD entries found');
-    // parse first entry
     const entry = entries[0];
     const lines = entry.split(/\r?\n/);
     const out = { fn:'', org:'', title:'', tel:[], email:[], adr:'', note:'' };
@@ -399,8 +404,7 @@
       const key = line.slice(0, idx).toUpperCase();
       const val = line.slice(idx+1).trim();
       if (key.startsWith('FN')) out.fn = val;
-      else if (key.startsWith('N') && !out.fn) {
-        // N:Family;Given;...
+      else if (key === 'N' && !out.fn) {
         const parts = val.split(';').filter(Boolean);
         out.fn = parts.reverse().join(' ').trim();
       }
@@ -409,7 +413,6 @@
       else if (key.startsWith('TEL')) out.tel.push(val);
       else if (key.startsWith('EMAIL')) out.email.push(val);
       else if (key.startsWith('ADR')) {
-        // ADR: PO;EXT;STREET;CITY;REGION;PC;CTRY
         const adrParts = val.split(';').map(s=>s.trim()).filter(p=>p);
         out.adr = adrParts.join(';');
       }
@@ -418,31 +421,29 @@
     return out;
   }
 
-  // populate the HTML form using parsed object
+  // populate the form from parsed object
   function populateFormFromParsed(parsed) {
     if (!parsed) return;
-    if (parsed.fn) fullNameInput.value = parsed.fn;
-    if (parsed.org) companyInput.value = parsed.org;
-    if (parsed.title) titleInput.value = parsed.title;
-    if (parsed.adr) addressInput.value = parsed.adr;
-    if (parsed.note) notesInput.value = parsed.note;
-    // clear phones/emails then fill
+    fullNameInput.value = parsed.fn || '';
+    companyInput.value = parsed.org || '';
+    titleInput.value = parsed.title || '';
+    addressInput.value = parsed.adr || '';
+    notesInput.value = parsed.note || '';
     phonesContainer.innerHTML = '';
     emailsContainer.innerHTML = '';
     if (Array.isArray(parsed.tel) && parsed.tel.length) {
       parsed.tel.forEach(t => addPhoneField(t));
-    } else {
-      addPhoneField();
-    }
+    } else addPhoneField();
     if (Array.isArray(parsed.email) && parsed.email.length) {
       parsed.email.forEach(e => addEmailField(e));
-    } else {
-      addEmailField();
-    }
+    } else addEmailField();
     currentVCardText = buildVCardFromForm();
     vcardPreview.textContent = currentVCardText;
-    if (formSection.style.display === 'none') formSection.style.display = 'block';
   }
+
+  // initial UI: ensure at least one phone/email field
+  addPhoneField();
+  addEmailField();
 
 })();
 </script>
