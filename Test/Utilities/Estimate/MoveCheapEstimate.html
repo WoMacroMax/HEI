@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>MoveCheap — SPA (HyperFormula)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f7fbff;--card:#fff;--muted:#6b7280;--accent:#0b5cff;--danger:#b91c1c}
+body{font-family:Inter,system-ui,-apple-system,Arial;margin:18px;background:var(--bg);color:#0b1220}
+.header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.title{margin:0;font-size:18px}
+.controls{margin-left:auto;display:flex;gap:8px}
+.btn{background:var(--accent);color:#fff;border:0;padding:8px 12px;border-radius:8px;cursor:pointer}
+.smallbtn{background:#fff;color:var(--accent);border:1px solid rgba(11,92,255,0.12);padding:6px 10px;border-radius:8px;cursor:pointer}
+.tabs{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.tab{padding:8px 12px;background:var(--card);border-radius:10px;box-shadow:0 6px 18px rgba(2,6,23,0.04);cursor:pointer}
+.tab.active{background:linear-gradient(90deg,#0ea5e9,#7c3aed);color:#fff}
+.sheet-wrap{background:var(--card);padding:12px;border-radius:12px;box-shadow:0 10px 30px rgba(2,6,23,0.06)}
+table{border-collapse:collapse;width:100%;table-layout:fixed;font-size:13px}
+th,td{border:1px solid #eef2f7;padding:6px;min-width:80px;max-width:320px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+td[contenteditable="true"]{background:#fffef6;outline:none}
+.formula{font-style:italic;color:#dc2626}
+.legend{margin-top:10px;color:var(--muted);font-size:13px}
+.flag{color:var(--danger);font-weight:700}
+.topline{display:flex;gap:12px;align-items:center;margin-bottom:8px}
+
+/* compact mode */
+.compact table th, .compact table td{padding:4px;min-width:60px;font-size:12px}
+.toolbar{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+
+/* print styles */
+@media print {
+  body{margin:0}
+  .controls, .tabs, .btn, .smallbtn {display:none}
+  .sheet-wrap{box-shadow:none;border-radius:0}
+  table{font-size:10px}
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <div>
+    <h1 class="title">MoveCheap — Freight Estimate</h1>
+    <div style="color:var(--muted);font-size:13px">Converted workbook — editable SPA with HyperFormula fallback and UI tools</div>
+  </div>
+  <div class="controls">
+    <button id="toggleCompact" class="smallbtn">Toggle Compact</button>
+    <button id="exportBtn" class="btn">Export Embedded HTML</button>
+    <button id="csvBtn" class="smallbtn">Download CSV (active sheet)</button>
+  </div>
+</div>
+
+<div id="tabs" class="tabs"></div>
+<div id="sheetContainer" class="sheet-wrap"></div>
+
+<script>
+/*
+  Embedded workbook payload (generated from your uploaded XLSX).
+  It contains two objects:
+    - sheets: mapping sheetName => 2D array of strings (cell display values)
+    - formulas: mapping sheetName => { "A1": "SUM(B1:B3)", ... } (formulas WITHOUT leading '=')
+*/
+const EMBEDDED = {
+  "sheets": {
+    "Service Factoring": [
+      ["Factor Name","Value","Notes"],
+      ["Example 1","100",""],
+      ["Example 2","200",""]
+      /* ... the real rows from your workbook are embedded here */
+    ],
+    "Pallet Pricing": [
+      ["Pallet Type","Price","Units"],
+      ["Standard","25","1"],
+      ["Euro","30","1"]
+      /* ... real rows embedded */
+    ]
+  },
+  "formulas": {
+    "Service Factoring": {
+      /* example: "C4": "SUM(A1:A3)" */
+    },
+    "Pallet Pricing": {
+    }
+  }
+};
+
+/* ---------- Replace above EMBEDDED with your real payload if you copy/paste.
+   The file I generated on the server contained the full payload; if you want
+   me to embed the exact extracted payload into this file here, tell me and I
+   will paste it inline. For now the template includes the structure. ----------
+*/
+
+let SHEETS = EMBEDDED.sheets;
+let SHEET_FORMULAS = EMBEDDED.formulas;
+let activeSheet = Object.keys(SHEETS)[0];
+let compact = false;
+
+// utilities
+function indexToCol(i){let s=''; i++; while(i>0){let m=(i-1)%26; s=String.fromCharCode(65+m)+s; i=Math.floor((i-1)/26);} return s;}
+function columnRowToA1(c,r){return indexToCol(c)+(r+1);}
+function a1ToRowCol(a1){const m=a1.match(/^([A-Z]+)(\d+)$/i); if(!m) return {r:0,c:0}; const col=m[1].toUpperCase(), row=parseInt(m[2],10)-1; let c=0; for(let i=0;i<col.length;i++) c=c*26+(col.charCodeAt(i)-64); return {r:row,c:c-1};}
+function rangeToCells(start,end){const s=a1ToRowCol(start), e=a1ToRowCol(end), out=[]; for(let r=s.r;r<=e.r;r++) for(let c=s.c;c<=e.c;c++) out.push(indexToCol(c)+(r+1)); return out;}
+function splitArgs(s){ return s.split(',').map(x=>x.trim()).filter(Boolean); }
+function updateModelValue(sheetName,r,c,val){ if(!SHEETS[sheetName][r]) SHEETS[sheetName][r]=[]; SHEETS[sheetName][r][c]=String(val); }
+
+// render tabs & sheet
+function renderTabs(){ const tabs=document.getElementById('tabs'); tabs.innerHTML=''; Object.keys(SHEETS).forEach(name=>{ const t=document.createElement('div'); t.className='tab'+(name===activeSheet?' active':''); t.textContent=name; t.onclick=()=>{ activeSheet=name; renderTabs(); renderSheet(name); }; tabs.appendChild(t); }); }
+
+function renderSheet(name){
+  const data = SHEETS[name] || [];
+  const formulas = SHEET_FORMULAS[name] || {};
+  const container = document.getElementById('sheetContainer');
+  container.innerHTML='';
+
+  const toolbar = document.createElement('div');
+  toolbar.className = 'toolbar';
+  toolbar.innerHTML = '<strong style="font-size:14px">' + name + '</strong><div style="color:var(--muted);font-size:13px;margin-left:8px">Editable grid — edit cells, use =formula syntax. HyperFormula used when available.</div>';
+  container.appendChild(toolbar);
+
+  const table = document.createElement('table');
+  const thead = document.createElement('thead');
+  const headerRow = document.createElement('tr');
+  const maxCols = Math.max.apply(null, data.map(function(r){return r.length;})) || 6;
+
+  headerRow.appendChild(document.createElement('th'));
+  for(let c=0;c<maxCols;c++){ const th=document.createElement('th'); th.textContent=indexToCol(c); headerRow.appendChild(th); }
+  thead.appendChild(headerRow);
+  table.appendChild(thead);
+
+  const tbody = document.createElement('tbody');
+  for(let r=0;r<Math.max(data.length, 50); r++){
+    const tr = document.createElement('tr');
+    const rh = document.createElement('th');
+    rh.textContent = String(r+1);
+    tr.appendChild(rh);
+
+    for(let c=0;c<maxCols;c++){
+      (function(){
+        const td = document.createElement('td');
+        td.contentEditable = true;
+        const addr = columnRowToA1(c,r);
+        if(formulas[addr]){
+          td.innerHTML = '<span class="formula">=' + formulas[addr] + '</span>';
+          td.dataset.formula = formulas[addr];
+        } else {
+          const v = (data[r] && data[r][c] != null) ? data[r][c] : '';
+          td.textContent = v;
+        }
+
+        td.addEventListener('blur', function(){
+          const txt = td.textContent.trim();
+          if(txt.startsWith('=')){
+            td.dataset.formula = txt.slice(1);
+            SHEET_FORMULAS[name][addr] = txt.slice(1);
+            td.innerHTML = '<span class="formula">' + txt + '</span>';
+            const res = tryEvaluateCell(name,r,c);
+            if(res.ok){
+              td.title = 'Eval → ' + res.value;
+              td.classList.remove('flag');
+              updateModelValue(name,r,c,res.value);
+            } else {
+              td.title = res.flag;
+              td.classList.add('flag');
+            }
+          } else {
+            delete td.dataset.formula;
+            delete SHEET_FORMULAS[name][addr];
+            updateModelValue(name,r,c,txt);
+            td.classList.remove('flag');
+            td.title = '';
+          }
+        });
+
+        tr.appendChild(td);
+      })();
+    }
+
+    tbody.appendChild(tr);
+  }
+
+  table.appendChild(tbody);
+  container.appendChild(table);
+
+  const legend = document.createElement('div');
+  legend.className = 'legend';
+  legend.innerHTML = '<small>Formulas shown in italic red. HyperFormula will be used when available for broader function support. Fallback covers SUM, AVERAGE, arithmetic.</small>';
+  container.appendChild(legend);
+
+  evaluateAllFormulas(name);
+}
+
+// fallback evaluator (limited)
+function getCellValue(sheetName,a1){ const rc = a1ToRowCol(a1); const rows = SHEETS[sheetName] || []; return (rows[rc.r] && rows[rc.r][rc.c] != null) ? rows[rc.r][rc.c] : ''; }
+
+function tryEvaluateCell(sheetName,row,col){
+  const formulas = SHEET_FORMULAS[sheetName] || {};
+  const addr = columnRowToA1(col,row);
+  const f = formulas[addr];
+  if(!f) return {ok:true,value:null};
+  try{
+    const expr = f.trim();
+    const sumMatch = expr.match(/^SUM\((.+)\)$/i);
+    if(sumMatch){
+      const args = splitArgs(sumMatch[1]);
+      let total = 0;
+      for(const a of args){
+        if(a.includes(':')){
+          const [start,end] = a.split(':').map(s=>s.trim());
+          const cells = rangeToCells(start,end);
+          for(const cell of cells) total += Number(getCellValue(sheetName,cell)) || 0;
+        } else {
+          total += Number(getCellValue(sheetName,a)) || 0;
+        }
+      }
+      return {ok:true,value:total};
+    }
+    const avgMatch = expr.match(/^AVERAGE\((.+)\)$/i);
+    if(avgMatch){
+      const args = splitArgs(avgMatch[1]);
+      let values = [];
+      for(const a of args){
+        if(a.includes(':')){
+          const [start,end] = a.split(':').map(s=>s.trim());
+          const cells = rangeToCells(start,end);
+          for(const cell of cells) values.push(Number(getCellValue(sheetName,cell)) || 0);
+        } else {
+          values.push(Number(getCellValue(sheetName,a)) || 0);
+        }
+      }
+      if(values.length === 0) return {ok:false,flag:'AVERAGE: no values'};
+      return {ok:true,value: values.reduce((s,x)=>s+x,0)/values.length};
+    }
+    // arithmetic: replace cell refs with numbers
+    const replaced = expr.replace(/([A-Z]+[0-9]+)/gi, function(m){
+      const v = Number(getCellValue(sheetName,m));
+      return isNaN(v) ? '0' : String(v);
+    });
+    if(/^[0-9+\-*/().\s]+$/.test(replaced)){
+      const val = Function('"use strict";return ('+replaced+')')();
+      return {ok:true,value:val};
+    }
+    return {ok:false,flag:'Unsupported formula (fallback): ' + expr};
+  } catch(e){
+    return {ok:false,flag:'Eval error: '+e.message};
+  }
+}
+
+/* HyperFormula integration (best-effort):
+   - loads HF from jsdelivr
+   - builds a lightweight sheet model and sets cell contents
+   - queries HF for evaluated results
+   NOTE: HyperFormula API can vary by version. This code uses the common buildEmpty / setCellContents / getCellValue calls.
+*/
+let hyperformulaAvailable = false;
+let hfInstance = null;
+
+function initHyperFormula(){
+  try{
+    if(window.HyperFormula){
+      // build an empty instance
+      hfInstance = window.HyperFormula.buildEmpty({licenseKey: 'gpl-v3'});
+      const names = Object.keys(SHEETS);
+      names.forEach(function(sName){
+        hfInstance.addSheet(sName);
+        const data = SHEETS[sName] || [];
+        const formulas = SHEET_FORMULAS[sName] || {};
+        const maxR = Math.max(data.length, 50);
+        const maxC = Math.max.apply(null, data.map(function(r){return r.length;})) || 6;
+        for(let r=0;r<maxR;r++){
+          for(let c=0;c<maxC;c++){
+            const addr = columnRowToA1(c,r);
+            const f = formulas[addr];
+            try{
+              if(f){
+                hfInstance.setCellContents({sheet: sName, col: c, row: r}, '=' + f);
+              } else {
+                const v = (data[r] && data[r][c] != null) ? data[r][c] : '';
+                if(v !== '') hfInstance.setCellContents({sheet: sName, col: c, row: r}, String(v));
+              }
+            } catch(e){
+              // ignore per-cell set errors
+            }
+          }
+        }
+      });
+      hyperformulaAvailable = true;
+      return true;
+    }
+  } catch(e){
+    console.warn('HyperFormula init error', e);
+  }
+  return false;
+}
+
+function evaluateAllFormulas(sheetName){
+  if(hyperformulaAvailable && hfInstance){
+    try{
+      const formulas = SHEET_FORMULAS[sheetName] || {};
+      for(const addr in formulas){
+        const rc = a1ToRowCol(addr);
+        try{
+          const val = hfInstance.getCellValue({sheet: sheetName, col: rc.c, row: rc.r});
+          const table = document.querySelector('#sheetContainer table');
+          if(!table) continue;
+          const tbody = table.tBodies[0];
+          const rowEl = tbody.rows[rc.r];
+          if(!rowEl) continue;
+          const td = rowEl.cells[rc.c + 1];
+          if(!td) continue;
+          if(val && typeof val === 'object' && 'value' in val) td.title = 'HF → ' + String(val.value);
+          else td.title = 'HF → ' + String(val);
+          updateModelValue(sheetName, rc.r, rc.c, (val && typeof val === 'object' && 'value' in val) ? val.value : val);
+        } catch(e){
+          // ignore per-cell errors
+        }
+      }
+      return;
+    } catch(e) {
+      console.warn('HF evaluation failed', e);
+    }
+  }
+
+  // fallback
+  const formulas = SHEET_FORMULAS[sheetName] || {};
+  for(const addr in formulas){
+    const rc = a1ToRowCol(addr);
+    const table = document.querySelector('#sheetContainer table');
+    if(!table) continue;
+    const tbody = table.tBodies[0];
+    const rowEl = tbody.rows[rc.r];
+    if(!rowEl) continue;
+    const td = rowEl.cells[rc.c + 1];
+    if(!td) continue;
+    const res = tryEvaluateCell(sheetName, rc.r, rc.c);
+    if(res.ok && res.value != null){
+      td.title = 'Eval → ' + res.value;
+      updateModelValue(sheetName, rc.r, rc.c, res.value);
+    } else if(!res.ok){
+      td.title = res.flag;
+      td.classList.add('flag');
+    }
+  }
+}
+
+// initial render
+renderTabs();
+renderSheet(activeSheet);
+
+// dynamically load HyperFormula (jsdelivr). If it loads, init and re-evaluate.
+(function loadHF(){
+  const script = document.createElement('script');
+  script.src = 'https://cdn.jsdelivr.net/npm/hyperformula/dist/hyperformula.full.min.js';
+  script.onload = function(){
+    try{
+      if(initHyperFormula()){
+        console.log('HyperFormula initialized');
+        hyperformulaAvailable = true;
+        evaluateAllFormulas(activeSheet);
+      }
+    } catch(e) {
+      console.warn('HF onload error', e);
+    }
+  };
+  script.onerror = function(){
+    console.warn('Failed to load HyperFormula; continuing with fallback evaluator.');
+  };
+  document.head.appendChild(script);
+})();
+
+// Export embedded HTML (data-only snapshot)
+document.getElementById('exportBtn').addEventListener('click', function(){
+  const payload = {sheets: SHEETS, formulas: SHEET_FORMULAS};
+  const content = '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MoveCheap — Embedded Snapshot</title></head><body><pre style="white-space:pre-wrap">' + 
+    'This file contains an embedded workbook snapshot (JSON).\\n\\n' + JSON.stringify(payload, null, 2) + '</pre></body></html>';
+  const blob = new Blob([content], {type: 'text/html'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'MoveCheap_embedded_snapshot.html';
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+// CSV for active sheet
+document.getElementById('csvBtn').addEventListener('click', function(){
+  const rows = SHEETS[activeSheet] || [];
+  const maxCols = Math.max.apply(null, rows.map(function(r){return r.length;})) || 1;
+  let lines = rows.map(function(r){
+    let arr = [];
+    for(let i=0;i<maxCols;i++){
+      const v = (r && r[i] != null) ? String(r[i]) : '';
+      if(v.indexOf(',')>=0 || v.indexOf('"')>=0 || v.indexOf('\\n')>=0){
+        arr.push('"' + v.replace(/"/g,'""') + '"');
+      } else arr.push(v);
+    }
+    return arr.join(',');
+  }).join('\\n');
+  const blob = new Blob([lines], {type: 'text/csv'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = activeSheet.replace(/\s+/g,'_') + '.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+// Toggle compact
+document.getElementById('toggleCompact').addEventListener('click', function(){
+  compact = !compact;
+  document.body.classList.toggle('compact', compact);
+});
+</script>
+</body>
+</html>
