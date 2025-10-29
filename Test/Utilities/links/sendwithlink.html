@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Send Image + Link — With Full Name, Number & Flags</title>
+  <style>
+    :root{
+      --primary:#0d6efd;
+      --muted:#6b7280;
+      --bg:#f6f8fb;
+      --card:#ffffff;
+      --glass: rgba(13,24,40,0.04);
+      --radius:10px;
+      --input-border: #e6e9ef;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      padding: 1rem;
+      background: var(--bg);
+      color: #111827;
+      max-width: 1100px;
+      margin: 0 auto 6rem;
+    }
+
+    /* header */
+    .burger{display:flex;justify-content:space-between;align-items:center;background:linear-gradient(90deg,var(--primary),#0767d6);color:white;padding:.75rem 1rem;border-radius:8px;margin-bottom:1rem;cursor:pointer;font-weight:700}
+    .menu{display:flex;flex-direction:column;gap:.75rem;margin-bottom:1rem;padding:.75rem;background:var(--card);border-radius:var(--radius);box-shadow:0 6px 24px var(--glass)}
+    .menu label{display:flex;flex-direction:column;gap:.35rem;font-size:.95rem}
+    .row{display:flex;gap:.6rem;align-items:flex-start}
+    .row > label{flex:1}
+    .small{width:260px;flex-shrink:0}
+
+    /* input look like screenshot */
+    .input, input[type="text"], select, textarea {
+      width:100%;
+      padding: .78rem .9rem;
+      border-radius: 6px;
+      border: 1px solid var(--input-border);
+      background: white;
+      font-size: 0.98rem;
+      outline: none;
+    }
+    .input:focus, input[type="text"]:focus, select:focus, textarea:focus { box-shadow: 0 0 0 3px rgba(13,110,253,0.12); border-color: var(--primary); }
+
+    /* compact name + phone group mimicking screenshot */
+    .name-row {
+      display: flex;
+      gap: .6rem;
+      margin-bottom: .6rem;
+      flex-wrap:wrap;
+    }
+    .name-field { flex: 1 1 220px; }
+    .phone-group { display:flex; gap:.5rem; align-items:center; flex: 1 1 320px; }
+
+    .country-select {
+      display:flex;
+      gap:.5rem;
+      align-items:center;
+      border:1px solid var(--input-border);
+      border-radius:6px;
+      padding:0 .4rem;
+      background:white;
+    }
+    .country-select select { border:0; padding:.65rem; background:transparent; font-size:0.98rem; appearance:none; -webkit-appearance:none; }
+    .flag { font-size:1.1rem; margin-right:.36rem; }
+
+    .card{background:var(--card);border-radius:var(--radius);box-shadow:0 6px 24px var(--glass);margin-bottom:1rem;padding:1rem;overflow:hidden}
+    .card h2{margin:0 0 .5rem 0;font-size:1.05rem}
+    .meta{font-size:.9rem;color:var(--muted);margin-top:.4rem}
+    .preview{display:grid;grid-template-columns:1fr 260px;gap:1rem;align-items:start}
+    .preview .left img,.card img{max-width:100%;border-radius:8px;display:block}
+    .preview .right{text-align:center}
+    .controls{display:flex;gap:.5rem;margin-top:.6rem;flex-wrap:wrap}
+    button.copy{background:var(--primary);color:white;border:none;padding:.5rem .85rem;border-radius:8px;cursor:pointer;font-weight:700}
+    button.small{padding:.45rem .6rem;border-radius:8px;border:1px solid #e6e9ef;background:white;cursor:pointer}
+    .link-small{color:var(--primary);text-decoration:none;font-weight:600}
+    code.snip{display:block;background:#f3f4f6;padding:.6rem;margin-top:.6rem;overflow:auto;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,"Roboto Mono",monospace;font-size:.9rem;border-radius:8px;white-space:pre}
+    .send-bar{position:fixed;left:0;right:0;bottom:0;background:linear-gradient(180deg,rgba(246,248,251,0.92),rgba(255,255,255,0.95));border-top:1px solid #e6e9ef;padding:.6rem;display:flex;gap:.6rem;justify-content:center;align-items:center;z-index:1500;backdrop-filter:blur(4px)}
+    .send-btn{background:var(--primary);color:white;border:none;padding:.8rem 1.1rem;border-radius:12px;font-weight:800;font-size:1rem;cursor:pointer;flex:1;max-width:420px}
+    .secondary-btn{padding:.6rem .8rem;border-radius:10px;border:1px solid #e6e9ef;background:white;cursor:pointer;font-weight:700}
+    .toast{position:fixed;right:1rem;bottom:4.6rem;background:rgba(13,24,40,0.95);color:white;padding:.6rem .9rem;border-radius:8px;box-shadow:0 8px 30px rgba(2,6,23,0.2);z-index:2000;transform:translateY(12px);opacity:0;transition:transform .22s ease, opacity .22s ease;pointer-events:none}
+    .toast.show{transform:translateY(0);opacity:1;pointer-events:auto}
+    .required { color: #d12f2f; margin-left:6px; font-weight:700; }
+
+    @media (max-width:920px){ .preview{grid-template-columns:1fr} .menu .row{flex-direction:column} .menu .small{width:100%} .send-bar{padding:.9rem} }
+    @media (max-width:520px){ body{padding:.7rem;margin-bottom:7.6rem} .burger{padding:.6rem .8rem;border-radius:12px} .menu{padding:.6rem;gap:.6rem} .card{padding:.8rem;border-radius:12px} .send-btn{font-size:1.05rem;padding:.9rem} }
+  </style>
+</head>
+<body>
+  <div class="burger" onclick="toggleMenu()">☰ Send Options <span id="menuToggleHint" style="opacity:.9;font-weight:600;font-size:.95rem;margin-left:.5rem;">(toggle)</span></div>
+
+  <div class="menu" id="menu" role="region" aria-label="Send form">
+    <label>
+      Send Method
+      <select id="methodSelect" onchange="updateSections()">
+        <option value="html">HTML (open URL)</option>
+        <option value="whatsapp">WhatsApp (composer)</option>
+        <option value="slack">Slack (webhook / payload)</option>
+        <option value="react">React Native (snippet)</option>
+      </select>
+    </label>
+
+    <!-- NAME FIELDS -->
+    <div class="name-row" aria-label="Sender name">
+      <label class="name-field">
+        <input id="firstName" class="input" type="text" placeholder="First Name" />
+      </label>
+      <label class="name-field">
+        <input id="lastName" class="input" type="text" placeholder="Last Name" />
+      </label>
+    </div>
+
+    <div class="row" style="align-items:flex-end;">
+      <label style="flex:1">
+        Message text (body)
+        <textarea id="messageInput" rows="3" class="input" placeholder="Write the message to send...">Check this out!</textarea>
+      </label>
+
+      <label class="small" style="display:flex;flex-direction:column;">
+        Include location
+        <div style="display:flex;gap:.5rem;align-items:center;margin-top:.3rem;">
+          <input type="checkbox" id="includeLocation" onchange="updateSections()" checked />
+          <span class="meta">Adds static map & QR preview</span>
+        </div>
+      </label>
+    </div>
+
+    <label>
+      Destination URL (click target)
+      <input id="urlInput" class="input" type="text" placeholder="https://example.com" value="https://example.com" />
+    </label>
+
+    <label>
+      Image URL (optional)
+      <input id="imageInput" class="input" type="text" placeholder="https://example.com/image.jpg" value="https://via.placeholder.com/600x300" />
+    </label>
+
+    <!-- Recipients: country + number (with flags) -->
+    <div style="display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;margin-top:.35rem;">
+      <div class="country-select" aria-label="country code">
+        <span class="flag" id="flagPreview">🇺🇸</span>
+        <select id="countryCodeSelect" onchange="countrySelectChanged()" aria-label="Country code">
+          <option value="+1" data-flag="🇺🇸">US +1</option>
+          <option value="+44" data-flag="🇬🇧">UK +44</option>
+          <option value="+91" data-flag="🇮🇳">IN +91</option>
+          <option value="+61" data-flag="🇦🇺">AU +61</option>
+          <option value="+49" data-flag="🇩🇪">DE +49</option>
+          <option value="+33" data-flag="🇫🇷">FR +33</option>
+          <option value="+31" data-flag="🇳🇱">NL +31</option>
+          <option value="+52" data-flag="🇲🇽">MX +52</option>
+          <option value="+55" data-flag="🇧🇷">BR +55</option>
+          <option value="+256" data-flag="🇺🇬">Uganda +256</option>
+          <option value="+234" data-flag="🇳🇬">Nigeria +234</option>
+          <option value="+233" data-flag="🇬🇭">Ghana +233</option>
+          <option value="+237" data-flag="🇨🇲">Cameroon +237</option>
+          <option value="manual" data-flag="🏳️">Other…</option>
+        </select>
+      </div>
+
+      <label style="flex:1">
+        <input id="recipientNumber" class="input" type="text" placeholder="Phone Number (no spaces)" inputmode="numeric" />
+      </label>
+
+      <label id="manualCountryWrap" style="display:none;width:120px;">
+        <input id="manualCountryCode" class="input" type="text" placeholder="+353" />
+      </label>
+    </div>
+
+    <label style="margin-top:.45rem;">
+      Slack Incoming Webhook URL (optional — for direct send)
+      <input id="slackWebhook" class="input" type="text" placeholder="https://hooks.slack.com/services/..." />
+      <div class="meta">If set, the page will attempt to POST the Slack payload to this URL (may be blocked by CORS).</div>
+    </label>
+
+    <div style="display:flex;gap:.5rem;margin-top:.5rem;">
+      <button class="copy" onclick="updatePreview()">Update Preview</button>
+      <button class="small" onclick="fillExample()">Load Example</button>
+      <button class="small" onclick="clearForm()">Clear</button>
+    </div>
+  </div>
+
+  <!-- preview -->
+  <div class="card" id="previewCard">
+    <h2>Live Preview</h2>
+    <div class="preview">
+      <div class="left">
+        <a id="previewLink" href="https://example.com" target="_blank" rel="noopener">
+          <img id="previewImage" src="https://via.placeholder.com/600x300" alt="Preview image" />
+        </a>
+        <div id="previewMessage" style="padding:.5rem 0;font-size:0.98rem;"></div>
+
+        <div style="margin-top:.5rem;font-size:.95rem;color:#374151;">
+          Link: <a id="previewHref" class="link-small" href="https://example.com" target="_blank" rel="noopener">https://example.com</a>
+        </div>
+
+        <div style="margin-top:.5rem;font-size:.95rem;color:var(--muted);">
+          From: <span id="previewFullName">— none —</span><br/>
+          To: <span id="previewRecipient">— none —</span>
+        </div>
+      </div>
+
+      <div class="right">
+        <div style="background:#fbfbfe;padding:.6rem;border-radius:8px;">
+          <div style="font-weight:700;margin-bottom:.5rem;">URL Preview</div>
+          <div id="urlCard" style="word-break:break-all;font-size:0.95rem;color:var(--primary);"></div>
+          <div class="meta" id="previewMeta"></div>
+          <div style="margin-top:.6rem;">
+            <img id="qrPreview" src="https://api.qrserver.com/v1/create-qr-code/?data=https://example.com&size=160x160" alt="QR" style="width:160px;height:160px;border-radius:8px;"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HTML card -->
+  <div class="card" id="html">
+    <h2>HTML (Web)</h2>
+    <div class="meta">A clickable image that links to the destination URL.</div>
+    <div style="margin-top:.6rem;">
+      <a id="htmlPreviewLink" href="https://example.com" target="_blank" rel="noopener">
+        <img id="htmlPreviewImage" src="https://via.placeholder.com/600x300" alt="Clickable Image" />
+      </a>
+    </div>
+    <code id="htmlCode" class="snip">&lt;a href="https://example.com"&gt;&lt;img src="image.jpg" /&gt;&lt;/a&gt;</code>
+    <div class="controls">
+      <button class="copy" onclick="copyCode('htmlCode')">Copy HTML</button>
+      <button class="small" onclick="openUrl()">Open URL</button>
+    </div>
+  </div>
+
+  <!-- WhatsApp card -->
+  <div class="card" id="whatsapp">
+    <h2>WhatsApp (Composer)</h2>
+    <div class="meta">Opens WhatsApp composer with message + URL for the selected recipient. Mobile/web supported.</div>
+    <img id="waImage" src="https://via.placeholder.com/600x300" alt="WhatsApp preview" style="margin-top:.6rem;"/>
+    <code id="waCode" class="snip">from twilio.rest import Client
+client = Client(sid, token)
+client.messages.create(
+  from_='whatsapp:+14155238886',
+  to='whatsapp:+1234567890',
+  body='Check this out! https://example.com',
+  media_url=['https://example.com/image.jpg']
+)</code>
+    <div class="controls">
+      <button class="copy" onclick="copyCode('waCode')">Copy Example</button>
+    </div>
+  </div>
+
+  <!-- Slack card -->
+  <div class="card" id="slack">
+    <h2>Slack (Block Kit)</h2>
+    <div class="meta">If you provided a Slack Incoming Webhook URL the page will attempt to POST the payload to it. Otherwise the JSON is copied to clipboard.</div>
+    <img id="slackImage" src="https://via.placeholder.com/600x300" alt="Slack preview" style="margin-top:.6rem;"/>
+    <code id="slackCode" class="snip">{
+  "blocks": [
+    { "type": "image", "image_url": "https://example.com/image.jpg", "alt_text": "Image" },
+    { "type": "section", "text": { "type": "mrkdwn", "text": "<https://example.com|Click here>" } }
+  ]
+}</code>
+    <div class="controls">
+      <button class="copy" onclick="copyCode('slackCode')">Copy Slack JSON</button>
+    </div>
+  </div>
+
+  <!-- React card -->
+  <div class="card" id="react">
+    <h2>React Native</h2>
+    <div class="meta">Copies a small snippet that opens the URL with `Linking.openURL`.</div>
+    <img id="rnImage" src="https://via.placeholder.com/600x300" alt="React preview" style="margin-top:.6rem;"/>
+    <code id="rnCode" class="snip">&lt;TouchableOpacity onPress={() =&gt; Linking.openURL('https://example.com')}&gt;
+  &lt;Image source={{ uri: 'https://example.com/image.jpg' }} /&gt;
+&lt;/TouchableOpacity&gt;</code>
+    <div class="controls">
+      <button class="copy" onclick="copyCode('rnCode')">Copy React</button>
+    </div>
+  </div>
+
+  <!-- location -->
+  <div class="card" id="location">
+    <h2>Location Image (Static Map + QR)</h2>
+    <div class="meta">Static map link uses a placeholder API key. Replace <code>YOUR_API_KEY</code>.</div>
+    <div style="display:flex;gap:.8rem;align-items:center;margin-top:.6rem;flex-wrap:wrap;">
+      <img id="mapPreview" src="" alt="Static map" style="width:320px;max-width:100%;border-radius:8px" />
+      <img id="qrBig" src="https://api.qrserver.com/v1/create-qr-code/?data=https://example.com&size=220x220" alt="QR code" style="border-radius:8px" />
+    </div>
+    <code id="locCode" class="snip">&lt;img src="https://maps.googleapis.com/maps/api/staticmap?center=Calverton,MD&amp;zoom=13&amp;size=600x300&amp;markers=color:red%7Clabel:C%7CCalverton,MD&amp;key=YOUR_API_KEY" /&gt;
+&lt;img src="https://api.qrserver.com/v1/create-qr-code/?data=https://example.com&amp;size=200x200" /&gt;</code>
+    <div class="controls">
+      <button class="copy" onclick="copyCode('locCode')">Copy Location HTML</button>
+    </div>
+  </div>
+
+  <!-- send bar -->
+  <div class="send-bar" role="region" aria-label="Send region">
+    <button class="secondary-btn" onclick="updatePreview()">Preview</button>
+    <button class="send-btn" id="sendBtn" onclick="sendAction()">Send</button>
+  </div>
+
+  <div id="toast" class="toast" aria-live="polite"></div>
+
+  <script>
+    // helpers
+    function toggleMenu(){ const menu=document.getElementById('menu'); const hint=document.getElementById('menuToggleHint'); const isHidden=getComputedStyle(menu).display==='none'; menu.style.display=isHidden?'flex':'none'; hint.textContent=isHidden?'(hide)':'(show)'; }
+    function copyToClipboard(text){ return navigator.clipboard?.writeText(text).then(()=>true).catch(()=>false); }
+    function showToast(msg, ms=2300){ const t=document.getElementById('toast'); t.innerText=msg; t.classList.add('show'); clearTimeout(t._hide); t._hide=setTimeout(()=>t.classList.remove('show'), ms); }
+    function copyCode(id){ const text=document.getElementById(id).innerText; copyToClipboard(text).then(ok=> ok? showToast('Copied to clipboard') : alert('Could not copy — please copy manually.')); }
+    function openUrl(){ const url=document.getElementById('urlInput').value||''; if(!url){ showToast('No URL set'); return;} window.open(url,'_blank','noopener'); }
+
+    // country select UI
+    function countrySelectChanged(){
+      const sel = document.getElementById('countryCodeSelect');
+      const flag = sel.options[sel.selectedIndex].dataset.flag || '🏳️';
+      document.getElementById('flagPreview').innerText = flag;
+      document.getElementById('manualCountryWrap').style.display = sel.value === 'manual' ? 'block' : 'none';
+      updatePreview();
+    }
+    function getSelectedCountryCode(){
+      const selVal = document.getElementById('countryCodeSelect').value;
+      if(selVal === 'manual'){
+        const v = document.getElementById('manualCountryCode').value.trim();
+        if(!v) return '';
+        return v.startsWith('+')? v : '+'+v;
+      }
+      return selVal;
+    }
+
+    function formatRecipientForWhatsApp(){
+      const cc = getSelectedCountryCode();
+      const raw = (document.getElementById('recipientNumber').value || '').replace(/\D/g,'');
+      if(!raw) return '';
+      return (cc? cc.replace('+','') : '') + raw; // 15551231234
+    }
+
+    function escapeSingle(s){ return s.replaceAll("'", "\\'"); }
+
+    function updatePreview(){
+      const firstName = document.getElementById('firstName').value.trim();
+      const lastName = document.getElementById('lastName').value.trim();
+      const fullName = (firstName || lastName) ? `${firstName} ${lastName}`.trim() : '';
+      const message = document.getElementById('messageInput').value || '';
+      const url = document.getElementById('urlInput').value || '';
+      const image = document.getElementById('imageInput').value || '';
+      const encodedUrl = encodeURIComponent(url || '');
+      const recipientNum = formatRecipientForWhatsApp();
+      const recipientDisplay = recipientNum ? (getSelectedCountryCode() + ' ' + (document.getElementById('recipientNumber').value||'')) : '— none —';
+
+      // preview area
+      document.getElementById('previewImage').src = image.trim() ? image : 'https://via.placeholder.com/600x300';
+      document.getElementById('previewLink').href = url || '#';
+      document.getElementById('previewHref').href = url || '#';
+      document.getElementById('previewHref').innerText = url || '— no URL set —';
+      document.getElementById('previewMessage').innerText = message;
+      document.getElementById('urlCard').innerText = url || 'No URL set';
+      document.getElementById('previewMeta').innerText = message ? `Message: ${message.substring(0,160)}${message.length>160?'…':''}` : '';
+      document.getElementById('qrPreview').src = `https://api.qrserver.com/v1/create-qr-code/?data=${encodedUrl || encodeURIComponent('https://example.com')}&size=160x160`;
+      document.getElementById('previewFullName').innerText = fullName || '— none —';
+      document.getElementById('previewRecipient').innerText = recipientDisplay;
+
+      // HTML snippet
+      document.getElementById('htmlPreviewImage').src = image || 'https://via.placeholder.com/600x300';
+      document.getElementById('htmlPreviewLink').href = url || '#';
+      const htmlSnippet = `<a href="${url || 'https://example.com'}" target="_blank" rel="noopener"><img src="${image || 'image.jpg'}" alt="Image" /></a>`;
+      document.getElementById('htmlCode').innerText = htmlSnippet;
+
+      // WhatsApp / Twilio snippet (include sender name if provided)
+      document.getElementById('waImage').src = image || 'https://via.placeholder.com/600x300';
+      const senderIntro = fullName ? `From: ${fullName}\n` : '';
+      const waBody = `${senderIntro}${message}${message && url ? ' ' : ''}${url || ''}`.trim();
+      const twilioTo = formatRecipientForWhatsApp() ? `+${formatRecipientForWhatsApp()}` : '+1234567890';
+      const waSnippet =
+`from twilio.rest import Client
+client = Client(sid, token)
+client.messages.create(
+  from_='whatsapp:+14155238886',
+  to='whatsapp:${twilioTo}',
+  body='${escapeSingle(waBody)}',
+  media_url=['${image || ''}']
+)`;
+      document.getElementById('waCode').innerText = waSnippet;
+
+      // Slack
+      document.getElementById('slackImage').src = image || 'https://via.placeholder.com/600x300';
+      const slackPayload = {
+        blocks:[
+          { type: "image", image_url: image || "https://example.com/image.jpg", alt_text: "Image" },
+          { type: "section", text: { type: "mrkdwn", text: `${senderIntro}${message}${message && url ? ' ' : ''}${url || ''}` } }
+        ]
+      };
+      document.getElementById('slackCode').innerText = JSON.stringify(slackPayload, null, 2);
+
+      // React snippet
+      document.getElementById('rnImage').src = image || 'https://via.placeholder.com/600x300';
+      const rnSnippet =
+`<TouchableOpacity onPress={() => Linking.openURL('${url || 'https://example.com'}')}>
+  <Image source={{ uri: '${image || 'https://example.com/image.jpg'}' }} />
+</TouchableOpacity>`;
+      document.getElementById('rnCode').innerText = rnSnippet;
+
+      // Location map
+      const mapCenter = encodeURIComponent('Calverton,MD');
+      const mapUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${mapCenter}&zoom=13&size=600x300&maptype=roadmap&markers=color:red%7Clabel:C%7C${mapCenter}&key=YOUR_API_KEY`;
+      document.getElementById('mapPreview').src = mapUrl;
+      document.getElementById('qrBig').src = `https://api.qrserver.com/v1/create-qr-code/?data=${encodedUrl || encodeURIComponent('https://example.com')}&size=220x220`;
+      const locCode = `<img src="${mapUrl}" />\n<img src="https://api.qrserver.com/v1/create-qr-code/?data=${url || 'https://example.com'}&size=200x200" />`;
+      document.getElementById('locCode').innerText = locCode;
+
+      updateSections();
+    }
+
+    function updateSections(){
+      const method=document.getElementById('methodSelect').value;
+      const includeLocation=document.getElementById('includeLocation').checked;
+      ['html','whatsapp','slack','react'].forEach(id=> document.getElementById(id).style.display = (id===method)?'block':'none');
+      document.getElementById('location').style.display = includeLocation ? 'block' : 'none';
+    }
+
+    // Validation helper
+    function requireForWhatsApp(){
+      const first = document.getElementById('firstName').value.trim();
+      const last = document.getElementById('lastName').value.trim();
+      const recipient = (document.getElementById('recipientNumber').value || '').replace(/\D/g,'');
+      if(!recipient){ showToast('Enter recipient phone number'); return false; }
+      if(!first && !last){ showToast('Enter sender first or last name'); return false; }
+      return true;
+    }
+
+    // Send action
+    async function sendAction(){
+      const method = document.getElementById('methodSelect').value;
+      const firstName = document.getElementById('firstName').value.trim();
+      const lastName = document.getElementById('lastName').value.trim();
+      const fullName = (firstName || lastName) ? `${firstName} ${lastName}`.trim() : '';
+      const message = document.getElementById('messageInput').value || '';
+      const url = document.getElementById('urlInput').value || '';
+      const image = document.getElementById('imageInput').value || '';
+      const slackWebhook = document.getElementById('slackWebhook').value.trim();
+
+      if(!message && !url && !image){ showToast('Enter message, URL or image before sending'); return; }
+
+      try{
+        switch(method){
+          case 'html':
+            if(!url){ showToast('No URL — nothing to open'); return; }
+            window.open(url,'_blank','noopener');
+            showToast('Opened URL');
+            break;
+
+          case 'whatsapp': {
+            if(!requireForWhatsApp()) return;
+            const senderIntro = fullName ? `From: ${fullName}\n` : '';
+            const text = `${senderIntro}${message}${message && url ? ' ' : ''}${url || ''}`.trim();
+            const recipientNum = formatRecipientForWhatsApp();
+            let waUrl;
+            if(recipientNum){
+              waUrl = `https://api.whatsapp.com/send?phone=${encodeURIComponent(recipientNum)}&text=${encodeURIComponent(text)}`;
+            } else {
+              waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+            }
+            window.open(waUrl,'_blank','noopener');
+            showToast('Opening WhatsApp composer');
+            break;
+          }
+
+          case 'slack': {
+            const senderIntro = fullName ? `From: ${fullName}\n` : '';
+            const payload = {
+              blocks:[
+                { type: "image", image_url: image || "https://example.com/image.jpg", alt_text: "Image" },
+                { type: "section", text: { type: "mrkdwn", text: `${senderIntro}${message}${message && url ? ' ' : ''}${url || ''}` } }
+              ]
+            };
+            if(slackWebhook){
+              showToast('Sending to Slack webhook...');
+              try{
+                const res = await fetch(slackWebhook, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(payload)
+                });
+                if(res.ok) showToast('Slack webhook: delivered');
+                else { showToast(`Slack webhook: ${res.status}`); await copyToClipboard(JSON.stringify(payload,null,2)); showToast('Payload copied'); }
+              }catch(err){
+                showToast('Slack webhook failed (CORS/network). Payload copied.');
+                await copyToClipboard(JSON.stringify(payload,null,2));
+              }
+            } else {
+              await copyToClipboard(JSON.stringify(payload,null,2));
+              showToast('Slack payload copied — paste to your webhook or Slack app');
+            }
+            break;
+          }
+
+          case 'react': {
+            const rnSnippet =
+`<TouchableOpacity onPress={() => Linking.openURL('${url || 'https://example.com'}')}>
+  <Image source={{ uri: '${image || 'https://example.com/image.jpg'}' }} />
+</TouchableOpacity>`;
+            const ok = await copyToClipboard(rnSnippet);
+            if(ok) showToast('React Native snippet copied');
+            else alert('Copy failed — please copy snippet manually:\n\n' + rnSnippet);
+            break;
+          }
+
+          default:
+            showToast('Unknown method');
+        }
+      }catch(e){ console.error(e); showToast('Send failed'); }
+    }
+
+    // init + live updates
+    window.addEventListener('DOMContentLoaded', ()=>{
+      updateSections(); updatePreview();
+      const ids = ['firstName','lastName','messageInput','urlInput','imageInput','includeLocation','methodSelect','slackWebhook','recipientNumber','countryCodeSelect','manualCountryCode'];
+      ids.forEach(id=>{
+        const el=document.getElementById(id);
+        if(!el) return;
+        let t;
+        el.addEventListener('input', ()=>{ clearTimeout(t); t=setTimeout(updatePreview,160); });
+        el.addEventListener('change', ()=>{ clearTimeout(t); t=setTimeout(updatePreview,120); });
+      });
+    });
+
+    // quick examples & clearing
+    function fillExample(){
+      document.getElementById('firstName').value = "Rodney";
+      document.getElementById('lastName').value = "Womack";
+      document.getElementById('messageInput').value = "Hey — see this image and link!";
+      document.getElementById('urlInput').value = "https://example.com/special-offer";
+      document.getElementById('imageInput').value = "https://via.placeholder.com/800x400.png?text=Promo+Image";
+      document.getElementById('countryCodeSelect').value = "+256"; // Uganda example
+      document.getElementById('recipientNumber').value = "712345678";
+      countrySelectChanged();
+      updatePreview();
+    }
+    function clearForm(){
+      document.getElementById('firstName').value = "";
+      document.getElementById('lastName').value = "";
+      document.getElementById('messageInput').value = "";
+      document.getElementById('urlInput').value = "";
+      document.getElementById('imageInput').value = "";
+      document.getElementById('slackWebhook').value = "";
+      document.getElementById('recipientNumber').value = "";
+      document.getElementById('countryCodeSelect').value = "+1";
+      countrySelectChanged();
+      updatePreview();
+    }
+
+    // close menu clicking outside on small screens
+    document.addEventListener('click',(e)=>{
+      const menu=document.getElementById('menu'), burger=document.querySelector('.burger');
+      if(!menu||!burger) return;
+      if(menu.contains(e.target) || burger.contains(e.target)) return;
+      if(window.innerWidth<=920) { menu.style.display='none'; document.getElementById('menuToggleHint').textContent='(show)'; }
+    });
+  </script>
+</body>
+</html>

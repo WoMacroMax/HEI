@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>XLSX → SPA (tabs + embedded JS)</title>
+
+<!-- CDN: SheetJS (xlsx) -->
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+
+<style>
+  body { font-family: Inter, system-ui, -apple-system, Arial; margin: 18px; background:#f7f8fb; color:#111 }
+  header { display:flex; gap:12px; align-items:center; margin-bottom:12px }
+  .tabs { display:flex; gap:6px; margin-bottom:12px; flex-wrap:wrap }
+  .tab { padding:8px 12px; background:#fff; border-radius:8px; box-shadow:0 1px 3px rgba(0,0,0,.06); cursor:pointer }
+  .tab.active { background:#111; color:#fff }
+  .sheet-wrap { background:#fff; padding:12px; border-radius:10px; box-shadow:0 4px 18px rgba(0,0,0,.06) }
+  table { border-collapse:collapse; width:100%; table-layout:fixed; }
+  td, th { border:1px solid #e6e9ef; padding:6px; min-width:60px; max-width:300px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap }
+  td[contenteditable="true"] { background:#fffef6 }
+  .formula { font-style:italic; color:#c0392b }
+  .controls { margin-left:auto; display:flex; gap:8px }
+  button { padding:8px 10px; border-radius:8px; border:0; cursor:pointer; background:#111; color:#fff }
+  small { color:#666 }
+  .flag { color:#b34747; font-weight:700 }
+</style>
+</head>
+<body>
+
+<header>
+  <h2>Convert XLSX → Single-file SPA</h2>
+  <div class="controls">
+    <input id="fileInput" type="file" accept=".xlsx,.xls" />
+    <button id="embedBtn">Export standalone HTML</button>
+  </div>
+</header>
+
+<div id="main">
+  <div id="tabs" class="tabs"></div>
+  <div id="sheetContainer" class="sheet-wrap"><small>No sheet loaded — upload an .xlsx</small></div>
+</div>
+
+<script>
+/*
+  Simple SPA converter:
+  - reads xlsx with SheetJS
+  - creates tabs per sheet
+  - renders simple editable table
+  - shows formulas and attempts a basic formula->JS evaluation for simple functions
+*/
+
+const fileInput = document.getElementById('fileInput');
+const tabs = document.getElementById('tabs');
+const sheetContainer = document.getElementById('sheetContainer');
+const embedBtn = document.getElementById('embedBtn');
+
+let WORKBOOK = null;           // raw XLSX workbook object
+let SHEETS = {};               // mapping sheetName => array-of-rows (2D arrays)
+let SHEET_FORMULAS = {};       // mapping sheetName => cell formulas { "R1C1": "=SUM(A1:A3)" ... }
+let activeSheet = null;
+
+fileInput.addEventListener('change', async (e) => {
+  const f = e.target.files[0];
+  if (!f) return;
+  const data = await f.arrayBuffer();
+  WORKBOOK = XLSX.read(data, { type: 'array' });
+
+  // Convert each sheet to 2D array (values) AND collect formulas
+  SHEETS = {};
+  SHEET_FORMULAS = {};
+  for (const name of WORKBOOK.SheetNames) {
+    const sheet = WORKBOOK.Sheets[name];
+    // Use SheetJS utility to convert to 2D array of cells (null for blanks)
+    const aoa = XLSX.utils.sheet_to_json(sheet, { header: 1, raw: false, defval: null });
+    SHEETS[name] = aoa;
+    // Collect formulas: iterate sheet['!ref'] range
+    const formulas = {};
+    for (const cellAddr in sheet) {
+      if (cellAddr[0] === '!') continue;
+      const c = sheet[cellAddr];
+      if (c && c.f) formulas[cellAddr] = c.f;
+    }
+    SHEET_FORMULAS[name] = formulas;
+  }
+
+  renderTabs();
+  setActiveSheet(WORKBOOK.SheetNames[0]);
+});
+
+function renderTabs() {
+  tabs.innerHTML = '';
+  for (const name of WORKBOOK.SheetNames) {
+    const t = document.createElement('div');
+    t.className = 'tab';
+    t.textContent = name;
+    t.onclick = () => setActiveSheet(name);
+    tabs.appendChild(t);
+  }
+}
+
+function setActiveSheet(name) {
+  activeSheet = name;
+  Array.from(tabs.children).forEach(el => el.classList.toggle('active', el.textContent === name));
+  renderSheet(name);
+}
+
+function renderSheet(name) {
+  const data = SHEETS[name] || [];
+  const formulas = SHEET_FORMULAS[name] || {};
+
+  const table = document.createElement('table');
+  const thead = document.createElement('thead');
+  const headerRow = document.createElement('tr');
+
+  // create column headers A, B, C...
+  const maxCols = Math.max(...data.map(r => r.length), 5);
+  headerRow.appendChild(document.createElement('th')); // row header corner
+  for (let c = 0; c < maxCols; c++) {
+    const th = document.createElement('th');
+    th.textContent = indexToCol(c);
+    headerRow.appendChild(th);
+  }
+  thead.appendChild(headerRow);
+  table.appendChild(thead);
+
+  const tbody = document.createElement('tbody');
+
+  for (let r = 0; r < Math.max(data.length, 20); r++) {
+    const tr = document.createElement('tr');
+    const rowHeader = document.createElement('th');
+    rowHeader.textContent = String(r + 1);
+    tr.appendChild(rowHeader);
+
+    for (let c = 0; c < maxCols; c++) {
+      const td = document.createElement('td');
+      td.contentEditable = true;
+
+      const cellAddr = columnRowToA1(c, r);
+      // prefer formula if present
+      if (formulas[cellAddr]) {
+        td.innerHTML = `<span class="formula">${'=' + formulas[cellAddr]}</span>`;
+        td.dataset.formula = formulas[cellAddr];
+      } else {
+        const val = (data[r] && data[r][c] != null) ? data[r][c] : '';
+        td.textContent = val;
+      }
+
+      // blur handler: update SHEETS & formulas map
+      td.addEventListener('blur', (e) => {
+        const txt = td.textContent.trim();
+        if (txt.startsWith('=')) {
+          td.dataset.formula = txt.slice(1);
+          SHEET_FORMULAS[name][cellAddr] = txt.slice(1);
+          // Try to evaluate it
+          const evalResult = tryEvaluateCell(name, r, c);
+          if (evalResult.flag) {
+            // show flag in title
+            td.title = evalResult.flag;
+            td.classList.add('flag');
+          } else {
+            td.classList.remove('flag');
+            td.title = '';
+          }
+          td.innerHTML = `<span class="formula">${txt}</span>`;
+        } else {
+          delete td.dataset.formula;
+          delete SHEET_FORMULAS[name][cellAddr];
+          // put raw value in sheets model
+          if (!SHEETS[name][r]) SHEETS[name][r] = [];
+          SHEETS[name][r][c] = txt;
+        }
+      });
+
+      tr.appendChild(td);
+    }
+    tbody.appendChild(tr);
+  }
+
+  table.appendChild(tbody);
+  sheetContainer.innerHTML = '';
+  sheetContainer.appendChild(table);
+
+  // add short legend & evaluate formulas once
+  const legend = document.createElement('div');
+  legend.style.marginTop = '8px';
+  legend.innerHTML = '<small>Formulas are shown in italic red. Editable cells accept =formula syntax. <span class="flag">Flag</span> indicates formula not supported by auto-translator.</small>';
+  sheetContainer.appendChild(legend);
+
+  // Evaluate visible formula cells
+  evaluateAllFormulas(name);
+}
+
+function indexToCol(i) {
+  // 0 -> A, 25 -> Z, 26 -> AA
+  let s = '';
+  i++;
+  while (i > 0) {
+    const m = (i - 1) % 26;
+    s = String.fromCharCode(65 + m) + s;
+    i = Math.floor((i - 1) / 26);
+  }
+  return s;
+}
+function columnRowToA1(c, r) { return indexToCol(c) + (r + 1); }
+
+// Basic formula evaluator (very lightweight)
+// Supports: SUM(A1:A3), AVERAGE(...), addition/subtraction with simple cell refs, numeric constants
+function tryEvaluateCell(sheetName, row, col) {
+  const formulas = SHEET_FORMULAS[sheetName] || {};
+  const address = columnRowToA1(col, row);
+  const f = formulas[address];
+  if (!f) return { ok: true, value: null };
+
+  // simple parser:
+  try {
+    const expr = f.trim();
+    // SUM(A1:A3) or SUM(A1,B1,10)
+    const sumMatch = expr.match(/^SUM\((.+)\)$/i);
+    if (sumMatch) {
+      const args = splitArgs(sumMatch[1]);
+      let total = 0;
+      for (const a of args) {
+        if (a.includes(':')) {
+          const [start, end] = a.split(':').map(s => s.trim());
+          const cells = rangeToCells(start, end);
+          for (const cell of cells) {
+            total += Number(getCellValue(sheetName, cell)) || 0;
+          }
+        } else {
+          total += Number(getCellValue(sheetName, a)) || 0;
+        }
+      }
+      return { ok: true, value: total };
+    }
+
+    const avgMatch = expr.match(/^AVERAGE\((.+)\)$/i);
+    if (avgMatch) {
+      const args = splitArgs(avgMatch[1]);
+      let values = [];
+      for (const a of args) {
+        if (a.includes(':')) {
+          const [start, end] = a.split(':').map(s => s.trim());
+          const cells = rangeToCells(start, end);
+          for (const cell of cells) values.push(Number(getCellValue(sheetName, cell)) || 0);
+        } else {
+          values.push(Number(getCellValue(sheetName, a)) || 0);
+        }
+      }
+      if (values.length === 0) return { ok:false, flag: 'AVERAGE: no values' };
+      return { ok: true, value: values.reduce((s,x)=>s+x,0)/values.length };
+    }
+
+    // Basic arithmetic with cell refs, e.g. =A1+B1-10
+    // Replace cell refs with numeric values and eval
+    const replaced = expr.replace(/([A-Z]+[0-9]+)/gi, (m) => {
+      const v = Number(getCellValue(sheetName, m));
+      return isNaN(v) ? '0' : String(v);
+    });
+    // allow only digits and arithmetic operators for eval safety
+    if (/^[0-9+\-*/().\s]+$/.test(replaced)) {
+      const val = Function('"use strict";return (' + replaced + ')')();
+      return { ok: true, value: val };
+    }
+
+    return { ok:false, flag: 'Unsupported formula: ' + expr };
+  } catch (err) {
+    return { ok:false, flag: 'Eval error: '+err.message };
+  }
+}
+
+// helper: getCellValue from SHEETS (string or number)
+function getCellValue(sheetName, a1) {
+  const rc = a1ToRowCol(a1);
+  const r = rc.r, c = rc.c;
+  const rows = SHEETS[sheetName] || [];
+  return (rows[r] && rows[r][c] != null) ? rows[r][c] : '';
+}
+function a1ToRowCol(a1) {
+  const m = a1.match(/^([A-Z]+)(\d+)$/i);
+  if (!m) return { r:0, c:0 };
+  const col = m[1].toUpperCase();
+  const row = parseInt(m[2],10) - 1;
+  // convert col letters to index
+  let c = 0;
+  for (let i = 0; i < col.length; i++) {
+    c = c * 26 + (col.charCodeAt(i) - 64);
+  }
+  return { r: row, c: c - 1 };
+}
+function rangeToCells(start, end) {
+  const s = a1ToRowCol(start);
+  const e = a1ToRowCol(end);
+  const cells = [];
+  for (let r = s.r; r <= e.r; r++) {
+    for (let c = s.c; c <= e.c; c++) {
+      cells.push(indexToCol(c) + (r + 1));
+    }
+  }
+  return cells;
+}
+function splitArgs(s) {
+  // split on comma ignoring whitespace
+  return s.split(',').map(x => x.trim()).filter(Boolean);
+}
+
+// Evaluate all formulas in sheet and annotate table where needed
+function evaluateAllFormulas(sheetName) {
+  const formulas = SHEET_FORMULAS[sheetName] || {};
+  for (const addr in formulas) {
+    const rc = a1ToRowCol(addr);
+    // find the corresponding td in DOM
+    // table row index = rc.r (plus header row), column index rc.c (plus corner)
+    const table = sheetContainer.querySelector('table');
+    if (!table) continue;
+    const tbody = table.tBodies[0];
+    const rowEl = tbody.rows[rc.r];
+    if (!rowEl) continue;
+    const td = rowEl.cells[rc.c + 1]; // +1 for row header
+    if (!td) continue;
+    const result = tryEvaluateCell(sheetName, rc.r, rc.c);
+    if (result.ok && result.value != null) {
+      // append evaluated value as title
+      td.title = 'Eval -> ' + result.value;
+    } else if (!result.ok) {
+      td.title = result.flag;
+      td.classList.add('flag');
+    }
+  }
+}
+
+// Export a single-file HTML that embeds the workbook as JS (basic)
+embedBtn.addEventListener('click', () => {
+  if (!WORKBOOK) return alert('Load an XLSX first.');
+  // embed minimal workbook data (SHEETS & SHEET_FORMULAS)
+  const payload = {
+    sheets: SHEETS,
+    formulas: SHEET_FORMULAS
+  };
+  const html = `
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Embedded Workbook SPA</title></head>
+<body>
+<div id="app">This is an exported SPA. It expects a small browser JS to render. Open console for payload preview.</div>
+<script>
+  // Embedded workbook payload (editable)
+  window.EMBEDDED_WORKBOOK = ${JSON.stringify(payload)};
+  console.log('EMBEDDED_WORKBOOK:', window.EMBEDDED_WORKBOOK);
+  // You can paste the original SPA script here to render the embedded workbook client-side.
+  // For simplicity, this exported file contains only the data. To make a fully standalone
+  // runnable file, we would inject the whole SPA renderer code here (ask me to embed fully).
+</script>
+</body></html>`;
+  const blob = new Blob([html], { type: 'text/html' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'embedded-workbook-spa.html';
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+</script>
+</body>
+</html>
