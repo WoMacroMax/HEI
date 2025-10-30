@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Elegante — Entrance</title>
+<meta name="description" content="Elegante — door animation entrance demo" />
+<style>
+  :root { --bg:#fff; --accent:#b36bff; --muted:#666; --maxw:1100px; }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;background:var(--bg);color:#111}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:16px}
+
+  /* ---------- Entrance stage ---------- */
+  .entrance-stage{
+    position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
+    background:linear-gradient(180deg,#000000cc, #0000); z-index:9999;
+    -webkit-font-smoothing:antialiased;
+  }
+  .door-scene{
+    width: min(880px, 92vw); height: calc(min(880px, 92vw) * 0.6); /* aspect ratio control */
+    perspective: 1400px; position:relative;
+    border-radius:10px; overflow:visible;
+  }
+
+  /* container that holds 2 halves */
+  .door-wrapper{
+    position:absolute; inset:0; transform-style:preserve-3d;
+  }
+
+  /* left & right doors share the same background image,
+     but we shift background-position to show only half */
+  .door-side{
+    position:absolute; top:0; bottom:0; width:50%; height:100%;
+    background-size: cover; background-repeat: no-repeat; background-position: center;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.35), inset 0 0 40px rgba(0,0,0,0.18);
+    transform-origin: left center; /* will override for right */
+    transition: transform 1.0s cubic-bezier(.22,.9,.32,1), box-shadow 0.6s;
+    backface-visibility: hidden;
+  }
+
+  .door-left{
+    left:0; border-top-left-radius:10px; border-bottom-left-radius:10px;
+    transform-origin: left center;
+    /* left half: show left side of the image */
+    background-position: left center;
+  }
+  .door-right{
+    right:0; border-top-right-radius:10px; border-bottom-right-radius:10px;
+    transform-origin: right center;
+    /* right half: show right side of the image */
+    background-position: right center;
+  }
+
+  /* when closed (initial), doors are flat. when opened, rotateY */
+  .doors-closed .door-left  { transform: rotateY(0deg);  }
+  .doors-closed .door-right { transform: rotateY(0deg);  }
+
+  .doors-open .door-left  { transform: rotateY(-100deg); box-shadow: 0 8px 18px rgba(0,0,0,0.18); }
+  .doors-open .door-right { transform: rotateY(100deg);  box-shadow: 0 8px 18px rgba(0,0,0,0.18); }
+
+  /* small frame in front so doors look inset */
+  .door-frame{
+    position:absolute; inset:0; border-radius:10px; pointer-events:none;
+    box-shadow: inset 0 2px 0 rgba(255,255,255,0.03), inset 0 -30px 60px rgba(0,0,0,0.18);
+    border: 1px solid rgba(0,0,0,0.08);
+  }
+
+  /* headline over the door for branding (hidden when fully opened) */
+  .door-title{
+    position:absolute; left:50%; top:12%; transform:translateX(-50%); z-index:3; color:#fff;
+    font-size:22px; font-weight:700; text-shadow: 0 6px 24px rgba(0,0,0,0.6);
+    opacity:1; transition: opacity 0.6s;
+  }
+  .doors-open .door-title { opacity:0; transform:translateX(-50%) translateY(-10px); }
+
+  /* skip button */
+  .skip-btn{
+    position:absolute; right:10px; top:10px; z-index:4; background:rgba(255,255,255,0.12);
+    color:#fff; border:none; padding:8px 10px; border-radius:8px; backdrop-filter: blur(4px); cursor:pointer;
+  }
+
+  /* ---------- Hidden main site that will be revealed ---------- */
+  .site-content{
+    opacity:0; transform: translateY(10px) scale(0.995); transition: opacity 0.6s ease, transform 0.6s ease;
+    pointer-events:none;
+  }
+  .site-visible .site-content{ opacity:1; transform:none; pointer-events:auto; }
+
+  /* small demo content (gallery simplified) */
+  .hero{height:44vh; min-height:240px; border-radius:10px; background:#111; color:#fff; display:flex; align-items:flex-end; padding:18px; background-size:cover; background-position:center}
+  .card{background:#fff;border-radius:10px;padding:12px;margin-top:14px;box-shadow:0 10px 28px rgba(0,0,0,0.06)}
+  .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+  .gallery-grid img{width:100%;height:100px;object-fit:cover;border-radius:8px}
+
+  /* responsive */
+  @media (min-width:720px){ .hero{min-height:320px} .gallery-grid img{height:140px} }
+</style>
+</head>
+<body>
+  <!-- Entrance overlay with animated doors -->
+  <div class="entrance-stage doors-closed" id="entrance">
+    <div class="door-scene" aria-hidden="false">
+      <div class="door-wrapper" id="doorWrapper">
+        <div class="door-side door-left" id="doorLeft" role="img" aria-label="Left door"></div>
+        <div class="door-side door-right" id="doorRight" role="img" aria-label="Right door"></div>
+      </div>
+
+      <div class="door-frame"></div>
+      <div class="door-title">Elegante</div>
+      <button class="skip-btn" id="skipBtn">Skip →</button>
+    </div>
+  </div>
+
+  <!-- Main site (hidden until door opens) -->
+  <div class="wrap site-content" id="site">
+    <header class="hero" id="hero" style="background-image: url('assets/store_front_pic.jpeg');">
+      <h1 style="margin:0;color:#fff">Elegante — 25th Anniversary</h1>
+    </header>
+
+    <section class="card">
+      <h3>About</h3>
+      <p class="muted">Welcome — this demo opens with a door animation that reveals the site content.</p>
+      <div class="gallery-grid" id="galleryGrid">
+        <!-- thumbnails will be auto-inserted by script (from assets) -->
+      </div>
+    </section>
+
+    <section class="card">
+      <h3>RSVP</h3>
+      <form id="rsvpForm">
+        <label>Full name<input name="name" type="text"></label>
+        <label>Email<input name="email" type="email"></label>
+        <button type="submit">Send RSVP</button>
+      </form>
+    </section>
+  </div>
+
+<script>
+/*
+ Door animation flow:
+  - On load, set the door halves' background-image to the chosen asset (split by background-position)
+  - Play CSS 3D transform animation: rotateY both halves open
+  - After animation ends (or if user presses skip), remove entrance overlay and reveal site content
+  - Also populate a simple gallery (thumbnails) from assets
+*/
+
+(function(){
+  const entrance = document.getElementById('entrance');
+  const doorLeft = document.getElementById('doorLeft');
+  const doorRight = document.getElementById('doorRight');
+  const site = document.getElementById('site');
+  const skipBtn = document.getElementById('skipBtn');
+
+  // Configure door image (use any image in your assets folder)
+  const DOOR_IMAGE = 'assets/store_front_pic.jpeg'; // change to whichever image you'd like
+  // If filename has spaces, encodeURI used below when assigning to background-image.
+
+  // Apply the same image to both halves but show left/right halves via background-position
+  // Using background-size: cover ensures the halves match visually
+  const safeUrl = encodeURI(DOOR_IMAGE);
+  doorLeft.style.backgroundImage = `url("${safeUrl}")`;
+  doorRight.style.backgroundImage = `url("${safeUrl}")`;
+
+  // Give the visual split a slight depth by adjusting transform origins and a small perspective
+  // Animation timing and easing
+  const OPEN_DELAY = 850;   // ms before doors start opening
+  const OPEN_DURATION = 1000; // ms animation duration (matches CSS transition time)
+  const AUTO_REMOVE_DELAY = 650; // ms after door fully opened to remove overlay
+
+  // helper to open doors
+  function openDoors() {
+    // add the class on the root entrance to apply doors-open styles
+    entrance.classList.remove('doors-closed');
+    entrance.classList.add('doors-open');
+
+    // After animation finishes, hide the overlay and reveal the site
+    setTimeout(() => {
+      // fade out the entrance overlay by removing it (or hide)
+      entrance.style.transition = 'opacity 400ms ease';
+      entrance.style.opacity = '0';
+      setTimeout(() => {
+        entrance.remove(); // remove from DOM
+        document.body.classList.add('site-visible');
+        site.classList.add('site-visible'); // reveal
+        populateGallery(); // populate thumbnails once revealed
+      }, 420);
+    }, OPEN_DELAY + OPEN_DURATION + AUTO_REMOVE_DELAY - 420);
+  }
+
+  // start the automatic sequence after ensuring image is loaded
+  function startSequence() {
+    // small 'preload' check so doors show the image and don't flash empty
+    const img = new Image();
+    img.onload = () => {
+      // delay then set class that triggers CSS transform
+      setTimeout(openDoors, OPEN_DELAY);
+    };
+    img.onerror = () => {
+      // if the image fails, still open doors but use neutral background
+      doorLeft.style.backgroundColor = '#333';
+      doorRight.style.backgroundColor = '#333';
+      setTimeout(openDoors, 400);
+    };
+    img.src = safeUrl;
+  }
+
+  // skip button handler: open immediately
+  skipBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    // speed up transition by directly applying open class and immediately removing overlay
+    entrance.classList.remove('doors-closed');
+    entrance.classList.add('doors-open');
+    setTimeout(() => { entrance.remove(); site.classList.add('site-visible'); populateGallery(); }, 250);
+  });
+
+  // allow user to click anywhere on door to open as well
+  document.getElementById('doorWrapper').addEventListener('click', () => startSequence());
+
+  // automatically start after small idle; you may want to start on user interaction for mobile
+  // We'll call startSequence automatically so preview opens without clicking (works fine).
+  window.addEventListener('load', () => {
+    // small timeout to allow the page to paint
+    setTimeout(startSequence, 550);
+  });
+
+  // ----------------- Demo gallery population -----------------
+  // Uses a fixed list of filenames from your assets folder; change as needed.
+  const FILES = [
+    "liz welcome.webp",
+    "liz-table_elegante.png",
+    "table layout.webp",
+    "flowing flower.webp",
+    "wedding dress.webp",
+    "bubble - balloons.webp",
+    "blue- birthday cake.webp",
+    "pink - birthday cake.webp",
+    "store_front_pic.jpeg",
+    "store_front_pic_1_.jpeg"
+  ];
+
+  function normalizeName(n){ return n.trim(); }
+
+  function populateGallery(){
+    const grid = document.getElementById('galleryGrid');
+    FILES.forEach(name => {
+      const img = new Image();
+      img.onload = () => {
+        const el = document.createElement('img');
+        el.src = encodeURI('assets/' + normalizeName(name));
+        el.alt = name;
+        grid.appendChild(el);
+      };
+      img.onerror = ()=> {
+        // skip missing images quietly
+      };
+      img.src = encodeURI('assets/' + normalizeName(name));
+    });
+  }
+
+  // RSVP form simple handler (demo)
+  document.getElementById('rsvpForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    alert('RSVP demo: form submitted (client-side).');
+  });
+
+})();
+</script>
+</body>
+</html>
