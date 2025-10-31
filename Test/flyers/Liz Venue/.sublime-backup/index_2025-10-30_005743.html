@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Elegante — 25th Anniversary</title>
+  <meta name="description" content="Elegante — Decor By Liz. Celebrating 25 years — Best of Bayonne. RSVP now." />
+  <style>
+    :root{--bg:#fff;--muted:#6b7280;--accent:#b36bff;--card:#fff;--maxw:1000px}
+    *{box-sizing:border-box}html,body{height:100%}body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;color:#111;background:var(--bg)}
+    .wrap{max-width:var(--maxw);margin:0 auto;padding:18px}
+    header.site-hero{position:relative;border-radius:12px;overflow:hidden;background:#111;color:#fff;display:flex;align-items:flex-end;min-height:44vh;background-size:cover;background-position:center}
+    .hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.16),rgba(0,0,0,0.6))}
+    .hero-inner{position:relative;padding:20px;z-index:2;width:100%}
+    .title{margin:0;font-size:26px}
+    .lead{margin:6px 0 12px;font-weight:600;color:#fff}
+    .cta-row{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{background:var(--accent);color:white;border:none;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer}
+    .card{background:var(--card);border-radius:12px;padding:14px;margin-top:18px;box-shadow:0 8px 22px rgba(0,0,0,0.06)}
+    .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+    .gallery-grid figure{margin:0;border-radius:8px;overflow:hidden;cursor:pointer}
+    .gallery-grid img{height:110px;object-fit:cover;width:100%;display:block}
+    @media(min-width:480px){ .gallery-grid img{height:140px} }
+    @media(min-width:768px){ .gallery-grid{grid-template-columns:repeat(4,1fr)} }
+    .no-images{padding:22px;text-align:center;color:var(--muted)}
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.7);z-index:999;padding:20px}
+    .modal.open{display:flex}
+    .modal .box{max-width:100%;max-height:90vh;border-radius:10px;background:#fff;overflow:hidden}
+    .modal img{display:block;width:100%;height:auto;object-fit:contain}
+    .modal .close{position:absolute;right:20px;top:20px;background:transparent;border:none;color:#fff;font-size:26px;cursor:pointer}
+    footer.footer{text-align:center;color:var(--muted);font-size:13px;margin:18px 0 60px}
+    .debug{font-size:12px;color:#555;white-space:pre-wrap;margin-top:10px}
+    a:focus,button:focus,input:focus,textarea:focus{outline:3px solid rgba(179,107,255,0.18);outline-offset:2px}
+  </style>
+</head>
+<body>
+  <div class="wrap" id="app">
+    <header class="site-hero" id="hero" role="banner" aria-label="Elegante 25th Anniversary">
+      <div class="hero-overlay" aria-hidden="true"></div>
+      <div class="hero-inner">
+        <h1 class="title">Elegante</h1>
+        <div class="lead">Celebrating 25 Years — Best of Bayonne · Dec 13, 2025 · 7:00 PM</div>
+        <div class="cta-row">
+          <button class="btn" id="rsvpScrollBtn">RSVP Now</button>
+          <button class="btn" id="viewGalleryBtn" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.12)">View Gallery</button>
+        </div>
+      </div>
+    </header>
+
+    <section class="card" id="gallerySection">
+      <h3>Gallery</h3>
+      <div id="galleryGrid" class="gallery-grid" aria-live="polite"></div>
+      <div id="noImages" class="no-images" style="display:none">No images found in <code>assets/</code>. See debug below.</div>
+      <div id="debug" class="debug" aria-hidden="true"></div>
+    </section>
+
+    <section class="card" id="rsvpFormSection">
+      <h3>RSVP</h3>
+      <form id="rsvpForm" class="rsvp" novalidate>
+        <label>Full name<input name="name" type="text" required></label>
+        <label>Email<input name="email" type="email" required></label>
+        <button class="btn" type="submit">Send RSVP</button>
+      </form>
+    </section>
+
+    <footer class="footer">Decor By Liz · Bayonne, NJ · © 2025</footer>
+  </div>
+
+  <div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <button class="close" id="modalClose" aria-label="Close">✕</button>
+    <div class="box"><img id="modalImg" alt="Expanded photo"></div>
+  </div>
+
+<script>
+(function () {
+  const IMAGE_BASE = 'assets/';
+  // Files you have (from your screenshot). We'll try robust variants of each.
+  const FILES_RAW = [
+    "liz venue - icon.png",
+    "liz-table elegante.png",
+    "table layout.webp",
+    "liz - baby banner.webp",
+    "liz venue balloons table.html", // html files will be skipped for gallery
+    "liz welcome.webp",
+    "flowing flower.webp",
+    "dancing.html",
+    "wedding dress.webp",
+    "bubble - balloons.webp",
+    "blue- birthday cake.webp",
+    "pink - birthday cake.webp",
+    "liz venue balloons table_files", // folder
+    "dancing_files",
+    // also include other names you saw earlier
+    "blue-_birthday_cake.webp",
+    "bubble_-_balloons.webp",
+    "store_front_pic.jpeg",
+    "store_front_pic_1_.jpeg",
+    "unnamed_1_.jpg",
+    "unnamed_2_.jpg",
+    "unnamed_3_.jpg",
+    "unnamed_4_.jpg",
+    "unnamed_5_.jpg",
+    "unnamed_6_.jpg",
+    "unnamed_7_.jpg",
+    "unnamed_8_.jpg",
+    "unnamed_9_.jpg",
+    "unnamed_10_.jpg",
+    "unnamed_11_.jpg",
+    "unnamed_12_.jpg",
+    "unnamed_13_.jpg",
+    "liz-table_elegante.png",
+    "liz-table elegante.png",
+    "liz-table_elegante.png",
+    "liz-table_elegante.PNG"
+  ];
+
+  // helper: generate common filename variants to try
+  function genVariants(name) {
+    // skip folder names or html (not images)
+    const lower = name.trim();
+    const variants = new Set();
+
+    // base forms
+    variants.add(lower);
+    variants.add(lower.replace(/\s+/g, '_'));
+    variants.add(lower.replace(/\s+/g, '-'));
+    variants.add(lower.replace(/[_-]+/g, ' '));
+    variants.add(lower.toLowerCase());
+    variants.add(lower.toUpperCase());
+    // replace spaces with %20 for URL safety
+    variants.add(encodeURI(lower));
+    variants.add(encodeURI(lower.toLowerCase()));
+    // swap underscores/dashes to other combinations
+    variants.add(lower.replace(/ /g, '_').toLowerCase());
+    variants.add(lower.replace(/ /g, '-').toLowerCase());
+    variants.add(lower.replace(/_/g, '-').toLowerCase());
+    variants.add(lower.replace(/-/g, '_').toLowerCase());
+
+    // try removing extra punctuation like duplicate dashes or leading/trailing spaces
+    variants.add(lower.replace(/\s*-\s*/g, '-'));
+    variants.add(lower.replace(/\s*-\s*/g, '_'));
+    variants.add(lower.replace(/\s+/g,' ').trim());
+
+    // add versions without spaces around hyphen: e.g. "liz venue - icon.png" -> "liz venue-icon.png"
+    variants.add(lower.replace(/\s*-\s*/g, '-'));
+    variants.add(lower.replace(/\s*-\s*/g, ''));
+
+    // return array in predictable order
+    return Array.from(variants);
+  }
+
+  // image file extension check
+  function looksLikeImage(name) {
+    return /\.(jpe?g|png|webp|gif|svg|bmp|ico)$/i.test(name);
+  }
+
+  // set favicon (try to load original with encodeURI first)
+  (function setFavicon() {
+    const iconName = 'liz venue - icon.png';
+    const link = document.createElement('link');
+    link.rel = 'icon';
+    link.href = IMAGE_BASE + encodeURI(iconName);
+    document.head.appendChild(link);
+    // attempt fallback variants if that fails
+    const img = new Image();
+    img.onload = () => {};
+    img.onerror = () => {
+      // try common variants
+      const alt = encodeURI(iconName.replace(/\s+/g,'_'));
+      const link2 = document.createElement('link'); link2.rel='icon'; link2.href = IMAGE_BASE + alt; document.head.appendChild(link2);
+    };
+    img.src = IMAGE_BASE + iconName;
+  })();
+
+  const galleryGrid = document.getElementById('galleryGrid');
+  const noImages = document.getElementById('noImages');
+  const debug = document.getElementById('debug');
+  const heroEl = document.getElementById('hero');
+
+  let loadedCount = 0;
+  let heroSet = false;
+  // Try each raw filename: for each, try variants until one loads successfully.
+  FILES_RAW.forEach((raw) => {
+    // only attempt image-like names
+    // but we still generate variants and check image extensions
+    const variants = genVariants(raw);
+
+    // queue sequential attempts per filename (try variants until succeed)
+    (function tryVariants(i) {
+      if (i >= variants.length) {
+        debug.textContent += 'missing: ' + raw + '\\n';
+        return;
+      }
+      const candidate = variants[i];
+      // skip non-image extensions quickly
+      if (!looksLikeImage(candidate)) {
+        // continue to next variant (some variants might add extension encoding; still skip)
+        tryVariants(i+1);
+        return;
+      }
+      const url = IMAGE_BASE + candidate;
+      const img = new Image();
+      img.onload = () => {
+        // successful load — use this URL
+        // don't add small "icon" images to gallery if name looks explicitly like icon
+        if (/icon/i.test(candidate) && candidate.toLowerCase().includes('icon')) {
+          debug.textContent += 'icon loaded as: ' + candidate + '\\n';
+          // set favicon explicitly if not set
+          try { document.querySelector('link[rel="icon"]').href = url; } catch(e){}
+          return;
+        }
+        // set hero to first loaded image
+        if (!heroSet) {
+          heroEl.style.backgroundImage = 'linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.5)), url(\"' + url + '\")';
+          heroSet = true;
+        }
+        // create gallery tile
+        const fig = document.createElement('figure');
+        const el = document.createElement('img');
+        el.src = url;
+        el.alt = candidate;
+        el.loading = 'lazy';
+        el.addEventListener('error', () => { if (el.parentNode) el.parentNode.remove(); });
+        fig.appendChild(el);
+        fig.addEventListener('click', () => openModal(url, candidate));
+        galleryGrid.appendChild(fig);
+        loadedCount++;
+        debug.textContent += 'loaded: ' + candidate + '\\n';
+      };
+      img.onerror = () => {
+        // try next variant
+        tryVariants(i+1);
+      };
+      // begin attempt
+      img.src = url;
+    })(0);
+  });
+
+  // after a small delay, check if images loaded
+  setTimeout(() => {
+    if (loadedCount === 0) {
+      noImages.style.display = 'block';
+      debug.style.display = 'block';
+      debug.textContent += '\\nNo gallery images loaded. Make sure the structure is:\\n/index.html\\n/assets/your-image-files.ext\\nFilenames are case-sensitive on some servers (Linux).\\nIf running locally, try serving via a local server: `python -m http.server` or `npx http-server`.';
+      heroEl.style.backgroundColor = '#1f2937';
+    } else {
+      debug.style.display = 'none';
+    }
+  }, 900);
+
+  // Modal
+  const modal = document.getElementById('modal');
+  const modalImg = document.getElementById('modalImg');
+  const modalClose = document.getElementById('modalClose');
+
+  function openModal(src, alt) {
+    modalImg.src = src;
+    modalImg.alt = alt || 'Image';
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+    modalClose && modalClose.focus();
+  }
+  function closeModal() {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden','true');
+    modalImg.src = '';
+    document.body.style.overflow = '';
+  }
+  modalClose && modalClose.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+  // RSVP (simple)
+  document.getElementById('rsvpForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    this.innerHTML = '<div style="padding:18px;border-radius:10px;background:#f6fff8"><h4>Thanks!</h4><p>Your RSVP was recorded (demo).</p></div>';
+  });
+
+  // smooth scroll
+  document.getElementById('rsvpScrollBtn').addEventListener('click', () => document.getElementById('rsvpFormSection').scrollIntoView({behavior:'smooth'}));
+  document.getElementById('viewGalleryBtn').addEventListener('click', () => document.getElementById('gallerySection').scrollIntoView({behavior:'smooth'}));
+
+})();
+</script>
+</body>
+</html>

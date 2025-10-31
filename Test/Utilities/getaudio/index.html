@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Audio Downloader & Media Manager</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>🎧 Audio Downloader</h1>
+    <input type="text" id="urlInput" placeholder="Enter audio file URL..." />
+    <button id="downloadBtn">Download & Save</button>
+
+    <h2>📂 Saved Media Files</h2>
+    <button id="refreshBtn">Refresh List</button>
+    <ul id="fileList"></ul>
+  </div>
+
+  <script>
+    const serverBase = window.location.origin;
+
+    // Download a file from given URL
+    document.getElementById("downloadBtn").onclick = async () => {
+      const url = document.getElementById("urlInput").value.trim();
+      if (!url) return alert("Enter an audio URL first!");
+
+      const res = await fetch(`${serverBase}/download`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url }),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        alert("File downloaded successfully!");
+        loadFiles();
+      } else {
+        alert("Download failed: " + (data.error || "unknown error"));
+      }
+    };
+
+    // Load media files
+    async function loadFiles() {
+      const res = await fetch(`${serverBase}/media`);
+      const files = await res.json();
+      const list = document.getElementById("fileList");
+      list.innerHTML = "";
+
+      if (!files.length) {
+        list.innerHTML = "<li>No files yet.</li>";
+        return;
+      }
+
+      files.forEach((file) => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+          <span>${file}</span>
+          <audio controls src="${serverBase}/media/${file}"></audio>
+          <button onclick="uploadFile('${file}')">Upload</button>
+        `;
+        list.appendChild(li);
+      });
+    }
+
+    // Upload file (to server again or external API)
+    async function uploadFile(filename) {
+      const res = await fetch(`${serverBase}/upload`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ filename }),
+      });
+      const data = await res.json();
+      alert(data.message || JSON.stringify(data));
+    }
+
+    document.getElementById("refreshBtn").onclick = loadFiles;
+    window.onload = loadFiles;
+  </script>
+</body>
+</html>
