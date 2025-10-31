@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Liz’s Venue — 25 Years of Events | Decor By Liz</title>
+
+  <!-- Primary SEO -->
+  <meta name="description" content="Decor By Liz celebrates 25 years at Liz’s Venue (512 Broadway, Bayonne, NJ). Join the anniversary — RSVP now." />
+  <meta name="keywords" content="Decor By Liz, Liz's Venue, Bayonne events, event venue NJ, anniversary, wedding venue" />
+  <meta name="author" content="Decor By Liz" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph / Social -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Liz’s Venue — Decor By Liz" />
+  <meta property="og:title" content="Liz’s Venue — 25 Years of Unforgettable Events" />
+  <meta property="og:description" content="Decor By Liz celebrates 25 years at Liz’s Venue (512 Broadway, Bayonne, NJ). Join the anniversary — RSVP now." />
+  <meta property="og:image" content="https://flyers.womacromax.com/liz%20Venue/assets/rsvp.png" />
+  <meta property="og:image:alt" content="Decor By Liz — RSVP" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Liz’s Venue — 25 Years of Unforgettable Events" />
+  <meta name="twitter:description" content="Decor By Liz celebrates 25 years at Liz’s Venue (512 Broadway, Bayonne, NJ). Join the anniversary — RSVP now." />
+  <meta name="twitter:image" content="https://flyers.womacromax.com/liz%20Venue/assets/rsvp.png" />
+  <meta name="twitter:image:alt" content="Decor By Liz — RSVP" />
+
+  <!-- Canonical (keep pointing to this page's URL when you publish) -->
+  <!-- <link rel="canonical" href="https://yourdomain.com/liz-redirect/" /> -->
+
+  <!-- Structured data: LocalBusiness + Event (condensed) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LocalBusiness",
+        "@id": "#decorbyliz",
+        "name": "Decor By Liz",
+        "url": "",
+        "image": "https://flyers.womacromax.com/liz%20Venue/assets/rsvp.png",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "512 Broadway",
+          "addressLocality": "Bayonne",
+          "addressRegion": "NJ",
+          "postalCode": "07002",
+          "addressCountry": "US"
+        },
+        "description": "Decor By Liz — elegant Bayonne venue for weddings, birthdays, showers and corporate events."
+      },
+      {
+        "@type": "Event",
+        "name": "Decor By Liz — 25th Anniversary Celebration",
+        "startDate": "",
+        "location": {
+          "@type": "Place",
+          "name": "Liz’s Venue by Decor By Liz",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "512 Broadway",
+            "addressLocality": "Bayonne",
+            "addressRegion": "NJ",
+            "postalCode": "07002",
+            "addressCountry": "US"
+          }
+        },
+        "description": "Join Decor By Liz as they celebrate 25 years of unforgettable events at Liz’s Venue — RSVP now.",
+        "image": "https://flyers.womacromax.com/liz%20Venue/assets/rsvp.png",
+        "organizer": {
+          "@type": "Organization",
+          "name": "Decor By Liz"
+        }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    html,body { margin:0; height:100%; width:100%; background:black; overflow:hidden; font-family: "Poppins", sans-serif; }
+    /* Fullscreen video loader */
+    #videoLoader { position: fixed; inset:0; width:100%; height:100%; object-fit:cover; z-index:9999; transition:opacity 1.2s ease; background:black; }
+    /* Hidden iframe until it loads */
+    #redirectFrame { position:fixed; inset:0; width:100%; height:100%; border:0; opacity:0; transition:opacity 1.2s ease; z-index:1; }
+    /* Fallback message styling for no-js or blocked iframe */
+    .fallback {
+      display:none;
+      position:fixed;
+      inset:0;
+      z-index:10000;
+      background:linear-gradient(180deg, rgba(0,0,0,0.85), rgba(0,0,0,0.65));
+      color:#fff; align-items:center; justify-content:center; text-align:center; padding:20px;
+      font-size:1.05rem;
+    }
+    .fallback a { color:#ffd1e6; text-decoration:underline; }
+    noscript .fallback { display:flex; }
+  </style>
+</head>
+<body>
+  <!-- Video loader (plays slowly on launch) -->
+  <video id="videoLoader" autoplay muted loop playsinline>
+    <source src="https://flyers.womacromax.com/liz%20venue/assets/WelcomeLizOnline.webm" type="video/webm">
+    <!-- fallback image if video is unsupported -->
+    <img src="https://flyers.womacromax.com/liz%20Venue/assets/rsvp.png" alt="Decor By Liz — RSVP" style="width:100%;height:100%;object-fit:cover;">
+  </video>
+
+  <!-- Masked destination iframe -->
+  <iframe id="redirectFrame" title="Liz’s Venue"></iframe>
+
+  <!-- Fallback UI if iframe blocked or JS disabled -->
+  <div class="fallback" id="fallbackUI" role="alert">
+    <div>
+      <h2 style="margin:0 0 8px 0;">Welcome — Decor By Liz</h2>
+      <p style="margin:0 0 12px 0;">If you are not redirected automatically, <a id="openDirect" href="#" target="_blank" rel="noopener">open the event page</a>.</p>
+      <p style="opacity:.9;font-size:.92rem;margin:0">Address: 512 Broadway, Bayonne, NJ 07002</p>
+    </div>
+  </div>
+
+  <noscript>
+    <style> .fallback { display:flex !important; } </style>
+    <div class="fallback">
+      <div>
+        <h2 style="margin:0 0 8px 0;">Decor By Liz — 25th Anniversary</h2>
+        <p style="margin:0 0 12px 0;">JavaScript is disabled. <a href="https://celebrate-liz-events.lovable.app/" target="_blank" rel="noopener">Open the event page</a>.</p>
+        <p style="opacity:.9;font-size:.92rem;margin:0">Address: 512 Broadway, Bayonne, NJ 07002</p>
+      </div>
+    </div>
+  </noscript>
+
+  <script>
+    // --- Config ---
+    const targetURL = "https://celebrate-liz-events.lovable.app/";
+    const video = document.getElementById('videoLoader');
+    const iframe = document.getElementById('redirectFrame');
+    const fallback = document.getElementById('fallbackUI');
+    const openDirect = document.getElementById('openDirect');
+
+    // Set playback rate for 'slow on launch'
+    video.playbackRate = 0.95;
+
+    // Start loading the destination page in the iframe (masked)
+    iframe.src = targetURL;
+
+    // Expose fallback direct open link
+    openDirect.href = targetURL;
+
+    // When the iframe finishes loading, reveal it and fade the video out
+    iframe.addEventListener('load', () => {
+      // If the iframe refused to load due to X-Frame-Options/CSP, this event may never fire.
+      // When it does fire, reveal the iframe and remove video
+      iframe.style.opacity = '1';
+      video.style.opacity = '0';
+      setTimeout(() => {
+        try { video.remove(); } catch(e) {}
+      }, 3200);
+    });
+
+    // Timeout fallback: if iframe hasn't loaded after 15s, show fallback UI so user can open direct
+    const fallbackTimeout = setTimeout(() => {
+      // Reveal fallback UI (keeps loader visible so UX not jarring)
+      fallback.style.display = 'flex';
+      fallback.style.alignItems = 'center';
+      fallback.style.justifyContent = 'center';
+    }, 15000);
+
+    // If iframe loads before timeout, clear fallback timer
+    iframe.addEventListener('load', () => clearTimeout(fallbackTimeout));
+
+    // Extra: detect common iframe-block behavior (best-effort)
+    // Try to postMessage a ping — will throw for cross-origin, so we instead use timeout approach above.
+    // Nothing else reliable can be done client-side without a proxy.
+  </script>
+</body>
+</html>
