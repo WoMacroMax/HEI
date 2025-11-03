@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Success STORY Campaign Strategy — WoMacroMAX</title>
+  <meta name="description" content="Transform event moments and customer experiences into a repeatable growth machine with the Success STORY Campaign Strategy by WoMacroMAX." />
+  <meta name="author" content="WoMacroMAX - Rodney Womack" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #3b82f6;
+      --primary-dark: #2563eb;
+      --accent: #f59e0b;
+      --destructive: #ef4444;
+      --background: #fafafa;
+      --card: #ffffff;
+      --border: #e5e7eb;
+      --text: #1f2937;
+      --text-muted: #6b7280;
+      --shadow: 0 4px 16px rgba(59, 130, 246, 0.12);
+      --shadow-lg: 0 8px 24px rgba(59, 130, 246, 0.15);
+      --radius: 12px;
+      
+      --stage-capture: #3b82f6;
+      --stage-campaign: #10b981;
+      --stage-transactions: #f59e0b;
+      --stage-scheduling: #06b6d4;
+      --stage-feedback: #8b5cf6;
+      --stage-redistribute: #f97316;
+      --stage-stories: #ca8a04;
+      --stage-payment: #059669;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(180deg, #ffffff, #dbeafe);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      color: white;
+      padding: 3rem 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    /* Campaign Summary */
+    .campaign-summary {
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      color: white;
+      padding: 2rem;
+      border-radius: var(--radius);
+      margin-bottom: 2.5rem;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .campaign-summary h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .campaign-summary p {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.8;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .summary-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 1.5rem;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+
+    .summary-card:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .summary-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Tabs */
+    .tabs-mobile {
+      display: block;
+      margin-bottom: 1.5rem;
+    }
+
+    .tabs-mobile select {
+      width: 100%;
+      padding: 1rem;
+      border-radius: var(--radius);
+      border: 2px solid var(--border);
+      background: var(--card);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .tabs-desktop {
+      display: none;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .tab-button {
+      padding: 0.75rem 1.25rem;
+      border-radius: var(--radius);
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .tab-button:hover {
+      transform: scale(1.05);
+      box-shadow: var(--shadow);
+    }
+
+    .tab-button.active {
+      box-shadow: var(--shadow-lg);
+      transform: scale(1.05);
+    }
+
+    .arrow {
+      color: var(--text-muted);
+      font-size: 1.2rem;
+    }
+
+    /* Tab Content */
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .content-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      border: 2px solid;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+    }
+
+    .content-main h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+
+    .content-main h3 {
+      font-size: 1.3rem;
+      margin: 1.5rem 0 1rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .content-main ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .content-main li {
+      margin-bottom: 0.75rem;
+      padding-left: 1.5rem;
+      position: relative;
+      color: var(--text-muted);
+    }
+
+    .content-main li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    /* Carousel */
+    .carousel {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .carousel-inner {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .carousel-item {
+      display: none;
+      width: 100%;
+    }
+
+    .carousel-item.active {
+      display: block;
+    }
+
+    .carousel-item img {
+      width: 100%;
+      height: 16rem;
+      object-fit: cover;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .carousel-item img:hover {
+      transform: scale(1.05);
+    }
+
+    .carousel-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      border-radius: 50%;
+      width: 2.5rem;
+      height: 2.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: all 0.3s;
+      box-shadow: var(--shadow);
+    }
+
+    .carousel:hover .carousel-button {
+      opacity: 1;
+    }
+
+    .carousel-button.prev {
+      left: 0.5rem;
+    }
+
+    .carousel-button.next {
+      right: 0.5rem;
+    }
+
+    .carousel-button:hover {
+      background: white;
+    }
+
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .carousel-dot {
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 50%;
+      background: rgba(107, 114, 128, 0.3);
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .carousel-dot.active {
+      width: 2rem;
+      background: var(--primary);
+    }
+
+    .carousel-caption {
+      text-align: center;
+      margin-top: 0.75rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* Special Content */
+    .special-content {
+      margin-bottom: 1.5rem;
+    }
+
+    .poc-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .poc-item {
+      padding: 1rem;
+      background: rgba(107, 114, 128, 0.05);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .poc-item:hover {
+      background: rgba(107, 114, 128, 0.1);
+      border-color: var(--primary);
+    }
+
+    .poc-item h4 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+
+    .poc-item p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .payment-details {
+      background: rgba(107, 114, 128, 0.05);
+      padding: 1.5rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      margin-bottom: 1.5rem;
+    }
+
+    .payment-details h4 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .payment-details code {
+      background: var(--card);
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: var(--border);
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-right: 0.5rem;
+    }
+
+    /* Iframe Modal */
+    .iframe-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(4px);
+      z-index: 9999;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    .iframe-modal.active {
+      display: block;
+    }
+
+    .iframe-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .iframe-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      z-index: 10000;
+      background: var(--destructive);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 3rem;
+      height: 3rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      transition: all 0.2s;
+    }
+
+    .iframe-close:hover {
+      transform: scale(1.1);
+      background: #dc2626;
+    }
+
+    .iframe-modal iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      overflow: hidden;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--card);
+      border-top: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+      margin-top: 3rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    footer p {
+      margin-bottom: 0.5rem;
+    }
+
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (min-width: 768px) {
+      header h1 {
+        font-size: 3rem;
+      }
+
+      .tabs-mobile {
+        display: none;
+      }
+
+      .tabs-desktop {
+        display: flex;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+
+      header h1 {
+        font-size: 1.75rem;
+      }
+
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Iframe Modal -->
+  <div id="iframeModal" class="iframe-modal">
+    <div class="iframe-container">
+      <button class="iframe-close" onclick="closeIframe()">×</button>
+      <iframe id="iframeContent" src="" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <h1>Success STORY Campaign Strategy</h1>
+      <p><strong>Presented by:</strong> Rodney Womack, Brand Marketing Strategist</p>
+      <p><strong>Date:</strong> Friday, October 1, 2025 | <strong>Time:</strong> 12:56 PM</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Campaign Summary -->
+    <div class="campaign-summary">
+      <h2>✓ Campaign Summary</h2>
+      <p>
+        The <strong>Success STORY Campaign Strategy</strong> converts event moments, customer experiences, and digital interactions into a repeatable growth machine.
+        Capture real moments, launch focused campaigns, enable direct transactions, coordinate scheduling, harvest feedback, and redistribute to amplify reach.
+      </p>
+
+      <div class="summary-grid">
+        <div class="summary-card">
+          <h3>🎯 Purpose</h3>
+          <p>Build a reusable content cycle that promotes credibility and conversion.</p>
+        </div>
+        <div class="summary-card">
+          <h3>🔍 Focus</h3>
+          <p>Leverage automation, visual storytelling, and real engagement data.</p>
+        </div>
+        <div class="summary-card">
+          <h3>📈 Outcome</h3>
+          <p>A scalable marketing system that converts everyday experiences into measurable results.</p>
+        </div>
+      </div>
+
+      <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(255, 255, 255, 0.1); border-radius: 8px;">
+        <p style="text-align: center; font-weight: 600;">
+          <strong>How it works:</strong> Capture → Campaign → Transactions → Scheduling → Feedback → Redistribute → Repeat
+        </p>
+      </div>
+    </div>
+
+    <!-- Mobile Tabs -->
+    <div class="tabs-mobile">
+      <select id="tabSelect" onchange="switchTab(this.value)">
+        <option value="capture">Capture</option>
+        <option value="campaign">Campaign</option>
+        <option value="transactions">Transactions</option>
+        <option value="scheduling">Scheduling</option>
+        <option value="feedback">Feedback</option>
+        <option value="redistribute">Redistribute</option>
+        <option value="stories">Other Success Stories</option>
+        <option value="payment">Client Payment</option>
+      </select>
+    </div>
+
+    <!-- Desktop Tabs -->
+    <div class="tabs-desktop">
+      <button class="tab-button active" style="background: var(--stage-capture);" onclick="switchTab('capture')">📷 Capture</button>
+      <span class="arrow">→</span>
+      <button class="tab-button" style="background: var(--stage-campaign);" onclick="switchTab('campaign')">📢 Campaign</button>
+      <span class="arrow">→</span>
+      <button class="tab-button" style="background: var(--stage-transactions);" onclick="switchTab('transactions')">🛒 Transactions</button>
+      <span class="arrow">→</span>
+      <button class="tab-button" style="background: var(--stage-scheduling);" onclick="switchTab('scheduling')">📅 Scheduling</button>
+      <span class="arrow">→</span>
+      <button class="tab-button" style="background: var(--stage-feedback);" onclick="switchTab('feedback')">💬 Feedback</button>
+      <span class="arrow">→</span>
+      <button class="tab-button" style="background: var(--stage-redistribute);" onclick="switchTab('redistribute')">📤 Redistribute</button>
+      <span class="arrow">→</span>
+      <button class="tab-button" style="background: var(--stage-stories);" onclick="switchTab('stories')">📄 Stories</button>
+      <span class="arrow">→</span>
+      <button class="tab-button" style="background: var(--stage-payment);" onclick="switchTab('payment')">💳 Payment</button>
+    </div>
+
+    <!-- Tab Contents (will be generated by JavaScript) -->
+    <div id="tabContents"></div>
+  </main>
+
+  <footer>
+    <p>Images and QR codes in this demo are placeholders or generated via free QR APIs. Replace with licensed or owned assets and verified payment QR codes before publishing.</p>
+    <p>© <strong>WoMacroMAX</strong> — <a href="https://www.womacromax.com" target="_blank">www.womacromax.com</a></p>
+  </footer>
+
+  <script>
+    // Data
+    const stageData = {
+      capture: {
+        title: "Capture & Repurpose Artifacts",
+        color: "var(--stage-capture)",
+        tacticalActions: [
+          "Collect photos and videos from existing platforms and events.",
+          "Tag and organize content by theme, audience segment, and campaign relevance.",
+          "Create short-form edits and stills ready for multi-format reuse.",
+          "Catalog raw assets in a searchable folder structure (date / event / tag / hero).",
+          "Keep a running 'best-of' folder for evergreen storytelling pieces."
+        ],
+        strategicOutcomes: [
+          "Reinforce brand identity using recognizable assets.",
+          "Reduce production costs by leveraging existing media.",
+          "Increase authenticity through real customer moments.",
+          "Accelerate campaign planning with ready-to-use media packages."
+        ],
+        images: [
+          { src: "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?w=1200&q=80&auto=format&fit=crop", alt: "Person organizing photos", link: "https://www.womacromax.com/gallery/capture1", caption: "Every story starts with what you've already captured" },
+          { src: "https://images.unsplash.com/photo-1522204505290-1cddd2f1a48a?w=1200&q=80&auto=format&fit=crop", alt: "Team reviewing content", link: "https://www.womacromax.com/gallery/capture2", caption: "Collaborative content curation" },
+          { src: "https://images.unsplash.com/photo-1489528792648-9f3f4bfa1e83?w=1200&q=80&auto=format&fit=crop", alt: "Smartphone recording", link: "https://www.womacromax.com/gallery/capture3", caption: "Mobile-first content capture" }
+        ]
+      },
+      campaign: {
+        title: "Launch Your Promotional Campaign",
+        color: "var(--stage-campaign)",
+        tacticalActions: [
+          "Craft campaign visuals, headlines, and unified messaging pillars.",
+          "Plan and schedule multi-channel posts for peak engagement windows.",
+          "Embed clear CTAs tied to measurable objectives (book, buy, subscribe).",
+          "Set trackable UTM parameters for campaign links for accurate attribution."
+        ],
+        strategicOutcomes: [
+          "Drive targeted engagement and qualified leads.",
+          "Improve conversion rates through consistent messaging.",
+          "Create repeatable campaign playbooks for future launches."
+        ],
+        images: [
+          { src: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1200&q=80&auto=format&fit=crop", alt: "Person scheduling posts", link: "https://www.womacromax.com/pocs/campaign-visuals", caption: "Strategic campaign planning" },
+          { src: "https://images.unsplash.com/photo-1554774853-aae0a22c8aa4?w=1200&q=80&auto=format&fit=crop", alt: "Marketing dashboard", link: "https://www.womacromax.com/pocs/campaign-dashboard", caption: "Data-driven optimization" },
+          { src: "https://images.unsplash.com/photo-1600096194534-74a3f35c1e2e?w=1200&q=80&auto=format&fit=crop", alt: "Branded assets", link: "https://www.womacromax.com/pocs/campaign-creative", caption: "Consistent brand storytelling" }
+        ]
+      },
+      transactions: {
+        title: "Enable Direct Transactions",
+        color: "var(--stage-transactions)",
+        tacticalActions: [
+          "Integrate a streamlined shopping cart with saved user profiles.",
+          "Optimize checkout flow for mobile-first purchases and one-click payments.",
+          "Instrument analytics to track funnel dropoffs and cart recovery.",
+          "Implement safe, PCI-compliant payment gateways and save customer billing preferences securely."
+        ],
+        strategicOutcomes: [
+          "Reduce purchase friction and increase conversion velocity.",
+          "Capture revenue at point-of-interest across channels.",
+          "Gain insights to personalize offers and improve retention."
+        ],
+        images: [
+          { src: "https://images.unsplash.com/photo-1605902711622-cfb43c4437d3?w=1200&q=80&auto=format&fit=crop", alt: "Mobile shopping", link: "https://www.womacromax.com/pocs/mobile-checkout", caption: "Seamless mobile commerce" },
+          { src: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200&q=80&auto=format&fit=crop", alt: "Online purchase", link: "https://www.womacromax.com/pocs/oneclick-pay", caption: "One-click optimization" },
+          { src: "https://images.unsplash.com/photo-1611078486798-5d3e04d6b4c9?w=1200&q=80&auto=format&fit=crop", alt: "Checkout analytics", link: "https://www.womacromax.com/pocs/analytics-payments", caption: "Transaction insights" }
+        ]
+      },
+      scheduling: {
+        title: "Streamline Scheduling",
+        color: "var(--stage-scheduling)",
+        tacticalActions: [
+          "Automate appointment booking and confirmations via calendar integrations.",
+          "Offer mobile-friendly booking widgets and time-slot previews.",
+          "Send automated reminders (SMS, email) and allow easy rescheduling.",
+          "Show available windows dynamically based on estimated task duration."
+        ],
+        strategicOutcomes: [
+          "Eliminate back-and-forth coordination and missed appointments.",
+          "Improve client satisfaction with clear confirmation flows.",
+          "Free staff time for high-value interactions."
+        ],
+        images: [
+          { src: "https://images.unsplash.com/photo-1556740749-887f6717d7e4?w=1200&q=80&auto=format&fit=crop", alt: "Calendar on phone", link: "https://www.womacromax.com/pocs/booking-widget", caption: "Automated scheduling" },
+          { src: "https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=1200&q=80&auto=format&fit=crop", alt: "Time slot UI", link: "https://www.womacromax.com/pocs/time-slot-preview", caption: "Real-time availability" },
+          { src: "https://images.unsplash.com/photo-1593642634315-48f5414c3ad9?w=1200&q=80&auto=format&fit=crop", alt: "Reminders", link: "https://www.womacromax.com/pocs/reminders", caption: "Smart reminder system" }
+        ]
+      },
+      feedback: {
+        title: "Harvest & Redistribute Feedback",
+        color: "var(--stage-feedback)",
+        tacticalActions: [
+          "Collect testimonials, photos, and short video reactions at events.",
+          "Edit and tag content for repurposing as case studies and social proof.",
+          "Plan a cadence for sharing feedback-driven content across channels.",
+          "Use short-form clips and quote cards to maximize social proof reach."
+        ],
+        strategicOutcomes: [
+          "Showcase real customer experiences to build trust.",
+          "Use feedback to refine product messaging and features.",
+          "Create momentum that fuels future campaigns."
+        ],
+        images: [
+          { src: "https://images.unsplash.com/photo-1573496529574-be85d6a60704?w=1200&q=80&auto=format&fit=crop", alt: "Interview testimonial", link: "https://www.womacromax.com/pocs/testimonial-capture", caption: "Authentic testimonials" },
+          { src: "https://images.unsplash.com/photo-1590608897129-79da98d15943?w=1200&q=80&auto=format&fit=crop", alt: "Smiling customers", link: "https://www.womacromax.com/pocs/ugc-gallery", caption: "User-generated content" },
+          { src: "https://flyers.womacromax.com/MoveCheap/assets/MoveCheap.jpg", alt: "Feedback dashboard", link: "https://flyers.womacromax.com/movecheap/", caption: "Feedback analytics" }
+        ]
+      },
+      redistribute: {
+        title: "Redistribute to Social Media",
+        color: "var(--stage-redistribute)",
+        tacticalActions: [
+          "Embed QR codes into event materials and digital flyers to bridge offline → online.",
+          "Link QR codes directly to booking pages, product pages, or testimonial galleries.",
+          "Cross-post condensed highlight reels, carousel stories, and user reviews.",
+          "Amplify reach with targeted hashtags, geo-tags, and influencer partnerships.",
+          "Monitor performance and iterate on formats that convert."
+        ],
+        strategicOutcomes: [
+          "Turn every offline touchpoint into an online lead engine.",
+          "Drive consistent inbound traffic and measurable conversions.",
+          "Establish a self-sustaining loop where users become promoters."
+        ],
+        images: [
+          { src: "https://images.unsplash.com/photo-1616469829936-5b7191cc88a3?w=1200&q=80&auto=format&fit=crop", alt: "QR flyer", link: "https://www.womacromax.com/pocs/qr-power", caption: "QR-powered offline-to-online" },
+          { src: "https://images.unsplash.com/photo-1504198453319-5ce911bafcde?w=1200&q=80&auto=format&fit=crop", alt: "Event highlights", link: "https://www.womacromax.com/pocs/highlight-reel", caption: "Visual storytelling" },
+          { src: "https://images.unsplash.com/photo-1520975913574-151c63f3cb4a?w=1200&q=80&auto=format&fit=crop", alt: "Social amplification", link: "https://www.womacromax.com/pocs/social-amp", caption: "Multi-channel amplification" }
+        ]
+      },
+      stories: {
+        title: "Other Success Stories — Proof of Concepts",
+        color: "var(--stage-stories)",
+        special: true,
+        pocs: [
+          { title: "Health Equity Impact", desc: "Transforming Healthcare Together — community-driven solutions that increase access and outreach.", link: "https://lost-trail-guide.lovable.app/" },
+          { title: "Gentle Touch Senior Concierge", desc: "Compassionate, on-demand services to help seniors age in place with dignity and independence.", link: "https://6806a12b2fda470b9f0f2eed--regal-squirrel-cc6a11.netlify.app/" },
+          { title: "📱 Free Phone Service That Works for You", desc: "Automated outreach and acquisition pipeline for phone service enrollment.", link: "https://flyers.womacromax.com/phoneservice/" },
+          { title: "Ms. Wanda's — Exquisite Southern Cuisine", desc: "Restaurant UX and local marketing playbook demonstrating community-driven orders and events.", link: "https://flyers.womacromax.com/ms%20wandas/" },
+          { title: "Your BEST Rates Are Here! - MoveCheap And Store It", desc: "Whether you're relocating across town or storing your valuables for a while, MoveCheap makes it simple, secure, and affordable.", link: "https://www.womacromax.com" },
+          { title: "Natural Scalp Care - That Actually Works!", desc: "Transform your scalp health with our organic seed oil-based treatments. Expert care for dry, itchy scalp issues.", link: "https://right2choose.womacromax.com/" },
+          { title: "Transform Your Business with Intelligent Automation - WoMacroMAX", desc: "Eliminate tedious manual work and amplify your productivity with customized automation solutions.", link: "https://www.womacromax.com" }
+        ],
+        images: [
+          { src: "https://flyers.womacromax.com/assets/Health%20Equity%20Impact%20-%20Transforming%20Healthcare%20Together.png", alt: "Health Equity", link: "https://lost-trail-guide.lovable.app/" },
+          { src: "https://womacromax.com/media/gentletouch.png", alt: "Gentle Touch", link: "https://6806a12b2fda470b9f0f2eed--regal-squirrel-cc6a11.netlify.app/" },
+          { src: "https://flyers.womacromax.com/phoneservice/media/frustrated%20phone%20user%20wishing%20for%20better%20service.png", alt: "Phone service", link: "https://flyers.womacromax.com/phoneservice/" },
+          { src: "https://womacromax.com/media/GoodSoulFoodBoutique.png", alt: "Ms. Wanda's", link: "https://flyers.womacromax.com/ms%20wandas/" },
+          { src: "https://right2choose.womacromax.com/assets/hair-oil-ad-BOrrBT9Z.png", alt: "Dynamic Choice Salon", link: "https://right2choose.womacromax.com" },
+          { src: "https://flyers.womacromax.com/MoveCheap/assets/MoveCheap.jpg", alt: "MoveCheap", link: "https://flyers.womacromax.com/movecheap/" },
+          { src: "https://womacromax.com/media/WoMacroMAXAutomation-logo-00.png", alt: "WoMacroMAX.com", link: "https://womacromax.com" }
+        ],
+      },
+      payment: {
+        title: "Client Payment — CashApp / Zelle",
+        color: "var(--stage-payment)",
+        special: true,
+        payment: true,
+        images: [
+          { src: "https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=https%3A%2F%2Fwww.womacromax.com", alt: "www.womacromax.com QR", link: "https://www.womacromax.com", caption: "Visit www.womacromax.com" },
+          { src: "https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=cashtag%3A%24payblab", alt: "CashApp QR", link: "https://cash.app/$payblab", caption: "CashApp — $payblab" },
+          { src: "https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=zelle%3A2403804868", alt: "Zelle QR", link: "https://www.womacromax.com/pocs/zelle-2403804868", caption: "Zelle — 240-380-4868" }
+        ]
+      }
+    };
+
+    // Current carousel indexes
+    const carouselIndexes = {};
+
+    // Initialize
+    window.onload = function() {
+      renderTabs();
+      switchTab('capture');
+    };
+
+    function renderTabs() {
+      const container = document.getElementById('tabContents');
+      
+      for (const [key, data] of Object.entries(stageData)) {
+        carouselIndexes[key] = 0;
+        const tabContent = document.createElement('div');
+        tabContent.className = 'tab-content';
+        tabContent.id = `tab-${key}`;
+        
+        const card = document.createElement('div');
+        card.className = 'content-card';
+        card.style.borderColor = `${data.color}30`;
+        card.style.background = `${data.color}05`;
+        
+        const grid = document.createElement('div');
+        grid.className = 'content-grid';
+        
+        const mainContent = document.createElement('div');
+        mainContent.className = 'content-main';
+        
+        if (data.special) {
+          if (data.payment) {
+            mainContent.innerHTML = `
+              <h2>${data.title}</h2>
+              <div class="special-content">
+                <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Please use one of the options below to submit payments. After payment, send a receipt screenshot or confirmation message to confirm.</p>
+                <div class="payment-details">
+                  <h4>Payment Details</h4>
+                  <div style="margin-bottom: 0.5rem;"><span class="badge">CashApp</span><code>$payblab</code></div>
+                  <div style="margin-bottom: 0.5rem;"><span class="badge">Zelle (Phone)</span><code>240-380-4868</code></div>
+                  <div style="margin-bottom: 0.5rem;"><span class="badge">Zelle (Email)</span><code>blab942@yahoo.com</code></div>
+                </div>
+                <div style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">
+                  <p>• <strong>Memo/Note:</strong> Include your project name or invoice number for tracking.</p>
+                  <p>• <strong>Confirmation:</strong> Please SMS or email the receipt to the contact used on the invoice.</p>
+                  <p>• Payments are processed immediately upon receipt and acknowledged within 1 business day.</p>
+                </div>
+                <div class="payment-details">
+                  <h4>Billing Contact</h4>
+                  <p style="font-size: 0.9rem;"><strong>Phone:</strong> <code>703-596-2482</code><br><strong>Email:</strong> <code>blab942@yahoo.com</code></p>
+                </div>
+              </div>
+            `;
+          } else {
+            let pocsHtml = '<div class="poc-list">';
+            for (const poc of data.pocs) {
+              pocsHtml += `
+                <div class="poc-item" onclick="openIframe('${poc.link}')">
+                  <h4>${poc.title}</h4>
+                  <p>${poc.desc}</p>
+                </div>
+              `;
+            }
+            pocsHtml += '</div>';
+            mainContent.innerHTML = `
+              <h2>${data.title}</h2>
+              <div class="special-content">
+                <p style="color: var(--text-muted); margin-bottom: 1rem;">Index of example Proof-of-Concept pages and mini case studies. Click a thumbnail or link to explore each POC.</p>
+                ${pocsHtml}
+              </div>
+            `;
+          }
+        } else {
+          let tacticalHtml = '<ul>';
+          for (const action of data.tacticalActions) {
+            tacticalHtml += `<li>${action}</li>`;
+          }
+          tacticalHtml += '</ul>';
+          
+          let outcomesHtml = '<ul>';
+          for (const outcome of data.strategicOutcomes) {
+            outcomesHtml += `<li>${outcome}</li>`;
+          }
+          outcomesHtml += '</ul>';
+          
+          mainContent.innerHTML = `
+            <h2>${data.title}</h2>
+            <h3>✓ Tactical Actions</h3>
+            ${tacticalHtml}
+            <h3>✓ Strategic Outcomes</h3>
+            ${outcomesHtml}
+          `;
+        }
+        
+        const carouselDiv = document.createElement('div');
+        carouselDiv.innerHTML = `
+          <div class="carousel" id="carousel-${key}">
+            <div class="carousel-inner">
+              ${data.images.map((img, idx) => `
+                <div class="carousel-item ${idx === 0 ? 'active' : ''}">
+                  <img src="${img.src}" alt="${img.alt}" onclick="openIframe('${img.link}')">
+                </div>
+              `).join('')}
+            </div>
+            ${data.images.length > 1 ? `
+              <button class="carousel-button prev" onclick="prevSlide('${key}')">‹</button>
+              <button class="carousel-button next" onclick="nextSlide('${key}')">›</button>
+            ` : ''}
+          </div>
+          ${data.images.length > 1 ? `
+            <div class="carousel-dots">
+              ${data.images.map((_, idx) => `
+                <button class="carousel-dot ${idx === 0 ? 'active' : ''}" onclick="goToSlide('${key}', ${idx})"></button>
+              `).join('')}
+            </div>
+          ` : ''}
+          ${data.images[0].caption ? `<p class="carousel-caption">${data.images[0].caption}</p>` : ''}
+        `;
+        
+        grid.appendChild(mainContent);
+        grid.appendChild(carouselDiv);
+        card.appendChild(grid);
+        tabContent.appendChild(card);
+        container.appendChild(tabContent);
+      }
+    }
+
+    function switchTab(tabId) {
+      // Update select
+      document.getElementById('tabSelect').value = tabId;
+      
+      // Update tab buttons
+      const buttons = document.querySelectorAll('.tab-button');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      
+      // Update tab contents
+      const contents = document.querySelectorAll('.tab-content');
+      contents.forEach(content => content.classList.remove('active'));
+      
+      document.getElementById(`tab-${tabId}`).classList.add('active');
+      
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function nextSlide(stage) {
+      const images = stageData[stage].images;
+      carouselIndexes[stage] = (carouselIndexes[stage] + 1) % images.length;
+      updateCarousel(stage);
+    }
+
+    function prevSlide(stage) {
+      const images = stageData[stage].images;
+      carouselIndexes[stage] = (carouselIndexes[stage] - 1 + images.length) % images.length;
+      updateCarousel(stage);
+    }
+
+    function goToSlide(stage, index) {
+      carouselIndexes[stage] = index;
+      updateCarousel(stage);
+    }
+
+    function updateCarousel(stage) {
+      const carousel = document.querySelector(`#carousel-${stage} .carousel-inner`);
+      const items = carousel.querySelectorAll('.carousel-item');
+      const dots = document.querySelectorAll(`#carousel-${stage}`).length > 0 ? 
+        document.querySelector(`#tab-${stage}`).querySelectorAll('.carousel-dot') : [];
+      const caption = document.querySelector(`#tab-${stage} .carousel-caption`);
+      
+      items.forEach((item, idx) => {
+        item.classList.toggle('active', idx === carouselIndexes[stage]);
+      });
+      
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle('active', idx === carouselIndexes[stage]);
+      });
+      
+      if (caption && stageData[stage].images[carouselIndexes[stage]].caption) {
+        caption.textContent = stageData[stage].images[carouselIndexes[stage]].caption;
+      }
+    }
+
+    function openIframe(url) {
+      const modal = document.getElementById('iframeModal');
+      const iframe = document.getElementById('iframeContent');
+      iframe.src = url;
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeIframe() {
+      const modal = document.getElementById('iframeModal');
+      const iframe = document.getElementById('iframeContent');
+      modal.classList.remove('active');
+      iframe.src = '';
+      document.body.style.overflow = 'unset';
+    }
+
+    // Close modal on background click
+    document.getElementById('iframeModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeIframe();
+      }
+    });
+  </script>
+</body>
+</html>

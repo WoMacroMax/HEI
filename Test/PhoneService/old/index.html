@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Phone Service Ad</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* HERO SECTION */
+    .hero-section {
+      position: relative;
+      height: 90vh;
+      background: linear-gradient(0deg, #093d4e 0%, #484e79 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-section h1 {
+      font-weight: 700;
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .single {
+      position: relative;
+      height: 30em;
+      width: 20em;
+      box-sizing: border-box;
+      background: radial-gradient(circle, #000000 0em, #000000 3em, #00000000 3em),
+        radial-gradient(ellipse, #1a1a1a 0em, #1a1a1a 4em, #1a1a1a00 4em),
+        radial-gradient(ellipse, #1a1a1a 0em, #1a1a1a 4em, #1a1a1a00 4em),
+        conic-gradient(
+          transparent 0deg,
+          transparent 150deg,
+          #1a1a1a 150deg,
+          #1a1a1a 180deg,
+          transparent 180deg,
+          transparent 360deg
+        ),
+        conic-gradient(
+          transparent 0deg,
+          transparent 210deg,
+          #1a1a1a 210deg,
+          #1a1a1a 240deg,
+          transparent 240deg,
+          transparent 360deg
+        );
+      background-repeat: no-repeat;
+      background-position-y: 3em, 1em, 11em, 2em, 1.5em;
+      background-position-x: 9.5em, 9.5em, 9.5em, 10em, 6em;
+      background-size: 8em 8em, 8em 11em, 8em 30em, 10em 20em, 14em 20em;
+    }
+
+    .single:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 6em;
+      border-radius: 100% 0 0 0 / 2em 0 0 0;
+      background: linear-gradient(180deg, #f2f2f2 0em, #666666 2em, transparent 2em),
+        linear-gradient(270deg, #754224 0em, #c69c6d 1em, transparent 1em);
+    }
+
+    .single:after {
+      content: ". .";
+      position: absolute;
+      height: 5em;
+      width: 10em;
+      color: red;
+      font-size: 3em;
+      left: 3.9em;
+      top: 1.2em;
+      letter-spacing: 0.2em;
+      opacity: 0.3;
+      animation: glow 2s infinite linear alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: none; opacity: 0.3; }
+      to {
+        opacity: 1;
+        text-shadow: 0 0 5px red, 0 0 10px red, 0 0 15px red,
+        0 0 20px red, 0 0 25px red, 0 0 30px red, 0 0 40px red, 0 0 50px red;
+      }
+    }
+
+    /* BODY CARDS */
+    body {
+      background-color: #f4f6f8;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .card-section {
+      padding: 60px 20px;
+    }
+
+    .info-card {
+      background: linear-gradient(135deg, #e6f1ff, #ffffff);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 4px 20px rgba(0, 123, 255, 0.1);
+    }
+
+    .info-card h2 {
+      color: #003366;
+      font-weight: 700;
+    }
+
+    .info-card p {
+      font-size: 1.25rem;
+      color: #333;
+      margin-bottom: 12px;
+    }
+
+    .btn-primary {
+      background-color: #0077c5;
+      border-radius: 50px;
+      padding: 12px 28px;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #005fa3;
+    }
+
+    .btn-secondary {
+      border-radius: 50px;
+      padding: 12px 28px;
+      border: none;
+    }
+
+    .image-card img {
+      border-radius: 20px;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    @media (max-width: 768px) {
+      .info-card, .image-card {
+        margin-bottom: 30px;
+      }
+      .hero-section { height: 65vh; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO SECTION -->
+  <section class="hero-section">
+    <h1>Experience the Glow of Better Connectivity</h1>
+    <div class="single"></div>
+  </section>
+
+  <!-- CARD SECTION -->
+  <div class="container card-section">
+    <div class="row align-items-center">
+      <!-- Left: Info Card -->
+      <div class="col-lg-6">
+        <div class="info-card text-center">
+          <h2 class="mb-4">📱 Do you have phone issues?</h2>
+          <p>Are you <strong>tired of paying too much</strong> for phone service?</p>
+          <p>Is your budget disrupted by <strong>fluctuating bills</strong>?</p>
+          <p>Do you want a <strong>better, more reliable service</strong>?</p>
+          <p><strong>Would you like a free phone service?</strong></p>
+          <div class="d-flex justify-content-center flex-wrap gap-3 mt-4">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#narrativeModal">Learn More</button>
+            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#contactModal">Contact Us</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Image Card -->
+      <div class="col-lg-6">
+        <div class="image-card">
+          <img src="media/frustrated phone user wishing for better service.png" alt="Frustrated phone user" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Narrative Modal -->
+  <div class="modal fade" id="narrativeModal" tabindex="-1" aria-labelledby="narrativeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded-4">
+        <div class="modal-header">
+          <h5 class="modal-title" id="narrativeModalLabel">Why Choose Us?</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>"Are you stuck in a love-hate relationship with your phone service?"</strong></p>
+          <p>You’ve been there: fighting to make sense of another inflated bill. Wondering why “reliable service” feels mythical.</p>
+          <p>Imagine: no surprises, no stress. Just clarity, consistency, and maybe… even <em>free service</em>.</p>
+          <p>We believe phone service should empower you—not drain your wallet or patience.</p>
+          <p>Take the leap. The best part? You’ll wonder why you didn’t switch sooner.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Modal -->
+  <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded-4">
+        <div class="modal-header">
+          <h5 class="modal-title" id="contactModalLabel">Contact Us</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input type="text" class="form-control rounded-pill" id="name" placeholder="Your Name" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control rounded-pill" id="email" placeholder="Your Email" required>
+            </div>
+            <div class="mb-3">
+              <label for="message" class="form-label">Message</label>
+              <textarea class="form-control rounded-4" id="message" rows="3" placeholder="Your Message" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Send</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

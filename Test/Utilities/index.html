@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WoMacroMAX Landing</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    :root {
+      --card-bg: #ffffff;
+      --accent-color: #dc2626;
+      --text-color: #1f2937;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    body {
+      background: linear-gradient(135deg, #fde68a 0%, #f87171 50%, #14b8a6 100%);
+      font-family: 'Segoe UI', sans-serif;
+      color: #f8fafc;
+      min-height: 100vh;
+    }
+
+    .greeting {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .greeting img {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      border-radius: 0.5rem;
+      background-color: #ffffff;
+      padding: 4px;
+    }
+
+    .greeting span.wo { color: #ffffff; }
+    .greeting span.macro { color: #000000; }
+    .greeting span.max { color: #dc2626; font-weight: 700; }
+
+    .search-bar {
+      border-radius: 0.75rem;
+      border: 1px solid #cbd5e1;
+      padding: 0.75rem 1rem;
+      width: 100%;
+      background-color: #f1f5f9;
+      color: #1f2937;
+    }
+
+    .suggestion-buttons .btn {
+      margin: 0.25rem;
+      border-radius: 2rem;
+      font-size: 0.9rem;
+      color: #fff;
+      border: none;
+    }
+
+    .btn-index { background-color: #10b981; }
+    .btn-lookup { background-color: #6366f1; }
+    .btn-submit { background-color: #f59e0b; }
+    .btn-image { background-color: #ec4899; }
+    .btn-plan { background-color: #3b82f6; }
+
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      color: #f8fafc;
+    }
+
+    .card {
+      border: none;
+      border-radius: 0.75rem;
+      box-shadow: var(--shadow);
+      background-color: var(--card-bg);
+      color: var(--text-color);
+    }
+
+    .badge {
+      font-size: 0.85rem;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.5rem;
+      background-color: #fee2e2;
+      color: #b91c1c;
+    }
+
+    ul li {
+      padding: 0.25rem 0;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    ul li:last-child {
+      border-bottom: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container py-5">
+    <!-- Greeting with Logo -->
+    <div class="greeting">
+      <img src="assets/WoMacroMAXAutomation-logo-00.png" alt="WoMacroMAX Logo" />
+      <div>
+        <span class="wo">Wo</span><span class="macro">Macro</span><span class="max">MAX</span> Utilities
+      </div>
+    </div>
+
+    <input type="text" class="search-bar mb-3" placeholder="Ask anything..." />
+
+    <!-- Buttons -->
+    <div class="suggestion-buttons d-flex flex-wrap mb-4">
+      <button class="btn btn-index">View Index</button>
+      <button class="btn btn-lookup">Look Up</button>
+      <button class="btn btn-submit">Submit something new</button>
+      <button class="btn btn-image">Create an image</button>
+      <button class="btn btn-plan">Make a plan</button>
+    </div>
+
+    <!-- Divider Card -->
+    <div class="card p-3 mb-5">
+      <div class="text-muted">Explore tools, utilities, and recent activity below.</div>
+    </div>
+
+    <!-- Sections -->
+    <div class="row g-4">
+      <!-- Files -->
+      <div class="col-md-4">
+        <div class="section-title">Jump back in to your files</div>
+        <div class="card p-3">
+          <ul class="list-unstyled mb-0">
+            <li>Health Equity Impact...</li>
+            <li>HEI Logo.png</li>
+            <li>owner00.png</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Apps -->
+      <div class="col-md-4">
+        <div class="section-title">Get guided help with your apps</div>
+        <div class="card p-3">
+          <div class="d-flex flex-wrap gap-2">
+            <span class="badge">Word</span>
+            <span class="badge">Excel</span>
+            <span class="badge">PowerPoint</span>
+            <span class="badge">Outlook</span>
+            <span class="badge">Teams</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Interactions -->
+      <div class="col-md-4">
+        <div class="section-title">Keep talking to WoMacroMAX</div>
+        <div class="card p-3">
+          <ul class="list-unstyled mb-0">
+            <li>Getting Free Credits...</li>
+            <li>Teddy Riley’s Earning...</li>
+            <li>Image Brightening an...</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

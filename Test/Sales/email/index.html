@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Success STORY’s Campaign Strategy</title>
+  <style>
+    /* === BASE STYLES === */
+    :root {
+      --blue: #3b7fc4;
+      --light-blue: #e8f8fc;
+      --black: #000;
+    }
+    h1 {
+      font-size: 350%;
+    }
+    h3 {
+      font-size: 20%;
+      font-weight: 400;
+      margin: 0;
+    }
+    h4 {
+      font-size: 250%;
+      font-weight: 400;
+      margin: 0;
+    }
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      margin: 0;
+      padding: 2rem;
+      background: #f4f7fb;
+      color: #222;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* === HEADER === */
+    .hero {
+      border: 2px solid var(--black);
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      background: linear-gradient(180deg, #f9fcff 0%, #eef7fc 100%);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-icon {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 1rem;
+      background: var(--light-blue);
+      border: 1px solid var(--black);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      font-weight: 400;
+      margin: 0;
+    }
+
+    .hero span {
+      color: var(--blue);
+    }
+
+    .hero p {
+      margin-top: 0.5rem;
+      color: #3b4a54;
+      font-size: 1rem;
+    }
+
+    /* === FLEXIBLE PRICING (Excel-style) === */
+    .pricing-container {
+      border: 1px solid var(--black);
+      padding: 1rem;
+      border-radius: 12px;
+      background: #fff;
+      margin-bottom: 1.5rem;
+    }
+
+    .pricing-comparison {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1rem;
+    }
+
+    .pricing-comparison th,
+    .pricing-comparison td {
+      border: 1px solid var(--black);
+      padding: 8px;
+      text-align: left;
+      font-size: 0.95rem;
+    }
+
+    .pricing-comparison th {
+      background: #f0f6ff;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    /* === PAY-AS-YOU-GO === */
+    .pay-as-you-go {
+      background: linear-gradient(180deg, #f3fbf7 0%, #e0f4ea 100%);
+      border: 1px solid var(--black);
+      border-radius: 8px;
+      padding: 0.8rem 1rem;
+      margin: 1rem 0;
+      text-align: center; /* ✅ Center the text */
+    }
+
+    /* === PRICING CARDS === */
+    .pricing-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+
+    .pricing-card {
+      background: #fff;
+      border: 1px solid var(--black);
+      border-radius: 12px;
+      padding: 1.2rem;
+    }
+
+    .pricing-card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .pricing-card-icon {
+      width: 45px;
+      height: 45px;
+      background: var(--light-blue);
+      border: 1px solid var(--black);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+    }
+
+    .pricing-card-title h3 {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .pricing-card-description {
+      font-size: 0.95rem;
+      color: #333;
+      margin-bottom: 1rem;
+    }
+
+    /* === BUTTONS === */
+    .button-row {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: nowrap;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      border: 1px solid var(--black);
+      background-color: var(--light-blue);
+      text-decoration: none;
+      font-weight: 600;
+      max-width: 240px;
+      width: 100%;
+    }
+
+    .button-icon {
+      font-size: 1.1rem;
+    }
+
+    .call-btn b {
+      color: var(--blue);
+    }
+
+    .payment-btn span {
+      color: #00c244; /* CashApp green */
+    }
+  </style>
+</head>
+
+
+
+<body>
+  <div class="container">
+    <!-- Hero Section -->
+    <div class="hero">
+      <div class="hero-icon">🎯</div>
+      <h1>A Success <span>STORY's</span><br>Campaign Strategy</h1>
+      <p>Proposal Document · October 2025</p>
+    </div>
+
+    <!-- Flexible Pricing Section -->
+    <div class="pricing-container">
+      <h3 style="margin-bottom:6px;text-align:center" class="pricing-header">Flexible Pricing</h3>
+      <p style="color:var(--muted);font-size:13px;margin-bottom:8px;text-align:center">
+        Choose the option that fits your growth goals best. No long-term contracts, simple pricing.
+      </p>
+
+      <table class="pricing-comparison">
+        <thead>
+          <tr><th>Feature</th><th>Setup</th><th>Credits</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Cost</td><td>$150 one-time</td><td>$150 per credit</td></tr>
+          <tr><td>What You Get</td><td>Setup of initial campaign, lead capture, SEO, calendar</td><td>Additional campaigns & response handling</td></tr>
+          <tr><td>Commitment</td><td>One-time</td><td>Flexible / Pay-as-needed</td></tr>
+          <tr><td>Ideal For</td><td>New clients</td><td>Businesses scaling campaigns</td></tr>
+        </tbody>
+      </table>
+
+      <div class="pay-as-you-go">
+        <h3>Pay-as-you-go</h3>
+        <p>After setup, pay only for delivered results.</p>
+      </div>
+
+      <div class="pricing-cards">
+        <div class="pricing-card">
+          <div class="pricing-card-header">
+            <div class="pricing-card-icon">🚀</div>
+            <div class="pricing-card-title">
+              <h3>Setup</h3>
+              <div class="pricing-card-price">
+                <span class="amount">$150</span>
+              </div>
+            </div>
+          </div>
+          <p class="pricing-card-description">
+            Covers Setup of initial campaign, lead capture, SEO, calendar.
+          </p>
+
+          <div class="button-row">
+            <a class="button call-btn" href="https://gtc-010-23-menu-fix-womacromax.replit.app/contact?campaignId=WMX-New-Campaign-468-2025-07-21-1753103442505&source=launch-manager&show=true" target="_blank" rel="noopener noreferrer">
+              <span class="button-icon">📞</span>
+              <b>Click to Schedule a Call</b>
+            </a>
+          </div>
+        </div>
+
+        <div class="pricing-card">
+          <div class="pricing-card-header">
+            <div class="pricing-card-icon">⚡</div>
+            <div class="pricing-card-title">
+              <h3>Credits</h3>
+              <div class="pricing-card-price">
+                <span class="amount">$150</span>
+                <span class="unit">/ credit</span>
+              </div>
+            </div>
+          </div>
+          <p class="pricing-card-description">
+            Credits are used for additional campaigns and response volume (prospect calls, inquiries, emails). Example: 1 credit = 2 campaigns or up to 30 responses.
+          </p>
+
+          <div class="button-row">
+            <a class="button payment-btn" href="https://sales.womacromax.com/cashapp_zelle_payment.html" target="_blank" rel="noopener noreferrer">
+              <b>Click to Pay via. <span>$CashApp</span></b>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

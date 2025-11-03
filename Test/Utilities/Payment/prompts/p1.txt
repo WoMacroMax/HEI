@@ -1,0 +1,16 @@
+Please add a new tab to the page titled "Dual Payment Form". This tab should contain a form that:
+- Collects the following fields:
+- Recipient Name
+- Payment Amount
+- Memo/Note
+- Optional: Payment Reference ID
+- On submission:
+- Assembles a URL that includes the form data as query parameters.
+- Injects the same form data into both CashApp and Zelle payment details.
+- Displays two buttons:
+- Pay with CashApp → opens a prefilled CashApp URL with the entered data.
+- Pay with Zelle → opens a prefilled Zelle URL or triggers the appropriate action with the same data.
+Please ensure:
+- The form is responsive and styled to match existing tabs.
+- The data is mirrored exactly between both payment methods.
+- The tab is export-friendly for PDF if needed.

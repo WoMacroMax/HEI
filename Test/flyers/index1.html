@@ -1,0 +1,437 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <title>Email Services</title>
+    </head>
+    <body style="margin: 0; padding: 0; background-color: #f9fafb;">
+      <div style="max-width: 600px; margin: 0 auto; padding: 30px;">
+        
+        
+    <div style="margin-bottom: 30px; margin-left: -30px; margin-right: -30px;">
+      <img src="data:image/jpeg;base64,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" alt="Header Image" style="width: 100%; height: 200px; object-fit: cover; display: block;">
+    </div>
+  
+        
+        
+    <div style="background: #ffffff; border: 2px solid #e5e7eb; border-radius: 12px; margin-bottom: 20px; margin-left: -30px; margin-right: -30px; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, sans-serif; width: calc(100% + 60px);">
+      <div style="background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); padding: 20px; border-bottom: 1px solid #e5e7eb;">
+        <h2 style="color: #1f2937; font-size: 1.3em; font-weight: 700; margin: 0 0 8px 0;">Investment Tracking</h2>
+        <span style="background: #3b82f6; color: white; padding: 4px 10px; border-radius: 15px; font-size: 0.75em; font-weight: 600;">SRV-FN-001</span>
+      </div>
+      <div style="padding: 0;"><img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&h=400&fit=crop" alt="Investment Tracking" style="width: 100%; height: 160px; object-fit: cover; display: block;" /></div>
+      <div style="padding: 20px;">
+        <p style="color: #4b5563; margin-bottom: 12px; font-size: 0.95em; line-height: 1.5;">Portfolio management and analysis</p>
+        <span style="background: #fef3c7; color: #92400e; padding: 5px 10px; border-radius: 6px; font-size: 0.8em; font-weight: 600; display: inline-block; margin-bottom: 15px;">⏱️ 240 minutes</span>
+        <div style="text-align: center; margin-top: 15px;">
+          <a href="https://2eb3a058-4055-4fe5-b7a1-5f561e75a916-00-xa6qd3rclk8l.picard.replit.dev/all-services?modal=true&serviceId=SRV-FN-001" style="background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; display: inline-block;" target="_blank">🔗 Learn More</a>
+        </div>
+      </div>
+    </div>
+  
+    <div style="background: #ffffff; border: 2px solid #e5e7eb; border-radius: 12px; margin-bottom: 20px; margin-left: -30px; margin-right: -30px; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, sans-serif; width: calc(100% + 60px);">
+      <div style="background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); padding: 20px; border-bottom: 1px solid #e5e7eb;">
+        <h2 style="color: #1f2937; font-size: 1.3em; font-weight: 700; margin: 0 0 8px 0;">Client Portal</h2>
+        <span style="background: #3b82f6; color: white; padding: 4px 10px; border-radius: 15px; font-size: 0.75em; font-weight: 600;">SRV-LG-003</span>
+      </div>
+      <div style="padding: 0;"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=400&fit=crop" alt="Client Portal" style="width: 100%; height: 160px; object-fit: cover; display: block;" /></div>
+      <div style="padding: 20px;">
+        <p style="color: #4b5563; margin-bottom: 12px; font-size: 0.95em; line-height: 1.5;">Secure client communication platform</p>
+        <span style="background: #fef3c7; color: #92400e; padding: 5px 10px; border-radius: 6px; font-size: 0.8em; font-weight: 600; display: inline-block; margin-bottom: 15px;">⏱️ 180 minutes</span>
+        <div style="text-align: center; margin-top: 15px;">
+          <a href="https://2eb3a058-4055-4fe5-b7a1-5f561e75a916-00-xa6qd3rclk8l.picard.replit.dev/all-services?modal=true&serviceId=SRV-LG-003" style="background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; display: inline-block;" target="_blank">🔗 Learn More</a>
+        </div>
+      </div>
+    </div>
+  
+    <div style="background: #ffffff; border: 2px solid #e5e7eb; border-radius: 12px; margin-bottom: 20px; margin-left: -30px; margin-right: -30px; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, sans-serif; width: calc(100% + 60px);">
+      <div style="background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); padding: 20px; border-bottom: 1px solid #e5e7eb;">
+        <h2 style="color: #1f2937; font-size: 1.3em; font-weight: 700; margin: 0 0 8px 0;">Pre-Scheduling Service</h2>
+        <span style="background: #3b82f6; color: white; padding: 4px 10px; border-radius: 15px; font-size: 0.75em; font-weight: 600;">SRV-SWYF-002</span>
+      </div>
+      <div style="padding: 0;"><img src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&h=400&fit=crop" alt="Pre-Scheduling Service" style="width: 100%; height: 160px; object-fit: cover; display: block;" /></div>
+      <div style="padding: 20px;">
+        <p style="color: #4b5563; margin-bottom: 12px; font-size: 0.95em; line-height: 1.5;">Professional pre-scheduling system allowing customers to book rides in advance with calendar integration, automated reminders, and flexible scheduling options</p>
+        <span style="background: #fef3c7; color: #92400e; padding: 5px 10px; border-radius: 6px; font-size: 0.8em; font-weight: 600; display: inline-block; margin-bottom: 15px;">⏱️ 1 minutes</span>
+        <div style="text-align: center; margin-top: 15px;">
+          <a href="https://2eb3a058-4055-4fe5-b7a1-5f561e75a916-00-xa6qd3rclk8l.picard.replit.dev/all-services?modal=true&serviceId=SRV-SWYF-002" style="background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; display: inline-block;" target="_blank">🔗 Learn More</a>
+        </div>
+      </div>
+    </div>
+  
+    <div style="background: #ffffff; border: 2px solid #e5e7eb; border-radius: 12px; margin-bottom: 20px; margin-left: -30px; margin-right: -30px; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, sans-serif; width: calc(100% + 60px);">
+      <div style="background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); padding: 20px; border-bottom: 1px solid #e5e7eb;">
+        <h2 style="color: #1f2937; font-size: 1.3em; font-weight: 700; margin: 0 0 8px 0;">Lead Generation System</h2>
+        <span style="background: #3b82f6; color: white; padding: 4px 10px; border-radius: 15px; font-size: 0.75em; font-weight: 600;">SRV-RE-002</span>
+      </div>
+      <div style="padding: 0;"><img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=600&h=400&fit=crop" alt="Lead Generation System" style="width: 100%; height: 160px; object-fit: cover; display: block;" /></div>
+      <div style="padding: 20px;">
+        <p style="color: #4b5563; margin-bottom: 12px; font-size: 0.95em; line-height: 1.5;">Real estate lead capture and nurturing</p>
+        <span style="background: #fef3c7; color: #92400e; padding: 5px 10px; border-radius: 6px; font-size: 0.8em; font-weight: 600; display: inline-block; margin-bottom: 15px;">⏱️ 120 minutes</span>
+        <div style="text-align: center; margin-top: 15px;">
+          <a href="https://2eb3a058-4055-4fe5-b7a1-5f561e75a916-00-xa6qd3rclk8l.picard.replit.dev/all-services?modal=true&serviceId=SRV-RE-002" style="background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; display: inline-block;" target="_blank">🔗 Learn More</a>
+        </div>
+      </div>
+    </div>
+  
+    <div style="background: #ffffff; border: 2px solid #e5e7eb; border-radius: 12px; margin-bottom: 20px; margin-left: -30px; margin-right: -30px; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, sans-serif; width: calc(100% + 60px);">
+      <div style="background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); padding: 20px; border-bottom: 1px solid #e5e7eb;">
+        <h2 style="color: #1f2937; font-size: 1.3em; font-weight: 700; margin: 0 0 8px 0;">Inventory Management</h2>
+        <span style="background: #3b82f6; color: white; padding: 4px 10px; border-radius: 15px; font-size: 0.75em; font-weight: 600;">SRV-EC-003</span>
+      </div>
+      <div style="padding: 0;"><img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&h=400&fit=crop" alt="Inventory Management" style="width: 100%; height: 160px; object-fit: cover; display: block;" /></div>
+      <div style="padding: 20px;">
+        <p style="color: #4b5563; margin-bottom: 12px; font-size: 0.95em; line-height: 1.5;">Advanced inventory tracking and automation</p>
+        <span style="background: #fef3c7; color: #92400e; padding: 5px 10px; border-radius: 6px; font-size: 0.8em; font-weight: 600; display: inline-block; margin-bottom: 15px;">⏱️ 180 minutes</span>
+        <div style="text-align: center; margin-top: 15px;">
+          <a href="https://2eb3a058-4055-4fe5-b7a1-5f561e75a916-00-xa6qd3rclk8l.picard.replit.dev/all-services?modal=true&serviceId=SRV-EC-003" style="background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; display: inline-block;" target="_blank">🔗 Learn More</a>
+        </div>
+      </div>
+    </div>
+  
+    <div style="background: #ffffff; border: 2px solid #e5e7eb; border-radius: 12px; margin-bottom: 20px; margin-left: -30px; margin-right: -30px; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, sans-serif; width: calc(100% + 60px);">
+      <div style="background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); padding: 20px; border-bottom: 1px solid #e5e7eb;">
+        <h2 style="color: #1f2937; font-size: 1.3em; font-weight: 700; margin: 0 0 8px 0;">Risk Assessment</h2>
+        <span style="background: #3b82f6; color: white; padding: 4px 10px; border-radius: 15px; font-size: 0.75em; font-weight: 600;">SRV-FN-003</span>
+      </div>
+      <div style="padding: 0;"><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop" alt="Risk Assessment" style="width: 100%; height: 160px; object-fit: cover; display: block;" /></div>
+      <div style="padding: 20px;">
+        <p style="color: #4b5563; margin-bottom: 12px; font-size: 0.95em; line-height: 1.5;">Investment risk analysis and reporting</p>
+        <span style="background: #fef3c7; color: #92400e; padding: 5px 10px; border-radius: 6px; font-size: 0.8em; font-weight: 600; display: inline-block; margin-bottom: 15px;">⏱️ 120 minutes</span>
+        <div style="text-align: center; margin-top: 15px;">
+          <a href="https://2eb3a058-4055-4fe5-b7a1-5f561e75a916-00-xa6qd3rclk8l.picard.replit.dev/all-services?modal=true&serviceId=SRV-FN-003" style="background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; display: inline-block;" target="_blank">🔗 Learn More</a>
+        </div>
+      </div>
+    </div>
+  
+    <div style="background: #ffffff; border: 2px solid #e5e7eb; border-radius: 12px; margin-bottom: 20px; margin-left: -30px; margin-right: -30px; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, sans-serif; width: calc(100% + 60px);">
+      <div style="background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); padding: 20px; border-bottom: 1px solid #e5e7eb;">
+        <h2 style="color: #1f2937; font-size: 1.3em; font-weight: 700; margin: 0 0 8px 0;">E-commerce Platform</h2>
+        <span style="background: #3b82f6; color: white; padding: 4px 10px; border-radius: 15px; font-size: 0.75em; font-weight: 600;">SRV-EC-001</span>
+      </div>
+      <div style="padding: 0;"><img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop" alt="E-commerce Platform" style="width: 100%; height: 160px; object-fit: cover; display: block;" /></div>
+      <div style="padding: 20px;">
+        <p style="color: #4b5563; margin-bottom: 12px; font-size: 0.95em; line-height: 1.5;">Complete online store solution</p>
+        <span style="background: #fef3c7; color: #92400e; padding: 5px 10px; border-radius: 6px; font-size: 0.8em; font-weight: 600; display: inline-block; margin-bottom: 15px;">⏱️ 360 minutes</span>
+        <div style="text-align: center; margin-top: 15px;">
+          <a href="https://2eb3a058-4055-4fe5-b7a1-5f561e75a916-00-xa6qd3rclk8l.picard.replit.dev/all-services?modal=true&serviceId=SRV-EC-001" style="background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; display: inline-block;" target="_blank">🔗 Learn More</a>
+        </div>
+      </div>
+    </div>
+  
+    <div style="background: #ffffff; border: 2px solid #e5e7eb; border-radius: 12px; margin-bottom: 20px; margin-left: -30px; margin-right: -30px; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, sans-serif; width: calc(100% + 60px);">
+      <div style="background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); padding: 20px; border-bottom: 1px solid #e5e7eb;">
+        <h2 style="color: #1f2937; font-size: 1.3em; font-weight: 700; margin: 0 0 8px 0;">Financial Planning</h2>
+        <span style="background: #3b82f6; color: white; padding: 4px 10px; border-radius: 15px; font-size: 0.75em; font-weight: 600;">SRV-FN-002</span>
+      </div>
+      <div style="padding: 0;"><img src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=600&h=400&fit=crop" alt="Financial Planning" style="width: 100%; height: 160px; object-fit: cover; display: block;" /></div>
+      <div style="padding: 20px;">
+        <p style="color: #4b5563; margin-bottom: 12px; font-size: 0.95em; line-height: 1.5;">Personal financial planning tools</p>
+        <span style="background: #fef3c7; color: #92400e; padding: 5px 10px; border-radius: 6px; font-size: 0.8em; font-weight: 600; display: inline-block; margin-bottom: 15px;">⏱️ 180 minutes</span>
+        <div style="text-align: center; margin-top: 15px;">
+          <a href="https://2eb3a058-4055-4fe5-b7a1-5f561e75a916-00-xa6qd3rclk8l.picard.replit.dev/all-services?modal=true&serviceId=SRV-FN-002" style="background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; display: inline-block;" target="_blank">🔗 Learn More</a>
+        </div>
+      </div>
+    </div>
+  
+    <div style="background: #ffffff; border: 2px solid #e5e7eb; border-radius: 12px; margin-bottom: 20px; margin-left: -30px; margin-right: -30px; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, sans-serif; width: calc(100% + 60px);">
+      <div style="background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); padding: 20px; border-bottom: 1px solid #e5e7eb;">
+        <h2 style="color: #1f2937; font-size: 1.3em; font-weight: 700; margin: 0 0 8px 0;">Virtual Property Tours</h2>
+        <span style="background: #3b82f6; color: white; padding: 4px 10px; border-radius: 15px; font-size: 0.75em; font-weight: 600;">SRV-RE-003</span>
+      </div>
+      <div style="padding: 0;"><img src="https://oaidalleapiprodscus.blob.core.windows.net/private/org-A3UI6gCjGYs9DO9E9lW1FEL1/user-os67342unPKmdBw91XzuRDHk/img-QkpFPeVlmJhcI78LRx3OrP8x.png?st=2025-10-05T12%3A35%3A12Z&se=2025-10-05T14%3A35%3A12Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=6e4237ed-4a31-4e1d-a677-4df21834ece0&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-10-05T13%3A35%3A12Z&ske=2025-10-06T13%3A35%3A12Z&sks=b&skv=2024-08-04&sig=njO3upPyFtyoPxRv8KWHG%2B9PK91TkUwEfSXZl7M7wts%3D" alt="Virtual Property Tours" style="width: 100%; height: 160px; object-fit: cover; display: block;" /></div>
+      <div style="padding: 20px;">
+        <p style="color: #4b5563; margin-bottom: 12px; font-size: 0.95em; line-height: 1.5;">360-degree virtual property showcases</p>
+        <span style="background: #fef3c7; color: #92400e; padding: 5px 10px; border-radius: 6px; font-size: 0.8em; font-weight: 600; display: inline-block; margin-bottom: 15px;">⏱️ 13 minutes</span>
+        <div style="text-align: center; margin-top: 15px;">
+          <a href="https://2eb3a058-4055-4fe5-b7a1-5f561e75a916-00-xa6qd3rclk8l.picard.replit.dev/all-services?modal=true&serviceId=SRV-RE-003" style="background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; display: inline-block;" target="_blank">🔗 Learn More</a>
+        </div>
+      </div>
+    </div>
+  
+    <div style="background: #ffffff; border: 2px solid #e5e7eb; border-radius: 12px; margin-bottom: 20px; margin-left: -30px; margin-right: -30px; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, sans-serif; width: calc(100% + 60px);">
+      <div style="background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); padding: 20px; border-bottom: 1px solid #e5e7eb;">
+        <h2 style="color: #1f2937; font-size: 1.3em; font-weight: 700; margin: 0 0 8px 0;">Payment Integration</h2>
+        <span style="background: #3b82f6; color: white; padding: 4px 10px; border-radius: 15px; font-size: 0.75em; font-weight: 600;">SRV-EC-002</span>
+      </div>
+      <div style="padding: 0;"><img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop" alt="Payment Integration" style="width: 100%; height: 160px; object-fit: cover; display: block;" /></div>
+      <div style="padding: 20px;">
+        <p style="color: #4b5563; margin-bottom: 12px; font-size: 0.95em; line-height: 1.5;">Secure payment processing system</p>
+        <span style="background: #fef3c7; color: #92400e; padding: 5px 10px; border-radius: 6px; font-size: 0.8em; font-weight: 600; display: inline-block; margin-bottom: 15px;">⏱️ 120 minutes</span>
+        <div style="text-align: center; margin-top: 15px;">
+          <a href="https://2eb3a058-4055-4fe5-b7a1-5f561e75a916-00-xa6qd3rclk8l.picard.replit.dev/all-services?modal=true&serviceId=SRV-EC-002" style="background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; display: inline-block;" target="_blank">🔗 Learn More</a>
+        </div>
+      </div>
+    </div>
+  
+    <div style="background: #ffffff; border: 2px solid #e5e7eb; border-radius: 12px; margin-bottom: 20px; margin-left: -30px; margin-right: -30px; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, sans-serif; width: calc(100% + 60px);">
+      <div style="background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); padding: 20px; border-bottom: 1px solid #e5e7eb;">
+        <h2 style="color: #1f2937; font-size: 1.3em; font-weight: 700; margin: 0 0 8px 0;">Taxi Dispatch </h2>
+        <span style="background: #3b82f6; color: white; padding: 4px 10px; border-radius: 15px; font-size: 0.75em; font-weight: 600;">SRV-2025-001</span>
+      </div>
+      <div style="padding: 0;"><img src="https://oaidalleapiprodscus.blob.core.windows.net/private/org-A3UI6gCjGYs9DO9E9lW1FEL1/user-tpbdyFxrNyofAp4N4NnEH1qQ/img-U9mF5Xmk0qlgCwcDNcX3WPDH.png?st=2025-08-25T20%3A52%3A21Z&se=2025-08-25T22%3A52%3A21Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=8eb2c87c-0531-4dab-acb3-b5e2adddce6c&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-08-25T16%3A23%3A18Z&ske=2025-08-26T16%3A23%3A18Z&sks=b&skv=2024-08-04&sig=%2BUnbu7T3l63kjqjzIhPoLuaxySTuJUm1aWHpPcum5pA%3D" alt="Taxi Dispatch " style="width: 100%; height: 160px; object-fit: cover; display: block;" /></div>
+      <div style="padding: 20px;">
+        <p style="color: #4b5563; margin-bottom: 12px; font-size: 0.95em; line-height: 1.5;">Taxi monitoring service includes Dispatch customer service as well as reporting</p>
+        <span style="background: #fef3c7; color: #92400e; padding: 5px 10px; border-radius: 6px; font-size: 0.8em; font-weight: 600; display: inline-block; margin-bottom: 15px;">⏱️ 1 minutes</span>
+        <div style="text-align: center; margin-top: 15px;">
+          <a href="https://2eb3a058-4055-4fe5-b7a1-5f561e75a916-00-xa6qd3rclk8l.picard.replit.dev/all-services?modal=true&serviceId=SRV-2025-001" style="background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; display: inline-block;" target="_blank">🔗 Learn More</a>
+        </div>
+      </div>
+    </div>
+  
+    <div style="background: #ffffff; border: 2px solid #e5e7eb; border-radius: 12px; margin-bottom: 20px; margin-left: -30px; margin-right: -30px; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, sans-serif; width: calc(100% + 60px);">
+      <div style="background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); padding: 20px; border-bottom: 1px solid #e5e7eb;">
+        <h2 style="color: #1f2937; font-size: 1.3em; font-weight: 700; margin: 0 0 8px 0;">On-Demand Ride Service</h2>
+        <span style="background: #3b82f6; color: white; padding: 4px 10px; border-radius: 15px; font-size: 0.75em; font-weight: 600;">SRV-SWYF-001</span>
+      </div>
+      <div style="padding: 0;"><img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=600&h=400&fit=crop" alt="On-Demand Ride Service" style="width: 100%; height: 160px; object-fit: cover; display: block;" /></div>
+      <div style="padding: 20px;">
+        <p style="color: #4b5563; margin-bottom: 12px; font-size: 0.95em; line-height: 1.5;">Advanced on-demand ride booking platform with real-time GPS tracking, instant driver matching, and seamless payment integration for modern transportation needs</p>
+        <span style="background: #fef3c7; color: #92400e; padding: 5px 10px; border-radius: 6px; font-size: 0.8em; font-weight: 600; display: inline-block; margin-bottom: 15px;">⏱️ 1 minutes</span>
+        <div style="text-align: center; margin-top: 15px;">
+          <a href="https://2eb3a058-4055-4fe5-b7a1-5f561e75a916-00-xa6qd3rclk8l.picard.replit.dev/all-services?modal=true&serviceId=SRV-SWYF-001" style="background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; display: inline-block;" target="_blank">🔗 Learn More</a>
+        </div>
+      </div>
+    </div>
+  
+    <div style="background: #ffffff; border: 2px solid #e5e7eb; border-radius: 12px; margin-bottom: 20px; margin-left: -30px; margin-right: -30px; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, sans-serif; width: calc(100% + 60px);">
+      <div style="background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); padding: 20px; border-bottom: 1px solid #e5e7eb;">
+        <h2 style="color: #1f2937; font-size: 1.3em; font-weight: 700; margin: 0 0 8px 0;">Patient Portal Development</h2>
+        <span style="background: #3b82f6; color: white; padding: 4px 10px; border-radius: 15px; font-size: 0.75em; font-weight: 600;">SRV-HC-001</span>
+      </div>
+      <div style="padding: 0;"><img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&h=400&fit=crop&auto=format" alt="Patient Portal Development" style="width: 100%; height: 160px; object-fit: cover; display: block;" /></div>
+      <div style="padding: 20px;">
+        <p style="color: #4b5563; margin-bottom: 12px; font-size: 0.95em; line-height: 1.5;">Secure patient communication and record access</p>
+        <span style="background: #fef3c7; color: #92400e; padding: 5px 10px; border-radius: 6px; font-size: 0.8em; font-weight: 600; display: inline-block; margin-bottom: 15px;">⏱️ 180 minutes</span>
+        <div style="text-align: center; margin-top: 15px;">
+          <a href="https://2eb3a058-4055-4fe5-b7a1-5f561e75a916-00-xa6qd3rclk8l.picard.replit.dev/all-services?modal=true&serviceId=SRV-HC-001" style="background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; display: inline-block;" target="_blank">🔗 Learn More</a>
+        </div>
+      </div>
+    </div>
+  
+    <div style="background: #ffffff; border: 2px solid #e5e7eb; border-radius: 12px; margin-bottom: 20px; margin-left: -30px; margin-right: -30px; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, sans-serif; width: calc(100% + 60px);">
+      <div style="background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); padding: 20px; border-bottom: 1px solid #e5e7eb;">
+        <h2 style="color: #1f2937; font-size: 1.3em; font-weight: 700; margin: 0 0 8px 0;">Property Management</h2>
+        <span style="background: #3b82f6; color: white; padding: 4px 10px; border-radius: 15px; font-size: 0.75em; font-weight: 600;">SRV-RE-001</span>
+      </div>
+      <div style="padding: 0;"><img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&h=400&fit=crop" alt="Property Management" style="width: 100%; height: 160px; object-fit: cover; display: block;" /></div>
+      <div style="padding: 20px;">
+        <p style="color: #4b5563; margin-bottom: 12px; font-size: 0.95em; line-height: 1.5;">Real estate property tracking and management</p>
+        <span style="background: #fef3c7; color: #92400e; padding: 5px 10px; border-radius: 6px; font-size: 0.8em; font-weight: 600; display: inline-block; margin-bottom: 15px;">⏱️ 10 minutes</span>
+        <div style="text-align: center; margin-top: 15px;">
+          <a href="https://2eb3a058-4055-4fe5-b7a1-5f561e75a916-00-xa6qd3rclk8l.picard.replit.dev/all-services?modal=true&serviceId=SRV-RE-001" style="background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; display: inline-block;" target="_blank">🔗 Learn More</a>
+        </div>
+      </div>
+    </div>
+  
+    <div style="background: #ffffff; border: 2px solid #e5e7eb; border-radius: 12px; margin-bottom: 20px; margin-left: -30px; margin-right: -30px; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, sans-serif; width: calc(100% + 60px);">
+      <div style="background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); padding: 20px; border-bottom: 1px solid #e5e7eb;">
+        <h2 style="color: #1f2937; font-size: 1.3em; font-weight: 700; margin: 0 0 8px 0;">Telemedicine Platform</h2>
+        <span style="background: #3b82f6; color: white; padding: 4px 10px; border-radius: 15px; font-size: 0.75em; font-weight: 600;">SRV-HC-002</span>
+      </div>
+      <div style="padding: 0;"><img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&h=400&fit=crop" alt="Telemedicine Platform" style="width: 100%; height: 160px; object-fit: cover; display: block;" /></div>
+      <div style="padding: 20px;">
+        <p style="color: #4b5563; margin-bottom: 12px; font-size: 0.95em; line-height: 1.5;">Video consultations and remote healthcare</p>
+        <span style="background: #fef3c7; color: #92400e; padding: 5px 10px; border-radius: 6px; font-size: 0.8em; font-weight: 600; display: inline-block; margin-bottom: 15px;">⏱️ 240 minutes</span>
+        <div style="text-align: center; margin-top: 15px;">
+          <a href="https://2eb3a058-4055-4fe5-b7a1-5f561e75a916-00-xa6qd3rclk8l.picard.replit.dev/all-services?modal=true&serviceId=SRV-HC-002" style="background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; display: inline-block;" target="_blank">🔗 Learn More</a>
+        </div>
+      </div>
+    </div>
+  
+    <div style="background: #ffffff; border: 2px solid #e5e7eb; border-radius: 12px; margin-bottom: 20px; margin-left: -30px; margin-right: -30px; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, sans-serif; width: calc(100% + 60px);">
+      <div style="background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); padding: 20px; border-bottom: 1px solid #e5e7eb;">
+        <h2 style="color: #1f2937; font-size: 1.3em; font-weight: 700; margin: 0 0 8px 0;">Healthcare Analytics</h2>
+        <span style="background: #3b82f6; color: white; padding: 4px 10px; border-radius: 15px; font-size: 0.75em; font-weight: 600;">SRV-HC-003</span>
+      </div>
+      <div style="padding: 0;"><img src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=600&h=400&fit=crop" alt="Healthcare Analytics" style="width: 100%; height: 160px; object-fit: cover; display: block;" /></div>
+      <div style="padding: 20px;">
+        <p style="color: #4b5563; margin-bottom: 12px; font-size: 0.95em; line-height: 1.5;">Patient data analysis and reporting</p>
+        <span style="background: #fef3c7; color: #92400e; padding: 5px 10px; border-radius: 6px; font-size: 0.8em; font-weight: 600; display: inline-block; margin-bottom: 15px;">⏱️ 120 minutes</span>
+        <div style="text-align: center; margin-top: 15px;">
+          <a href="https://2eb3a058-4055-4fe5-b7a1-5f561e75a916-00-xa6qd3rclk8l.picard.replit.dev/all-services?modal=true&serviceId=SRV-HC-003" style="background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; display: inline-block;" target="_blank">🔗 Learn More</a>
+        </div>
+      </div>
+    </div>
+  
+    <div style="background: #ffffff; border: 2px solid #e5e7eb; border-radius: 12px; margin-bottom: 20px; margin-left: -30px; margin-right: -30px; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, sans-serif; width: calc(100% + 60px);">
+      <div style="background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); padding: 20px; border-bottom: 1px solid #e5e7eb;">
+        <h2 style="color: #1f2937; font-size: 1.3em; font-weight: 700; margin: 0 0 8px 0;">Case Management System</h2>
+        <span style="background: #3b82f6; color: white; padding: 4px 10px; border-radius: 15px; font-size: 0.75em; font-weight: 600;">SRV-LG-001</span>
+      </div>
+      <div style="padding: 0;"><img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&h=400&fit=crop" alt="Case Management System" style="width: 100%; height: 160px; object-fit: cover; display: block;" /></div>
+      <div style="padding: 20px;">
+        <p style="color: #4b5563; margin-bottom: 12px; font-size: 0.95em; line-height: 1.5;">Legal case tracking and documentation</p>
+        <span style="background: #fef3c7; color: #92400e; padding: 5px 10px; border-radius: 6px; font-size: 0.8em; font-weight: 600; display: inline-block; margin-bottom: 15px;">⏱️ 300 minutes</span>
+        <div style="text-align: center; margin-top: 15px;">
+          <a href="https://2eb3a058-4055-4fe5-b7a1-5f561e75a916-00-xa6qd3rclk8l.picard.replit.dev/all-services?modal=true&serviceId=SRV-LG-001" style="background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; display: inline-block;" target="_blank">🔗 Learn More</a>
+        </div>
+      </div>
+    </div>
+  
+    <div style="background: #ffffff; border: 2px solid #e5e7eb; border-radius: 12px; margin-bottom: 20px; margin-left: -30px; margin-right: -30px; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, sans-serif; width: calc(100% + 60px);">
+      <div style="background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); padding: 20px; border-bottom: 1px solid #e5e7eb;">
+        <h2 style="color: #1f2937; font-size: 1.3em; font-weight: 700; margin: 0 0 8px 0;">Document Automation</h2>
+        <span style="background: #3b82f6; color: white; padding: 4px 10px; border-radius: 15px; font-size: 0.75em; font-weight: 600;">SRV-LG-002</span>
+      </div>
+      <div style="padding: 0;"><img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=600&h=400&fit=crop" alt="Document Automation" style="width: 100%; height: 160px; object-fit: cover; display: block;" /></div>
+      <div style="padding: 20px;">
+        <p style="color: #4b5563; margin-bottom: 12px; font-size: 0.95em; line-height: 1.5;">Legal document generation and templates</p>
+        <span style="background: #fef3c7; color: #92400e; padding: 5px 10px; border-radius: 6px; font-size: 0.8em; font-weight: 600; display: inline-block; margin-bottom: 15px;">⏱️ 150 minutes</span>
+        <div style="text-align: center; margin-top: 15px;">
+          <a href="https://2eb3a058-4055-4fe5-b7a1-5f561e75a916-00-xa6qd3rclk8l.picard.replit.dev/all-services?modal=true&serviceId=SRV-LG-002" style="background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; display: inline-block;" target="_blank">🔗 Learn More</a>
+        </div>
+      </div>
+    </div>
+  
+    <div style="background: #ffffff; border: 2px solid #e5e7eb; border-radius: 12px; margin-bottom: 20px; margin-left: -30px; margin-right: -30px; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, sans-serif; width: calc(100% + 60px);">
+      <div style="background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); padding: 20px; border-bottom: 1px solid #e5e7eb;">
+        <h2 style="color: #1f2937; font-size: 1.3em; font-weight: 700; margin: 0 0 8px 0;">Package Delivery Service</h2>
+        <span style="background: #3b82f6; color: white; padding: 4px 10px; border-radius: 15px; font-size: 0.75em; font-weight: 600;">SRV-SWYF-003</span>
+      </div>
+      <div style="padding: 0;"><img src="https://images.unsplash.com/photo-1566576721346-d4a3b4eaeb55?w=600&h=400&fit=crop" alt="Package Delivery Service" style="width: 100%; height: 160px; object-fit: cover; display: block;" /></div>
+      <div style="padding: 20px;">
+        <p style="color: #4b5563; margin-bottom: 12px; font-size: 0.95em; line-height: 1.5;">Comprehensive package delivery solution with tracking capabilities, delivery confirmation, secure handling protocols, and customer notification system</p>
+        <span style="background: #fef3c7; color: #92400e; padding: 5px 10px; border-radius: 6px; font-size: 0.8em; font-weight: 600; display: inline-block; margin-bottom: 15px;">⏱️ 1 minutes</span>
+        <div style="text-align: center; margin-top: 15px;">
+          <a href="https://2eb3a058-4055-4fe5-b7a1-5f561e75a916-00-xa6qd3rclk8l.picard.replit.dev/all-services?modal=true&serviceId=SRV-SWYF-003" style="background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; display: inline-block;" target="_blank">🔗 Learn More</a>
+        </div>
+      </div>
+    </div>
+  
+    <div style="background: #ffffff; border: 2px solid #e5e7eb; border-radius: 12px; margin-bottom: 20px; margin-left: -30px; margin-right: -30px; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, sans-serif; width: calc(100% + 60px);">
+      <div style="background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); padding: 20px; border-bottom: 1px solid #e5e7eb;">
+        <h2 style="color: #1f2937; font-size: 1.3em; font-weight: 700; margin: 0 0 8px 0;">E-commerce Platform</h2>
+        <span style="background: #3b82f6; color: white; padding: 4px 10px; border-radius: 15px; font-size: 0.75em; font-weight: 600;">SRV-DATA-007</span>
+      </div>
+      <div style="padding: 0;"><img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop" alt="E-commerce Platform" style="width: 100%; height: 160px; object-fit: cover; display: block;" /></div>
+      <div style="padding: 20px;">
+        <p style="color: #4b5563; margin-bottom: 12px; font-size: 0.95em; line-height: 1.5;">Complete online store development</p>
+        <span style="background: #fef3c7; color: #92400e; padding: 5px 10px; border-radius: 6px; font-size: 0.8em; font-weight: 600; display: inline-block; margin-bottom: 15px;">⏱️ 240 minutes</span>
+        <div style="text-align: center; margin-top: 15px;">
+          <a href="https://2eb3a058-4055-4fe5-b7a1-5f561e75a916-00-xa6qd3rclk8l.picard.replit.dev/all-services?modal=true&serviceId=SRV-DATA-007" style="background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; display: inline-block;" target="_blank">🔗 Learn More</a>
+        </div>
+      </div>
+    </div>
+  
+    <div style="background: #ffffff; border: 2px solid #e5e7eb; border-radius: 12px; margin-bottom: 20px; margin-left: -30px; margin-right: -30px; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, sans-serif; width: calc(100% + 60px);">
+      <div style="background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); padding: 20px; border-bottom: 1px solid #e5e7eb;">
+        <h2 style="color: #1f2937; font-size: 1.3em; font-weight: 700; margin: 0 0 8px 0;">Patient Portal Development</h2>
+        <span style="background: #3b82f6; color: white; padding: 4px 10px; border-radius: 15px; font-size: 0.75em; font-weight: 600;">SRV-DATA-001</span>
+      </div>
+      <div style="padding: 0;"><img src="https://oaidalleapiprodscus.blob.core.windows.net/private/org-A3UI6gCjGYs9DO9E9lW1FEL1/user-9ud7nPn5KDbRNDTxRbSNwmiX/img-YpQEcLzIkGsH0y4iLNgQfugJ.png?st=2025-08-10T16%3A03%3A23Z&se=2025-08-10T18%3A03%3A23Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=ed3ea2f9-5e38-44be-9a1b-7c1e65e4d54f&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-08-10T17%3A03%3A23Z&ske=2025-08-11T17%3A03%3A23Z&sks=b&skv=2024-08-04&sig=VS3Vb7tQk/ngiDNdR0kJIOsugCkaQifV5YUMzztNpSo%3D" alt="Patient Portal Development" style="width: 100%; height: 160px; object-fit: cover; display: block;" /></div>
+      <div style="padding: 20px;">
+        <p style="color: #4b5563; margin-bottom: 12px; font-size: 0.95em; line-height: 1.5;">HIPAA-compliant patient communication system</p>
+        <span style="background: #fef3c7; color: #92400e; padding: 5px 10px; border-radius: 6px; font-size: 0.8em; font-weight: 600; display: inline-block; margin-bottom: 15px;">⏱️ 11 minutes</span>
+        <div style="text-align: center; margin-top: 15px;">
+          <a href="https://2eb3a058-4055-4fe5-b7a1-5f561e75a916-00-xa6qd3rclk8l.picard.replit.dev/all-services?modal=true&serviceId=SRV-DATA-001" style="background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; display: inline-block;" target="_blank">🔗 Learn More</a>
+        </div>
+      </div>
+    </div>
+  
+    <div style="background: #ffffff; border: 2px solid #e5e7eb; border-radius: 12px; margin-bottom: 20px; margin-left: -30px; margin-right: -30px; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, sans-serif; width: calc(100% + 60px);">
+      <div style="background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); padding: 20px; border-bottom: 1px solid #e5e7eb;">
+        <h2 style="color: #1f2937; font-size: 1.3em; font-weight: 700; margin: 0 0 8px 0;">Case Management System</h2>
+        <span style="background: #3b82f6; color: white; padding: 4px 10px; border-radius: 15px; font-size: 0.75em; font-weight: 600;">SRV-DATA-003</span>
+      </div>
+      <div style="padding: 0;"><img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&h=400&fit=crop" alt="Case Management System" style="width: 100%; height: 160px; object-fit: cover; display: block;" /></div>
+      <div style="padding: 20px;">
+        <p style="color: #4b5563; margin-bottom: 12px; font-size: 0.95em; line-height: 1.5;">Legal case tracking and document management</p>
+        <span style="background: #fef3c7; color: #92400e; padding: 5px 10px; border-radius: 6px; font-size: 0.8em; font-weight: 600; display: inline-block; margin-bottom: 15px;">⏱️ 150 minutes</span>
+        <div style="text-align: center; margin-top: 15px;">
+          <a href="https://2eb3a058-4055-4fe5-b7a1-5f561e75a916-00-xa6qd3rclk8l.picard.replit.dev/all-services?modal=true&serviceId=SRV-DATA-003" style="background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; display: inline-block;" target="_blank">🔗 Learn More</a>
+        </div>
+      </div>
+    </div>
+  
+    <div style="background: #ffffff; border: 2px solid #e5e7eb; border-radius: 12px; margin-bottom: 20px; margin-left: -30px; margin-right: -30px; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, sans-serif; width: calc(100% + 60px);">
+      <div style="background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); padding: 20px; border-bottom: 1px solid #e5e7eb;">
+        <h2 style="color: #1f2937; font-size: 1.3em; font-weight: 700; margin: 0 0 8px 0;">Property Management Platform</h2>
+        <span style="background: #3b82f6; color: white; padding: 4px 10px; border-radius: 15px; font-size: 0.75em; font-weight: 600;">SRV-DATA-005</span>
+      </div>
+      <div style="padding: 0;"><img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&h=400&fit=crop" alt="Property Management Platform" style="width: 100%; height: 160px; object-fit: cover; display: block;" /></div>
+      <div style="padding: 20px;">
+        <p style="color: #4b5563; margin-bottom: 12px; font-size: 0.95em; line-height: 1.5;">Comprehensive property and tenant management</p>
+        <span style="background: #fef3c7; color: #92400e; padding: 5px 10px; border-radius: 6px; font-size: 0.8em; font-weight: 600; display: inline-block; margin-bottom: 15px;">⏱️ 120 minutes</span>
+        <div style="text-align: center; margin-top: 15px;">
+          <a href="https://2eb3a058-4055-4fe5-b7a1-5f561e75a916-00-xa6qd3rclk8l.picard.replit.dev/all-services?modal=true&serviceId=SRV-DATA-005" style="background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; display: inline-block;" target="_blank">🔗 Learn More</a>
+        </div>
+      </div>
+    </div>
+  
+    <div style="background: #ffffff; border: 2px solid #e5e7eb; border-radius: 12px; margin-bottom: 20px; margin-left: -30px; margin-right: -30px; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, sans-serif; width: calc(100% + 60px);">
+      <div style="background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); padding: 20px; border-bottom: 1px solid #e5e7eb;">
+        <h2 style="color: #1f2937; font-size: 1.3em; font-weight: 700; margin: 0 0 8px 0;">Telemedicine Platform</h2>
+        <span style="background: #3b82f6; color: white; padding: 4px 10px; border-radius: 15px; font-size: 0.75em; font-weight: 600;">SRV-DATA-002</span>
+      </div>
+      <div style="padding: 0;"><img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&h=400&fit=crop" alt="Telemedicine Platform" style="width: 100%; height: 160px; object-fit: cover; display: block;" /></div>
+      <div style="padding: 20px;">
+        <p style="color: #4b5563; margin-bottom: 12px; font-size: 0.95em; line-height: 1.5;">Remote healthcare consultation system</p>
+        <span style="background: #fef3c7; color: #92400e; padding: 5px 10px; border-radius: 6px; font-size: 0.8em; font-weight: 600; display: inline-block; margin-bottom: 15px;">⏱️ 180 minutes</span>
+        <div style="text-align: center; margin-top: 15px;">
+          <a href="https://2eb3a058-4055-4fe5-b7a1-5f561e75a916-00-xa6qd3rclk8l.picard.replit.dev/all-services?modal=true&serviceId=SRV-DATA-002" style="background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; display: inline-block;" target="_blank">🔗 Learn More</a>
+        </div>
+      </div>
+    </div>
+  
+    <div style="background: #ffffff; border: 2px solid #e5e7eb; border-radius: 12px; margin-bottom: 20px; margin-left: -30px; margin-right: -30px; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, sans-serif; width: calc(100% + 60px);">
+      <div style="background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); padding: 20px; border-bottom: 1px solid #e5e7eb;">
+        <h2 style="color: #1f2937; font-size: 1.3em; font-weight: 700; margin: 0 0 8px 0;">Legal Document Automation</h2>
+        <span style="background: #3b82f6; color: white; padding: 4px 10px; border-radius: 15px; font-size: 0.75em; font-weight: 600;">SRV-DATA-004</span>
+      </div>
+      <div style="padding: 0;"><img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=600&h=400&fit=crop" alt="Legal Document Automation" style="width: 100%; height: 160px; object-fit: cover; display: block;" /></div>
+      <div style="padding: 20px;">
+        <p style="color: #4b5563; margin-bottom: 12px; font-size: 0.95em; line-height: 1.5;">Automated legal document generation</p>
+        <span style="background: #fef3c7; color: #92400e; padding: 5px 10px; border-radius: 6px; font-size: 0.8em; font-weight: 600; display: inline-block; margin-bottom: 15px;">⏱️ 90 minutes</span>
+        <div style="text-align: center; margin-top: 15px;">
+          <a href="https://2eb3a058-4055-4fe5-b7a1-5f561e75a916-00-xa6qd3rclk8l.picard.replit.dev/all-services?modal=true&serviceId=SRV-DATA-004" style="background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; display: inline-block;" target="_blank">🔗 Learn More</a>
+        </div>
+      </div>
+    </div>
+  
+    <div style="background: #ffffff; border: 2px solid #e5e7eb; border-radius: 12px; margin-bottom: 20px; margin-left: -30px; margin-right: -30px; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, sans-serif; width: calc(100% + 60px);">
+      <div style="background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); padding: 20px; border-bottom: 1px solid #e5e7eb;">
+        <h2 style="color: #1f2937; font-size: 1.3em; font-weight: 700; margin: 0 0 8px 0;">Payment Processing Integration</h2>
+        <span style="background: #3b82f6; color: white; padding: 4px 10px; border-radius: 15px; font-size: 0.75em; font-weight: 600;">SRV-DATA-008</span>
+      </div>
+      <div style="padding: 0;"><img src="https://images.unsplash.com/photo-1556742111-a301076d9d18?w=600&h=400&fit=crop" alt="Payment Processing Integration" style="width: 100%; height: 160px; object-fit: cover; display: block;" /></div>
+      <div style="padding: 20px;">
+        <p style="color: #4b5563; margin-bottom: 12px; font-size: 0.95em; line-height: 1.5;">Secure payment gateway implementation</p>
+        <span style="background: #fef3c7; color: #92400e; padding: 5px 10px; border-radius: 6px; font-size: 0.8em; font-weight: 600; display: inline-block; margin-bottom: 15px;">⏱️ 60 minutes</span>
+        <div style="text-align: center; margin-top: 15px;">
+          <a href="https://2eb3a058-4055-4fe5-b7a1-5f561e75a916-00-xa6qd3rclk8l.picard.replit.dev/all-services?modal=true&serviceId=SRV-DATA-008" style="background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; display: inline-block;" target="_blank">🔗 Learn More</a>
+        </div>
+      </div>
+    </div>
+  
+    <div style="background: #ffffff; border: 2px solid #e5e7eb; border-radius: 12px; margin-bottom: 20px; margin-left: -30px; margin-right: -30px; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, sans-serif; width: calc(100% + 60px);">
+      <div style="background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); padding: 20px; border-bottom: 1px solid #e5e7eb;">
+        <h2 style="color: #1f2937; font-size: 1.3em; font-weight: 700; margin: 0 0 8px 0;">Real Estate CRM</h2>
+        <span style="background: #3b82f6; color: white; padding: 4px 10px; border-radius: 15px; font-size: 0.75em; font-weight: 600;">SRV-DATA-006</span>
+      </div>
+      <div style="padding: 0;"><img src="https://oaidalleapiprodscus.blob.core.windows.net/private/org-A3UI6gCjGYs9DO9E9lW1FEL1/user-9ud7nPn5KDbRNDTxRbSNwmiX/img-0aO0wsqR4JhP9LxGXDvLH8LU.png?st=2025-08-10T15%3A50%3A32Z&se=2025-08-10T17%3A50%3A32Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=f1dafa11-a0c2-4092-91d4-10981fbda051&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-08-09T19%3A35%3A23Z&ske=2025-08-10T19%3A35%3A23Z&sks=b&skv=2024-08-04&sig=h5tsDqasO59bBFYkaqw2xNSeyE0GElHTr6FFjV6TPW8%3D" alt="Real Estate CRM" style="width: 100%; height: 160px; object-fit: cover; display: block;" /></div>
+      <div style="padding: 20px;">
+        <p style="color: #4b5563; margin-bottom: 12px; font-size: 0.95em; line-height: 1.5;">Client relationship management for realtors</p>
+        <span style="background: #fef3c7; color: #92400e; padding: 5px 10px; border-radius: 6px; font-size: 0.8em; font-weight: 600; display: inline-block; margin-bottom: 15px;">⏱️ 3 minutes</span>
+        <div style="text-align: center; margin-top: 15px;">
+          <a href="https://2eb3a058-4055-4fe5-b7a1-5f561e75a916-00-xa6qd3rclk8l.picard.replit.dev/all-services?modal=true&serviceId=SRV-DATA-006" style="background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; display: inline-block;" target="_blank">🔗 Learn More</a>
+        </div>
+      </div>
+    </div>
+  
+        
+    <div style="text-align: center; margin-top: 40px; padding: 20px; font-family: -apple-system, BlinkMacSystemFont, sans-serif;">
+      <a href="https://2eb3a058-4055-4fe5-b7a1-5f561e75a916-00-xa6qd3rclk8l.picard.replit.dev/contact?&timestamp=1759803085062&serviceCount=27&source=email" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: white; padding: 12px 24px; border-radius: 25px; text-decoration: none; font-weight: 600; font-size: 16px; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3); transition: transform 0.2s ease;">
+        <span style="margin-right: 8px;">💬</span>
+        Chat with Us
+      </a>
+      <div style="margin-top: 12px; font-size: 12px; color: #6b7280;">
+        © 2025 WoMacro<span style="color: #ef4444; font-weight: 700;">MAX</span> Automation Services
+      </div>
+    </div>
+  
+      </div>
+    </body>
+    </html>
+  

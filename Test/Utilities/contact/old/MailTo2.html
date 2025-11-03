@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quick Contact</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background: #f8f9fa;
+      padding: 30px;
+    }
+    .contact-card {
+      max-width: 500px;
+      margin: auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 30px;
+    }
+    .contact-card h2 {
+      color: #343a40;
+    }
+    .contact-card p {
+      color: #6c757d;
+    }
+    .contact-button {
+      margin: 10px 0;
+    }
+    .form-control {
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="contact-card text-center">
+    <h2>📋 Contact Me</h2>
+    <p>Your Name</p>
+    <input type="text" id="senderName" class="form-control" placeholder="Your Name" />
+
+    <h2 class="mt-4">📬 Stay in Touch</h2>
+    <p>Tap below to connect instantly</p>
+
+    <div class="d-grid gap-2">
+      <a href="tel:+12406052820" class="btn btn-primary contact-button">📞 Call Me</a>
+      <a id="smsLink" href="#" class="btn btn-success contact-button">💬 SMS Me</a>
+      <a id="emailLink" href="#" class="btn btn-secondary contact-button">✉️ Email Me</a>
+      <a id="waLink" href="#" class="btn btn-success contact-button" style="background-color:#25D366;">🟢 WhatsApp Rodney</a>
+      <a href="https://m.me/zablab" class="btn btn-info contact-button">🔵 Messenger Call (via Chat)</a>
+      <a href="https://gtc-010-23-menu-fix-womacromax.replit.app/contact?campaignId=WMX-New-Campaign-468-2025-07-21-1753103442505&source=launch-manager&show=true" class="btn btn-dark contact-button">📋 Set An Appointment</a>
+      <a href="https://gtc-010-23-menu-fix-womacromax.replit.app/cashapp-payment" class="btn btn-warning contact-button">📋 Pay Me</a>
+    </div>
+  </div>
+
+  <script>
+    const senderInput = document.getElementById("senderName");
+    const waLink = document.getElementById("waLink");
+    const smsLink = document.getElementById("smsLink");
+    const emailLink = document.getElementById("emailLink");
+
+    function updateLinks() {
+      const senderName = senderInput.value.trim();
+      const message = senderName
+        ? `Hi Rodney, this is ${senderName} and I'd like to speak with you`
+        : `Hi Rodney, I'd like to speak with you`;
+
+      const encodedMessage = encodeURIComponent(message);
+
+      waLink.href = `https://wa.me/12406052820?text=${encodedMessage}`;
+      smsLink.href = `sms:+12406052820?body=${encodedMessage}`;
+      emailLink.href = `mailto:blab@yahoo.com?subject=Inquiry&body=${encodedMessage}`;
+    }
+
+    senderInput.addEventListener("input", updateLinks);
+    window.addEventListener("DOMContentLoaded", updateLinks);
+  </script>
+</body>
+</html>

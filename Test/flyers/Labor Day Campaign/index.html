@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Labor Day Parade Campaign | Email Services</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+
+  <style>
+    :root { --hero-h: 90px; }
+
+    body {
+      background-color: #f3f4f6;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 0;
+      padding-top: var(--hero-h); /* space for fixed hero */
+      overflow-x: hidden; /* no horizontal scroll sitewide */
+    }
+
+    /* Fixed, non-scrolling hero */
+    .hero {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1030;
+      background: linear-gradient(135deg,#f9fafb 0%,#f3f4f6 100%);
+      text-align: center;
+      padding: 1.8rem 1rem;
+      border-bottom: 1px solid #e5e7eb;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+      backdrop-filter: blur(8px);
+      height: var(--hero-h);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero h1 { color:#1f2937; font-weight:700; font-size:1.25rem; margin:0; }
+    @media (min-width:480px){ .hero h1 { font-size:1.6rem; } }
+    @media (min-width:768px){ .hero h1 { font-size:1.9rem; } }
+
+    /* Hamburger (opens QR fullscreen modal) */
+    .hamburger-btn {
+      position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+      width: 44px; height: 44px; border-radius: 999px;
+      display: inline-flex; align-items: center; justify-content: center;
+      border: 1px solid #d1d5db; background:#ffffffaa; backdrop-filter: blur(6px);
+      box-shadow: 0 2px 6px rgba(0,0,0,.08); transition: .2s;
+    }
+    .hamburger-btn:hover { transform: translateY(calc(-50% - 1px)); box-shadow:0 6px 14px rgba(0,0,0,.12); background:#fff; }
+    .hamburger-icon { font-size:1.3rem; color:#111827; }
+
+    /* Cards (shaded + raised hover) */
+    .service-card {
+      border: 1px solid #d1d5db; border-radius: 1rem; overflow: hidden;
+      background: linear-gradient(180deg, #ffffff 0%, #f9fafb 100%);
+      transition: all .35s ease;
+      box-shadow: 0 2px 10px rgba(0,0,0,.08), inset 0 0 6px rgba(255,255,255,.6);
+    }
+    .service-card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 8px 25px rgba(0,0,0,.18), inset 0 0 6px rgba(255,255,255,.4);
+      background: linear-gradient(180deg, #ffffff 0%, #f4f6fa 100%);
+    }
+    .service-header {
+      background: linear-gradient(135deg,#f9fafb 0%,#f3f4f6 100%);
+      border-bottom: 1px solid #e5e7eb; padding: 1rem 1.25rem;
+    }
+    .service-badge { background:#3b82f6; color:#fff; font-size:.75rem; border-radius:1rem; padding:.25rem .75rem; font-weight:600; }
+    .duration-badge { background:#fef3c7; color:#92400e; border-radius:.4rem; padding:.4rem .7rem; font-size:.85rem; font-weight:600; display:inline-block; }
+    .btn-gradient { background:linear-gradient(135deg,#3b82f6 0%,#8b5cf6 100%); color:#fff; border:none; font-weight:600; border-radius:.5rem; padding:.6rem 1.5rem; transition: all .25s; }
+    .btn-gradient:hover { transform: scale(1.05); opacity: .95; }
+
+    footer { text-align:center; padding: 2rem 0 1rem; font-size:.9rem; color:#6b7280; }
+    footer span { color:#ef4444; font-weight:700; }
+
+    /* Floating “Schedule a Call” — 2 inches from right, near bottom */
+    .fab-call {
+      position: fixed;
+      right: 2in; /* as requested */
+      bottom: 1.25rem;
+      z-index: 1060;
+      border-radius: 999px;
+      padding: 0.85rem 1.4rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,.18);
+      font-weight: 700;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .fab-call:hover { transform: scale(1.05); box-shadow: 0 14px 30px rgba(0,0,0,.25); }
+
+    /* ===== Frameless Modal (pure iframe, no padding/titlebar) ===== */
+    body.modal-open { overflow: hidden; } /* hide page scroll when open */
+
+    .modal.frameless .modal-dialog {
+      width: 100%;
+      max-width: 100vw;
+      margin: 0;
+      justify-content: center;
+    }
+    .modal.frameless .modal-content {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+      padding: 0;
+      overflow: hidden;
+    }
+    .modal.frameless .modal-body {
+      padding: 0; margin: 0; overflow: hidden;
+      width: 100vw; height: 100vh;
+      display: grid; place-items: center;
+    }
+    .frameless-iframe {
+      width: 100vw; height: 100vh; border: 0; display: block; overflow: hidden;
+    }
+    /* floating close button overlay */
+    .frameless-close {
+      position: fixed;
+      top: 1rem; right: 1rem;
+      z-index: 1200;
+      background: rgba(255,255,255,0.9);
+      border: 1px solid #ddd;
+      border-radius: 50%;
+      width: 42px; height: 42px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem; color: #111;
+      cursor: pointer;
+      box-shadow: 0 2px 10px rgba(0,0,0,.2);
+      transition: background .2s;
+    }
+    .frameless-close:hover { background: #fff; }
+
+    /* ===== Fullscreen QR Menu (list of QR tiles) ===== */
+    .modal.qr-menu .modal-dialog { width: 100%; max-width: 100%; margin: 0; }
+    .modal.qr-menu .modal-content { height: 100vh; border: none; border-radius: 0; }
+    .modal.qr-menu .modal-body { padding: 1rem; overflow: auto; }
+    .qr-card {
+      border:1px solid #e5e7eb; border-radius:.75rem; padding:1rem;
+      background:#fff; box-shadow:0 2px 10px rgba(0,0,0,.05); height:100%; text-align:center;
+      cursor: pointer;
+    }
+    .qr-img { width:100%; max-width:160px; height:auto; border-radius:.5rem; margin:.5rem auto .75rem; display:block; }
+    .qr-icon { font-size:1.8rem; margin-bottom:.4rem; color:#3b82f6; }
+  </style>
+</head>
+<body>
+
+  <!-- Fixed Hero -->
+  <div class="hero">
+    <button class="hamburger-btn" type="button" data-bs-toggle="modal" data-bs-target="#qrModal" aria-label="Open social QR menu">
+      <i class="bi bi-list hamburger-icon"></i>
+    </button>
+    <h1>Labor Day Parade Campaign</h1>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container py-4">
+
+    <!-- === Campaign Blog Panel (1-column row) === -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <article class="service-card p-0">
+          <div class="service-header">
+            <h2 class="h5 mb-0">Campaign Blog</h2>
+          </div>
+
+          <div class="p-3">
+            <!-- Intro paragraph (always visible) -->
+            <p class="mb-3 text-secondary">
+              The Labor Day Parade Campaign brings neighbors, local businesses, and volunteers together to celebrate community spirit and lift up essential services. This year’s route features live performances, service booths, and interactive demos designed to help families access tools for planning, safety, and financial wellness.
+            </p>
+
+            <!-- Hidden paragraphs (revealed on toggle) -->
+            <div class="collapse" id="blogMore">
+              <p class="mb-3 text-secondary">
+                Parade day begins with a community warm-up and opening remarks from organizers, followed by a colorful procession of marching bands, cultural groups, and youth organizations. Along the way, attendees can scan QR codes for real-time schedules, vendor maps, and giveaways supported by our campaign partners.
+              </p>
+              <p class="mb-3 text-secondary">
+                Throughout the festival zone, our service stations provide hands-on guidance—from risk-aware decision tools and personal finance checkups to family safety planning. Each activation is designed for quick wins: five-minute tutorials, simple worksheets, and expert volunteers on standby to answer questions.
+              </p>
+              <p class="mb-0 text-secondary">
+                After the parade, a pop-up stage hosts short talks highlighting community impact, volunteer recognition, and next-step opportunities. Whether you join to learn, to cheer, or to connect, the campaign is about building momentum—turning one inspired morning into year-round support for the people and services that keep our city thriving.
+              </p>
+            </div>
+
+            <!-- Toggle -->
+            <div class="mt-3">
+              <a class="btn btn-sm btn-outline-primary rounded-pill"
+                 data-bs-toggle="collapse"
+                 href="#blogMore"
+                 role="button"
+                 aria-expanded="false"
+                 aria-controls="blogMore"
+                 id="blogToggle">
+                View more
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+    <!-- === End Campaign Blog Panel === -->
+
+    <!-- Service Cards Grid -->
+    <div class="row g-4">
+
+      <!-- Card 1 -->
+      <div class="col-md-6">
+        <div class="service-card h-100">
+          <div class="service-header d-flex justify-content-between align-items-center">
+            <h2 class="h5 mb-0">Risk Assessment</h2>
+            <span class="service-badge">SRV-FN-003</span>
+          </div>
+          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop"
+               alt="Risk Assessment" class="w-100" style="height: 180px; object-fit: cover;">
+          <div class="p-3">
+            <p class="text-secondary mb-2">Investment risk analysis and reporting</p>
+            <span class="duration-badge mb-3">⏱️ 120 minutes</span>
+            <div class="text-center mt-3">
+              <button class="btn btn-gradient open-iframe"
+                      data-url="https://gtc-010-23-menu-fix-womacromax.replit.app/all-services?modal=true&serviceId=SRV-FN-003">
+                🔗 Learn More
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="col-md-6">
+        <div class="service-card h-100">
+          <div class="service-header d-flex justify-content-between align-items-center">
+            <h2 class="h5 mb-0">Financial Planning</h2>
+            <span class="service-badge">SRV-FN-002</span>
+          </div>
+          <img src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=600&h=400&fit=crop"
+               alt="Financial Planning" class="w-100" style="height: 180px; object-fit: cover;">
+          <div class="p-3">
+            <p class="text-secondary mb-2">Personal financial planning tools</p>
+            <span class="duration-badge mb-3">⏱️ 180 minutes</span>
+            <div class="text-center mt-3">
+              <button class="btn btn-gradient open-iframe"
+                      data-url="https://gtc-010-23-menu-fix-womacromax.replit.app/all-services?modal=true&serviceId=SRV-FN-002">
+                🔗 Learn More
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <footer>
+      <div class="mt-4">© 2025 WoMacro<span>MAX</span> Automation Services</div>
+    </footer>
+  </div>
+
+  <!-- Floating Schedule A Call (opens frameless modal) -->
+  <button type="button"
+          class="btn btn-primary rounded-pill fab-call open-iframe"
+          data-url="https://gtc-010-23-menu-fix-womacromax.replit.app/contact"
+          aria-label="Schedule a call">
+    <i class="bi bi-calendar2-week me-2"></i> Schedule A Call
+  </button>
+
+  <!-- ===== Reusable Frameless Modal (pure iframe) ===== -->
+  <div class="modal fade frameless" id="modalFrameless" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered"><!-- full viewport via CSS -->
+      <div class="modal-content">
+        <div class="modal-body">
+          <iframe id="framelessIframe" class="frameless-iframe" src="" title="Embedded Content" allowfullscreen></iframe>
+          <button type="button" class="frameless-close" data-bs-dismiss="modal" aria-label="Close">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Fullscreen QR Menu (each QR opens frameless modal; fallback to new tab on refusal) ===== -->
+  <div class="modal fade qr-menu" id="qrModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="container">
+            <div class="row g-3" id="qrGrid"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // --- Campaign Blog toggle label ---
+    document.addEventListener('DOMContentLoaded', () => {
+      const toggle = document.getElementById('blogToggle');
+      const target = document.getElementById('blogMore');
+      if (toggle && target) {
+        const setLabel = () => {
+          const expanded = toggle.getAttribute('aria-expanded') === 'true';
+          toggle.textContent = expanded ? 'View less' : 'View more';
+        };
+        toggle.addEventListener('click', () => setTimeout(setLabel, 150));
+        target.addEventListener('shown.bs.collapse', setLabel);
+        target.addEventListener('hidden.bs.collapse', setLabel);
+      }
+    });
+
+    // ----- Social links & QR grid -----
+    const SOCIALS = [
+      { name: "Website",     icon: "bi-globe",      url: "https://womacromax.com" },
+      { name: "WhatsApp",    icon: "bi-whatsapp",   url: "https://wa.me/17035962482" },
+      { name: "Instagram",   icon: "bi-instagram",  url: "https://www.instagram.com/womacromax" },
+      { name: "Facebook",    icon: "bi-facebook",   url: "https://facebook.com/womacromax" },
+      { name: "X (Twitter)", icon: "bi-twitter-x",  url: "https://x.com/womacromax" },
+      { name: "LinkedIn",    icon: "bi-linkedin",   url: "https://linkedin.com/company/womacromax" },
+      { name: "YouTube",     icon: "bi-youtube",    url: "https://youtube.com/@womacromax" },
+      { name: "TikTok",      icon: "bi-tiktok",     url: "https://www.tiktok.com/@womacromax" }
+    ];
+    const qrSrc = u => `https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=${encodeURIComponent(u)}`;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const grid = document.getElementById('qrGrid');
+      SOCIALS.forEach(s => {
+        const col = document.createElement('div');
+        col.className = 'col-12 col-sm-6 col-md-4 col-lg-3';
+        col.innerHTML = `
+          <div class="qr-card open-iframe" data-url="${s.url}">
+            <i class="bi ${s.icon} qr-icon"></i>
+            <h6 class="mb-2">${s.name}</h6>
+            <img src="${qrSrc(s.url)}" alt="QR for ${s.name}" class="qr-img">
+            <div class="d-grid">
+              <button class="btn btn-sm btn-outline-primary mt-1" data-url="${s.url}">Open ${s.name}</button>
+            </div>
+          </div>`;
+        grid.appendChild(col);
+      });
+
+      // Delegate clicks inside the QR modal to open frameless modal with fallback
+      grid.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-url]');
+        if (!btn) return;
+        const url = btn.getAttribute('data-url');
+        openFrameless(url, true); // cameFromQR = true (close QR modal first)
+      });
+    });
+
+    // ----- Frameless modal controller with fallback to new tab on iframe refusal -----
+    const framelessModal = new bootstrap.Modal('#modalFrameless', { backdrop: true, keyboard: true });
+    const qrModalInst   = new bootstrap.Modal('#qrModal', { backdrop: true, keyboard: true });
+    const iframeEl = document.getElementById('framelessIframe');
+    const framelessEl = document.getElementById('modalFrameless');
+
+    // Universal opener: any element with .open-iframe[data-url]
+    document.addEventListener('click', (e) => {
+      const trigger = e.target.closest('.open-iframe[data-url]');
+      if (!trigger) return;
+      const url = trigger.getAttribute('data-url');
+      openFrameless(url, false);
+    });
+
+    function openFrameless(url, cameFromQR) {
+      const doOpen = () => {
+        // Set up a watchdog to detect likely iframe refusal (X-Frame-Options/CSP).
+        let loaded = false;
+        const onLoad = () => { loaded = true; cleanup(); };
+        const cleanup = () => {
+          iframeEl.removeEventListener('load', onLoad);
+          clearTimeout(timer);
+        };
+
+        iframeEl.addEventListener('load', onLoad, { once: true });
+        iframeEl.src = url;
+        framelessModal.show();
+
+        // If no load event within timeout, fall back to opening in a new tab (silent)
+        const timer = setTimeout(() => {
+          if (!loaded) {
+            framelessModal.hide();
+            iframeEl.src = 'about:blank';
+            window.open(url, '_blank', 'noopener');
+          }
+          cleanup();
+        }, 2000); // adjust if you want a longer/shorter wait
+      };
+
+      if (cameFromQR && document.getElementById('qrModal').classList.contains('show')) {
+        const qrModalEl = document.getElementById('qrModal');
+        const handler = () => { qrModalEl.removeEventListener('hidden.bs.modal', handler); doOpen(); };
+        qrModalEl.addEventListener('hidden.bs.modal', handler);
+        qrModalInst.hide();
+      } else {
+        doOpen();
+      }
+    }
+
+    // Clear iframe when closing modal to stop any media
+    framelessEl.addEventListener('hidden.bs.modal', () => { iframeEl.src = ''; });
+  </script>
+</body>
+</html>

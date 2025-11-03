@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cash App Payment - $payBlab</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <style>
+        :root {
+            --cashapp-green: #00D64B;
+            --cashapp-dark: #0D0D0D;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        .payment-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            max-width: 450px;
+            width: 100%;
+            margin: 20px;
+        }
+        
+        .payment-header {
+            background: linear-gradient(135deg, var(--cashapp-green) 0%, #00b33c 100%);
+            padding: 40px 30px;
+            text-align: center;
+            color: white;
+        }
+        
+        .payment-header i {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+        
+        .payment-header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0;
+        }
+        
+        .payment-header p {
+            margin: 10px 0 0 0;
+            opacity: 0.95;
+            font-size: 18px;
+        }
+        
+        .payment-body {
+            padding: 40px 30px;
+        }
+        
+        .amount-input-wrapper {
+            position: relative;
+            margin-bottom: 30px;
+        }
+        
+        .currency-symbol {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 32px;
+            color: #6c757d;
+            font-weight: 600;
+        }
+        
+        .amount-input {
+            width: 100%;
+            padding: 20px 20px 20px 50px;
+            font-size: 32px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        
+        .amount-input:focus {
+            outline: none;
+            border-color: var(--cashapp-green);
+            box-shadow: 0 0 0 4px rgba(0, 214, 75, 0.1);
+        }
+        
+        .quick-amounts {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .quick-amount-btn {
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            background: white;
+            border-radius: 10px;
+            font-weight: 600;
+            color: #333;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .quick-amount-btn:hover {
+            border-color: var(--cashapp-green);
+            background: rgba(0, 214, 75, 0.05);
+            color: var(--cashapp-green);
+        }
+        
+        .pay-button {
+            width: 100%;
+            padding: 18px;
+            background: var(--cashapp-green);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .pay-button:hover {
+            background: #00b33c;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 214, 75, 0.3);
+        }
+        
+        .pay-button:active {
+            transform: translateY(0);
+        }
+        
+        .pay-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .info-text {
+            text-align: center;
+            color: #6c757d;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+        
+        .cashtag {
+            color: var(--cashapp-green);
+            font-weight: 700;
+        }
+        
+        @media (max-width: 576px) {
+            .payment-card {
+                margin: 10px;
+            }
+            
+            .payment-header {
+                padding: 30px 20px;
+            }
+            
+            .payment-body {
+                padding: 30px 20px;
+            }
+            
+            .amount-input {
+                font-size: 28px;
+            }
+        }
+        
+        .alert {
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-card">
+        <div class="payment-header">
+            <i class="bi bi-cash-coin"></i>
+            <h1>Send Payment</h1>
+            <p>Cash App Payment</p>
+        </div>
+        
+        <div class="payment-body">
+            <div id="errorAlert" class="alert alert-danger d-none" role="alert">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                <span id="errorMessage"></span>
+            </div>
+            
+            <div class="amount-input-wrapper">
+                <span class="currency-symbol">$</span>
+                <input 
+                    type="number" 
+                    class="amount-input" 
+                    id="amountInput" 
+                    placeholder="0.00" 
+                    min="1" 
+                    step="0.01"
+                    autocomplete="off"
+                >
+            </div>
+            
+            <div class="quick-amounts">
+                <button class="quick-amount-btn" onclick="setAmount(5)">$5</button>
+                <button class="quick-amount-btn" onclick="setAmount(10)">$10</button>
+                <button class="quick-amount-btn" onclick="setAmount(20)">$20</button>
+                <button class="quick-amount-btn" onclick="setAmount(50)">$50</button>
+                <button class="quick-amount-btn" onclick="setAmount(100)">$100</button>
+                <button class="quick-amount-btn" onclick="setAmount(200)">$200</button>
+            </div>
+            
+            <button class="pay-button" id="payButton" onclick="processPay()">
+                <i class="bi bi-send-fill"></i>
+                <span>Pay Now</span>
+            </button>
+            
+            <p class="info-text">
+                You'll be redirected to Cash App to complete your payment to <span class="cashtag">$payBlab</span>
+            </p>
+        </div>
+    </div>
+    
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        const amountInput = document.getElementById('amountInput');
+        const payButton = document.getElementById('payButton');
+        const errorAlert = document.getElementById('errorAlert');
+        const errorMessage = document.getElementById('errorMessage');
+        const cashTag = 'payBlab';
+        
+        // Format input as currency
+        amountInput.addEventListener('input', function(e) {
+            hideError();
+            validateAmount();
+        });
+        
+        // Set quick amount
+        function setAmount(amount) {
+            amountInput.value = amount.toFixed(2);
+            hideError();
+            validateAmount();
+            amountInput.focus();
+        }
+        
+        // Validate amount
+        function validateAmount() {
+            const amount = parseFloat(amountInput.value);
+            
+            if (!amountInput.value || amount <= 0) {
+                payButton.disabled = true;
+                return false;
+            }
+            
+            if (amount < 1) {
+                showError('Minimum amount is $1.00');
+                payButton.disabled = true;
+                return false;
+            }
+            
+            payButton.disabled = false;
+            return true;
+        }
+        
+        // Show error message
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorAlert.classList.remove('d-none');
+        }
+        
+        // Hide error message
+        function hideError() {
+            errorAlert.classList.add('d-none');
+        }
+        
+        // Process payment
+        function processPay() {
+            const amount = parseFloat(amountInput.value);
+            
+            if (!validateAmount()) {
+                if (!amountInput.value) {
+                    showError('Please enter an amount');
+                }
+                return;
+            }
+            
+            // Format amount to 2 decimal places
+            const formattedAmount = amount.toFixed(2);
+            
+            // Construct Cash App payment URL
+            const cashAppUrl = `https://cash.app/$${cashTag}/${formattedAmount}`;
+            
+            // Redirect to Cash App
+            window.location.href = cashAppUrl;
+        }
+        
+        // Allow Enter key to submit
+        amountInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !payButton.disabled) {
+                processPay();
+            }
+        });
+        
+        // Focus on input when page loads
+        window.addEventListener('load', function() {
+            amountInput.focus();
+        });
+    </script>
+</body>
+</html>

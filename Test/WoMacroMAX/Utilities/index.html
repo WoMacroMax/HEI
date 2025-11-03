@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>QR Launcher — WoMacroMAX</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+
+<style>
+  :root{
+    --ink:#d7f9f7;
+    --panel:#0f1a24;
+    --panel-2:#0b141c;
+    --glass:#152331cc;
+    --accent:#4bf3e8;
+  }
+  html,body{height:100%}
+  body{
+    background: radial-gradient(1200px 600px at -10% -10%, #12324266, transparent 60%),
+                radial-gradient(1200px 600px at 110% -10%, #0e2d2b66, transparent 60%),
+                linear-gradient(180deg, var(--panel), var(--panel-2));
+    color:#e7eef3;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, "Inter", Arial, sans-serif;
+  }
+  .shell{max-width: 860px; margin: 28px auto; padding: 0 16px 48px;}
+  .brand{display:flex; align-items:center; gap:12px; margin-bottom:20px;}
+  .brand-badge{
+    width:44px; height:44px; border-radius:12px;
+    background: linear-gradient(135deg,#0bd6c5,#59fff6);
+    display:grid; place-items:center; color:#05242b; font-weight:800; font-size:22px;
+    box-shadow: 0 6px 24px #00ffe533;
+  }
+  .brand h1{font-size:20px; margin:0; color:#cfe9ee; letter-spacing:.2px}
+
+  .search-wrap{position:relative}
+  .search{
+    background: rgba(21,35,49,.7);
+    border:1px solid #1f3346; color:#dbe7ee;
+    height:56px; padding-left:52px; padding-right:96px;
+    border-radius:16px; box-shadow: inset 0 0 0 1px #12202e;
+  }
+  .search:focus{outline:none; border-color:#2b465f; box-shadow: 0 0 0 2px #23405477}
+  .search-icon{
+    position:absolute; left:16px; top:50%; transform:translateY(-50%);
+    width:22px; height:22px; opacity:.8
+  }
+  .kbd{
+    position:absolute; right:12px; top:50%; transform:translateY(-50%);
+    font-size:12px; color:#a8c1ce; background:#172635; border:1px solid #2a4256;
+    padding:4px 8px; border-radius:8px;
+  }
+  .hint{font-size:12px; color:#9fb4be; margin-top:10px}
+
+  .qr-card{
+    background: var(--glass);
+    border:1px solid #1a2b3a; border-radius:22px;
+    padding:18px; margin-top:18px;
+    box-shadow: 0 12px 40px #00000055, inset 0 1px 0 #2b3f52;
+    cursor:pointer; transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .qr-card:hover{ transform: translateY(-2px); box-shadow: 0 18px 50px #00000066 }
+  #qr{ width:100%; display:grid; place-items:center; min-height:340px; position:relative; }
+  .qr-logo{
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    width:100px; height:100px; border-radius:50%; object-fit:cover; pointer-events:none;
+    box-shadow: 0 0 0 4px #0a1620, 0 8px 24px #0008;
+  }
+  .url-show{ color:#b7cdd8; font-size:14px; margin-top:10px; word-break:break-all; }
+  .tap-line{font-size:12px; color:var(--ink); opacity:.85}
+  .actions{ display:flex; gap:8px; margin-top:12px; flex-wrap:wrap }
+  .btn-ink{
+    --bs-btn-color:#06272a; --bs-btn-bg:var(--accent); --bs-btn-border-color:transparent;
+    --bs-btn-hover-bg:#7afff7; --bs-btn-hover-border-color:transparent;
+    font-weight:700;
+  }
+
+  /* Fullscreen modal (no padding, no horizontal scroll) */
+  .modal-content{ background:#000; border:0; border-radius:0; }
+  .modal-body{ padding:0 !important; }
+  .modal-dialog{ margin:0; }
+  .modal-fullscreen .modal-body{ overflow:hidden; }
+  .liveframe{ width:100vw; height:100vh; border:0; display:block; overflow:hidden; }
+  body.modal-open{ overflow:hidden; }
+
+  /* Red close button */
+  .close-btn {
+    position: fixed;
+    top: 15px;
+    right: 20px;
+    background: #d90429;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 22px;
+    font-weight: 700;
+    z-index: 9999;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    line-height: 40px;
+    text-align: center;
+  }
+  .close-btn:hover { background: #ff3c3c; }
+
+  /* Tiny field labels */
+  .tiny-label{ font-size:12px; color:#a9c0cb; margin:6px 2px 2px; }
+</style>
+</head>
+<body>
+  <main class="shell">
+    <div class="brand">
+      <div class="brand-badge">n</div>
+      <h1>WoMacroMAX Publisher — QR Launcher</h1>
+    </div>
+
+    <!-- Destination URL input -->
+    <label class="tiny-label" for="urlInput">Destination URL (opens in fullscreen iFrame)</label>
+    <div class="search-wrap mb-2">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+        <circle cx="11" cy="11" r="7" stroke="#b9ccd6"></circle>
+        <path d="M21 21l-4.3-4.3" stroke="#b9ccd6" stroke-linecap="round"></path>
+      </svg>
+      <input id="urlInput" class="form-control search" type="url" placeholder="Paste or type a URL…"
+             value="https://womacromax.com/">
+      <span class="kbd">Ctrl&nbsp;+&nbsp;K</span>
+    </div>
+    <div class="hint">Tip: I’ll add <span class="text-info">https://</span> automatically if you leave it out.</div>
+
+    <!-- Image data source input (URL or data URI) -->
+    <label class="tiny-label" for="imgSrcInput">Center Image Data Source (URL or data:image/*;base64,...)</label>
+    <div class="search-wrap">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+        <rect x="4" y="4" width="16" height="16" rx="3" stroke="#b9ccd6"></rect>
+        <circle cx="12" cy="12" r="4" stroke="#b9ccd6"></circle>
+      </svg>
+      <input id="imgSrcInput" class="form-control search" type="text"
+             placeholder="https://… or data:image/png;base64,iVBORw0KGgo…"
+             value="https://womacromax.com/media/WoMacroMAXAutomation-logo-00.png">
+    </div>
+    <div class="hint">Use a direct image URL (PNG/JPG/SVG/WebP) or a Base64 <code>data:image/…</code> string.</div>
+
+    <!-- QR CARD -->
+    <section id="qrCard" class="qr-card" title="Open in fullscreen modal">
+      <div id="qr"></div>
+      <img id="qrLogo" class="qr-logo" alt="QR center logo" />
+      <div class="d-flex align-items-center justify-content-between mt-2">
+        <div class="url-show" id="urlEcho"></div>
+        <div class="tap-line ms-3">Tap the QR to launch</div>
+      </div>
+      <div class="actions">
+        <button id="openBtn" class="btn btn-ink btn-sm">Open</button>
+        <button id="copyBtn" class="btn btn-outline-light btn-sm">Copy URL</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- FULLSCREEN MODAL -->
+  <div class="modal fade" id="liveModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+      <div class="modal-content">
+        <div class="modal-body">
+          <button type="button" class="close-btn" id="closeModalBtn" aria-label="Close">×</button>
+          <iframe id="liveFrame" class="liveframe" src="about:blank" allow="clipboard-read; clipboard-write; geolocation *;"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  const input = document.getElementById('urlInput');
+  const imgSrcInput = document.getElementById('imgSrcInput');
+  const qrWrap = document.getElementById('qr');
+  const qrLogo = document.getElementById('qrLogo');
+  const qrCard = document.getElementById('qrCard');
+  const urlEcho = document.getElementById('urlEcho');
+  const openBtn = document.getElementById('openBtn');
+  const copyBtn = document.getElementById('copyBtn');
+  const liveFrame = document.getElementById('liveFrame');
+  const modalEl = document.getElementById('liveModal');
+  const closeBtn = document.getElementById('closeModalBtn');
+  const modal = new bootstrap.Modal(modalEl, {keyboard:true});
+
+  function normalize(u){
+    if(!u) return '';
+    try{ new URL(u); return u; }catch(e){
+      return 'https://' + u.replace(/^https?:\/\//i,'');
+    }
+  }
+
+  let QR = null;
+  function renderQR(u){
+    qrWrap.innerHTML = '';
+    QR = new QRCode(qrWrap, {
+      text: u,
+      width: 580, height: 580,
+      colorDark : "#eafcff",
+      colorLight : "#0a1620",
+      correctLevel : QRCode.CorrectLevel.H
+    });
+  }
+
+  function update(){
+    const u = normalize(input.value.trim());
+    urlEcho.textContent = u || '—';
+    if(u){ renderQR(u); }
+
+    const src = imgSrcInput.value.trim();
+    if(src){
+      qrLogo.src = src;
+      qrLogo.style.display = 'block';
+    } else {
+      qrLogo.removeAttribute('src');
+      qrLogo.style.display = 'none';
+    }
+  }
+
+  function launch(){
+    const u = normalize(input.value.trim());
+    if(!u) return;
+    liveFrame.src = u;
+    modal.show();
+  }
+
+  async function copyURL(){
+    const u = normalize(input.value.trim());
+    if(!u) return;
+    try{ await navigator.clipboard.writeText(u); copyBtn.textContent='Copied!'; }
+    catch(e){ copyBtn.textContent='Copy failed'; }
+    setTimeout(()=> copyBtn.textContent='Copy URL', 1200);
+  }
+
+  input.addEventListener('input', update);
+  imgSrcInput.addEventListener('input', update);
+  qrCard.addEventListener('click', launch);
+  openBtn.addEventListener('click', launch);
+  copyBtn.addEventListener('click', copyURL);
+  closeBtn.addEventListener('click', ()=> modal.hide());
+
+  // Allow Cmd/Ctrl+K to focus the URL box
+  window.addEventListener('keydown', (e)=>{
+    if((e.ctrlKey||e.metaKey) && e.key.toLowerCase()==='k'){
+      e.preventDefault(); input.focus(); input.select();
+    }
+  });
+
+  update();
+</script>
+</body>
+</html>

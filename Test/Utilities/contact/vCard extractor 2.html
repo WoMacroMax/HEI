@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Contact Import, Edit & Save (with Share)</title>
+<style>
+  body{font-family:system-ui,Arial,Helvetica,sans-serif;margin:18px;color:#111;background:#f6f7fb}
+  .wrap{max-width:920px;margin:0 auto}
+  h1{margin:0 0 8px;font-size:1.3rem}
+  .row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+  .col{flex:1}
+  label{display:block;font-size:0.9rem;color:#333;margin-bottom:4px}
+  input,textarea,select{width:100%;padding:8px;border:1px solid #d6d8db;border-radius:6px;font-size:1rem;background:#fff}
+  textarea{min-height:90px;resize:vertical}
+  button{padding:8px 12px;border-radius:6px;border:0;cursor:pointer}
+  .btn-primary{background:#0066d6;color:#fff}
+  .btn-secondary{background:#6c757d;color:#fff}
+  .btn-ghost{background:transparent;border:1px solid #d6d8db}
+  .section{background:#fff;padding:14px;border-radius:8px;margin-top:12px;box-shadow:0 1px 4px rgba(0,0,0,0.03)}
+  .small{font-size:0.9rem;color:#666}
+  .inline{display:inline-block;margin-right:8px}
+  .flex{display:flex;gap:8px;align-items:center}
+  .phones, .emails {margin-top:6px}
+  .field-row{display:flex;gap:8px;margin-bottom:6px}
+  .field-row input{flex:1}
+  .status{margin-top:12px;font-size:0.95rem}
+  pre{background:#f3f4f6;padding:12px;border-radius:6px;overflow:auto}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Contact Import, Edit & Save</h1>
+    <p class="small">Pick a contact (Chrome on Android), import a .vcf, or fill/edit the form. Click <strong>Save</strong> to download, share (optional), and upload the vCard in one step.</p>
+
+    <div class="section">
+      <div class="flex">
+        <button id="pickBtn" class="btn-primary">Pick Contact (if supported)</button>
+        <label class="btn-ghost inline" id="chooseFileBtn" style="padding:8px 10px;cursor:pointer">
+          Import .vcf
+          <input id="vcfFile" type="file" accept=".vcf,text/vcard" style="display:none" />
+        </label>
+        <button id="openFormBtn" class="btn-secondary">Show / Hide Manual Form</button>
+        <button id="clearBtn" class="btn-ghost">Clear</button>
+      </div>
+      <div id="supportNote" class="small" style="margin-top:10px"></div>
+    </div>
+
+    <!-- FORM -->
+    <div id="formSection" class="section" style="display:none">
+      <h3>Contact Details</h3>
+
+      <div class="row">
+        <div class="col">
+          <label for="fullName">Full name</label>
+          <input id="fullName" type="text" placeholder="John Doe">
+        </div>
+        <div style="width:220px">
+          <label for="company">Company</label>
+          <input id="company" type="text" placeholder="Company">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <label for="title">Job title</label>
+          <input id="title" type="text" placeholder="Title">
+        </div>
+        <div style="width:220px">
+          <label for="birthday">Birthday</label>
+          <input id="birthday" type="date">
+        </div>
+      </div>
+
+      <div>
+        <label>Phone numbers</label>
+        <div id="phones" class="phones"></div>
+        <button id="addPhoneBtn" class="btn-ghost" style="margin-top:6px">+ Add phone</button>
+      </div>
+
+      <div style="margin-top:12px">
+        <label>Emails</label>
+        <div id="emails" class="emails"></div>
+        <button id="addEmailBtn" class="btn-ghost" style="margin-top:6px">+ Add email</button>
+      </div>
+
+      <div style="margin-top:12px">
+        <label>Address</label>
+        <input id="address" placeholder="Street; City; Region; Postal; Country">
+        <div class="small" style="margin-top:6px">Use semicolons to separate ADR parts (street; city; region; postal; country)</div>
+      </div>
+
+      <div style="margin-top:12px">
+        <label>Notes</label>
+        <textarea id="notes" placeholder="Any notes"></textarea>
+      </div>
+
+      <div style="margin-top:12px" class="flex">
+        <!-- Combined Save button -->
+        <button id="saveBtn" class="btn-primary">💾 Save (Download, Share, & Upload)</button>
+        <button id="generateBtn" class="btn-ghost">Preview vCard</button>
+        <button id="downloadBtn" class="btn-ghost">Download only</button>
+      </div>
+
+      <div style="margin-top:12px">
+        <label class="small">Generated vCard (preview)</label>
+        <pre id="vcardPreview"></pre>
+      </div>
+    </div>
+
+    <div id="status" class="status">Status: idle</div>
+  </div>
+
+<script>
+(function(){
+  // Elements
+  const supportsPicker = !!(navigator.contacts && navigator.contacts.select);
+  const pickBtn = document.getElementById('pickBtn');
+  const chooseFileBtn = document.getElementById('chooseFileBtn');
+  const vcfFileInput = document.getElementById('vcfFile');
+  const openFormBtn = document.getElementById('openFormBtn');
+  const formSection = document.getElementById('formSection');
+  const clearBtn = document.getElementById('clearBtn');
+  const supportNote = document.getElementById('supportNote');
+
+  const fullNameInput = document.getElementById('fullName');
+  const companyInput = document.getElementById('company');
+  const titleInput = document.getElementById('title');
+  const birthdayInput = document.getElementById('birthday');
+  const addressInput = document.getElementById('address');
+  const notesInput = document.getElementById('notes');
+
+  const phonesContainer = document.getElementById('phones');
+  const emailsContainer = document.getElementById('emails');
+  const addPhoneBtn = document.getElementById('addPhoneBtn');
+  const addEmailBtn = document.getElementById('addEmailBtn');
+
+  const saveBtn = document.getElementById('saveBtn');
+  const generateBtn = document.getElementById('generateBtn');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const vcardPreview = document.getElementById('vcardPreview');
+  const status = document.getElementById('status');
+
+  let currentVCardText = '';
+
+  // Init UI
+  supportNote.textContent = supportsPicker ? 'Contact Picker available.' : 'Contact Picker NOT available — use Import .vcf or Manual Form.';
+  pickBtn.addEventListener('click', onPickContact);
+  openFormBtn.addEventListener('click', ()=> {
+    formSection.style.display = formSection.style.display === 'none' ? 'block' : 'none';
+    if (formSection.style.display === 'block') formSection.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+  clearBtn.addEventListener('click', clearAll);
+
+  chooseFileBtn.addEventListener('click', ()=> vcfFileInput.click());
+  vcfFileInput.addEventListener('change', onVCFFileSelected);
+
+  addPhoneBtn.addEventListener('click', ()=> addPhoneField());
+  addEmailBtn.addEventListener('click', ()=> addEmailField());
+
+  generateBtn.addEventListener('click', ()=> {
+    currentVCardText = buildVCardFromForm();
+    vcardPreview.textContent = currentVCardText || '(no data)';
+    status.textContent = 'Status: vCard preview updated.';
+  });
+
+  downloadBtn.addEventListener('click', ()=> {
+    if (!currentVCardText) currentVCardText = buildVCardFromForm();
+    if (!currentVCardText) { alert('No vCard data. Fill the form or import a vcf.'); return; }
+    downloadVCard(currentVCardText, 'contact.vcf');
+  });
+
+  // SAVE: combined download + share + upload
+  saveBtn.addEventListener('click', async ()=> {
+    // generate latest vCard
+    currentVCardText = buildVCardFromForm();
+    if (!currentVCardText) { alert('No contact data to save. Please fill the form or import a vCard.'); return; }
+
+    // confirm consent
+    if (!confirm('Save vCard to your device, optionally share it to import into Contacts, AND upload it to our server?')) return;
+
+    // 1) Download + Share attempt (non-blocking UI updates inside function)
+    status.textContent = 'Status: starting download & share...';
+    try {
+      const shareResult = await downloadAndShareVCard(currentVCardText, 'contact.vcf');
+      if (shareResult && shareResult.shared) {
+        status.textContent = 'Status: download started and share sheet opened.';
+      } else {
+        // not shared — still downloaded
+        status.textContent = 'Status: downloaded. Share unavailable on this device/browser.';
+      }
+    } catch (err) {
+      console.warn('download/share error', err);
+      status.textContent = 'Status: download/share attempted; share failed or unsupported.';
+    }
+
+    // 2) Upload to server (parallel to download/share)
+    status.textContent = 'Status: uploading vCard to server...';
+    try {
+      const blob = new Blob([currentVCardText], { type: 'text/vcard;charset=utf-8' });
+      const fd = new FormData();
+      fd.append('file', blob, 'contact.vcf');
+
+      // Customize endpoint if needed
+      const res = await fetch('/api/upload-vcard', { method: 'POST', body: fd, credentials: 'include' });
+      if (!res.ok) {
+        const txt = await res.text().catch(()=>res.statusText);
+        status.textContent = 'Upload failed: ' + txt;
+      } else {
+        const json = await res.json().catch(()=>null);
+        status.textContent = 'Saved locally and uploaded successfully' + (json && json.filename ? ': ' + json.filename : '.');
+      }
+    } catch (err) {
+      status.textContent = 'Upload error: ' + (err && err.message ? err.message : err);
+    }
+  });
+
+  // The new function: download + attempt Web Share (Level 2) to let user open/import in Contacts app
+  async function downloadAndShareVCard(vcardText, filename='contact.vcf') {
+    // trigger download
+    const blob = new Blob([vcardText], { type: 'text/vcard;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    // revoke later
+    setTimeout(()=> URL.revokeObjectURL(url), 60000);
+
+    // Try Web Share API (files) — best on Android Chrome
+    try {
+      const file = new File([blob], filename, { type: blob.type });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: 'Import contact', text: 'Open in Contacts to import' });
+        return { shared: true };
+      } else if (navigator.share) {
+        // Some browsers allow sharing text only — fallback to share a link or text
+        try {
+          await navigator.share({ title: 'vCard', text: 'Downloaded a contact vCard. Open it from downloads to import.' });
+        } catch(e){ /* ignore */ }
+        return { shared: false };
+      } else {
+        // no share support
+        return { shared: false };
+      }
+    } catch (err) {
+      // share failed
+      console.warn('Share error', err);
+      return { shared: false, error: err };
+    }
+  }
+
+  // PHONE / EMAIL dynamic fields
+  function addPhoneField(value='', type='') {
+    const div = document.createElement('div');
+    div.className = 'field-row';
+    const input = document.createElement('input');
+    input.type = 'tel';
+    input.placeholder = 'Phone number';
+    input.value = value || '';
+    const typeInput = document.createElement('input');
+    typeInput.placeholder = 'type (mobile, work...)';
+    typeInput.style.width = '140px';
+    typeInput.value = type || '';
+    const del = document.createElement('button');
+    del.type = 'button';
+    del.className = 'btn-ghost';
+    del.textContent = 'Remove';
+    del.addEventListener('click', ()=> div.remove());
+    div.appendChild(input);
+    div.appendChild(typeInput);
+    div.appendChild(del);
+    phonesContainer.appendChild(div);
+    return input;
+  }
+  function addEmailField(value='', type='') {
+    const div = document.createElement('div');
+    div.className = 'field-row';
+    const input = document.createElement('input');
+    input.type = 'email';
+    input.placeholder = 'Email address';
+    input.value = value || '';
+    const typeInput = document.createElement('input');
+    typeInput.placeholder = 'type (work, home...)';
+    typeInput.style.width = '140px';
+    typeInput.value = type || '';
+    const del = document.createElement('button');
+    del.type = 'button';
+    del.className = 'btn-ghost';
+    del.textContent = 'Remove';
+    del.addEventListener('click', ()=> div.remove());
+    div.appendChild(input);
+    div.appendChild(typeInput);
+    div.appendChild(del);
+    emailsContainer.appendChild(div);
+    return input;
+  }
+
+  // Build vCard from form fields
+  function buildVCardFromForm() {
+    const fn = (fullNameInput.value || '').trim();
+    if (!fn && !hasAnyContactField()) return '';
+    const lines = ['BEGIN:VCARD','VERSION:3.0'];
+    if (fn) lines.push('FN:' + escapeV(fn));
+    const org = (companyInput.value || '').trim();
+    if (org) lines.push('ORG:' + escapeV(org));
+    const title = (titleInput.value || '').trim();
+    if (title) lines.push('TITLE:' + escapeV(title));
+    const bday = (birthdayInput.value || '').trim();
+    if (bday) lines.push('BDAY:' + bday);
+    Array.from(phonesContainer.querySelectorAll('.field-row')).forEach(row=>{
+      const inputs = row.querySelectorAll('input');
+      const val = (inputs[0] && inputs[0].value.trim()) || '';
+      const typ = (inputs[1] && inputs[1].value.trim()) || '';
+      if (val) {
+        const typeStr = typ ? `;TYPE=${sanitizeType(typ)}` : '';
+        lines.push(`TEL${typeStr}:${escapeV(val)}`);
+      }
+    });
+    Array.from(emailsContainer.querySelectorAll('.field-row')).forEach(row=>{
+      const inputs = row.querySelectorAll('input');
+      const val = (inputs[0] && inputs[0].value.trim()) || '';
+      const typ = (inputs[1] && inputs[1].value.trim()) || '';
+      if (val) {
+        const typeStr = typ ? `;TYPE=${sanitizeType(typ)}` : '';
+        lines.push(`EMAIL${typeStr}:${escapeV(val)}`);
+      }
+    });
+    const adr = (addressInput.value || '').trim();
+    if (adr) {
+      const parts = adr.split(';').map(s=>s.trim());
+      const adrParts = ['', '', '', '', '', '', ''];
+      for (let i=0;i<parts.length && i<7;i++){
+        adrParts[2 + i] = parts[i];
+      }
+      lines.push('ADR:' + adrParts.join(';'));
+    }
+    const notes = (notesInput.value || '').trim();
+    if (notes) lines.push('NOTE:' + escapeV(notes));
+    lines.push('END:VCARD');
+    return lines.join('\r\n');
+  }
+
+  function hasAnyContactField() {
+    return fullNameInput.value || companyInput.value || titleInput.value ||
+      phonesContainer.querySelectorAll('input').length || emailsContainer.querySelectorAll('input').length;
+  }
+  function escapeV(s) {
+    return String(s).replace(/\r?\n/g,' ').replace(/,/g,'\\,').replace(/;/g,'\\;');
+  }
+  function sanitizeType(s) {
+    return String(s).toUpperCase().replace(/[^A-Z0-9]/g,'');
+  }
+
+  function downloadVCard(text, filename='contact.vcf') {
+    try {
+      const blob = new Blob([text], { type: 'text/vcard;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(()=> URL.revokeObjectURL(url), 60000);
+      status.textContent = 'Status: download started.';
+    } catch (err) {
+      status.textContent = 'Download error: ' + (err && err.message ? err.message : err);
+    }
+  }
+
+  // Clear form
+  function clearAll() {
+    fullNameInput.value = companyInput.value = titleInput.value = birthdayInput.value = addressInput.value = notesInput.value = '';
+    phonesContainer.innerHTML = '';
+    emailsContainer.innerHTML = '';
+    vcardPreview.textContent = '';
+    currentVCardText = '';
+    status.textContent = 'Status: cleared.';
+    formSection.style.display = 'block';
+    formSection.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  // VCF file import handling
+  function onVCFFileSelected(e) {
+    const f = e.target.files && e.target.files[0];
+    if (!f) return;
+    const reader = new FileReader();
+    reader.onload = (ev)=>{
+      const txt = ev.target.result;
+      try {
+        const parsed = parseVCardFile(txt);
+        populateFormFromParsed(parsed);
+        status.textContent = 'Status: .vcf parsed and form populated.';
+        formSection.style.display = 'block';
+        formSection.scrollIntoView({behavior:'smooth', block:'start'});
+      } catch (err) {
+        status.textContent = 'Parse error: ' + (err && err.message ? err.message : err);
+      }
+    };
+    reader.readAsText(f);
+    vcfFileInput.value = '';
+  }
+
+  // Contact Picker integration
+  async function onPickContact() {
+    if (!supportsPicker) {
+      alert('Contact Picker API not available in this browser. Use Import .vcf or the manual form.');
+      return;
+    }
+    try {
+      status.textContent = 'Status: opening contact picker...';
+      const contacts = await navigator.contacts.select(['name','tel','email','address'], { multiple: false });
+      if (!contacts || contacts.length === 0) {
+        status.textContent = 'Status: no contact selected.';
+        return;
+      }
+      const c = contacts[0];
+      const parsed = {
+        fn: (Array.isArray(c.name) ? c.name[0] : c.name) || '',
+        org: '',
+        title: '',
+        tel: Array.isArray(c.tel) ? c.tel : (c.tel ? [c.tel] : []),
+        email: Array.isArray(c.email) ? c.email : (c.email ? [c.email] : []),
+        adr: (Array.isArray(c.address) ? (c.address[0] || '') : (c.address || '')) || '',
+        note: ''
+      };
+      populateFormFromParsed(parsed);
+      status.textContent = 'Status: contact picked and form populated.';
+      formSection.style.display = 'block';
+      formSection.scrollIntoView({behavior:'smooth', block:'start'});
+    } catch (err) {
+      status.textContent = 'Contact picker error: ' + (err && err.message ? err.message : err);
+    }
+  }
+
+  // Parse vCard (basic) into simplified object
+  function parseVCardFile(text) {
+    if (!text) throw new Error('Empty vCard text');
+    const unfolded = text.replace(/\r?\n[ \t]/g, '');
+    const entries = unfolded.split(/END:VCARD/i).map(s=>s.trim()).filter(Boolean);
+    if (entries.length === 0) throw new Error('No VCARD entries found');
+    const entry = entries[0];
+    const lines = entry.split(/\r?\n/);
+    const out = { fn:'', org:'', title:'', tel:[], email:[], adr:'', note:'' };
+    lines.forEach(line=>{
+      if (!line) return;
+      const idx = line.indexOf(':');
+      if (idx === -1) return;
+      const key = line.slice(0, idx).toUpperCase();
+      const val = line.slice(idx+1).trim();
+      if (key.startsWith('FN')) out.fn = val;
+      else if (key === 'N' && !out.fn) {
+        const parts = val.split(';').filter(Boolean);
+        out.fn = parts.reverse().join(' ').trim();
+      }
+      else if (key.startsWith('ORG')) out.org = val;
+      else if (key.startsWith('TITLE')) out.title = val;
+      else if (key.startsWith('TEL')) out.tel.push(val);
+      else if (key.startsWith('EMAIL')) out.email.push(val);
+      else if (key.startsWith('ADR')) {
+        const adrParts = val.split(';').map(s=>s.trim()).filter(p=>p);
+        out.adr = adrParts.join(';');
+      }
+      else if (key.startsWith('NOTE')) out.note = val;
+    });
+    return out;
+  }
+
+  // populate the form from parsed object
+  function populateFormFromParsed(parsed) {
+    if (!parsed) return;
+    fullNameInput.value = parsed.fn || '';
+    companyInput.value = parsed.org || '';
+    titleInput.value = parsed.title || '';
+    addressInput.value = parsed.adr || '';
+    notesInput.value = parsed.note || '';
+    phonesContainer.innerHTML = '';
+    emailsContainer.innerHTML = '';
+    if (Array.isArray(parsed.tel) && parsed.tel.length) {
+      parsed.tel.forEach(t => addPhoneField(t));
+    } else addPhoneField();
+    if (Array.isArray(parsed.email) && parsed.email.length) {
+      parsed.email.forEach(e => addEmailField(e));
+    } else addEmailField();
+    currentVCardText = buildVCardFromForm();
+    vcardPreview.textContent = currentVCardText;
+  }
+
+  // initial UI: ensure at least one phone/email field
+  addPhoneField();
+  addEmailField();
+
+})();
+</script>
+</body>
+</html>

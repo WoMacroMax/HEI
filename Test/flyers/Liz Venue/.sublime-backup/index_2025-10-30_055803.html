@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Decor By Liz 25th Anniversary Event | Liz's Venue Bayonne NJ</title>
+<meta name="description" content="Join Decor By Liz for our 25th Anniversary celebration at Liz's Venue in Bayonne, NJ. 25 years of elegant events, weddings, birthdays, and unforgettable memories at 512 Broadway, NJ 07002." />
+<meta name="keywords" content="Decor By Liz, Liz's Venue, Bayonne event venue, 25th anniversary, event planning NJ, wedding venue Bayonne, birthday parties, corporate events, 512 Broadway Bayonne, event coordination, party rentals, flowers, 07002" />
+<meta name="author" content="Decor By Liz" />
+<meta property="og:title" content="Decor By Liz 25th Anniversary Event | Liz's Venue Bayonne NJ" />
+<meta property="og:description" content="Celebrate 25 years of elegance and unforgettable events with Decor By Liz at our beautiful Bayonne venue. RSVP now!" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://decorbyliz.com" />
+<link rel="canonical" href="https://decorbyliz.com/25th-anniversary" />
+<style>
+  :root { --bg:#fafafa; --accent:#b36bff; --muted:#666; --maxw:1100px; }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;background:var(--bg);color:#111;overflow-x:hidden}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:16px;overflow-x:hidden}
+
+  /* ---------- Entrance stage ---------- */
+  .entrance-stage{
+    position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
+    background:linear-gradient(180deg,#000000cc, #0000); z-index:9999;
+    -webkit-font-smoothing:antialiased;
+  }
+  .door-scene{
+    width: min(880px, 92vw); height: calc(min(880px, 92vw) * 0.6); /* aspect ratio control */
+    perspective: 1400px; position:relative;
+    border-radius:10px; overflow:visible;
+  }
+
+  /* container that holds 2 halves */
+  .door-wrapper{
+    position:absolute; inset:0; transform-style:preserve-3d;
+  }
+
+  /* left & right doors share the same background image,
+     but we shift background-position to show only half */
+  .door-side{
+    position:absolute; top:0; bottom:0; width:50%; height:100%;
+    background-size: cover; background-repeat: no-repeat; background-position: center;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.35), inset 0 0 40px rgba(0,0,0,0.18);
+    transform-origin: left center; /* will override for right */
+    transition: transform 1.0s cubic-bezier(.22,.9,.32,1), box-shadow 0.6s;
+    backface-visibility: hidden;
+  }
+
+  .door-left{
+    left:0; border-top-left-radius:10px; border-bottom-left-radius:10px;
+    transform-origin: left center;
+    /* left half: show left side of the image */
+    background-position: left center;
+  }
+  .door-right{
+    right:0; border-top-right-radius:10px; border-bottom-right-radius:10px;
+    transform-origin: right center;
+    /* right half: show right side of the image */
+    background-position: right center;
+  }
+
+  /* decorative split badge (logo) that sits on the seam and is attached to each door half */
+  .door-badge{
+    position:absolute;
+    top:50%;
+    width:110px; height:110px; border-radius:50%;
+    transform:translateY(-50%);
+    background: linear-gradient(135deg, var(--accent) 0%, #ffd1ff 60%);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.32), inset 0 2px rgba(255,255,255,0.25);
+    display:flex; align-items:center; justify-content:center;
+    z-index:3; transition: transform 1s cubic-bezier(.22,.9,.32,1), opacity 0.45s;
+    pointer-events:none; overflow:hidden;
+  }
+
+  /* position halves so they meet at the vertical seam between doors */
+  .door-left  .door-badge { right: -55px; }
+  .door-right .door-badge { left:  -55px; }
+
+  .door-badge svg { width:56px; height:56px; fill:#fff; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.25)); }
+
+  /* when doors open, let the badge halves tilt a little with the door for depth */
+  .doors-open .door-left  .door-badge { transform: translateY(-50%) translateX(-10px) rotateY(-18deg); }
+  .doors-open .door-right .door-badge { transform: translateY(-50%) translateX(10px)  rotateY(18deg);  }
+
+  /* when closed (initial), doors are flat. when opened, rotateY */
+  .doors-closed .door-left  { transform: rotateY(0deg);  }
+  .doors-closed .door-right { transform: rotateY(0deg);  }
+
+  .doors-open .door-left  { transform: rotateY(-100deg); box-shadow: 0 8px 18px rgba(0,0,0,0.18); }
+  .doors-open .door-right { transform: rotateY(100deg);  box-shadow: 0 8px 18px rgba(0,0,0,0.18); }
+
+  /* small frame in front so doors look inset */
+  .door-frame{
+    position:absolute; inset:0; border-radius:10px; pointer-events:none;
+    box-shadow: inset 0 2px 0 rgba(255,255,255,0.03), inset 0 -30px 60px rgba(0,0,0,0.18);
+    border: 1px solid rgba(0,0,0,0.08);
+  }
+
+  /* headline over the door for branding (hidden when fully opened) */
+  .door-title{
+    position:absolute; left:50%; top:12%; transform:translateX(-50%); z-index:3; color:#fff;
+    font-size:22px; font-weight:700; text-shadow: 0 6px 24px rgba(0,0,0,0.6);
+    opacity:1; transition: opacity 0.6s;
+  }
+  .doors-open .door-title { opacity:0; transform:translateX(-50%) translateY(-10px); }
+
+  /* skip button */
+  .skip-btn{
+    position:absolute; right:10px; top:10px; z-index:4; background:rgba(255,255,255,0.12);
+    color:#fff; border:none; padding:8px 10px; border-radius:8px; backdrop-filter: blur(4px); cursor:pointer;
+  }
+
+  /* ---------- Hidden main site that will be revealed ---------- */
+  .site-content{
+    opacity:0; transform: translateY(10px) scale(0.995); transition: opacity 0.6s ease, transform 0.6s ease;
+    pointer-events:none;
+  }
+  .site-visible .site-content{ opacity:1; transform:none; pointer-events:auto; }
+
+  /* small demo content (gallery simplified) */
+  .hero{height:50vh; min-height:320px; border-radius:16px; background:#111; color:#fff; display:flex; align-items:flex-end; padding:32px; background-size:cover; background-position:center; position:relative; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,0.15)}
+  .hero::before{content:'';position:absolute;inset:0;background:linear-gradient(0deg, rgba(0,0,0,0.7) 0%, transparent 60%)}
+  .hero h1{position:relative;z-index:1;margin:0;font-size:clamp(24px, 4vw, 48px);font-weight:800;letter-spacing:-0.02em;text-shadow:0 4px 20px rgba(0,0,0,0.5)}
+  
+  .card{background:#fff;border-radius:16px;padding:28px;margin-top:20px;box-shadow:0 8px 32px rgba(0,0,0,0.08);border:1px solid rgba(0,0,0,0.06);transition:transform 0.3s ease, box-shadow 0.3s ease}
+  .card:hover{transform:translateY(-4px);box-shadow:0 12px 48px rgba(179,107,255,0.15)}
+  .card h3{margin:0 0 16px 0;font-size:24px;font-weight:700;color:#111}
+  .card p{line-height:1.6;color:var(--muted)}
+  
+  .gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:16px}
+  .gallery-grid img{width:100%;height:140px;object-fit:cover;border-radius:12px;transition:transform 0.3s ease, box-shadow 0.3s ease;box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+  .gallery-grid img:hover{transform:scale(1.05);box-shadow:0 8px 24px rgba(179,107,255,0.2)}
+
+  /* iframe modal section */
+  .iframe-section{background:linear-gradient(135deg, #b36bff 0%, #8b4fd9 100%);border-radius:16px;padding:32px;margin-top:20px;box-shadow:0 12px 48px rgba(179,107,255,0.25);border:1px solid rgba(255,255,255,0.1);position:relative;overflow:hidden}
+  .iframe-section::before{content:'';position:absolute;top:-50%;right:-20%;width:300px;height:300px;background:radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);border-radius:50%}
+  .iframe-section h3{margin:0 0 20px 0;font-size:28px;font-weight:700;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,0.2);position:relative;z-index:1}
+  .iframe-container{position:relative;width:100%;height:0;padding-bottom:75%;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.2);z-index:1}
+  .iframe-container iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+
+  /* form styling */
+  #rsvpForm{display:flex;flex-direction:column;gap:16px}
+  #rsvpForm label{display:flex;flex-direction:column;gap:6px;font-weight:600;color:#111}
+  #rsvpForm input{padding:12px 16px;border:2px solid #e0e0e0;border-radius:10px;font-size:16px;transition:border-color 0.3s ease, box-shadow 0.3s ease;font-family:inherit}
+  #rsvpForm input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px rgba(179,107,255,0.1)}
+  #rsvpForm button{padding:14px 28px;background:linear-gradient(135deg, #b36bff 0%, #8b4fd9 100%);color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;transition:transform 0.2s ease, box-shadow 0.2s ease;box-shadow:0 4px 16px rgba(179,107,255,0.3)}
+  #rsvpForm button:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(179,107,255,0.4)}
+  #rsvpForm button:active{transform:translateY(0)}
+
+  /* location map card */
+  .location-map-card{background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);border-radius:16px;padding:32px;margin-top:20px;box-shadow:0 12px 48px rgba(102,126,234,0.25);border:1px solid rgba(255,255,255,0.1);position:relative;overflow:hidden;cursor:pointer;transition:transform 0.3s ease, box-shadow 0.3s ease}
+  .location-map-card:hover{transform:translateY(-4px);box-shadow:0 16px 56px rgba(102,126,234,0.35)}
+  .location-map-card::before{content:'';position:absolute;top:-50%;left:-20%;width:300px;height:300px;background:radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);border-radius:50%}
+  .location-map-card h3{margin:0 0 12px 0;font-size:28px;font-weight:700;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,0.2);position:relative;z-index:1;display:flex;align-items:center;gap:10px}
+  .location-map-card .address{color:#fff;font-size:18px;font-weight:600;margin-bottom:8px;position:relative;z-index:1}
+  .location-map-card .city{color:rgba(255,255,255,0.9);font-size:16px;margin-bottom:16px;position:relative;z-index:1}
+  .location-map-card .cta{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.95);color:#667eea;padding:12px 24px;border-radius:10px;font-weight:700;font-size:16px;position:relative;z-index:1;box-shadow:0 4px 16px rgba(0,0,0,0.2);transition:background 0.3s ease, transform 0.2s ease}
+  .location-map-card:hover .cta{background:#fff;transform:scale(1.05)}
+  .location-map-card .map-icon{font-size:32px}
+
+  /* responsive */
+  @media (min-width:720px){ .hero{min-height:420px} .gallery-grid{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))} .gallery-grid img{height:180px} .iframe-container{padding-bottom:60%} }
+</style>
+</head>
+<body>
+  <!-- Entrance overlay with animated doors -->
+  <div class="entrance-stage doors-closed" id="entrance">
+    <div class="door-scene" aria-hidden="false">
+      <div class="door-wrapper" id="doorWrapper">
+        <div class="door-side door-left" id="doorLeft" role="img" aria-label="Left door">
+          <!-- left half of split badge -->
+          <div class="door-badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <rect x="3.5" y="2.5" width="17" height="19" rx="2" fill="#ffffff" opacity="0.06"></rect>
+              <rect x="6" y="3.5" width="12" height="17" rx="1.5" fill="none" stroke="#ffffff" stroke-opacity="0.18" stroke-width="0.8"></rect>
+              <circle cx="16.5" cy="11.5" r="0.9" fill="#fff"></circle>
+            </svg>
+          </div>
+        </div>
+        <div class="door-side door-right" id="doorRight" role="img" aria-label="Right door">
+          <!-- right half of split badge -->
+          <div class="door-badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <rect x="3.5" y="2.5" width="17" height="19" rx="2" fill="#ffffff" opacity="0.06"></rect>
+              <rect x="6" y="3.5" width="12" height="17" rx="1.5" fill="none" stroke="#ffffff" stroke-opacity="0.18" stroke-width="0.8"></rect>
+              <circle cx="16.5" cy="11.5" r="0.9" fill="#fff"></circle>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="door-frame"></div>
+      <div class="door-title">Decor By Liz</div>
+      <button class="skip-btn" id="skipBtn">Skip →</button>
+    </div>
+  </div>
+
+  <!-- Main site (hidden until door opens) -->
+  <div class="wrap site-content" id="site">
+    <header class="hero" id="hero" style="background-image: url('assets/store_front_pic.jpeg');">
+      <h1>Decor By Liz — 25th Anniversary Celebration</h1>
+    </header>
+
+    <section class="card">
+      <h3>🎉 Celebrating 25 Years of Elegance</h3>
+      <p style="color:#111;font-size:18px;line-height:1.7;margin-bottom:16px">
+        <strong>Decor By Liz</strong> is celebrating 25 years of unforgettable events at our elegant Bayonne venue, located at <strong>512 Broadway, Bayonne, NJ 07002</strong>.
+      </p>
+      <p class="muted" style="margin-bottom:16px">
+        To mark this milestone, <strong>Liz's Venue by Decor By Liz</strong> is hosting a special anniversary event that reflects the same warmth, creativity, and professionalism that have earned us a stellar reputation over the years. Known for transforming birthdays, weddings, baby showers, and corporate gatherings into stunning experiences, our venue offers a clean, classy, and beautifully appointed space perfect for capturing memories.
+      </p>
+      <p class="muted">
+        With over 15 years of hands-on event planning expertise, Liz and her team bring visions to life with thoughtful décor, seamless service, and a commitment to making every occasion truly memorable. Whether you're a longtime client or new to the magic of Decor By Liz, this celebration promises to showcase the heart and excellence behind every event we've crafted.
+      </p>
+      
+      <div style="background:linear-gradient(135deg, #f8f4ff 0%, #fff0f8 100%);padding:24px;border-radius:12px;margin-top:24px;border-left:4px solid var(--accent)">
+        <h4 style="margin:0 0 12px 0;color:var(--accent);font-size:20px">You're Invited! 🎊</h4>
+        <p style="margin:0;color:#111;line-height:1.7">
+          Join us for an unforgettable evening as we celebrate 25 years of elegance, creativity, and cherished memories! Whether you've been part of our journey or are just discovering the magic, we'd be honored to have you with us. Kindly RSVP below to reserve your spot and help us toast to a quarter-century of unforgettable events—and the many more to come!
+        </p>
+      </div>
+
+      <div class="gallery-grid" id="galleryGrid">
+        <!-- thumbnails will be auto-inserted by script (from assets) -->
+      </div>
+    </section>
+
+    <section class="card">
+      <h3>📍 Event Location</h3>
+      <p style="color:#111;font-size:18px;margin-bottom:8px"><strong>Liz's Venue by Decor By Liz</strong></p>
+      <p class="muted" style="margin-bottom:16px">
+        512 Broadway<br>
+        Bayonne, NJ 07002
+      </p>
+      <p class="muted">
+        Our beautiful venue in Bayonne has been the backdrop for countless celebrations over the past 25 years. From intimate gatherings to grand celebrations, we've created magical moments that last a lifetime. Come see where the magic happens and celebrate with us!
+      </p>
+    </section>
+
+    <div class="location-map-card" id="locationCard" role="button" tabindex="0" aria-label="Get directions to Liz's Venue">
+      <h3><span class="map-icon">📍</span> Get Directions</h3>
+      <div class="address">512 Broadway</div>
+      <div class="city">Bayonne, NJ 07002</div>
+      <div class="cta">
+        <span>🧭</span>
+        <span>Navigate from My Location</span>
+      </div>
+    </div>
+
+    <section class="card iframe-section">
+      <h3>✨ Design Your Perfect Décor</h3>
+      <div class="iframe-container">
+        <iframe src="https://gtc-010-23-menu-fix-womacromax.replit.app/contact?campaignId=WMX-Decor-By-Liz-25th-Anniversary-Event-2025-10-30-1761807594741&source=launch-manager&show=true" title="Elegante Design Contact Form" allow="fullscreen"></iframe>
+      </div>
+    </section>
+
+    <section class="card">
+      <h3>✉️ RSVP to Our 25th Anniversary Event</h3>
+      <p class="muted" style="margin-bottom:20px">Reserve your spot for this special celebration! Let us know you'll be joining us as we toast to 25 years of unforgettable memories and look forward to many more.</p>
+      <form id="rsvpForm">
+        <label>Full Name<input name="name" type="text" required placeholder="Enter your full name"></label>
+        <label>Email Address<input name="email" type="email" required placeholder="your.email@example.com"></label>
+        <label>Number of Guests<input name="guests" type="number" min="1" max="10" placeholder="How many will attend?" required></label>
+        <button type="submit">Confirm Your RSVP ✓</button>
+      </form>
+    </section>
+  </div>
+
+<script>
+/*
+ Door animation flow:
+  - On load, set the door halves' background-image to the chosen asset (split by background-position)
+  - Play CSS 3D transform animation: rotateY both halves open
+  - After animation ends (or if user presses skip), remove entrance overlay and reveal site content
+  - Also populate a simple gallery (thumbnails) from assets
+*/
+
+(function(){
+  const entrance = document.getElementById('entrance');
+  const doorLeft = document.getElementById('doorLeft');
+  const doorRight = document.getElementById('doorRight');
+  const site = document.getElementById('site');
+  const skipBtn = document.getElementById('skipBtn');
+
+  // Configure door image (use any image in your assets folder)
+  const DOOR_IMAGE = 'assets/store_front_pic.jpeg'; // change to whichever image you'd like
+  // If filename has spaces, encodeURI used below when assigning to background-image.
+
+  // Apply the same image to both halves but show left/right halves via background-position
+  // Using background-size: cover ensures the halves match visually
+  const safeUrl = encodeURI(DOOR_IMAGE);
+  doorLeft.style.backgroundImage = `url("${safeUrl}")`;
+  doorRight.style.backgroundImage = `url("${safeUrl}")`;
+
+  // Give the visual split a slight depth by adjusting transform origins and a small perspective
+  // Animation timing and easing
+  const OPEN_DELAY = 850;   // ms before doors start opening
+  const OPEN_DURATION = 1000; // ms animation duration (matches CSS transition time)
+  const AUTO_REMOVE_DELAY = 650; // ms after door fully opened to remove overlay
+
+  // helper to open doors
+  function openDoors() {
+    // add the class on the root entrance to apply doors-open styles
+    entrance.classList.remove('doors-closed');
+    entrance.classList.add('doors-open');
+
+    // After animation finishes, hide the overlay and reveal the site
+    setTimeout(() => {
+      // fade out the entrance overlay by removing it (or hide)
+      entrance.style.transition = 'opacity 400ms ease';
+      entrance.style.opacity = '0';
+      setTimeout(() => {
+        entrance.remove(); // remove from DOM
+        document.body.classList.add('site-visible');
+        site.classList.add('site-visible'); // reveal
+        populateGallery(); // populate thumbnails once revealed
+      }, 420);
+    }, OPEN_DELAY + OPEN_DURATION + AUTO_REMOVE_DELAY - 420);
+  }
+
+  // start the automatic sequence after ensuring image is loaded
+  function startSequence() {
+    // small 'preload' check so doors show the image and don't flash empty
+    const img = new Image();
+    img.onload = () => {
+      // delay then set class that triggers CSS transform
+      setTimeout(openDoors, OPEN_DELAY);
+    };
+    img.onerror = () => {
+      // if the image fails, still open doors but use neutral background
+      doorLeft.style.backgroundColor = '#333';
+      doorRight.style.backgroundColor = '#333';
+      setTimeout(openDoors, 400);
+    };
+    img.src = safeUrl;
+  }
+
+  // skip button handler: open immediately
+  skipBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    // speed up transition by directly applying open class and immediately removing overlay
+    entrance.classList.remove('doors-closed');
+    entrance.classList.add('doors-open');
+    setTimeout(() => { entrance.remove(); site.classList.add('site-visible'); populateGallery(); }, 250);
+  });
+
+  // allow user to click anywhere on door to open as well
+  document.getElementById('doorWrapper').addEventListener('click', () => startSequence());
+
+  // automatically start after small idle; you may want to start on user interaction for mobile
+  // We'll call startSequence automatically so preview opens without clicking (works fine).
+  window.addEventListener('load', () => {
+    // small timeout to allow the page to paint
+    setTimeout(startSequence, 550);
+  });
+
+  // ----------------- Demo gallery population -----------------
+  // Uses a fixed list of filenames from your assets folder; change as needed.
+  const FILES = [
+    "liz welcome.webp",
+    "liz-table_elegante.png",
+    "table layout.webp",
+    "flowing flower.webp",
+    "wedding dress.webp",
+    "bubble - balloons.webp",
+    "blue- birthday cake.webp",
+    "pink - birthday cake.webp",
+    "store_front_pic.jpeg",
+    "store_front_pic_1_.jpeg"
+  ];
+
+  function normalizeName(n){ return n.trim(); }
+
+  function populateGallery(){
+    const grid = document.getElementById('galleryGrid');
+    FILES.forEach(name => {
+      const img = new Image();
+      img.onload = () => {
+        const el = document.createElement('img');
+        el.src = encodeURI('assets/' + normalizeName(name));
+        el.alt = name;
+        grid.appendChild(el);
+      };
+      img.onerror = ()=> {
+        // skip missing images quietly
+      };
+      img.src = encodeURI('assets/' + normalizeName(name));
+    });
+  }
+
+  // RSVP form simple handler (demo)
+  document.getElementById('rsvpForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    alert('RSVP demo: form submitted (client-side).');
+  });
+
+  // Location map card - get directions from current location
+  const locationCard = document.getElementById('locationCard');
+  const venueAddress = '512 Broadway, Bayonne, NJ 07002';
+  
+  function getDirections() {
+    // Encode the venue address for URL
+    const destination = encodeURIComponent(venueAddress);
+    
+    // Try to get user's current location
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          // Success: use current location as starting point
+          const origin = `${position.coords.latitude},${position.coords.longitude}`;
+          const googleMapsUrl = `https://www.google.com/maps/dir/${origin}/${destination}`;
+          window.open(googleMapsUrl, '_blank');
+        },
+        (error) => {
+          // Error or permission denied: open Google Maps with just the destination
+          console.log('Location access denied or unavailable:', error);
+          const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${destination}`;
+          window.open(googleMapsUrl, '_blank');
+        }
+      );
+    } else {
+      // Geolocation not supported: open Google Maps with just the destination
+      const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${destination}`;
+      window.open(googleMapsUrl, '_blank');
+    }
+  }
+  
+  locationCard.addEventListener('click', getDirections);
+  locationCard.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      getDirections();
+    }
+  });
+
+})();
+</script>
+</body>
+</html>

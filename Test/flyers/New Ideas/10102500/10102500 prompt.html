@@ -1,0 +1,605 @@
+Create a Bootstrapped SPA from this:
+HTML:
+  <div class="header">
+  <p class="subtitle">Behind creativity</p>
+  <h1 class="main-title">Curious what else we've created?</h1>
+</div>
+
+<div class="slider-container" id="sliderContainer">
+  <div class="slider-track" id="sliderTrack">
+    <div class="card" data-title="Beverage Branding" data-desc="Fresh and vibrant packaging design for premium juice products with natural ingredients">
+      <img src="https://images.unsplash.com/photo-1546548970-71785318a17b?w=600&h=800&fit=crop" alt="Card 1">
+      <div class="hover-overlay"><span>Click to see more</span></div>
+    </div>
+    <div class="card" data-title="Apparel Design" data-desc="Minimalist fashion collection with sustainable materials and modern aesthetics">
+      <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600&h=800&fit=crop" alt="Card 2">
+      <div class="hover-overlay"><span>Click to see more</span></div>
+    </div>
+    <div class="card" data-title="Luxury Packaging" data-desc="Premium product packaging with attention to detail and sophisticated finishes">
+      <img src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=600&h=800&fit=crop" alt="Card 3">
+      <div class="hover-overlay"><span>Click to see more</span></div>
+    </div>
+    <div class="card" data-title="Cosmetics Brand" data-desc="Clean beauty brand identity with elegant and timeless design approach">
+      <img src="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=600&h=800&fit=crop" alt="Card 4">
+      <div class="hover-overlay"><span>Click to see more</span></div>
+    </div>
+    <div class="card" data-title="Fashion Editorial" data-desc="Editorial photography and art direction for contemporary fashion magazine">
+      <img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=600&h=800&fit=crop" alt="Card 5">
+      <div class="hover-overlay"><span>Click to see more</span></div>
+    </div>
+    <div class="card" data-title="Botanical Series" data-desc="Natural product line with organic ingredients and eco-friendly packaging">
+      <img src="https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?w=600&h=800&fit=crop" alt="Card 6">
+      <div class="hover-overlay"><span>Click to see more</span></div>
+    </div>
+    <div class="card" data-title="Product Photography" data-desc="Professional product photography with creative lighting and composition">
+      <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&h=800&fit=crop" alt="Card 7">
+      <div class="hover-overlay"><span>Click to see more</span></div>
+    </div>
+    <div class="card" data-title="Streetwear Brand" data-desc="Urban fashion line with bold graphics and contemporary street style">
+      <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=600&h=800&fit=crop" alt="Card 8">
+      <div class="hover-overlay"><span>Click to see more</span></div>
+    </div>
+    <div class="card" data-title="Tech Accessories" data-desc="Minimalist tech product design with user-centered functionality">
+      <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=600&h=800&fit=crop" alt="Card 9">
+      <div class="hover-overlay"><span>Click to see more</span></div>
+    </div>
+    <div class="card" data-title="Wellness Products" data-desc="Holistic wellness brand with natural and calming visual identity">
+      <img src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=600&h=800&fit=crop" alt="Card 10">
+      <div class="hover-overlay"><span>Click to see more</span></div>
+    </div>
+    <div class="card" data-title="Home Decor" data-desc="Contemporary home accessories with Scandinavian design influence">
+      <img src="https://images.unsplash.com/photo-1564584217132-2271feaeb3c5?w=600&h=800&fit=crop" alt="Card 11">
+      <div class="hover-overlay"><span>Click to see more</span></div>
+    </div>
+  </div>
+</div>
+
+<button class="close-btn" id="closeBtn">
+  <svg viewBox="0 0 24 24" fill="none">
+    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+  </svg>
+</button>
+
+<div class="card-info" id="cardInfo">
+  <h2 id="cardTitle"></h2>
+  <p id="cardDesc"></p>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+CSS:
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: #fafafa;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  padding: 40px 20px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.subtitle {
+  color: #ff6b35;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+
+.main-title {
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 900;
+  color: #0a0a0a;
+  line-height: 1.1;
+}
+
+.slider-container {
+  perspective: 1500px;
+  perspective-origin: 50% 50%;
+  cursor: grab;
+  width: 100%;
+  max-width: 1400px;
+  overflow: hidden;
+}
+
+.slider-container.dragging {
+  cursor: grabbing;
+}
+
+.slider-track {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transform-style: preserve-3d;
+}
+
+.card {
+  flex-shrink: 0;
+  width: 240px;
+  background: white;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  position: relative;
+  cursor: pointer;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.15),
+    transparent 30%,
+    transparent 70%,
+    rgba(0, 0, 0, 0.15)
+  );
+  transform: translateZ(-8px);
+  pointer-events: none;
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #e0e0e0;
+  transform: translateZ(-16px);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+  position: relative;
+  z-index: 1;
+}
+
+.card .hover-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+}
+
+.card:hover .hover-overlay {
+  opacity: 1;
+}
+
+.card .hover-overlay span {
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.slider-track.blurred .card:not(.expanded) {
+  filter: blur(8px);
+  transition: filter 0.6s ease;
+}
+
+.card.expanded {
+  z-index: 1000 !important;
+}
+
+.card-info {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+  z-index: 1001;
+  max-width: 600px;
+  padding: 1.5rem;
+  background: #ff6b35;
+  box-shadow: 4px 3px 18px 4px #b7b7b721;
+  min-width: 375px;
+}
+
+.card-info.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.card-info h2 {
+  font-size: 36px;
+  font-weight: 900;
+  color: #0a0a0a;
+  margin-bottom: 16px;
+}
+
+.card-info p {
+  font-size: 18px;
+  color: #080808;
+  line-height: 1.7;
+}
+
+.close-btn {
+  position: fixed;
+  top: 40px;
+  right: 40px;
+  width: 60px;
+  height: 60px;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1002;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.close-btn.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.close-btn:hover {
+  background: #ff6b35;
+  color: white;
+  transform: rotate(90deg) scale(1.1);
+}
+
+.close-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+
+JS:
+const positions = [
+  {
+    height: 620,
+    z: 220,
+    rotateY: 48,
+    y: 0,
+    clip: "polygon(0px 0px, 100% 10%, 100% 90%, 0px 100%)"
+  },
+  {
+    height: 580,
+    z: 165,
+    rotateY: 35,
+    y: 0,
+    clip: "polygon(0px 0px, 100% 8%, 100% 92%, 0px 100%)"
+  },
+  {
+    height: 495,
+    z: 110,
+    rotateY: 15,
+    y: 0,
+    clip: "polygon(0px 0px, 100% 7%, 100% 93%, 0px 100%)"
+  },
+  {
+    height: 420,
+    z: 66,
+    rotateY: 15,
+    y: 0,
+    clip: "polygon(0px 0px, 100% 7%, 100% 93%, 0px 100%)"
+  },
+  {
+    height: 353,
+    z: 46,
+    rotateY: 6,
+    y: 0,
+    clip: "polygon(0px 0px, 100% 7%, 100% 93%, 0px 100%)"
+  },
+  {
+    height: 310,
+    z: 0,
+    rotateY: 0,
+    y: 0,
+    clip: "polygon(0 0, 100% 0, 100% 100%, 0 100%)"
+  },
+  {
+    height: 353,
+    z: 54,
+    rotateY: 348,
+    y: 0,
+    clip: "polygon(0px 7%, 100% 0px, 100% 100%, 0px 93%)"
+  },
+  {
+    height: 420,
+    z: 89,
+    rotateY: -15,
+    y: 0,
+    clip: "polygon(0px 7%, 100% 0px, 100% 100%, 0px 93%)"
+  },
+  {
+    height: 495,
+    z: 135,
+    rotateY: -15,
+    y: 1,
+    clip: "polygon(0px 7%, 100% 0px, 100% 100%, 0px 93%)"
+  },
+  {
+    height: 580,
+    z: 195,
+    rotateY: 325,
+    y: 0,
+    clip: "polygon(0px 8%, 100% 0px, 100% 100%, 0px 92%)"
+  },
+  {
+    height: 620,
+    z: 240,
+    rotateY: 312,
+    y: 0,
+    clip: "polygon(0px 10%, 100% 0px, 100% 100%, 0px 90%)"
+  }
+];
+
+class CircularSlider {
+  constructor() {
+    this.container = document.getElementById("sliderContainer");
+    this.track = document.getElementById("sliderTrack");
+    this.cards = Array.from(document.querySelectorAll(".card"));
+    this.totalCards = this.cards.length;
+    this.isDragging = false;
+    this.startX = 0;
+    this.dragDistance = 0;
+    this.threshold = 60;
+    this.processedSteps = 0;
+    this.expandedCard = null;
+    this.cardInfo = document.getElementById("cardInfo");
+    this.cardTitle = document.getElementById("cardTitle");
+    this.cardDesc = document.getElementById("cardDesc");
+    this.closeBtn = document.getElementById("closeBtn");
+
+    this.init();
+  }
+
+  init() {
+    this.applyPositions();
+    this.attachEvents();
+  }
+
+  applyPositions() {
+    this.cards.forEach((card, index) => {
+      const pos = positions[index];
+      gsap.set(card, {
+        height: pos.height,
+        clipPath: pos.clip,
+        transform: `translateZ(${pos.z}px) rotateY(${pos.rotateY}deg) translateY(${pos.y}px)`
+      });
+    });
+  }
+
+  expandCard(card) {
+    if (this.expandedCard) return;
+
+    this.expandedCard = card;
+    const title = card.dataset.title;
+    const desc = card.dataset.desc;
+
+    this.cardTitle.textContent = title;
+    this.cardDesc.textContent = desc;
+
+    const rect = card.getBoundingClientRect();
+    const clone = card.cloneNode(true);
+    const overlay = clone.querySelector(".hover-overlay");
+    if (overlay) overlay.remove();
+
+    clone.style.position = "fixed";
+    clone.style.left = rect.left + "px";
+    clone.style.top = rect.top + "px";
+    clone.style.width = rect.width + "px";
+    clone.style.height = rect.height + "px";
+    clone.style.margin = "0";
+    clone.style.zIndex = "1000";
+    clone.classList.add("clone");
+
+    document.body.appendChild(clone);
+    this.cardClone = clone;
+
+    gsap.set(card, { opacity: 0 });
+    this.track.classList.add("blurred");
+
+    const maxHeight = window.innerHeight * 0.8;
+    const finalWidth = 500;
+    const finalHeight = Math.min(650, maxHeight);
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+
+    gsap.to(clone, {
+      width: finalWidth,
+      height: finalHeight,
+      left: centerX - finalWidth / 2,
+      top: centerY - finalHeight / 2,
+      clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+      transform: "translateZ(0) rotateY(0deg)",
+      duration: 0.8,
+      ease: "power2.out",
+      onComplete: () => {
+        this.cardInfo.classList.add("visible");
+        this.closeBtn.classList.add("visible");
+      }
+    });
+  }
+
+  closeCard() {
+    if (!this.expandedCard) return;
+
+    this.cardInfo.classList.remove("visible");
+    this.closeBtn.classList.remove("visible");
+
+    const card = this.expandedCard;
+    const clone = this.cardClone;
+    const rect = card.getBoundingClientRect();
+    const index = this.cards.indexOf(card);
+    const pos = positions[index];
+
+    gsap.to(clone, {
+      width: rect.width,
+      height: rect.height,
+      left: rect.left,
+      top: rect.top,
+      clipPath: pos.clip,
+      duration: 0.8,
+      ease: "power2.out",
+      onComplete: () => {
+        clone.remove();
+        gsap.set(card, { opacity: 1 });
+        this.track.classList.remove("blurred");
+        this.expandedCard = null;
+        this.cardClone = null;
+      }
+    });
+  }
+
+  rotate(direction) {
+    if (this.expandedCard) return;
+
+    this.cards.forEach((card, index) => {
+      let newIndex;
+      if (direction === "next") {
+        newIndex = (index - 1 + this.totalCards) % this.totalCards;
+      } else {
+        newIndex = (index + 1) % this.totalCards;
+      }
+
+      const pos = positions[newIndex];
+
+      gsap.set(card, { clipPath: pos.clip });
+
+      gsap.to(card, {
+        height: pos.height,
+        duration: 0.5,
+        ease: "power2.out"
+      });
+
+      gsap.to(card, {
+        transform: `translateZ(${pos.z}px) rotateY(${pos.rotateY}deg) translateY(${pos.y}px)`,
+        duration: 0.5,
+        ease: "power2.out"
+      });
+    });
+
+    if (direction === "next") {
+      const firstCard = this.cards.shift();
+      this.cards.push(firstCard);
+      this.track.appendChild(firstCard);
+    } else {
+      const lastCard = this.cards.pop();
+      this.cards.unshift(lastCard);
+      this.track.prepend(lastCard);
+    }
+  }
+
+  attachEvents() {
+    this.cards.forEach((card) => {
+      card.addEventListener("click", (e) => {
+        if (!this.isDragging && !this.expandedCard) {
+          this.expandCard(card);
+        }
+      });
+    });
+
+    this.closeBtn.addEventListener("click", () => this.closeCard());
+
+    this.container.addEventListener("mousedown", (e) =>
+      this.handleDragStart(e)
+    );
+    this.container.addEventListener(
+      "touchstart",
+      (e) => this.handleDragStart(e),
+      { passive: false }
+    );
+
+    document.addEventListener("mousemove", (e) => this.handleDragMove(e));
+    document.addEventListener("touchmove", (e) => this.handleDragMove(e), {
+      passive: false
+    });
+
+    document.addEventListener("mouseup", () => this.handleDragEnd());
+    document.addEventListener("touchend", () => this.handleDragEnd());
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && this.expandedCard) {
+        this.closeCard();
+      } else if (e.key === "ArrowLeft" && !this.expandedCard) {
+        this.rotate("prev");
+      } else if (e.key === "ArrowRight" && !this.expandedCard) {
+        this.rotate("next");
+      }
+    });
+  }
+
+  handleDragStart(e) {
+    if (this.expandedCard) return;
+
+    this.isDragging = true;
+    this.container.classList.add("dragging");
+    this.startX = e.type.includes("mouse") ? e.clientX : e.touches[0].clientX;
+    this.dragDistance = 0;
+    this.processedSteps = 0;
+  }
+
+  handleDragMove(e) {
+    if (!this.isDragging) return;
+
+    e.preventDefault();
+    const currentX = e.type.includes("mouse")
+      ? e.clientX
+      : e.touches[0].clientX;
+    this.dragDistance = currentX - this.startX;
+
+    const steps = Math.floor(Math.abs(this.dragDistance) / this.threshold);
+
+    if (steps > this.processedSteps) {
+      const direction = this.dragDistance > 0 ? "prev" : "next";
+      this.rotate(direction);
+      this.processedSteps = steps;
+    }
+  }
+
+  handleDragEnd() {
+    if (!this.isDragging) return;
+
+    this.isDragging = false;
+    this.container.classList.remove("dragging");
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  new CircularSlider();
+});
