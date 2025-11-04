@@ -1,0 +1,272 @@
+Give me a mobile app that produces this style of reports give sample data:
+
+price comparison between moving jobs:
+card B is truck driver 2 helpers
+card A is do it your self with just a truck and driver
+
+add a form that someone filled out to get to these prices:
+ex. 
+given a list of furniture (you provide the data) from zipcode 20705 to 20002
+time Tuesday June 3 2005 noon - 5pm
+
+give me a submit button the computes the prices and then gives the cards as a modal
+
+give a data picker for the Date and Time field;
+give a dropdown of furnitures and the amount
+adding this stuff dynamically changes the price
+
+Show a summary of inputs inside the modal,
+
+Make the modal scrollable or fullscreen on mobile
+ability to add and remove furniture;
+modal gives me 4 cards (2 columns)
+list of furniture
+Date shown on a calendar
+Two price cards
+make the updates and show me the complete HTML preserved
+modal layout 2 x 2 responsive mobile grid; 
+bottom 2 cards are the price cards
+the entire modal is scrollable
+
+
+CODE:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Moving Cost Comparison</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      padding: 1rem;
+    }
+    .title {
+      font-size: 1.6rem;
+      font-weight: bold;
+    }
+    .subtitle {
+      font-size: 0.9rem;
+      color: #bbb;
+      margin-bottom: 1.5rem;
+    }
+    .pricing-card {
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+    .card-basic {
+      background-color: #1c1c1c;
+    }
+    .card-pro {
+      background: linear-gradient(135deg, #7b2ff7, #f107a3);
+    }
+    .price {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+    .features li {
+      list-style: none;
+      padding: 0.3rem;
+    }
+    .btn-custom {
+      background-color: #fff;
+      color: #000;
+      font-weight: bold;
+      border-radius: 6px;
+      margin-top: 1rem;
+    }
+    .form-section {
+      text-align: left;
+      background-color: #111;
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 2rem;
+    }
+    .form-label {
+      color: #ccc;
+    }
+  </style>
+  <script>
+    function removeFurniture(button, quantity) {
+      const item = button.closest('li');
+      item.remove();
+      totalQuantity -= quantity;
+      updatePrices(totalQuantity);
+    }
+
+    let totalQuantity = 0;
+
+    function addFurniture() {
+      const list = document.getElementById('furniture-list');
+      const select = document.getElementById('furniture');
+      const quantity = parseInt(document.getElementById('quantity').value);
+      const item = select.options[select.selectedIndex].text;
+      const entry = document.createElement('li');
+      entry.className = 'd-flex justify-content-between align-items-center';
+      entry.innerHTML = `<span>${quantity} x ${item}</span><button class='btn btn-sm btn-danger' onclick='removeFurniture(this, ${quantity})'>&times;</button>`;
+      list.appendChild(entry);
+      totalQuantity += quantity;
+      updatePrices(totalQuantity);
+    }
+
+    function updatePrices(factor) {
+      const basePrice = 149.99;
+      const proPrice = 399.99;
+      document.getElementById('price-basic').textContent = `$${(basePrice + factor * 10).toFixed(2)}`;
+      document.getElementById('price-pro').textContent = `$${(proPrice + factor * 5).toFixed(2)}`;
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const datetimeInput = document.querySelector('input[type="datetime-local"]');
+      const form = document.querySelector('form');
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const modal = new bootstrap.Modal(document.getElementById('pricingModal'));
+        const dateValue = datetimeInput.value || '(not selected)';
+        document.getElementById('summary-date').textContent = dateValue;
+        document.getElementById('calendar').textContent = dateValue;
+        const furnitureItems = document.querySelectorAll('#furniture-list li');
+        const summaryList = document.getElementById('summary-furniture');
+        summaryList.innerHTML = '';
+        furnitureItems.forEach(item => summaryList.appendChild(item.cloneNode(true)));
+        modal.show();
+      });
+    });
+  </script>
+</head>
+<body>
+  <div class="title">Simple transparent pricing</div>
+  <div class="subtitle">Compare the best option for your moving job</div>
+
+  <!-- Quote Form -->
+  <div class="container" style="max-width: 400px;">
+    <div class="form-section">
+      <h5 class="text-white">Move Details</h5>
+      <form>
+        <div class="mb-2">
+          <label class="form-label">Pickup ZIP Code:</label>
+          <input type="text" class="form-control" value="20705" readonly>
+        </div>
+        <div class="mb-2">
+          <label class="form-label">Drop-off ZIP Code:</label>
+          <input type="text" class="form-control" value="20002" readonly>
+        </div>
+        <div class="mb-2">
+          <label class="form-label">Move Date and Time:</label>
+          <input type="datetime-local" class="form-control" required>
+        </div>
+        <div class="mb-2">
+          <label class="form-label">Furniture:</label>
+          <div class="d-flex mb-2">
+            <select class="form-select me-2" id="furniture">
+              <option value="couch">Couch</option>
+              <option value="bed">Queen Bed</option>
+              <option value="nightstand">Nightstand</option>
+              <option value="dresser">Dresser</option>
+              <option value="table">Dining Table</option>
+              <option value="box">Moving Box</option>
+            </select>
+            <input type="number" class="form-control me-2" id="quantity" value="1" min="1">
+            <button type="button" class="btn btn-secondary" onclick="addFurniture()">Add</button>
+          </div>
+          <ul id="furniture-list" class="text-white"></ul>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Calculate & Show Plans</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Pricing Modal -->
+  <div class="modal fade" id="pricingModal" tabindex="-1" aria-labelledby="pricingModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-scrollable modal-lg" style="max-width: 800px; width: 100%;">
+      <div class="modal-content bg-dark text-white">
+        <div class="modal-header">
+          <h5 class="modal-title" id="pricingModalLabel">Available Moving Plans</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row row-cols-1 row-cols-md-2 g-3">
+            <!-- Summary Card -->
+            <div class="col">
+              <div class="pricing-card bg-dark text-white">
+                <h6>Your Move Summary</h6>
+                <ul class="text-start">
+                  <li><strong>Pickup:</strong> 20705</li>
+                  <li><strong>Drop-off:</strong> 20002</li>
+                  <li><strong>Date/Time:</strong> <span id="summary-date">(not selected)</span></li>
+                  <li><strong>Furniture:</strong></li>
+                  <ul id="summary-furniture" class="text-white ps-4"></ul>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Calendar Card -->
+            <div class="col">
+              <div class="pricing-card bg-secondary text-white">
+                <div class="text-uppercase">Selected Date</div>
+                <div class="mt-2" id="calendar">(not selected)</div>
+              </div>
+            </div>
+
+            <!-- DIY Plan Card -->
+            <div class="col">
+              <div class="pricing-card card-basic">
+                <div class="text-uppercase text-muted">DIY Plan</div>
+                <div class="price" id="price-basic">$149.99</div>
+                <div class="mb-2">Truck + 1 Driver</div>
+                <button class="btn btn-outline-light w-100">Select Plan</button>
+                <ul class="features mt-3">
+                  <li>✓ Fuel Included</li>
+                  <li>✓ Up to 2 Hours Move Time</li>
+                  <li>✓ Loading/Unloading by You</li>
+                  <li>✓ Basic Assistance Only</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Pro Plan Card -->
+            <div class="col">
+              <div class="pricing-card card-pro">
+                <div class="text-uppercase text-white">Pro Move</div>
+                <div class="price" id="price-pro">$399.99</div>
+                <div class="mb-2">Truck + 1 Driver + 2 Helpers</div>
+                <button class="btn btn-custom w-100">Select Plan</button>
+                <ul class="features mt-3">
+                  <li>✓ Fuel Included</li>
+                  <li>✓ Up to 4 Hours Move Time</li>
+                  <li>✓ Full Loading/Unloading</li>
+                  <li>✓ Heavy Lifting Support</li>
+                  <li>✓ Priority Scheduling</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+              
+                <div class="price" id="price-pro">$399.99</div>
+                <div class="mb-2">Truck + 1 Driver + 2 Helpers</div>
+                <button class="btn btn-custom w-100">Select Plan</button>
+                <ul class="features mt-3">
+                  <li>✓ Fuel Included</li>
+                  <li>✓ Up to 4 Hours Move Time</li>
+                  <li>✓ Full Loading/Unloading</li>
+                  <li>✓ Heavy Lifting Support</li>
+                  <li>✓ Priority Scheduling</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

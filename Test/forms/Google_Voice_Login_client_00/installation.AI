@@ -1,0 +1,119 @@
+Step-by-Step: GitHub Actions in Test/forms/Google_Voice_Login_client_00
+1. Create Your Project Folder
+Inside your repository, set up your folder:
+
+go
+Copy
+Edit
+Test/
+└── forms/
+    └── Google_Voice_Login_client_00/
+        ├── loginBot.js
+        └── package.json
+📄 Example loginBot.js
+js
+Copy
+Edit
+const puppeteer = require('puppeteer');
+
+(async () => {
+  const browser = await puppeteer.launch({ headless: true });
+  const page = await browser.newPage();
+  await page.goto('https://the-internet.herokuapp.com/login');
+  await page.type('#username', 'tomsmith');
+  await page.type('#password', 'SuperSecretPassword!');
+  await page.click('button[type="submit"]');
+  await page.waitForSelector('.flash.success');
+  await page.screenshot({ path: 'login_success.png' });
+  console.log("✅ Login successful.");
+  await browser.close();
+})();
+📄 Example package.json
+json
+Copy
+Edit
+{
+  "name": "google-voice-login-client",
+  "version": "1.0.0",
+  "main": "loginBot.js",
+  "dependencies": {
+    "puppeteer": "^21.0.0"
+  }
+}
+2. Create the GitHub Actions Workflow File
+Create a file at:
+
+bash
+Copy
+Edit
+.github/workflows/google_voice_login.yml
+📄 Paste this:
+
+yaml
+Copy
+Edit
+name: Google Voice Login Automation
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'Test/forms/Google_Voice_Login_client_00/**'
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: Test/forms/Google_Voice_Login_client_00
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run login bot
+        run: node loginBot.js
+
+      - name: Upload screenshot
+        uses: actions/upload-artifact@v3
+        with:
+          name: login-screenshot
+          path: login_success.png
+3. Push Your Code to GitHub
+bash
+Copy
+Edit
+git add .
+git commit -m "Add Puppeteer login bot and GitHub workflow"
+git push
+4. Run the Workflow on GitHub
+Go to your repo on GitHub
+
+Click Actions tab
+
+Find "Google Voice Login Automation"
+
+Click Run workflow (manual trigger)
+
+5. View the Output
+Watch the logs in Actions → Logs
+
+Check the Artifacts tab to download login_success.png
+
+🧠 Notes
+You can't log in to Google Voice directly (Google blocks headless browsers with reCAPTCHA).
+
+This flow is for demonstration or automation testing only.
+
+Replace the test site with your real login page only if it's compliant with automation.
+
+Want this to use secrets, 2FA bypass, or schedule daily runs? I can expand it further.

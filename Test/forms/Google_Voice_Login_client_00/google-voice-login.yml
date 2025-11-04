@@ -1,0 +1,36 @@
+name: Run Google Voice Login Bot
+
+on:
+  workflow_dispatch:  # manually triggered
+  push:
+    paths:
+      - 'Google_Voice_Login_client_xx/**'
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: Google_Voice_Login_client_xx
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run login automation script
+        run: node loginBot.js
+
+      - name: Upload screenshot (if any)
+        uses: actions/upload-artifact@v3
+        with:
+          name: login-screenshot
+          path: Google_Voice_Login_client_xx/login_success.png
