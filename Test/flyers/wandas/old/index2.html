@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Primary Meta Tags -->
+  <title>Ms. Wanda’s | Exquisite Southern Cuisine in Bayonne, NJ</title>
+  <meta name="title" content="Ms. Wanda’s | Exquisite Southern Cuisine in Bayonne, NJ" />
+  <meta name="description" content="Experience authentic Southern flavors at Ms. Wanda’s in Bayonne, NJ. More than a meal — a celebration of tradition, community, and soulful cooking passed down through generations." />
+  <link rel="canonical" href="https://flyers.womacromax.com/ms%20wandas/" />
+  <link rel="image_src" href="https://flyers.womacromax.com/ms%20wandas/assets/GoodSoulFoodBoutique.png" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="restaurant" />
+  <meta property="og:url" content="https://flyers.womacromax.com/ms%20wandas/" />
+  <meta property="og:title" content="Ms. Wanda’s | Exquisite Southern Cuisine in Bayonne, NJ" />
+  <meta property="og:description" content="Step into Ms. Wanda’s for exquisite Southern cuisine — soulful recipes, golden fried chicken, and blues-era charm in every bite." />
+  <meta property="og:image" content="https://flyers.womacromax.com/ms%20wandas/assets/GoodSoulFoodBoutique.png" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://flyers.womacromax.com/ms%20wandas/" />
+  <meta name="twitter:title" content="Ms. Wanda’s | Exquisite Southern Cuisine in Bayonne, NJ" />
+  <meta name="twitter:description" content="Authentic Southern cooking, comfort, and culture. Ms. Wanda’s is where every dish tells a story." />
+  <meta name="twitter:image" content="https://flyers.womacromax.com/ms%20wandas/assets/GoodSoulFoodBoutique.png" />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "Ms. Wanda’s",
+    "image": "https://flyers.womacromax.com/ms%20wandas/assets/GoodSoulFoodBoutique.png",
+    "description": "Authentic Southern flavors and soulful recipes, celebrating community and culinary tradition in Bayonne, NJ.",
+    "servesCuisine": ["Southern","Soul Food"],
+    "priceRange": "$$",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "906-908 Broadway",
+      "addressLocality": "Bayonne",
+      "addressRegion": "NJ",
+      "postalCode": "07002",
+      "addressCountry": "US"
+    },
+    "telephone": "+1-703-596-2482",
+    "openingHours": "Mo-Su 11:00-22:00",
+    "url": "https://flyers.womacromax.com/ms%20wandas/"
+  }
+  </script>
+
+  <style>
+    @import url(https://fonts.googleapis.com/css?family=Montserrat:700);
+
+    .info{position:absolute;top:0;right:0;z-index:9999999;margin:1.5rem}
+    *,*::before,*::after{box-sizing:border-box;padding:0;margin:0;border:0}
+    html{font-size:10px;font-size:calc(5px + 0.4vw)}
+    body{font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;color:#fff}
+    a{text-decoration:none;color:rgba(225,255,255,.8)}
+
+    /* Slider */
+    .cd-slider{position:relative;width:100%;height:100vh;overflow:hidden}
+    .cd-slider.ie9 nav div span{display:none}
+    .cd-slider ul{list-style:none}
+    .cd-slider ul li{position:absolute;top:0;left:0;width:100%;height:100%;visibility:hidden;transition:visibility 0s .6s}
+    .cd-slider ul li::before{content:'';position:absolute;top:50%;left:50%;border-radius:100%;width:135vh;height:135vh;border:solid rgba(0,0,0,0.2);border-width:0;transform:translate(-50%,-50%);pointer-events:none;transition:border-width .4s .6s}
+
+    .content{position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;transform:scale(1.2);transition:opacity .4s .6s,transform .4s .6s}
+
+    .food-carousel{position:absolute;top:0;left:0;width:100%;height:100%}
+    .carousel-img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s ease-in-out}
+    .carousel-img.active{opacity:.7}
+
+    /* Menu Slide */
+    .menu-slide{background:linear-gradient(135deg,#1a1a1a 0%,#2d2d2d 100%);overflow:hidden}
+    .menu-title{position:absolute;top:3%;left:50%;transform:translateX(-50%);font-size:3.5rem;color:#fff;text-align:center;z-index:10;text-shadow:2px 2px 4px rgba(0,0,0,0.5)}
+    .menu-scroll-container{position:absolute;top:15%;left:0;width:100%;height:85%;overflow:hidden}
+    .menu-cards{display:flex;flex-direction:column;gap:2rem;padding:2rem;animation:slowScroll 60s linear infinite;transition:transform .3s ease-out}
+    .menu-cards.paused{animation-play-state:paused}
+    @keyframes slowScroll{0%{transform:translateY(0)}100%{transform:translateY(-50%)}}
+    .menu-card{background:#fff;border-radius:15px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.3);min-height:350px;flex-shrink:0;cursor:pointer;transition:transform .2s}
+    .menu-card:hover{transform:scale(1.02)}
+    .menu-card img{width:100%;height:250px;object-fit:cover}
+    .menu-card h3{color:#2d2d2d;font-size:2rem;padding:1.5rem 1.5rem .5rem;margin:0}
+    .menu-card p{color:#666;font-size:1.3rem;font-weight:400;padding:0 1.5rem 1.5rem;margin:0}
+
+    /* Cart Modal */
+    .cart-modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:10000;display:none;align-items:center;justify-content:center}
+    .cart-modal.active{display:flex}
+    .cart-content{background:#fff;border-radius:15px;padding:2rem;max-width:500px;width:90%;max-height:80vh;overflow-y:auto;position:relative}
+    .cart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem;border-bottom:2px solid #333;padding-bottom:1rem}
+    .cart-header h2{color:#333;font-size:2.5rem;margin:0}
+    .close-cart{background:#ff0000;color:#fff;border:none;width:40px;height:40px;border-radius:50%;font-size:2rem;cursor:pointer;line-height:1;padding:0}
+    .cart-items{list-style:none;padding:0;margin:0}
+    .cart-item{padding:1rem;margin-bottom:1rem;background:#f5f5f5;border-radius:8px;display:flex;justify-content:space-between;align-items:center;color:#333;font-size:1.4rem}
+    .cart-item::before{content:"🍽️";margin-right:1rem}
+    .remove-item{background:#ff4444;color:#fff;border:none;padding:.5rem 1rem;border-radius:5px;cursor:pointer;font-size:1.2rem;font-weight:700}
+    .empty-cart{text-align:center;color:#999;font-size:1.6rem;padding:3rem;font-weight:400}
+    .cart-button{position:fixed;bottom:2rem;right:2rem;background:#ff0000;color:#fff;border:none;width:60px;height:60px;border-radius:50%;font-size:2.5rem;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,0.3);z-index:9998;display:flex;align-items:center;justify-content:center}
+    .cart-count{position:absolute;top:-5px;right:-5px;background:#fff;color:#ff0000;border-radius:50%;width:25px;height:25px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;border:2px solid #ff0000}
+
+    /* Location Slide */
+    .location-slide{background:linear-gradient(135deg,#f5f5f5 0%,#e0e0e0 100%);overflow-y:auto}
+    .location-container{padding:2rem;width:100%}
+    .location-title{color:#333;font-size:3rem;text-align:center;margin-bottom:2rem}
+    .map-section,.delivery-section{background:#fff;border-radius:15px;padding:2rem;margin-bottom:2rem;box-shadow:0 5px 20px rgba(0,0,0,0.1)}
+    .map-section h3,.delivery-section h3{color:#333;font-size:2rem;margin-bottom:1.5rem;text-align:center}
+    .address-info{text-align:center;margin-bottom:1.5rem}
+    .address-info p{color:#666;font-size:1.3rem;margin:.3rem 0;font-weight:400}
+    .address-info strong{color:#333;font-size:1.5rem}
+    .map-container{width:100%;height:300px;border-radius:10px;overflow:hidden;margin-bottom:1.5rem}
+    .directions-btn{width:100%;background:#4285f4;color:#fff;border:none;padding:1.2rem;border-radius:10px;font-size:1.4rem;font-weight:700;cursor:pointer;transition:background .3s}
+    .directions-btn:hover{background:#3367d6}
+    .delivery-form{display:flex;flex-direction:column;gap:1.2rem}
+    .delivery-form input,.delivery-form textarea{padding:1.2rem;border:2px solid #ddd;border-radius:8px;font-size:1.3rem;font-family:'Montserrat',sans-serif;font-weight:400;transition:border-color .3s}
+    .delivery-form input:focus,.delivery-form textarea:focus{outline:none;border-color:#ff0000}
+    .submit-btn{background:#ff0000;color:#fff;border:none;padding:1.4rem;border-radius:10px;font-size:1.5rem;font-weight:700;cursor:pointer;transition:background .3s}
+    .submit-btn:hover{background:#cc0000}
+
+    .content blockquote{position:absolute;bottom:5%;left:4%;z-index:2;max-width:92%;background:rgba(0,0,0,0.75);padding:2rem;border-radius:10px;max-height:85vh;overflow-y:auto}
+    .description{margin-top:1.5rem;font-size:1.2rem;font-weight:400;line-height:1.6}
+    .description p{font-size:1.2rem;margin-bottom:1rem}
+    .description ul{list-style:none;padding-left:0;margin:1rem 0}
+    .description li{padding:.5rem 0;font-size:1.1rem}
+    .description li::before{content:"🍽️ ";margin-right:.5rem}
+
+    .soul-food-carousel{
+      background:linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.5)),url('https://images.unsplash.com/photo-1604152135912-04a022e23696?w=800') center/cover;
+      animation:carouselSlide 20s infinite
+    }
+    @keyframes carouselSlide{
+      0%,25%{background-image:linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.5)),url('https://images.unsplash.com/photo-1604152135912-04a022e23696?w=800')}
+      25%,50%{background-image:linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.5)),url('https://images.unsplash.com/photo-1623428187425-5f25f5b18eb4?w=800')}
+      50%,75%{background-image:linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.5)),url('https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=800')}
+      75%,100%{background-image:linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.5)),url('https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?w=800')}
+    }
+
+    blockquote p{font-size:4rem;margin-bottom:2rem}
+    blockquote span{font-size:1.4rem}
+
+    /* current slide */
+    .cd-slider li.current_slide{visibility:visible}
+    .cd-slider li.current_slide::before{border-width:16rem}
+    .cd-slider li.current_slide .content{opacity:1;transform:scale(1)}
+
+    /* nav */
+    nav div{position:absolute;top:50%;left:4%;width:5rem;height:5rem;margin-top:-2.5rem;list-style:none}
+    nav div:last-of-type{left:auto;right:4%}
+    .prev,.next{position:relative;z-index:100;width:100%;height:100%;display:block;border-radius:100%;transition:box-shadow .3s}
+    .prev::before,.prev::after,.next::before,.next::after{content:'';position:absolute;left:43%;background:#fff;width:.4rem;min-width:3px;border-radius:3px;height:34%}
+    .prev::before{transform:rotate(45deg);top:24%}
+    .prev::after{transform:rotate(-45deg);bottom:24%}
+    .next::before,.next::after{left:auto;right:43%}
+    .next::before{transform:rotate(-45deg);top:24%}
+    .next::after{transform:rotate(45deg);bottom:24%}
+    .prev:hover,.next:hover{box-shadow:0 0 0 1rem rgba(0,0,0,0.15)}
+    nav>div>span{position:absolute;top:50%;left:50%;width:0;height:0;border-radius:100%;z-index:5;pointer-events:none;will-change:width,height;transform:translate(-50%,-50%);transition:width .6s,height .6s}
+  </style>
+</head>
+<body>
+  <div class="info">Wo<span style="color:black;">Macro</span><span style="color:red;">MAX</span>.com</div>
+
+  <!-- Cart Button -->
+  <button class="cart-button" id="cartBtn">🛒 <span class="cart-count" id="cartCount">0</span></button>
+
+  <!-- Cart Modal -->
+  <div class="cart-modal" id="cartModal">
+    <div class="cart-content">
+      <div class="cart-header">
+        <h2>Your Order</h2>
+        <button class="close-cart" id="closeCart">×</button>
+      </div>
+      <ul class="cart-items" id="cartItems">
+        <li class="empty-cart">Your cart is empty</li>
+      </ul>
+    </div>
+  </div>
+
+  <section class="cd-slider">
+    <ul>
+      <li data-color="#f8e5d0">
+        <div class="content">
+          <div class="food-carousel">
+            <img src="https://images.unsplash.com/photo-1604152135912-04a022e23696?w=800&q=80" alt="Soul Food" class="carousel-img active">
+            <img src="https://images.unsplash.com/photo-1623428187425-5f25f5b18eb4?w=800&q=80" alt="Fried Chicken" class="carousel-img">
+            <img src="https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=800&q=80" alt="Comfort Food" class="carousel-img">
+            <img src="https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?w=800&q=80" alt="Southern Cuisine" class="carousel-img">
+          </div>
+          <blockquote>
+            <p>Ms. Wanda's</p>
+            <span>Exquisite Southern Cuisine</span>
+            <div class="description">
+              <p>Experience authentic Southern flavors at 906-908 Broadway, Bayonne, NJ. Ms. Wanda's offers more than just a meal—it's a celebration of tradition, community, and culinary excellence. Step into a warm, blues-era inspired atmosphere where every dish tells a story.</p>
+              <p><strong>Menu Highlights:</strong></p>
+              <ul>
+                <li>Crispy Fried Seafood with collard greens & cornbread</li>
+                <li>Stuffed Red Snapper with yams & potato salad</li>
+                <li>Shrimp Scampi Pie with garlic knots</li>
+                <li>Buffalo Wings, Eggplant Rollitini & More</li>
+              </ul>
+              <p>Each recipe crafted with love, passed down through generations. Join us in celebrating Southern culture and community spirit.</p>
+            </div>
+          </blockquote>
+        </div>
+      </li>
+
+      <li data-color="#cccccc">
+        <div class="content menu-slide">
+          <h2 class="menu-title">Our Menu</h2>
+          <div class="menu-scroll-container">
+            <div class="menu-cards">
+              <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=400&q=80" alt="Fried Chicken">
+                <h3>Fried Chicken</h3>
+                <p>Crispy, golden perfection with signature seasoning</p>
+              </div>
+              <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80" alt="Collard Greens">
+                <h3>Collard Greens</h3>
+                <p>Slow-cooked with smoked turkey</p>
+              </div>
+              <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1619895092538-128341789043?w=400&q=80" alt="Mac & Cheese">
+                <h3>Mac & Cheese</h3>
+                <p>Creamy, cheesy comfort in every bite</p>
+              </div>
+              <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1633504581786-316c8002b1b9?w=400&q=80" alt="Cornbread">
+                <h3>Homemade Cornbread</h3>
+                <p>Sweet, buttery, and warm</p>
+              </div>
+              <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1603073203512-73b47e5ae9fb?w=400&q=80" alt="Fried Fish">
+                <h3>Fried Whiting</h3>
+                <p>Fresh, flaky, perfectly seasoned</p>
+              </div>
+              <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62?w=400&q=80" alt="Red Snapper">
+                <h3>Stuffed Red Snapper</h3>
+                <p>Elegantly prepared with seafood stuffing</p>
+              </div>
+              <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?w=400&q=80" alt="Candied Yams">
+                <h3>Candied Yams</h3>
+                <p>Sweet, tender, with brown sugar glaze</p>
+              </div>
+              <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1562158147-f69568e4e43c?w=400&q=80" alt="Shrimp">
+                <h3>Shrimp Scampi Pie</h3>
+                <p>Succulent shrimp with garlic knots</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li data-color="#cccccc">
+        <div class="content location-slide">
+          <div class="location-container">
+            <h2 class="location-title">Visit or Delivery</h2>
+
+            <!-- Map Section -->
+            <div class="map-section">
+              <h3>📍 Pickup Location</h3>
+              <div class="address-info">
+                <p><strong>Ms. Wanda's Exquisite Southern Cuisine</strong></p>
+                <p>906-908 Broadway</p>
+                <p>Bayonne, NJ 07002</p>
+              </div>
+              <div class="map-container">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3028.8!2d-74.11!3d40.66!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDM5JzM2LjAiTiA3NMKwMDYnMzYuMCJX!5e0!3m2!1sen!2sus!4v1234567890"
+                  width="100%" height="100%" style="border:0;" allowfullscreen loading="lazy">
+                </iframe>
+              </div>
+              <button class="directions-btn" onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=906-908+Broadway+Bayonne+NJ+07002','_blank')">
+                Get Directions
+              </button>
+            </div>
+
+            <!-- Delivery Form Section -->
+            <div class="delivery-section">
+              <h3>🚚 Request Delivery</h3>
+              <form class="delivery-form" id="deliveryForm">
+                <input type="text" placeholder="Your Name" required />
+                <input type="tel" placeholder="Phone Number" required />
+                <input type="email" placeholder="Email Address" required />
+                <textarea placeholder="Delivery Address" rows="2" required></textarea>
+                <textarea placeholder="Special Instructions (optional)" rows="2"></textarea>
+                <button type="submit" class="submit-btn">Submit Delivery Request</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+    <nav>
+      <div><a class="prev" href="#"></a></div>
+      <div><a class="next" href="#"></a></div>
+    </nav>
+  </section>
+
+  <script>
+    (function () {
+      var cdSlider = document.querySelector('.cd-slider'),
+          item = cdSlider.querySelectorAll('li'),
+          nav = cdSlider.querySelector('nav');
+
+      item[0].className = 'current_slide';
+
+      for (var i = 0, len = item.length; i < len; i++) {
+        var color = item[i].getAttribute('data-color');
+        item[i].style.backgroundColor = color;
+      }
+
+      // Detect IE9
+      var ua = window.navigator.userAgent;
+      var msie = ua.indexOf('MSIE');
+      if (msie > 0) {
+        var version = parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)));
+        if (version === 9) cdSlider.className = 'cd-slider ie9';
+      }
+
+      if (item.length <= 1) nav.style.display = 'none';
+
+      function prevSlide() {
+        var currentSlide = cdSlider.querySelector('li.current_slide'),
+            prevElement = currentSlide.previousElementSibling,
+            prevSlide = (prevElement !== null) ? prevElement : item[item.length - 1],
+            prevColor = prevSlide.getAttribute('data-color'),
+            el = document.createElement('span');
+
+        currentSlide.className = '';
+        prevSlide.className = 'current_slide';
+        nav.children[0].appendChild(el);
+
+        var size = (cdSlider.clientWidth >= cdSlider.clientHeight) ? cdSlider.clientWidth * 2 : cdSlider.clientHeight * 2,
+            ripple = nav.children[0].querySelector('span');
+
+        ripple.style.height = size + 'px';
+        ripple.style.width = size + 'px';
+        ripple.style.backgroundColor = prevColor;
+
+        ripple.addEventListener('transitionend', function () {
+          if (this.parentNode) this.parentNode.removeChild(this);
+        });
+        ripple.addEventListener('webkitTransitionEnd', function () {
+          if (this.parentNode) this.parentNode.removeChild(this);
+        });
+      }
+
+      function nextSlide() {
+        var currentSlide = cdSlider.querySelector('li.current_slide'),
+            nextElement = currentSlide.nextElementSibling,
+            nextSlide = (nextElement !== null) ? nextElement : item[0],
+            nextColor = nextSlide.getAttribute('data-color'),
+            el = document.createElement('span');
+
+        currentSlide.className = '';
+        nextSlide.className = 'current_slide';
+        nav.children[1].appendChild(el);
+
+        var size = (cdSlider.clientWidth >= cdSlider.clientHeight) ? cdSlider.clientWidth * 2 : cdSlider.clientHeight * 2,
+            ripple = nav.children[1].querySelector('span');
+
+        ripple.style.height = size + 'px';
+        ripple.style.width = size + 'px';
+        ripple.style.backgroundColor = nextColor;
+
+        ripple.addEventListener('transitionend', function () {
+          if (this.parentNode) this.parentNode.removeChild(this);
+        });
+        ripple.addEventListener('webkitTransitionEnd', function () {
+          if (this.parentNode) this.parentNode.removeChild(this);
+        });
+      }
+
+      function updateNavColor() {
+        var currentSlide = cdSlider.querySelector('li.current_slide');
+        var nextColor = (currentSlide.nextElementSibling !== null)
+          ? currentSlide.nextElementSibling.getAttribute('data-color')
+          : item[0].getAttribute('data-color');
+        var prevColor = (currentSlide.previousElementSibling !== null)
+          ? currentSlide.previousElementSibling.getAttribute('data-color')
+          : item[item.length - 1].getAttribute('data-color');
+
+        if (item.length > 2) {
+          nav.querySelector('.prev').style.backgroundColor = prevColor;
+          nav.querySelector('.next').style.backgroundColor = nextColor;
+        }
+      }
+
+      updateNavColor();
+
+      nav.querySelector('.next').addEventListener('click', function (e) {
+        e.preventDefault(); e.stopPropagation();
+        nextSlide(); updateNavColor();
+        return false;
+      });
+
+      nav.querySelector('.prev').addEventListener('click', function (e) {
+        e.preventDefault(); e.stopPropagation();
+        prevSlide(); updateNavColor();
+        return false;
+      });
+
+      // Image carousel (slide 1)
+      var carouselImages = document.querySelectorAll('.carousel-img');
+      if (carouselImages.length > 0) {
+        var currentImg = 0;
+        setInterval(function () {
+          carouselImages[currentImg].classList.remove('active');
+          currentImg = (currentImg + 1) % carouselImages.length;
+          carouselImages[currentImg].classList.add('active');
+        }, 4000);
+      }
+
+      // Duplicate menu cards for infinite scroll
+      var menuCards = document.querySelector('.menu-cards');
+      if (menuCards) {
+        var cards = menuCards.innerHTML;
+        menuCards.innerHTML = cards + cards;
+      }
+
+      // Manual scroll control for menu
+      var menuScrollContainer = document.querySelector('.menu-scroll-container');
+      var scrollTimeout, isScrolling = false, startY = 0, currentY = 0;
+
+      if (menuCards && menuScrollContainer) {
+        menuScrollContainer.addEventListener('touchstart', function (e) {
+          isScrolling = true; startY = e.touches[0].clientY;
+          menuCards.classList.add('paused'); clearTimeout(scrollTimeout);
+        });
+        menuScrollContainer.addEventListener('touchmove', function (e) {
+          if (!isScrolling) return;
+          currentY = e.touches[0].clientY;
+          var deltaY = startY - currentY; startY = currentY;
+          var computedStyle = window.getComputedStyle(menuCards);
+          var matrix = new WebKitCSSMatrix(computedStyle.transform);
+          var currentTransform = matrix.m42;
+          menuCards.style.transform = 'translateY(' + (currentTransform - deltaY) + 'px)';
+        });
+        menuScrollContainer.addEventListener('touchend', function () {
+          isScrolling = false;
+          scrollTimeout = setTimeout(function () {
+            menuCards.classList.remove('paused');
+          }, 3000);
+        });
+
+        menuScrollContainer.addEventListener('mousedown', function (e) {
+          isScrolling = true; startY = e.clientY;
+          menuCards.classList.add('paused'); clearTimeout(scrollTimeout); e.preventDefault();
+        });
+        document.addEventListener('mousemove', function (e) {
+          if (!isScrolling) return;
+          currentY = e.clientY; var deltaY = startY - currentY; startY = currentY;
+          var computedStyle = window.getComputedStyle(menuCards);
+          var matrix = new WebKitCSSMatrix(computedStyle.transform);
+          var currentTransform = matrix.m42;
+          menuCards.style.transform = 'translateY(' + (currentTransform - deltaY) + 'px)';
+        });
+        document.addEventListener('mouseup', function () {
+          if (!isScrolling) return; isScrolling = false;
+          scrollTimeout = setTimeout(function () {
+            menuCards.classList.remove('paused'); menuCards.style.transform = '';
+          }, 3000);
+        });
+      }
+
+      // Cart
+      var cart = [];
+      var cartModal = document.getElementById('cartModal');
+      var cartBtn = document.getElementById('cartBtn');
+      var closeCart = document.getElementById('closeCart');
+      var cartItems = document.getElementById('cartItems');
+      var cartCount = document.getElementById('cartCount');
+
+      cartBtn.addEventListener('click', function () {
+        cartModal.classList.add('active');
+      });
+      closeCart.addEventListener('click', function () {
+        cartModal.classList.remove('active');
+      });
+      cartModal.addEventListener('click', function (e) {
+        if (e.target === cartModal) cartModal.classList.remove('active');
+      });
+
+      document.addEventListener('click', function (e) {
+        if (e.target.closest('.menu-card')) {
+          var card = e.target.closest('.menu-card');
+          var itemName = card.querySelector('h3').textContent;
+          cart.push(itemName); updateCart();
+          card.style.transform = 'scale(0.95)';
+          setTimeout(function () { card.style.transform = 'scale(1)'; }, 200);
+        }
+      });
+
+      function updateCart() {
+        cartCount.textContent = cart.length;
+        if (cart.length === 0) {
+          cartItems.innerHTML = '<li class="empty-cart">Your cart is empty</li>';
+        } else {
+          cartItems.innerHTML = '';
+          cart.forEach(function (item, index) {
+            var li = document.createElement('li');
+            li.className = 'cart-item';
+            li.innerHTML = item + '<button class="remove-item" data-index="' + index + '">Remove</button>';
+            cartItems.appendChild(li);
+          });
+        }
+      }
+
+      cartItems.addEventListener('click', function (e) {
+        if (e.target.classList.contains('remove-item')) {
+          var index = e.target.getAttribute('data-index');
+          cart.splice(index, 1); updateCart();
+        }
+      });
+
+      var deliveryForm = document.getElementById('deliveryForm');
+      if (deliveryForm) {
+        deliveryForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+          alert('Thank you! Your delivery request has been submitted. We will contact you shortly to confirm your order.');
+          deliveryForm.reset();
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
