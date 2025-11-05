@@ -33,40 +33,54 @@
         }
     </style>
 
+</head>
+<body>
     <script>
         (function() {
-            // Obfuscated URL - split and encoded
-            var _0x1a2b = ['aHR0cHM6L', 'y9zdWNjZX', 'NzLXN0b3J5', 'LWNhbXBhaW', 'duLmxvdmFi', 'bGUuYXBwLw'];
-            var _0x3c4d = function() {
-                return _0x1a2b.join('') + '==';
-            };
-            
-            // Decode function
-            var _0x5e6f = function(str) {
-                try {
-                    return atob(str.replace(/==$/, ''));
-                } catch(e) {
-                    return '';
-                }
-            };
-            
-            // Get decoded URL
-            var targetUrl = _0x5e6f(_0x3c4d());
-            
-            // Create and load iframe
-            if (targetUrl) {
-                var frame = document.createElement('iframe');
-                frame.id = 'contentFrame';
-                frame.src = targetUrl;
-                frame.setAttribute('frameborder', '0');
-                frame.setAttribute('allowfullscreen', '');
-                frame.setAttribute('allow', 'autoplay; encrypted-media; fullscreen');
+            // Wait for DOM to be ready
+            function init() {
+                // Obfuscated URL - split and encoded
+                var _0x1a2b = ['aHR0cHM6L', 'y9zdWNjZX', 'NzLXN0b3J5', 'LWNhbXBhaW', 'duLmxvdmFi', 'bGUuYXBwLw'];
+                var _0x3c4d = function() {
+                    return _0x1a2b.join('') + '==';
+                };
                 
-                document.body.appendChild(frame);
+                // Decode function
+                var _0x5e6f = function(str) {
+                    try {
+                        return atob(str);
+                    } catch(e) {
+                        return '';
+                    }
+                };
+                
+                // Get decoded URL
+                var targetUrl = _0x5e6f(_0x3c4d());
+                
+                // Create and load iframe
+                if (targetUrl && document.body) {
+                    var frame = document.createElement('iframe');
+                    frame.id = 'contentFrame';
+                    frame.src = targetUrl;
+                    frame.setAttribute('frameborder', '0');
+                    frame.setAttribute('allowfullscreen', '');
+                    frame.setAttribute('allow', 'autoplay; encrypted-media; fullscreen');
+                    frame.style.width = '100%';
+                    frame.style.height = '100vh';
+                    frame.style.border = 'none';
+                    frame.style.display = 'block';
+                    
+                    document.body.appendChild(frame);
+                }
+            }
+            
+            // Run when DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
             }
         })();
     </script>
-</head>
-<body>
 </body>
 </html>
