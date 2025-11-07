@@ -7,12 +7,17 @@
     <title>A Success STORY's Campaign Strategy</title>
     <meta name="description" content="Flexible campaign pricing with pay-as-you-go model">
     <meta name="author" content="Success STORY">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/successstoryseo.png">
+    <link rel="shortcut icon" type="image/png" href="assets/successstoryseo.png">
+    <link rel="apple-touch-icon" type="image/png" href="assets/successstoryseo.png">
 
     <!-- Open Graph / Social Preview -->
     <meta property="og:title" content="A Success STORY's Campaign Strategy">
     <meta property="og:description" content="Proposal Document for Campaign Strategy - October 2025">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="https://sales.womacromax.com/assets/successstoryseo2.jpg">
+    <meta property="og:image" content="assets/successstoryseo.png">
 
     <style>
         * {
@@ -86,6 +91,85 @@
                 
                 frame.onload = function() {
                     console.log('Iframe loaded successfully');
+                    
+                    // Try to modify the subtitle in the iframe
+                    // Note: This may not work due to cross-origin restrictions
+                    try {
+                        var iframeDoc = frame.contentDocument || frame.contentWindow.document;
+                        
+                        // Function to find and replace text
+                        function replaceSubtitleText() {
+                            // Try various selectors for subtitle/hero text
+                            var selectors = [
+                                'p.subtitle-text',
+                                '.subtitle-text',
+                                '.hero p',
+                                '.hero-sub',
+                                'p',
+                                '[class*="subtitle"]',
+                                '[class*="hero"] p'
+                            ];
+                            
+                            for (var i = 0; i < selectors.length; i++) {
+                                var elements = iframeDoc.querySelectorAll(selectors[i]);
+                                for (var j = 0; j < elements.length; j++) {
+                                    var el = elements[j];
+                                    var text = el.textContent || el.innerText || '';
+                                    
+                                    // Check if this element contains the old text
+                                    if (text.includes('Connecting New Jersey communities') || 
+                                        text.includes('New Jersey communities')) {
+                                        el.textContent = 'We connect communities with trusted local businesses, professionals, and talent.';
+                                        el.style.textShadow = '0 0 10px rgba(255, 255, 0, 0.8), 0 0 20px rgba(255, 255, 0, 0.6), 0 0 30px rgba(255, 255, 0, 0.4)';
+                                        el.style.boxShadow = '0 0 20px rgba(255, 255, 0, 0.6)';
+                                        console.log('Subtitle replaced successfully');
+                                        return true;
+                                    }
+                                }
+                            }
+                            
+                            // Also try to find by text content directly
+                            function walkTextNodes(node) {
+                                if (node.nodeType === 3) { // Text node
+                                    var text = node.textContent;
+                                    if (text.includes('Connecting New Jersey communities')) {
+                                        node.textContent = text.replace(/Connecting New Jersey communities[^.]*/g, 
+                                            'We connect communities with trusted local businesses, professionals, and talent.');
+                                        var parent = node.parentElement;
+                                        if (parent) {
+                                            parent.style.textShadow = '0 0 10px rgba(255, 255, 0, 0.8), 0 0 20px rgba(255, 255, 0, 0.6), 0 0 30px rgba(255, 255, 0, 0.4)';
+                                            parent.style.boxShadow = '0 0 20px rgba(255, 255, 0, 0.6)';
+                                        }
+                                        return true;
+                                    }
+                                } else {
+                                    for (var k = 0; k < node.childNodes.length; k++) {
+                                        if (walkTextNodes(node.childNodes[k])) {
+                                            return true;
+                                        }
+                                    }
+                                }
+                                return false;
+                            }
+                            
+                            return walkTextNodes(iframeDoc.body);
+                        }
+                        
+                        // Try immediately
+                        if (!replaceSubtitleText()) {
+                            // If not found, wait a bit and try again (content might still be loading)
+                            setTimeout(function() {
+                                replaceSubtitleText();
+                            }, 1000);
+                            
+                            setTimeout(function() {
+                                replaceSubtitleText();
+                            }, 3000);
+                        }
+                    } catch(e) {
+                        console.warn('Cannot modify iframe content (cross-origin restriction):', e.message);
+                        // Cross-origin restriction - cannot modify iframe content directly
+                    }
                 };
                 
                 document.body.appendChild(frame);
