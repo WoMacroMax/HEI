@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FixItRite Estimate</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 1rem;
+    }
+    .hero {
+      position: relative;
+      background: #0073e6;
+      background-image: url('assets/hero-bg.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      color: white;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url('assets/overlay-1.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0.4;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url('assets/overlay-2.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0.3;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .hero > * {
+      position: relative;
+      z-index: 3;
+    }
+    .hero-title {
+      font-weight: bold;
+    }
+    .hero-title .it {
+      color: #0073e6;
+    }
+    .hero-title .rite {
+      color: #ffd700;
+    }
+    .summary {
+      background: #fff;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      margin-bottom: 1.5rem;
+    }
+    .summary h2 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    .cart {
+      background: #fff;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .cart-item {
+      margin-bottom: 1.5rem;
+    }
+    .cart-item h3 {
+      margin: 0 0 0.3rem;
+      font-size: 1rem;
+    }
+    .cart-item p {
+      margin: 0.3rem 0;
+      font-size: 0.9rem;
+    }
+    .cart-item a {
+      display: inline-block;
+      margin-top: 0.5rem;
+      color: #0073e6;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    .cart-item a:hover {
+      text-decoration: underline;
+    }
+    .price {
+      text-align: right;
+      font-weight: bold;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+    }
+    .total {
+      text-align: right;
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hero">
+    <div class="hero-title">
+      Fix<span class="it">IT</span><span class="rite">Rite</span> Computer Repair (multimedia installation)
+    </div>
+  </div>
+
+  <div class="summary">
+    <h2>🛠️ Installation Summary</h2>
+    <p>Install a multi-zone audio system in a restaurant using a wireless mixer and 8-channel amplifier. Supports up to 4 distinct zones with remote control. Includes adapter integration, heavy-duty speaker wiring, and Home Depot installation parts. Labor covers mounting, wiring, zone testing, and mixer configuration.</p>
+  </div>
+
+  <div class="cart">
+
+    <div class="cart-item">
+      <h3>🔊 Rockville 8-Channel Amplifier (Qty: 1)</h3>
+      <p>Bluetooth-enabled, 600W peak power, ideal for distributed audio systems.</p>
+      <a href="https://www.amazon.com/dp/B0D8V1J4Q8" target="_blank">View on Amazon</a>
+      <div class="price">$299.95</div>
+    </div>
+
+    <div class="cart-item">
+      <h3>🎚️ Soundcraft Ui16 Wireless Mixer (Qty: 1)</h3>
+      <p>Remote-controlled 16-input mixer with built-in Wi-Fi and browser-based control.</p>
+      <a href="https://www.amazon.com/dp/B00UBJNNYA" target="_blank">View on Amazon</a>
+      <div class="price">$399.00</div>
+    </div>
+
+    <div class="cart-item">
+      <h3>🔌 SiYear XLR to 1/4" Adapter (Qty: 4)</h3>
+      <p>Splitter connector for integrating pro audio gear with standard phono inputs.</p>
+      <a href="https://www.amazon.com/dp/B07GM7Q1C3" target="_blank">View on Amazon</a>
+      <div class="price">$35.96</div>
+    </div>
+
+    <div class="cart-item">
+      <h3>🧵 Heavy Duty Speaker Wire 14AWG (Qty: 1)</h3>
+      <p>High-quality stereo cable for home theater or multi-zone installations.</p>
+      <a href="https://www.amazon.com/dp/B0CLQV4BSH" target="_blank">View on Amazon</a>
+      <div class="price">$18.99</div>
+    </div>
+
+    <div class="cart-item">
+      <h3>🧰 Home Depot Installation Parts (Max)</h3>
+      <p>Wall plates, anchors, conduit, and other mounting accessories.</p>
+      <div class="price">$100.00</div>
+    </div>
+
+    <div class="cart-item">
+      <h3>👷 Labor & Installation</h3>
+      <p>Mounting, wiring, zone testing, and mixer configuration.</p>
+      <div class="price">$350.00</div>
+    </div>
+
+    <div class="total">Total: $1,203.90</div>
+  </div>
+
+</body>
+</html>
