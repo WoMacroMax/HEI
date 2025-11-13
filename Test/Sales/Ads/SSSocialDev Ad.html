@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Success Story Marketing — SPA (Coral & Navy Theme)</title>
+  <meta name="description" content="Turn real moments into revenue-driving content. Single-file SPA with polished coral & navy theme — includes an email-friendly inline HTML template." />
+  <style>
+    :root{
+      --accent:#ff6b81; /* coral-pink */
+      --accent-2:#ff9aa2; /* light coral */
+      --dark:#0f1724; /* navy/near-black for contrast */
+      --muted:#6b7280;
+      --bg:#fbf9fb;
+      --card:#ffffff;
+      --maxw:1100px;
+      --radius:12px;
+    }
+
+    /* Reset & base */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,"Helvetica Neue",sans-serif;margin:0;color:var(--dark);background:var(--bg);-webkit-font-smoothing:antialiased}
+
+    .container{max-width:var(--maxw);margin:0 auto;padding:32px}
+
+    header{background:transparent;padding:20px 0}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:18px}
+    .brand{font-weight:800;color:var(--dark);letter-spacing:-0.02em}
+    .brand .accent{color:var(--accent);margin-left:6px}
+
+    nav a{margin-left:16px;text-decoration:none;color:var(--dark);opacity:0.85;font-weight:600}
+    nav a.badge{background:var(--accent);color:#fff;padding:8px 12px;border-radius:999px;text-decoration:none}
+
+    /* HERO */
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;margin-top:18px}
+    .kicker{display:inline-block;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg,var(--accent-2),var(--accent));color:#fff;font-weight:700;font-size:13px}
+    h1{font-size:34px;margin:12px 0 8px;line-height:1.05;color:var(--dark)}
+    p.lead{color:var(--muted);margin:0 0 18px;font-size:16px}
+
+    .cta-row{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{background:var(--accent);color:#fff;padding:12px 16px;border-radius:10px;border:0;cursor:pointer;font-weight:700}
+    .btn.secondary{background:transparent;border:2px solid var(--accent);color:var(--accent);}
+
+    /* cards */
+    .card{background:var(--card);padding:18px;border-radius:var(--radius);box-shadow:0 8px 24px rgba(15,23,42,0.06)}
+    .pricing-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:18px}
+    .section{margin:48px 0}
+    .steps{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+    .stat-grid{display:flex;gap:18px;flex-wrap:wrap}
+    .stat{flex:1;min-width:120px;background:linear-gradient(180deg,#fff,#fff);padding:18px;border-radius:10px;text-align:center;border:1px solid rgba(15,23,42,0.03)}
+    .stat strong{display:block;font-size:22px;color:var(--accent)}
+
+    /* Pricing cards style (for the new pricing section) */
+    .pricing { padding: 18px 0; }
+    .pricing-grid { display:flex; gap:16px; flex-wrap:wrap; }
+    .pricing-card { background:#fff; border-radius:10px; padding:16px; flex:1 1 280px; border:1px solid rgba(15,23,42,0.04); box-shadow:0 6px 18px rgba(15,23,42,0.04); }
+    .pricing-card h3{ margin:0 0 8px }
+    .price{ color:var(--accent); font-weight:800; font-size:18px; margin:6px 0; }
+    .description{ color:var(--muted); line-height:1.4; }
+    .cta{ display:inline-block; margin-top:12px; padding:10px 14px; border-radius:8px; background:var(--accent); color:#fff; border:0; cursor:pointer; font-weight:700; }
+
+    /* comparison table */
+    .pricing-comparison th, .pricing-comparison td { vertical-align:top; }
+    .pricing-comparison thead tr { background: #fff0; }
+
+    /* responsive */
+    @media (max-width:920px){
+      .hero{grid-template-columns:1fr}
+      .pricing-grid{grid-template-columns:1fr}
+      .nav{flex-direction:column;align-items:flex-start}
+      .container{padding:18px}
+      .pricing-grid { flex-direction:column; }
+    }
+
+    ul{padding-left:18px}
+    .muted{color:var(--muted)}
+    footer{padding:28px 0;color:var(--muted);margin-top:40px}
+
+    a:focus,button:focus{outline:3px solid rgba(255,107,129,0.18);outline-offset:2px}
+    .email-hint{font-size:13px;color:var(--muted);margin-top:8px}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">SuccessStory<span class="accent">.</span></div>
+      <nav>
+        <a href="#why">Why</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#demos" class="badge">Demos</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <span class="kicker">Content Reuse</span>
+        <h1>Turn real customer moments into high-performing content</h1>
+        <p class="lead">Smart reuse beats expensive reshoots. We help brands turn everyday visuals and quotes into targeted assets that convert across channels.</p>
+
+        <div class="cta-row">
+          <button class="btn" id="getStarted">Get Started</button>
+          <button class="btn secondary" onclick="location.href='#demos'">View Examples</button>
+        </div>
+
+        <div class="section">
+          <h3 style="margin-bottom:12px">How the System Works</h3>
+          <div class="steps">
+            <div class="card">
+              <h4>01 — Collect</h4>
+              <p class="muted">Pull existing photos, clips and social posts together for a quick audit.</p>
+            </div>
+            <div class="card">
+              <h4>02 — Tag</h4>
+              <p class="muted">Add metadata for event, mood, product and CTA to make assets searchable.</p>
+            </div>
+            <div class="card">
+              <h4>03 — Repurpose</h4>
+              <p class="muted">Crop, caption and reformat into ads, reels and email headers.</p>
+            </div>
+            <div class="card">
+              <h4>04 — Ship</h4>
+              <p class="muted">Deploy high-impact assets quickly across channels.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside>
+        <div class="card">
+          <h3>Pricing</h3>
+          <div class="pricing-grid">
+            <div class="card">
+              <h4>Setup</h4>
+              <p style="font-weight:700;font-size:18px">$150 <small style="text-decoration:line-through;color:var(--muted);font-weight:400">$300</small></p>
+              <button class="btn" onclick="selectPlan('Setup',150)">Select</button>
+            </div>
+            <div class="card">
+              <h4>Credits</h4>
+              <p style="font-weight:700;font-size:18px">$150 <small style="text-decoration:line-through;color:var(--muted);font-weight:400">$300</small></p>
+              <button class="btn" onclick="selectPlan('Credits',150)">Select</button>
+            </div>
+          </div>
+
+          <div style="margin-top:16px">
+            <h4>Outcomes</h4>
+            <ul class="muted">
+              <li>Lower production costs</li>
+              <li>Faster campaign launches</li>
+              <li>More authentic creative</li>
+            </ul>
+            <div class="email-hint">Also optimized for email subject lines, hero images and CTA buttons.</div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section id="why" class="section">
+      <h3>From archive to action</h3>
+      <p class="muted">Create a living library of on-brand assets and push them to your highest-performing channels in minutes.</p>
+
+      <div class="stat-grid" style="margin-top:18px">
+        <div class="stat"><strong>60%</strong><span class="muted">Cost Reduction</span></div>
+        <div class="stat"><strong>3x</strong><span class="muted">Faster Launches</span></div>
+        <div class="stat"><strong>45%</strong><span class="muted">Higher Engagement</span></div>
+      </div>
+    </section>
+
+    <section id="roadmap" class="section">
+      <h3>Your Roadmap</h3>
+      <div class="steps">
+        <div class="card"><strong>
