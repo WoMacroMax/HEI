@@ -2,28 +2,212 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=https://success-story-campaign.lovable.app/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>A Success STORY's Campaign Strategy</title>
+    <title>Success STORY Vybe</title>
     <meta name="description" content="Flexible campaign pricing with pay-as-you-go model">
     <meta name="author" content="Success STORY">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/successstoryseo.png">
+    <link rel="shortcut icon" type="image/png" href="assets/successstoryseo.png">
+    <link rel="apple-touch-icon" type="image/png" href="assets/successstoryseo.png">
 
     <!-- Open Graph / Social Preview -->
-    <meta property="og:title" content="A Success STORY's Campaign Strategy">
+    <meta property="og:title" content="A Success STORY Vybe">
     <meta property="og:description" content="Proposal Document for Campaign Strategy - October 2025">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="https://sales.womacromax.com/assets/successstoryseo2.jpg">
-    <meta property="og:url" content="https://success-story-campaign.lovable.app/">
+    <meta property="og:image" content="assets/successstoryseo.png">
 
-    <script>
-        // JavaScript redirect as a backup
-        window.location.href = "https://success-story-campaign.lovable.app/";
-    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        #contentFrame {
+            width: 100%;
+            height: 100vh;
+            border: none;
+            display: block;
+        }
+    </style>
+
 </head>
 <body>
-    <p>If you are not redirected automatically, 
-       <a href="https://success-story-campaign.lovable.app/">click here</a>.
-    </p>
+    <script>
+        (function() {
+            // Wait for DOM to be ready
+            function init() {
+                // Obfuscated URL - split and encoded
+                var _0x1a2b = ['aHR0cHM6L', 'y9zdWNjZX', 'NzLXN0b3J5', 'LWNsYXNz', 'aWZpZWRz', 'LmxvdmFibG', 'UuYXBwLw', '=='];
+                var _0x3c4d = function() {
+                    return _0x1a2b.join('');
+                };
+                
+                // Decode function
+                var _0x5e6f = function(str) {
+                    try {
+                        return atob(str);
+                    } catch(e) {
+                        console.error('Decode error:', e);
+                        return '';
+                    }
+                };
+                
+                // Get decoded URL
+                var targetUrl = _0x5e6f(_0x3c4d());
+                
+                // Create and load iframe
+                if (!targetUrl || !document.body) {
+                    console.error('Failed to initialize');
+                    return;
+                }
+                
+                var frame = document.createElement('iframe');
+                frame.id = 'contentFrame';
+                frame.src = targetUrl;
+                frame.setAttribute('frameborder', '0');
+                frame.setAttribute('allowfullscreen', '');
+                frame.setAttribute('allow', 'autoplay; encrypted-media; fullscreen');
+                frame.style.width = '100%';
+                frame.style.height = '100vh';
+                frame.style.border = 'none';
+                frame.style.display = 'block';
+                
+                // Add error handling for iframe load issues
+                frame.onerror = function() {
+                    console.error('Iframe failed to load');
+                    document.body.innerHTML = '<div style="padding: 20px; font-family: Arial; text-align: center;"><h2>Loading...</h2><p>Redirecting...</p></div>';
+                    setTimeout(function() {
+                        window.location.href = targetUrl;
+                    }, 2000);
+                };
+                
+                frame.onload = function() {
+                    console.log('Iframe loaded successfully');
+                    
+                    // Try to modify the subtitle in the iframe
+                    // Note: This may not work due to cross-origin restrictions
+                    try {
+                        var iframeDoc = frame.contentDocument || frame.contentWindow.document;
+                        
+                        // Function to find and replace text
+                        function replaceSubtitleText() {
+                            // Try various selectors for subtitle/hero text
+                            var selectors = [
+                                'p.subtitle-text',
+                                '.subtitle-text',
+                                '.hero p',
+                                '.hero-sub',
+                                'p',
+                                '[class*="subtitle"]',
+                                '[class*="hero"] p'
+                            ];
+                            
+                            for (var i = 0; i < selectors.length; i++) {
+                                var elements = iframeDoc.querySelectorAll(selectors[i]);
+                                for (var j = 0; j < elements.length; j++) {
+                                    var el = elements[j];
+                                    var text = el.textContent || el.innerText || '';
+                                    
+                                    // Check if this element contains the old text
+                                    if (text.includes('Connecting New Jersey communities') || 
+                                        text.includes('New Jersey communities')) {
+                                        el.textContent = 'We connect communities with trusted local businesses, professionals, and talent.';
+                                        el.style.textShadow = '0 0 10px rgba(255, 255, 0, 0.8), 0 0 20px rgba(255, 255, 0, 0.6), 0 0 30px rgba(255, 255, 0, 0.4)';
+                                        el.style.boxShadow = '0 0 20px rgba(255, 255, 0, 0.6)';
+                                        console.log('Subtitle replaced successfully');
+                                        return true;
+                                    }
+                                }
+                            }
+                            
+                            // Also try to find by text content directly
+                            function walkTextNodes(node) {
+                                if (node.nodeType === 3) { // Text node
+                                    var text = node.textContent;
+                                    if (text.includes('Connecting New Jersey communities')) {
+                                        node.textContent = text.replace(/Connecting New Jersey communities[^.]*/g, 
+                                            'We connect communities with trusted local businesses, professionals, and talent.');
+                                        var parent = node.parentElement;
+                                        if (parent) {
+                                            parent.style.textShadow = '0 0 10px rgba(255, 255, 0, 0.8), 0 0 20px rgba(255, 255, 0, 0.6), 0 0 30px rgba(255, 255, 0, 0.4)';
+                                            parent.style.boxShadow = '0 0 20px rgba(255, 255, 0, 0.6)';
+                                        }
+                                        return true;
+                                    }
+                                } else {
+                                    for (var k = 0; k < node.childNodes.length; k++) {
+                                        if (walkTextNodes(node.childNodes[k])) {
+                                            return true;
+                                        }
+                                    }
+                                }
+                                return false;
+                            }
+                            
+                            return walkTextNodes(iframeDoc.body);
+                        }
+                        
+                        // Try immediately
+                        if (!replaceSubtitleText()) {
+                            // If not found, wait a bit and try again (content might still be loading)
+                            setTimeout(function() {
+                                replaceSubtitleText();
+                            }, 1000);
+                            
+                            setTimeout(function() {
+                                replaceSubtitleText();
+                            }, 3000);
+                        }
+                    } catch(e) {
+                        console.warn('Cannot modify iframe content (cross-origin restriction):', e.message);
+                        // Cross-origin restriction - cannot modify iframe content directly
+                    }
+                };
+                
+                document.body.appendChild(frame);
+                
+                // Fallback: if iframe doesn't load within 5 seconds, redirect
+                setTimeout(function() {
+                    try {
+                        var isBlocked = false;
+                        try {
+                            var test = frame.contentWindow;
+                            if (test === null) {
+                                isBlocked = true;
+                            }
+                        } catch(e) {
+                            // Cross-origin error is normal, but check if iframe has any content
+                            var rect = frame.getBoundingClientRect();
+                            if (rect.height === 0 && rect.width === 0) {
+                                isBlocked = true;
+                            }
+                        }
+                        
+                        if (isBlocked) {
+                            console.warn('Iframe blocked - redirecting as fallback');
+                            window.location.href = targetUrl;
+                        }
+                    } catch(e) {
+                        console.error('Error checking iframe status:', e);
+                    }
+                }, 5000);
+            }
+            
+            // Run when DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+        })();
+    </script>
 </body>
 </html>

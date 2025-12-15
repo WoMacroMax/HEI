@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Wanda’s Restaurant of Bayonne | Soulful Dining & Catering</title>
+    <meta
+      name="description"
+      content="Discover Wanda’s Restaurant of Bayonne for soulful dining, weekend brunch, and full-service catering. Reserve a table or book private events today."
+    />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="backdrop" aria-hidden="true"></div>
+    <header class="hero">
+      <h1>Wanda’s Restaurant of Bayonne</h1>
+      <p>Soulful flavors, warm hospitality, and handcrafted cocktails in the heart of Bayonne.</p>
+      <button id="bookingBtn">Reserve a Table</button>
+    </header>
+
+    <main>
+      <section id="highlights">
+        <h2>Why Bayonne Loves Wanda’s</h2>
+        <ul>
+          <li>Signature Cajun Shrimp &amp; Grits and slow-braised short ribs</li>
+          <li>Weekend jazz brunch with bottomless mimosas</li>
+          <li>Locally sourced produce and family recipes</li>
+          <li>Private dining room for celebrations and corporate events</li>
+        </ul>
+      </section>
+
+      <section id="menu">
+        <h2>Featured Menu</h2>
+        <div class="card-grid">
+          <article>
+            <h3>Starters</h3>
+            <p>Bayonne oyster sampler, fried green tomatoes, smoked wings, charred okra.</p>
+          </article>
+          <article>
+            <h3>Mains</h3>
+            <p>Honey bourbon salmon, vegan jambalaya, Harlem-style chicken &amp; waffles.</p>
+          </article>
+          <article>
+            <h3>Cocktails</h3>
+            <p>Wanda’s Sunset, Bayonne Mule, hibiscus spritz, zero-proof garden tonic.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="about">
+        <h2>About Wanda’s</h2>
+        <p>
+          Since 2012, Wanda’s Restaurant of Bayonne has celebrated Black culinary traditions with a modern twist.
+          Chef Wanda Pierre curates seasonal menus inspired by southern comfort classics, Caribbean staples,
+          and the rich diversity of Hudson County. Join us for date night, brunch, or a catered event that keeps guests talking.
+        </p>
+      </section>
+
+      <section id="visit">
+        <h2>Visit Us</h2>
+        <p>
+          318 Broadway, Bayonne, NJ · Open Tuesday–Sunday · Complimentary parking behind the restaurant.
+          Call <a href="tel:12015551234">201-555-1234</a> or email
+          <a href="mailto:events@wandasbayonne.com">events@wandasbayonne.com</a>.
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      <small>© 2025 Wanda’s Restaurant of Bayonne. All rights reserved.</small>
+    </footer>
+
+    <div id="modal" class="modal" role="dialog" aria-modal="true" hidden>
+      <div class="modal__content">
+        <button class="modal__close" aria-label="Close reservation form">&times;</button>
+        <h3>Request a Reservation</h3>
+        <form id="bookingForm">
+          <label>
+            Name
+            <input name="name" required />
+          </label>
+          <label>
+            Email
+            <input type="email" name="email" required />
+          </label>
+          <label>
+            Phone
+            <input type="tel" name="phone" required />
+          </label>
+          <label>
+            Preferred Date
+            <input type="date" name="date" required />
+          </label>
+          <label>
+            Party Size
+            <input type="number" name="size" min="1" max="20" required />
+          </label>
+          <label>
+            Occasion / Notes
+            <textarea name="notes" rows="3" placeholder="Birthday, anniversary, dietary needs…"></textarea>
+          </label>
+          <button type="submit">Submit Request</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
+

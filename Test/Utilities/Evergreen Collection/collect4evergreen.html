@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>WhatsApp Launcher — WoMacroMAX</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+
+<style>
+  :root{
+    --ink:#d7f9f7; --panel:#0f1a24; --panel-2:#0b141c; --glass:#152331cc; --accent:#4bf3e8;
+  }
+  html,body{height:100%}
+  body{
+    background:
+      radial-gradient(1200px 600px at -10% -10%, #12324266, transparent 60%),
+      radial-gradient(1200px 600px at 110% -10%, #0e2d2b66, transparent 60%),
+      linear-gradient(180deg, var(--panel), var(--panel-2));
+    color:#e7eef3; font-family: system-ui, -apple-system, Segoe UI, Roboto, "Inter", Arial, sans-serif;
+  }
+  .shell{max-width: 860px; margin: 28px auto; padding: 0 16px 48px;}
+  .brand{display:flex; align-items:center; gap:12px; margin-bottom:20px;}
+  .brand-badge{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#0bd6c5,#59fff6);
+               display:grid;place-items:center;color:#05242b;font-weight:800;font-size:22px;box-shadow:0 6px 24px #00ffe533;}
+  .brand h1{font-size:20px; margin:0; color:#cfe9ee; letter-spacing:.2px}
+
+  .tiny-label{ font-size:12px; color:#a9c0cb; margin:6px 2px 6px; }
+  .search-wrap{position:relative}
+  .search{
+    background: rgba(21,35,49,.7); border:1px solid #1f3346; color:#dbe7ee;
+    height:56px; padding-left:52px; padding-right:16px;
+    border-radius:16px; box-shadow: inset 0 0 0 1px #12202e;
+  }
+  .search:focus{outline:none; border-color:#2b465f; box-shadow: 0 0 0 2px #23405477}
+  .search-icon{
+    position:absolute; left:16px; top:50%; transform:translateY(-50%); width:22px; height:22px; opacity:.85
+  }
+  .hint{font-size:12px; color:#9fb4be; margin-top:8px}
+
+  .qr-card{
+    background: var(--glass); border:1px solid #1a2b3a; border-radius:22px;
+    padding:18px; margin-top:18px;
+    box-shadow: 0 12px 40px #00000055, inset 0 1px 0 #2b3f52;
+    cursor:pointer; transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .qr-card:hover{ transform: translateY(-2px); box-shadow: 0 18px 50px #00000066 }
+  #qr{ width:100%; display:grid; place-items:center; min-height:340px; position:relative; }
+  .url-show{ color:#b7cdd8; font-size:14px; margin-top:10px; word-break:break-all; }
+  .tap-line{font-size:12px; color:var(--ink); opacity:.85}
+  .actions{ display:flex; gap:8px; margin-top:12px; flex-wrap:wrap }
+  .btn-ink{
+    --bs-btn-color:#06272a; --bs-btn-bg:var(--accent); --bs-btn-border-color:transparent;
+    --bs-btn-hover-bg:#7afff7; --bs-btn-hover-border-color:transparent;
+    font-weight:700;
+  }
+
+  /* Fullscreen "launch" modal (no padding, no horizontal scroll look) */
+  .modal-content{ background:#000; border:0; border-radius:0; }
+  .modal-body{ padding:0 !important; }
+  .modal-dialog{ margin:0; }
+  .modal-fullscreen .modal-body{ overflow:hidden; }
+  body.modal-open{ overflow:hidden; }
+
+  /* Red close button */
+  .close-btn {
+    position: fixed; top: 15px; right: 20px; background: #d90429; color: #fff;
+    border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 22px; font-weight: 700;
+    z-index: 9999; cursor: pointer; transition: background .2s ease; line-height: 40px; text-align:center;
+  }
+  .close-btn:hover { background: #ff3c3c; }
+
+  .launch-panel{
+    position: absolute; inset: 0; display: grid; place-items: center; color: #cde7ef;
+  }
+  .launch-box{
+    background: rgba(21,35,49,.75); border:1px solid #274056; border-radius: 18px; padding: 22px 20px;
+    max-width: 560px; width: calc(100% - 40px); text-align: center;
+  }
+  .launch-box .btn{ margin-top: 10px; }
+</style>
+</head>
+<body>
+  <main class="shell">
+    <div class="brand">
+      <div class="brand-badge">n</div>
+      <h1>WoMacroMAX — WhatsApp Launcher</h1>
+    </div>
+
+    <!-- Country code + phone -->
+    <label class="tiny-label" for="phoneInput">Phone Number</label>
+    <div class="row g-2 align-items-center">
+      <div class="col-4 col-md-3">
+        <div class="search-wrap">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+            <path d="M3 6h18M3 12h18M3 18h10" stroke="#b9ccd6" stroke-linecap="round"/>
+          </svg>
+          <input id="ccInput" class="form-control search" type="text" value="+1" aria-label="Country code">
+        </div>
+      </div>
+      <div class="col-8 col-md-9">
+        <div class="search-wrap">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.09 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.3 1.77.57 2.61a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.47-1.14a2 2 0 0 1 2.11-.45c.84.27 1.71.45 2.61.57A2 2 0 0 1 22 16.92z" stroke="#b9ccd6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <input id="phoneInput" class="form-control search" type="tel" placeholder="(555) 123-4567">
+        </div>
+      </div>
+    </div>
+    <div class="hint">Enter country code (e.g. +1 US) and number. We’ll format to E.164 for WhatsApp.</div>
+
+    <!-- Optional message -->
+    <label class="tiny-label" for="msgInput">Message (optional)</label>
+    <div class="search-wrap">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="#b9ccd6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <input id="msgInput" class="form-control search" type="text" placeholder="Hi! Can we talk now?">
+    </div>
+
+    <!-- QR CARD -->
+    <section id="qrCard" class="qr-card" title="Open WhatsApp">
+      <div id="qr"></div>
+      <div class="d-flex align-items-center justify-content-between mt-2">
+        <div class="url-show" id="linkEcho"></div>
+        <div class="tap-line ms-3">Tap the QR to launch WhatsApp</div>
+      </div>
+      <div class="actions">
+        <button id="openBtn" class="btn btn-ink btn-sm">Open in WhatsApp</button>
+        <button id="copyBtn" class="btn btn-outline-light btn-sm">Copy Link</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- FULLSCREEN "LAUNCH" MODAL (no padding look, no iframe) -->
+  <div class="modal fade" id="launchModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+      <div class="modal-content">
+        <div class="modal-body">
+          <button type="button" class="close-btn" id="closeModalBtn" aria-label="Close">×</button>
+          <div class="launch-panel">
+            <div class="launch-box">
+              <h5 class="mb-2">Launching WhatsApp…</h5>
+              <p class="mb-2">If nothing opens, tap one of the buttons below:</p>
+              <div id="fallbackBtns"></div>
+              <p class="mt-3 mb-0" style="font-size:12px;opacity:.8">
+                Note: Direct voice/video call deep links aren’t supported by WhatsApp. We open a chat with this contact; you can tap the call button in WhatsApp.
+              </p>
+            </div>
+          </div>
+          <!-- No iframe here: WhatsApp blocks embedding. The modal is zero-padding visually consistent. -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  const ccInput = document.getElementById('ccInput');
+  const phoneInput = document.getElementById('phoneInput');
+  const msgInput = document.getElementById('msgInput');
+
+  const qrWrap = document.getElementById('qr');
+  const linkEcho = document.getElementById('linkEcho');
+  const qrCard = document.getElementById('qrCard');
+
+  const openBtn = document.getElementById('openBtn');
+  const copyBtn = document.getElementById('copyBtn');
+
+  const launchModalEl = document.getElementById('launchModal');
+  const closeBtn = document.getElementById('closeModalBtn');
+  const fallbackBtns = document.getElementById('fallbackBtns');
+  const launchModal = new bootstrap.Modal(launchModalEl, {keyboard:true});
+
+  function toE164(cc, local){
+    const c = (cc || '').toString().trim();
+    const n = (local || '').toString().trim();
+    // Strip non-digits
+    const ccDigits = c.replace(/[^\d]/g,'');
+    const nDigits  = n.replace(/[^\d]/g,'');
+    if(!ccDigits && !nDigits) return '';
+    // If local already starts with country digits (common), keep as-is after strip
+    return ccDigits + nDigits;
+  }
+
+  function buildLinks(){
+    const e164 = toE164(ccInput.value, phoneInput.value);
+    const msg  = encodeURIComponent((msgInput.value || '').trim());
+    if(!e164) return {deep:'', web:'', qr:''};
+
+    // Deep link to mobile app
+    const deep = `whatsapp://send?phone=${e164}${msg ? '&text='+msg : ''}`;
+
+    // Web / universal
+    const web  = `https://wa.me/${e164}${msg ? '?text='+msg : ''}`;
+
+    return {deep, web, qr:web};
+  }
+
+  let QR = null;
+  function renderQR(text){
+    qrWrap.innerHTML = '';
+    if(!text){ linkEcho.textContent = '—'; return; }
+    linkEcho.textContent = text;
+    QR = new QRCode(qrWrap, {
+      text, width: 580, height: 580,
+      colorDark : "#eafcff", colorLight : "#0a1620",
+      correctLevel : QRCode.CorrectLevel.H
+    });
+  }
+
+  function update(){
+    const {web} = buildLinks();
+    renderQR(web);
+  }
+
+  // Attempt to open local WhatsApp; fallback to wa.me
+  function launch(){
+    const {deep, web} = buildLinks();
+    if(!web) return;
+
+    // Prepare modal with fallbacks
+    fallbackBtns.innerHTML = `
+      <a class="btn btn-ink w-100" href="${deep}" id="deepBtn">Open WhatsApp App</a>
+      <a class="btn btn-outline-light w-100" href="${web}" target="_blank" rel="noopener">Open in WhatsApp Web</a>
+    `;
+    launchModal.show();
+
+    // Try deep link first
+    const openDeep = () => {
+      // Attempt deep link. Some browsers block programmatic navigation; user gesture from button/QR click helps.
+      window.location.href = deep;
+      // If nothing happens within 1200ms, open wa.me as fallback (desktop)
+      setTimeout(()=> {
+        // If still on the page (heuristic), open WhatsApp Web
+        window.open(web, '_blank', 'noopener');
+      }, 1200);
+    };
+
+    // Start deep-link attempt immediately after showing modal
+    setTimeout(openDeep, 50);
+  }
+
+  async function copyLink(){
+    const {web} = buildLinks();
+    if(!web) return;
+    try{ await navigator.clipboard.writeText(web); copyBtn.textContent='Copied!'; }
+    catch(e){ copyBtn.textContent='Copy failed'; }
+    setTimeout(()=> copyBtn.textContent='Copy Link', 1200);
+  }
+
+  // Events
+  [ccInput, phoneInput, msgInput].forEach(el => el.addEventListener('input', update));
+  qrCard.addEventListener('click', launch);
+  openBtn.addEventListener('click', launch);
+  copyBtn.addEventListener('click', copyLink);
+  closeBtn.addEventListener('click', ()=> launchModal.hide());
+
+  // Init
+  update();
+</script>
+</body>
+</html>
