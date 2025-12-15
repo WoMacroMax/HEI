@@ -1,2 +1,10 @@
 # Local Netlify folder
 .netlify
+
+# Sensitive credentials - DO NOT COMMIT
+**/service-account*.json
+**/gmail-api-key*.json
+**/*automation*.json
+**/*credentials*.json
+*.key
+*.pem
