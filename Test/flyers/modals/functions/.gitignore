@@ -1,2 +1,9 @@
 node_modules/
 *.local
+
+# Sensitive credentials - DO NOT COMMIT
+*-automation-*.json
+gmail-api-key.json
+*.json.key
+*credentials*.json
+*service-account*.json
