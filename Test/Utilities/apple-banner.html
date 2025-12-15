@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SVG Banner with Clickable Apple</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    .banner-container {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .banner-image {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .apple-button {
+      position: absolute;
+      top: calc(50% - 200px);
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 120px;
+      height: 140px;
+      background: transparent;
+      display: inline-block;
+      cursor: pointer;
+      border: none;
+      border-radius: 20%;
+      transition: all 0.2s ease;
+    }
+
+    .apple-button:hover {
+      transform: translate(-50%, -50%) scale(1.05);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    @media (max-width: 600px) {
+      .apple-button {
+        width: 80px;
+        height: 100px;
+      }
+    }
+
+    /* Green apple 3D buy button */
+    .buy-apple-button-3d {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) perspective(500px) rotateX(5deg);
+      background: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(240,255,240,0.95) 100%);
+      border: none;
+      padding: 16px 28px 20px;
+      cursor: pointer;
+      border-radius: 20px;
+      box-shadow: 
+        0 15px 35px rgba(34, 197, 94, 0.4),
+        0 5px 15px rgba(0, 0, 0, 0.2),
+        inset 0 -4px 8px rgba(34, 197, 94, 0.2),
+        inset 0 2px 4px rgba(255, 255, 255, 0.8);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .buy-apple-button-3d::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      padding: 3px;
+      background: linear-gradient(145deg, rgba(74, 222, 128, 0.6), rgba(34, 197, 94, 0.8));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+    }
+
+    .buy-apple-button-3d:hover {
+      transform: translateX(-50%) perspective(500px) rotateX(0deg) translateY(-8px) scale(1.05);
+      box-shadow: 
+        0 25px 50px rgba(34, 197, 94, 0.5),
+        0 10px 25px rgba(0, 0, 0, 0.25),
+        inset 0 -6px 12px rgba(34, 197, 94, 0.3),
+        inset 0 2px 4px rgba(255, 255, 255, 0.9);
+      animation: none;
+    }
+
+    .buy-apple-button-3d:active {
+      transform: translateX(-50%) perspective(500px) rotateX(5deg) translateY(2px) scale(0.98);
+      box-shadow: 
+        0 8px 20px rgba(34, 197, 94, 0.3),
+        0 3px 10px rgba(0, 0, 0, 0.15),
+        inset 0 -2px 4px rgba(34, 197, 94, 0.2),
+        inset 0 2px 4px rgba(255, 255, 255, 0.6);
+    }
+
+    .apple-button-image {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 8px rgba(34, 197, 94, 0.3));
+      transition: transform 0.3s ease;
+    }
+
+    .buy-apple-button-3d:hover .apple-button-image {
+      transform: scale(1.1) rotate(-5deg);
+    }
+
+    .buy-text {
+      font-size: 16px;
+      font-weight: 700;
+      color: #166534;
+      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+      letter-spacing: 0.5px;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateX(-50%) perspective(500px) rotateX(5deg) translateY(0);
+      }
+      50% {
+        transform: translateX(-50%) perspective(500px) rotateX(5deg) translateY(-6px);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .buy-apple-button-3d {
+        padding: 12px 20px 16px;
+        bottom: 20px;
+      }
+      
+      .apple-button-image {
+        width: 60px;
+        height: 60px;
+      }
+      
+      .buy-text {
+        font-size: 14px;
+      }
+    }
+
+    .iframe-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .iframe-overlay.hidden {
+      display: none;
+    }
+
+    .close-button {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      background: white;
+      border: none;
+      border-radius: 50%;
+      font-size: 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1001;
+    }
+
+    .close-button:hover {
+      background: #ddd;
+    }
+
+    .profile-iframe {
+      width: 90%;
+      max-width: 500px;
+      height: 80vh;
+      border: none;
+      border-radius: 12px;
+      background: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="banner-container">
+    <img
+      src="https://copilot.microsoft.com/th/id/BCO.60146bee-5fe6-4858-8223-23dd3dc57fa3.png"
+      alt="Glass table with apples"
+      class="banner-image"
+    />
+    
+    <!-- Clickable apple overlay -->
+    <button class="apple-button" aria-label="Open profile" onclick="showIframe()"></button>
+
+    <!-- Green apple 3D buy button -->
+    <button class="buy-apple-button-3d" aria-label="Buy Green Apples" onclick="showIframe()">
+      <img src="https://cdn-icons-png.flaticon.com/512/415/415682.png" alt="Green Apple" class="apple-button-image" />
+      <span class="buy-text">Buy Green Apples!</span>
+    </button>
+
+    <!-- Iframe overlay -->
+    <div id="iframeOverlay" class="iframe-overlay hidden">
+      <button class="close-button" aria-label="Close" onclick="hideIframe()">×</button>
+      <iframe
+        src="https://rapid-reach-card.lovable.app/page?profile=PinkyBeads"
+        title="Profile"
+        class="profile-iframe"
+      ></iframe>
+    </div>
+  </div>
+
+  <script>
+    function showIframe() {
+      document.getElementById('iframeOverlay').classList.remove('hidden');
+    }
+
+    function hideIframe() {
+      document.getElementById('iframeOverlay').classList.add('hidden');
+    }
+  </script>
+</body>
+</html>

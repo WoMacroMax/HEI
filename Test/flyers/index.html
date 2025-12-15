@@ -2,277 +2,45 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Resident Services</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
-  <link href="styles.css" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wanda’s Toy Drive | Bring Joy, Give Hope</title>
+
+  <!-- SEO Metadata -->
+  <meta name="description" content="Wanda’s Toy Drive — donate new, unwrapped toys to bring joy, dignity, and hope to local kids." />
+  <meta name="keywords" content="Wanda’s Toy Drive, holiday toy drive, community giving, donate toys, outreach, kids joy" />
+  <link rel="canonical" href="https://shorty-route.lovable.app/view/te403lBD" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Wanda’s Toy Drive | Bring Joy, Give Hope" />
+  <meta property="og:description" content="Donate new, unwrapped toys and help local families celebrate the holidays with dignity." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://shorty-route.lovable.app/view/te403lBD" />
+  <meta property="og:image" content="https://id-preview--29553f3f-951c-4ed4-b3d0-623d3472e574.lovable.app/WandaFlyer000" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Wanda’s Toy Drive | Bring Joy, Give Hope" />
+  <meta name="twitter:description" content="Join Wanda’s Toy Drive to donate new, unwrapped toys for local kids." />
+  <meta name="twitter:image" content="https://id-preview--29553f3f-951c-4ed4-b3d0-623d3472e574.lovable.app/WandaFlyer000" />
+
   <style>
-    .modal-link {
-      color: #0d6efd;
-      text-decoration: underline;
-      cursor: pointer;
-      font-size: 0.9em;
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
     }
-
-    .form-check {
-      margin-bottom: 1rem;
-    }
-
-    .highlight-error {
-      border: 2px solid red;
-      border-radius: 8px;
-      padding: 10px;
-    }
-
-    /* Responsive Modal Styling */
-    .modal-dialog {
-      max-width: 90vw;
-      margin: 1.75rem auto;
-    }
-
-    .modal-content {
-      max-height: 90vh;
-      overflow-y: auto;
-      border-radius: 1rem;
-      padding: 1rem;
-    }
-
-    @media (max-width: 576px) {
-      .modal-content {
-        padding: 1rem;
-        font-size: 0.95rem;
-      }
-
-      .modal-footer,
-      .modal-header,
-      .modal-body {
-        flex-wrap: wrap;
-        gap: 0.5rem;
-      }
-    }
-
-    @media (max-height: 500px) {
-      .modal-content {
-        max-height: 80vh;
-      }
-    }
-
-    /* Zoom to 85% for small screens under 400px wide */
-    @media (max-width: 400px) {
-      body {
-        transform: scale(0.99);
-        transform-origin: top center;
-        width: 100%;
-        overflow-x: hidden;
-      }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
     }
   </style>
 </head>
 <body>
-  <!-- Title Bar -->
-  <div class="title-bar text-center shadow">
-    <h1 class="m-0 fw-bold">Resident Services</h1>
-  </div>
-
-  <!-- Scrollable Content Section -->
-  <div class="scroll-section container">
-    <div class="card p-4 shadow-sm mb-4">
-      <p class="text-muted">
-        Our Resident Service Coordinator will provide assistance and access to community-based supports,
-        skills training and resources.
-      </p>
-      <h4 class="mb-3">Our Services Connect You With:</h4>
-      <form id="servicesForm">
-        <div id="serviceCheckboxGroup" class="container mt-5">
-          <div class="form-check d-flex align-items-center">
-            <input class="form-check-input me-2" type="checkbox" id="rentalCheckbox">
-            <label class="form-check-label me-2" for="rentalCheckbox">Rental Assistance</label>
-            <span class="modal-link" data-bs-toggle="modal" data-bs-target="#rentalModal">(info)</span>
-          </div>
-          <div class="form-check d-flex align-items-center">
-            <input class="form-check-input me-2" type="checkbox" id="utilityCheckbox">
-            <label class="form-check-label me-2" for="utilityCheckbox">Utility Assistance</label>
-            <span class="modal-link" data-bs-toggle="modal" data-bs-target="#utilityModal">(info)</span>
-          </div>
-          <div class="form-check d-flex align-items-center">
-            <input class="form-check-input me-2" type="checkbox" id="wellnessCheckbox">
-            <label class="form-check-label me-2" for="wellnessCheckbox">Health & Wellness Program</label>
-            <span class="modal-link" data-bs-toggle="modal" data-bs-target="#healthWelnessModal">(info)</span>
-          </div>
-          <div class="form-check d-flex align-items-center">
-            <input class="form-check-input me-2" type="checkbox" id="familyCheckbox">
-            <label class="form-check-label me-2" for="familyCheckbox">Family Support</label>
-            <span class="modal-link" data-bs-toggle="modal" data-bs-target="#familyModal">(info)</span>
-          </div>
-          <div class="form-check d-flex align-items-center">
-            <input class="form-check-input me-2" type="checkbox" id="otherCheckbox">
-            <label class="form-check-label me-2" for="otherCheckbox">Other Services</label>
-            <span class="modal-link" data-bs-toggle="modal" data-bs-target="#otherModal">(info)</span>
-          </div>
-        </div>
-
-        <!-- Modal containers -->
-        <div id="modal-container">
-          <div id="rentalModalContainer"></div>
-          <div id="utilityModalContainer"></div>
-          <div id="healthWelnessModalContainer"></div>
-          <div id="familyModalContainer"></div>
-          <div id="otherModalContainer"></div>
-        </div>
-
-        <div class="text-end">
-          <button type="button" class="btn btn-primary mt-3" id="requestServicesBtn">
-            Request Services
-          </button>
-        </div>
-      </form>
-    </div>
-
-    <div class="card p-4 shadow-sm">
-      <h5>Get in touch with us:</h5>
-      <p><strong>Rodney Womack</strong><br />Sr. Resident Service Coordinator<br />
-        <span>+1-703-596-2482</span><br />
-        <a href="mailto:blab942@yahoo.com">blab942@yahoo.com</a><br />
-        4442 Alabama Avenue SE, DC 20019
-      </p>
-      <p>Scan the QR code below for more info:</p>
-      <img src="https://api.qrserver.com/v1/create-qr-code/?data=4442%20Alabama%20Ave%20SE,%20DC%2020019%20Learning%20Center&size=150x150" alt="QR Code" style="width: 75px; height: 75px;" />
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <div class="footer-bar text-center shadow">
-    <div class="social-icons d-flex justify-content-center flex-wrap">
-      <a href="#"><i class="fab fa-facebook-f"></i></a>
-      <a href="#"><i class="fab fa-twitter"></i></a>
-      <a href="#"><i class="fab fa-instagram"></i></a>
-      <a href="tel:+17035962482"><i class="fas fa-phone"></i></a>
-      <a href="https://womacromax.github.io/HEI/Test/flyers/modals/email-modal-complete.html"><i class="fas fa-envelope"></i></a>
-    </div>
-  </div>
-
-  <!-- Scripts -->
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    function saveCheckboxStates() {
-      const checkboxIds = [
-        'rentalCheckbox',
-        'utilityCheckbox',
-        'wellnessCheckbox',
-        'familyCheckbox',
-        'otherCheckbox'
-      ];
-      checkboxIds.forEach(id => {
-        const isChecked = document.getElementById(id).checked;
-        localStorage.setItem(id, isChecked);
-      });
-    }
-
-    function loadCheckboxStates() {
-      const checkboxIds = [
-        'rentalCheckbox',
-        'utilityCheckbox',
-        'wellnessCheckbox',
-        'familyCheckbox',
-        'otherCheckbox'
-      ];
-      checkboxIds.forEach(id => {
-        const savedState = localStorage.getItem(id);
-        if (savedState !== null) {
-          document.getElementById(id).checked = savedState === 'true';
-        }
-      });
-    }
-
-    $(document).ready(function () {
-      $('#rentalModalContainer').load('rental-assistance-modal.html');
-      $('#utilityModalContainer').load('utility-assistance-modal.html');
-      $('#healthWelnessModalContainer').load('health-wellness-modal.html');
-      $('#familyModalContainer').load('family-support-modal.html');
-      $('#otherModalContainer').load('other-modal.html');
-
-      loadCheckboxStates();
-
-      $('#serviceCheckboxGroup input[type="checkbox"]').on('change', saveCheckboxStates);
-
-      $('#requestServicesBtn').on('click', function () {
-        const selected = [];
-        if ($('#rentalCheckbox').is(':checked')) selected.push('Rental Assistance');
-        if ($('#utilityCheckbox').is(':checked')) selected.push('Utility Assistance');
-        if ($('#wellnessCheckbox').is(':checked')) selected.push('Health & Wellness');
-        if ($('#familyCheckbox').is(':checked')) selected.push('Family Support');
-        if ($('#otherCheckbox').is(':checked')) selected.push('Other Services');
-
-        const checkboxGroup = $('#serviceCheckboxGroup');
-
-        if (selected.length === 0) {
-          checkboxGroup.addClass('highlight-error');
-          $('html, body').animate({
-            scrollTop: checkboxGroup.offset().top - 100
-          }, 500);
-          return;
-        } else {
-          checkboxGroup.removeClass('highlight-error');
-        }
-
-        const message = 'I would like to request the following services: ' + selected.join(', ');
-        const encodedMessage = encodeURIComponent(message);
-        window.location.href = `modals/email-modal.html?message=${encodedMessage}`;
-      });
-    });
-
-    function selectRental() {
-      $('#rentalCheckbox').prop('checked', true).trigger('change');
-      bootstrap.Modal.getOrCreateInstance(document.getElementById('rentalModal')).hide();
-    }
-
-    function cancelRental() {
-      $('#rentalCheckbox').prop('checked', false).trigger('change');
-      bootstrap.Modal.getOrCreateInstance(document.getElementById('rentalModal')).hide();
-    }
-
-    function selectUtility() {
-      $('#utilityCheckbox').prop('checked', true).trigger('change');
-      bootstrap.Modal.getOrCreateInstance(document.getElementById('utilityModal')).hide();
-    }
-
-    function cancelUtility() {
-      $('#utilityCheckbox').prop('checked', false).trigger('change');
-      bootstrap.Modal.getOrCreateInstance(document.getElementById('utilityModal')).hide();
-    }
-
-    function selecthealthWelness() {
-      $('#wellnessCheckbox').prop('checked', true).trigger('change');
-      bootstrap.Modal.getOrCreateInstance(document.getElementById('healthWelnessModal')).hide();
-    }
-
-    function cancelhealthWelness() {
-      $('#wellnessCheckbox').prop('checked', false).trigger('change');
-      bootstrap.Modal.getOrCreateInstance(document.getElementById('healthWelnessModal')).hide();
-    }
-
-    function selectFamily() {
-      $('#familyCheckbox').prop('checked', true).trigger('change');
-      bootstrap.Modal.getOrCreateInstance(document.getElementById('familyModal')).hide();
-    }
-
-    function cancelFamily() {
-      $('#familyCheckbox').prop('checked', false).trigger('change');
-      bootstrap.Modal.getOrCreateInstance(document.getElementById('familyModal')).hide();
-    }
-
-    function selectOther() {
-      $('#otherCheckbox').prop('checked', true).trigger('change');
-      bootstrap.Modal.getOrCreateInstance(document.getElementById('otherModal')).hide();
-    }
-
-    function cancelOther() {
-      $('#otherCheckbox').prop('checked', false).trigger('change');
-      bootstrap.Modal.getOrCreateInstance(document.getElementById('otherModal')).hide();
-    }
-  </script>
+  <iframe src="https://shorty-route.lovable.app/view/te403lBD" 
+          title="Wanda’s Toy Drive Flyer"></iframe>
 </body>
 </html>
-KB
