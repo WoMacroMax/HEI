@@ -1,0 +1,17 @@
+what section contains the image?
+
+Here’s where the image (and the equivalent visual) live:
+public/banner.html (static banner)
+The image is in the banner-image section:
+Section: <div class="banner-image"> (lines 547–551)
+Content: A single <img> for the DigiUCard logo:
+src: Supabase URL (.../1768759747555-DigiUCard_Favicon_3.png)
+alt: "OptiMantra Logo"
+class: logo-icon
+Layout: banner-image is the left column (55% width) of the grid; banner-content (tagline, title, description, “Learn more” button) is the right column.
+So the image is in the banner-image section.
+LiveBannerPage.tsx (React banner)
+There is no static image on the left. The left side is the brand section:
+Section: <section id="brand" ... aria-label="Brand"> (lines 300–336)
+Content: YouTube brand video embed (center-cropped), not an <img>.
+So on LiveBanner, the “image” area is the brand section (video), not a separate image section.

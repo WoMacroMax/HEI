@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>DocToWeb — Multi-File Converter</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0d0d0f;
+  --surface: #16161a;
+  --surface2: #1e1e24;
+  --border: #2a2a30;
+  --text: #e8e6e1;
+  --muted: #6b6878;
+  --accent: #7affd4;
+  --accent2: #ff6b6b;
+  --accent3: #ffd166;
+  --accent4: #b197fc;
+  --accent5: #ff9f43;
+}
+
+body {
+  background: var(--bg); color: var(--text);
+  font-family: 'Syne', sans-serif;
+  height: 100vh; display: flex; flex-direction: column; overflow: hidden;
+}
+
+/* ── HEADER ── */
+header {
+  padding: 15px 28px; display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid var(--border); flex-shrink: 0;
+}
+.logo { font-size: 1rem; font-weight: 800; display: flex; align-items: center; gap: 9px; }
+.logo-icon { width: 28px; height: 28px; background: var(--accent); border-radius: 7px; display: grid; place-items: center; }
+.logo-icon svg { width: 15px; height: 15px; stroke: #0d0d0f; fill: none; stroke-width: 2.5; }
+.logo span { color: var(--accent); }
+.badge-pill { font-size: 0.65rem; font-family: 'DM Mono', monospace; color: var(--muted); border: 1px solid var(--border); padding: 3px 11px; border-radius: 20px; }
+
+/* ── LAYOUT ── */
+main { flex: 1; display: grid; grid-template-columns: 360px 1fr; min-height: 0; }
+
+/* ── LEFT PANEL ── */
+.panel-left { border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; }
+.panel-left-scroll { flex: 1; overflow-y: auto; padding: 20px 20px 0; display: flex; flex-direction: column; gap: 16px; }
+
+.sec-title {
+  font-size: 0.61rem; font-family: 'DM Mono', monospace;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 7px;
+}
+
+/* ── TOGGLE TABS ── */
+.toggle-tabs { display: grid; background: var(--surface); border: 1px solid var(--border); border-radius: 9px; padding: 3px; gap: 3px; }
+.toggle-tabs.c2 { grid-template-columns: 1fr 1fr; }
+.toggle-tabs.c3 { grid-template-columns: 1fr 1fr 1fr; }
+.toggle-tab {
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 8px 4px; border-radius: 6px; border: none; background: transparent;
+  color: var(--muted); font-family: 'Syne', sans-serif; font-size: 0.73rem;
+  font-weight: 700; cursor: pointer; transition: all 0.15s; white-space: nowrap;
+}
+.toggle-tab svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 2; flex-shrink: 0; }
+.toggle-tab.active { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
+.toggle-tab.active svg { stroke: var(--accent); }
+.out-tabs .toggle-tab.active svg { stroke: var(--accent4); }
+.out-tabs .toggle-tab[data-mode="prompt"].active svg { stroke: var(--accent5); }
+.out-tabs .toggle-tab[data-mode="prompt"].active { color: var(--accent5); }
+
+/* ── DROP ZONE ── */
+.drop-zone {
+  border: 2px dashed var(--border); border-radius: 12px; padding: 26px 16px;
+  text-align: center; cursor: pointer; transition: all 0.2s; position: relative; background: var(--surface);
+}
+.drop-zone:hover, .drop-zone.drag-over { border-color: var(--accent); background: rgba(122,255,212,0.04); }
+.drop-zone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+.drop-icon { width: 42px; height: 42px; background: rgba(122,255,212,0.1); border-radius: 10px; display: grid; place-items: center; margin: 0 auto 10px; }
+.drop-icon svg { width: 20px; height: 20px; stroke: var(--accent); fill: none; stroke-width: 1.8; }
+.drop-label { font-size: 0.85rem; font-weight: 700; margin-bottom: 3px; }
+.drop-sub { font-size: 0.67rem; color: var(--muted); font-family: 'DM Mono', monospace; line-height: 1.5; }
+
+/* ── FILE QUEUE ── */
+.queue-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 7px; }
+.queue-count { font-size: 0.66rem; font-family: 'DM Mono', monospace; color: var(--accent); background: rgba(122,255,212,0.1); padding: 2px 8px; border-radius: 20px; }
+.clear-all-btn { font-size: 0.64rem; font-family: 'DM Mono', monospace; color: var(--muted); background: none; border: none; cursor: pointer; padding: 2px 6px; border-radius: 4px; transition: color 0.15s; }
+.clear-all-btn:hover { color: var(--accent2); }
+.file-queue { display: flex; flex-direction: column; gap: 5px; }
+.file-item {
+  display: flex; align-items: center; gap: 9px; padding: 8px 10px;
+  border-radius: 8px; border: 1.5px solid var(--border); background: var(--surface);
+  cursor: pointer; transition: all 0.15s; position: relative;
+}
+.file-item:hover { border-color: var(--muted); }
+.file-item.active { border-color: var(--accent); background: rgba(122,255,212,0.05); }
+.file-item.active .file-name { color: var(--accent); }
+.file-item.done { border-color: rgba(122,255,212,0.3); }
+.file-item.error { border-color: rgba(255,107,107,0.35); }
+.file-item.converting { border-color: rgba(255,209,102,0.4); }
+.file-thumb { width: 30px; height: 34px; border-radius: 5px; flex-shrink: 0; background: var(--surface2); border: 1px solid var(--border); display: grid; place-items: center; overflow: hidden; }
+.file-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.file-thumb svg { width: 14px; height: 14px; stroke: var(--muted); fill: none; stroke-width: 1.5; }
+.file-info { flex: 1; min-width: 0; }
+.file-name { font-size: 0.73rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 2px; }
+.file-meta { font-size: 0.63rem; color: var(--muted); font-family: 'DM Mono', monospace; }
+.file-status { width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0; display: grid; place-items: center; }
+.file-status.idle    { background: var(--surface2); border: 1px solid var(--border); }
+.file-status.converting { background: rgba(255,209,102,0.15); border: 1px solid rgba(255,209,102,0.4); }
+.file-status.done    { background: rgba(122,255,212,0.15); border: 1px solid rgba(122,255,212,0.4); }
+.file-status.error   { background: rgba(255,107,107,0.12); border: 1px solid rgba(255,107,107,0.35); }
+.status-spin { width: 9px; height: 9px; border: 1.5px solid rgba(255,209,102,0.3); border-top-color: var(--accent3); border-radius: 50%; animation: spin 0.7s linear infinite; }
+.status-check { color: var(--accent); font-size: 9px; }
+.status-x { color: var(--accent2); font-size: 10px; font-weight: 700; }
+.status-dot-idle { width: 5px; height: 5px; background: var(--border); border-radius: 50%; }
+.file-remove { width: 17px; height: 17px; border-radius: 50%; background: none; border: none; color: var(--muted); cursor: pointer; display: grid; place-items: center; font-size: 14px; flex-shrink: 0; transition: all 0.15s; opacity: 0; }
+.file-item:hover .file-remove { opacity: 1; }
+.file-remove:hover { color: var(--accent2); background: rgba(255,107,107,0.1); }
+
+/* ── OUTPUT MODE PANELS ── */
+.out-panel { display: none; }
+.out-panel.show { display: block; }
+
+/* Raster options */
+.raster-opts { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+.scale-row { display: flex; align-items: center; gap: 10px; }
+.scale-row label { font-size: 0.67rem; font-family: 'DM Mono', monospace; color: var(--muted); white-space: nowrap; }
+.scale-slider { flex: 1; -webkit-appearance: none; height: 3px; background: var(--border); border-radius: 2px; outline: none; }
+.scale-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; background: var(--accent4); cursor: pointer; }
+.scale-val { font-size: 0.68rem; font-family: 'DM Mono', monospace; color: var(--accent4); width: 26px; text-align: right; }
+
+/* ── PROMPT BOX ── */
+.prompt-wrap { margin-top: 8px; display: flex; flex-direction: column; gap: 8px; }
+
+.prompt-textarea {
+  width: 100%; min-height: 110px; max-height: 200px;
+  background: var(--surface); border: 1.5px solid var(--border); border-radius: 10px;
+  color: var(--text); font-family: 'DM Mono', monospace; font-size: 0.75rem;
+  line-height: 1.6; padding: 12px 14px; resize: vertical; outline: none;
+  transition: border-color 0.15s;
+}
+.prompt-textarea:focus { border-color: var(--accent5); }
+.prompt-textarea::placeholder { color: var(--muted); }
+
+.prompt-hint {
+  font-size: 0.65rem; font-family: 'DM Mono', monospace; color: var(--muted); line-height: 1.6;
+}
+.prompt-hint strong { color: var(--accent5); }
+
+.prompt-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.prompt-chip {
+  font-size: 0.63rem; font-family: 'DM Mono', monospace; color: var(--muted);
+  border: 1px solid var(--border); border-radius: 20px; padding: 3px 9px;
+  cursor: pointer; transition: all 0.15s; background: var(--surface);
+}
+.prompt-chip:hover { border-color: var(--accent5); color: var(--accent5); }
+
+/* Single-page output badge */
+.single-page-note {
+  display: flex; align-items: center; gap: 7px; padding: 8px 12px;
+  background: rgba(255,159,67,0.08); border: 1px solid rgba(255,159,67,0.25);
+  border-radius: 8px; font-size: 0.67rem; font-family: 'DM Mono', monospace; color: var(--accent5);
+}
+.single-page-note svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 2; flex-shrink: 0; }
+
+/* ── STYLE PICKER ── */
+.style-options { display: flex; flex-direction: column; gap: 6px; }
+.style-section.dimmed { opacity: 0.3; pointer-events: none; }
+.style-option { display: flex; align-items: center; gap: 10px; padding: 9px 11px; border-radius: 9px; border: 1.5px solid var(--border); cursor: pointer; transition: all 0.15s; background: var(--surface); }
+.style-option:hover { border-color: var(--muted); }
+.style-option.selected { border-color: var(--accent); background: rgba(122,255,212,0.06); }
+.style-swatch { width: 26px; height: 26px; border-radius: 5px; flex-shrink: 0; }
+.style-info { flex: 1; }
+.style-name { font-size: 0.79rem; font-weight: 700; margin-bottom: 1px; }
+.style-desc { font-size: 0.64rem; color: var(--muted); font-family: 'DM Mono', monospace; }
+.style-check { width: 15px; height: 15px; border-radius: 50%; border: 1.5px solid var(--border); display: grid; place-items: center; flex-shrink: 0; transition: all 0.15s; }
+.style-option.selected .style-check { background: var(--accent); border-color: var(--accent); }
+.style-option.selected .style-check::after { content: ''; width: 5px; height: 5px; background: var(--bg); border-radius: 50%; }
+
+/* ── BOTTOM ACTIONS ── */
+.panel-actions { padding: 14px 20px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 7px; flex-shrink: 0; }
+
+.convert-all-btn {
+  width: 100%; padding: 12px; background: var(--accent); color: var(--bg);
+  border: none; border-radius: 10px; font-family: 'Syne', sans-serif;
+  font-size: 0.86rem; font-weight: 800; cursor: pointer; transition: all 0.2s;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.convert-all-btn:hover:not(:disabled) { background: #5dffc8; transform: translateY(-1px); }
+.convert-all-btn:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
+.convert-all-btn.raster { background: var(--accent4); color: #fff; }
+.convert-all-btn.raster:hover:not(:disabled) { background: #c8b4fc; }
+.convert-all-btn.prompt-mode { background: var(--accent5); color: #fff; }
+.convert-all-btn.prompt-mode:hover:not(:disabled) { background: #ffb55a; }
+
+.convert-sel-btn {
+  width: 100%; padding: 8px; background: transparent; color: var(--muted);
+  border: 1.5px solid var(--border); border-radius: 9px; font-family: 'Syne', sans-serif;
+  font-size: 0.76rem; font-weight: 700; cursor: pointer; transition: all 0.15s;
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+}
+.convert-sel-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+.convert-sel-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+.convert-sel-btn.hidden { display: none; }
+
+.spinner { width: 15px; height: 15px; border: 2px solid rgba(0,0,0,0.18); border-top-color: currentColor; border-radius: 50%; animation: spin 0.7s linear infinite; display: none; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── RIGHT PANEL ── */
+.panel-right { display: flex; flex-direction: column; overflow: hidden; }
+
+/* ── PAGER ── */
+.pager-toolbar {
+  padding: 10px 22px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--surface); flex-shrink: 0; gap: 10px;
+}
+.pager-nav { display: flex; align-items: center; gap: 5px; }
+.pager-btn { width: 28px; height: 28px; border-radius: 7px; border: 1.5px solid var(--border); background: transparent; color: var(--text); cursor: pointer; display: grid; place-items: center; transition: all 0.15s; }
+.pager-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+.pager-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+.pager-btn svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 2; }
+.pager-tabs { flex: 1; display: flex; gap: 5px; overflow-x: auto; scrollbar-width: none; padding: 2px 0; }
+.pager-tabs::-webkit-scrollbar { display: none; }
+.pager-pill {
+  display: flex; align-items: center; gap: 5px; padding: 4px 9px;
+  border-radius: 20px; border: 1px solid var(--border); background: transparent;
+  color: var(--muted); font-family: 'DM Mono', monospace; font-size: 0.63rem;
+  cursor: pointer; transition: all 0.15s; white-space: nowrap; flex-shrink: 0;
+}
+.pager-pill:hover { border-color: var(--muted); color: var(--text); }
+.pager-pill.active { border-color: var(--accent); color: var(--accent); background: rgba(122,255,212,0.08); }
+.pager-pill.done { border-color: rgba(122,255,212,0.3); }
+.pager-pill.error { border-color: rgba(255,107,107,0.35); color: var(--accent2); }
+.pager-pill.converting { border-color: rgba(255,209,102,0.4); color: var(--accent3); }
+.pager-pill.prompt-page { border-color: rgba(255,159,67,0.5); color: var(--accent5); }
+.pager-pill.prompt-page.active { background: rgba(255,159,67,0.08); }
+.pill-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+
+/* ── PREVIEW TOOLBAR ── */
+.preview-toolbar {
+  padding: 9px 22px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--surface2); flex-shrink: 0;
+}
+.preview-tabs { display: flex; gap: 3px; background: var(--bg); padding: 3px; border-radius: 7px; }
+.preview-tab { padding: 4px 11px; border-radius: 5px; font-size: 0.69rem; font-weight: 700; cursor: pointer; border: none; background: transparent; color: var(--muted); font-family: 'Syne', sans-serif; transition: all 0.15s; }
+.preview-tab.active { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
+.toolbar-right { display: flex; align-items: center; gap: 7px; }
+.dl-btn { display: flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 7px; border: 1.5px solid var(--border); background: transparent; color: var(--text); font-family: 'Syne', sans-serif; font-size: 0.69rem; font-weight: 700; cursor: pointer; transition: all 0.15s; }
+.dl-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+.dl-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+.dl-btn svg { width: 11px; height: 11px; fill: none; stroke: currentColor; stroke-width: 2; }
+.dl-btn.all { border-color: rgba(122,255,212,0.3); color: var(--accent); }
+.dl-btn.all:hover:not(:disabled) { background: rgba(122,255,212,0.08); }
+
+/* ── PREVIEW ── */
+.preview-area { flex: 1; overflow: hidden; position: relative; }
+#preview-iframe { width: 100%; height: 100%; border: none; display: none; }
+#code-view { display: none; height: 100%; overflow-y: auto; padding: 22px; background: var(--bg); }
+#code-view pre { font-family: 'DM Mono', monospace; font-size: 0.7rem; line-height: 1.7; color: #a9b1d6; white-space: pre-wrap; word-break: break-word; }
+.empty-state { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; color: var(--muted); }
+.empty-icon { width: 62px; height: 62px; border: 2px dashed var(--border); border-radius: 16px; display: grid; place-items: center; opacity: 0.45; }
+.empty-icon svg { width: 27px; height: 27px; stroke: var(--muted); fill: none; stroke-width: 1.5; }
+.empty-state p { font-size: 0.73rem; font-family: 'DM Mono', monospace; }
+
+/* ── STATUS BAR ── */
+.status-bar { padding: 8px 22px; border-top: 1px solid var(--border); font-size: 0.65rem; font-family: 'DM Mono', monospace; color: var(--muted); display: flex; align-items: center; gap: 8px; background: var(--surface); flex-shrink: 0; }
+.status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); flex-shrink: 0; }
+.status-dot.ready   { background: var(--accent); }
+.status-dot.loading { background: var(--accent3); animation: pulse 1s infinite; }
+.status-dot.error   { background: var(--accent2); }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+.err-box { background: rgba(255,107,107,0.08); border: 1px solid rgba(255,107,107,0.25); color: #ff9a9a; border-radius: 9px; padding: 10px 12px; font-size: 0.71rem; font-family: 'DM Mono', monospace; display: none; line-height: 1.6; margin-top: 4px; }
+
+@media (max-width: 800px) {
+  main { grid-template-columns: 1fr; }
+  .panel-left { border-right: none; border-bottom: 1px solid var(--border); max-height: 52vh; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+    Doc<span>ToWeb</span>
+  </div>
+  <div class="badge-pill">Multi-File → Webpages</div>
+</header>
+
+<main>
+  <!-- ══ LEFT PANEL ══ -->
+  <div class="panel-left">
+    <div class="panel-left-scroll">
+
+      <!-- 01 FILE TYPE -->
+      <div>
+        <div class="sec-title">01 — File Type</div>
+        <div class="toggle-tabs c2">
+          <button class="toggle-tab active" id="tabDocx" onclick="switchInputType('docx')">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/></svg>Word Doc
+          </button>
+          <button class="toggle-tab" id="tabImage" onclick="switchInputType('image')">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Image
+          </button>
+        </div>
+      </div>
+
+      <!-- 02 UPLOAD -->
+      <div>
+        <div class="sec-title">02 — Upload Files</div>
+        <div class="drop-zone" id="dropZone">
+          <input type="file" id="fileInput" accept=".docx" multiple/>
+          <div class="drop-icon"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+          <div class="drop-label" id="dropLabel">Drop .docx files here</div>
+          <div class="drop-sub" id="dropSub">Multiple files supported · click to browse</div>
+        </div>
+        <div class="err-box" id="errBox"></div>
+      </div>
+
+      <!-- FILE QUEUE -->
+      <div id="queueSection" style="display:none">
+        <div class="queue-header">
+          <div class="sec-title" style="margin-bottom:0">Files <span class="queue-count" id="queueCount">0</span></div>
+          <button class="clear-all-btn" onclick="clearAll()">Clear all</button>
+        </div>
+        <div class="file-queue" id="fileQueue"></div>
+      </div>
+
+      <!-- 03 OUTPUT MODE -->
+      <div>
+        <div class="sec-title">03 — Output Mode</div>
+        <div class="toggle-tabs c3 out-tabs">
+          <button class="toggle-tab active" data-mode="ai" onclick="switchOutputMode('ai')">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>AI Styled
+          </button>
+          <button class="toggle-tab" data-mode="raster" onclick="switchOutputMode('raster')">
+            <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><circle cx="7" cy="10" r="1.5"/><polyline points="20 14 15 9 10 14 7 11 4 14"/></svg>Rasterize
+          </button>
+          <button class="toggle-tab" data-mode="prompt" onclick="switchOutputMode('prompt')">
+            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>AI Prompt
+          </button>
+        </div>
+
+        <!-- Raster panel -->
+        <div class="out-panel" id="panelRaster">
+          <div class="raster-opts">
+            <div class="scale-row">
+              <label>Scale</label>
+              <input type="range" class="scale-slider" id="scaleSlider" min="1" max="3" step="0.5" value="2"
+                oninput="q('scaleVal').textContent=this.value+'×'"/>
+              <span class="scale-val" id="scaleVal">2×</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Prompt panel -->
+        <div class="out-panel" id="panelPrompt">
+          <div class="prompt-wrap">
+            <div class="single-page-note">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              All uploads used as context · produces one webpage
+            </div>
+            <textarea class="prompt-textarea" id="promptInput"
+              placeholder="Describe the webpage you want to create using the uploaded files as source material…
+
+e.g. Create a portfolio landing page using the resume doc. Make it dark, modern, with animated sections."></textarea>
+            <div class="prompt-chips" id="promptChips">
+              <button class="prompt-chip" onclick="insertChip('Create a one-page website summarising all the uploaded documents')">Summarise all docs</button>
+              <button class="prompt-chip" onclick="insertChip('Build a beautiful portfolio page from the uploaded content')">Portfolio page</button>
+              <button class="prompt-chip" onclick="insertChip('Create a report-style webpage with sections for each document')">Report layout</button>
+              <button class="prompt-chip" onclick="insertChip('Make a dark-mode landing page inspired by the uploaded content')">Dark landing page</button>
+              <button class="prompt-chip" onclick="insertChip('Create an interactive FAQ page from the uploaded documents')">FAQ page</button>
+            </div>
+            <div class="prompt-hint">
+              <strong>Tip:</strong> Mention layout, style, tone, sections, or any specific requirements. All file content will be included as context.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 04 STYLE (hidden in raster + partially in prompt) -->
+      <div class="style-section" id="styleSection">
+        <div class="sec-title">04 — Style</div>
+        <div class="style-options">
+          <div class="style-option selected" data-style="editorial">
+            <div class="style-swatch" style="background:linear-gradient(135deg,#f5f0e8,#e8ddc8)"></div>
+            <div class="style-info"><div class="style-name">Editorial</div><div class="style-desc">Warm serif · newspaper</div></div>
+            <div class="style-check"></div>
+          </div>
+          <div class="style-option" data-style="minimal">
+            <div class="style-swatch" style="background:linear-gradient(135deg,#fff,#f0f0f0)"></div>
+            <div class="style-info"><div class="style-name">Minimal</div><div class="style-desc">Clean white · modern</div></div>
+            <div class="style-check"></div>
+          </div>
+          <div class="style-option" data-style="dark">
+            <div class="style-swatch" style="background:linear-gradient(135deg,#1a1a2e,#16213e)"></div>
+            <div class="style-info"><div class="style-name">Dark Mode</div><div class="style-desc">Navy · high contrast</div></div>
+            <div class="style-check"></div>
+          </div>
+          <div class="style-option" data-style="bold">
+            <div class="style-swatch" style="background:linear-gradient(135deg,#ff6b35,#ffd166)"></div>
+            <div class="style-info"><div class="style-name">Bold & Vibrant</div><div class="style-desc">Bright · punchy type</div></div>
+            <div class="style-check"></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /scroll -->
+
+    <!-- BOTTOM ACTIONS -->
+    <div class="panel-actions">
+      <button class="convert-all-btn" id="convertAllBtn" disabled onclick="convertAll()">
+        <div class="spinner" id="spinAll"></div>
+        <svg id="iconAll" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 3l14 9-14 9V3z"/></svg>
+        <span id="lblAll">Convert All</span>
+      </button>
+      <button class="convert-sel-btn" id="convertSelBtn" disabled onclick="convertSelected()">
+        <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg>
+        <span id="lblSel">Convert Selected</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ══ RIGHT PANEL ══ -->
+  <div class="panel-right">
+    <div class="pager-toolbar">
+      <div class="pager-nav">
+        <button class="pager-btn" id="btnFirst" onclick="goPage(0)" disabled><svg viewBox="0 0 24 24"><polyline points="11 17 6 12 11 7"/><line x1="18" y1="7" x2="18" y2="17"/></svg></button>
+        <button class="pager-btn" id="btnPrev"  onclick="goPage(currentPage-1)" disabled><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+      </div>
+      <div class="pager-tabs" id="pagerTabs">
+        <span style="font-size:0.68rem;font-family:'DM Mono',monospace;color:var(--muted);padding:4px">No pages yet</span>
+      </div>
+      <div class="pager-nav">
+        <button class="pager-btn" id="btnNext" onclick="goPage(currentPage+1)" disabled><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+        <button class="pager-btn" id="btnLast" onclick="goPage(pages.length-1)" disabled><svg viewBox="0 0 24 24"><polyline points="13 17 18 12 13 7"/><line x1="6" y1="7" x2="6" y2="17"/></svg></button>
+      </div>
+    </div>
+
+    <div class="preview-toolbar">
+      <div class="preview-tabs">
+        <button class="preview-tab active" id="tabPreview" onclick="switchViewTab('preview')">Preview</button>
+        <button class="preview-tab" id="tabCode"    onclick="switchViewTab('code')">HTML</button>
+      </div>
+      <div class="toolbar-right">
+        <button class="dl-btn all" id="dlAllBtn" disabled onclick="downloadAll()">
+          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Download All
+        </button>
+        <button class="dl-btn" id="dlOneBtn" disabled onclick="downloadCurrent()">
+          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>This Page
+        </button>
+      </div>
+    </div>
+
+    <div class="preview-area">
+      <div class="empty-state" id="emptyState">
+        <div class="empty-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h6M7 16h8"/></svg></div>
+        <p id="emptyMsg">Upload files and convert to see pages here</p>
+      </div>
+      <iframe id="preview-iframe" title="Preview"></iframe>
+      <div id="code-view"><pre id="code-content"></pre></div>
+    </div>
+
+    <div class="status-bar">
+      <div class="status-dot" id="statusDot"></div>
+      <span id="statusText">Ready · upload files to begin</span>
+    </div>
+  </div>
+</main>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════════════════════
+let files        = [];   // per-file entries
+let pages        = [];   // rendered pages: { label, html, isPrompt }
+let inputType    = 'docx';
+let outputMode   = 'ai'; // 'ai' | 'raster' | 'prompt'
+let selectedStyle = 'editorial';
+let currentPage  = 0;
+let viewTab      = 'preview';
+let converting   = false;
+
+const ACCEPTED_IMG = ['image/jpeg','image/png','image/gif','image/webp','image/bmp','image/tiff'];
+const ACCEPTED_EXT = ['.jpg','.jpeg','.png','.gif','.webp','.bmp','.tiff','.tif','.svg'];
+
+const STYLE_GUIDES = {
+  editorial: 'Warm editorial newspaper: cream bg (#f5f0e8), dark ink (#1a1510), Playfair Display headings + DM Sans body (Google Fonts), red accent (#c0392b), generous margins.',
+  minimal:   'Ultra-clean minimal: white bg, near-black (#111), blue accent (#0066ff), Outfit font (Google Fonts), max whitespace, hairline borders.',
+  dark:      'Dark professional: deep bg (#0f1117), light text (#e2e8f0), teal accent (#00d4ff), JetBrains Mono labels (Google Fonts).',
+  bold:      'Bold vibrant: off-white bg (#fffbf0), dark text (#1a1a1a), coral accent (#ff6b35), Syne font (Google Fonts), large chunky headings.'
+};
+
+// ═══════════════════════════════════════════════════════════════════════════
+// INPUT TYPE SWITCH
+// ═══════════════════════════════════════════════════════════════════════════
+function switchInputType(type) {
+  inputType = type;
+  q('tabDocx').classList.toggle('active', type==='docx');
+  q('tabImage').classList.toggle('active', type==='image');
+  if (type === 'docx') {
+    q('fileInput').accept = '.docx';
+    q('dropLabel').textContent = 'Drop .docx files here';
+    q('dropSub').textContent = 'Multiple files supported · click to browse';
+  } else {
+    q('fileInput').accept = ACCEPTED_EXT.join(',');
+    q('dropLabel').textContent = 'Drop image files here';
+    q('dropSub').textContent = 'JPG PNG GIF WebP BMP TIFF · multiple OK';
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// OUTPUT MODE SWITCH
+// ═══════════════════════════════════════════════════════════════════════════
+function switchOutputMode(mode) {
+  outputMode = mode;
+  document.querySelectorAll('.out-tabs .toggle-tab').forEach(t => t.classList.toggle('active', t.dataset.mode === mode));
+  q('panelRaster').classList.toggle('show', mode === 'raster');
+  q('panelPrompt').classList.toggle('show', mode === 'prompt');
+  q('styleSection').classList.toggle('dimmed', mode === 'raster');
+  q('convertAllBtn').classList.remove('raster','prompt-mode');
+  if (mode === 'raster') q('convertAllBtn').classList.add('raster');
+  if (mode === 'prompt') q('convertAllBtn').classList.add('prompt-mode');
+
+  // In prompt mode: Convert All = Generate Page (one result), hide Convert Selected
+  q('convertSelBtn').classList.toggle('hidden', mode === 'prompt');
+  updateBtnLabels();
+}
+
+function updateBtnLabels() {
+  if (outputMode === 'raster') {
+    q('lblAll').textContent = 'Rasterize All';
+    q('lblSel').textContent = 'Rasterize Selected';
+  } else if (outputMode === 'prompt') {
+    q('lblAll').textContent = 'Generate Page from Prompt';
+  } else {
+    q('lblAll').textContent = 'Convert All';
+    q('lblSel').textContent = 'Convert Selected';
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// STYLE SELECTOR
+// ═══════════════════════════════════════════════════════════════════════════
+document.querySelectorAll('.style-option').forEach(o => o.addEventListener('click', () => {
+  document.querySelectorAll('.style-option').forEach(x => x.classList.remove('selected'));
+  o.classList.add('selected');
+  selectedStyle = o.dataset.style;
+}));
+
+// ═══════════════════════════════════════════════════════════════════════════
+// PROMPT CHIPS
+// ═══════════════════════════════════════════════════════════════════════════
+function insertChip(text) {
+  q('promptInput').value = text;
+  q('promptInput').focus();
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// DRAG & DROP / FILE INPUT
+// ═══════════════════════════════════════════════════════════════════════════
+const dz = q('dropZone');
+dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag-over'); });
+dz.addEventListener('dragleave', () => dz.classList.remove('drag-over'));
+dz.addEventListener('drop', e => { e.preventDefault(); dz.classList.remove('drag-over'); if (e.dataTransfer.files.length) addFiles(e.dataTransfer.files); });
+q('fileInput').addEventListener('change', e => { if (e.target.files.length) addFiles(e.target.files); q('fileInput').value = ''; });
+
+async function addFiles(rawList) {
+  hideErr();
+  for (const f of Array.from(rawList)) {
+    const ext = '.'+f.name.split('.').pop().toLowerCase();
+    if (inputType==='docx' && !f.name.toLowerCase().endsWith('.docx')) { showErr(`"${f.name}" is not a .docx file.`); continue; }
+    if (inputType==='image' && !ACCEPTED_IMG.includes(f.type) && !ACCEPTED_EXT.includes(ext)) { showErr(`"${f.name}" unsupported image type.`); continue; }
+    if (files.find(x => x.name === f.name)) continue;
+    const entry = { id: Date.now()+Math.random(), name: f.name, type: inputType, raw: f, textContent: '', imageDataUrl: '', imageMime: '', html: '', status: 'idle', thumbUrl: '' };
+    files.push(entry);
+    if (inputType === 'image') await loadImageEntry(entry); else await loadDocxEntry(entry);
+  }
+  if (files.length > 0 && currentPage >= files.length) currentPage = files.length - 1;
+  renderQueue(); renderPager(); updateActionBtns();
+}
+
+async function loadDocxEntry(e) {
+  try { const r = await mammoth.extractRawText({ arrayBuffer: await e.raw.arrayBuffer() }); e.textContent = r.value.trim(); e.status = 'idle'; }
+  catch { e.status = 'error'; e.html = 'Could not read .docx.'; }
+}
+
+async function loadImageEntry(e) {
+  return new Promise(res => {
+    e.imageMime = e.raw.type || guessMime(e.name);
+    if (e.imageMime === 'image/svg+xml') e.imageMime = 'image/png';
+    const r = new FileReader();
+    r.onload = ev => { e.imageDataUrl = ev.target.result; e.thumbUrl = ev.target.result; e.status = 'idle'; res(); };
+    r.onerror = () => { e.status = 'error'; res(); };
+    r.readAsDataURL(e.raw);
+  });
+}
+
+function guessMime(n) {
+  return ({jpg:'image/jpeg',jpeg:'image/jpeg',png:'image/png',gif:'image/gif',webp:'image/webp',bmp:'image/png',tiff:'image/png',tif:'image/png',svg:'image/png'})[n.split('.').pop().toLowerCase()] || 'image/png';
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// QUEUE RENDER
+// ═══════════════════════════════════════════════════════════════════════════
+function renderQueue() {
+  const qs = q('queueSection');
+  if (!files.length) { qs.style.display = 'none'; return; }
+  qs.style.display = 'block';
+  q('queueCount').textContent = files.length;
+  const c = q('fileQueue'); c.innerHTML = '';
+  files.forEach((f, i) => {
+    const d = document.createElement('div');
+    d.className = ['file-item', i===currentPage?'active':'', f.status==='done'?'done':f.status==='error'?'error':f.status==='converting'?'converting':''].join(' ').trim();
+    d.innerHTML = `
+      <div class="file-thumb">${f.thumbUrl?`<img src="${f.thumbUrl}" alt=""/>`:ficon()}</div>
+      <div class="file-info">
+        <div class="file-name" title="${f.name}">${f.name}</div>
+        <div class="file-meta">${f.type==='image'?'Image':'Word Doc'} · ${{idle:'Ready',converting:'Converting…',done:'Done',error:'Error'}[f.status]||f.status}</div>
+      </div>
+      <div class="file-status ${f.status}">${sicon(f.status)}</div>
+      <button class="file-remove" onclick="removeFile(${i},event)">×</button>`;
+    d.addEventListener('click', () => { currentPage = fileIndexToPageIndex(i); renderQueue(); renderPager(); showCurrentPage(); });
+    c.appendChild(d);
+  });
+}
+
+function ficon() { return `<svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>`; }
+function sicon(s) {
+  if (s==='converting') return `<div class="status-spin"></div>`;
+  if (s==='done') return `<span class="status-check">✓</span>`;
+  if (s==='error') return `<span class="status-x">!</span>`;
+  return `<div class="status-dot-idle"></div>`;
+}
+
+function removeFile(i, e) {
+  e.stopPropagation();
+  files.splice(i, 1);
+  // Remove corresponding page if not a prompt page
+  pages = pages.filter(p => p.isPrompt || files.find(f => f.name === p.fileRef));
+  if (currentPage >= pages.length) currentPage = Math.max(0, pages.length-1);
+  renderQueue(); renderPager(); updateActionBtns();
+  if (!pages.length) showEmpty(); else showCurrentPage();
+}
+
+function clearAll() {
+  files = []; pages = []; currentPage = 0;
+  renderQueue(); renderPager(); updateActionBtns(); showEmpty();
+}
+
+// Map file index → page index
+function fileIndexToPageIndex(fi) {
+  const fname = files[fi]?.name;
+  const pi = pages.findIndex(p => p.fileRef === fname);
+  return pi >= 0 ? pi : currentPage;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// PAGER RENDER
+// ═══════════════════════════════════════════════════════════════════════════
+function renderPager() {
+  const tabs = q('pagerTabs');
+  if (!pages.length) {
+    tabs.innerHTML = `<span style="font-size:0.68rem;font-family:'DM Mono',monospace;color:var(--muted);padding:4px">No pages yet</span>`;
+    ['btnFirst','btnPrev','btnNext','btnLast'].forEach(id => q(id).disabled = true);
+    return;
+  }
+  tabs.innerHTML = '';
+  pages.forEach((p, i) => {
+    const btn = document.createElement('button');
+    const cls = ['pager-pill', i===currentPage?'active':'', p.status==='done'?'done':p.status==='error'?'error':p.status==='converting'?'converting':'', p.isPrompt?'prompt-page':''].join(' ').trim();
+    btn.className = cls;
+    const short = p.label.length > 18 ? p.label.substring(0,16)+'…' : p.label;
+    btn.innerHTML = `<span class="pill-dot"></span>${i+1}. ${short}`;
+    btn.onclick = () => goPage(i);
+    tabs.appendChild(btn);
+  });
+  const active = tabs.querySelector('.pager-pill.active');
+  if (active) active.scrollIntoView({ inline:'nearest', behavior:'smooth' });
+  q('btnFirst').disabled = currentPage === 0;
+  q('btnPrev').disabled  = currentPage === 0;
+  q('btnNext').disabled  = currentPage >= pages.length-1;
+  q('btnLast').disabled  = currentPage >= pages.length-1;
+}
+
+function goPage(i) {
+  if (i < 0 || i >= pages.length) return;
+  currentPage = i;
+  renderQueue(); renderPager(); showCurrentPage();
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// PREVIEW
+// ═══════════════════════════════════════════════════════════════════════════
+function showCurrentPage() {
+  const p = pages[currentPage];
+  if (!p) { showEmpty(); return; }
+  if (p.html) {
+    q('emptyState').style.display = 'none';
+    const iframe = q('preview-iframe');
+    if (viewTab === 'preview') { iframe.style.display='block'; q('code-view').style.display='none'; }
+    else { iframe.style.display='none'; q('code-view').style.display='block'; }
+    const doc = iframe.contentDocument || iframe.contentWindow.document;
+    doc.open(); doc.write(p.html); doc.close();
+    q('code-content').textContent = p.html;
+    q('dlOneBtn').disabled = false;
+  } else {
+    q('emptyState').style.display = 'flex';
+    q('preview-iframe').style.display = 'none';
+    q('code-view').style.display = 'none';
+    q('emptyMsg').textContent = p.status==='error' ? 'Conversion failed for this page.' : 'This page hasn\'t been converted yet.';
+    q('dlOneBtn').disabled = true;
+  }
+  setStatus(p.status==='converting'?'loading':p.status==='error'?'error':'ready',
+    `Page ${currentPage+1} of ${pages.length} · ${p.label}`);
+}
+
+function showEmpty() {
+  q('emptyState').style.display = 'flex';
+  q('preview-iframe').style.display = 'none';
+  q('code-view').style.display = 'none';
+  q('emptyMsg').textContent = 'Upload files and convert to see pages here';
+  q('dlOneBtn').disabled = true;
+  setStatus('idle', 'Ready · upload files to begin');
+}
+
+function switchViewTab(tab) {
+  viewTab = tab;
+  q('tabPreview').classList.toggle('active', tab==='preview');
+  q('tabCode').classList.toggle('active', tab==='code');
+  const p = pages[currentPage];
+  if (p && p.html) showCurrentPage();
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// CONVERT ALL / SELECTED
+// ═══════════════════════════════════════════════════════════════════════════
+async function convertAll() {
+  if (converting || !files.length) return;
+
+  if (outputMode === 'prompt') {
+    await runPromptGenerate();
+  } else {
+    // Ensure a page slot exists for every file
+    files.forEach(f => {
+      if (!pages.find(p => p.fileRef === f.name)) {
+        pages.push({ label: f.name, fileRef: f.name, html: '', status: 'idle', isPrompt: false });
+      }
+    });
+    renderPager();
+    await runConversions(files.map((_, i) => i));
+  }
+}
+
+async function convertSelected() {
+  if (converting || outputMode === 'prompt') return;
+  const f = files[currentPage] || files.find((_, i) => {
+    const p = pages[currentPage];
+    return p && files[i]?.name === p.fileRef;
+  });
+  if (!f) return;
+  if (!pages.find(p => p.fileRef === f.name)) {
+    pages.push({ label: f.name, fileRef: f.name, html: '', status: 'idle', isPrompt: false });
+    renderPager();
+  }
+  const fi = files.indexOf(f);
+  await runConversions([fi]);
+}
+
+async function runConversions(indices) {
+  converting = true; setLoadingAll(true);
+  let done = 0;
+  for (const fi of indices) {
+    const f = files[fi]; if (!f) continue;
+    const pg = pages.find(p => p.fileRef === f.name);
+    if (!pg) continue;
+    pg.status = 'converting'; f.status = 'converting';
+    renderQueue(); renderPager();
+    setStatus('loading', `Converting "${f.name}"… (${done+1}/${indices.length})`);
+    try {
+      pg.html = outputMode === 'raster' ? await doRasterize(f) : await doAIConvert(f);
+      pg.status = 'done'; f.status = 'done';
+    } catch(e) {
+      pg.status = 'error'; f.status = 'error'; pg.html = ''; console.error(e);
+    }
+    done++;
+    // Auto-navigate to this page if it's the only one converting
+    if (indices.length === 1) { currentPage = pages.indexOf(pg); }
+    renderQueue(); renderPager();
+    if (pages[currentPage] === pg) showCurrentPage();
+  }
+  converting = false; setLoadingAll(false);
+  q('dlAllBtn').disabled = !pages.some(p => p.html);
+  setStatus('ready', `Done · ${pages.filter(p=>p.status==='done').length}/${indices.length} converted`);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// PROMPT GENERATE — uses ALL files as context, produces ONE page
+// ═══════════════════════════════════════════════════════════════════════════
+async function runPromptGenerate() {
+  const prompt = q('promptInput').value.trim();
+  if (!prompt) { showErr('Please enter a prompt describing the webpage you want to create.'); return; }
+  if (!files.length) { showErr('Upload at least one file to use as source material.'); return; }
+
+  converting = true; setLoadingAll(true);
+  setStatus('loading', 'Generating page from prompt…');
+
+  // Build a page slot for the prompt result
+  const existingPromptPage = pages.find(p => p.isPrompt);
+  let pg;
+  if (existingPromptPage) {
+    pg = existingPromptPage; pg.status = 'converting'; pg.html = '';
+  } else {
+    pg = { label: '✦ Prompt Page', fileRef: null, html: '', status: 'converting', isPrompt: true };
+    pages.push(pg);
+  }
+  currentPage = pages.indexOf(pg);
+  renderPager();
+
+  try {
+    // Build content block: text from docx files + images
+    const contentParts = [];
+
+    // Add all text content first
+    const textBlocks = files.filter(f => f.textContent).map(f =>
+      `--- FILE: ${f.name} ---\n${f.textContent.substring(0, 3000)}`
+    ).join('\n\n');
+    if (textBlocks) contentParts.push({ type: 'text', text: `SOURCE FILES:\n\n${textBlocks}\n\n---\n\n` });
+
+    // Add up to 4 images (API limit)
+    const imgFiles = files.filter(f => f.imageDataUrl).slice(0, 4);
+    for (const imgF of imgFiles) {
+      contentParts.push({ type: 'text', text: `[Image: ${imgF.name}]` });
+      contentParts.push({ type: 'image', source: { type: 'base64', media_type: imgF.imageMime, data: imgF.imageDataUrl.split(',')[1] } });
+    }
+
+    const styleNote = outputMode === 'prompt'
+      ? `Apply a style that best fits the prompt. You may also reference: ${STYLE_GUIDES[selectedStyle]}`
+      : STYLE_GUIDES[selectedStyle];
+
+    contentParts.push({ type: 'text', text:
+`USER PROMPT:
+${prompt}
+
+STYLE GUIDANCE: ${styleNote}
+
+TASK: Using all the source files above as context and creative material, create exactly what the user described. Produce a complete, fully self-contained HTML webpage. All CSS in a <style> tag. Google Fonts allowed as external resource. Make it responsive, polished, and publication-ready.
+
+Return ONLY raw HTML starting with <!DOCTYPE html>. No markdown fences, no explanation.`
+    });
+
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type':'application/json','anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true' },
+      body: JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:4000, messages:[{ role:'user', content: contentParts }] })
+    });
+    if (!res.ok) { const e=await res.json().catch(()=>{}); throw new Error(e?.error?.message||`HTTP ${res.status}`); }
+    const data = await res.json();
+    let html = (data.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('').trim();
+    html = html.replace(/^```html\s*/i,'').replace(/^```\s*/i,'').replace(/\s*```$/i,'').trim();
+    if (!html.toLowerCase().includes('<!doctype') && !html.toLowerCase().includes('<html')) throw new Error('Invalid HTML response');
+    pg.html = html; pg.status = 'done';
+  } catch(err) {
+    console.error(err); pg.status = 'error'; pg.html = '';
+    showErr('Generation failed: '+(err.message||'Unknown error'));
+    setStatus('error','Prompt generation failed');
+  }
+
+  converting = false; setLoadingAll(false);
+  renderPager(); showCurrentPage();
+  q('dlAllBtn').disabled = !pages.some(p => p.html);
+  if (pg.status === 'done') setStatus('ready', '✓ Prompt page generated');
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// AI CONVERT (per-file)
+// ═══════════════════════════════════════════════════════════════════════════
+async function doAIConvert(entry) {
+  const guide = STYLE_GUIDES[selectedStyle];
+  let body;
+  if (entry.type === 'docx') {
+    if (!entry.textContent) throw new Error('No text content');
+    body = { model:'claude-sonnet-4-20250514', max_tokens:4000, messages:[{ role:'user', content:
+`Convert this Word document into a beautiful, fully self-contained HTML webpage.
+
+CONTENT:\n${entry.textContent.substring(0,5000)}
+
+STYLE: ${guide}
+
+Rules: complete HTML, all CSS in <style>, Google Fonts only external, detect headings/lists/tables, responsive, CSS fade-in.
+Return ONLY raw HTML starting with <!DOCTYPE html>.` }] };
+  } else {
+    if (!entry.imageDataUrl) throw new Error('No image');
+    body = { model:'claude-sonnet-4-20250514', max_tokens:4000, messages:[{ role:'user', content:[
+      { type:'image', source:{ type:'base64', media_type:entry.imageMime, data:entry.imageDataUrl.split(',')[1] }},
+      { type:'text', text:`Convert this image into a beautiful, fully self-contained HTML webpage.\n\nSTYLE: ${guide}\n\nExtract/recreate text, layout, headings. If photo: themed landing page. Complete HTML, all CSS in <style>, Google Fonts only, responsive, CSS fade-in.\nReturn ONLY raw HTML starting with <!DOCTYPE html>.` }
+    ]}] };
+  }
+  const res = await fetch('https://api.anthropic.com/v1/messages', { method:'POST', headers:{ 'Content-Type':'application/json','anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true' }, body:JSON.stringify(body) });
+  if (!res.ok) { const e=await res.json().catch(()=>{}); throw new Error(e?.error?.message||`HTTP ${res.status}`); }
+  const data = await res.json();
+  let html = (data.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('').trim();
+  html = html.replace(/^```html\s*/i,'').replace(/^```\s*/i,'').replace(/\s*```$/i,'').trim();
+  if (!html.toLowerCase().includes('<!doctype') && !html.toLowerCase().includes('<html')) throw new Error('Invalid HTML');
+  return html;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// RASTERIZE
+// ═══════════════════════════════════════════════════════════════════════════
+async function doRasterize(entry) {
+  const scale = parseFloat(q('scaleSlider').value);
+  if (entry.type === 'image') {
+    const img = await loadImg(entry.imageDataUrl);
+    const dataUrl = await rasterizeImg(entry.imageDataUrl, scale);
+    return buildRasterPage(dataUrl, img.naturalWidth*scale, img.naturalHeight*scale, entry.name, scale);
+  } else {
+    if (!entry.textContent) throw new Error('No text');
+    const r = await rasterizeDocxText(entry.textContent, scale);
+    return buildRasterPage(r.dataUrl, r.w, r.h, entry.name, scale);
+  }
+}
+
+function loadImg(src) { return new Promise((res,rej)=>{ const i=new Image(); i.onload=()=>res(i); i.onerror=()=>rej(new Error('img load')); i.src=src; }); }
+
+async function rasterizeImg(dataUrl, scale) {
+  const img=await loadImg(dataUrl); const w=img.naturalWidth*scale,h=img.naturalHeight*scale;
+  const c=document.createElement('canvas'); c.width=w; c.height=h;
+  const ctx=c.getContext('2d'); ctx.imageSmoothingEnabled=true; ctx.imageSmoothingQuality='high';
+  ctx.drawImage(img,0,0,w,h); return c.toDataURL('image/png');
+}
+
+async function rasterizeDocxText(text,scale) {
+  const PW=794,M=64,FS=14,LH=FS*1.65,CW=PW-M*2;
+  const off=document.createElement('canvas'); off.width=PW; off.height=1;
+  const octx=off.getContext('2d'); const lines=layoutText(octx,text,CW,FS);
+  let H=M; for(const l of lines) H+=(l.isHeading?LH*1.8:LH)+(l.spaceBefore||0); H+=M;
+  const c=document.createElement('canvas'); c.width=Math.round(PW*scale); c.height=Math.round(H*scale);
+  const ctx=c.getContext('2d'); ctx.scale(scale,scale);
+  ctx.fillStyle='#fff'; ctx.fillRect(0,0,PW,H);
+  let y=M;
+  for(const l of lines){
+    y+=l.spaceBefore||0;
+    if(l.isHeading){ctx.font=`bold ${Math.round(FS*l.hs)}px Georgia,serif`;ctx.fillStyle='#111';}
+    else if(l.isBullet){ctx.font=`${FS}px Georgia,serif`;ctx.fillStyle='#222';ctx.beginPath();ctx.arc(M+8,y+FS*.5,2.5,0,Math.PI*2);ctx.fillStyle='#555';ctx.fill();ctx.fillStyle='#222';}
+    else{ctx.font=`${FS}px Georgia,serif`;ctx.fillStyle='#222';}
+    ctx.fillText(l.text,l.x,y+FS); y+=l.isHeading?LH*1.8:LH;
+  }
+  return{dataUrl:c.toDataURL('image/png'),w:PW,h:H};
+}
+
+function layoutText(ctx,text,colW,fs){
+  const lines=[]; const LH=fs*1.65;
+  for(const para of text.split(/\n+/)){
+    const t=para.trim(); if(!t){lines.push({text:'',x:64,spaceBefore:fs*.5});continue;}
+    const isBullet=/^[-•*·]\s/.test(t); const clean=isBullet?t.replace(/^[-•*·]\s*/,''):t;
+    const isHeading=!isBullet&&t.length<60&&t.split(' ').length<10&&!/[.!?,;]$/.test(t);
+    if(isHeading){const hs=t.length<25?1.6:t.length<45?1.3:1.1;lines.push({text:t,x:64,isHeading:true,hs,spaceBefore:fs*1.2});continue;}
+    const xBase=isBullet?84:64; ctx.font=`${fs}px Georgia,serif`;
+    const words=clean.split(' '); let cur='',first=true;
+    for(const w of words){const test=cur?cur+' '+w:w;if(ctx.measureText(test).width>colW-(isBullet?20:0)&&cur){lines.push({text:cur,x:xBase,isBullet:isBullet&&first,spaceBefore:first&&!isBullet?fs*.4:0});cur=w;first=false;}else cur=test;}
+    if(cur)lines.push({text:cur,x:xBase,isBullet:isBullet&&first,spaceBefore:first&&!isBullet?fs*.4:0});
+  }
+  return lines;
+}
+
+function buildRasterPage(dataUrl,w,h,name,scale){
+  return`<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>${esc(name)}</title><style>*{box-sizing:border-box;margin:0;padding:0}body{background:#1a1a1a;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:40px 20px;font-family:system-ui,sans-serif}.wrap{background:#fff;box-shadow:0 8px 60px rgba(0,0,0,.5);border-radius:3px;overflow:hidden;max-width:100%;animation:up .5s ease}@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}img{display:block;max-width:100%;height:auto}.meta{margin-top:20px;font-size:11px;color:#555;font-family:monospace}</style></head><body><div class="wrap"><img src="${dataUrl}" width="${Math.round(w)}" height="${Math.round(h)}" alt="${esc(name)}"/></div><p class="meta">${esc(name)} · ${Math.round(w)}×${Math.round(h)}px · ${scale}× scale</p></body></html>`;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// DOWNLOAD
+// ═══════════════════════════════════════════════════════════════════════════
+function downloadCurrent() {
+  const p = pages[currentPage]; if (!p?.html) return;
+  dl(p.html, (p.isPrompt ? 'prompt-page' : p.label.replace(/\.[^.]+$/,''))+'.html');
+}
+
+function downloadAll() {
+  pages.filter(p=>p.html).forEach((p,i) => setTimeout(()=>dl(p.html,(p.isPrompt?'prompt-page':p.label.replace(/\.[^.]+$/,''))+'.html'),i*120));
+}
+
+function dl(html, fname) { const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([html],{type:'text/html'})); a.download=fname; a.click(); }
+
+// ═══════════════════════════════════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════════════════════════════════
+function q(id) { return document.getElementById(id); }
+function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function setStatus(type,msg){ q('statusDot').className='status-dot'+(type!=='idle'?' '+type:''); q('statusText').textContent=msg; }
+function showErr(msg){ const e=q('errBox'); e.textContent=msg; e.style.display='block'; }
+function hideErr(){ q('errBox').style.display='none'; }
+function updateActionBtns(){
+  const has=files.length>0;
+  q('convertAllBtn').disabled=!has;
+  q('convertSelBtn').disabled=!has;
+  updateBtnLabels();
+}
+function setLoadingAll(on){
+  q('convertAllBtn').disabled=on||!files.length;
+  q('convertSelBtn').disabled=on||!files.length;
+  q('spinAll').style.display=on?'block':'none';
+  q('iconAll').style.display=on?'none':'block';
+  q('lblAll').textContent=on?'Working…':(outputMode==='raster'?'Rasterize All':outputMode==='prompt'?'Generate Page from Prompt':'Convert All');
+}
+</script>
+</body>
+</html>

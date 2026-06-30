@@ -1,0 +1,23 @@
+        <section
+          id="promo"
+          className="py-[25px] px-[35px] flex flex-col justify-center items-center text-center bg-white overflow-hidden border-l border-gray-200 max-[1200px]:py-[22px] max-[1200px]:px-[30px] max-[900px]:py-[18px] max-[900px]:px-[25px] max-[600px]:py-[15px] max-[600px]:px-[18px] max-[500px]:py-3 max-[500px]:px-[15px] max-[500px]:border-l-0 max-[500px]:border-t border-gray-200"
+          aria-label="Promo"
+        >
+          <div className="inline-flex items-center gap-2 bg-[#e8e8e8] text-[#4a4a4a] text-[clamp(11px,1.2vw,13px)] font-medium py-1.5 px-3.5 rounded-[50px] mb-3">
+            <span className="w-2 h-2 rounded-full bg-[#3498db] shrink-0" aria-hidden />
+            The Future of Digital Identity
+          </div>
+          <h1 className="text-[clamp(28px,4vw,48px)] font-extrabold leading-tight text-[#2d2d2d] mb-3.5 tracking-tight">
+            Digi<span className="text-[#3498db]">U</span>Card
+          </h1>
+          <p className="text-[clamp(13px,1.4vw,16px)] text-[#6b6b6b] leading-relaxed mb-4 max-w-[42em]">
+            Share your identity, content, and connections instantly through a single, powerful digital card. Your portfolio, your work, your passions — all in one place.
+          </p>
+          <button
+            type="button"
+            onClick={openModal}
+            className="inline-flex items-center gap-1.5 bg-[#1a1a1a] text-white py-2.5 px-5 rounded-[50px] font-semibold text-[clamp(12px,1.3vw,14px)] transition-all duration-300 shadow-[0_3px_12px_rgba(0,0,0,0.2)] border-0 cursor-pointer self-center hover:bg-black hover:-translate-y-0.5 hover:shadow-[0_5px_16px_rgba(0,0,0,0.3)] after:content-['›'] after:text-[clamp(16px,1.5vw,20px)] after:transition-transform hover:after:translate-x-1"
+          >
+            Learn more
+          </button>
+        </section>

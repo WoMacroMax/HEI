@@ -1,0 +1,141 @@
+*api/analyse.js*
+javascript
+// api/analyse.js  — Vercel Serverless Function
+// Proxies requests to Anthropic API so the key never touches the browser.
+
+export default async function handler(req, res) {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+
+  const { refBase64, refMime, searchBase64, searchMime } = req.body;
+
+  if (!refBase64 || !refMime || !searchBase64 || !searchMime) {
+    return res.status(400).json({ error: 'Missing required image data' });
+  }
+
+  const prompt = `You are a precise visual matching engine.
+
+I will provide two images:
+1. REFERENCE image — an object or document to locate
+2. SCENE image — a larger or different scene where you must find the reference
+
+Your task:
+- Determine if the reference object/document appears in the scene image
+- If found, return the bounding box as percentage coordinates of the SCENE image
+- Be generous: partial matches, different angles, similar items all count
+
+Respond ONLY with valid JSON, no markdown, no explanation:
+{
+  "found": true or false,
+  "confidence": 0-100 (integer),
+  "label": "short description of what was matched (max 8 words)",
+  "description": "one sentence about why it matches or why not",
+  "box": {
+    "x": percent from left (0-100),
+    "y": percent from top (0-100),
+    "w": percent width (0-100),
+    "h": percent height (0-100)
+  }
+}
+
+If not found, set box to null.`;
+
+  try {
+    const anthropicRes = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': process.env.ANTHROPIC_API_KEY,
+        'anthropic-version': '2023-06-01',
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{
+          role: 'user',
+          content: [
+            { type: 'text',  text: 'REFERENCE IMAGE (find this):' },
+            { type: 'image', source: { type: 'base64', media_type: refMime,    data: refBase64    } },
+            { type: 'text',  text: 'SCENE IMAGE (search in this):' },
+            { type: 'image', source: { type: 'base64', media_type: searchMime, data: searchBase64 } },
+            { type: 'text',  text: prompt }
+          ]
+        }]
+      })
+    });
+
+    const data = await anthropicRes.json();
+
+    if (data.error) {
+      return res.status(502).json({ error: data.error.message });
+    }
+
+    const raw    = data.content.map(c => c.text || '').join('');
+    const clean  = raw.replace(/json|/g, '').trim();
+    const result = JSON.parse(clean);
+
+    return res.status(200).json(result);
+
+  } catch (err) {
+    console.error('CamScan API error:', err);
+    return res.status(500).json({ error: 'Internal server error: ' + err.message });
+  }
+}
+
+
+---
+
+*vercel.json*
+json
+{
+  "version": 2,
+  "builds": [
+    { "src": "api/**/*.js", "use": "@vercel/node" },
+    { "src": "public/**",   "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/api/$1" },
+    { "src": "/(.*)",     "dest": "/public/$1" }
+  ]
+}
+
+
+---
+
+*package.json*
+json
+{
+  "name": "camscan",
+  "version": "1.0.0",
+  "description": "Visual match engine — camera image comparison powered by Claude Vision",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
+
+
+---
+
+*public/index.html* — too long to paste in full, but the only line that changed from the browser version is inside the analyse handler:
+
+javascript
+// BEFORE (browser version — exposes key)
+const resp = await fetch('https://api.anthropic.com/v1/messages', {
+  headers: { 'x-api-key': 'sk-ant-...' },  // ❌ visible in browser
+  ...
+});
+
+// AFTER (serverless version — key is safe)
+const res = await fetch('/api/analyse', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ refBase64, refMime, searchBase64, searchMime })
+});
+
+
+Everything else in the HTML (UI, canvas drawing, drag-drop) is identical. The zip has the complete file if you need the full HTML text.

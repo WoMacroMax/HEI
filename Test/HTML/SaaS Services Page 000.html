@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DigiUCart – Simple Web Cart Package</title>
+
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #f5f8ff;
+      margin: 0;
+      padding: 0;
+      color: #2d3748;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px 20px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 32px;
+      font-weight: 700;
+      color: #2b6cb0;
+    }
+
+    header p {
+      margin-top: 10px;
+      font-size: 16px;
+      color: #4a5568;
+    }
+
+    .brand {
+      margin-top: 8px;
+      font-size: 14px;
+      color: #718096;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 22px;
+      font-weight: 600;
+      color: #2b6cb0;
+      margin-bottom: 25px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      text-align: center;
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+    }
+
+    .icon {
+      width: 70px;
+      height: 70px;
+      margin-bottom: 15px;
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 20px;
+      color: #2b6cb0;
+      font-weight: 600;
+    }
+
+    .card p {
+      font-size: 14px;
+      color: #4a5568;
+      line-height: 1.5;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      font-size: 14px;
+      color: #718096;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>DigiUCart – Simple Web Cart Package</h1>
+    <p>Everything you need to start selling online — simple, clean, and stress‑free.</p>
+    <p class="brand">https://DigiUCart.com</p>
+  </header>
+
+  <div class="container">
+
+    <div class="section-title">Included in Your DigiUCart Package</div>
+
+    <div class="cards">
+
+      <div class="card">
+        <img class="icon" src="https://img.icons8.com/fluency/96/shop.png" alt="Store Icon">
+        <h3>Online Store Page</h3>
+        <p>A clean, simple page where customers can see your products and buy them instantly.</p>
+      </div>
+
+      <div class="card">
+        <img class="icon" src="https://img.icons8.com/fluency/96/add-shopping-cart.png" alt="Cart Icon">
+        <h3>Add‑to‑Cart Buttons</h3>
+        <p>Put “Buy Now” buttons on your existing website, Facebook page, or product list.</p>
+      </div>
+
+      <div class="card">
+        <img class="icon" src="https://img.icons8.com/fluency/96/credit-card.png" alt="Checkout Icon">
+        <h3>Easy Checkout</h3>
+        <p>A fast, secure checkout that works on phones and computers — no confusion for customers.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    DigiUCart makes online selling simple, fast, and stress‑free.
+  </footer>
+
+</body>
+</html>

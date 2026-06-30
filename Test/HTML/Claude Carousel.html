@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Image Carousel</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #f5f5f3; display: flex; justify-content: center; align-items: center; min-height: 100vh; font-family: system-ui, sans-serif; }
+  .carousel-container { background: #fff; border-radius: 16px; border: 1px solid #e0dfd8; padding: 1.5rem; width: 90%; max-width: 800px; }
+  .carousel-wrap { overflow: hidden; border-radius: 12px; }
+  .track { display: flex; transition: transform 0.45s cubic-bezier(.4,0,.2,1); }
+  .slide { min-width: 100%; display: flex; justify-content: center; align-items: center; min-height: 400px; background: #fafaf8; border-radius: 12px; }
+  .slide img { max-width: 100%; max-height: 480px; object-fit: contain; border-radius: 12px; display: block; }
+  .error-msg { font-size: 14px; color: #888; text-align: center; padding: 2rem; }
+  .controls { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 1.25rem; }
+  .nav-btn { background: transparent; border: 1px solid #ccc; border-radius: 8px; width: 38px; height: 38px; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; transition: background 0.15s; }
+  .nav-btn:hover { background: #f0efea; }
+  .dots { display: flex; gap: 8px; align-items: center; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: #ccc; cursor: pointer; border: none; padding: 0; transition: background 0.2s, transform 0.2s; }
+  .dot.active { background: #333; transform: scale(1.25); }
+  .counter { font-size: 13px; color: #888; min-width: 40px; text-align: center; }
+</style>
+</head>
+<body>
+<div class="carousel-container">
+  <div class="carousel-wrap">
+    <div class="track" id="track">
+      <div class="slide"><img src="https://process.doc2web.online/api/uploads/Nd5UekftLRLuh6Av/download?inline=1" alt="Slide 1" onerror="this.parentElement.innerHTML='<p class=error-msg>Image failed to load</p>'" /></div>
+      <div class="slide"><img src="https://process.doc2web.online/api/uploads/33CYBdZtadjxsZwk/download?inline=1" alt="Slide 2" onerror="this.parentElement.innerHTML='<p class=error-msg>Image failed to load</p>'" /></div>
+      <div class="slide"><img src="https://process.doc2web.online/api/uploads/ltzgDu9Jw6ut-DqX/download?inline=1" alt="Slide 3" onerror="this.parentElement.innerHTML='<p class=error-msg>Image failed to load</p>'" /></div>
+      <div class="slide"><img src="https://process.doc2web.online/api/uploads/VqkUXFTPwpPXQHEH/download?inline=1" alt="Slide 4" onerror="this.parentElement.innerHTML='<p class=error-msg>Image failed to load</p>'" /></div>
+    </div>
+  </div>
+  <div class="controls">
+    <button class="nav-btn" id="prev" aria-label="Previous">&#8592;</button>
+    <div class="dots" id="dots"></div>
+    <span class="counter" id="counter">1 / 4</span>
+    <button class="nav-btn" id="next" aria-label="Next">&#8594;</button>
+  </div>
+</div>
+
+<script>
+  const track = document.getElementById('track');
+  const dotsEl = document.getElementById('dots');
+  const counter = document.getElementById('counter');
+  const total = 4;
+  let cur = 0, autoplay;
+
+  const dots = Array.from({length: total}, (_, i) => {
+    const d = document.createElement('button');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.setAttribute('aria-label', `Go to slide ${i + 1}`);
+    d.onclick = () => go(i);
+    dotsEl.appendChild(d);
+    return d;
+  });
+
+  function go(n) {
+    cur = (n + total) % total;
+    track.style.transform = `translateX(-${cur * 100}%)`;
+    dots.forEach((d, i) => d.classList.toggle('active', i === cur));
+    counter.textContent = `${cur + 1} / ${total}`;
+    resetAuto();
+  }
+
+  document.getElementById('prev').onclick = () => go(cur - 1);
+  document.getElementById('next').onclick = () => go(cur + 1);
+
+  function resetAuto() {
+    clearInterval(autoplay);
+    autoplay = setInterval(() => go(cur + 1), 4000);
+  }
+
+  resetAuto();
+</script>
+</body>
+</html>

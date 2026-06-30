@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sketch → UI</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f0f0f5;
+    --surface: #ffffff;
+    --surface2: #f4f4f8;
+    --border: #d8d8e4;
+    --accent: #6155d4;
+    --accent2: #8b7cf8;
+    --text: #1a1a2e;
+    --muted: #7878a0;
+    --danger: #dc2626;
+    --green: #16a34a;
+    --canvas-bg: #ffffff;
+    --radius: 10px;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* ── TOP BAR ── */
+  header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+    flex-wrap: wrap;
+  }
+
+  .logo {
+    font-weight: 700;
+    font-size: 18px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    white-space: nowrap;
+    margin-right: 8px;
+  }
+
+  .header-sep { width: 1px; height: 28px; background: var(--border); }
+
+  header input[type="text"] {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 13px;
+    padding: 6px 10px;
+    width: 320px;
+    outline: none;
+    transition: border-color .2s;
+  }
+  header input[type="text"]:focus { border-color: var(--accent); }
+  header input[type="text"]::placeholder { color: var(--muted); }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 8px;
+    border: none;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity .15s, transform .1s;
+    white-space: nowrap;
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn-ghost { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+  .btn-ghost:hover { border-color: var(--accent); }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent), #6d5ce6);
+    color: #fff;
+    box-shadow: 0 0 18px rgba(124,106,245,.35);
+  }
+  .btn-primary:hover { opacity: .9; }
+  .btn-primary:disabled { opacity: .4; cursor: not-allowed; }
+  .btn-danger { background: var(--danger); color: #fff; }
+
+  /* ── MAIN LAYOUT ── */
+  main {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  /* ── TOOLS SIDEBAR ── */
+  .tools {
+    width: 56px;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 0;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+
+  .tool-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .15s;
+    position: relative;
+  }
+  .tool-btn:hover { background: var(--surface2); color: var(--text); }
+  .tool-btn.active { background: var(--surface2); border-color: var(--accent); color: var(--accent); }
+  .tool-btn svg { width: 18px; height: 18px; }
+
+  .tool-sep { width: 28px; height: 1px; background: var(--border); margin: 4px 0; }
+
+  /* stroke/fill options */
+  .tool-options {
+    padding: 4px 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    margin-top: 4px;
+  }
+  .swatch-row { display: flex; gap: 4px; flex-wrap: wrap; justify-content: center; }
+  .swatch {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color .15s, transform .1s;
+  }
+  .swatch:hover { transform: scale(1.2); }
+  .swatch.active { border-color: white; }
+
+  .stroke-label { font-size: 10px; color: var(--muted); }
+  input[type="range"].thin { width: 36px; accent-color: var(--accent); cursor: pointer; }
+
+  /* ── CANVAS AREA ── */
+  .canvas-wrap {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e8e8f2;
+    background-image: radial-gradient(circle, #c8c8dc 1px, transparent 1px);
+    background-size: 24px 24px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  #canvas {
+    background: var(--canvas-bg);
+    border-radius: 4px;
+    box-shadow: 0 8px 40px rgba(0,0,0,.5);
+    cursor: crosshair;
+    touch-action: none;
+  }
+
+  .canvas-hint {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255,255,255,.85);
+    backdrop-filter: blur(6px);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 12px;
+    color: var(--muted);
+    pointer-events: none;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+  }
+
+  /* ── RIGHT PANEL ── */
+  .right-panel {
+    width: 480px;
+    background: var(--surface);
+    border-left: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  .panel-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface2);
+    flex-shrink: 0;
+  }
+  .panel-tab {
+    flex: 1;
+    padding: 10px;
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all .15s;
+  }
+  .panel-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  .panel-body { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+
+  /* code view */
+  .code-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .code-lang { font-size: 12px; color: var(--muted); }
+
+  #code-output {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+    font-size: 12.5px;
+    line-height: 1.7;
+    color: #2a2a4a;
+    background: #f8f8fc;
+    white-space: pre;
+    tab-size: 2;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+
+  .placeholder-msg {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: var(--muted);
+    text-align: center;
+    padding: 32px;
+  }
+  .placeholder-icon { font-size: 48px; opacity: .4; }
+  .placeholder-msg p { font-size: 14px; line-height: 1.6; }
+
+  /* preview view */
+  #preview-frame {
+    flex: 1;
+    border: none;
+    background: #fff;
+  }
+
+  /* loading overlay */
+  .loading-overlay {
+    display: none;
+    position: absolute;
+    inset: 0;
+    background: rgba(240,240,245,.80);
+    backdrop-filter: blur(4px);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+    z-index: 100;
+  }
+  .loading-overlay.show { display: flex; }
+  .spinner {
+    width: 40px; height: 40px;
+    border: 3px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin .8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loading-text { color: var(--text); font-size: 14px; }
+
+  /* toast */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 18px;
+    font-size: 13px;
+    box-shadow: 0 4px 20px rgba(0,0,0,.4);
+    z-index: 999;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: all .25s;
+    pointer-events: none;
+  }
+  .toast.show { opacity: 1; transform: translateY(0); }
+  .toast.success { border-color: var(--green); color: var(--green); }
+  .toast.error { border-color: var(--danger); color: var(--danger); }
+
+  /* undo stack indicator */
+  #undo-count { font-size: 11px; color: var(--muted); margin-left: 2px; }
+
+  /* text input overlay */
+  #text-input-overlay {
+    display: none;
+    position: absolute;
+    border: 2px dashed var(--accent);
+    border-radius: 4px;
+    background: transparent;
+    outline: none;
+    font-size: 15px;
+    color: #111;
+    padding: 2px 4px;
+    min-width: 80px;
+    z-index: 50;
+  }
+
+  .resize-handle {
+    width: 4px;
+    cursor: col-resize;
+    background: var(--border);
+    flex-shrink: 0;
+    transition: background .15s;
+  }
+  .resize-handle:hover { background: var(--accent); }
+
+  /* scrollbar style */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header>
+  <div class="logo">✏️ Sketch → UI</div>
+  <div class="header-sep"></div>
+  <input type="text" id="api-key" placeholder="🔑 Paste your Anthropic API key (sk-ant-…)" autocomplete="off"/>
+  <div class="header-sep"></div>
+  <button class="btn btn-ghost" onclick="undoAction()" title="Undo (Ctrl+Z)">↩ Undo <span id="undo-count"></span></button>
+  <button class="btn btn-ghost" onclick="clearCanvas()" title="Clear canvas">🗑 Clear</button>
+  <button class="btn btn-primary" id="gen-btn" onclick="generateUI()">✨ Generate UI</button>
+</header>
+
+<!-- MAIN -->
+<main>
+
+  <!-- TOOLS -->
+  <div class="tools">
+    <!-- pen -->
+    <button class="tool-btn active" data-tool="pen" title="Pen (P)" onclick="setTool('pen')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+    </button>
+    <!-- marker -->
+    <button class="tool-btn" data-tool="marker" title="Marker (M)" onclick="setTool('marker')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="6" height="18" rx="1"/><path d="M9 7h6a2 2 0 012 2v6a2 2 0 01-2 2H9"/><path d="M17 12h1a2 2 0 010 4h-1"/></svg>
+    </button>
+    <!-- eraser -->
+    <button class="tool-btn" data-tool="eraser" title="Eraser (E)" onclick="setTool('eraser')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 20H7L3 16l10-10 7 7-1.5 1.5"/><path d="M6.5 17.5l5-5"/></svg>
+    </button>
+
+    <div class="tool-sep"></div>
+
+    <!-- rect -->
+    <button class="tool-btn" data-tool="rect" title="Rectangle (R)" onclick="setTool('rect')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="1"/></svg>
+    </button>
+    <!-- ellipse -->
+    <button class="tool-btn" data-tool="ellipse" title="Ellipse (O)" onclick="setTool('ellipse')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="12" rx="9" ry="6"/></svg>
+    </button>
+    <!-- line -->
+    <button class="tool-btn" data-tool="line" title="Line (L)" onclick="setTool('line')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="19" x2="19" y2="5"/></svg>
+    </button>
+    <!-- arrow -->
+    <button class="tool-btn" data-tool="arrow" title="Arrow (A)" onclick="setTool('arrow')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="19" x2="19" y2="5"/><polyline points="9 5 19 5 19 15"/></svg>
+    </button>
+    <!-- text -->
+    <button class="tool-btn" data-tool="text" title="Text (T)" onclick="setTool('text')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+    </button>
+
+    <div class="tool-sep"></div>
+
+    <!-- color swatches -->
+    <div class="tool-options">
+      <div class="stroke-label">COLOR</div>
+      <div class="swatch-row">
+        <div class="swatch active" data-color="#111111" style="background:#111" onclick="setColor('#111111')"></div>
+        <div class="swatch" data-color="#ef4444" style="background:#ef4444" onclick="setColor('#ef4444')"></div>
+        <div class="swatch" data-color="#3b82f6" style="background:#3b82f6" onclick="setColor('#3b82f6')"></div>
+        <div class="swatch" data-color="#22c55e" style="background:#22c55e" onclick="setColor('#22c55e')"></div>
+      </div>
+      <div class="swatch-row">
+        <div class="swatch" data-color="#f59e0b" style="background:#f59e0b" onclick="setColor('#f59e0b')"></div>
+        <div class="swatch" data-color="#8b5cf6" style="background:#8b5cf6" onclick="setColor('#8b5cf6')"></div>
+        <div class="swatch" data-color="#64748b" style="background:#64748b" onclick="setColor('#64748b')"></div>
+        <div class="swatch" data-color="#ffffff" style="background:#fff; border:1px solid #ccc" onclick="setColor('#ffffff')"></div>
+      </div>
+      <div class="tool-sep" style="margin-top:4px"></div>
+      <div class="stroke-label">SIZE</div>
+      <input type="range" class="thin" id="stroke-size" min="1" max="24" value="3" oninput="setStroke(this.value)" style="width:40px"/>
+    </div>
+  </div>
+
+  <!-- CANVAS -->
+  <div class="canvas-wrap" id="canvas-wrap">
+    <canvas id="canvas"></canvas>
+    <input id="text-input-overlay" type="text" placeholder="Type here…"/>
+    <div class="loading-overlay" id="loading">
+      <div class="spinner"></div>
+      <div class="loading-text" id="loading-text">Generating UI code…</div>
+    </div>
+    <div class="canvas-hint" id="canvas-hint">Draw your wireframe — buttons, inputs, cards, nav bars…</div>
+  </div>
+
+  <!-- RESIZE HANDLE -->
+  <div class="resize-handle" id="resize-handle"></div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right-panel" id="right-panel">
+    <div class="panel-tabs">
+      <button class="panel-tab active" id="tab-code" onclick="switchTab('code')">⟨/⟩ Code</button>
+      <button class="panel-tab" id="tab-preview" onclick="switchTab('preview')">👁 Preview</button>
+    </div>
+    <div class="panel-body" id="panel-body">
+      <!-- placeholder -->
+      <div class="placeholder-msg" id="placeholder">
+        <div class="placeholder-icon">🎨</div>
+        <p><strong>Draw your UI wireframe</strong> on the canvas,<br/>then click <strong>✨ Generate UI</strong> to get HTML code.</p>
+        <p style="font-size:12px;opacity:.7">Sketch buttons, inputs, nav bars, cards,<br/>modals — anything you can imagine.</p>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ══════════════════════════════════════════
+// CANVAS SETUP
+// ══════════════════════════════════════════
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+const wrap = document.getElementById('canvas-wrap');
+
+let currentTool = 'pen';
+let currentColor = '#111111';
+let strokeSize = 3;
+let isDrawing = false;
+let startX, startY;
+let snapshot; // for shape preview
+
+// undo stack: array of ImageData
+const undoStack = [];
+const MAX_UNDO = 40;
+
+function resizeCanvas() {
+  const ww = Math.max(wrap.clientWidth - 64, 320);
+  const wh = Math.max(wrap.clientHeight - 64, 240);
+  // Maintain 16:10 ish but max out at available space
+  let w = Math.min(ww, 1280);
+  let h = Math.min(wh, 800);
+  // Snap to 16:10
+  if (w / h > 1.6) w = Math.round(h * 1.6);
+  else h = Math.round(w / 1.6);
+
+  const old = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  canvas.width = w;
+  canvas.height = h;
+  ctx.fillStyle = '#fff';
+  ctx.fillRect(0, 0, w, h);
+  if (old.width > 0) ctx.putImageData(old, 0, 0);
+}
+
+// Wait for full layout before sizing the canvas
+window.addEventListener('load', () => {
+  resizeCanvas();
+  ctx.fillStyle = '#fff';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+});
+window.addEventListener('resize', resizeCanvas);
+
+// ══════════════════════════════════════════
+// TOOL STATE
+// ══════════════════════════════════════════
+function setTool(t) {
+  currentTool = t;
+  document.querySelectorAll('.tool-btn').forEach(b => b.classList.toggle('active', b.dataset.tool === t));
+  canvas.style.cursor = t === 'eraser' ? 'cell' : t === 'text' ? 'text' : 'crosshair';
+  document.getElementById('canvas-hint').style.display = 'none';
+}
+
+function setColor(c) {
+  currentColor = c;
+  document.querySelectorAll('.swatch').forEach(s => s.classList.toggle('active', s.dataset.color === c));
+}
+
+function setStroke(v) {
+  strokeSize = parseInt(v);
+}
+
+// ══════════════════════════════════════════
+// UNDO
+// ══════════════════════════════════════════
+function saveSnapshot() {
+  undoStack.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+  if (undoStack.length > MAX_UNDO) undoStack.shift();
+  updateUndoLabel();
+}
+
+function undoAction() {
+  if (undoStack.length === 0) return;
+  ctx.putImageData(undoStack.pop(), 0, 0);
+  updateUndoLabel();
+}
+
+function updateUndoLabel() {
+  const el = document.getElementById('undo-count');
+  el.textContent = undoStack.length > 0 ? `(${undoStack.length})` : '';
+}
+
+function clearCanvas() {
+  saveSnapshot();
+  ctx.fillStyle = '#fff';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  document.getElementById('canvas-hint').style.display = '';
+}
+
+// ══════════════════════════════════════════
+// DRAWING HELPERS
+// ══════════════════════════════════════════
+function applyPenStyle(size, color, opacity = 1) {
+  ctx.strokeStyle = color;
+  ctx.fillStyle = color;
+  ctx.lineWidth = size;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  ctx.globalAlpha = opacity;
+}
+
+function getPos(e) {
+  const rect = canvas.getBoundingClientRect();
+  const src = e.touches ? e.touches[0] : e;
+  const scaleX = canvas.width / rect.width;
+  const scaleY = canvas.height / rect.height;
+  return {
+    x: (src.clientX - rect.left) * scaleX,
+    y: (src.clientY - rect.top) * scaleY
+  };
+}
+
+// ══════════════════════════════════════════
+// MOUSE EVENTS
+// ══════════════════════════════════════════
+canvas.addEventListener('mousedown', startDraw);
+canvas.addEventListener('mousemove', draw);
+canvas.addEventListener('mouseup', endDraw);
+canvas.addEventListener('mouseleave', endDraw);
+canvas.addEventListener('touchstart', e => { e.preventDefault(); startDraw(e); }, {passive:false});
+canvas.addEventListener('touchmove', e => { e.preventDefault(); draw(e); }, {passive:false});
+canvas.addEventListener('touchend', e => { e.preventDefault(); endDraw(e); }, {passive:false});
+
+function startDraw(e) {
+  if (currentTool === 'text') { handleTextTool(e); return; }
+  const {x, y} = getPos(e);
+  isDrawing = true;
+  startX = x; startY = y;
+  saveSnapshot();
+
+  if (currentTool === 'pen' || currentTool === 'marker') {
+    ctx.globalAlpha = currentTool === 'marker' ? 0.45 : 1;
+    ctx.strokeStyle = currentColor;
+    ctx.lineWidth = currentTool === 'marker' ? strokeSize * 3 : strokeSize;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+  } else if (currentTool === 'eraser') {
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.lineWidth = strokeSize * 4;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+  }
+}
+
+function draw(e) {
+  if (!isDrawing) return;
+  const {x, y} = getPos(e);
+
+  if (currentTool === 'pen' || currentTool === 'marker') {
+    ctx.lineTo(x, y);
+    ctx.stroke();
+  } else if (currentTool === 'eraser') {
+    ctx.lineTo(x, y);
+    ctx.stroke();
+  } else if (['rect','ellipse','line','arrow'].includes(currentTool)) {
+    // restore snapshot then draw shape
+    ctx.putImageData(snapshot || undoStack[undoStack.length-1], 0, 0);
+    ctx.globalAlpha = 1;
+    ctx.strokeStyle = currentColor;
+    ctx.lineWidth = strokeSize;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.beginPath();
+    if (currentTool === 'rect') {
+      ctx.strokeRect(startX, startY, x - startX, y - startY);
+    } else if (currentTool === 'ellipse') {
+      const rx = Math.abs(x - startX) / 2;
+      const ry = Math.abs(y - startY) / 2;
+      const cx = startX + (x - startX) / 2;
+      const cy = startY + (y - startY) / 2;
+      ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2);
+      ctx.stroke();
+    } else if (currentTool === 'line') {
+      ctx.moveTo(startX, startY);
+      ctx.lineTo(x, y);
+      ctx.stroke();
+    } else if (currentTool === 'arrow') {
+      drawArrow(ctx, startX, startY, x, y, strokeSize);
+    }
+  }
+}
+
+function endDraw(e) {
+  if (!isDrawing) return;
+  isDrawing = false;
+  ctx.globalCompositeOperation = 'source-over';
+  ctx.globalAlpha = 1;
+  snapshot = null;
+}
+
+// Save pre-shape snapshot on mousedown for shapes
+canvas.addEventListener('mousedown', (e) => {
+  if (['rect','ellipse','line','arrow'].includes(currentTool)) {
+    snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  }
+}, true);
+
+function drawArrow(ctx, x1, y1, x2, y2, size) {
+  const angle = Math.atan2(y2 - y1, x2 - x1);
+  const len = 12 + size * 2;
+  ctx.moveTo(x1, y1);
+  ctx.lineTo(x2, y2);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(x2, y2);
+  ctx.lineTo(x2 - len * Math.cos(angle - Math.PI / 6), y2 - len * Math.sin(angle - Math.PI / 6));
+  ctx.lineTo(x2 - len * Math.cos(angle + Math.PI / 6), y2 - len * Math.sin(angle + Math.PI / 6));
+  ctx.closePath();
+  ctx.fillStyle = currentColor;
+  ctx.fill();
+}
+
+// ══════════════════════════════════════════
+// TEXT TOOL
+// ══════════════════════════════════════════
+const textOverlay = document.getElementById('text-input-overlay');
+
+function handleTextTool(e) {
+  const {x, y} = getPos(e);
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = rect.width / canvas.width;
+  const scaleY = rect.height / canvas.height;
+  const screenX = rect.left + x * scaleX;
+  const screenY = rect.top + y * scaleY;
+
+  textOverlay.style.display = 'block';
+  textOverlay.style.left = (screenX - wrap.getBoundingClientRect().left) + 'px';
+  textOverlay.style.top = (screenY - wrap.getBoundingClientRect().top) + 'px';
+  textOverlay.style.fontSize = Math.max(12, strokeSize * 5) + 'px';
+  textOverlay.style.color = currentColor;
+  textOverlay.value = '';
+  textOverlay.focus();
+
+  textOverlay.onkeydown = (ev) => {
+    if (ev.key === 'Enter' || ev.key === 'Escape') {
+      commitText(x, y);
+    }
+  };
+  textOverlay.onblur = () => commitText(x, y);
+}
+
+function commitText(x, y) {
+  const val = textOverlay.value.trim();
+  if (val) {
+    saveSnapshot();
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = currentColor;
+    ctx.font = `${Math.max(12, strokeSize * 5)}px -apple-system, sans-serif`;
+    ctx.fillText(val, x, y + Math.max(12, strokeSize * 5));
+  }
+  textOverlay.style.display = 'none';
+}
+
+// ══════════════════════════════════════════
+// KEYBOARD SHORTCUTS
+// ══════════════════════════════════════════
+document.addEventListener('keydown', (e) => {
+  if (document.activeElement === textOverlay || document.activeElement.tagName === 'INPUT') return;
+  const k = e.key.toLowerCase();
+  if (k === 'p') setTool('pen');
+  else if (k === 'm') setTool('marker');
+  else if (k === 'e') setTool('eraser');
+  else if (k === 'r') setTool('rect');
+  else if (k === 'o') setTool('ellipse');
+  else if (k === 'l') setTool('line');
+  else if (k === 'a') setTool('arrow');
+  else if (k === 't') setTool('text');
+  else if ((e.ctrlKey || e.metaKey) && k === 'z') { e.preventDefault(); undoAction(); }
+});
+
+// ══════════════════════════════════════════
+// PANEL TABS
+// ══════════════════════════════════════════
+let currentTab = 'code';
+let generatedHTML = '';
+
+function switchTab(tab) {
+  currentTab = tab;
+  document.getElementById('tab-code').classList.toggle('active', tab === 'code');
+  document.getElementById('tab-preview').classList.toggle('active', tab === 'preview');
+  renderPanel();
+}
+
+function renderPanel() {
+  const body = document.getElementById('panel-body');
+  if (!generatedHTML) {
+    body.innerHTML = `<div class="placeholder-msg" id="placeholder">
+      <div class="placeholder-icon">🎨</div>
+      <p><strong>Draw your UI wireframe</strong> on the canvas,<br/>then click <strong>✨ Generate UI</strong> to get HTML code.</p>
+      <p style="font-size:12px;opacity:.7">Sketch buttons, inputs, nav bars, cards,<br/>modals — anything you can imagine.</p>
+    </div>`;
+    return;
+  }
+
+  if (currentTab === 'code') {
+    body.innerHTML = `
+      <div class="code-header">
+        <span class="code-lang">HTML + Tailwind CSS</span>
+        <button class="btn btn-ghost" style="padding:4px 10px;font-size:12px" onclick="copyCode()">📋 Copy</button>
+      </div>
+      <div id="code-output">${escapeHtml(generatedHTML)}</div>`;
+  } else {
+    body.innerHTML = `<iframe id="preview-frame" srcdoc="${escapeAttr(generatedHTML)}" sandbox="allow-scripts"></iframe>`;
+  }
+}
+
+function escapeHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+function escapeAttr(s) {
+  return s.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+function copyCode() {
+  navigator.clipboard.writeText(generatedHTML).then(() => showToast('Code copied!', 'success'));
+}
+
+// ══════════════════════════════════════════
+// AI GENERATION
+// ══════════════════════════════════════════
+async function generateUI() {
+  const apiKey = document.getElementById('api-key').value.trim();
+  if (!apiKey) {
+    showToast('Please paste your Anthropic API key first.', 'error');
+    document.getElementById('api-key').focus();
+    return;
+  }
+  if (!apiKey.startsWith('sk-ant-')) {
+    showToast('API key should start with sk-ant-…', 'error');
+    return;
+  }
+
+  const loading = document.getElementById('loading');
+  const genBtn = document.getElementById('gen-btn');
+  loading.classList.add('show');
+  genBtn.disabled = true;
+
+  try {
+    // get canvas as base64
+    const imageData = canvas.toDataURL('image/png').split(',')[1];
+
+    const prompt = `You are a world-class frontend developer. The user has sketched a UI wireframe by hand.
+
+Convert this wireframe sketch into a complete, polished HTML page that faithfully represents the layout and components shown.
+
+Requirements:
+- Use Tailwind CSS via CDN (include <script src="https://cdn.tailwindcss.com"></script>)
+- Make it visually attractive with a modern design (use color, shadows, rounded corners)
+- Include realistic placeholder content/text that fits the UI
+- Make it fully responsive
+- Every visible element in the sketch must be represented in the output
+- Output ONLY the complete HTML document — no markdown, no explanation, no code fences
+
+Interpret boxes as cards, containers, or panels. Interpret labels/text as headings or content. Interpret small boxes as buttons or input fields. Interpret horizontal lines as nav bars or dividers.`;
+
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'content-type': 'application/json',
+        'anthropic-dangerous-direct-browser-calls': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-opus-4-6',
+        max_tokens: 4096,
+        messages: [{
+          role: 'user',
+          content: [
+            {
+              type: 'image',
+              source: {
+                type: 'base64',
+                media_type: 'image/png',
+                data: imageData
+              }
+            },
+            {
+              type: 'text',
+              text: prompt
+            }
+          ]
+        }]
+      })
+    });
+
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({}));
+      throw new Error(err.error?.message || `API error ${response.status}`);
+    }
+
+    const data = await response.json();
+    let html = data.content?.[0]?.text || '';
+
+    // strip markdown code fences if model wrapped anyway
+    html = html.replace(/^```[\w]*\n?/gm, '').replace(/^```$/gm, '').trim();
+
+    generatedHTML = html;
+    renderPanel();
+    showToast('UI generated!', 'success');
+
+    // auto-switch to preview
+    setTimeout(() => switchTab('preview'), 400);
+
+  } catch (err) {
+    showToast('Error: ' + err.message, 'error');
+    console.error(err);
+  } finally {
+    loading.classList.remove('show');
+    genBtn.disabled = false;
+  }
+}
+
+// ══════════════════════════════════════════
+// TOAST
+// ══════════════════════════════════════════
+let toastTimer;
+function showToast(msg, type = '') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show ' + type;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.className = 'toast', 3000);
+}
+
+// ══════════════════════════════════════════
+// RESIZE PANEL
+// ══════════════════════════════════════════
+const handle = document.getElementById('resize-handle');
+const rightPanel = document.getElementById('right-panel');
+let resizing = false, resizeStartX, panelStartW;
+
+handle.addEventListener('mousedown', e => {
+  resizing = true;
+  resizeStartX = e.clientX;
+  panelStartW = rightPanel.offsetWidth;
+  document.body.style.cursor = 'col-resize';
+  document.body.style.userSelect = 'none';
+});
+document.addEventListener('mousemove', e => {
+  if (!resizing) return;
+  const delta = resizeStartX - e.clientX;
+  const newW = Math.max(260, Math.min(700, panelStartW + delta));
+  rightPanel.style.width = newW + 'px';
+});
+document.addEventListener('mouseup', () => {
+  resizing = false;
+  document.body.style.cursor = '';
+  document.body.style.userSelect = '';
+});
+
+// canvas fill handled in load event above
+</script>
+</body>
+</html>

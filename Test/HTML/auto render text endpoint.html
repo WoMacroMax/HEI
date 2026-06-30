@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Renderer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+        }
+
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.3s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #e0e0e0;
+            border-top-color: #007bff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loader-text {
+            margin-top: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .error-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .error-container.show {
+            display: flex;
+        }
+
+        .error-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .error-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .error-message {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 20px;
+            max-width: 400px;
+        }
+
+        .retry-btn {
+            padding: 12px 24px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .retry-btn:hover {
+            background: #0056b3;
+        }
+
+        .retry-btn:active {
+            transform: scale(0.98);
+        }
+
+        #content {
+            width: 100%;
+            min-height: 100vh;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        #content.loaded {
+            opacity: 1;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .error-title {
+                font-size: 20px;
+            }
+            
+            .error-message {
+                font-size: 14px;
+            }
+        }
+
+        /* Ensure embedded content is responsive */
+        #content img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        #content table {
+            width: 100%;
+            overflow-x: auto;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Spinner -->
+    <div class="loader" id="loader">
+        <div class="spinner"></div>
+        <div class="loader-text">Loading content...</div>
+    </div>
+
+    <!-- Error Display -->
+    <div class="error-container" id="errorContainer">
+        <div class="error-icon">⚠️</div>
+        <div class="error-title">Failed to Load Content</div>
+        <div class="error-message" id="errorMessage">
+            Unable to fetch the content. Please check your connection and try again.
+        </div>
+        <button class="retry-btn" onclick="loadContent()">Retry</button>
+    </div>
+
+    <!-- Content Container -->
+    <div id="content"></div>
+
+    <script>
+        const ENDPOINT_URL = 'https://digiucard.com/OSPvSc';
+
+        async function loadContent() {
+            const loader = document.getElementById('loader');
+            const errorContainer = document.getElementById('errorContainer');
+            const contentDiv = document.getElementById('content');
+            const errorMessage = document.getElementById('errorMessage');
+
+            // Reset UI
+            loader.classList.remove('hidden');
+            errorContainer.classList.remove('show');
+            contentDiv.classList.remove('loaded');
+
+            try {
+                let html;
+                let fetchError;
+
+                // Strategy 1: Direct fetch with no-cors mode
+                try {
+                    console.log('Attempting direct fetch...');
+                    const response = await fetch(ENDPOINT_URL, {
+                        mode: 'cors',
+                        cache: 'no-cache'
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    
+                    html = await response.text();
+                    console.log('Direct fetch successful');
+                } catch (error) {
+                    console.log('Direct fetch failed:', error.message);
+                    fetchError = error;
+
+                    // Strategy 2: Try with CORS proxy
+                    try {
+                        console.log('Attempting fetch via CORS proxy...');
+                        const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(ENDPOINT_URL)}`;
+                        const proxyResponse = await fetch(proxyUrl);
+                        
+                        if (!proxyResponse.ok) {
+                            throw new Error(`Proxy error! status: ${proxyResponse.status}`);
+                        }
+                        
+                        html = await proxyResponse.text();
+                        console.log('Proxy fetch successful');
+                    } catch (proxyError) {
+                        console.log('Proxy fetch failed:', proxyError.message);
+                        
+                        // Strategy 3: Try alternative CORS proxy
+                        try {
+                            console.log('Attempting fetch via alternative proxy...');
+                            const altProxyUrl = `https://corsproxy.io/?${encodeURIComponent(ENDPOINT_URL)}`;
+                            const altProxyResponse = await fetch(altProxyUrl);
+                            
+                            if (!altProxyResponse.ok) {
+                                throw new Error(`Alt proxy error! status: ${altProxyResponse.status}`);
+                            }
+                            
+                            html = await altProxyResponse.text();
+                            console.log('Alternative proxy fetch successful');
+                        } catch (altProxyError) {
+                            console.log('Alternative proxy fetch failed:', altProxyError.message);
+                            throw fetchError; // Throw original error
+                        }
+                    }
+                }
+
+                if (!html) {
+                    throw new Error('No content received from any source');
+                }
+                
+                // Insert the HTML content
+                contentDiv.innerHTML = html;
+
+                // Execute any scripts in the loaded HTML
+                const scripts = contentDiv.querySelectorAll('script');
+                scripts.forEach(script => {
+                    const newScript = document.createElement('script');
+                    if (script.src) {
+                        newScript.src = script.src;
+                    } else {
+                        newScript.textContent = script.textContent;
+                    }
+                    document.body.appendChild(newScript);
+                });
+
+                // Show content with fade-in
+                setTimeout(() => {
+                    loader.classList.add('hidden');
+                    contentDiv.classList.add('loaded');
+                }, 300);
+
+            } catch (error) {
+                console.error('Error loading content:', error);
+                
+                // Show error with details and helpful message
+                errorMessage.innerHTML = `
+                    <strong>${error.message}</strong><br><br>
+                    This might be a CORS (Cross-Origin) issue. 
+                    Try opening this file via a local web server or check if the endpoint allows cross-origin requests.
+                `;
+                loader.classList.add('hidden');
+                errorContainer.classList.add('show');
+            }
+        }
+
+        // Load content when page loads
+        window.addEventListener('DOMContentLoaded', loadContent);
+
+        // Reload on online event (network recovery)
+        window.addEventListener('online', () => {
+            if (document.getElementById('errorContainer').classList.contains('show')) {
+                loadContent();
+            }
+        });
+    </script>
+</body>
+</html>

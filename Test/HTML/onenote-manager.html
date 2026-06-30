@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OneNote Manager</title>
+  <script src="https://alcdn.msauth.net/browser/2.38.3/js/msal-browser.min.js"></script>
+  <style>
+    :root {
+      --purple: #7719aa;
+      --purple-mid: #9b33c4;
+      --purple-light: #f3e8fc;
+      --blue: #0078d4;
+      --green: #107c10;
+      --red: #a4262c;
+      --red-light: #fde7e9;
+      --border: #e1dfdd;
+      --bg: #faf9f8;
+      --card: #ffffff;
+      --text: #201f1e;
+      --muted: #605e5c;
+      --sidebar-w: 290px;
+      --header-h: 52px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ═══════════════════════════════════════
+       LOGIN SCREEN
+    ═══════════════════════════════════════ */
+    #loginScreen {
+      position: fixed; inset: 0;
+      background: linear-gradient(135deg, #6500b0 0%, #0078d4 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    #loginScreen.hidden { display: none; }
+
+    .login-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 40px 44px;
+      width: 380px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.25);
+      text-align: center;
+    }
+
+    .login-logo {
+      width: 64px;
+      height: 64px;
+      background: var(--purple);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 36px;
+      font-weight: 900;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      letter-spacing: -2px;
+    }
+
+    .login-card h1 {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .login-card p {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 28px;
+      line-height: 1.5;
+    }
+
+    .ms-btn {
+      width: 100%;
+      padding: 12px 20px;
+      border: 1.5px solid #8c8c8c;
+      border-radius: 4px;
+      background: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      transition: background 0.15s, box-shadow 0.15s;
+      color: var(--text);
+    }
+
+    .ms-btn:hover {
+      background: #f3f2f1;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .ms-btn svg { flex-shrink: 0; }
+
+    .login-divider {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 20px 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .login-divider::before,
+    .login-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .manual-token-section { text-align: left; }
+    .manual-token-section label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .token-row { display: flex; gap: 8px; }
+
+    .token-row input {
+      flex: 1;
+      padding: 9px 12px;
+      border: 1.5px solid var(--border);
+      border-radius: 4px;
+      font-size: 13px;
+      font-family: monospace;
+    }
+
+    .token-row input:focus { outline: 2px solid var(--purple); border-color: transparent; }
+
+    .hint {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 5px;
+    }
+
+    .hint a { color: var(--blue); }
+
+    /* ═══════════════════════════════════════
+       APP CHROME
+    ═══════════════════════════════════════ */
+    #appScreen { height: 100vh; display: flex; flex-direction: column; }
+    #appScreen.hidden { display: none; }
+
+    header {
+      height: var(--header-h);
+      background: var(--purple);
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      gap: 12px;
+      flex-shrink: 0;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    .header-logo {
+      width: 30px; height: 30px;
+      background: rgba(255,255,255,0.18);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 18px; color: #fff;
+      flex-shrink: 0;
+    }
+
+    header h1 { font-size: 17px; font-weight: 600; color: #fff; flex: 1; }
+
+    .user-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.15);
+      padding: 5px 12px 5px 5px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .user-pill:hover { background: rgba(255,255,255,0.25); }
+
+    .avatar {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: var(--purple-mid);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700; color: #fff;
+    }
+
+    .user-pill span { font-size: 13px; color: #fff; }
+
+    /* ═══════════════════════════════════════
+       MAIN LAYOUT
+    ═══════════════════════════════════════ */
+    .layout {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* ═══════════════════════════════════════
+       SIDEBAR
+    ═══════════════════════════════════════ */
+    .sidebar {
+      width: var(--sidebar-w);
+      background: var(--card);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+
+    .sidebar-header {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .sidebar-header span {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--muted);
+    }
+
+    .refresh-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      color: var(--muted);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .refresh-btn:hover { background: var(--purple-light); color: var(--purple); }
+
+    .tree {
+      flex: 1;
+      overflow-y: auto;
+      padding: 4px 0;
+    }
+
+    .tree-msg {
+      padding: 20px 14px;
+      font-size: 13px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    /* Tree items */
+    .nb-item, .sec-item, .pg-item {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      cursor: pointer;
+      user-select: none;
+      font-size: 13px;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .nb-item {
+      padding: 7px 14px;
+      font-weight: 600;
+      color: var(--purple);
+    }
+
+    .nb-item:hover { background: var(--purple-light); }
+
+    .sec-item {
+      padding: 5px 14px 5px 32px;
+      color: var(--text);
+    }
+
+    .sec-item:hover, .sec-item.active { background: var(--purple-light); }
+
+    .pg-item {
+      padding: 4px 14px 4px 48px;
+      color: var(--muted);
+      font-size: 12px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .pg-item:hover, .pg-item.active {
+      background: var(--purple-light);
+      color: var(--purple);
+    }
+
+    .tree-icon { margin-right: 6px; flex-shrink: 0; }
+    .arrow { font-size: 9px; margin-right: 5px; transition: transform 0.15s; color: var(--muted); }
+    .open > .nb-label > .arrow,
+    .open > .sec-label > .arrow { transform: rotate(90deg); }
+
+    .pg-item .del-pg {
+      margin-left: auto;
+      padding: 1px 5px;
+      border-radius: 3px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 11px;
+      color: transparent;
+      flex-shrink: 0;
+    }
+
+    .pg-item:hover .del-pg { color: var(--red); }
+    .pg-item:hover .del-pg:hover { background: var(--red-light); }
+
+    /* ═══════════════════════════════════════
+       MAIN CONTENT
+    ═══════════════════════════════════════ */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .tabs {
+      display: flex;
+      background: var(--card);
+      border-bottom: 2px solid var(--border);
+      padding: 0 16px;
+      flex-shrink: 0;
+    }
+
+    .tab {
+      padding: 13px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      color: var(--muted);
+      transition: color 0.15s;
+    }
+
+    .tab:hover { color: var(--purple); }
+    .tab.active { color: var(--purple); border-bottom-color: var(--purple); }
+
+    .panels {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+    }
+
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    /* ═══════════════════════════════════════
+       CARDS
+    ═══════════════════════════════════════ */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--purple);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge {
+      font-size: 10px;
+      background: var(--purple-light);
+      color: var(--purple);
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-weight: 700;
+    }
+
+    /* Forms */
+    .fg { margin-bottom: 13px; }
+    .fg label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: var(--muted);
+      margin-bottom: 5px;
+    }
+
+    .fg input, .fg textarea, .fg select {
+      width: 100%;
+      padding: 8px 11px;
+      border: 1.5px solid var(--border);
+      border-radius: 4px;
+      font-size: 13px;
+      font-family: inherit;
+      transition: border-color 0.15s;
+    }
+
+    .fg input:focus, .fg textarea:focus, .fg select:focus {
+      outline: none;
+      border-color: var(--purple);
+      box-shadow: 0 0 0 3px rgba(119,25,170,0.1);
+    }
+
+    .fg textarea { resize: vertical; min-height: 90px; }
+
+    .fg .hint { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+    /* Buttons */
+    .btn {
+      padding: 8px 18px;
+      border: none;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.15s, box-shadow 0.15s;
+    }
+
+    .btn:hover { opacity: 0.88; }
+    .btn:active { opacity: 0.75; }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .btn-primary { background: var(--purple); color: #fff; }
+    .btn-success { background: var(--green); color: #fff; }
+    .btn-danger  { background: var(--red);   color: #fff; }
+    .btn-ghost   { background: var(--border); color: var(--text); }
+
+    .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+
+    /* Result boxes */
+    .result {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      display: none;
+      line-height: 1.5;
+    }
+
+    .result.show { display: block; }
+    .result.ok  { background: #dff6dd; border: 1px solid #107c10; color: #0a4a0a; }
+    .result.err { background: var(--red-light); border: 1px solid var(--red); color: #6e1116; }
+    .result.inf { background: #deecf9; border: 1px solid var(--blue); color: #003a6c; }
+
+    /* Preview */
+    .preview-box {
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      padding: 16px;
+      background: #fff;
+      overflow: auto;
+      max-height: 420px;
+      font-size: 13px;
+    }
+
+    .preview-box.raw {
+      font-family: monospace;
+      font-size: 11px;
+      white-space: pre-wrap;
+      word-break: break-all;
+      background: #f8f8f8;
+    }
+
+    details summary {
+      font-size: 12px;
+      color: var(--muted);
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    hr { border: none; border-top: 1px solid var(--border); margin: 14px 0; }
+
+    /* Spinner */
+    .spin {
+      display: inline-block;
+      width: 14px; height: 14px;
+      border: 2px solid rgba(255,255,255,0.35);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: rotate 0.65s linear infinite;
+      vertical-align: middle;
+      margin-right: 5px;
+    }
+
+    .spin.dark {
+      border-color: rgba(0,0,0,0.15);
+      border-top-color: var(--purple);
+    }
+
+    @keyframes rotate { to { transform: rotate(360deg); } }
+
+    .loading { display: none; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }
+    .loading.show { display: inline-flex; }
+
+    /* Table */
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th { text-align: left; padding: 8px 12px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.4px; color: var(--muted); border-bottom: 2px solid var(--border); }
+    td { padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--purple-light); }
+    td .btn { padding: 4px 10px; font-size: 12px; }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     LOGIN SCREEN
+══════════════════════════════════════════ -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="login-logo">N</div>
+    <h1>OneNote Manager</h1>
+    <p>Sign in with your Microsoft account to read, create, edit, and delete OneNote pages.</p>
+
+    <button class="ms-btn" id="oauthBtn" onclick="msalLogin()">
+      <!-- Microsoft logo -->
+      <svg width="21" height="21" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+        <rect x="1" y="1" width="9" height="9" fill="#f25022"/>
+        <rect x="11" y="1" width="9" height="9" fill="#7fba00"/>
+        <rect x="1" y="11" width="9" height="9" fill="#00a4ef"/>
+        <rect x="11" y="11" width="9" height="9" fill="#ffb900"/>
+      </svg>
+      Sign in with Microsoft
+    </button>
+
+    <div class="login-divider">or use a token</div>
+
+    <div class="manual-token-section">
+      <label>Paste an access token</label>
+      <div class="token-row">
+        <input type="password" id="manualToken" placeholder="eyJ0eXAiOiJKV1Q…" />
+        <button class="btn btn-primary" onclick="manualLogin()">Go</button>
+      </div>
+      <p class="hint">
+        Get one from <a href="https://developer.microsoft.com/en-us/graph/graph-explorer" target="_blank">Graph Explorer</a>
+        — sign in there and copy the access token.
+      </p>
+    </div>
+
+    <p id="loginError" style="color:var(--red);font-size:12px;margin-top:14px;display:none"></p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     APP SCREEN
+══════════════════════════════════════════ -->
+<div id="appScreen" class="hidden">
+  <header>
+    <div class="header-logo">N</div>
+    <h1>OneNote Manager</h1>
+    <div class="user-pill" onclick="signOut()" title="Click to sign out">
+      <div class="avatar" id="avatarInitial">?</div>
+      <span id="userNameLabel">My Account</span>
+    </div>
+  </header>
+
+  <div class="layout">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <span>Notebooks</span>
+        <button class="refresh-btn" onclick="loadTree()" title="Refresh">⟳</button>
+      </div>
+      <div class="tree" id="tree">
+        <div class="tree-msg">Loading…</div>
+      </div>
+    </div>
+
+    <!-- Main -->
+    <div class="main">
+      <div class="tabs">
+        <div class="tab active" data-tab="read"   onclick="switchTab('read')">📄 Read</div>
+        <div class="tab"        data-tab="create" onclick="switchTab('create')">➕ Create</div>
+        <div class="tab"        data-tab="append" onclick="switchTab('append')">✏️ Append</div>
+        <div class="tab"        data-tab="delete" onclick="switchTab('delete')">🗑 Delete</div>
+        <div class="tab"        data-tab="browse" onclick="switchTab('browse')">🗂 Browse</div>
+      </div>
+
+      <div class="panels">
+
+        <!-- READ -->
+        <div class="panel active" id="tab-read">
+          <div class="card">
+            <div class="card-title">📄 Read Page Content</div>
+            <div class="fg">
+              <label>Page ID</label>
+              <input id="r_pageId" placeholder="Select a page from the sidebar, or paste a Page ID" />
+            </div>
+            <div class="row">
+              <button class="btn btn-primary" onclick="readPage()">Fetch Content</button>
+              <div class="loading" id="r_spin"><div class="spin dark"></div> Loading…</div>
+            </div>
+            <div class="result" id="r_result"></div>
+          </div>
+
+          <div class="card" id="r_preview_card" style="display:none">
+            <div class="card-title">
+              Page Preview
+              <span class="badge" id="r_badge"></span>
+              <button class="btn btn-ghost" style="margin-left:auto;padding:4px 10px;font-size:12px" onclick="copyHtml()">Copy HTML</button>
+            </div>
+            <div class="preview-box" id="r_preview"></div>
+            <details>
+              <summary>Raw HTML source</summary>
+              <div class="preview-box raw" id="r_raw" style="margin-top:8px;max-height:200px"></div>
+            </details>
+          </div>
+        </div>
+
+        <!-- CREATE -->
+        <div class="panel" id="tab-create">
+          <div class="card">
+            <div class="card-title">➕ Create New Page</div>
+            <div class="fg">
+              <label>Section ID</label>
+              <input id="c_sectionId" placeholder="Select a section from the sidebar, or paste a Section ID" />
+            </div>
+            <div class="fg">
+              <label>Page Title</label>
+              <input id="c_title" placeholder="My New Page" />
+            </div>
+            <div class="fg">
+              <label>Page Body (HTML)</label>
+              <textarea id="c_body" placeholder="<h1>Hello</h1>&#10;<p>This page was created via OneNote Manager.</p>&#10;<ul><li>Item one</li><li>Item two</li></ul>"></textarea>
+              <p class="hint">HTML tags like &lt;h1&gt;, &lt;p&gt;, &lt;ul&gt;, &lt;table&gt;, &lt;b&gt;, &lt;i&gt; are supported.</p>
+            </div>
+            <div class="row">
+              <button class="btn btn-success" onclick="createPage()">Create Page</button>
+              <div class="loading" id="c_spin"><div class="spin dark"></div> Creating…</div>
+            </div>
+            <div class="result" id="c_result"></div>
+          </div>
+        </div>
+
+        <!-- APPEND -->
+        <div class="panel" id="tab-append">
+          <div class="card">
+            <div class="card-title">✏️ Append Content to a Page</div>
+            <div class="fg">
+              <label>Page ID</label>
+              <input id="a_pageId" placeholder="Select a page from the sidebar, or paste a Page ID" />
+            </div>
+            <div class="fg">
+              <label>Append target</label>
+              <select id="a_target">
+                <option value="body">body — append to end of page</option>
+                <option value="custom">Custom element selector</option>
+              </select>
+            </div>
+            <div class="fg" id="a_custom_group" style="display:none">
+              <label>Custom CSS selector (e.g. #my-div)</label>
+              <input id="a_custom" placeholder="#section-id" />
+            </div>
+            <div class="fg">
+              <label>HTML content to append</label>
+              <textarea id="a_content" placeholder="<p>Appended via OneNote Manager.</p>"></textarea>
+            </div>
+            <div class="row">
+              <button class="btn btn-primary" onclick="appendContent()">Append</button>
+              <div class="loading" id="a_spin"><div class="spin dark"></div> Appending…</div>
+            </div>
+            <div class="result" id="a_result"></div>
+          </div>
+        </div>
+
+        <!-- DELETE -->
+        <div class="panel" id="tab-delete">
+          <div class="card">
+            <div class="card-title">🗑 Delete a Page</div>
+            <div class="fg">
+              <label>Page ID</label>
+              <input id="d_pageId" placeholder="Select a page from the sidebar, or paste a Page ID" />
+            </div>
+            <div class="fg">
+              <label>Page title (for confirmation)</label>
+              <input id="d_title" placeholder="Enter page title to confirm deletion" />
+            </div>
+            <div style="background:#fff5f5;border:1px solid #f1a0a5;border-radius:6px;padding:12px 14px;font-size:13px;color:#7a1c20;margin-bottom:14px;">
+              ⚠️ <strong>Warning:</strong> Deleting a page is permanent and cannot be undone.
+            </div>
+            <div class="row">
+              <button class="btn btn-danger" onclick="deletePage()">Delete Page</button>
+              <div class="loading" id="d_spin"><div class="spin" style="border-color:rgba(255,255,255,0.3);border-top-color:#fff"></div> Deleting…</div>
+            </div>
+            <div class="result" id="d_result"></div>
+          </div>
+        </div>
+
+        <!-- BROWSE -->
+        <div class="panel" id="tab-browse">
+          <div class="card">
+            <div class="card-title">🗂 All Notebooks &amp; Sections</div>
+            <div class="row" style="margin-bottom:14px">
+              <button class="btn btn-ghost" onclick="loadBrowse()">Refresh</button>
+              <div class="loading" id="br_spin"><div class="spin dark"></div> Loading…</div>
+            </div>
+            <div id="browseContent">
+              <p style="color:var(--muted);font-size:13px">Click Refresh to load your notebooks.</p>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /panels -->
+    </div><!-- /main -->
+  </div><!-- /layout -->
+</div><!-- /appScreen -->
+
+<script>
+// ════════════════════════════════════════════════
+//  CONFIG  — update clientId after registering your Azure app
+// ════════════════════════════════════════════════
+const CLIENT_ID    = 'YOUR_AZURE_APP_CLIENT_ID';   // <-- replace this
+const AUTHORITY    = 'https://login.microsoftonline.com/common';
+const REDIRECT_URI = window.location.href.split('#')[0];
+const SCOPES       = ['Notes.ReadWrite', 'User.Read'];
+const GRAPH        = 'https://graph.microsoft.com/v1.0/me/onenote';
+
+// ════════════════════════════════════════════════
+//  MSAL setup
+// ════════════════════════════════════════════════
+let msalApp = null;
+let ACCESS_TOKEN = '';
+let currentAccount = null;
+
+try {
+  msalApp = new msal.PublicClientApplication({
+    auth: { clientId: CLIENT_ID, authority: AUTHORITY, redirectUri: REDIRECT_URI },
+    cache: { cacheLocation: 'sessionStorage' }
+  });
+} catch(e) {
+  console.warn('MSAL init failed (expected if clientId not set):', e.message);
+}
+
+async function msalLogin() {
+  if (!msalApp || CLIENT_ID === 'YOUR_AZURE_APP_CLIENT_ID') {
+    loginErr('No Azure App Client ID configured. Please paste an access token below, or update CLIENT_ID in the source.');
+    return;
+  }
+  try {
+    const result = await msalApp.loginPopup({ scopes: SCOPES });
+    ACCESS_TOKEN = result.accessToken;
+    currentAccount = result.account;
+    enterApp(currentAccount.name || currentAccount.username);
+  } catch(e) {
+    loginErr('Login failed: ' + e.message);
+  }
+}
+
+function manualLogin() {
+  const t = document.getElementById('manualToken').value.trim();
+  if (!t) { loginErr('Please paste an access token.'); return; }
+  ACCESS_TOKEN = t;
+  enterApp('My Account');
+}
+
+function loginErr(msg) {
+  const el = document.getElementById('loginError');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+function enterApp(name) {
+  document.getElementById('loginScreen').classList.add('hidden');
+  document.getElementById('appScreen').classList.remove('hidden');
+  document.getElementById('userNameLabel').textContent = name;
+  const initial = (name || 'U').charAt(0).toUpperCase();
+  document.getElementById('avatarInitial').textContent = initial;
+  loadTree();
+}
+
+function signOut() {
+  if (confirm('Sign out?')) {
+    ACCESS_TOKEN = '';
+    currentAccount = null;
+    document.getElementById('appScreen').classList.add('hidden');
+    document.getElementById('loginScreen').classList.remove('hidden');
+    document.getElementById('loginError').style.display = 'none';
+    document.getElementById('manualToken').value = '';
+  }
+}
+
+// ════════════════════════════════════════════════
+//  API helpers
+// ════════════════════════════════════════════════
+async function apiGet(url) {
+  const r = await fetch(url, { headers: { 'Authorization': `Bearer ${ACCESS_TOKEN}` } });
+  if (!r.ok) throw new Error(`${r.status} – ${await r.text()}`);
+  return r;
+}
+
+async function apiText(url) { return (await apiGet(url)).text(); }
+async function apiJSON(url) { return (await apiGet(url)).json(); }
+
+async function apiPost(url, contentType, body) {
+  const r = await fetch(url, {
+    method: 'POST',
+    headers: { 'Authorization': `Bearer ${ACCESS_TOKEN}`, 'Content-Type': contentType },
+    body
+  });
+  if (!r.ok) throw new Error(`${r.status} – ${await r.text()}`);
+  return r.json();
+}
+
+async function apiPatch(url, body) {
+  const r = await fetch(url, {
+    method: 'PATCH',
+    headers: { 'Authorization': `Bearer ${ACCESS_TOKEN}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  });
+  return r;
+}
+
+async function apiDelete(url) {
+  const r = await fetch(url, {
+    method: 'DELETE',
+    headers: { 'Authorization': `Bearer ${ACCESS_TOKEN}` }
+  });
+  return r;
+}
+
+// ════════════════════════════════════════════════
+//  SIDEBAR TREE
+// ════════════════════════════════════════════════
+let treeData = {};   // notebookId → { notebook, sections: [] }
+
+async function loadTree() {
+  const tree = document.getElementById('tree');
+  tree.innerHTML = '<div class="tree-msg">Loading…</div>';
+  try {
+    const data = await apiJSON(`${GRAPH}/notebooks?$orderby=displayName&$top=50`);
+    const notebooks = data.value || [];
+    treeData = {};
+    notebooks.forEach(nb => { treeData[nb.id] = { notebook: nb, sections: null }; });
+    renderTree(notebooks, tree);
+  } catch(e) {
+    tree.innerHTML = `<div class="tree-msg" style="color:var(--red)">Error: ${e.message}</div>`;
+  }
+}
+
+function renderTree(notebooks, tree) {
+  tree.innerHTML = '';
+  if (!notebooks.length) { tree.innerHTML = '<div class="tree-msg">No notebooks found.</div>'; return; }
+  notebooks.forEach(nb => {
+    const nbEl = document.createElement('div');
+    nbEl.className = 'nb-item';
+    nbEl.dataset.nbid = nb.id;
+    nbEl.innerHTML = `<span class="arrow">▶</span><span class="tree-icon">📓</span><span class="nb-name">${esc(nb.displayName)}</span>`;
+    nbEl.onclick = () => toggleNotebook(nb, nbEl);
+    tree.appendChild(nbEl);
+  });
+}
+
+async function toggleNotebook(nb, nbEl) {
+  const open = nbEl.classList.contains('open');
+  // collapse all
+  document.querySelectorAll('.nb-item.open').forEach(el => {
+    el.classList.remove('open');
+    // remove children
+    let s = el.nextSibling;
+    while (s && !s.classList.contains('nb-item')) { const d = s; s = s.nextSibling; d.remove(); }
+  });
+  if (open) return;
+  nbEl.classList.add('open');
+
+  if (!treeData[nb.id].sections) {
+    nbEl.querySelector('.nb-name').textContent = nb.displayName + ' …';
+    try {
+      const data = await apiJSON(`${GRAPH}/notebooks/${nb.id}/sections?$orderby=displayName`);
+      treeData[nb.id].sections = data.value || [];
+    } catch(e) { treeData[nb.id].sections = []; }
+    nbEl.querySelector('.nb-name').textContent = nb.displayName;
+  }
+
+  const sections = treeData[nb.id].sections;
+  const ref = nbEl.nextSibling;
+  sections.forEach(sec => {
+    const secEl = document.createElement('div');
+    secEl.className = 'sec-item';
+    secEl.dataset.secid = sec.id;
+    secEl.innerHTML = `<span class="arrow">▶</span><span class="tree-icon">🗂</span>${esc(sec.displayName)}`;
+    secEl.onclick = (e) => { e.stopPropagation(); toggleSection(sec, secEl); };
+    nbEl.parentNode.insertBefore(secEl, ref);
+  });
+}
+
+async function toggleSection(sec, secEl) {
+  // set section id in create tab
+  document.getElementById('c_sectionId').value = sec.id;
+
+  const open = secEl.classList.contains('open');
+  // collapse any open sections' pages
+  document.querySelectorAll('.sec-item.open').forEach(el => {
+    el.classList.remove('open', 'active');
+    let s = el.nextSibling;
+    while (s && (s.classList.contains('pg-item'))) { const d = s; s = s.nextSibling; d.remove(); }
+  });
+  document.querySelectorAll('.sec-item').forEach(el => el.classList.remove('active'));
+
+  if (open) return;
+  secEl.classList.add('open', 'active');
+
+  try {
+    const data = await apiJSON(`${GRAPH}/sections/${sec.id}/pages?$orderby=title&$top=100`);
+    const pages = data.value || [];
+    const ref = secEl.nextSibling;
+    pages.forEach(pg => {
+      const pgEl = document.createElement('div');
+      pgEl.className = 'pg-item';
+      pgEl.dataset.pgid = pg.id;
+      pgEl.title = pg.title || '(Untitled)';
+      pgEl.innerHTML = `<span class="tree-icon" style="font-size:11px">📄</span>${esc(pg.title || '(Untitled)')}<button class="del-pg" title="Delete page" onclick="quickDelete('${pg.id}', '${esc(pg.title || '')}', this)">✕</button>`;
+      pgEl.onclick = (e) => { if (!e.target.classList.contains('del-pg')) selectPage(pg.id, pg.title || '', pgEl); };
+      secEl.parentNode.insertBefore(pgEl, ref);
+    });
+  } catch(e) { console.error(e); }
+}
+
+function selectPage(pageId, title, pgEl) {
+  document.querySelectorAll('.pg-item').forEach(el => el.classList.remove('active'));
+  pgEl.classList.add('active');
+  document.getElementById('r_pageId').value = pageId;
+  document.getElementById('a_pageId').value = pageId;
+  document.getElementById('d_pageId').value = pageId;
+  document.getElementById('d_title').value = title;
+  switchTab('read');
+  readPage();
+}
+
+// ════════════════════════════════════════════════
+//  READ
+// ════════════════════════════════════════════════
+async function readPage() {
+  const id = document.getElementById('r_pageId').value.trim();
+  if (!id) { showResult('r_result', 'Please enter or select a Page ID.', 'err'); return; }
+  setLoading('r_spin', true);
+  hideResult('r_result');
+  document.getElementById('r_preview_card').style.display = 'none';
+  try {
+    const html = await apiText(`${GRAPH}/pages/${id}/content`);
+    document.getElementById('r_preview').innerHTML = html;
+    document.getElementById('r_raw').textContent = html;
+    document.getElementById('r_badge').textContent = `${html.length.toLocaleString()} chars`;
+    document.getElementById('r_preview_card').style.display = 'block';
+  } catch(e) {
+    showResult('r_result', `Error: ${e.message}`, 'err');
+  } finally { setLoading('r_spin', false); }
+}
+
+function copyHtml() {
+  const text = document.getElementById('r_raw').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    showResult('r_result', '✅ HTML copied to clipboard!', 'ok');
+  });
+}
+
+// ════════════════════════════════════════════════
+//  CREATE
+// ════════════════════════════════════════════════
+async function createPage() {
+  const sectionId = document.getElementById('c_sectionId').value.trim();
+  const title     = document.getElementById('c_title').value.trim() || 'New Page';
+  const body      = document.getElementById('c_body').value.trim() || '<p>Created via OneNote Manager.</p>';
+  if (!sectionId) { showResult('c_result', 'Please enter or select a Section ID.', 'err'); return; }
+
+  const xhtml = `<!DOCTYPE html>\n<html>\n  <head><title>${esc(title)}</title></head>\n  <body>${body}</body>\n</html>`;
+
+  setLoading('c_spin', true);
+  try {
+    const json = await apiPost(`${GRAPH}/sections/${sectionId}/pages`, 'application/xhtml+xml', xhtml);
+    showResult('c_result', `✅ Page "${json.title}" created! (ID: ${json.id})`, 'ok');
+    // reload sidebar pages for the section
+    const activeSec = document.querySelector('.sec-item.active');
+    if (activeSec) {
+      const sec = { id: activeSec.dataset.secid };
+      activeSec.classList.remove('open');
+      let s = activeSec.nextSibling;
+      while (s && s.classList.contains('pg-item')) { const d = s; s = s.nextSibling; d.remove(); }
+      activeSec.classList.add('open');
+      await toggleSection(sec, activeSec);
+    }
+  } catch(e) {
+    showResult('c_result', `Error: ${e.message}`, 'err');
+  } finally { setLoading('c_spin', false); }
+}
+
+// ════════════════════════════════════════════════
+//  APPEND
+// ════════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('a_target').addEventListener('change', function() {
+    document.getElementById('a_custom_group').style.display = this.value === 'custom' ? 'block' : 'none';
+  });
+});
+
+async function appendContent() {
+  const pageId  = document.getElementById('a_pageId').value.trim();
+  const tgt     = document.getElementById('a_target').value;
+  const target  = tgt === 'custom' ? document.getElementById('a_custom').value.trim() : 'body';
+  const content = document.getElementById('a_content').value.trim();
+
+  if (!pageId)  { showResult('a_result', 'Please enter or select a Page ID.', 'err'); return; }
+  if (!content) { showResult('a_result', 'Please enter content to append.', 'err'); return; }
+
+  setLoading('a_spin', true);
+  try {
+    const patch = [{ target, action: 'append', content }];
+    const r = await apiPatch(`${GRAPH}/pages/${pageId}/content`, patch);
+    if (r.status === 204) {
+      showResult('a_result', '✅ Content appended successfully!', 'ok');
+    } else {
+      throw new Error(`${r.status} – ${await r.text()}`);
+    }
+  } catch(e) {
+    showResult('a_result', `Error: ${e.message}`, 'err');
+  } finally { setLoading('a_spin', false); }
+}
+
+// ════════════════════════════════════════════════
+//  DELETE
+// ════════════════════════════════════════════════
+async function deletePage() {
+  const pageId = document.getElementById('d_pageId').value.trim();
+  const title  = document.getElementById('d_title').value.trim();
+
+  if (!pageId) { showResult('d_result', 'Please enter or select a Page ID.', 'err'); return; }
+  if (!title)  { showResult('d_result', 'Please enter the page title to confirm deletion.', 'err'); return; }
+  if (!confirm(`Permanently delete "${title}"? This cannot be undone.`)) return;
+
+  setLoading('d_spin', true);
+  try {
+    const r = await apiDelete(`${GRAPH}/pages/${pageId}`);
+    if (r.status === 204) {
+      showResult('d_result', `✅ Page "${title}" deleted successfully.`, 'ok');
+      document.getElementById('d_pageId').value = '';
+      document.getElementById('d_title').value = '';
+      // remove from sidebar
+      const pgEl = document.querySelector(`.pg-item[data-pgid="${pageId}"]`);
+      if (pgEl) pgEl.remove();
+    } else {
+      throw new Error(`${r.status} – ${await r.text()}`);
+    }
+  } catch(e) {
+    showResult('d_result', `Error: ${e.message}`, 'err');
+  } finally { setLoading('d_spin', false); }
+}
+
+async function quickDelete(pageId, title, btn) {
+  if (!confirm(`Delete "${title}"? This cannot be undone.`)) return;
+  try {
+    const r = await apiDelete(`${GRAPH}/pages/${pageId}`);
+    if (r.status === 204) {
+      btn.closest('.pg-item').remove();
+    } else {
+      alert(`Error deleting: ${r.status}`);
+    }
+  } catch(e) { alert(e.message); }
+}
+
+// ════════════════════════════════════════════════
+//  BROWSE
+// ════════════════════════════════════════════════
+async function loadBrowse() {
+  setLoading('br_spin', true);
+  const container = document.getElementById('browseContent');
+  container.innerHTML = '';
+  try {
+    const nbData = await apiJSON(`${GRAPH}/notebooks?$orderby=displayName&$top=50`);
+    const notebooks = nbData.value || [];
+
+    for (const nb of notebooks) {
+      const secData = await apiJSON(`${GRAPH}/notebooks/${nb.id}/sections?$orderby=displayName`);
+      const sections = secData.value || [];
+
+      const nbHeader = document.createElement('div');
+      nbHeader.style.cssText = 'font-weight:700;font-size:14px;color:var(--purple);margin:16px 0 8px;display:flex;align-items:center;gap:8px;';
+      nbHeader.innerHTML = `📓 ${esc(nb.displayName)} <span class="badge">${sections.length} section${sections.length !== 1 ? 's' : ''}</span>`;
+      container.appendChild(nbHeader);
+
+      if (!sections.length) {
+        const empty = document.createElement('p');
+        empty.style.cssText = 'font-size:13px;color:var(--muted);margin-left:24px;margin-bottom:8px';
+        empty.textContent = 'No sections.';
+        container.appendChild(empty);
+        continue;
+      }
+
+      for (const sec of sections) {
+        const pgData = await apiJSON(`${GRAPH}/sections/${sec.id}/pages?$orderby=title&$top=100`);
+        const pages = pgData.value || [];
+
+        const secDiv = document.createElement('div');
+        secDiv.style.cssText = 'margin-bottom:14px;';
+
+        const secHeader = document.createElement('div');
+        secHeader.style.cssText = 'font-size:13px;font-weight:600;color:var(--text);margin-left:24px;margin-bottom:6px;display:flex;align-items:center;gap:8px;';
+        secHeader.innerHTML = `🗂 ${esc(sec.displayName)} <span style="font-size:11px;color:var(--muted)">${pages.length} page${pages.length !== 1 ? 's' : ''}</span>`;
+        secDiv.appendChild(secHeader);
+
+        if (pages.length) {
+          const tbl = document.createElement('table');
+          tbl.style.marginLeft = '44px';
+          tbl.innerHTML = `<thead><tr><th>Title</th><th>Created</th><th>Modified</th><th></th></tr></thead>`;
+          const tbody = document.createElement('tbody');
+          pages.forEach(pg => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td>${esc(pg.title || '(Untitled)')}</td>
+              <td style="color:var(--muted)">${fmtDate(pg.createdDateTime)}</td>
+              <td style="color:var(--muted)">${fmtDate(pg.lastModifiedDateTime)}</td>
+              <td style="white-space:nowrap">
+                <button class="btn btn-ghost" style="margin-right:4px" onclick="jumpToPage('${pg.id}','read')">Read</button>
+                <button class="btn btn-ghost" onclick="jumpToPage('${pg.id}','append')">Append</button>
+              </td>`;
+            tbody.appendChild(tr);
+          });
+          tbl.appendChild(tbody);
+          secDiv.appendChild(tbl);
+        }
+
+        container.appendChild(secDiv);
+      }
+    }
+  } catch(e) {
+    container.innerHTML = `<p style="color:var(--red);font-size:13px">Error: ${e.message}</p>`;
+  } finally { setLoading('br_spin', false); }
+}
+
+function jumpToPage(pageId, tab) {
+  document.getElementById('r_pageId').value = pageId;
+  document.getElementById('a_pageId').value = pageId;
+  document.getElementById('d_pageId').value = pageId;
+  switchTab(tab);
+  if (tab === 'read') readPage();
+}
+
+// ════════════════════════════════════════════════
+//  UI helpers
+// ════════════════════════════════════════════════
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === name));
+  document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === `tab-${name}`));
+  if (name === 'browse') loadBrowse();
+}
+
+function showResult(id, msg, cls) {
+  const el = document.getElementById(id);
+  el.textContent = msg;
+  el.className = `result show ${cls}`;
+}
+
+function hideResult(id) {
+  document.getElementById(id).className = 'result';
+}
+
+function setLoading(id, on) {
+  document.getElementById(id).classList.toggle('show', on);
+}
+
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+function fmtDate(s) {
+  if (!s) return '—';
+  return new Date(s).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+}
+</script>
+</body>
+</html>

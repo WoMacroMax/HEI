@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arriving at 368 Taylor Ave</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: #fff;
+    color: #111;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    animation: fadeIn 0.6s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .phone-shell {
+    width: 100%;
+    max-width: 390px;
+    border: 1px solid #e5e5e5;
+    border-radius: 32px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+    background: #fff;
+    position: relative;
+  }
+
+  /* MAP AREA */
+  .map-area {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    background: #e8edf2;
+    overflow: hidden;
+  }
+
+  .map-svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .road-highway {
+    stroke: #4caf50;
+    stroke-width: 18;
+    fill: none;
+    stroke-linecap: round;
+  }
+  .road-highway-line {
+    stroke: #66bb6a;
+    stroke-width: 3;
+    fill: none;
+    stroke-dasharray: 10 8;
+  }
+  .road-main {
+    stroke: #cfd8dc;
+    stroke-width: 8;
+    fill: none;
+  }
+  .road-minor {
+    stroke: #dde3e8;
+    stroke-width: 4;
+    fill: none;
+  }
+  .road-label {
+    font-family: 'Outfit', sans-serif;
+    font-size: 9px;
+    fill: #555;
+    font-weight: 500;
+  }
+  .highway-label-bg {
+    fill: #388e3c;
+    rx: 3;
+  }
+  .highway-label {
+    font-family: 'Outfit', sans-serif;
+    font-size: 10px;
+    fill: #fff;
+    font-weight: 700;
+  }
+
+  .traffic-red { stroke: #e53935; stroke-width: 4; fill: none; }
+  .traffic-yellow { stroke: #fdd835; stroke-width: 4; fill: none; }
+  .traffic-green { stroke: #43a047; stroke-width: 4; fill: none; }
+
+  .car-container {
+    position: absolute;
+    top: 210px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: carFloat 2s ease-in-out infinite alternate;
+    z-index: 2;
+  }
+
+  @keyframes carFloat {
+    from { transform: translateX(-50%) translateY(0); }
+    to { transform: translateX(-50%) translateY(-4px); }
+  }
+
+  .car-emoji {
+    font-size: 42px;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.25));
+  }
+
+  .car-label {
+    background: #fff;
+    color: #0066ff;
+    font-family: 'Outfit', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 12px;
+    margin-top: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    white-space: nowrap;
+  }
+
+  .street-view {
+    position: absolute;
+    bottom: 80px;
+    left: 16px;
+    width: 90px;
+    height: 68px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid #fff;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.2);
+    background: linear-gradient(135deg, #b0bec5, #90a4ae);
+    z-index: 2;
+  }
+
+  .street-view-inner {
+    width: 100%;
+    height: 100%;
+    background:
+      linear-gradient(to bottom, #87CEEB 0%, #87CEEB 40%, #9E9E9E 40%, #757575 55%, #616161 55%, #616161 70%, #78909C 70%, #607D8B 85%, #546E7A 100%);
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .street-view-road {
+    position: absolute;
+    bottom: 0;
+    left: 0; right: 0;
+    height: 35%;
+    background: #546E7A;
+  }
+
+  .street-view-line {
+    position: absolute;
+    bottom: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 3px;
+    height: 14px;
+    background: #fff;
+    border-radius: 2px;
+  }
+
+  .street-view-icon {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    width: 16px;
+    height: 16px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+  }
+
+  .map-pin {
+    position: absolute;
+    bottom: 75px;
+    left: 126px;
+    font-size: 36px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+    animation: pinBounce 1.5s ease-in-out infinite;
+    z-index: 2;
+  }
+
+  @keyframes pinBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  .bottom-sheet {
+    background: #fff;
+    padding: 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 5;
+    border-top-left-radius: 28px;
+    border-top-right-radius: 28px;
+    box-shadow: 0 -18px 40px rgba(0,0,0,0.18);
+    /* default: fully hidden below */
+    transform: translateY(100%);
+    transition: transform 0.25s ease-out, box-shadow 0.25s ease;
+    min-height: 300px;
+    touch-action: none;
+    will-change: transform;
+    user-select: none;
+  }
+
+  .phone-shell.sheet-open .bottom-sheet {
+    transform: translateY(0);
+    box-shadow: 0 -24px 48px rgba(0,0,0,0.22);
+  }
+
+  .bottom-sheet::before {
+    content: "";
+    position: absolute;
+    top: -24px;
+    left: 0;
+    right: 0;
+    height: 24px;
+    background: linear-gradient(to top, rgba(255,255,255,0.92), rgba(255,255,255,0));
+    pointer-events: none;
+  }
+
+  .sheet-handle {
+    display: flex;
+    justify-content: center;
+    padding: 12px 0 4px;
+    cursor: grab;
+    touch-action: none;
+  }
+
+  .sheet-handle:active {
+    cursor: grabbing;
+  }
+
+  .handle-bar {
+    width: 52px;
+    height: 6px;
+    background: linear-gradient(90deg, #3b82f6, #0066ff);
+    border-radius: 999px;
+    box-shadow: 0 2px 8px rgba(0,102,255,0.28);
+  }
+
+  .sheet-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 16px 20px 4px;
+  }
+
+  .arriving-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #111;
+    letter-spacing: -0.3px;
+  }
+
+  .arriving-address {
+    font-size: 13px;
+    color: #666;
+    font-weight: 400;
+    margin-top: 3px;
+  }
+
+  .close-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #f0f0f0;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .close-btn svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .business-card {
+    margin: 12px 16px;
+    background: #f7f8fa;
+    border-radius: 14px;
+    padding: 14px 16px;
+    border: 1px solid #eee;
+  }
+
+  .business-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: #111;
+    margin-bottom: 4px;
+  }
+
+  .business-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12.5px;
+    color: #555;
+    font-weight: 400;
+    margin-bottom: 4px;
+  }
+
+  .star {
+    color: #f9a825;
+    font-size: 13px;
+  }
+
+  .rating-count {
+    color: #777;
+  }
+
+  .dot-sep {
+    color: #bbb;
+    font-size: 10px;
+  }
+
+  .business-type {
+    color: #555;
+  }
+
+  .business-status {
+    font-size: 12px;
+    color: #2e7d32;
+    font-weight: 500;
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 8px;
+    padding: 4px 16px 16px;
+  }
+
+  .action-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 11px 8px;
+    border-radius: 24px;
+    border: none;
+    background: #e8f0fe;
+    color: #0066ff;
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+  }
+
+  .action-btn:hover {
+    background: #d0e3ff;
+    transform: translateY(-1px);
+  }
+
+  .action-btn:active {
+    transform: translateY(0);
+    background: #c0d8ff;
+  }
+
+  .action-btn svg {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+  }
+
+  .feedback-section {
+    margin: 0 16px 16px;
+    background: #f7f8fa;
+    border-radius: 14px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #eee;
+  }
+
+  .feedback-text .feedback-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111;
+    margin-bottom: 2px;
+  }
+
+  .feedback-text .feedback-sub {
+    font-size: 12px;
+    color: #888;
+    font-weight: 400;
+  }
+
+  .feedback-buttons {
+    display: flex;
+    gap: 8px;
+  }
+
+  .feedback-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #e8f0fe;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+  }
+
+  .feedback-btn:hover {
+    background: #d0e3ff;
+    transform: scale(1.05);
+  }
+
+  .feedback-btn svg {
+    width: 18px;
+    height: 18px;
+    fill: #0066ff;
+  }
+</style>
+</head>
+<body>
+
+<div class="phone-shell sheet-open">
+
+  <div class="map-area">
+    <svg class="map-svg" viewBox="0 0 390 400" xmlns="http://www.w3.org/2000/svg">
+      <rect width="390" height="400" fill="#e8edf2"/>
+
+      <rect x="200" y="10" width="50" height="35" fill="#d8dde3" rx="2"/>
+      <rect x="258" y="10" width="40" height="30" fill="#d8dde3" rx="2"/>
+      <rect x="305" y="10" width="35" height="25" fill="#d8dde3" rx="2"/>
+      <rect x="345" y="15" width="40" height="40" fill="#d8dde3" rx="2"/>
+      <rect x="200" y="55" width="35" height="28" fill="#d8dde3" rx="2"/>
+      <rect x="242" y="58" width="45" height="25" fill="#d8dde3" rx="2"/>
+      <rect x="295" y="55" width="50" height="30" fill="#d8dde3" rx="2"/>
+      <rect x="352" y="60" width="35" height="28" fill="#d8dde3" rx="2"/>
+
+      <rect x="195" y="120" width="45" height="32" fill="#d8dde3" rx="2"/>
+      <rect x="248" y="118" width="38" height="28" fill="#d8dde3" rx="2"/>
+      <rect x="295" y="115" width="50" height="35" fill="#d8dde3" rx="2"/>
+      <rect x="352" y="118" width="35" height="30" fill="#d8dde3" rx="2"/>
+
+      <rect x="195" y="178" width="42" height="25" fill="#d8dde3" rx="2"/>
+      <rect x="245" y="175" width="35" height="22" fill="#d8dde3" rx="2"/>
+      <rect x="290" y="175" width="55" height="28" fill="#d8dde3" rx="2"/>
+      <rect x="352" y="175" width="35" height="25" fill="#d8dde3" rx="2"/>
+
+      <rect x="195" y="255" width="42" height="30" fill="#d8dde3" rx="2"/>
+      <rect x="245" y="258" width="38" height="28" fill="#d8dde3" rx="2"/>
+      <rect x="295" y="255" width="52" height="32" fill="#d8dde3" rx="2"/>
+      <rect x="355" y="258" width="32" height="30" fill="#d8dde3" rx="2"/>
+
+      <rect x="195" y="308" width="40" height="28" fill="#d8dde3" rx="2"/>
+      <rect x="243" y="310" width="42" height="28" fill="#d8dde3" rx="2"/>
+      <rect x="295" y="308" width="48" height="30" fill="#d8dde3" rx="2"/>
+
+      <rect x="320" y="118" width="68" height="55" fill="#c8e6c9" rx="3"/>
+
+      <path d="M -10 300 Q 40 250 80 200 Q 100 175 100 130 Q 100 80 120 50 Q 135 25 160 0" stroke="#4caf50" stroke-width="55" fill="none"/>
+      <path d="M -10 300 Q 40 250 80 200 Q 100 175 100 130 Q 100 80 120 50 Q 135 25 160 0" stroke="#66bb6a" stroke-width="2" fill="none" stroke-dasharray="14 10" opacity="0.7"/>
+      <path d="M 5 300 Q 55 250 90 200 Q 110 175 110 130 Q 110 80 130 50 Q 145 25 170 0" stroke="#388e3c" stroke-width="1.5" fill="none" opacity="0.5"/>
+      <path d="M -25 300 Q 25 250 70 200 Q 90 175 90 130 Q 90 80 110 50 Q 125 25 150 0" stroke="#388e3c" stroke-width="1.5" fill="none" opacity="0.5"/>
+
+      <path d="M -10 330 Q 35 275 75 220 Q 95 195 95 150 Q 95 100 115 70 Q 130 45 155 15" stroke="#4caf50" stroke-width="28" fill="none" opacity="0.8"/>
+
+      <line x1="0" y1="88" x2="120" y2="88" stroke="#e53935" stroke-width="4"/>
+      <line x1="120" y1="88" x2="200" y2="88" stroke="#fdd835" stroke-width="4"/>
+      <line x1="200" y1="88" x2="390" y2="88" stroke="#e53935" stroke-width="4"/>
+
+      <rect x="185" y="0" width="18" height="400" fill="#cfd8dc"/>
+      <rect x="187" y="0" width="4" height="88" fill="#e53935"/>
+      <rect x="187" y="88" width="4" height="100" fill="#fdd835"/>
+      <rect x="187" y="188" width="4" height="150" fill="#43a047"/>
+      <rect x="193" y="0" width="4" height="200" fill="#43a047"/>
+      <rect x="193" y="200" width="4" height="200" fill="#fdd835"/>
+
+      <rect x="0" y="82" width="390" height="12" fill="#cfd8dc"/>
+      <rect x="0" y="195" width="390" height="10" fill="#d5dce3"/>
+      <rect x="165" y="280" width="225" height="8" fill="#d5dce3"/>
+      <rect x="165" y="140" width="225" height="8" fill="#d5dce3"/>
+      <rect x="0" y="355" width="390" height="10" fill="#d5dce3"/>
+
+      <path d="M 194 320 L 194 355 L 180 355" stroke="#fbbf24" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+      <rect x="183" y="79" width="10" height="8" fill="#546e7a" rx="1"/>
+      <text x="188" y="86" text-anchor="middle" font-size="5" fill="#fff" font-family="Outfit">B</text>
+      <rect x="435" y="79" width="10" height="8" fill="#546e7a" rx="1"/>
+
+      <text x="350" y="79" class="road-label" fill="#444" font-family="Outfit" font-size="9" font-weight="500">Hudson St</text>
+      <text x="230" y="192" class="road-label" fill="#444" font-family="Outfit" font-size="9" font-weight="500">Jackson Ave</text>
+      <text x="300" y="278" class="road-label" fill="#444" font-family="Outfit" font-size="9" font-weight="500">Williams A...</text>
+      <text x="265" y="136" class="road-label" fill="#444" font-family="Outfit" font-size="9" font-weight="500">Washington A</text>
+      <text x="30" y="170" class="road-label" fill="#444" font-family="Outfit" font-size="9" font-weight="500" transform="rotate(-55 30 170)">Jackson Ave</text>
+
+      <text x="178" y="50" class="road-label" fill="#444" font-family="Outfit" font-size="8" font-weight="500" transform="rotate(90 178 50)">Vreeland Ave</text>
+      <text x="178" y="150" class="road-label" fill="#444" font-family="Outfit" font-size="8" font-weight="500" transform="rotate(90 178 150)">Vreeland Ave</text>
+      <text x="178" y="290" class="road-label" fill="#444" font-family="Outfit" font-size="8" font-weight="500" transform="rotate(90 178 290)">Vreeland</text>
+
+      <text x="105" y="370" class="road-label" fill="#444" font-family="Outfit" font-size="9" font-weight="500">Taylor Ave</text>
+
+      <rect x="20" y="188" width="22" height="16" fill="#388e3c" rx="3"/>
+      <text x="31" y="200" text-anchor="middle" font-family="Outfit" font-size="10" font-weight="700" fill="#fff">66</text>
+    </svg>
+
+    <div class="car-container">
+      <div class="car-emoji">🚗</div>
+      <div class="car-label">Vreeland Ave</div>
+    </div>
+
+    <div class="street-view">
+      <div class="street-view-inner">
+        <div class="street-view-road"></div>
+        <div class="street-view-line"></div>
+        <div class="street-view-icon">↺</div>
+      </div>
+    </div>
+
+    <div class="map-pin">📍</div>
+  </div>
+
+  <div class="bottom-sheet">
+    <div class="sheet-handle" aria-label="Drag panel">
+      <div class="handle-bar"></div>
+    </div>
+
+    <div class="sheet-header">
+      <div>
+        <div class="arriving-title">Arriving at</div>
+        <div class="arriving-address">368 Taylor Ave, Hackensack, NJ 07601</div>
+      </div>
+      <button class="close-btn" aria-label="Close">
+        <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1 1L13 13M13 1L1 13" stroke="#111" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="business-card">
+      <div class="business-name">Amendano &amp; Sons LLC</div>
+      <div class="business-meta">
+        <span class="star">★</span>
+        <span>5.0</span>
+        <span class="rating-count">(1)</span>
+        <span class="dot-sep">·</span>
+        <span class="business-type">Construction company</span>
+      </div>
+      <div class="business-status">Open now</div>
+    </div>
+
+    <div class="action-buttons">
+      <button class="action-btn">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L7 7H11V17H13V7H17L12 2Z" fill="#0066ff"/>
+          <path d="M5 19H19V21H5V19Z" fill="#0066ff"/>
+        </svg>
+        Restart
+      </button>
+      <button class="action-btn">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="5" r="2" fill="#0066ff"/>
+          <path d="M9 9H7L8 15L7 21H9L10 17H14L15 21H17L16 15L17 9H15L14 13H10L9 9Z" fill="#0066ff"/>
+        </svg>
+        Walk
+      </button>
+      <button class="action-btn">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="7" width="18" height="13" rx="2" stroke="#0066ff" stroke-width="2"/>
+          <path d="M8 7V5C8 3.9 8.9 3 10 3H14C15.1 3 16 3.9 16 5V7" stroke="#0066ff" stroke-width="2"/>
+          <text x="9" y="17" font-family="Outfit" font-size="7" font-weight="700" fill="#0066ff">P</text>
+        </svg>
+        Save parking
+      </button>
+    </div>
+
+    <div class="feedback-section">
+      <div class="feedback-text">
+        <div class="feedback-title">How was the navigation?</div>
+        <div class="feedback-sub">Help improve Google Maps</div>
+      </div>
+      <div class="feedback-buttons">
+        <button class="feedback-btn" aria-label="Thumbs up">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z" fill="#0066ff"/>
+          </svg>
+        </button>
+        <button class="feedback-btn" aria-label="Thumbs down">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z" fill="#0066ff"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function(){
+  if (window.__d2w_userScriptInit) return;
+  window.__d2w_userScriptInit = true;
+
+  var shell    = document.querySelector('.phone-shell');
+  var sheet    = document.querySelector('.bottom-sheet');
+  var handle   = document.querySelector('.sheet-handle');
+  var closeBtn = document.querySelector('.close-btn');
+
+  if (!shell || !sheet) return;
+
+  var storageKey = 'd2w_userdata_arriving_at_368_taylor_ave';
+
+  /* ── The height of just the handle area that stays visible when "closed" ── */
+  /* We measure the handle element so it's always accurate regardless of CSS.  */
+  function peekHeight() {
+    return handle ? handle.offsetHeight : 44;
+  }
+
+  /* ── state ── */
+  var state = { open: true };
+  try {
+    var saved = JSON.parse(localStorage.getItem(storageKey) || '{}');
+    if (typeof saved.open === 'boolean') state.open = saved.open;
+  } catch (e) {}
+
+  function saveState() {
+    try { localStorage.setItem(storageKey, JSON.stringify(state)); } catch (e) {}
+  }
+
+  /* ── helpers ── */
+  /*  open   → translateY(0)
+      closed → translateY(sheetHeight - peekHeight)   ← handle stays visible  */
+
+  function sheetHeight() { return sheet.offsetHeight; }
+
+  function closedPx() {
+    return sheetHeight() - peekHeight();
+  }
+
+  function applyPx(px, animated) {
+    sheet.style.transition = animated
+      ? 'transform 0.28s cubic-bezier(0.4,0,0.2,1), box-shadow 0.28s ease'
+      : 'none';
+    sheet.style.transform  = 'translateY(' + px + 'px)';
+    /* sheet-open class just controls box-shadow depth */
+    shell.classList.toggle('sheet-open', px < closedPx() * 0.5);
+  }
+
+  function openSheet() {
+    state.open = true;
+    saveState();
+    applyPx(0, true);
+    shell.classList.add('sheet-open');
+  }
+
+  function closeSheet() {
+    state.open = false;
+    saveState();
+    applyPx(closedPx(), true);
+    shell.classList.remove('sheet-open');
+  }
+
+  /* initial render — wait one frame so offsetHeight is real */
+  requestAnimationFrame(function () {
+    sheet.style.transition = 'none';
+    if (state.open) {
+      sheet.style.transform = 'translateY(0)';
+      shell.classList.add('sheet-open');
+    } else {
+      sheet.style.transform = 'translateY(' + closedPx() + 'px)';
+      shell.classList.remove('sheet-open');
+    }
+  });
+
+  /* ── drag ── */
+  var drag = { active: false, startY: 0, startPx: 0, currentPx: 0 };
+
+  function pointerY(evt) {
+    return evt.touches ? evt.touches[0].clientY : evt.clientY;
+  }
+
+  function startDrag(evt) {
+    drag.active    = true;
+    drag.startY    = pointerY(evt);
+    drag.startPx   = state.open ? 0 : closedPx();
+    drag.currentPx = drag.startPx;
+    sheet.style.transition = 'none';
+  }
+
+  function onDrag(evt) {
+    if (!drag.active) return;
+    var delta = pointerY(evt) - drag.startY;
+    var next  = drag.startPx + delta;
+    /* clamp: can't go above 0 (fully open) or below closedPx (handle always visible) */
+    next = Math.max(0, Math.min(next, closedPx()));
+    drag.currentPx = next;
+    applyPx(next, false);
+  }
+
+  function endDrag() {
+    if (!drag.active) return;
+    drag.active = false;
+    /* snap: if dragged more than 40% of the travel distance downward → close */
+    if (drag.currentPx > closedPx() * 0.40) {
+      closeSheet();
+    } else {
+      openSheet();
+    }
+  }
+
+  /* handle events */
+  if (handle) {
+    handle.addEventListener('click', function () {
+      if (drag.active) return;
+      state.open ? closeSheet() : openSheet();
+    });
+    handle.addEventListener('mousedown',  startDrag);
+    handle.addEventListener('touchstart', startDrag, { passive: true });
+  }
+
+  document.addEventListener('mousemove',  onDrag);
+  document.addEventListener('mouseup',    endDrag);
+  document.addEventListener('touchmove',  onDrag, { passive: true });
+  document.addEventListener('touchend',   endDrag);
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeSheet);
+  }
+
+  /* tap on collapsed sheet handle area to re-open */
+  sheet.addEventListener('click', function (evt) {
+    if (drag.active) return;
+    if (evt.target.closest('.action-btn, .feedback-btn, .close-btn')) return;
+    if (!state.open) openSheet();
+  });
+})();
+</script>
+
+</body>
+</html>

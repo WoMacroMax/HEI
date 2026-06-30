@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gentle Touch Concierge Services</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg-start: #f8e5d9; /* Lighter, warmer background */
+            --color-bg-end: #f2d2c1;
+            --color-hero-bg: #fff8f5; /* Off-white for hero */
+            --color-text: #2f2824; /* Darker, sophisticated text */
+            --color-accent: #a0522d; /* Sienna for accent */
+            --color-secondary-accent: #6f4e37; /* Coffee for secondary */
+            --color-surface: #ffffff;
+            --color-light-text: #ffffff;
+            --font-primary: 'Manrope', sans-serif;
+            --shadow-sm: 0 4px 10px rgba(0,0,0,0.04);
+            --shadow-md: 0 8px 15px rgba(0,0,0,0.08);
+            --shadow-lg: 0 12px 25px rgba(0,0,0,0.12);
+            --shadow-wave: 0 10px 15px rgba(50, 20, 20, 0.1);
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 10px 0px rgba(160, 82, 45, 0.2), 0 0 20px 0px rgba(160, 82, 45, 0.1); }
+            50% { box-shadow: 0 0 20px 8px rgba(160, 82, 45, 0.4), 0 0 30px 12px rgba(160, 82, 45, 0.2); }
+        }
+        
+        @keyframes bounce-in {
+            0% { transform: scale(0.9); opacity: 0; }
+            70% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes subtle-float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
+        }
+
+        @keyframes gradient-scroll {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        /* Hero CTA Pulse Animation */
+        @keyframes hero-cta-pulse {
+            0% { transform: scale(1); box-shadow: 0 8px 15px rgba(0,0,0,0.08); }
+            50% { transform: scale(1.03) translateY(-3px); box-shadow: 0 12px 20px rgba(0,0,0,0.15); }
+            100% { transform: scale(1); box-shadow: 0 8px 15px rgba(0,0,0,0.08); }
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            color: var(--color-text);
+            background-color: var(--color-bg-start);
+            background-image: linear-gradient(135deg, var(--color-bg-start), var(--color-bg-end));
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            padding-bottom: 96px;
+        }
+
+        h1, h2, h3 {
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            color: var(--color-secondary-accent);
+        }
+        
+        h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); }
+        h2 { font-size: clamp(2rem, 5vw, 3.5rem); }
+        h3 { font-size: 1.25rem; }
+
+        p {
+            max-width: 65ch;
+            margin-block: 1rem;
+            color: #5d5652;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin-inline: auto;
+            padding-inline: clamp(1rem, 5vw, 2rem);
+        }
+
+        /* --- Hero Carousel --- */
+        .hero-carousel {
+            position: relative;
+            height: 80vh; /* Increased hero height */
+            min-height: 500px;
+            max-height: 900px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background-color: var(--color-hero-bg);
+        }
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-slide.active {
+            opacity: 1;
+            z-index: 2;
+        }
+        .hero-slide img,
+        .hero-slide video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0) 100%);
+            z-index: 2;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            color: var(--color-light-text);
+            padding: 2rem;
+            max-width: 800px;
+            animation: bounce-in 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        }
+        .hero-content h1 {
+            color: var(--color-light-text);
+            margin-bottom: 0.5rem;
+            font-size: clamp(2.8rem, 7vw, 5rem);
+        }
+        .hero-content p {
+            color: rgba(255,255,255,0.9);
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            margin-bottom: 1.5rem;
+        }
+        .hero-cta {
+             display: inline-block;
+            background-color: var(--color-accent);
+            color: var(--color-light-text);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 2px solid transparent;
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            font-size: 1.1rem;
+            box-shadow: var(--shadow-md);
+            animation: hero-cta-pulse 3s infinite ease-in-out;
+        }
+        .hero-cta:hover {
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            animation-play-state: paused;
+        }
+        .hero-cta:active {
+            transform: scale(0.98) translateY(0);
+            box-shadow: var(--shadow-sm);
+            animation-play-state: paused;
+        }
+        .hero-cta:focus-visible {
+            outline: 3px solid var(--color-light-text);
+            outline-offset: 4px;
+        }
+
+        /* --- Wave Divider --- */
+        .wave-divider {
+            position: relative;
+            background-color: transparent;
+            line-height: 0;
+            z-index: 5;
+            margin-top: -1px;
+        }
+        .wave-divider svg {
+            display: block;
+            width: 100%;
+            height: auto;
+            min-height: 50px;
+            max-height: 150px;
+            fill: var(--color-hero-bg); /* Match hero background */
+            filter: drop-shadow(var(--shadow-wave));
+        }
+
+        /* --- CTA Buttons (General) --- */
+        .cta-button {
+            display: inline-block;
+            background-color: var(--color-accent);
+            color: var(--color-light-text);
+            padding: 0.875rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 2px solid var(--color-accent); /* Solid border for better contrast */
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            font-size: 1rem;
+            animation: none; /* Reset animation for general buttons */
+        }
+        .cta-button:focus-visible {
+            outline: 3px solid var(--color-secondary-accent);
+            outline-offset: 4px;
+        }
+        .cta-button:active {
+            transform: scale(0.95);
+        }
+
+        /* CTA Animation 1: Shimmer */
+        .cta-shimmer {
+            z-index: 1; /* For shimmer effect position */
+            overflow: hidden;
+        }
+        .cta-shimmer::after { /* Changed from ::before to ::after to avoid overlap with existing ::before in prompt */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+            transform: translateX(-100%);
+            animation: shimmer 4s infinite ease-in-out;
+            z-index: -1; /* Place shimmer behind text */
+        }
+        .cta-shimmer:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-md);
+            background-color: var(--color-secondary-accent);
+        }
+        
+        /* CTA Animation 2: Pulse Glow */
+        .cta-pulse-glow {
+            animation: pulse-glow 3s infinite ease-in-out;
+        }
+        .cta-pulse-glow:hover {
+            animation-play-state: paused;
+            transform: scale(1.05);
+            box-shadow: 0 0 20px 6px rgba(160, 82, 45, 0.4), 0 0 30px 10px rgba(160, 82, 45, 0.2);
+            background-color: var(--color-secondary-accent);
+        }
+
+        /* CTA Animation 3: Gradient Sweep (for Cart buttons) */
+        .cta-gradient-sweep {
+            background-size: 200% auto;
+            background-image: linear-gradient(to right, var(--color-accent) 0%, var(--color-secondary-accent) 50%, var(--color-accent) 100%);
+            transition: background-position 0.4s ease, transform 0.2s ease;
+        }
+        .cta-gradient-sweep:hover {
+            background-position: right center;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+        .cta-gradient-sweep:active {
+            transform: translateY(0);
+        }
+
+
+        /* --- Main Content --- */
+        main {
+            position: relative;
+            z-index: 1;
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+            background-color: var(--color-hero-bg); /* Use hero background for main for continuity */
+        }
+        
+        /* Feature Section */
+        .feature-section {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            align-items: center;
+            margin-bottom: 6rem;
+            padding-block: 3rem;
+        }
+        .feature-section img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            object-fit: cover;
+            max-height: 400px;
+            transition: transform 0.4s ease;
+        }
+        .feature-section img:hover {
+            transform: scale(1.02);
+        }
+        
+        @media (min-width: 768px) {
+            .feature-section {
+                grid-template-columns: 1fr 1fr;
+                gap: 4rem;
+                text-align: left;
+            }
+            .feature-section.reversed .text-content {
+                order: 2;
+            }
+            .feature-section.reversed .image-content {
+                order: 1;
+            }
+        }
+
+        /* --- Cart/Store Section --- */
+        #cart {
+            padding-top: 2rem;
+            background-color: var(--color-bg-start); /* Differentiate background for cart */
+            background-image: linear-gradient(135deg, var(--color-bg-start), var(--color-bg-end));
+            padding-bottom: 5rem;
+        }
+        #cart > .container > h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--color-secondary-accent);
+        }
+        .cart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .cart-item {
+            background-color: var(--color-surface);
+            border-radius: 20px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: bounce-in 0.6s backwards;
+            will-change: transform, box-shadow;
+        }
+        .cart-item:hover {
+             transform: translateY(-8px);
+             box-shadow: var(--shadow-md);
+        }
+        .cart-item-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .cart-item-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .cart-item-content h3 {
+            margin-bottom: 0.5rem;
+            color: var(--color-accent);
+        }
+        .cart-item-content p {
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+            color: #555;
+        }
+        .cart-item-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            margin-top: auto;
+            border-top: 1px solid #f0f0f0;
+            padding-top: 1rem;
+        }
+        .cart-item .price {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--color-accent);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        .cart-item button { /* Combined with cta-gradient-sweep for specific styling */
+            padding: 0.75rem 1.25rem;
+            border: none;
+            font-family: inherit;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-position 0.4s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            background-size: 200% auto;
+            background-image: linear-gradient(to right, var(--color-accent) 0%, var(--color-secondary-accent) 50%, var(--color-accent) 100%);
+            color: var(--color-light-text);
+            box-shadow: var(--shadow-sm);
+        }
+        .cart-item button:hover, .cart-item button:focus-visible {
+            background-position: right center; /* Gradient sweep hover */
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+            outline: none;
+        }
+        .cart-item button:active {
+            transform: translateY(0);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        /* Staggered animation for cart items */
+        .cart-item:nth-child(2) { animation-delay: 0.1s; }
+        .cart-item:nth-child(3) { animation-delay: 0.2s; }
+        .cart-item:nth-child(4) { animation-delay: 0.3s; }
+        .cart-item:nth-child(5) { animation-delay: 0.4s; }
+
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            .cta-shimmer::after { content: none; }
+            .cta-pulse-glow { animation: none; }
+            .hero-cta { animation: none; }
+        }
+        @media (max-width: 767px) {
+    main {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+
+    .feature-section {
+        padding-block: 1.5rem;
+        margin-bottom: 2.5rem;
+    }
+
+    #cart {
+        padding-top: 1rem;
+        padding-bottom: 2.5rem;
+    }
+}
+    </style>
+</head>
+<body>
+
+    <header class="hero-carousel">
+        <div class="hero-slide active">
+            <video autoplay muted loop playsinline poster="https://vannavcdcwdhmikwikac.supabase.co/storage/v1/object/public/product-images/banners/968e3661-1e23-4306-81db-0fcb92872a86.mp4">
+                <source src="https://vannavcdcwdhmikwikac.supabase.co/storage/v1/object/public/product-images/banners/968e3661-1e23-4306-81db-0fcb92872a86.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="hero-overlay"></div>
+            <div class="hero-content container">
+                <h1>Golden Years Experience!</h1>
+                <p>Ensuring your loved ones receive the best care and companionship, fostering joy and comfort in their daily lives.</p>
+                <a href="#cart" class="hero-cta">Learn More & Shop</a>
+            </div>
+        </div>
+        <div class="hero-slide">
+            <img src="https://vannavcdcwdhmikwikac.supabase.co/storage/v1/object/public/product-images/1044cda9-502f-4ca0-ab2d-beb5c52870e1.png" alt="A caregiver's hand gently holding an elderly person's hand.">
+            <div class="hero-overlay"></div>
+            <div class="hero-content container">
+                <h1>Compassionate Care for Your Loved Ones</h1>
+                <p>Experience peace of mind with our dedicated and empathetic care services, tailored to meet individual needs with dignity.</p>
+                <a href="#cart" class="hero-cta">Explore Services</a>
+            </div>
+        </div>
+        <div class="hero-slide">
+            <img src="https://vannavcdcwdhmikwikac.supabase.co/storage/v1/object/public/product-images/7d10b5b8-5641-4f5f-9392-0d64c2c9c0fc.png" alt="Medical Transport Services - Caregiver assisting elderly person into a comfortable, accessible vehicle.">
+            <div class="hero-overlay"></div>
+            <div class="hero-content container">
+                <h1>Medical Transport Services</h1>
+                <p>Ensuring you or your loved ones arrive safely and comfortably at every medical appointment is our priority. Our compassionate and professional team provides reliable, accessible transportation, giving you peace of mind and the support you deserve.</p>
+                <a href="#cart" class="hero-cta">Book Transport</a>
+            </div>
+        </div>
+        <div class="hero-slide">
+            <img src="https://vannavcdcwdhmikwikac.supabase.co/storage/v1/object/public/product-images/a69c6cab-7216-467a-bb72-aa8b7b2e789e.png" alt="Reliable Pharmacy Services - Pharmacist explaining medication to a senior client with a friendly demeanor.">
+            <div class="hero-overlay"></div>
+            <div class="hero-content container">
+                <h1>Reliable Pharmacy Services</h1>
+                <p>Experience compassionate and trustworthy pharmacy services dedicated to your well-being. Our expert team is here to guide you through your prescriptions and offer personalized care, ensuring you feel confident and cared for with every visit. We truly want to help you live your healthiest life.</p>
+                <a href="#cart" class="hero-cta">Find a Pharmacy</a>
+            </div>
+        </div>
+        <div class="hero-slide">
+            <img src="https://vannavcdcwdhmikwikac.supabase.co/storage/v1/object/public/product-images/6a970d10-c233-42be-9dc4-30f8c383412c.png" alt="Caring Hands Home Support - Caregiver helping a senior person with grocery shopping, providing essential assistance.">
+            <div class="hero-overlay"></div>
+            <div class="hero-content container">
+                <h1>Caring Hands Home Support</h1>
+                <p>Experience peace of mind with our dedicated home support service. Our compassionate caregivers provide essential assistance, from grocery shopping and errands to medication reminders, ensuring comfort and well-being for you and your loved ones. Let us help make every day a little easier and brighter with personalized care.</p>
+                <a href="#cart" class="hero-cta">Get Home Support</a>
+            </div>
+        </div>
+        <div class="hero-slide">
+            <img src="https://vannavcdcwdhmikwikac.supabase.co/storage/v1/object/public/product-images/1044cda9-502f-4ca0-ab2d-beb5c52870e1.png" alt="Caring Home Elder Care - Elderly woman smiling while a caregiver listens attentively, offering compassionate support.">
+            <div class="hero-overlay"></div>
+            <div class="hero-content container">
+                <h1>Caring Home Elder Care</h1>
+                <p>Experience compassionate and professional home elder care that helps your loved ones maintain independence and comfort. Our dedicated caregivers provide personalized support, ensuring peace of mind for families. We’re here to help foster a joyful and secure environment right at home.</p>
+                <a href="#cart" class="hero-cta">Discover Elder Care</a>
+            </div>
+        </div>
+        <div class="hero-slide">
+            <img src="https://vannavcdcwdhmikwikac.supabase.co/storage/v1/object/public/product-images/4af6960a-0c15-4c5b-916e-9c10b38610f9.png" alt="Home Instead Senior Care - A smiling caregiver standing behind a happy senior woman, demonstrating supportive companionship.">
+            <div class="hero-overlay"></div>
+            <div class="hero-content container">
+                <h1>Home Instead Senior Care</h1>
+                <p>Experience compassionate and professional home care services designed to support seniors in living fulfilling lives. Our dedicated caregivers, like the one pictured, provide personalized assistance, ensuring comfort, safety, and joy in their own homes. We are here to help your loved ones thrive independently.</p>
+                <a href="#cart" class="hero-cta">Learn About Senior Care</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="wave-divider" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none">
+            <path d="M0,60 C150,120 350,0 500,60 C650,110 850,20 1000,70 L1000,0 L0,0 Z"></path>
+        </svg>
+    </div>
+
+     <main>
+        <section class="feature-section container">
+            <div class="text-content">
+                <h2>Gentle Touch Concierge Services</h2>
+                <p>Providing the highest standard of care with dignity and respect. We're dedicated to enriching the lives of our clients every day.</p>
+                <a href="#cart" class="cta-button cta-pulse-glow" role="button">Discover Our Services</a>
+            </div>
+            <div class="image-content">
+                 <img src="https://vannavcdcwdhmikwikac.supabase.co/storage/v1/object/public/product-images/1044cda9-502f-4ca0-ab2d-beb5c52870e1.png" alt="A caregiver's hand gently holding an elderly person's hand.">
+            </div>
+        </section>
+
+        <section id="cart">
+            <div class="container">
+                <h2>Our Exceptional Home Care Services</h2>
+                <div class="cart-grid">
+                    <div class="cart-item">
+                        <img src="https://vannavcdcwdhmikwikac.supabase.co/storage/v1/object/public/product-images/7d10b5b8-5641-4f5f-9392-0d64c2c9c0fc.png" alt="Caregiver assisting elderly person into a vehicle." class="cart-item-image">
+                        <div class="cart-item-content">
+                            <h3>Medical Transport Services</h3>
+                            <p>Ensuring you or your loved ones arrive safely and comfortably at every medical appointment is our priority. Our compassionate and professional team provides reliable, accessible transportation.</p>
+                            <div class="cart-item-footer">
+                                <span class="price" data-price="130" data-currency="USD">$130</span>
+                                <button data-cart-add="1" data-cart-name="Medical Transport Services" data-cart-price="130" data-cart-currency="USD" class="cta-gradient-sweep">Add to cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cart-item">
+                        <img src="https://vannavcdcwdhmikwikac.supabase.co/storage/v1/object/public/product-images/a69c6cab-7216-467a-bb72-aa8b7b2e789e.png" alt="Pharmacist explaining medication to a senior client." class="cart-item-image">
+                        <div class="cart-item-content">
+                            <h3>Reliable Pharmacy Services</h3>
+                            <p>Experience compassionate and trustworthy pharmacy services dedicated to your well-being. Our expert team is here to guide you and offer personalized care, ensuring you feel confident and cared for.</p>
+                            <div class="cart-item-footer">
+                                <span class="price" data-price="130" data-currency="USD">$130</span>
+                                <button data-cart-add="1" data-cart-name="Reliable Pharmacy Services" data-cart-price="130" data-cart-currency="USD" class="cta-gradient-sweep">Add to cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cart-item">
+                        <img src="https://vannavcdcwdhmikwikac.supabase.co/storage/v1/object/public/product-images/6a970d10-c233-42be-9dc4-30f8c383412c.png" alt="Caregiver helping a senior person with groceries." class="cart-item-image">
+                        <div class="cart-item-content">
+                            <h3>Caring Hands Home Support</h3>
+                            <p>Experience peace of mind with our dedicated home support service. Our compassionate caregivers provide essential assistance, from grocery shopping to medication reminders, for you and your loved ones.</p>
+                            <div class="cart-item-footer">
+                                <span class="price" data-price="130" data-currency="USD">$130</span>
+                                <button data-cart-add="1" data-cart-name="Caring Hands Home Support" data-cart-price="130" data-cart-currency="USD" class="cta-gradient-sweep">Add to cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cart-item">
+                        <img src="https://vannavcdcwdhmikwikac.supabase.co/storage/v1/object/public/product-images/1044cda9-502f-4ca0-ab2d-beb5c52870e1.png" alt="Elderly woman smiling while a caregiver listens attentively." class="cart-item-image">
+                        <div class="cart-item-content">
+                            <h3>Caring Home Elder Care</h3>
+                            <p>Experience compassionate home elder care that helps your loved ones maintain independence. Our dedicated caregivers provide personalized support, ensuring peace of mind for families in a secure environment at home.</p>
+                            <div class="cart-item-footer">
+                                <span class="price" data-price="130" data-currency="USD">$130</span>
+                                <button data-cart-add="1" data-cart-name="Caring Home Elder Care" data-cart-price="130" data-cart-currency="USD" class="cta-gradient-sweep">Buy This Service</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cart-item">
+                        <img src="https://vannavcdcwdhmikwikac.supabase.co/storage/v1/object/public/product-images/4af6960a-0c15-4c5b-916e-9c10b38610f9.png" alt="A smiling caregiver standing behind a happy senior woman." class="cart-item-image">
+                        <div class="cart-item-content">
+                            <h3>Home Instead Senior Care</h3>
+                            <p>Experience compassionate and professional home care services designed to support seniors in living fulfilling lives. Our dedicated caregivers provide personalized assistance, ensuring comfort, safety, and joy.</p>
+                            <div class="cart-item-footer">
+                                <span class="price" data-price="130" data-currency="USD">$130</span>
+                                <button data-cart-add="1" data-cart-name="Home Instead Senior Care" data-cart-price="130" data-cart-currency="USD" class="cta-gradient-sweep">Add to cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+<script>
+    const slides = document.querySelectorAll('.hero-slide');
+    let currentSlide = 0;
+    const slideInterval = 5000; // 5.0 seconds
+
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            slide.classList.remove('active');
+            const video = slide.querySelector('video');
+            if (video) {
+                video.pause();
+                video.currentTime = 0; // Reset video to start
+            }
+            if (i === index) {
+                slide.classList.add('active');
+                if (video) {
+                    video.play();
+                }
+            }
+        });
+    }
+
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+    }
+
+    // Initialize carousel
+    showSlide(currentSlide);
+    setInterval(nextSlide, slideInterval);
+
+    // No need for IntersectionObserver or 'transitionend' listener for video
+    // as play/pause is now handled directly in showSlide
+</script>
+<script id="lovable-cart-bridge">(function(){document.addEventListener('click',function(e){var t=e.target&&e.target.closest&&e.target.closest('[data-cart-add]');if(!t)return;e.preventDefault();var n=t.getAttribute('data-cart-name')||(t.textContent||'').trim();var p=parseFloat(t.getAttribute('data-cart-price')||'0')||0;var svc=t.getAttribute('data-cart-service')==='1';var hrs=parseFloat(t.getAttribute('data-cart-hours')||'0')||0;var c=t.getAttribute('data-cart-currency')||'';try{parent.postMessage({type:'lovable-cart-add',name:n,price:p,is_service:svc,hours:hrs,currency:c||undefined},'*');}catch(_){}});})();</script>
+</body>
+</html>

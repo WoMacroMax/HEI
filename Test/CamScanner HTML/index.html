@@ -1,0 +1,386 @@
+*public/index.html*
+html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CamScan · Visual Match Engine</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow+Condensed:wght@300;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0b0d;
+    --surface: #111318;
+    --border: #1e2230;
+    --amber: #e8a020;
+    --green: #2ecc71;
+    --red: #e74c3c;
+    --blue: #4fa3e8;
+    --muted: #3a3f52;
+    --text: #c8cdd8;
+    --dim: #6b7280;
+    --mono: 'Share Tech Mono', monospace;
+    --sans: 'Barlow Condensed', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg); color: var(--text); font-family: var(--mono);
+    min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden;
+  }
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.06) 2px, rgba(0,0,0,0.06) 4px);
+    pointer-events: none; z-index: 9999;
+  }
+  header {
+    display: flex; align-items: center; gap: 16px; padding: 18px 28px;
+    border-bottom: 1px solid var(--border); background: var(--surface);
+    position: relative; overflow: hidden;
+  }
+  header::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--amber), transparent);
+    animation: sweep 3s linear infinite;
+  }
+  @keyframes sweep { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+  .logo { font-family: var(--sans); font-weight: 700; font-size: 22px; letter-spacing: 4px; color: var(--amber); text-transform: uppercase; }
+  .logo span { color: var(--text); font-weight: 300; }
+  .tagline { font-size: 10px; color: var(--dim); letter-spacing: 2px; text-transform: uppercase; margin-left: auto; }
+  .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); animation: pulse 2s ease-in-out infinite; margin-left: 8px; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+  main {
+    flex: 1; display: grid; grid-template-columns: 1fr 1fr;
+    padding: 20px; gap: 16px;
+  }
+  .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; position: relative; }
+  .panel-header { display: flex; align-items: center; gap: 10px; padding: 10px 16px; border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.02); }
+  .panel-label { font-family: var(--sans); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--dim); font-weight: 500; }
+  .panel-badge { font-size: 9px; padding: 2px 8px; border-radius: 2px; letter-spacing: 1px; text-transform: uppercase; margin-left: auto; }
+  .badge-ref    { background: rgba(232,160,32,0.15); color: var(--amber); border: 1px solid rgba(232,160,32,0.3); }
+  .badge-target { background: rgba(79,163,232,0.15); color: var(--blue);  border: 1px solid rgba(79,163,232,0.3); }
+  .badge-result { background: rgba(46,204,113,0.15); color: var(--green); border: 1px solid rgba(46,204,113,0.3); }
+  .drop-zone {
+    flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 12px; padding: 30px; cursor: pointer; border: 2px dashed var(--muted);
+    margin: 12px; border-radius: 3px; transition: all 0.2s; min-height: 220px;
+  }
+  .drop-zone:hover, .drop-zone.dragover { border-color: var(--amber); background: rgba(232,160,32,0.04); }
+  .drop-zone.has-image { border-style: solid; border-color: var(--border); padding: 0; }
+  .drop-icon { font-size: 36px; opacity: 0.3; }
+  .drop-text { font-size: 11px; color: var(--dim); letter-spacing: 1px; text-align: center; line-height: 1.8; }
+  .drop-text strong { color: var(--text); display: block; font-size: 13px; margin-bottom: 4px; }
+  .preview-img { width: 100%; height: 100%; object-fit: contain; display: block; border-radius: 2px; }
+  input[type=file] { display: none; }
+  .result-panel { grid-column: 1 / -1; min-height: 300px; }
+  .canvas-wrap { flex: 1; display: flex; align-items: center; justify-content: center; padding: 16px; position: relative; min-height: 280px; }
+  #resultCanvas { max-width: 100%; max-height: 400px; border-radius: 2px; display: none; }
+  .placeholder-msg { text-align: center; color: var(--muted); font-size: 12px; line-height: 2; }
+  .placeholder-msg .big { font-size: 40px; display: block; margin-bottom: 8px; opacity: 0.2; }
+  .log-wrap { border-top: 1px solid var(--border); padding: 10px 16px; max-height: 100px; overflow-y: auto; font-size: 11px; color: var(--dim); line-height: 1.9; }
+  .log-line { display: flex; gap: 10px; }
+  .log-time { color: var(--muted); min-width: 60px; }
+  .log-ok   { color: var(--green); }
+  .log-warn { color: var(--amber); }
+  .log-err  { color: var(--red); }
+  .controls { display: flex; align-items: center; gap: 12px; padding: 14px 20px; border-top: 1px solid var(--border); background: var(--surface); }
+  .btn { font-family: var(--mono); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; padding: 10px 24px; border: 1px solid; border-radius: 2px; cursor: pointer; transition: all 0.15s; background: transparent; }
+  .btn-primary { border-color: var(--amber); color: var(--amber); }
+  .btn-primary:hover:not(:disabled) { background: var(--amber); color: #000; box-shadow: 0 0 20px rgba(232,160,32,0.3); }
+  .btn-primary:disabled { opacity: 0.3; cursor: not-allowed; }
+  .btn-ghost { border-color: var(--muted); color: var(--dim); }
+  .btn-ghost:hover { border-color: var(--text); color: var(--text); }
+  .confidence-bar { display: flex; align-items: center; gap: 10px; margin-left: auto; font-size: 11px; color: var(--dim); }
+  .bar-track { width: 120px; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+  .bar-fill { height: 100%; background: linear-gradient(90deg, var(--amber), var(--green)); border-radius: 2px; transition: width 0.8s ease; width: 0%; }
+  .conf-label { color: var(--green); font-size: 13px; font-weight: bold; min-width: 38px; text-align: right; }
+  .scan-line { position: absolute; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--amber), transparent); opacity: 0; pointer-events: none; z-index: 10; }
+  .scan-line.active { animation: scanDown 1.5s ease-in-out infinite; opacity: 1; }
+  @keyframes scanDown { 0% { top: 0%; } 100% { top: 100%; } }
+  .match-info { display: none; align-items: center; gap: 16px; padding: 8px 16px; border-top: 1px solid var(--border); font-size: 11px; }
+  .match-info.visible { display: flex; }
+  .match-chip { padding: 3px 10px; border-radius: 2px; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; }
+  .chip-found { background: rgba(46,204,113,0.2); color: var(--green); border: 1px solid rgba(46,204,113,0.4); }
+  .chip-none  { background: rgba(231,76,60,0.2);  color: var(--red);   border: 1px solid rgba(231,76,60,0.4); }
+  @media (max-width: 640px) {
+    main { grid-template-columns: 1fr; }
+    .result-panel { grid-column: 1; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Cam<span>Scan</span></div>
+  <div class="tagline">Visual Match Engine · Serverless</div>
+  <div class="status-dot"></div>
+</header>
+
+<main>
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-label">Reference · Source</div>
+      <div class="panel-badge badge-ref">SCAN TARGET</div>
+    </div>
+    <div class="drop-zone" id="refZone">
+      <div class="drop-icon">📷</div>
+      <div class="drop-text"><strong>Upload Reference Image</strong>The object or document to find</div>
+    </div>
+    <input type="file" id="refInput" accept="image/*">
+  </div>
+
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-label">Search · Scene</div>
+      <div class="panel-badge badge-target">SCAN SCENE</div>
+    </div>
+    <div class="drop-zone" id="searchZone">
+      <div class="drop-icon">🔍</div>
+      <div class="drop-text"><strong>Upload Scene Image</strong>Where to search for the match</div>
+    </div>
+    <input type="file" id="searchInput" accept="image/*">
+  </div>
+
+  <div class="panel result-panel">
+    <div class="panel-header">
+      <div class="panel-label">Match Result · Output</div>
+      <div class="panel-badge badge-result">ANALYSIS</div>
+    </div>
+    <div class="canvas-wrap" id="canvasWrap">
+      <div class="scan-line" id="scanLine"></div>
+      <canvas id="resultCanvas"></canvas>
+      <div class="placeholder-msg" id="placeholderMsg">
+        <span class="big">⬛</span>
+        Upload both images and click <strong style="color:var(--amber)">ANALYSE</strong>
+      </div>
+    </div>
+    <div class="match-info" id="matchInfo">
+      <span class="match-chip" id="matchChip"></span>
+      <span id="matchDesc" style="color:var(--dim);font-size:11px"></span>
+    </div>
+    <div class="log-wrap" id="logWrap"></div>
+  </div>
+</main>
+
+<div class="controls">
+  <button class="btn btn-primary" id="analyseBtn" disabled>▶ ANALYSE</button>
+  <button class="btn btn-ghost"   id="resetBtn">↺ RESET</button>
+  <div class="confidence-bar" id="confBar" style="display:none">
+    <span style="letter-spacing:1px;font-size:10px;text-transform:uppercase">Match</span>
+    <div class="bar-track"><div class="bar-fill" id="barFill"></div></div>
+    <span class="conf-label" id="confLabel">0%</span>
+  </div>
+</div>
+
+<script>
+// ── State ──────────────────────────────────────────────────────────────────────
+let refBase64 = null, refMime = null;
+let searchBase64 = null, searchMime = null;
+let searchImg = null;
+
+// ── Logging ────────────────────────────────────────────────────────────────────
+function log(msg, type = '') {
+  const wrap = document.getElementById('logWrap');
+  const t    = new Date().toTimeString().slice(0, 8);
+  const line = document.createElement('div');
+  line.className = 'log-line';
+  line.innerHTML = `<span class="log-time">${t}</span><span class="${type ? 'log-' + type : ''}">${msg}</span>`;
+  wrap.appendChild(line);
+  wrap.scrollTop = wrap.scrollHeight;
+}
+
+// ── File loading ───────────────────────────────────────────────────────────────
+function setupZone(zoneId, inputId, isRef) {
+  const zone  = document.getElementById(zoneId);
+  const input = document.getElementById(inputId);
+  zone.addEventListener('click', () => input.click());
+  zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('dragover'); });
+  zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
+  zone.addEventListener('drop', e => {
+    e.preventDefault(); zone.classList.remove('dragover');
+    const f = e.dataTransfer.files[0];
+    if (f) handleFile(f, zoneId, isRef);
+  });
+  input.addEventListener('change', () => { if (input.files[0]) handleFile(input.files[0], zoneId, isRef); });
+}
+
+function handleFile(file, zoneId, isRef) {
+  if (!file.type.startsWith('image/')) { log('Not an image file', 'err'); return; }
+  const zone   = document.getElementById(zoneId);
+  const reader = new FileReader();
+  reader.onload = e => {
+    const dataUrl    = e.target.result;
+    const [hdr, b64] = dataUrl.split(',');
+    const mime       = hdr.match(/:(.*?);/)[1];
+    zone.innerHTML   = `<img class="preview-img" src="${dataUrl}" alt="preview">`;
+    zone.classList.add('has-image');
+    if (isRef) { refBase64 = b64; refMime = mime; }
+    else {
+      searchBase64 = b64; searchMime = mime;
+      searchImg = new Image(); searchImg.src = dataUrl;
+    }
+    log(`Loaded: ${file.name} (${(file.size / 1024).toFixed(1)} KB)`, 'ok');
+    checkReady();
+  };
+  reader.readAsDataURL(file);
+}
+
+function checkReady() {
+  document.getElementById('analyseBtn').disabled = !(refBase64 && searchBase64);
+}
+
+setupZone('refZone',    'refInput',    true);
+setupZone('searchZone', 'searchInput', false);
+
+// ── Analyse — calls serverless /api/analyse ────────────────────────────────────
+document.getElementById('analyseBtn').addEventListener('click', async () => {
+  const btn      = document.getElementById('analyseBtn');
+  const scanLine = document.getElementById('scanLine');
+
+  btn.disabled = true;
+  btn.textContent = '⏳ SCANNING...';
+  scanLine.classList.add('active');
+
+  document.getElementById('placeholderMsg').style.display   = 'none';
+  document.getElementById('resultCanvas').style.display     = 'none';
+  document.getElementById('matchInfo').classList.remove('visible');
+  document.getElementById('confBar').style.display          = 'none';
+
+  log('Initiating visual analysis...', '');
+  log('Sending to /api/analyse ...', 'warn');
+
+  try {
+    const res = await fetch('/api/analyse', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ refBase64, refMime, searchBase64, searchMime })
+    });
+
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || res.statusText);
+    }
+
+    const result = await res.json();
+    log(`Analysis complete · confidence: ${result.confidence}%`, 'ok');
+    log(result.description, '');
+    scanLine.classList.remove('active');
+    drawResult(result);
+
+  } catch (err) {
+    scanLine.classList.remove('active');
+    log('Error: ' + err.message, 'err');
+    console.error(err);
+  }
+
+  btn.disabled = false;
+  btn.textContent = '▶ ANALYSE';
+  checkReady();
+});
+
+// ── Draw bounding box on canvas ────────────────────────────────────────────────
+function drawResult(result) {
+  const canvas = document.getElementById('resultCanvas');
+  const ctx    = canvas.getContext('2d');
+
+  const draw = () => {
+    canvas.width  = searchImg.naturalWidth;
+    canvas.height = searchImg.naturalHeight;
+    ctx.drawImage(searchImg, 0, 0);
+
+    if (result.found && result.box) {
+      const { x, y, w, h } = result.box;
+      const px = canvas.width  * x / 100;
+      const py = canvas.height * y / 100;
+      const pw = canvas.width  * w / 100;
+      const ph = canvas.height * h / 100;
+
+      // Glow box
+      ctx.shadowColor = '#2ecc71'; ctx.shadowBlur = 20;
+      ctx.strokeStyle = '#2ecc71';
+      ctx.lineWidth   = Math.max(2, canvas.width * 0.004);
+      ctx.strokeRect(px, py, pw, ph);
+
+      // Corner accents
+      const corner = Math.min(pw, ph) * 0.12;
+      ctx.strokeStyle = '#e8a020';
+      ctx.lineWidth   = Math.max(3, canvas.width * 0.005);
+      ctx.shadowColor = '#e8a020';
+      [[px, py, corner, 0, corner, 0], [px+pw, py, -corner, 0, corner, 0],
+       [px, py+ph, corner, 0, -corner, 0], [px+pw, py+ph, -corner, 0, -corner, 0]]
+      .forEach(([cx, cy, dx1, , , dy2]) => {
+        ctx.beginPath(); ctx.moveTo(cx + dx1, cy); ctx.lineTo(cx, cy); ctx.lineTo(cx, cy + dy2); ctx.stroke();
+      });
+
+      // Label
+      ctx.shadowBlur = 0;
+      const fSize  = Math.max(12, canvas.width * 0.018);
+      ctx.font     = `bold ${fSize}px 'Share Tech Mono', monospace`;
+      const label  = `✓ ${result.label.toUpperCase()}`;
+      const textW  = ctx.measureText(label).width;
+      const padX   = fSize * 0.6, padY = fSize * 0.4;
+      const lx = px, ly = py - fSize - padY * 2;
+      ctx.fillStyle = 'rgba(46,204,113,0.85)';
+      ctx.fillRect(lx, Math.max(0, ly), textW + padX * 2, fSize + padY * 2);
+      ctx.fillStyle = '#000';
+      ctx.fillText(label, lx + padX, Math.max(fSize, ly + fSize + padY * 0.5));
+
+    } else {
+      ctx.fillStyle = 'rgba(0,0,0,0.45)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle   = '#e74c3c';
+      ctx.font        = `bold ${Math.max(16, canvas.width * 0.04)}px 'Share Tech Mono'`;
+      ctx.textAlign   = 'center';
+      ctx.fillText('NO MATCH DETECTED', canvas.width / 2, canvas.height / 2);
+      ctx.textAlign   = 'left';
+    }
+
+    canvas.style.display = 'block';
+  };
+
+  searchImg.complete && searchImg.naturalWidth > 0 ? draw() : (searchImg.onload = draw);
+
+  // Confidence bar
+  document.getElementById('confBar').style.display = 'flex';
+  setTimeout(() => {
+    document.getElementById('barFill').style.width      = result.confidence + '%';
+    document.getElementById('confLabel').textContent    = result.confidence + '%';
+  }, 100);
+
+  // Match strip
+  const info = document.getElementById('matchInfo');
+  const chip = document.getElementById('matchChip');
+  info.classList.add('visible');
+  if (result.found) {
+    chip.className   = 'match-chip chip-found';
+    chip.textContent = '✓ Match Found';
+    document.getElementById('matchDesc').textContent = result.label;
+  } else {
+    chip.className   = 'match-chip chip-none';
+    chip.textContent = '✕ No Match';
+    document.getElementById('matchDesc').textContent = result.description;
+  }
+}
+
+// ── Reset ──────────────────────────────────────────────────────────────────────
+document.getElementById('resetBtn').addEventListener('click', () => {
+  refBase64 = refMime = searchBase64 = searchMime = searchImg = null;
+  ['refZone', 'searchZone'].forEach((id, i) => {
+    const z = document.getElementById(id);
+    z.classList.remove('has-image');
+    z.innerHTML = i === 0
+      ? `<div class="drop-icon">📷</div><div class="drop-text"><strong>Upload Reference Image</strong>The object or document to find</div>`
+      : `<div class="drop-icon">🔍</div><div class="drop-text"><strong>Upload Scene Image</strong>Where to search for the match</div>`;
+  });
+  ['refInput','searchInput'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('resultCanvas').style.display   = 'none';
+  document.getElementById('placeholderMsg').style.display = '';
+  document.getElementById('matchInfo').classList.remove('visible');
+  document.getElementById('confBar').style.display        = 'none';
+  document.getElementById('logWrap').innerHTML            = '';
+  document.getElementById('barFill').style.width          = '0%';
+  checkReady();
+  log('Session reset', 'warn');
+});
+</script>
+</body>
+</html>

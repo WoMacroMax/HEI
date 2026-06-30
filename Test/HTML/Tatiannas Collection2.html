@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tatianna's Spring Collection</title>
+
+    <!-- CDN: Bootstrap 5 + Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --accent-color: #0284c7;
+            --border-color: #e2e8f0;
+            --selected-bg: #e0f2fe;
+            --selected-border: #38bdf8;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            animation: fadeIn 0.5s ease;
+        }
+
+        #root { width: 100%; }
+
+        .site-header {
+            width: 100%;
+            background: linear-gradient(135deg, #0c4a6e 0%, #0284c7 60%, #38bdf8 100%);
+            padding: 48px 24px 52px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .site-header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+            pointer-events: none;
+        }
+
+        .site-header-eyebrow {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.65);
+            margin: 0 0 12px;
+            position: relative;
+        }
+
+        .site-header-title {
+            font-size: clamp(32px, 5vw, 58px);
+            font-weight: 900;
+            color: #ffffff;
+            margin: 0 0 14px;
+            letter-spacing: -1px;
+            line-height: 1.1;
+            position: relative;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.18);
+        }
+
+        .site-header-title span { color: #bae6fd; }
+
+        .site-header-subtitle {
+            font-size: 15px;
+            color: rgba(255,255,255,0.75);
+            margin: 0;
+            position: relative;
+        }
+
+        .site-header-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            margin-top: 22px;
+            position: relative;
+        }
+
+        .site-header-divider-line {
+            width: 60px;
+            height: 1px;
+            background: rgba(255,255,255,0.3);
+        }
+
+        .summary-bar {
+            background: #fff;
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            z-index: 800;
+        }
+
+        .summary-bar-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+            line-height: 1.2;
+        }
+
+        .summary-bar-item .val {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-top: 1px;
+        }
+
+        .summary-bar-item.total-item .val {
+            color: var(--accent-color);
+            font-size: 17px;
+        }
+
+        .summary-bar-divider {
+            width: 1px;
+            height: 32px;
+            background: var(--border-color);
+        }
+
+        .summary-bar-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin: 0 0 12px 4px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+            animation: fadeInUp 0.6s ease both;
+        }
+
+        .product-card:hover { transform: translateY(-2px); }
+
+        .image-container {
+            width: 100%;
+            height: 260px;
+            position: relative;
+            background-color: #eaeaea;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cart-qty-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(4px);
+            padding: 4px 6px;
+            border-radius: 20px;
+            border: 1px solid rgba(2, 132, 199, 0.25);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            z-index: 2;
+        }
+
+        .card-qty-btn {
+            width: 28px;
+            height: 28px;
+            border: none;
+            border-radius: 50%;
+            background: var(--accent-color);
+            color: #fff;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            transition: background 0.15s ease, transform 0.15s ease;
+        }
+
+        .card-qty-btn:hover {
+            background: #0369a1;
+            transform: scale(1.08);
+        }
+
+        .card-qty-value {
+            min-width: 22px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .product-details {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .category {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            margin-bottom: 8px;
+        }
+
+        .product-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin: 0 0 10px 0;
+        }
+
+        .product-description {
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--text-secondary);
+            margin: 0 0 20px 0;
+            flex-grow: 1;
+        }
+
+        .product-price {
+            font-size: 24px;
+            font-weight: 800;
+            margin-top: auto;
+            margin-bottom: 16px;
+        }
+
+        .add-to-cart-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: var(--accent-color);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            padding: 12px 18px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+            width: 100%;
+            text-transform: uppercase;
+        }
+
+        .add-to-cart-btn:hover:not(:disabled) {
+            background: #0369a1;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(2, 132, 199, 0.3);
+        }
+
+        .add-to-cart-btn.in-cart {
+            background: #16a34a;
+        }
+
+        .add-to-cart-btn.in-cart:hover {
+            background: #b91c1c;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(185, 28, 28, 0.3);
+        }
+
+        .cart-fab {
+            position: fixed;
+            top: 50%;
+            right: clamp(16px, 2.5vw, 32px);
+            transform: translateY(calc(-50% + 50px));
+            width: clamp(54px, 8vw, 64px);
+            height: clamp(54px, 8vw, 64px);
+            background: var(--accent-color);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(2, 132, 199, 0.4);
+            z-index: 900;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .cart-fab:hover {
+            background: #0369a1;
+            transform: translateY(calc(-50% + 50px)) scale(1.08);
+        }
+
+        .cart-fab-badge {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background: #ef4444;
+            color: #fff;
+            border-radius: 50%;
+            min-width: 22px;
+            height: 22px;
+            font-size: 11px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #fff;
+            padding: 0 4px;
+        }
+
+        .cart-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.45);
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .cart-overlay.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .cart-panel {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 420px;
+            max-width: 100vw;
+            height: 100vh;
+            background: #fff;
+            z-index: 1100;
+            display: flex;
+            flex-direction: column;
+            transform: translateY(-100%);
+            transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+            box-shadow: -8px 0 40px rgba(0,0,0,0.15);
+            will-change: transform;
+        }
+
+        .cart-panel.open { transform: translateY(0); }
+
+        .cart-drag-handle {
+            width: 100%;
+            padding: 14px 0 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: grab;
+            flex-shrink: 0;
+            user-select: none;
+            background: linear-gradient(135deg, #0c4a6e 0%, #0284c7 60%, #38bdf8 100%);
+        }
+
+        .cart-drag-handle:active { cursor: grabbing; }
+
+        .cart-drag-handle-bar {
+            width: 48px;
+            height: 5px;
+            background: rgba(255,255,255,0.4);
+            border-radius: 99px;
+        }
+
+        .cart-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 28px;
+            border-bottom: 1px solid var(--border-color);
+            flex-shrink: 0;
+            background: linear-gradient(135deg, #0c4a6e 0%, #0284c7 60%, #38bdf8 100%);
+        }
+
+        .cart-header-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cart-header-count {
+            background: rgba(255,255,255,0.25);
+            color: #fff;
+            border-radius: 99px;
+            padding: 2px 10px;
+            font-size: 13px;
+            font-weight: 700;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .cart-close-btn {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #fff;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .cart-close-btn:hover {
+            background: rgba(255,255,255,0.28);
+            transform: scale(1.08);
+        }
+
+        .cart-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 28px;
+        }
+
+        .cart-empty {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            gap: 16px;
+            color: var(--text-secondary);
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border-color);
+            animation: fadeInDown 0.3s ease both;
+        }
+
+        .cart-item-img {
+            width: 72px;
+            height: 72px;
+            border-radius: 12px;
+            object-fit: cover;
+            flex-shrink: 0;
+            background: #eaeaea;
+        }
+
+        .cart-item-info { flex: 1; min-width: 0; }
+
+        .cart-item-name {
+            font-size: 15px;
+            font-weight: 700;
+            margin: 0 0 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .cart-item-cat {
+            font-size: 11px;
+            color: var(--accent-color);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .cart-item-qty-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .qty-btn {
+            width: 28px;
+            height: 28px;
+            background: #f1f5f9;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .qty-btn:hover { background: #e2e8f0; }
+
+        .qty-value {
+            font-size: 14px;
+            font-weight: 700;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .cart-item-price {
+            font-size: 17px;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+
+        .cart-item-remove {
+            width: 32px;
+            height: 32px;
+            background: #fff0f0;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ef4444;
+            flex-shrink: 0;
+        }
+
+        .cart-item-remove:hover { background: #fee2e2; }
+
+        .cart-footer {
+            padding: 20px 28px 32px;
+            border-top: 1px solid var(--border-color);
+            background: #fff;
+            flex-shrink: 0;
+        }
+
+        .cart-summary-line {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .cart-summary-line.subtotal {
+            font-size: 15px;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .cart-summary-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .cart-summary-total-label {
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .cart-summary-total-value {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--accent-color);
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background: var(--accent-color);
+            color: #fff;
+            border: none;
+            border-radius: 14px;
+            padding: 16px;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .checkout-btn::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.22) 50%, transparent 60%);
+            transform: translateX(-120%);
+            transition: transform 0.6s ease;
+        }
+
+        .checkout-btn.is-ready:not(:disabled):hover::after {
+            transform: translateX(120%);
+        }
+
+        .checkout-btn:hover:not(:disabled):not(.is-loading) {
+            background: #0369a1;
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(2, 132, 199, 0.35);
+        }
+
+        .checkout-btn:disabled,
+        .checkout-btn.is-empty {
+            background: #cbd5e1;
+            color: #64748b;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .checkout-btn.is-ready {
+            animation: checkoutPulse 2.4s ease-in-out infinite;
+        }
+
+        .checkout-btn.is-loading {
+            cursor: wait;
+            pointer-events: none;
+            background: #0369a1;
+        }
+
+        .checkout-btn.is-success {
+            background: #16a34a;
+        }
+
+        .checkout-spinner {
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255,255,255,0.35);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: checkoutSpin 0.7s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+
+        .val.bump { animation: valueBump 0.3s ease; }
+
+        .modal-success-icon {
+            width: 72px;
+            height: 72px;
+            margin: 0 auto 16px;
+            background: #dcfce7;
+            color: #16a34a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes valueBump {
+            0% { transform: scale(1); }
+            40% { transform: scale(1.18); }
+            100% { transform: scale(1); }
+        }
+        @keyframes checkoutPulse {
+            0%, 100% { box-shadow: 0 4px 14px rgba(2, 132, 199, 0.25); }
+            50% { box-shadow: 0 8px 28px rgba(2, 132, 199, 0.55); }
+        }
+        @keyframes checkoutSpin { to { transform: rotate(360deg); } }
+
+        /* Scroll overlay — left side, fixed, section stepping */
+        .scroll-overlay {
+            position: fixed;
+            left: clamp(16px, 2.5vw, 32px);
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 900;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .scroll-overlay-btn {
+            width: clamp(48px, 7vw, 56px);
+            height: clamp(48px, 7vw, 56px);
+            border: none;
+            border-radius: 50%;
+            background: var(--accent-color);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(2, 132, 199, 0.35);
+            transition: background 0.2s ease, transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .scroll-overlay-btn:hover:not(:disabled) {
+            background: #0369a1;
+            transform: scale(1.08);
+            box-shadow: 0 10px 28px rgba(2, 132, 199, 0.45);
+        }
+
+        .scroll-overlay-btn:active:not(:disabled) {
+            transform: scale(0.96);
+        }
+
+        .scroll-overlay-btn:disabled {
+            background: #cbd5e1;
+            color: #94a3b8;
+            cursor: not-allowed;
+            box-shadow: none;
+            opacity: 0.65;
+        }
+
+        .scroll-overlay-indicator {
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid var(--border-color);
+            border-radius: 99px;
+            padding: 4px 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            white-space: nowrap;
+        }
+
+        .scroll-section {
+            scroll-margin-top: 72px;
+        }
+
+        @media (max-width: 680px) {
+            .cart-panel { width: 100vw; }
+            .cart-header, .cart-body, .cart-footer { padding-left: 18px; padding-right: 18px; }
+            .site-header { padding: 36px 20px 40px; }
+            .cart-fab { right: clamp(12px, 4vw, 20px); }
+            .scroll-overlay { left: clamp(12px, 4vw, 20px); gap: 14px; }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <!-- CDN: React 18 + Babel (JSX in browser) -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- CDN: Bootstrap JS (modals, etc.) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script type="text/babel" data-presets="react">
+    const { useState, useEffect, useCallback, useRef } = React;
+
+    const CART_KEY = 'd2w_cart_extracted-products-with-lookup-price';
+
+    const fmt = (n) => '$' + n.toFixed(2);
+
+    /* Defined view sections — one step per click */
+    const VIEW_SECTIONS = [
+        { id: 'section-header', label: 'Collection' },
+        { id: 'section-summary', label: 'Summary' },
+        { id: 'section-bikinis', label: 'Bikinis' },
+        { id: 'section-watches', label: 'Watches' },
+    ];
+
+    const CATALOG = {
+        bikinis: {
+            title: '10 Bikini Styles',
+            items: [
+                { id: 'bikini-1', title: 'Triangle string bikini', price: 39.99, category: 'Apparel & Accessories > Swimwear', img: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500', description: 'A timeless triangle-cut bikini with adjustable side ties and a flattering minimalist silhouette for beach days.' },
+                { id: 'bikini-2', title: 'High-waist retro bikini', price: 54.00, category: 'Apparel & Accessories > Swimwear', img: 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=500', description: 'Vintage-inspired two-piece set with a supportive top and high-rise bottoms for a chic, confident fit.' },
+                { id: 'bikini-3', title: 'Bandeau bikini', price: 47.50, category: 'Apparel & Accessories > Swimwear', img: 'https://images.unsplash.com/photo-1514996937319-344454492b37?w=500', description: 'A strap-free bandeau style designed for clean tan lines and effortless poolside elegance.' },
+                { id: 'bikini-4', title: 'Halter neck bikini', price: 49.99, category: 'Apparel & Accessories > Swimwear', img: 'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=500', description: 'A supportive halter-top bikini with a secure tie-neck design that blends comfort and style.' },
+                { id: 'bikini-5', title: 'Sport bikini', price: 58.00, category: 'Apparel & Accessories > Swimwear', img: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=500', description: 'An active swim set with a secure top and streamlined bottoms, ideal for surfing and beach workouts.' },
+                { id: 'bikini-6', title: 'Ruffled bikini', price: 45.00, category: 'Apparel & Accessories > Swimwear', img: 'https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=500', description: 'A playful two-piece featuring soft ruffle detailing that adds movement and a feminine finish.' },
+                { id: 'bikini-7', title: 'One-shoulder bikini', price: 62.00, category: 'Apparel & Accessories > Swimwear', img: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=500', description: 'A modern asymmetrical bikini with a fashion-forward one-shoulder cut and sculpted shape.' },
+                { id: 'bikini-8', title: 'Cut-out bikini', price: 64.99, category: 'Apparel & Accessories > Swimwear', img: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=500', description: 'A bold cut-out bikini designed with statement lines and elevated styling for standout resort looks.' },
+                { id: 'bikini-9', title: 'Floral print bikini', price: 43.75, category: 'Apparel & Accessories > Swimwear', img: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=500', description: 'A vibrant floral bikini that brings tropical energy with a cheerful print and flattering fit.' },
+                { id: 'bikini-10', title: 'Wrap tie bikini', price: 57.25, category: 'Apparel & Accessories > Swimwear', img: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=500', description: 'A wraparound bikini top with adjustable ties that offers a secure fit and an elegant, contoured look.' },
+            ]
+        },
+        watches: {
+            title: '10 Watches',
+            items: [
+                { id: 'watch-1', title: 'Classic white smartwatch', price: 199.00, category: 'Electronics > Wearable Technology', img: 'https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=500', description: 'A clean everyday smartwatch with health tracking, message alerts, and a bright easy-to-read display.' },
+                { id: 'watch-2', title: 'Minimal black watch', price: 129.00, category: 'Accessories > Watches', img: 'https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?w=500', description: 'A sleek black timepiece with a modern dial and understated design for refined daily wear.' },
+                { id: 'watch-3', title: 'Luxury gold watch', price: 349.99, category: 'Accessories > Watches', img: 'https://images.unsplash.com/photo-1434056886845-dac89ffe9b56?w=500', description: 'A polished gold-finish watch with premium detailing and a sophisticated statement-making profile.' },
+                { id: 'watch-4', title: 'Silver mesh watch', price: 158.00, category: 'Accessories > Watches', img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500', description: 'A contemporary silver watch with a breathable mesh band and elegant brushed metal finish.' },
+                { id: 'watch-5', title: 'Rose gold watch', price: 189.50, category: 'Accessories > Watches', img: 'https://images.unsplash.com/photo-1490367532201-b9bc1dc483f6?w=500', description: 'A warm-toned rose gold watch with a soft luxe aesthetic perfect for dressy and casual outfits alike.' },
+                { id: 'watch-6', title: 'Leather strap watch', price: 142.25, category: 'Accessories > Watches', img: 'https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=500', description: 'A classic wristwatch with a genuine leather strap and timeless face for versatile all-day wear.' },
+                { id: 'watch-7', title: 'Sport digital watch', price: 96.00, category: 'Electronics > Wearable Technology', img: 'https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?w=500', description: 'A rugged sports watch with stopwatch, water resistance, and a durable band built for active routines.' },
+                { id: 'watch-8', title: 'Chronograph watch', price: 224.00, category: 'Accessories > Watches', img: 'https://images.unsplash.com/photo-1461141346587-763ab02bced9?w=500', description: 'A bold chronograph design with multiple subdials and precision-inspired styling for statement wear.' },
+                { id: 'watch-9', title: 'Skeleton automatic watch', price: 399.00, category: 'Accessories > Watches', img: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=500', description: 'A sophisticated automatic watch with visible mechanical movement and a premium collector appeal.' },
+                { id: 'watch-10', title: 'Smart fitness watch', price: 229.99, category: 'Electronics > Wearable Technology', img: 'https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?w=500', description: 'An advanced fitness watch with heart-rate monitoring, GPS support, and performance metrics on the go.' },
+            ]
+        }
+    };
+
+    function loadCart() {
+        try {
+            const raw = localStorage.getItem(CART_KEY);
+            return raw ? JSON.parse(raw) : [];
+        } catch { return []; }
+    }
+
+    function getCartTotals(cart) {
+        const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+        const tax = subtotal * 0.05;
+        const admin = subtotal * 0.10;
+        return { subtotal, tax, admin, total: subtotal + tax + admin };
+    }
+
+    function totalItems(cart) {
+        return cart.reduce((s, i) => s + i.qty, 0);
+    }
+
+    function BumpValue({ value, className }) {
+        const ref = useRef(null);
+        const prev = useRef(value);
+        useEffect(() => {
+            if (prev.current !== value && ref.current) {
+                ref.current.classList.remove('bump');
+                void ref.current.offsetWidth;
+                ref.current.classList.add('bump');
+            }
+            prev.current = value;
+        }, [value]);
+        return <span ref={ref} className={className}>{value}</span>;
+    }
+
+    function SiteHeader() {
+        return (
+            <header className="site-header">
+                <p className="site-header-eyebrow">✦ 2025 Collection ✦</p>
+                <h1 className="site-header-title">Tatianna's <span>Spring</span> Collection</h1>
+                <p className="site-header-subtitle">Curated styles for sun-drenched days &amp; effortless elegance</p>
+                <div className="site-header-divider">
+                    <div className="site-header-divider-line"></div>
+                    <span className="site-header-divider-icon">🌸</span>
+                    <div className="site-header-divider-line"></div>
+                </div>
+            </header>
+        );
+    }
+
+    function SummaryBar({ cart }) {
+        const totals = getCartTotals(cart);
+        const items = totalItems(cart);
+        return (
+            <div className="summary-bar sticky-top py-2 px-3 px-md-4">
+                <div className="container-fluid d-flex flex-wrap align-items-center justify-content-end gap-3 gap-md-4">
+                    <span className="summary-bar-label">Order Summary</span>
+                    <div className="d-flex flex-wrap align-items-center gap-3 gap-md-4">
+                        <div className="summary-bar-item">
+                            <span>Items</span>
+                            <BumpValue value={items} className="val" />
+                        </div>
+                        <div className="summary-bar-divider d-none d-sm-block"></div>
+                        <div className="summary-bar-item">
+                            <span>Subtotal</span>
+                            <BumpValue value={fmt(totals.subtotal)} className="val" />
+                        </div>
+                        <div className="summary-bar-divider d-none d-sm-block"></div>
+                        <div className="summary-bar-item">
+                            <span>Tax (5%)</span>
+                            <BumpValue value={fmt(totals.tax)} className="val" />
+                        </div>
+                        <div className="summary-bar-divider d-none d-sm-block"></div>
+                        <div className="summary-bar-item">
+                            <span>Admin (10%)</span>
+                            <BumpValue value={fmt(totals.admin)} className="val" />
+                        </div>
+                        <div className="summary-bar-divider d-none d-sm-block"></div>
+                        <div className="summary-bar-item total-item">
+                            <span>Total</span>
+                            <BumpValue value={fmt(totals.total)} className="val" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    function ProductCard({ product, cartItem, onCartButton, onChangeQty }) {
+        const inCart = !!cartItem;
+        return (
+            <div className="product-card">
+                <div className="image-container">
+                    {inCart && (
+                        <div className="cart-qty-badge">
+                            <button type="button" className="card-qty-btn" aria-label="Decrease" onClick={() => onChangeQty(product.id, -1)}>−</button>
+                            <span className="card-qty-value">{cartItem.qty}</span>
+                            <button type="button" className="card-qty-btn" aria-label="Increase" onClick={() => onChangeQty(product.id, 1)}>+</button>
+                        </div>
+                    )}
+                    <img className="product-image" src={product.img} alt={product.title} />
+                </div>
+                <div className="product-details">
+                    <div className="category">{product.category}</div>
+                    <h2 className="product-title">{product.title}</h2>
+                    <p className="product-description">{product.description}</p>
+                    <div className="product-price">{fmt(product.price)}</div>
+                    <button
+                        type="button"
+                        className={`add-to-cart-btn ${inCart ? 'in-cart' : ''}`}
+                        onClick={() => onCartButton(product)}
+                    >
+                        {inCart ? (
+                            <><i className="bi bi-check2"></i> In Cart ({cartItem.qty}) — Remove All</>
+                        ) : (
+                            <><i className="bi bi-cart-plus"></i> Add to Cart (+1)</>
+                        )}
+                    </button>
+                </div>
+            </div>
+        );
+    }
+
+    function ProductSection({ section, cart, onCartButton, onChangeQty }) {
+        return (
+            <section className="mb-5">
+                <h2 className="section-title">{section.title}</h2>
+                <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    {section.items.map((product, idx) => (
+                        <div className="col" key={product.id} style={{ animationDelay: `${idx * 0.05}s` }}>
+                            <ProductCard
+                                product={product}
+                                cartItem={cart.find(i => i.id === product.id)}
+                                onCartButton={onCartButton}
+                                onChangeQty={onChangeQty}
+                            />
+                        </div>
+                    ))}
+                </div>
+            </section>
+        );
+    }
+
+    function CartFab({ count, onClick }) {
+        return (
+            <button type="button" className="cart-fab" aria-label="Open cart" onClick={onClick}>
+                <i className="bi bi-cart3 fs-4"></i>
+                {count > 0 && <span className="cart-fab-badge">{count}</span>}
+            </button>
+        );
+    }
+
+    function ScrollOverlayButtons({ activeIndex, atPageBottom, onStepUp, onStepDown, sectionLabel }) {
+        const atTop = activeIndex <= 0 && !atPageBottom;
+
+        return (
+            <nav className="scroll-overlay" aria-label="Section navigation">
+                <button
+                    type="button"
+                    className="scroll-overlay-btn"
+                    aria-label="Previous section"
+                    title="Previous section"
+                    disabled={atTop}
+                    onClick={onStepUp}
+                >
+                    <i className="bi bi-chevron-up fs-5"></i>
+                </button>
+                <span className="scroll-overlay-indicator" aria-live="polite">
+                    {atPageBottom
+                        ? `${VIEW_SECTIONS.length}/${VIEW_SECTIONS.length} · Bottom`
+                        : `${activeIndex + 1}/${VIEW_SECTIONS.length} · ${sectionLabel}`}
+                </span>
+                <button
+                    type="button"
+                    className="scroll-overlay-btn"
+                    aria-label="Scroll to bottom of page"
+                    title="Scroll to bottom of page"
+                    aria-label="Next section"
+                    title="Next section"
+                    disabled={atPageBottom}
+                    onClick={onStepDown}
+                >
+                    <i className="bi bi-chevron-down fs-5"></i>
+                </button>
+            </nav>
+        );
+    }
+
+    function CartPanel({ open, cart, onClose, onChangeQty, onRemove, onCheckout, checkoutState }) {
+        const panelRef = useRef(null);
+        const dragRef = useRef({ start: null, offset: 0 });
+        const totals = getCartTotals(cart);
+        const count = totalItems(cart);
+
+        const handleDragStart = (clientY) => {
+            dragRef.current.start = clientY;
+            if (panelRef.current) panelRef.current.style.transition = 'none';
+        };
+
+        const handleDragMove = (clientY) => {
+            if (dragRef.current.start === null || !panelRef.current) return;
+            const offset = Math.min(0, clientY - dragRef.current.start);
+            dragRef.current.offset = offset;
+            panelRef.current.style.transform = `translateY(${offset}px)`;
+        };
+
+        const handleDragEnd = () => {
+            if (dragRef.current.start === null || !panelRef.current) return;
+            panelRef.current.style.transition = '';
+            const panelHeight = panelRef.current.getBoundingClientRect().height;
+            if (Math.abs(dragRef.current.offset) > panelHeight * 0.25) {
+                onClose();
+            } else {
+                panelRef.current.style.transform = '';
+            }
+            dragRef.current = { start: null, offset: 0 };
+        };
+
+        useEffect(() => {
+            if (!open && panelRef.current) {
+                panelRef.current.style.transform = '';
+                panelRef.current.style.transition = '';
+            }
+        }, [open]);
+
+        useEffect(() => {
+            const onMove = (e) => handleDragMove(e.clientY);
+            const onUp = () => handleDragEnd();
+            window.addEventListener('mousemove', onMove);
+            window.addEventListener('mouseup', onUp);
+            return () => {
+                window.removeEventListener('mousemove', onMove);
+                window.removeEventListener('mouseup', onUp);
+            };
+        }, [open]);
+
+        const checkoutLabel = () => {
+            if (checkoutState === 'loading') return 'Processing…';
+            if (checkoutState === 'success') return 'Order placed ✓';
+            if (cart.length === 0) return 'Add items to checkout';
+            return `Proceed to Checkout — ${fmt(totals.total)} →`;
+        };
+
+        return (
+            <>
+                <div className={`cart-overlay ${open ? 'open' : ''}`} onClick={onClose}></div>
+                <div ref={panelRef} className={`cart-panel ${open ? 'open' : ''}`}>
+                    <div
+                        className="cart-drag-handle"
+                        onMouseDown={(e) => handleDragStart(e.clientY)}
+                        onTouchStart={(e) => handleDragStart(e.touches[0].clientY)}
+                        onTouchMove={(e) => handleDragMove(e.touches[0].clientY)}
+                        onTouchEnd={handleDragEnd}
+                    >
+                        <div className="cart-drag-handle-bar"></div>
+                    </div>
+                    <div className="cart-header">
+                        <div className="cart-header-title">
+                            <i className="bi bi-cart3"></i> Your Cart
+                            <span className="cart-header-count">{count}</span>
+                        </div>
+                        <button type="button" className="cart-close-btn" aria-label="Close cart" onClick={onClose}>
+                            <i className="bi bi-x-lg"></i>
+                        </button>
+                    </div>
+                    <div className="cart-body">
+                        {cart.length === 0 ? (
+                            <div className="cart-empty">
+                                <i className="bi bi-cart3 display-4 opacity-25"></i>
+                                <p>Your cart is empty</p>
+                            </div>
+                        ) : (
+                            cart.map(item => (
+                                <div className="cart-item" key={item.id}>
+                                    <img className="cart-item-img" src={item.img} alt={item.title} />
+                                    <div className="cart-item-info">
+                                        <div className="cart-item-cat">{item.category}</div>
+                                        <div className="cart-item-name">{item.title}</div>
+                                        <div className="cart-item-qty-row">
+                                            <button type="button" className="qty-btn" onClick={() => onChangeQty(item.id, -1)}>−</button>
+                                            <span className="qty-value">{item.qty}</span>
+                                            <button type="button" className="qty-btn" onClick={() => onChangeQty(item.id, 1)}>+</button>
+                                        </div>
+                                    </div>
+                                    <div className="cart-item-price">{fmt(item.price * item.qty)}</div>
+                                    <button type="button" className="cart-item-remove" aria-label="Remove" onClick={() => onRemove(item.id)}>
+                                        <i className="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                            ))
+                        )}
+                    </div>
+                    <div className="cart-footer">
+                        <div className="cart-summary-line subtotal">
+                            <span>Subtotal</span><span>{fmt(totals.subtotal)}</span>
+                        </div>
+                        <div className="cart-summary-line">
+                            <span>Tax (5%)</span><span>{fmt(totals.tax)}</span>
+                        </div>
+                        <div className="cart-summary-line">
+                            <span>Admin Fee (10%)</span><span>{fmt(totals.admin)}</span>
+                        </div>
+                        <hr className="text-secondary opacity-25" />
+                        <div className="cart-summary-total">
+                            <span className="cart-summary-total-label">Total</span>
+                            <span className="cart-summary-total-value">{fmt(totals.total)}</span>
+                        </div>
+                        <button
+                            type="button"
+                            className={`checkout-btn ${cart.length > 0 && checkoutState === 'idle' ? 'is-ready' : ''} ${cart.length === 0 ? 'is-empty' : ''} ${checkoutState === 'loading' ? 'is-loading' : ''} ${checkoutState === 'success' ? 'is-success' : ''}`}
+                            disabled={cart.length === 0 || checkoutState !== 'idle'}
+                            onClick={onCheckout}
+                        >
+                            {checkoutState === 'loading' && <span className="checkout-spinner"></span>}
+                            {checkoutLabel()}
+                        </button>
+                    </div>
+                </div>
+            </>
+        );
+    }
+
+    function CheckoutSuccessModal({ show, order, onClose }) {
+        const modalRef = useRef(null);
+        const bsModal = useRef(null);
+
+        useEffect(() => {
+            if (modalRef.current && !bsModal.current) {
+                bsModal.current = new bootstrap.Modal(modalRef.current, { backdrop: true, keyboard: true });
+            }
+        }, []);
+
+        useEffect(() => {
+            if (!bsModal.current) return;
+            if (show) bsModal.current.show();
+            else bsModal.current.hide();
+        }, [show]);
+
+        if (!order) return null;
+
+        return (
+            <div className="modal fade" ref={modalRef} tabIndex="-1" aria-labelledby="checkoutSuccessTitle" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content border-0 shadow-lg rounded-4">
+                        <div className="modal-body p-4 p-md-5 text-center">
+                            <div className="modal-success-icon">
+                                <i className="bi bi-check-lg"></i>
+                            </div>
+                            <h2 className="h3 fw-bold mb-2" id="checkoutSuccessTitle">Order Confirmed!</h2>
+                            <p className="text-secondary mb-4">Thank you for shopping Tatianna's Collection.</p>
+                            <div className="bg-light border rounded-3 p-3 text-start mb-4">
+                                <div className="d-flex justify-content-between text-secondary small mb-2">
+                                    <span>Order #</span><span>{order.id}</span>
+                                </div>
+                                <div className="d-flex justify-content-between text-secondary small mb-2">
+                                    <span>Items</span><span>{order.items}</span>
+                                </div>
+                                <div className="d-flex justify-content-between fw-bold pt-2 border-top">
+                                    <span>Total paid</span>
+                                    <span className="text-primary">{fmt(order.total)}</span>
+                                </div>
+                            </div>
+                            <button type="button" className="btn btn-primary btn-lg w-100 fw-bold" onClick={onClose}>
+                                Continue Shopping
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    function App() {
+        const [cart, setCart] = useState(loadCart);
+        const [cartOpen, setCartOpen] = useState(false);
+        const [checkoutState, setCheckoutState] = useState('idle');
+        const [successOrder, setSuccessOrder] = useState(null);
+        const [showSuccess, setShowSuccess] = useState(false);
+        const [activeSection, setActiveSection] = useState(0);
+        const [atPageBottom, setAtPageBottom] = useState(false);
+        const savedScroll = useRef(0);
+        const sectionRefs = useRef([]);
+        const atPageBottomRef = useRef(false);
+
+        useEffect(() => {
+            atPageBottomRef.current = atPageBottom;
+        }, [atPageBottom]);
+
+        const setSectionRef = useCallback((index) => (el) => {
+            sectionRefs.current[index] = el;
+        }, []);
+
+        const scrollToPageBottom = useCallback(() => {
+            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+            window.scrollTo({ top: Math.max(0, maxScroll), behavior: 'smooth' });
+            setAtPageBottom(true);
+            setActiveSection(VIEW_SECTIONS.length - 1);
+        }, []);
+
+        const scrollToSection = useCallback((index) => {
+            const clamped = Math.max(0, Math.min(VIEW_SECTIONS.length - 1, index));
+            const el = sectionRefs.current[clamped] || document.getElementById(VIEW_SECTIONS[clamped].id);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            setActiveSection(clamped);
+            setAtPageBottom(false);
+        }, []);
+
+        const stepSection = useCallback((delta) => {
+            if (delta > 0) {
+                if (atPageBottom) return;
+                if (activeSection >= VIEW_SECTIONS.length - 1) {
+                    scrollToPageBottom();
+                    return;
+                }
+                scrollToSection(activeSection + 1);
+                return;
+            }
+
+            if (atPageBottom) {
+                scrollToSection(VIEW_SECTIONS.length - 1);
+                return;
+            }
+            scrollToSection(activeSection - 1);
+        }, [activeSection, atPageBottom, scrollToSection, scrollToPageBottom]);
+
+        useEffect(() => {
+            const onScroll = () => {
+                const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+                const nearBottom = window.scrollY >= maxScroll - 48;
+                setAtPageBottom(nearBottom);
+            };
+
+            window.addEventListener('scroll', onScroll, { passive: true });
+            onScroll();
+            return () => window.removeEventListener('scroll', onScroll);
+        }, []);
+
+        useEffect(() => {
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    if (atPageBottomRef.current) return;
+                    const visible = entries
+                        .filter((entry) => entry.isIntersecting)
+                        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+                    if (!visible.length) return;
+                    const idx = sectionRefs.current.indexOf(visible[0].target);
+                    if (idx >= 0) setActiveSection(idx);
+                },
+                { root: null, rootMargin: '-35% 0px -35% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] }
+            );
+
+            VIEW_SECTIONS.forEach((section, index) => {
+                const el = document.getElementById(section.id);
+                if (el) {
+                    sectionRefs.current[index] = el;
+                    observer.observe(el);
+                }
+            });
+
+            return () => observer.disconnect();
+        }, []);
+
+        useEffect(() => {
+            localStorage.setItem(CART_KEY, JSON.stringify(cart));
+        }, [cart]);
+
+        useEffect(() => {
+            if (cartOpen) {
+                savedScroll.current = window.scrollY;
+                document.body.style.position = 'fixed';
+                document.body.style.top = `-${savedScroll.current}px`;
+                document.body.style.left = '0';
+                document.body.style.right = '0';
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.position = '';
+                document.body.style.top = '';
+                document.body.style.left = '';
+                document.body.style.right = '';
+                document.body.style.overflow = '';
+                if (savedScroll.current) window.scrollTo(0, savedScroll.current);
+            }
+        }, [cartOpen]);
+
+        useEffect(() => {
+            const onKey = (e) => {
+                if (e.key === 'Escape') {
+                    if (showSuccess) setShowSuccess(false);
+                    else if (cartOpen) setCartOpen(false);
+                }
+            };
+            document.addEventListener('keydown', onKey);
+            return () => document.removeEventListener('keydown', onKey);
+        }, [cartOpen, showSuccess]);
+
+        const changeQty = useCallback((id, delta) => {
+            setCart(prev => {
+                const next = prev.map(i => i.id === id ? { ...i, qty: i.qty + delta } : i).filter(i => i.qty > 0);
+                return next;
+            });
+        }, []);
+
+        const addToCart = useCallback((product) => {
+            setCart(prev => {
+                const existing = prev.find(i => i.id === product.id);
+                if (existing) {
+                    return prev.filter(i => i.id !== product.id);
+                }
+                return [...prev, {
+                    id: product.id,
+                    title: product.title,
+                    price: product.price,
+                    category: product.category,
+                    img: product.img,
+                    qty: 1
+                }];
+            });
+        }, []);
+
+        const removeItem = useCallback((id) => {
+            setCart(prev => prev.filter(i => i.id !== id));
+        }, []);
+
+        const proceedToCheckout = useCallback(() => {
+            if (cart.length === 0 || checkoutState !== 'idle') return;
+            const totals = getCartTotals(cart);
+            const items = totalItems(cart);
+            const orderId = 'TC-' + Date.now().toString(36).toUpperCase().slice(-6) + '-' + Math.floor(Math.random() * 900 + 100);
+
+            setCheckoutState('loading');
+            setTimeout(() => {
+                setCheckoutState('success');
+                setSuccessOrder({ id: orderId, items, total: totals.total });
+                setCart([]);
+                setCartOpen(false);
+                setTimeout(() => {
+                    setCheckoutState('idle');
+                    setShowSuccess(true);
+                }, 450);
+            }, 1400);
+        }, [cart, checkoutState]);
+
+        return (
+            <>
+                <div id="section-header" className="scroll-section" ref={setSectionRef(0)}>
+                    <SiteHeader />
+                </div>
+                <div id="section-summary" className="scroll-section" ref={setSectionRef(1)}>
+                    <SummaryBar cart={cart} />
+                </div>
+                <main className="container py-4 py-md-5">
+                    <div id="section-bikinis" className="scroll-section" ref={setSectionRef(2)}>
+                        <ProductSection section={CATALOG.bikinis} cart={cart} onCartButton={addToCart} onChangeQty={changeQty} />
+                    </div>
+                    <div id="section-watches" className="scroll-section" ref={setSectionRef(3)}>
+                        <ProductSection section={CATALOG.watches} cart={cart} onCartButton={addToCart} onChangeQty={changeQty} />
+                    </div>
+                </main>
+                <ScrollOverlayButtons
+                    activeIndex={activeSection}
+                    atPageBottom={atPageBottom}
+                    sectionLabel={VIEW_SECTIONS[activeSection]?.label || ''}
+                    onStepUp={() => stepSection(-1)}
+                    onStepDown={() => stepSection(1)}
+                />
+                <CartFab count={totalItems(cart)} onClick={() => setCartOpen(o => !o)} />
+                <CartPanel
+                    open={cartOpen}
+                    cart={cart}
+                    checkoutState={checkoutState}
+                    onClose={() => setCartOpen(false)}
+                    onChangeQty={changeQty}
+                    onRemove={removeItem}
+                    onCheckout={proceedToCheckout}
+                />
+                <CheckoutSuccessModal
+                    show={showSuccess}
+                    order={successOrder}
+                    onClose={() => setShowSuccess(false)}
+                />
+            </>
+        );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+    </script>
+</body>
+</html>

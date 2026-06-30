@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Renderer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+        }
+
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.3s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #e0e0e0;
+            border-top-color: #007bff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loader-text {
+            margin-top: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .error-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .error-container.show {
+            display: flex;
+        }
+
+        .error-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .error-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .error-message {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 20px;
+            max-width: 400px;
+        }
+
+        .retry-btn {
+            padding: 12px 24px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .retry-btn:hover {
+            background: #0056b3;
+        }
+
+        .retry-btn:active {
+            transform: scale(0.98);
+        }
+
+        #content {
+            width: 100%;
+            min-height: 100vh;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        #content.loaded {
+            opacity: 1;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .error-title {
+                font-size: 20px;
+            }
+            
+            .error-message {
+                font-size: 14px;
+            }
+        }
+
+        /* Ensure embedded content is responsive */
+        #content img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        #content table {
+            width: 100%;
+            overflow-x: auto;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Spinner -->
+    <div class="loader" id="loader">
+        <div class="spinner"></div>
+        <div class="loader-text">Loading content...</div>
+    </div>
+
+    <!-- Error Display -->
+    <div class="error-container" id="errorContainer">
+        <div class="error-icon">⚠️</div>
+        <div class="error-title">Failed to Load Content</div>
+        <div class="error-message" id="errorMessage">
+            Unable to fetch the content. Please check your connection and try again.
+        </div>
+        <button class="retry-btn" onclick="loadContent()">Retry</button>
+    </div>
+
+    <!-- Content Container -->
+    <div id="content"></div>
+
+    <script>
+        const ENDPOINT_URL = 'https://xrwnptogkhxeyamjcxhd.supabase.co/storage/v1/object/public/attachments/1767917312124-linkInBio0.html';
+
+        async function loadContent() {
+            const loader = document.getElementById('loader');
+            const errorContainer = document.getElementById('errorContainer');
+            const contentDiv = document.getElementById('content');
+            const errorMessage = document.getElementById('errorMessage');
+
+            // Reset UI
+            loader.classList.remove('hidden');
+            errorContainer.classList.remove('show');
+            contentDiv.classList.remove('loaded');
+
+            try {
+                let html;
+                let fetchError;
+
+                // Strategy 1: Direct fetch
+                try {
+                    console.log('Attempting direct fetch...');
+                    const response = await fetch(ENDPOINT_URL, {
+                        mode: 'cors',
+                        cache: 'no-cache'
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    
+                    html = await response.text();
+                    console.log('Direct fetch successful');
+                } catch (error) {
+                    console.log('Direct fetch failed:', error.message);
+                    
+                    // If CORS error, immediately use iframe fallback
+                    if (error.message.includes('fetch') || error.message.includes('CORS') || error.name === 'TypeError') {
+                        console.log('CORS error detected, using iframe fallback...');
+                        throw new Error('Failed to fetch'); // This will trigger iframe in catch block
+                    }
+                    
+                    throw error; // Re-throw other errors
+                }
+
+                if (!html) {
+                    throw new Error('No content received from any source');
+                }
+                
+                // Insert the HTML content
+                contentDiv.innerHTML = html;
+
+                // Execute any scripts in the loaded HTML
+                const scripts = contentDiv.querySelectorAll('script');
+                scripts.forEach(script => {
+                    const newScript = document.createElement('script');
+                    if (script.src) {
+                        newScript.src = script.src;
+                    } else {
+                        newScript.textContent = script.textContent;
+                    }
+                    document.body.appendChild(newScript);
+                });
+
+                // Show content with fade-in
+                setTimeout(() => {
+                    loader.classList.add('hidden');
+                    contentDiv.classList.add('loaded');
+                }, 300);
+
+            } catch (error) {
+                console.error('Error loading content:', error);
+                
+                // Check if it's a CORS or fetch error - if so, use iframe fallback
+                if (error.message.includes('fetch') || error.message.includes('CORS') || error.message.includes('Failed to fetch')) {
+                    console.log('CORS error detected, falling back to iframe...');
+                    
+                    // Create and insert iframe
+                    contentDiv.innerHTML = `
+                        <iframe 
+                            src="${ENDPOINT_URL}" 
+                            style="
+                                width: 100%; 
+                                height: 100vh; 
+                                border: none; 
+                                position: fixed; 
+                                top: 0; 
+                                left: 0;
+                            "
+                            sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
+                            title="Content Viewer"
+                        ></iframe>
+                    `;
+                    
+                    // Hide loader and show content
+                    loader.classList.add('hidden');
+                    contentDiv.classList.add('loaded');
+                } else {
+                    // Show error for other types of errors
+                    errorMessage.innerHTML = `
+                        <strong>${error.message}</strong><br><br>
+                        Unable to load the content. Please check the URL and try again.
+                    `;
+                    loader.classList.add('hidden');
+                    errorContainer.classList.add('show');
+                }
+            }
+        }
+
+        // Load content when page loads
+        window.addEventListener('DOMContentLoaded', loadContent);
+
+        // Reload on online event (network recovery)
+        window.addEventListener('online', () => {
+            if (document.getElementById('errorContainer').classList.contains('show')) {
+                loadContent();
+            }
+        });
+    </script>
+</body>
+</html>

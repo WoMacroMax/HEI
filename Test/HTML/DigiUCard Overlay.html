@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DigiUCard Overlay</title>
+
+  <style>
+    /* Reset */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #000;
+    }
+
+    /* Wrapper */
+    .digiu-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Iframe */
+    .digiu-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Floating CTA Button */
+    .digiu-message-btn {
+      position: absolute;
+      bottom: 22px;
+      right: 22px;
+      padding: 14px 22px;
+      border-radius: 999px;
+      border: none;
+      background: #111827;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+      animation: digiu-pulse 1.6s infinite;
+      z-index: 10;
+    }
+
+    @keyframes digiu-pulse {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(17, 24, 39, 0.6);
+      }
+      70% {
+        transform: scale(1.06);
+        box-shadow: 0 0 0 16px rgba(17, 24, 39, 0);
+      }
+      100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(17, 24, 39, 0);
+      }
+    }
+
+    /* Mobile adjustments */
+    @media (max-width: 640px) {
+      .digiu-message-btn {
+        bottom: 16px;
+        right: 16px;
+        padding: 12px 18px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="digiu-wrapper">
+    <iframe
+      src="https://rodbiz.digiucard.com"
+      class="digiu-iframe"
+      allowfullscreen
+    ></iframe>
+
+    <button class="digiu-message-btn" onclick="openMessageChannel()">
+      Message Me
+    </button>
+  </div>
+f
+  <script>
+    function openMesssageChannel() {
+      // Replace with your preferred channel
+      window.open("https://www.instagram.com/direct/zablabwomax", "_blank");
+
+      // Examples:
+      // window.open("https://wa.me/1XXXXXXXXXX?text=I%20just%20viewed%20your%20DigiUCard", "_blank");
+      // window.location.href = "sms:+1XXXXXXXXXX?body=I just viewed your DigiUCard";
+    }
+  </script>
+
+</body>
+</html>

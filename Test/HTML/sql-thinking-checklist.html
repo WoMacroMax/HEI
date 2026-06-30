@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SQL Thinking Checklist</title>
+<style>
+  :root {
+    --bg: #f5f7fa;
+    --card: #ffffff;
+    --ink: #111827;
+    --muted: #6b7280;
+    --accent: #2563eb;
+    --accent-dark: #1d4ed8;
+    --border: #e5e7eb;
+    --success: #059669;
+    --warn-bg: #fef3c7;
+    --warn-border: #fcd34d;
+    --warn-text: #92400e;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  .container {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  h1 {
+    font-size: 28px;
+    margin: 0 0 8px;
+    letter-spacing: -0.02em;
+  }
+  .subtitle {
+    color: var(--muted);
+    font-size: 15px;
+    margin: 0;
+  }
+  .progress-wrap {
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    padding: 12px 0;
+    z-index: 10;
+    margin-bottom: 20px;
+  }
+  .progress-bar {
+    background: var(--border);
+    height: 10px;
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    background: linear-gradient(90deg, var(--accent), var(--success));
+    height: 100%;
+    width: 0%;
+    transition: width 0.3s ease;
+  }
+  .progress-text {
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+  .section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 22px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+  }
+  .section h2 {
+    font-size: 17px;
+    margin: 0 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 6px 0;
+    cursor: pointer;
+    user-select: none;
+  }
+  .item input[type="checkbox"] {
+    margin-top: 4px;
+    width: 16px;
+    height: 16px;
+    accent-color: var(--accent);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .item .label {
+    font-size: 15px;
+    color: var(--ink);
+  }
+  .item input[type="checkbox"]:checked + .label {
+    text-decoration: line-through;
+    color: var(--muted);
+  }
+  .sub-group {
+    margin-left: 26px;
+    padding-left: 12px;
+    border-left: 2px solid var(--border);
+    margin-top: 4px;
+    margin-bottom: 8px;
+  }
+  .sub-group .item { padding: 3px 0; }
+  .sub-group .label { font-size: 14px; }
+  .sub-header {
+    font-weight: 500;
+    font-size: 15px;
+    margin: 8px 0 4px;
+  }
+  .note {
+    background: var(--warn-bg);
+    border-left: 3px solid var(--warn-border);
+    color: var(--warn-text);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    margin-top: 10px;
+    font-style: italic;
+  }
+  .mental-model {
+    background: linear-gradient(135deg, #eff6ff, #ecfdf5);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-top: 8px;
+  }
+  .mental-model .heading {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 24px;
+  }
+  .btn {
+    background: var(--card);
+    color: var(--ink);
+    border: 1px solid var(--border);
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: 500;
+  }
+  .btn:hover { background: #f9fafb; }
+  .btn.primary {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  .btn.primary:hover { background: var(--accent-dark); }
+  @media (max-width: 600px) {
+    .container { padding: 20px 14px 60px; }
+    h1 { font-size: 22px; }
+    .section { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>✅ SQL Thinking Checklist</h1>
+      <p class="subtitle">Use this top-to-bottom every time you write or debug a query.</p>
+    </header>
+
+    <div class="progress-wrap">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-text"><span id="progressCount">0 / 0</span> completed</div>
+    </div>
+
+    <div class="section">
+      <h2><span class="section-number">1</span> Clarify the Question</h2>
+      <label class="item"><input type="checkbox"><span class="label">What business question am I answering? (Write it in plain English)</span></label>
+      <div class="sub-header">What does one row in the final result represent?</div>
+      <div class="sub-group">
+        <label class="item"><input type="checkbox"><span class="label">one customer</span></label>
+        <label class="item"><input type="checkbox"><span class="label">one order</span></label>
+        <label class="item"><input type="checkbox"><span class="label">one day</span></label>
+        <label class="item"><input type="checkbox"><span class="label">one event</span></label>
+      </div>
+      <label class="item"><input type="checkbox"><span class="label">What metrics or attributes must appear in the output?</span></label>
+      <div class="note">Rule: If you can't describe one final row clearly, stop.</div>
+    </div>
+
+    <div class="section">
+      <h2><span class="section-number">2</span> Identify the Grain</h2>
+      <label class="item"><input type="checkbox"><span class="label">Define the intended grain of the query (the level of detail)</span></label>
+      <label class="item"><input type="checkbox"><span class="label">Verify that every selected column matches this grain</span></label>
+      <div class="sub-header">Decide early:</div>
+      <div class="sub-group">
+        <label class="item"><input type="checkbox"><span class="label">raw rows</span></label>
+        <label class="item"><input type="checkbox"><span class="label">aggregated rows</span></label>
+        <label class="item"><input type="checkbox"><span class="label">windowed rows</span></label>
+      </div>
+      <div class="note">Most SQL bugs come from grain mismatches.</div>
+    </div>
+
+    <div class="section">
+      <h2><span class="section-number">3</span> Choose the Base Table</h2>
+      <label class="item"><input type="checkbox"><span class="label">Which table naturally represents the grain?</span></label>
+      <label class="item"><input type="checkbox"><span class="label">Does this table already have one row per final entity?</span></label>
+      <div class="sub-header">If not, do I need to:</div>
+      <div class="sub-group">
+        <label class="item"><input type="checkbox"><span class="label">aggregate first?</span></label>
+        <label class="item"><input type="checkbox"><span class="label">deduplicate?</span></label>
+        <label class="item"><input type="checkbox"><span class="label">filter before joining?</span></label>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2><span class="section-number">4</span> Filter Early (WHERE)</h2>
+      <label class="item"><input type="checkbox"><span class="label">What rows are in scope?</span></label>
+      <label class="item"><input type="checkbox"><span class="label">What rows are out of scope?</span></label>
+      <label class="item"><input type="checkbox"><span class="label">Can filters be applied before joins?</span></label>
+      <label class="item"><input type="checkbox"><span class="label">Are dates, statuses, or flags clearly defined?</span></label>
+      <div class="note">Fewer rows early = fewer mistakes later.</div>
+    </div>
+
+    <div class="section">
+      <h2><span class="section-number">5</span> Plan Joins Deliberately</h2>
+      <div class="sub-header">For each join:</div>
+      <label class="item"><input type="checkbox"><span class="label">Why do I need this table?</span></label>
+      <label class="item"><input type="checkbox"><span class="label">What column(s) define the relationship?</span></label>
+      <div class="sub-header">Is the relationship:</div>
+      <div class="sub-group">
+        <label class="item"><input type="checkbox"><span class="label">1-to-1</span></label>
+        <label class="item"><input type="checkbox"><span class="label">1-to-many</span></label>
+        <label class="item"><input type="checkbox"><span class="label">many-to-many</span></label>
+      </div>
+      <label class="item"><input type="checkbox"><span class="label">Will this join multiply rows?</span></label>
+      <label class="item"><input type="checkbox"><span class="label">If yes, how will I control that? (aggregation, DISTINCT, subquery)</span></label>
+      <div class="note">Never join "just to see if it helps".</div>
+    </div>
+
+    <div class="section">
+      <h2><span class="section-number">6</span> Aggregate Thoughtfully (GROUP BY)</h2>
+      <label class="item"><input type="checkbox"><span class="label">What am I aggregating?</span></label>
+      <label class="item"><input type="checkbox"><span class="label">Why am I aggregating?</span></label>
+      <label class="item"><input type="checkbox"><span class="label">Does every non-aggregated column belong in GROUP BY?</span></label>
+      <label class="item"><input type="checkbox"><span class="label">Are aggregations happening at the correct grain?</span></label>
+      <div class="sub-header">Should this aggregation happen:</div>
+      <div class="sub-group">
+        <label class="item"><input type="checkbox"><span class="label">before joins?</span></label>
+        <label class="item"><input type="checkbox"><span class="label">after joins?</span></label>
+        <label class="item"><input type="checkbox"><span class="label">in a CTE?</span></label>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2><span class="section-number">7</span> Use Window Functions Intentionally</h2>
+      <label class="item"><input type="checkbox"><span class="label">Am I comparing rows without collapsing them?</span></label>
+      <label class="item"><input type="checkbox"><span class="label">Is a window function (OVER) more appropriate than GROUP BY?</span></label>
+      <label class="item"><input type="checkbox"><span class="label">Is the partition aligned with the business logic?</span></label>
+      <label class="item"><input type="checkbox"><span class="label">Do I understand why this is row-preserving?</span></label>
+    </div>
+
+    <div class="section">
+      <h2><span class="section-number">8</span> Validate the Logic</h2>
+      <label class="item"><input type="checkbox"><span class="label">Does row count match expectations?</span></label>
+      <label class="item"><input type="checkbox"><span class="label">Do totals reconcile with known benchmarks?</span></label>
+      <label class="item"><input type="checkbox"><span class="label">Have I sanity-checked edge cases?</span></label>
+      <label class="item"><input type="checkbox"><span class="label">Have I spot-checked individual entities?</span></label>
+      <div class="note">SQL that "runs" ≠ SQL that's correct.</div>
+    </div>
+
+    <div class="section">
+      <h2><span class="section-number">9</span> Final Output Check</h2>
+      <label class="item"><input type="checkbox"><span class="label">Column names are clear and business-friendly</span></label>
+      <label class="item"><input type="checkbox"><span class="label">No unnecessary columns included</span></label>
+      <label class="item"><input type="checkbox"><span class="label">Ordering makes sense (if required)</span></label>
+      <label class="item"><input type="checkbox"><span class="label">Null handling is intentional</span></label>
+    </div>
+
+    <div class="section">
+      <h2><span class="section-number">10</span> Debugging Shortcut</h2>
+      <div class="sub-header">If results are off:</div>
+      <label class="item"><input type="checkbox"><span class="label">Remove aggregations and inspect raw rows</span></label>
+      <label class="item"><input type="checkbox"><span class="label">Comment out joins one at a time</span></label>
+      <label class="item"><input type="checkbox"><span class="label">Add row counts after each join</span></label>
+      <label class="item"><input type="checkbox"><span class="label">Validate grain at every step</span></label>
+    </div>
+
+    <div class="mental-model">
+      <div class="heading">One-Sentence Mental Model</div>
+      SQL is about controlling row multiplication while answering a clearly defined business question at a specific grain.
+    </div>
+
+    <div class="actions">
+      <button class="btn" id="resetBtn">Reset All</button>
+      <button class="btn primary" id="printBtn">Print / Save as PDF</button>
+    </div>
+  </div>
+
+<script>
+  const STORAGE_KEY = 'sql-checklist-state-v1';
+  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+  const progressFill = document.getElementById('progressFill');
+  const progressCount = document.getElementById('progressCount');
+
+  function saveState() {
+    const state = Array.from(checkboxes).map(cb => cb.checked);
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {}
+  }
+
+  function loadState() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      const state = JSON.parse(raw);
+      checkboxes.forEach((cb, i) => { if (state[i]) cb.checked = true; });
+    } catch(e) {}
+  }
+
+  function updateProgress() {
+    const total = checkboxes.length;
+    const done = Array.from(checkboxes).filter(cb => cb.checked).length;
+    const pct = total === 0 ? 0 : (done / total) * 100;
+    progressFill.style.width = pct + '%';
+    progressCount.textContent = done + ' / ' + total;
+  }
+
+  checkboxes.forEach(cb => {
+    cb.addEventListener('change', () => { saveState(); updateProgress(); });
+  });
+
+  document.getElementById('resetBtn').addEventListener('click', () => {
+    if (confirm('Reset all checkboxes?')) {
+      checkboxes.forEach(cb => cb.checked = false);
+      saveState();
+      updateProgress();
+    }
+  });
+
+  document.getElementById('printBtn').addEventListener('click', () => window.print());
+
+  loadState();
+  updateProgress();
+</script>
+</body>
+</html>
